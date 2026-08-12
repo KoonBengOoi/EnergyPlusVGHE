@@ -1,4 +1,3 @@
-#define EnergyPlus EnergyPlus
 #ifndef GradientsGTM_hh
 #define GradientsGTM_hh
 

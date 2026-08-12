@@ -69,7 +69,7 @@ namespace GroundTemp {
         SiteDeep,
         SiteFCFactorMethod,
         Xing,
-        GradientSegments,
+        Gradients,
         Num
     };
 

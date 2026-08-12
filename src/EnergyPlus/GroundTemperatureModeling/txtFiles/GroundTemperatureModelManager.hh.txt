@@ -6,10 +6,12 @@
 
 namespace EnergyPlus {
 class EnergyPlusData;
-
 namespace GroundTemp {
 class BaseGroundTempsModel;
 enum class ModelType;
+
+namespace EnergyPlus {
+namespace GroundTemp {
 
 std::unique_ptr<BaseGroundTempsModel> GetGroundTempModelAndInit(
     EnergyPlusData &state,

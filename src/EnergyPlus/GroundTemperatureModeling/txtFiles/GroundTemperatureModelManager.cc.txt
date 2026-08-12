@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 
+
 namespace EnergyPlus {
 namespace GroundTemp {
 
@@ -22,16 +23,13 @@ std::unique_ptr<BaseGroundTempsModel> GetGroundTempModelAndInit(
 {
     switch (modelType) {
         case ModelType::Kusuda:
-            // KusudaGroundTempsModel::KusudaGTMFactory returns raw pointer
-            return std::unique_ptr<BaseGroundTempsModel>(KusudaGroundTempsModel::KusudaGTMFactory(state, objectName));
+            return KusudaAchenbachGroundTemperatureModel::factory(state, objectName);
         case ModelType::Xing:
-            // XingGroundTempsModel::XingGTMFactory returns raw pointer
-            return std::unique_ptr<BaseGroundTempsModel>(XingGroundTempsModel::XingGTMFactory(state, objectName));
+            return XingGroundTemperatureModel::factory(state, objectName);
         case ModelType::FiniteDiff:
-            // FiniteDiffGroundTempsModel::FiniteDiffGTMFactory returns raw pointer
-            return std::unique_ptr<BaseGroundTempsModel>(FiniteDiffGroundTempsModel::FiniteDiffGTMFactory(state, objectName));
+            return FiniteDifferenceGroundTemperatureModel::factory(state, objectName);
         case ModelType::GradientSegments:   
-            return GradientsGTM::factory(state, objectName);  // returns unique_ptr already
+            return GradientsGTM::factory(state, objectName);
         default:
             ShowFatalError(state, fmt::format("Invalid ground temperature model type: {}", static_cast<int>(modelType)));
             return nullptr;

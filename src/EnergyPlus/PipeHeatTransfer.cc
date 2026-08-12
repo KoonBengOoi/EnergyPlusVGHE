@@ -668,7 +668,7 @@ void GetPipesHeatTransfer(EnergyPlusData &state)
             ErrorsFound = true;
         }
 
-        state.dataPipeHT->PipeHT(Item).groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, s_ipsc->cAlphaArgs(8));
+        state.dataPipeHT->PipeHT(Item).groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, s_ipsc->cAlphaArgs(8)).release();
 
         // Select number of pipe sections.  Hanby's optimal number of 20 section is selected.
         state.dataPipeHT->PipeHT(Item).NumSections = NumPipeSections;

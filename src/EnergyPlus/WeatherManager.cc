@@ -86,6 +86,7 @@
 #include <EnergyPlus/Vectors.hh>
 #include <EnergyPlus/WaterManager.hh>
 #include <EnergyPlus/WeatherManager.hh>
+#include <EnergyPlus/GroundTemperatureModeling/GroundTemperatureModelManager.hh>
 
 namespace EnergyPlus {
 
@@ -6918,17 +6919,17 @@ namespace Weather {
 
         // Initialize Site:GroundTemperature:BuildingSurface object
         state.dataWeather->siteBuildingSurfaceGroundTempsPtr =
-            GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteBuildingSurface, "");
+            GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteBuildingSurface, "").release();
 
         // Initialize Site:GroundTemperature:FCFactorMethod object
         state.dataWeather->siteFCFactorMethodGroundTempsPtr =
-            GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteFCFactorMethod, "");
+            GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteFCFactorMethod, "").release();
 
         // Initialize Site:GroundTemperature:Shallow object
-        state.dataWeather->siteShallowGroundTempsPtr = GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteShallow, "");
+        state.dataWeather->siteShallowGroundTempsPtr = GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteShallow, "").release();
 
         // Initialize Site:GroundTemperature:Deep object
-        state.dataWeather->siteDeepGroundTempsPtr = GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteDeep, "");
+        state.dataWeather->siteDeepGroundTempsPtr = GroundTemp::GetGroundTempModelAndInit(state, GroundTemp::ModelType::SiteDeep, "").release();
     }
 
     void GetGroundReflectances(EnergyPlusData &state, bool &ErrorsFound)

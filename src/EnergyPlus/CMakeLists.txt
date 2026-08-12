@@ -313,9 +313,9 @@ set(SRC
     GroundHeatExchangers/Properties.hh
     GroundHeatExchangers/ResponseFactors.cc
     GroundHeatExchangers/ResponseFactors.hh
+    GroundHeatExchangers/State.hh
     GroundHeatExchangers/Slinky.cc
     GroundHeatExchangers/Slinky.hh
-    GroundHeatExchangers/State.hh
     GroundHeatExchangers/Vertical.cc
     GroundHeatExchangers/Vertical.hh
     GroundTemperatureModeling/BaseGroundTemperatureModel.hh
@@ -335,6 +335,8 @@ set(SRC
     GroundTemperatureModeling/SiteShallowGroundTemperatures.hh
     GroundTemperatureModeling/XingGroundTemperatureModel.cc
     GroundTemperatureModeling/XingGroundTemperatureModel.hh
+    GroundTemperatureModeling/GradientsGTM.cc
+    GroundTemperatureModeling/GradientsGTM.hh
     HVACControllers.cc
     HVACControllers.hh
     HVACCooledBeam.cc

@@ -87,11 +87,7 @@ namespace GroundTemp {
 
         thisModel->modelType = modelType;
         thisModel->Name = objectName;
-
-        for (int modelNum = 1; modelNum <= numCurrModels; ++modelNum) {
-
-            state.dataInputProcessing->inputProcessor->getObjectItem(state,
-                                                                     cCurrentModuleObject,
+B                                                           cCurrentModuleObject,
                                                                      modelNum,
                                                                      state.dataIPShortCut->cAlphaArgs,
                                                                      NumAlphas,

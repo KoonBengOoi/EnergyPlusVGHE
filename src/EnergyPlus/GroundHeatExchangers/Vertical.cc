@@ -44,7 +44,8 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
+#include <string>
+#include <vector>
 #include <EnergyPlus/Autosizing/Base.hh>
 #include <EnergyPlus/BranchNodeConnections.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
@@ -60,6 +61,8 @@
 #include <EnergyPlus/PlantUtilities.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
 #include <EnergyPlus/WeatherManager.hh>
+#include <EnergyPlus/GroundTemperatureModeling/GroundTemperatureModelManager.hh>
+#include <EnergyPlus/GroundTemperatureModeling/GradientsGTM.hh>
 
 namespace EnergyPlus::GroundHeatExchangers {
 GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::json const &j)
@@ -383,10 +386,16 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
         getEnumValue(GroundTemp::modelTypeNamesUC, Util::makeUPPER(j["undisturbed_ground_temperature_model_type"].get<std::string>())));
     assert(modelType != GroundTemp::ModelType::Invalid);
 
-    // Initialize ground temperature model and get pointer reference
-    this->groundTempModel =
-        GroundTemp::GetGroundTempModelAndInit(state, modelType, Util::makeUPPER(j["undisturbed_ground_temperature_model_name"].get<std::string>()));
+// Initialize ground temperature model and get pointer reference
+this->groundTempModel =
+    GroundTemp::GetGroundTempModelAndInit(state, modelType, Util::makeUPPER(j["undisturbed_ground_temperature_model_name"].get<std::string>()))
+    .release();   // Convert unique_ptr to raw pointer
 
+// ─── Pass borehole depth to GradientsGTM if applicable ──
+auto *gradModel = dynamic_cast<GroundTemp::GradientsGTM*>(this->groundTempModel);
+if (gradModel) {
+    gradModel->setBoreholeDepth(state, bhLength); // <-- USE gradModel, NOT myGroundTempModel
+}
     // Check for Errors
     if (errorsFound) {
         ShowFatalError(state, EnergyPlus::format("Errors found in processing input for {}", moduleName));

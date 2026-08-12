@@ -820,7 +820,7 @@ namespace PlantPipingSystemsManager {
             }
 
             // Initialize ground temperature model and get pointer reference
-            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, groundTempName);
+            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, groundTempName).release();
         }
     }
 
@@ -1121,7 +1121,7 @@ namespace PlantPipingSystemsManager {
             // It then calls FiniteDiffGroundTempsModel::FiniteDiffGTMFactory which also takes objectName by const ref&
             // But it calls getObjectItem with s_ipsc->cAlphaArgs which overrides it, then the comparison fails
             std::string const groundTempModelName = s_ipsc->cAlphaArgs(3);
-            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, groundTempModelName);
+            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, groundTempModelName).release();
 
             // Other parameters
             thisDomain.SimControls.Convergence_CurrentToPrevIteration = 0.001;
@@ -1423,7 +1423,7 @@ namespace PlantPipingSystemsManager {
             }
             // Farfield ground temperature model -- note this will overwrite the DataIPShortCuts variables
             // so any other processing below this line won't have access to the cAlphaArgs, etc., here
-            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, s_ipsc->cAlphaArgs(3));
+            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, s_ipsc->cAlphaArgs(3)).release();
 
             // Total surface area
             Real64 ThisArea = 0.0;
@@ -1938,7 +1938,7 @@ namespace PlantPipingSystemsManager {
 
             // Farfield model parameters -- this is pushed down pretty low because it internally calls GetObjectItem
             // using DataIPShortCuts, so it will overwrite the cAlphaArgs and rNumericArgs values
-            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, s_ipsc->cAlphaArgs(5));
+            thisDomain.groundTempModel = GroundTemp::GetGroundTempModelAndInit(state, gtmType, s_ipsc->cAlphaArgs(5)).release();
 
             //******* Then we'll do the segments *******!
             for (int ThisCircuitPipeSegmentCounter = 1; ThisCircuitPipeSegmentCounter <= NumPipeSegments; ++ThisCircuitPipeSegmentCounter) {
