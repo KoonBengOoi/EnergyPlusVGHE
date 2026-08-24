@@ -1,3 +1,11 @@
+/*
+  GradientsGTM.cc
+  Extensible GradientsGTM model for deep ground temperature segments
+
+  Author: Koon Beng Ooi <ooi_kb3@hotmail.com>
+  Date: 2026-08-xx
+*/
+
 #include "GradientsGTM.hh"
 
 #include <algorithm>
@@ -17,7 +25,6 @@ std::unique_ptr<BaseGroundTempsModel> GradientsGTM::factory(
 {
     auto model = std::make_unique<GradientsGTM>();
 
-    // Look for IDF object and parse segments if present
     auto const &epJSON = state.dataInputProcessing->inputProcessor->epJSON;
     auto it = epJSON.find("Site:GroundTemperature:Undisturbed:GradientSegments");
     if (it != epJSON.end()) {
@@ -28,7 +35,6 @@ std::unique_ptr<BaseGroundTempsModel> GradientsGTM::factory(
             }
         }
     }
-
     return model;
 }
 
@@ -44,7 +50,6 @@ void GradientsGTM::parseGradientSegments(EnergyPlusData & /*state*/, nlohmann::j
             idfSegments_.push_back(gs);
         }
     }
-
     if (object.find("transition_depth") != object.end()) {
         transitionDepth = object["transition_depth"].get<Real64>();
     }
@@ -55,17 +60,15 @@ void GradientsGTM::parseGradientSegments(EnergyPlusData & /*state*/, nlohmann::j
 
 void GradientsGTM::initialize(EnergyPlusData &state, const std::vector<GradientSegment> &idfSegments, Real64 H)
 {
-    // copy IDF segments and sort
-    idfSegments_ = idfSegments;
     segments_.clear();
-    for (const auto &s : idfSegments_) {
+    for (const auto &s : idfSegments) {
         segments_.push_back(s);
     }
     std::sort(segments_.begin(), segments_.end(), [](const GradientSegment &a, const GradientSegment &b) {
         return a.upperDepth < b.upperDepth;
     });
 
-    // set borehole depth and compute reference temp (uses Kusuda average if present)
+    // Pass state to setBoreholeDepth so it can compute referenceTemp
     setBoreholeDepth(state, H);
 }
 
@@ -87,7 +90,6 @@ void GradientsGTM::setBoreholeDepth(EnergyPlusData &state, Real64 H)
             }
         }
     }
-
     if (kusudaCount > 0) {
         referenceTemp = sumT / static_cast<Real64>(kusudaCount);
     } else {
@@ -112,7 +114,7 @@ Real64 GradientsGTM::getHybridFarfieldTemp(EnergyPlusData &state, int month, Rea
         }
     }
 
-    // 2) Compute gradient-based temperature from user segments (relative to referenceTemp)
+    // 2) Compute gradient-based temperature from user segments_ (relative to referenceTemp)
     Real64 gradTemp = referenceTemp;
     if (!segments_.empty()) {
         bool found = false;
@@ -134,7 +136,7 @@ Real64 GradientsGTM::getHybridFarfieldTemp(EnergyPlusData &state, int month, Rea
         }
     }
 
-    // 3) Blend between Kusuda (near-surface) and gradient (deep) using transitionDepth/blendWidth
+    // 3) Blend between Kusuda (near-surface) and gradient (deep)
     Real64 low = transitionDepth - blendWidth / 2.0;
     Real64 high = transitionDepth + blendWidth / 2.0;
     Real64 weight = 0.0;
@@ -168,6 +170,31 @@ Real64 GradientsGTM::getGroundTempAtTimeInSeconds(EnergyPlusData &state, Real64 
 Real64 GradientsGTM::getGroundTempAtTimeInMonths(EnergyPlusData &state, Real64 depth, int month)
 {
     return getHybridFarfieldTemp(state, month, depth);
+}
+
+void GradientsGTM::setSurfaceTemperature(Real64 T_surface)
+{
+    referenceTemp = T_surface;
+}
+
+void GradientsGTM::setVerticalGradient(Real64 gradient)
+{
+    uniformGradient = gradient;
+}
+
+void GradientsGTM::initializeSegments(EnergyPlusData &state)
+{
+    if (uniformGradient != 0.0) {
+        idfSegments_.clear();
+        GradientSegment seg;
+        seg.upperDepth = 0.0;
+        seg.lowerDepth = 200.0;
+        seg.gradient = uniformGradient;
+        idfSegments_.push_back(seg);
+    }
+    if (boreholeDepth > 0.0) {
+        initialize(state, idfSegments_, boreholeDepth);
+    }
 }
 
 } // namespace GroundTemp

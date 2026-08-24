@@ -44,6 +44,33 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
+/*
+  Vertical.cc
+  Vertical Ground Heat Exchanger (VGHE) simulation module.
+
+  Author: EnergyPlus Development Team (original)
+  Integration modification: Koon Beng Ooi <ooi_kb3@hotmail.com>
+  Date: 2026-08-23
+
+  Brief:
+  This file implements the simulation of vertical borehole heat exchangers.
+  It retrieves the undisturbed ground temperature from a designated
+  BaseGroundTempsModel (e.g., GradientsGTM) and computes the heat exchange.
+
+  Modification by Koon Beng Ooi:
+  - Added a dynamic_cast check to detect when the selected ground temperature
+    model is the new GradientsGTM model.
+  - If detected, this file now calls `setBoreholeDepth(state, boreholeDepth)`
+    to pass the actual borehole length to the GradientsGTM model. This ensures
+    the gradient segments are evaluated over the correct depth range.
+
+  Usage:
+  - During initialization, the correct ground temperature model is instantiated
+    via GroundTemp::GetGroundTempModelAndInit.
+  - If the model is a GradientsGTM, the borehole depth is passed to it before
+    any temperature queries occur, allowing for accurate hybrid far-field
+    temperature calculation.
+*/
 #include <string>
 #include <vector>
 #include <EnergyPlus/Autosizing/Base.hh>
@@ -394,7 +421,7 @@ this->groundTempModel =
 // ─── Pass borehole depth to GradientsGTM if applicable ──
 auto *gradModel = dynamic_cast<GroundTemp::GradientsGTM*>(this->groundTempModel);
 if (gradModel) {
-    gradModel->setBoreholeDepth(state, bhLength); // <-- USE gradModel, NOT myGroundTempModel
+    gradModel->setBoreholeDepth(state, bhLength); 
 }
     // Check for Errors
     if (errorsFound) {
