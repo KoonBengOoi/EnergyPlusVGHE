@@ -16,10 +16,9 @@
 #include "EnergyPlus/GroundTemperatureModeling/KusudaAchenbachGroundTemperatureModel.hh"
 #include "EnergyPlus/UtilityRoutines.hh"
 
-namespace EnergyPlus {
-namespace GroundTemp {
+namespace EnergyPlus:; GroundTemperatureModeling {
 
-std::unique_ptr<BaseGroundTempsModel> GradientsGTM::factory(
+std::unique_ptr<BaseGroundTemperatureModel> GradientsGTM::factory(
     EnergyPlusData &state,
     std::string const &objectName)
 {
@@ -197,5 +196,4 @@ void GradientsGTM::initializeSegments(EnergyPlusData &state)
     }
 }
 
-} // namespace GroundTemp
-} // namespace EnergyPlus
+} // namespace EnergyPlus::GroundTemperatureModeling

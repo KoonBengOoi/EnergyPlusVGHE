@@ -25,14 +25,13 @@
 #include "EnergyPlus/Data/EnergyPlusData.hh"
 #include "EnergyPlus/GroundTemperatureModeling/BaseGroundTemperatureModel.hh"
 
-namespace EnergyPlus {
-namespace GroundTemp {
+namespace EnergyPlus::GroundTemperatureModeling  {
 
-class GradientsGTM : public BaseGroundTempsModel {
+class GradientsGTM : public BaseGroundTemperatureModel {
 public:
     // --- Constructor and Factory ---
     GradientsGTM() = default;
-    static std::unique_ptr<BaseGroundTempsModel> factory(EnergyPlusData &state, std::string const &objectName);
+    static std::unique_ptr<BaseGroundTemperatureModel> factory(EnergyPlusData &state, std::string const &objectName);
     
     // --- Public setter (TAKES 2 ARGUMENT!) ---
     void setBoreholeDepth(EnergyPlusData &state, Real64 H);
@@ -67,7 +66,6 @@ void parseGradientSegments(EnergyPlusData &state, nlohmann::json const &object);
 
 };
 
-} // namespace GroundTemp
-} // namespace EnergyPlus
+} // namespace EnergyPlus::GroundTemperatureModeling 
 
 #endif

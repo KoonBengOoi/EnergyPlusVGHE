@@ -123,6 +123,7 @@ set(test_src
     FaultsManager.unit.cc
     FileSystem.unit.cc
     FiniteDifferenceGroundTemperatureModel.unit.cc
+    GradientsGTM.unit.cc
     FluidCoolers.unit.cc
     FluidProperties.unit.cc
     FuelCellElectricGenerator.unit.cc

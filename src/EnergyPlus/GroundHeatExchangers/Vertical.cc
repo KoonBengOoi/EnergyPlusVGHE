@@ -55,7 +55,7 @@
   Brief:
   This file implements the simulation of vertical borehole heat exchangers.
   It retrieves the undisturbed ground temperature from a designated
-  BaseGroundTempsModel (e.g., GradientsGTM) and computes the heat exchange.
+  BaseGroundTemperatureModel (e.g., GradientsGTM) and computes the heat exchange.
 
   Modification by Koon Beng Ooi:
   - Added a dynamic_cast check to detect when the selected ground temperature
@@ -90,6 +90,7 @@
 #include <EnergyPlus/WeatherManager.hh>
 #include <EnergyPlus/GroundTemperatureModeling/GroundTemperatureModelManager.hh>
 #include <EnergyPlus/GroundTemperatureModeling/GradientsGTM.hh>
+#include <fmt/format.h>
 
 namespace EnergyPlus::GroundHeatExchangers {
 GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::json const &j)
@@ -97,7 +98,7 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
     // Check for duplicates
     for (auto &existingObj : state.dataGroundHeatExchanger->verticalGLHE) {
         if (objName == existingObj.name) {
-            ShowFatalError(state, EnergyPlus::format("Invalid input for {} object: Duplicate name found: {}", moduleName, existingObj.name));
+            ShowFatalError(state, fmt::format("Invalid input for {} object: Duplicate name found: {}", moduleName, existingObj.name));
         }
     }
 
@@ -176,16 +177,16 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
             bool objNameFound = j.find("ghe_vertical_sizing_object_name") != j.end();
 
             if (!objTypeFound) {
-                ShowSevereError(state, EnergyPlus::format("GroundHeatExchanger:System \"{}\"", this->name));
+                ShowSevereError(state, fmt::format("GroundHeatExchanger:System \"{}\"", this->name));
                 ShowContinueError(
-                    state, EnergyPlus::format("g-Function Calculation Method = \"{}\"", j["g_function_calculation_method"].get<std::string>()));
+                    state, fmt::format("g-Function Calculation Method = \"{}\"", j["g_function_calculation_method"].get<std::string>()));
                 ShowContinueError(state, "GHE:Vertical:Sizing Object Type not specified.");
                 errorsFound = true;
             }
             if (!objNameFound) {
-                ShowSevereError(state, EnergyPlus::format("GroundHeatExchanger:System \"{}\"", this->name));
+                ShowSevereError(state, fmt::format("GroundHeatExchanger:System \"{}\"", this->name));
                 ShowContinueError(
-                    state, EnergyPlus::format("g-Function Calculation Method = \"{}\"", j["g_function_calculation_method"].get<std::string>()));
+                    state, fmt::format("g-Function Calculation Method = \"{}\"", j["g_function_calculation_method"].get<std::string>()));
                 ShowContinueError(state, "GHE:Vertical:Sizing Object Name not specified.");
                 errorsFound = true;
             }
@@ -194,8 +195,8 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
             this->sizingData.type = j.at("ghe_vertical_sizing_object_type");
 
             if (Util::makeUPPER(this->sizingData.type) != "GROUNDHEATEXCHANGER:VERTICAL:SIZING:RECTANGLE") {
-                ShowSevereError(state, EnergyPlus::format("GroundHeatExchanger:System \"{}\"", this->name));
-                ShowContinueError(state, EnergyPlus::format("GHE:Vertical:Sizing Object Type not supported \"{}\"", this->sizingData.type));
+                ShowSevereError(state, fmt::format("GroundHeatExchanger:System \"{}\"", this->name));
+                ShowContinueError(state, fmt::format("GHE:Vertical:Sizing Object Type not supported \"{}\"", this->sizingData.type));
                 errorsFound = true;
             }
 
@@ -203,7 +204,7 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
             if (instances == state.dataInputProcessing->inputProcessor->epJSON.end()) {
                 ShowSevereError(
                     state,
-                    EnergyPlus::format("Expected to find GroundHeatExchanger:Vertical:Sizing named {}, but it was missing", this->sizingData.name));
+                    fmt::format("Expected to find GroundHeatExchanger:Vertical:Sizing named {}, but it was missing", this->sizingData.name));
                 errorsFound = true;
             }
 
@@ -219,7 +220,7 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
                     auto const spInstances = state.dataInputProcessing->inputProcessor->epJSON.find("SizingPeriod:WeatherFileDays");
                     if (spInstances == state.dataInputProcessing->inputProcessor->epJSON.end()) {
                         ShowSevereError(state,
-                                        EnergyPlus::format("Expected to find SizingPeriod:WeatherFileDays named {}, but it was missing",
+                                        fmt::format("Expected to find SizingPeriod:WeatherFileDays named {}, but it was missing",
                                                            this->sizingData.sizingPeriodName));
                         errorsFound = true;
                     }
@@ -235,7 +236,7 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
 
                     if (!spIsAnnual) {
                         ShowSevereError(state,
-                                        EnergyPlus::format("SizingPeriod:WeatherFileDays named {}, must be an annual design period of 365 days",
+                                        fmt::format("SizingPeriod:WeatherFileDays named {}, must be an annual design period of 365 days",
                                                            this->sizingData.sizingPeriodName));
                         errorsFound = true;
                     }
@@ -307,7 +308,7 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
             if (j.find("vertical_well_locations") == j.end()) {
                 ShowSevereError(state, "For a full design GHE simulation, you must provide a GHE:Vertical:Single object");
                 ShowContinueError(state, "If you enter more than one, only the first is used to specify the borehole design");
-                ShowContinueError(state, EnergyPlus::format("Check references to these objects for GHE:System object: {}", this->name));
+                ShowContinueError(state, fmt::format("Check references to these objects for GHE:System object: {}", this->name));
                 errorsFound = true;
             }
 
@@ -335,7 +336,7 @@ GLHEVert::GLHEVert(EnergyPlusData &state, std::string const &objName, nlohmann::
             if (j.find("vertical_well_locations") == j.end()) {
                 // No ResponseFactors, GHEArray, or SingleBH object are referenced
                 ShowSevereError(state, "No GHE:ResponseFactors, GHE:Vertical:Array, or GHE:Vertical:Single objects found");
-                ShowContinueError(state, EnergyPlus::format("Check references to these objects for GHE:System object: {}", this->name));
+                ShowContinueError(state, fmt::format("Check references to these objects for GHE:System object: {}", this->name));
                 errorsFound = true;
             }
 
@@ -425,7 +426,7 @@ if (gradModel) {
 }
     // Check for Errors
     if (errorsFound) {
-        ShowFatalError(state, EnergyPlus::format("Errors found in processing input for {}", moduleName));
+        ShowFatalError(state, fmt::format("Errors found in processing input for {}", moduleName));
     }
 }
 
