@@ -3,7 +3,7 @@
   Header for GradientsGTM model
 
   Author: Koon Beng Ooi <ooi_kb3@hotmail.com>
-  Date: 2026-08-xx
+  Date: 2026-09.01
 
   Brief:
   - Public class/struct declarations to support the GradientsGTM implementation
