@@ -423,7 +423,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -450,7 +454,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -493,7 +501,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -536,7 +548,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt, sqlite3_stmt *subInsertStmt);
 
     private:
@@ -557,7 +573,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -582,7 +602,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -623,7 +647,11 @@ private:
         }
 
         // only inserts construction
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
         // inserts construction and construction layers
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt, sqlite3_stmt *subInsertStmt);
 
@@ -655,7 +683,11 @@ private:
             {
             }
 
+<<<<<<< HEAD
             virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+            bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
         private:
             int const &constructNumber;
@@ -681,7 +713,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -716,7 +752,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -756,7 +796,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -786,7 +830,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -816,7 +864,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -846,7 +898,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -876,7 +932,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -907,7 +967,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -935,7 +999,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -957,7 +1025,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;
@@ -979,7 +1051,11 @@ private:
         {
         }
 
+<<<<<<< HEAD
         virtual bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+=======
+        bool insertIntoSQLite(sqlite3_stmt *insertStmt) override;
+>>>>>>> nrel/develop
 
     private:
         int const number;

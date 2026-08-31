@@ -100,7 +100,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   CoilSystem:Heating:DX,
     HeatPump DX Coil 1,      !- Name

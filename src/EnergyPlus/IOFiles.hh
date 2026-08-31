@@ -49,18 +49,30 @@
 #define IOFiles_hh_INCLUDED
 
 // C++ Headers
+<<<<<<< HEAD
 #include <array>
 #include <cassert>
+=======
+#include <cassert>
+#include <format>
+>>>>>>> nrel/develop
 #include <fstream>
 #include <iostream>
 #include <limits>
 #include <ostream>
 #include <vector>
 
+<<<<<<< HEAD
+=======
+// Third Party Headers
+#include <nlohmann/json.hpp>
+
+>>>>>>> nrel/develop
 // EnergyPlus Headers
 #include <EnergyPlus/EnergyPlus.hh>
 #include <EnergyPlus/FileSystem.hh>
 
+<<<<<<< HEAD
 // Third Party Headers
 #include <fmt/compile.h>
 #include <fmt/format.h>
@@ -334,11 +346,14 @@ public:
 };
 } // namespace fmt
 
+=======
+>>>>>>> nrel/develop
 namespace EnergyPlus {
 
 // Forward declarations
 struct EnergyPlusData;
 
+<<<<<<< HEAD
 enum class FormatSyntax
 {
     Invalid = -1,
@@ -384,6 +399,10 @@ inline constexpr FormatSyntax check_syntax(const std::string_view format_str)
     }
     return FormatSyntax::FMT;
 }
+=======
+class InputOutputFile;
+template <typename... Args> void print(InputOutputFile &outputFile, std::format_string<Args...> format_str, Args &&...args);
+>>>>>>> nrel/develop
 
 class InputFile
 {
@@ -491,7 +510,11 @@ public:
 private:
     std::unique_ptr<std::iostream> os;
     bool print_to_dev_null = false;
+<<<<<<< HEAD
     template <FormatSyntax, typename... Args> friend void print(InputOutputFile &outputFile, std::string_view format_str, Args &&...args);
+=======
+    template <typename... Args> friend void print(InputOutputFile &outputFile, std::format_string<Args...>, Args &&...args);
+>>>>>>> nrel/develop
     friend class IOFiles;
 };
 
@@ -695,6 +718,7 @@ public:
     }
 };
 
+<<<<<<< HEAD
 template <typename... Args> void vprint(std::ostream &os, std::string_view format_str, const Args &...args)
 {
     //    assert(os.good());
@@ -756,6 +780,9 @@ void print(std::ostream &os, std::string_view format_str, Args &&...args)
 }
 
 template <FormatSyntax formatSyntax, typename... Args> void print(InputOutputFile &outputFile, std::string_view format_str, Args &&...args)
+=======
+template <typename... Args> void print(InputOutputFile &outputFile, std::format_string<Args...> format_str, Args &&...args)
+>>>>>>> nrel/develop
 {
     auto *outputStream = [&]() -> std::ostream * {
         if (outputFile.os) {
@@ -767,6 +794,7 @@ template <FormatSyntax formatSyntax, typename... Args> void print(InputOutputFil
         assert(outputFile.os);
         return nullptr;
     }();
+<<<<<<< HEAD
     if constexpr (formatSyntax == FormatSyntax::Fortran) {
         print_fortran_syntax(*outputStream, format_str, args...);
     } else if constexpr (formatSyntax == FormatSyntax::FMT) {
@@ -785,10 +813,14 @@ template <FormatSyntax formatSyntax = FormatSyntax::Fortran, typename... Args> s
     } else if constexpr (formatSyntax == FormatSyntax::Printf) {
         return fmt::sprintf(format_str, std::forward<Args>(args)...);
     }
+=======
+    *outputStream << std::format(format_str, std::forward<Args>(args)...);
+>>>>>>> nrel/develop
 }
 
 } // namespace EnergyPlus
 
+<<<<<<< HEAD
 // extern template the most commonly used format function calls
 // to save on compilation time. They will be explicitly instantiated
 // in IOFiles.cc
@@ -839,4 +871,6 @@ extern template std::string EnergyPlus::format<EnergyPlus::FormatSyntax::Fortran
 extern template std::string EnergyPlus::format<EnergyPlus::FormatSyntax::Fortran, std::string &, double &>(std::string_view, std::string &, double &);
 extern template std::string EnergyPlus::format<EnergyPlus::FormatSyntax::Fortran, double &>(std::string_view, double &);
 
+=======
+>>>>>>> nrel/develop
 #endif

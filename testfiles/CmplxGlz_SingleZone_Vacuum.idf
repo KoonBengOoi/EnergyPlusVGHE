@@ -80,7 +80,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -361,9 +365,12 @@
     46.739768982;            !- Volume {m3}
 
 !-   ===========  ALL OBJECTS IN CLASS: BUILDINGSURFACE:DETAILED ===========
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
+=======
+>>>>>>> nrel/develop
 
   BuildingSurface:Detailed,
     Room102 South Wall,      !- Name
@@ -382,11 +389,14 @@
     0.000000000000,4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,4.572000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Room102 Floor,           !- Name
     FLOOR,                   !- Surface Type
@@ -404,11 +414,14 @@
     3.048000000000,4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     3.048000000000,0.000000000000,0.000000000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Room102 West Wall,       !- Name
     WALL,                    !- Surface Type
@@ -426,11 +439,14 @@
     3.048000000000,4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     3.048000000000,4.572000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Room102 North Wall,      !- Name
     WALL,                    !- Surface Type
@@ -448,11 +464,14 @@
     3.048000000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     3.048000000000,0.000000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Room102 East Wall,       !- Name
     WALL,                    !- Surface Type
@@ -470,11 +489,14 @@
     0.000000000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,0.000000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Room102 Ceiling,         !- Name
     CEILING,                 !- Surface Type
@@ -492,11 +514,15 @@
     0.000000000000,4.572000000000,3.352800000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,0.000000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
 !-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
+=======
+!-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
+>>>>>>> nrel/develop
 
   FenestrationSurface:Detailed,
     Room 102 Window,         !- Name
@@ -513,7 +539,10 @@
     0.167481250000,4.572000000000,0.231775000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.167481250000,4.572000000000,3.260725000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
+=======
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLEDICTIONARY ===========
 
   Output:VariableDictionary,regular;
@@ -604,7 +633,11 @@
     ISO15099,                !- standard
     ISO15099,                !- Thermal Model
     1.0000,                  !- SDScalar
+<<<<<<< HEAD
     NoDeflection,            !- Deflection Model
+=======
+    TemperatureAndPressureInput,  !- Deflection Model
+>>>>>>> nrel/develop
     13.238;                  !- Vacuum Pressure Limit {Pa}
 
 !-----------------------------------------------------

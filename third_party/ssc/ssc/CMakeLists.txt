@@ -228,15 +228,26 @@ set( DEPENDENCIES
 	jsoncpp_lib
 	)
 foreach( name ${DEPENDENCIES} )
+<<<<<<< HEAD
 	target_link_libraries(ssc ${name})
+=======
+	target_link_libraries(ssc PUBLIC ${name})
+>>>>>>> nrel/develop
 endforeach()
 
 if (UNIX)
   find_package(Threads REQUIRED)
+<<<<<<< HEAD
   target_link_libraries(ssc Threads::Threads ${CMAKE_DL_LIBS})
   find_library(MATH_LIBRARY m)
   if(MATH_LIBRARY)
     target_link_libraries(ssc ${MATH_LIBRARY})
+=======
+  target_link_libraries(ssc PUBLIC Threads::Threads ${CMAKE_DL_LIBS})
+  find_library(MATH_LIBRARY m)
+  if(MATH_LIBRARY)
+    target_link_libraries(ssc PUBLIC ${MATH_LIBRARY})
+>>>>>>> nrel/develop
   endif()
 endif()
 

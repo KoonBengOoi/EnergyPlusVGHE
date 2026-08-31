@@ -4,7 +4,11 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -368,6 +372,7 @@
     Until: 23:00,0,          !- Field 96
     Until: 24:00,0;          !- Field 98
 
+<<<<<<< HEAD
                              !- Field 16
                              !- Field 18
                              !- Field 20
@@ -377,6 +382,8 @@
                              !- Field 28
                              !- Field 30
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     LTG_APT_SCH,             !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -398,8 +405,11 @@
     Until: 23:00,0.067896184,!- Field 29
     Until: 24:00,0.028290077;!- Field 31
 
+<<<<<<< HEAD
                              !- Field 32
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     LTG_COR_SCH,             !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -596,9 +606,12 @@
     FOR: AllOtherDays,       !- Field 26
     UNTIL: 24:00,15.6;       !- Field 27
 
+<<<<<<< HEAD
                              !- Field 28
                              !- Field 32
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     HTGSETP_OFF_SCH_Yes_Optimum_w_SB,  !- Name
     Temperature,             !- Schedule Type Limits Name
@@ -696,9 +709,12 @@
     FOR: AllOtherDays,       !- Field 26
     UNTIL: 24:00,29.4;       !- Field 27
 
+<<<<<<< HEAD
                              !- Field 28
                              !- Field 32
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     CLGSETP_OFF_SCH_Yes_Optimum_w_SB,  !- Name
     Temperature,             !- Schedule Type Limits Name

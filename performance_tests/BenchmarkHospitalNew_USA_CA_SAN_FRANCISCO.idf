@@ -55,7 +55,11 @@
 ! ExtWallConstruction=Mass
 ! End SimMetaData
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !
 !- Run Controls sections

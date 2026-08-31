@@ -70,6 +70,10 @@ struct CoilCoolingDXCurveFitOperatingModeInputSpecification
     Real64 ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity = 0.0;
     Real64 latent_capacity_time_constant = 0.0;
     Real64 nominal_time_for_condensate_removal_to_begin = 0.0;
+<<<<<<< HEAD
+=======
+    std::string apply_part_load_fraction_to_speeds_greater_than_1;
+>>>>>>> nrel/develop
     std::string apply_latent_degradation_to_speeds_greater_than_1;
     std::string condenser_type;
     Real64 nominal_evap_condenser_pump_power = 0.0;
@@ -114,6 +118,10 @@ struct CoilCoolingDXCurveFitOperatingMode
     Real64 maxCyclingRate = 0.0;
     Real64 latentTimeConst = 0.0;
     bool latentDegradationActive = false;
+<<<<<<< HEAD
+=======
+    bool applyPartLoadFractionAllSpeeds = false;
+>>>>>>> nrel/develop
     bool applyLatentDegradationAllSpeeds = false;
 
     // results from coil model at speed

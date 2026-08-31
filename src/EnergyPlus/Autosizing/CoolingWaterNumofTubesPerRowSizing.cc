@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/CoolingWaterNumofTubesPerRowSizing.hh>
 
 namespace EnergyPlus {
@@ -68,9 +72,13 @@ Real64 CoolingWaterNumofTubesPerRowSizer::size(EnergyPlusData &state, Real64 _or
         this->errorType = AutoSizingResultType::ErrorType1;
     }
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->isEpJSON) {
             this->sizingString = "number_of_tubes_per_row";
         }
+=======
+        this->sizingString = "Number of Tubes per Row";
+>>>>>>> nrel/develop
     }
     this->selectSizerOutput(state, errorsFound);
     return this->autoSizedValue;

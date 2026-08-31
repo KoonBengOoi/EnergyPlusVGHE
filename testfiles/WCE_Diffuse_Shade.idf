@@ -15,7 +15,11 @@
 ! Infiltration:
 !   * Infiltration air flow rate is guessed as a small value.
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 

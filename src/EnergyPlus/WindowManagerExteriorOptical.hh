@@ -204,7 +204,11 @@ namespace Window {
     class CWCEVenetianBlindCellFactory : public IWCECellDescriptionFactory
     {
     public:
+<<<<<<< HEAD
         CWCEVenetianBlindCellFactory(const Material::MaterialBase *t_Material);
+=======
+        explicit CWCEVenetianBlindCellFactory(const Material::MaterialBase *t_Material);
+>>>>>>> nrel/develop
 
         std::shared_ptr<SingleLayerOptics::ICellDescription> getCellDescription(EnergyPlusData &state) override;
     };
@@ -215,7 +219,11 @@ namespace Window {
     class CWCEScreenCellFactory : public IWCECellDescriptionFactory
     {
     public:
+<<<<<<< HEAD
         CWCEScreenCellFactory(const Material::MaterialBase *t_Material);
+=======
+        explicit CWCEScreenCellFactory(const Material::MaterialBase *t_Material);
+>>>>>>> nrel/develop
 
         std::shared_ptr<SingleLayerOptics::ICellDescription> getCellDescription(EnergyPlusData &state) override;
     };
@@ -226,7 +234,11 @@ namespace Window {
     class CWCEDiffuseShadeCellFactory : public IWCECellDescriptionFactory
     {
     public:
+<<<<<<< HEAD
         CWCEDiffuseShadeCellFactory(const Material::MaterialBase *t_Material);
+=======
+        explicit CWCEDiffuseShadeCellFactory(const Material::MaterialBase *t_Material);
+>>>>>>> nrel/develop
 
         std::shared_ptr<SingleLayerOptics::ICellDescription> getCellDescription(EnergyPlusData &state) override;
     };

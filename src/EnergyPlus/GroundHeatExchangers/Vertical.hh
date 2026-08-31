@@ -159,7 +159,11 @@ namespace GroundHeatExchangers {
         void oneTimeInit(EnergyPlusData &state) override;
 
         void oneTimeInit_new(EnergyPlusData &state) override;
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> nrel/develop
         void setupTimeVectors() const;
     };
 

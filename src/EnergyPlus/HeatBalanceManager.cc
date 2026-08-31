@@ -48,6 +48,10 @@
 // C++ Headers
 #include <algorithm>
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <string>
 
 // ObjexxFCL Headers
@@ -59,11 +63,18 @@
 
 // EnergyPlus Headers
 #include <EnergyPlus/Construction.hh>
+<<<<<<< HEAD
+=======
+#include <EnergyPlus/ConstructionAssignmentSet.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/CurveManager.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataBSDFWindow.hh>
 #include <EnergyPlus/DataContaminantBalance.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/DataHVACGlobals.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/DataHeatBalFanSys.hh>
 #include <EnergyPlus/DataHeatBalSurface.hh>
 #include <EnergyPlus/DataHeatBalance.hh>
@@ -273,6 +284,11 @@ namespace HeatBalanceManager {
 
         GetConstructData(state, ErrorsFound); // Read constructs from input file/transfer from legacy data structure
 
+<<<<<<< HEAD
+=======
+        ConstructionAssignments::GetConstructionAssignmentSetData(state, ErrorsFound);
+
+>>>>>>> nrel/develop
         GetBuildingData(state, ErrorsFound); // Read building data from input file
 
         DataSurfaces::GetVariableAbsorptanceSurfaceList(state);
@@ -387,16 +403,27 @@ namespace HeatBalanceManager {
                                                                       [](Construction::ConstructionProps const &e) { return e.IsUsed; });
         if (Unused > 0) {
             if (!state.dataGlobal->DisplayExtraWarnings) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("CheckUsedConstructions: There are {} nominally unused constructions in input.", Unused));
                 ShowContinueError(state, "For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;");
             } else {
                 ShowWarningError(state, EnergyPlus::format("CheckUsedConstructions: There are {} nominally unused constructions in input.", Unused));
+=======
+                ShowWarningError(state, std::format("CheckUsedConstructions: There are {} nominally unused constructions in input.", Unused));
+                ShowContinueError(state, "For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;");
+            } else {
+                ShowWarningError(state, std::format("CheckUsedConstructions: There are {} nominally unused constructions in input.", Unused));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Each Unused construction is shown.");
                 for (int Loop = 1; Loop <= state.dataHeatBal->TotConstructs; ++Loop) {
                     if (state.dataConstruction->Construct(Loop).IsUsed) {
                         continue;
                     }
+<<<<<<< HEAD
                     ShowMessage(state, EnergyPlus::format("Construction={}", state.dataConstruction->Construct(Loop).Name));
+=======
+                    ShowMessage(state, std::format("Construction={}", state.dataConstruction->Construct(Loop).Name));
+>>>>>>> nrel/develop
                 }
             }
         }
@@ -585,11 +612,19 @@ namespace HeatBalanceManager {
                 AlphaName(2) = "Urban";
             } else {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}: {} invalid={}",
                                                    RoutineName,
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    state.dataIPShortCut->cAlphaFieldNames(2),
                                                    AlphaName(2)));
+=======
+                                std::format("{}{}: {} invalid={}",
+                                            RoutineName,
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            state.dataIPShortCut->cAlphaFieldNames(2),
+                                            AlphaName(2)));
+>>>>>>> nrel/develop
                 state.dataEnvrn->SiteWindExp = 0.14;
                 state.dataEnvrn->SiteWindBLHeight = 270.0;
                 AlphaName(2) = AlphaName(2) + "-invalid";
@@ -599,22 +634,38 @@ namespace HeatBalanceManager {
             state.dataHeatBal->LoadsConvergTol = BuildingNumbers(2);
             if (state.dataHeatBal->LoadsConvergTol <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}: {} value invalid, [{:.3R}]",
                                                    RoutineName,
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    state.dataIPShortCut->cNumericFieldNames(2),
                                                    state.dataHeatBal->LoadsConvergTol));
+=======
+                                std::format("{}{}: {} value invalid, [{:#G}]",
+                                            RoutineName,
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            state.dataIPShortCut->cNumericFieldNames(2),
+                                            state.dataHeatBal->LoadsConvergTol));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             // Temperature Convergence Tolerance Value
             state.dataHeatBal->TempConvergTol = BuildingNumbers(3);
             if (state.dataHeatBal->TempConvergTol <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}: {} value invalid, [{:.3R}]",
                                                    RoutineName,
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    state.dataIPShortCut->cNumericFieldNames(3),
                                                    state.dataHeatBal->TempConvergTol));
+=======
+                                std::format("{}{}: {} value invalid, [{:#G}]",
+                                            RoutineName,
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            state.dataIPShortCut->cNumericFieldNames(3),
+                                            state.dataHeatBal->TempConvergTol));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             // Solar Distribution
@@ -640,11 +691,19 @@ namespace HeatBalanceManager {
                 state.dataSurface->CalcSolRefl = true;
             } else {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}: {} invalid={}",
                                                    RoutineName,
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    state.dataIPShortCut->cAlphaFieldNames(3),
                                                    AlphaName(3)));
+=======
+                                std::format("{}{}: {} invalid={}",
+                                            RoutineName,
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            state.dataIPShortCut->cAlphaFieldNames(3),
+                                            AlphaName(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 AlphaName(3) = AlphaName(3) + "-invalid";
             }
@@ -653,12 +712,21 @@ namespace HeatBalanceManager {
                 state.dataHeatBal->MaxNumberOfWarmupDays = BuildingNumbers(4);
                 if (state.dataHeatBal->MaxNumberOfWarmupDays <= 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}: {} invalid, [{}], {} will be used",
                                                        RoutineName,
                                                        state.dataHeatBalMgr->CurrentModuleObject,
                                                        state.dataIPShortCut->cNumericFieldNames(4),
                                                        state.dataHeatBal->MaxNumberOfWarmupDays,
                                                        DataHeatBalance::DefaultMaxNumberOfWarmupDays));
+=======
+                                    std::format("{}{}: {} invalid, [{}], {} will be used",
+                                                RoutineName,
+                                                state.dataHeatBalMgr->CurrentModuleObject,
+                                                state.dataIPShortCut->cNumericFieldNames(4),
+                                                state.dataHeatBal->MaxNumberOfWarmupDays,
+                                                DataHeatBalance::DefaultMaxNumberOfWarmupDays));
+>>>>>>> nrel/develop
                     state.dataHeatBal->MaxNumberOfWarmupDays = DataHeatBalance::DefaultMaxNumberOfWarmupDays;
                 }
             } else {
@@ -669,12 +737,21 @@ namespace HeatBalanceManager {
                 state.dataHeatBal->MinNumberOfWarmupDays = BuildingNumbers(5);
                 if (state.dataHeatBal->MinNumberOfWarmupDays <= 0) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}{}: {} invalid, [{}], {} will be used",
                                                         RoutineName,
                                                         state.dataHeatBalMgr->CurrentModuleObject,
                                                         state.dataIPShortCut->cNumericFieldNames(5),
                                                         state.dataHeatBal->MinNumberOfWarmupDays,
                                                         DataHeatBalance::DefaultMinNumberOfWarmupDays));
+=======
+                                     std::format("{}{}: {} invalid, [{}], {} will be used",
+                                                 RoutineName,
+                                                 state.dataHeatBalMgr->CurrentModuleObject,
+                                                 state.dataIPShortCut->cNumericFieldNames(5),
+                                                 state.dataHeatBal->MinNumberOfWarmupDays,
+                                                 DataHeatBalance::DefaultMinNumberOfWarmupDays));
+>>>>>>> nrel/develop
                     state.dataHeatBal->MinNumberOfWarmupDays = DataHeatBalance::DefaultMinNumberOfWarmupDays;
                 }
             } else {
@@ -682,6 +759,7 @@ namespace HeatBalanceManager {
             }
             if (state.dataHeatBal->MinNumberOfWarmupDays > state.dataHeatBal->MaxNumberOfWarmupDays) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}{}: {} [{}]  is greater than {} [{}], {} will be used.",
                                                     RoutineName,
                                                     state.dataHeatBalMgr->CurrentModuleObject,
@@ -690,11 +768,25 @@ namespace HeatBalanceManager {
                                                     state.dataIPShortCut->cNumericFieldNames(4),
                                                     state.dataHeatBal->MaxNumberOfWarmupDays,
                                                     state.dataHeatBal->MinNumberOfWarmupDays));
+=======
+                                 std::format("{}{}: {} [{}]  is greater than {} [{}], {} will be used.",
+                                             RoutineName,
+                                             state.dataHeatBalMgr->CurrentModuleObject,
+                                             state.dataIPShortCut->cNumericFieldNames(5),
+                                             state.dataHeatBal->MinNumberOfWarmupDays,
+                                             state.dataIPShortCut->cNumericFieldNames(4),
+                                             state.dataHeatBal->MaxNumberOfWarmupDays,
+                                             state.dataHeatBal->MinNumberOfWarmupDays));
+>>>>>>> nrel/develop
                 state.dataHeatBal->MaxNumberOfWarmupDays = state.dataHeatBal->MinNumberOfWarmupDays;
             }
 
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("{} A {} Object must be entered.", RoutineName, state.dataHeatBalMgr->CurrentModuleObject));
+=======
+            ShowSevereError(state, std::format("{} A {} Object must be entered.", RoutineName, state.dataHeatBalMgr->CurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             state.dataHeatBal->BuildingName = "NOT ENTERED";
             AlphaName(2) = "NOT ENTERED";
@@ -703,7 +795,14 @@ namespace HeatBalanceManager {
             state.dataHeatBal->MinNumberOfWarmupDays = DataHeatBalance::DefaultMinNumberOfWarmupDays;
         }
 
+<<<<<<< HEAD
         constexpr const char *Format_720(" Building Information,{},{:.3R},{},{:.5R},{:.5R},{},{},{}\n");
+=======
+        // Construction Assignment Set Name (resolved after ConstructionAssignmentSet data is loaded in GetConstructionAssignmentSetData)
+        state.dataConstructionAssignments->buildingConstructionAssignmentSetName = AlphaName(4);
+
+        constexpr const char *Format_720(" Building Information,{},{:.3f},{},{:#G},{:#G},{},{},{}\n");
+>>>>>>> nrel/develop
         constexpr const char *Format_721("! <Building Information>, Building Name,North Axis {{deg}},Terrain,  Loads Convergence Tolerance "
                                          "Value,Temperature Convergence Tolerance Value,  Solar Distribution,Maximum Number of Warmup Days,Minimum "
                                          "Number of Warmup Days\n");
@@ -746,9 +845,15 @@ namespace HeatBalanceManager {
             } else if (hcIn != Convect::HcInt::ASHRAESimple && hcIn != Convect::HcInt::ASHRAETARP && hcIn != Convect::HcInt::CeilingDiffuser &&
                        hcIn != Convect::HcInt::AdaptiveConvectionAlgorithm && hcIn != Convect::HcInt::ASTMC1340) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("GetInsideConvectionAlgorithm: Invalid value for {}, defaulting to TARP, invalid value={}",
                                                     state.dataHeatBalMgr->CurrentModuleObject,
                                                     AlphaName(1)));
+=======
+                                 std::format("GetInsideConvectionAlgorithm: Invalid value for {}, defaulting to TARP, invalid value={}",
+                                             state.dataHeatBalMgr->CurrentModuleObject,
+                                             AlphaName(1)));
+>>>>>>> nrel/develop
                 hcIn = Convect::HcInt::ASHRAETARP;
             }
             state.dataHeatBal->DefaultIntConvAlgo = hcIn;
@@ -782,9 +887,15 @@ namespace HeatBalanceManager {
             if (hcOut != Convect::HcExt::ASHRAESimple && hcOut != Convect::HcExt::ASHRAETARP && hcOut != Convect::HcExt::MoWiTTHcOutside &&
                 hcOut != Convect::HcExt::DOE2HcOutside && hcOut != Convect::HcExt::AdaptiveConvectionAlgorithm) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("GetOutsideConvectionAlgorithm: Invalid value for {}, defaulting to DOE-2, invalid value={}",
                                                     state.dataHeatBalMgr->CurrentModuleObject,
                                                     AlphaName(1)));
+=======
+                                 std::format("GetOutsideConvectionAlgorithm: Invalid value for {}, defaulting to DOE-2, invalid value={}",
+                                             state.dataHeatBalMgr->CurrentModuleObject,
+                                             AlphaName(1)));
+>>>>>>> nrel/develop
                 hcOut = Convect::HcExt::DOE2HcOutside;
             }
             state.dataHeatBal->DefaultExtConvAlgo = hcOut;
@@ -831,7 +942,11 @@ namespace HeatBalanceManager {
                     if (state.dataGlobal->TimeStepsInHour < 20) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "GetSolutionAlgorithm: {} {} is Conduction Finite Difference but Number of TimeSteps in Hour < 20, Value is {}.",
                                 state.dataHeatBalMgr->CurrentModuleObject,
                                 state.dataIPShortCut->cAlphaFieldNames(1),
@@ -848,11 +963,19 @@ namespace HeatBalanceManager {
                     if (state.dataGlobal->TimeStepsInHour < 20) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("GetSolutionAlgorithm: {} {} is Combined Heat and Moisture Finite Element but Number of TimeSteps in "
                                                "Hour < 20, Value is {}.",
                                                state.dataHeatBalMgr->CurrentModuleObject,
                                                state.dataIPShortCut->cAlphaFieldNames(1),
                                                state.dataGlobal->TimeStepsInHour));
+=======
+                            std::format("GetSolutionAlgorithm: {} {} is Combined Heat and Moisture Finite Element but Number of TimeSteps in "
+                                        "Hour < 20, Value is {}.",
+                                        state.dataHeatBalMgr->CurrentModuleObject,
+                                        state.dataIPShortCut->cAlphaFieldNames(1),
+                                        state.dataGlobal->TimeStepsInHour));
+>>>>>>> nrel/develop
                         ShowContinueError(state,
                                           "...Suggested minimum number of time steps in hour for Combined Heat and Moisture Finite Element solutions "
                                           "is 20. Errors or inaccurate calculations may occur.");
@@ -949,10 +1072,17 @@ namespace HeatBalanceManager {
                         state.dataHeatBal->ZoneAirSolutionAlgo = DataHeatBalance::SolutionAlgo::ThirdOrder;
                         AlphaName(1) = "ThirdOrderBackwardDifference";
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}: Invalid input of {}. The default choice is assigned = {}",
                                                             state.dataHeatBalMgr->CurrentModuleObject,
                                                             state.dataIPShortCut->cAlphaFieldNames(1),
                                                             AlphaName(1)));
+=======
+                                         std::format("{}: Invalid input of {}. The default choice is assigned = {}",
+                                                     state.dataHeatBalMgr->CurrentModuleObject,
+                                                     state.dataIPShortCut->cAlphaFieldNames(1),
+                                                     AlphaName(1)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Valid choices are: ThirdOrderBackwardDifference, AnalyticalSolution, or EulerMethod.");
                     }
                 }
@@ -1014,9 +1144,15 @@ namespace HeatBalanceManager {
                         state.dataContaminantBalance->Contaminant.CO2Simulation = false;
                         AlphaName(1) = "NO";
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}: Invalid input of {}. The default choice is assigned = NO",
                                                             state.dataHeatBalMgr->CurrentModuleObject,
                                                             state.dataIPShortCut->cAlphaFieldNames(1)));
+=======
+                                         std::format("{}: Invalid input of {}. The default choice is assigned = NO",
+                                                     state.dataHeatBalMgr->CurrentModuleObject,
+                                                     state.dataIPShortCut->cAlphaFieldNames(1)));
+>>>>>>> nrel/develop
                     }
                 }
             }
@@ -1045,25 +1181,44 @@ namespace HeatBalanceManager {
                         state.dataContaminantBalance->Contaminant.GenericContamSimulation = false;
                         AlphaName(3) = "NO";
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}: Invalid input of {}. The default choice is assigned = NO",
                                                             state.dataHeatBalMgr->CurrentModuleObject,
                                                             state.dataIPShortCut->cAlphaFieldNames(3)));
+=======
+                                         std::format("{}: Invalid input of {}. The default choice is assigned = NO",
+                                                     state.dataHeatBalMgr->CurrentModuleObject,
+                                                     state.dataIPShortCut->cAlphaFieldNames(3)));
+>>>>>>> nrel/develop
                     }
                 }
 
                 if (NumAlpha == 3 && state.dataContaminantBalance->Contaminant.GenericContamSimulation) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}, {} is required and not given.",
                                                        state.dataHeatBalMgr->CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaFieldNames(4)));
+=======
+                                    std::format("{}, {} is required and not given.",
+                                                state.dataHeatBalMgr->CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaFieldNames(4)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else if (NumAlpha > 3 && state.dataContaminantBalance->Contaminant.GenericContamSimulation) {
                     if ((state.dataContaminantBalance->Contaminant.genericOutdoorSched = Sched::GetSchedule(state, AlphaName(4))) == nullptr) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}, {} not found: {}",
                                                            state.dataHeatBalMgr->CurrentModuleObject,
                                                            state.dataIPShortCut->cAlphaFieldNames(4),
                                                            AlphaName(4)));
+=======
+                                        std::format("{}, {} not found: {}",
+                                                    state.dataHeatBalMgr->CurrentModuleObject,
+                                                    state.dataIPShortCut->cAlphaFieldNames(4),
+                                                    AlphaName(4)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -1131,9 +1286,15 @@ namespace HeatBalanceManager {
                         state.dataHeatBal->ZoneAirMassFlow.ZoneFlowAdjustment = DataHeatBalance::AdjustmentType::NoAdjustReturnAndMixing;
                         AlphaName(1) = "None";
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}: Invalid input of {}. The default choice is assigned = None",
                                                             state.dataHeatBalMgr->CurrentModuleObject,
                                                             state.dataIPShortCut->cAlphaFieldNames(1)));
+=======
+                                         std::format("{}: Invalid input of {}. The default choice is assigned = None",
+                                                     state.dataHeatBalMgr->CurrentModuleObject,
+                                                     state.dataIPShortCut->cAlphaFieldNames(1)));
+>>>>>>> nrel/develop
                     }
                 }
                 if (state.dataHeatBal->ZoneAirMassFlow.ZoneFlowAdjustment != DataHeatBalance::AdjustmentType::NoAdjustReturnAndMixing) {
@@ -1153,9 +1314,15 @@ namespace HeatBalanceManager {
                         state.dataHeatBal->ZoneAirMassFlow.EnforceZoneMassBalance = true;
                         AlphaName(2) = "AddInfiltrationFlow";
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}: Invalid input of {}. The default choice is assigned = AddInfiltrationFlow",
                                                             state.dataHeatBalMgr->CurrentModuleObject,
                                                             state.dataIPShortCut->cAlphaFieldNames(2)));
+=======
+                                         std::format("{}: Invalid input of {}. The default choice is assigned = AddInfiltrationFlow",
+                                                     state.dataHeatBalMgr->CurrentModuleObject,
+                                                     state.dataIPShortCut->cAlphaFieldNames(2)));
+>>>>>>> nrel/develop
                     }
                 }
             } else {
@@ -1175,9 +1342,15 @@ namespace HeatBalanceManager {
                             state.dataHeatBal->ZoneAirMassFlow.InfiltrationForZones = DataHeatBalance::InfiltrationZoneType::MixingSourceZonesOnly;
                             AlphaName(3) = "MixingSourceZonesOnly";
                             ShowWarningError(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("{}: Invalid input of {}. The default choice is assigned = MixingSourceZonesOnly",
                                                                 state.dataHeatBalMgr->CurrentModuleObject,
                                                                 state.dataIPShortCut->cAlphaFieldNames(3)));
+=======
+                                             std::format("{}: Invalid input of {}. The default choice is assigned = MixingSourceZonesOnly",
+                                                         state.dataHeatBalMgr->CurrentModuleObject,
+                                                         state.dataIPShortCut->cAlphaFieldNames(3)));
+>>>>>>> nrel/develop
                         }
                     }
                 } else {
@@ -1264,7 +1437,11 @@ namespace HeatBalanceManager {
         Array1D<Real64> NumArray(3); // Numeric data
 
         // Formats
+<<<<<<< HEAD
         constexpr const char *Format_720("Environment:Site Atmospheric Variation,{:.3R},{:.3R},{:.6R}\n");
+=======
+        constexpr const char *Format_720("Environment:Site Atmospheric Variation,{:#G},{:#G},{:#G}\n");
+>>>>>>> nrel/develop
 
         state.dataHeatBalMgr->CurrentModuleObject = "Site:HeightVariation";
         int NumObjects = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, state.dataHeatBalMgr->CurrentModuleObject);
@@ -1297,7 +1474,11 @@ namespace HeatBalanceManager {
             }
 
         } else if (NumObjects > 1) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Too many {} objects, only 1 allowed.", state.dataHeatBalMgr->CurrentModuleObject));
+=======
+            ShowSevereError(state, std::format("Too many {} objects, only 1 allowed.", state.dataHeatBalMgr->CurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         } else { //  None entered
             // IDD defaults would have this:
@@ -1477,12 +1658,21 @@ namespace HeatBalanceManager {
                 } else if (mat->group == Material::Group::GlassEQL || mat->group == Material::Group::ShadeEQL ||
                            mat->group == Material::Group::DrapeEQL || mat->group == Material::Group::BlindEQL ||
                            mat->group == Material::Group::ScreenEQL || mat->group == Material::Group::WindowGapEQL) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state, EnergyPlus::format("Invalid material layer type in window {} = {}", s_ipsc->cCurrentModuleObject, thisConstruct.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("Equivalent Layer material type = {} is allowed only in Construction:WindowEquivalentLayer window object.",
                                            ConstructAlphas(Layer)));
+=======
+                    ShowSevereError(state,
+                                    std::format("Invalid material layer type in window {} = {}", s_ipsc->cCurrentModuleObject, thisConstruct.Name));
+                    ShowContinueError(
+                        state,
+                        std::format("Equivalent Layer material type = {} is allowed only in Construction:WindowEquivalentLayer window object.",
+                                    ConstructAlphas(Layer)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     continue;
                 } else if (mat->group == Material::Group::GlassTCParent) {
@@ -1554,7 +1744,11 @@ namespace HeatBalanceManager {
                 int ctf_dimensions = fields.at("dimensions_for_the_ctf_calculation").get<int>();
                 if ((ctf_dimensions < 1) || (ctf_dimensions > 2)) {
                     ShowWarningError(state, "ConstructionProperty:InternalHeatSource must be either 1- or 2-D.  Reset to 1-D solution.");
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Construction={} is affected.", construction_name));
+=======
+                    ShowContinueError(state, std::format("Construction={} is affected.", construction_name));
+>>>>>>> nrel/develop
                     ctf_dimensions = 1;
                 }
                 Real64 tube_spacing = fields.at("tube_spacing").get<Real64>();
@@ -1569,10 +1763,17 @@ namespace HeatBalanceManager {
 
                 if (construction_index == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("Did not find matching construction for {} {}, missing construction = {}",
                                                        state.dataHeatBalMgr->CurrentModuleObject,
                                                        thisObjectName,
                                                        construction_name));
+=======
+                                    std::format("Did not find matching construction for {} {}, missing construction = {}",
+                                                state.dataHeatBalMgr->CurrentModuleObject,
+                                                thisObjectName,
+                                                construction_name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     continue;
                 }
@@ -1585,8 +1786,13 @@ namespace HeatBalanceManager {
                 if (thisConstruct.SourceSinkPresent) {
                     // Emulate old behavior by disallowing two sources in a single material
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("Construction {} has more than one internal heat source referencing it, which is not allowed",
                                                        construction_name));
+=======
+                                    std::format("Construction {} has more than one internal heat source referencing it, which is not allowed",
+                                                construction_name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     continue;
                 }
@@ -1601,14 +1807,22 @@ namespace HeatBalanceManager {
 
                 // Set the total number of layers for the construction
                 if ((thisConstruct.SourceAfterLayer >= thisConstruct.TotLayers) || (thisConstruct.SourceAfterLayer <= 0)) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("Construction {} must have a source that is between two layers", thisConstruct.Name));
+=======
+                    ShowWarningError(state, std::format("Construction {} must have a source that is between two layers", thisConstruct.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The source after layer parameter has been set to one less than the number of layers.");
                     thisConstruct.SourceAfterLayer = thisConstruct.TotLayers - 1;
                 }
                 if ((thisConstruct.TempAfterLayer >= thisConstruct.TotLayers) || (thisConstruct.TempAfterLayer <= 0)) {
                     ShowWarningError(
+<<<<<<< HEAD
                         state,
                         EnergyPlus::format("Construction {} must have a temperature calculation that is between two layers", thisConstruct.Name));
+=======
+                        state, std::format("Construction {} must have a temperature calculation that is between two layers", thisConstruct.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The temperature calculation after layer parameter has been set to one less than the number of layers.");
                     thisConstruct.TempAfterLayer = thisConstruct.TotLayers - 1;
                 }
@@ -1659,8 +1873,13 @@ namespace HeatBalanceManager {
             state.dataConstruction->Construct(TotRegConstructs + ConstrNum).TotLayers = ConstructNumAlpha - 1;
             if (state.dataConstruction->Construct(TotRegConstructs + ConstrNum).TotLayers < 1) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("Construction {} must have at least a single layer",
                                                    state.dataConstruction->Construct(TotRegConstructs + ConstrNum).Name));
+=======
+                                std::format("Construction {} must have at least a single layer",
+                                            state.dataConstruction->Construct(TotRegConstructs + ConstrNum).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1674,10 +1893,17 @@ namespace HeatBalanceManager {
 
                 if (state.dataConstruction->Construct(TotRegConstructs + ConstrNum).LayerPoint(Layer) == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("Did not find matching material for {} {}, missing material = {}",
                                                        state.dataHeatBalMgr->CurrentModuleObject,
                                                        thisConstruct.Name,
                                                        ConstructAlphas(Layer)));
+=======
+                                    std::format("Did not find matching material for {} {}, missing material = {}",
+                                                state.dataHeatBalMgr->CurrentModuleObject,
+                                                thisConstruct.Name,
+                                                ConstructAlphas(Layer)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     auto const *mat = s_mat->materials(state.dataConstruction->Construct(TotRegConstructs + ConstrNum).LayerPoint(Layer));
@@ -1685,6 +1911,7 @@ namespace HeatBalanceManager {
                           (mat->group == Material::Group::DrapeEQL) || (mat->group == Material::Group::BlindEQL) ||
                           (mat->group == Material::Group::ScreenEQL) || (mat->group == Material::Group::WindowGapEQL))) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("Invalid material layer type in window {} = {}",
                                                            state.dataHeatBalMgr->CurrentModuleObject,
                                                            state.dataConstruction->Construct(TotRegConstructs + ConstrNum).Name));
@@ -1692,6 +1919,14 @@ namespace HeatBalanceManager {
                             state,
                             EnergyPlus::format("...Window layer = {} is not allowed in Construction:WindowEquivalentLayer window object.",
                                                ConstructAlphas(Layer)));
+=======
+                                        std::format("Invalid material layer type in window {} = {}",
+                                                    state.dataHeatBalMgr->CurrentModuleObject,
+                                                    state.dataConstruction->Construct(TotRegConstructs + ConstrNum).Name));
+                        ShowContinueError(state,
+                                          std::format("...Window layer = {} is not allowed in Construction:WindowEquivalentLayer window object.",
+                                                      ConstructAlphas(Layer)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Only materials of type Material:*:EquivalentLayer are allowed");
                         ErrorsFound = true;
                     }
@@ -1737,8 +1972,13 @@ namespace HeatBalanceManager {
 
             // Obtain the data
             if (DummyNumProp != 0) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state, EnergyPlus::format("Construction From Window5 Data File: there should be no numerical inputs for {}", ConstructAlphas(0)));
+=======
+                ShowSevereError(state,
+                                std::format("Construction From Window5 Data File: there should be no numerical inputs for {}", ConstructAlphas(0)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
@@ -1765,9 +2005,14 @@ namespace HeatBalanceManager {
             if (EOFonW5File || !ConstructionFound) {
                 DisplayString(state, "--Construction not found");
                 ErrorsFound = true;
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("No match on WINDOW5 data file for Construction={}, or error in data file.", ConstructAlphas(0)));
                 ShowContinueError(state, EnergyPlus::format("...Looking on file={}", window5DataFilePath)); // TODO: call getAbsolutePath maybe?
+=======
+                ShowSevereError(state, std::format("No match on WINDOW5 data file for Construction={}, or error in data file.", ConstructAlphas(0)));
+                ShowContinueError(state, std::format("...Looking on file={}", window5DataFilePath)); // TODO: call getAbsolutePath maybe?
+>>>>>>> nrel/develop
                 continue;
             }
 
@@ -1787,7 +2032,11 @@ namespace HeatBalanceManager {
                 state.dataHeatBal->NominalU(ConstrIndex) = 1.0 / state.dataHeatBal->NominalRforNominalUCalculation(ConstrIndex);
             } else {
                 if (!thisConstruct.WindowTypeEQL) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Nominal U is zero, for construction={}", thisConstruct.Name));
+=======
+                    ShowSevereError(state, std::format("Nominal U is zero, for construction={}", thisConstruct.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -1812,10 +2061,22 @@ namespace HeatBalanceManager {
         // METHODOLOGY EMPLOYED:
         // The GetObjectItem routines are employed to retrieve the data.
 
+<<<<<<< HEAD
         SolarShading::GetShadowingInput(state);
 
         GetZoneData(state, ErrorsFound); // Read Zone data from input file
 
+=======
+        GetZoneData(state, ErrorsFound); // Read Zone data from input file
+
+        // ShadowCalculation settings affect geometry-time validation, such as the
+        // convexity warning path for PolygonClipping + ConvexWeilerAtherton, so
+        // this happens before SetupZoneGeometry.
+        SolarShading::GetShadowingInput(state);
+
+        // SetupZoneGeometry includes the call to GetSurfaceData for
+        // populating surfData = state.dataSurface.
+>>>>>>> nrel/develop
         SurfaceGeometry::SetupZoneGeometry(state, ErrorsFound);
     }
 
@@ -1936,7 +2197,11 @@ namespace HeatBalanceManager {
                 if (Util::FindItemInList(state.dataHeatBal->ZoneList(ListNum).Name, state.dataHeatBal->Zone) > 0) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}{}=\"{}\":  is a duplicate of a zone name.", RoutineName, cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
                     ShowContinueError(state, "This could be a problem in places where either a Zone Name or a Zone List can be used.");
                 }
@@ -1945,9 +2210,15 @@ namespace HeatBalanceManager {
                 state.dataHeatBal->ZoneList(ListNum).NumOfZones = NumAlphas - 1;
 
                 if (state.dataHeatBal->ZoneList(ListNum).NumOfZones < 1) {
+<<<<<<< HEAD
                     ShowSevereError(state,
                                     EnergyPlus::format(
                                         "{}{}=\"{}\":  No zones specified.", RoutineName, cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                    ShowSevereError(
+                        state,
+                        std::format("{}{}=\"{}\":  No zones specified.", RoutineName, cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     state.dataHeatBal->ZoneList(ListNum).Zone.allocate(state.dataHeatBal->ZoneList(ListNum).NumOfZones);
@@ -1960,12 +2231,21 @@ namespace HeatBalanceManager {
                         state.dataHeatBal->ZoneList(ListNum).Zone(ZoneNum) = Util::FindItemInList(ZoneName, state.dataHeatBal->Zone);
                         if (state.dataHeatBal->ZoneList(ListNum).Zone(ZoneNum) == 0) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}{}=\"{}\":  {} {} not found.",
                                                                RoutineName,
                                                                cCurrentModuleObject,
                                                                state.dataIPShortCut->cAlphaArgs(1),
                                                                state.dataIPShortCut->cAlphaFieldNames(ZoneNum + 1),
                                                                ZoneName));
+=======
+                                            std::format("{}{}=\"{}\":  {} {} not found.",
+                                                        RoutineName,
+                                                        cCurrentModuleObject,
+                                                        state.dataIPShortCut->cAlphaArgs(1),
+                                                        state.dataIPShortCut->cAlphaFieldNames(ZoneNum + 1),
+                                                        ZoneName));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
 
@@ -1973,12 +2253,21 @@ namespace HeatBalanceManager {
                         for (int Loop = 1; Loop <= ZoneNum - 1; ++Loop) {
                             if (state.dataHeatBal->ZoneList(ListNum).Zone(ZoneNum) == state.dataHeatBal->ZoneList(ListNum).Zone(Loop)) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("{}{}=\"{}\":  {} {} appears more than once in list.",
                                                                    RoutineName,
                                                                    cCurrentModuleObject,
                                                                    state.dataIPShortCut->cAlphaArgs(1),
                                                                    state.dataIPShortCut->cAlphaFieldNames(ZoneNum + 1),
                                                                    ZoneName));
+=======
+                                                std::format("{}{}=\"{}\":  {} {} appears more than once in list.",
+                                                            RoutineName,
+                                                            cCurrentModuleObject,
+                                                            state.dataIPShortCut->cAlphaArgs(1),
+                                                            state.dataIPShortCut->cAlphaFieldNames(ZoneNum + 1),
+                                                            ZoneName));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         } // Loop
@@ -2020,18 +2309,28 @@ namespace HeatBalanceManager {
 
                 if (ListNum == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\":  {} named {} not found.",
                                                        RoutineName,
                                                        cCurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        state.dataIPShortCut->cAlphaFieldNames(2),
                                                        state.dataIPShortCut->cAlphaArgs(2)));
+=======
+                                    std::format("{}{}=\"{}\":  {} named {} not found.",
+                                                RoutineName,
+                                                cCurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                state.dataIPShortCut->cAlphaFieldNames(2),
+                                                state.dataIPShortCut->cAlphaArgs(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     // Check to make sure list is not in use by another ZONE GROUP
                     for (int Loop = 1; Loop <= GroupNum - 1; ++Loop) {
                         if (state.dataHeatBal->ZoneGroup(GroupNum).ZoneList == state.dataHeatBal->ZoneGroup(Loop).ZoneList) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}{}=\"{}\":  {} already used by {} named {}.",
                                                                RoutineName,
                                                                cCurrentModuleObject,
@@ -2039,6 +2338,15 @@ namespace HeatBalanceManager {
                                                                state.dataIPShortCut->cAlphaFieldNames(2),
                                                                cCurrentModuleObject,
                                                                state.dataHeatBal->ZoneGroup(Loop).Name));
+=======
+                                            std::format("{}{}=\"{}\":  {} already used by {} named {}.",
+                                                        RoutineName,
+                                                        cCurrentModuleObject,
+                                                        state.dataIPShortCut->cAlphaArgs(1),
+                                                        state.dataIPShortCut->cAlphaFieldNames(2),
+                                                        cCurrentModuleObject,
+                                                        state.dataHeatBal->ZoneGroup(Loop).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     } // Loop
@@ -2053,6 +2361,7 @@ namespace HeatBalanceManager {
                                 state.dataHeatBal->Zone(ZoneNum).ListMultiplier = state.dataHeatBal->ZoneGroup(GroupNum).Multiplier;
                                 state.dataHeatBal->Zone(ZoneNum).ListGroup = ListNum;
                             } else {
+<<<<<<< HEAD
                                 ShowSevereError(
                                     state,
                                     EnergyPlus::format("{}{}=\"{}\":  Zone {} in ZoneList already exists in ZoneList of another ZoneGroup.",
@@ -2063,6 +2372,17 @@ namespace HeatBalanceManager {
                                 ShowContinueError(state,
                                                   EnergyPlus::format("Previous ZoneList={}",
                                                                      state.dataHeatBal->ZoneList(state.dataHeatBal->Zone(ZoneNum).ListGroup).Name));
+=======
+                                ShowSevereError(state,
+                                                std::format("{}{}=\"{}\":  Zone {} in ZoneList already exists in ZoneList of another ZoneGroup.",
+                                                            RoutineName,
+                                                            cCurrentModuleObject,
+                                                            state.dataIPShortCut->cAlphaArgs(1),
+                                                            state.dataHeatBal->Zone(ZoneNum).Name));
+                                ShowContinueError(state,
+                                                  std::format("Previous ZoneList={}",
+                                                              state.dataHeatBal->ZoneList(state.dataHeatBal->Zone(ZoneNum).ListGroup).Name));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -2124,6 +2444,7 @@ namespace HeatBalanceManager {
             int SurfNum = Util::FindItemInList(state.dataIPShortCut->cAlphaArgs(1), state.dataSurface->Surface);
             if (SurfNum == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}, object. Illegal value for {} has been found.",
                                                    RoutineName,
                                                    cCurrentModuleObject,
@@ -2135,6 +2456,18 @@ namespace HeatBalanceManager {
                         "{} entered value = \"{}\" no corresponding surface (ref BuildingSurface:Detailed) has been found in the input file.",
                         state.dataIPShortCut->cAlphaFieldNames(1),
                         state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                std::format("{}{}=\"{}, object. Illegal value for {} has been found.",
+                                            RoutineName,
+                                            cCurrentModuleObject,
+                                            state.dataIPShortCut->cAlphaArgs(1),
+                                            state.dataIPShortCut->cAlphaFieldNames(1)));
+                ShowContinueError(
+                    state,
+                    std::format("{} entered value = \"{}\" no corresponding surface (ref BuildingSurface:Detailed) has been found in the input file.",
+                                state.dataIPShortCut->cAlphaFieldNames(1),
+                                state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
@@ -2229,6 +2562,7 @@ namespace HeatBalanceManager {
                 int ZoneNum = Util::FindItemInList(state.dataIPShortCut->cAlphaArgs(2), state.dataHeatBal->Zone);
                 if (ZoneNum == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}, object. Illegal value for {} has been found.",
                                                        RoutineName,
                                                        cCurrentModuleObject,
@@ -2238,6 +2572,17 @@ namespace HeatBalanceManager {
                                       EnergyPlus::format("{} entered value = \"{}\" no corresponding zone has been found in the input file.",
                                                          state.dataIPShortCut->cAlphaFieldNames(2),
                                                          state.dataIPShortCut->cAlphaArgs(2)));
+=======
+                                    std::format("{}{}=\"{}, object. Illegal value for {} has been found.",
+                                                RoutineName,
+                                                cCurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                state.dataIPShortCut->cAlphaFieldNames(2)));
+                    ShowContinueError(state,
+                                      std::format("{} entered value = \"{}\" no corresponding zone has been found in the input file.",
+                                                  state.dataIPShortCut->cAlphaFieldNames(2),
+                                                  state.dataIPShortCut->cAlphaArgs(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     state.dataHeatBal->ZoneLocalEnvironment(Loop).ZonePtr = ZoneNum;
@@ -2255,6 +2600,7 @@ namespace HeatBalanceManager {
                                                 ObjectIsParent);
                 if (NodeNum == 0 && CheckOutAirNodeNumber(state, NodeNum)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}, object. Illegal value for {} has been found.",
                                                        RoutineName,
                                                        cCurrentModuleObject,
@@ -2264,6 +2610,17 @@ namespace HeatBalanceManager {
                                       EnergyPlus::format("{} entered value = \"{}\" no corresponding schedule has been found in the input file.",
                                                          state.dataIPShortCut->cAlphaFieldNames(3),
                                                          state.dataIPShortCut->cAlphaArgs(3)));
+=======
+                                    std::format("{}{}=\"{}, object. Illegal value for {} has been found.",
+                                                RoutineName,
+                                                cCurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                state.dataIPShortCut->cAlphaFieldNames(3)));
+                    ShowContinueError(state,
+                                      std::format("{} entered value = \"{}\" no corresponding schedule has been found in the input file.",
+                                                  state.dataIPShortCut->cAlphaFieldNames(3),
+                                                  state.dataIPShortCut->cAlphaArgs(3)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     state.dataHeatBal->ZoneLocalEnvironment(Loop).OutdoorAirNodePtr = NodeNum;
@@ -2282,6 +2639,234 @@ namespace HeatBalanceManager {
         }
     }
 
+<<<<<<< HEAD
+=======
+    void getZoneMRTCalculationData(EnergyPlusData &state)
+    {
+        // SUBROUTINE INFORMATION:
+        //       AUTHOR         Rick Strand, UIUC
+        //       DATE WRITTEN   July 2026
+
+        // PURPOSE OF THIS SUBROUTINE:
+        // Get the input for the object/method being used to calculate the ZoneMRT
+
+        static constexpr std::string_view routineName = "getZoneMRTCalculationData";
+        std::string const cCurrentModuleObject = "ZoneMRTCalculation";
+        auto &s_ip = state.dataInputProcessing->inputProcessor;
+        bool errorsFound = false;
+        auto const peopleInputInstances = s_ip->epJSON.find("People");
+        auto isPeopleInputObjectName = [&peopleInputInstances, &s_ip](std::string const &peopleName) {
+            if (peopleInputInstances == s_ip->epJSON.end()) {
+                return false;
+            }
+            for (auto peopleInputInstance = peopleInputInstances.value().begin(); peopleInputInstance != peopleInputInstances.value().end();
+                 ++peopleInputInstance) {
+                if (Util::SameString(peopleInputInstance.key(), peopleName)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        auto const instances = s_ip->epJSON.find(cCurrentModuleObject);
+        if (instances != s_ip->epJSON.end()) {
+            auto &instancesValue = instances.value();
+            for (auto instance = instancesValue.begin(); instance != instancesValue.end(); ++instance) {
+                auto const &fields = instance.value();
+                auto const &thisZoneName = fields.find("zone_name");
+                std::string zone_name = thisZoneName.value().get<std::string>();
+                DataHeatBalance::ZoneMRTData thisZnMRTObj;
+                thisZnMRTObj.name = Util::makeUPPER(zone_name);
+                s_ip->markObjectAsUsed(cCurrentModuleObject, instance.key());
+                auto peoplePairs = fields.find("people_names");
+                if (peoplePairs == fields.end() || peoplePairs.value().empty()) {
+                    ShowSevereError(state,
+                                    std::format("{}, {}=\"{}\" must include at least one People name and MRT weighting factor pair.",
+                                                routineName,
+                                                cCurrentModuleObject,
+                                                thisZnMRTObj.name));
+                    errorsFound = true;
+                } else {
+                    auto &peoplePairsArray = peoplePairs.value();
+                    thisZnMRTObj.numPeople = peoplePairsArray.size();
+                    for (auto &peoplePair : peoplePairsArray) {
+                        DataHeatBalance::ZoneMRTPeopleData thisPplData;
+                        auto peopleName = peoplePair.find("people_name");
+                        if (peopleName != peoplePair.end()) {
+                            std::string people_name = peopleName.value().get<std::string>();
+                            if (!people_name.empty()) {
+                                thisPplData.name = Util::makeUPPER(people_name);
+                            }
+                        }
+                        auto peopleMRTWeightFactor = peoplePair.find("mrt_weighting_factor");
+                        if (peopleMRTWeightFactor != peoplePair.end()) {
+                            thisPplData.fracMRT = peopleMRTWeightFactor.value().get<Real64>();
+                        }
+                        thisZnMRTObj.zoneMRTPeople.push_back(thisPplData);
+                    }
+                }
+                state.dataHeatBal->zoneMRTCalc.push_back(thisZnMRTObj);
+            } // for (instance)
+        }
+
+        state.dataHeatBal->totZoneMRT = state.dataHeatBal->zoneMRTCalc.size();
+
+        for (int mrtNum = 1; mrtNum <= state.dataHeatBal->totZoneMRT; mrtNum++) { // set up and check zone and people indices
+            auto &thisZoneMRT = state.dataHeatBal->zoneMRTCalc(mrtNum);
+            bool thisZoneMRTErrorsFound = false;
+            thisZoneMRT.zoneIndex = Util::FindItemInList(thisZoneMRT.name, state.dataHeatBal->Zone);
+            if (thisZoneMRT.zoneIndex <= 0) { // zone was not found so produce an error message alerting the user of the problem
+                ShowSevereError(
+                    state,
+                    std::format(
+                        "{}, {}=\"{}\" does not reference a Zone defined in this input file.", routineName, cCurrentModuleObject, thisZoneMRT.name));
+                ShowContinueError(state, "The Zone Name field accepts a Zone name only; Space and SpaceList names are not supported.");
+                errorsFound = true;
+            } else { // zone was found, set the flag to make sure the user specified MRT for this zone is calculated
+                state.dataHeatBal->Zone(thisZoneMRT.zoneIndex).useZoneMRTCalc = true;
+            }
+            for (int mrtNum2 = 1; mrtNum2 < mrtNum; ++mrtNum2) {
+                auto &thisZoneMRT2 = state.dataHeatBal->zoneMRTCalc(mrtNum2);
+                if (thisZoneMRT.zoneIndex > 0 &&
+                    thisZoneMRT.zoneIndex ==
+                        thisZoneMRT2.zoneIndex) { // zone was already referenced by another ZoneMRTCalculation object--not allowed
+                    ShowSevereError(
+                        state,
+                        std::format(
+                            "{}, Zone=\"{}\" is referenced by more than one {} object.", routineName, thisZoneMRT.name, cCurrentModuleObject));
+                    ShowContinueError(state, "Only one ZoneMRTCalculation object is allowed for each Zone.");
+                    errorsFound = true;
+                    thisZoneMRTErrorsFound = true;
+                }
+            }
+            if (thisZoneMRT.zoneIndex <= 0 || thisZoneMRT.numPeople <= 0) {
+                continue;
+            }
+            for (int pNum = 1; pNum <= thisZoneMRT.numPeople; pNum++) {
+                auto &thisPeople = state.dataHeatBal->zoneMRTCalc(mrtNum).zoneMRTPeople(pNum);
+                thisPeople.peopleIndex = Util::FindItemInList(thisPeople.name, state.dataHeatBal->People);
+                if (thisPeople.peopleIndex <= 0) { // people name was not matched so produce an error message
+                    if (isPeopleInputObjectName(thisPeople.name)) {
+                        ShowSevereError(state,
+                                        std::format("{}, {}=\"{}\" references People=\"{}\", but that input object was expanded across "
+                                                    "multiple Spaces.",
+                                                    routineName,
+                                                    cCurrentModuleObject,
+                                                    thisZoneMRT.name,
+                                                    thisPeople.name));
+                        ShowContinueError(state, "The original People input name is not supported after expansion into separate People instances.");
+                        ShowContinueError(state,
+                                          std::format("For an explicitly defined Space, reference an expanded instance using \"<Space Name> "
+                                                      "{}\" or reference a People object assigned directly to that Space in Zone=\"{}\".",
+                                                      thisPeople.name,
+                                                      thisZoneMRT.name));
+                    } else {
+                        ShowSevereError(state,
+                                        std::format("{}, {}=\"{}\" references People=\"{}\", but no People object or expanded People "
+                                                    "instance has that name.",
+                                                    routineName,
+                                                    cCurrentModuleObject,
+                                                    thisZoneMRT.name,
+                                                    thisPeople.name));
+                        ShowContinueError(state, "Check the People Name and the ZoneMRTCalculation naming rules in the Input Output Reference.");
+                    }
+                    errorsFound = true;
+                    thisZoneMRTErrorsFound = true;
+                } else if (state.dataHeatBal->People(thisPeople.peopleIndex).ZonePtr != thisZoneMRT.zoneIndex) {
+                    auto const &peopleZone = state.dataHeatBal->Zone(state.dataHeatBal->People(thisPeople.peopleIndex).ZonePtr);
+                    ShowSevereError(state,
+                                    std::format("{}, {}=\"{}\" references People=\"{}\" in Zone=\"{}\".",
+                                                routineName,
+                                                cCurrentModuleObject,
+                                                thisZoneMRT.name,
+                                                thisPeople.name,
+                                                peopleZone.Name));
+                    ShowContinueError(state, "Every referenced People instance must belong to the Zone named by ZoneMRTCalculation.");
+                    errorsFound = true;
+                    thisZoneMRTErrorsFound = true;
+                } else if (state.dataHeatBal->People(thisPeople.peopleIndex).spaceIndex > 0 &&
+                           state.dataHeatBal->space(state.dataHeatBal->People(thisPeople.peopleIndex).spaceIndex).isRemainderSpace) {
+                    auto const &remainderSpace = state.dataHeatBal->space(state.dataHeatBal->People(thisPeople.peopleIndex).spaceIndex);
+                    ShowSevereError(state,
+                                    std::format("{}, {}=\"{}\" references People=\"{}\" in internally generated remainder Space=\"{}\".",
+                                                routineName,
+                                                cCurrentModuleObject,
+                                                thisZoneMRT.name,
+                                                thisPeople.name,
+                                                remainderSpace.Name));
+                    ShowContinueError(state, "ZoneMRTCalculation does not support People instances in an automatically generated remainder Space.");
+                    ShowContinueError(state,
+                                      std::format("Reference a People instance associated with Zone=\"{}\" or with an explicitly defined Space "
+                                                  "in that Zone.",
+                                                  thisZoneMRT.name));
+                    errorsFound = true;
+                    thisZoneMRTErrorsFound = true;
+                } else if (state.dataHeatBal->People(thisPeople.peopleIndex).MRTCalcType == DataHeatBalance::CalcMRT::Invalid) {
+                    ShowSevereError(state,
+                                    std::format("{}, {}=\"{}\" references People=\"{}\", which does not select a Thermal Comfort Model Type.",
+                                                routineName,
+                                                cCurrentModuleObject,
+                                                thisZoneMRT.name,
+                                                thisPeople.name));
+                    ShowContinueError(state,
+                                      "ZoneMRTCalculation currently requires each referenced People instance to select at least one thermal "
+                                      "comfort model so that its MRT method is calculated.");
+                    errorsFound = true;
+                    thisZoneMRTErrorsFound = true;
+                }
+            }
+            if (thisZoneMRTErrorsFound) {
+                continue;
+            }
+            // Now that error checking is done, calculate sums and fractions that will be used throughout the simulation
+            Real64 constexpr tolerance = 0.000001;
+            for (int pNum = 1; pNum <= thisZoneMRT.numPeople; pNum++) {
+                thisZoneMRT.sumFracZoneMRT += thisZoneMRT.zoneMRTPeople(pNum).fracMRT;
+            }
+            if ((thisZoneMRT.sumFracZoneMRT - 1.0) > tolerance) {
+                ShowSevereError(state,
+                                std::format("{}, {}=\"{}\" object has individual People MRT weighting factors that sum up to greater than 1.0.",
+                                            routineName,
+                                            cCurrentModuleObject,
+                                            thisZoneMRT.name));
+                ShowContinueError(state,
+                                  std::format("The weighting factors for this object will be reset to zero and the standard zone MRT will be used."));
+                // do not set errorsFound equal to true here as this is not will not cause any issues elsewhere
+                for (int pNum = 1; pNum <= thisZoneMRT.numPeople; pNum++) {
+                    thisZoneMRT.zoneMRTPeople(pNum).fracMRT = 0.0;
+                }
+                thisZoneMRT.sumFracZoneMRT = 0.0;
+            }
+            if ((1.0 - thisZoneMRT.sumFracZoneMRT) > tolerance) {
+                ShowWarningMessage(state,
+                                   std::format("{}, {}=\"{}\" object has individual People MRT weighting factors that sum up to less than 1.0.",
+                                               routineName,
+                                               cCurrentModuleObject,
+                                               thisZoneMRT.name));
+                ShowContinueError(state, std::format("The remaining fraction of the MRT calculation will use the standard zone MRT."));
+                // do not set errorsFound equal to true here because this is possible and potentially intentional on the part of the user
+            }
+            thisZoneMRT.fracZoneStdMRT = max(1.0 - thisZoneMRT.sumFracZoneMRT, 0.0);
+        }
+
+        if (errorsFound) {
+            ShowFatalError(state, std::format("{} Errors found getting inputs. Previous error(s) cause program termination.", routineName));
+        }
+
+        for (auto &thisZoneMRT : state.dataHeatBal->zoneMRTCalc) { // Set up the output variables
+            if (state.dataHeatBal->Zone(thisZoneMRT.zoneIndex).useZoneMRTCalc) {
+                SetupOutputVariable(state,
+                                    "Zone Standard Mean Radiant Temperature",
+                                    Constant::Units::C,
+                                    state.dataZoneTempPredictorCorrector->zoneHeatBalance(thisZoneMRT.zoneIndex).stdMRT,
+                                    OutputProcessor::TimeStepType::Zone,
+                                    OutputProcessor::StoreType::Average,
+                                    thisZoneMRT.name);
+            }
+        }
+    }
+
+>>>>>>> nrel/develop
     void ProcessZoneData(EnergyPlusData &state,
                          std::string const &cCurrentModuleObject,
                          int const ZoneLoop,
@@ -2346,8 +2931,13 @@ namespace HeatBalanceManager {
             if (hcIn != Convect::HcInt::ASHRAESimple && hcIn != Convect::HcInt::ASHRAETARP && hcIn != Convect::HcInt::CeilingDiffuser &&
                 hcIn != Convect::HcInt::TrombeWall && hcIn != Convect::HcInt::AdaptiveConvectionAlgorithm && hcIn != Convect::HcInt::ASTMC1340) {
 
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, cCurrentModuleObject, state.dataHeatBal->Zone(ZoneLoop).Name));
                 ShowContinueError(state, EnergyPlus::format("Invalid value for {}=\"{}\".", cAlphaFieldNames(2), cAlphaArgs(2)));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, cCurrentModuleObject, state.dataHeatBal->Zone(ZoneLoop).Name));
+                ShowContinueError(state, std::format("Invalid value for {}=\"{}\".", cAlphaFieldNames(2), cAlphaArgs(2)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             state.dataHeatBal->Zone(ZoneLoop).IntConvAlgo = hcIn;
@@ -2363,8 +2953,13 @@ namespace HeatBalanceManager {
             if (hcOut != Convect::HcExt::ASHRAESimple && hcOut != Convect::HcExt::ASHRAETARP && hcOut != Convect::HcExt::MoWiTTHcOutside &&
                 hcOut != Convect::HcExt::DOE2HcOutside && hcOut != Convect::HcExt::AdaptiveConvectionAlgorithm) {
 
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, cCurrentModuleObject, state.dataHeatBal->Zone(ZoneLoop).Name));
                 ShowContinueError(state, EnergyPlus::format("Invalid value for {}=\"{}\".", cAlphaFieldNames(3), cAlphaArgs(3)));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, cCurrentModuleObject, state.dataHeatBal->Zone(ZoneLoop).Name));
+                ShowContinueError(state, std::format("Invalid value for {}=\"{}\".", cAlphaFieldNames(3), cAlphaArgs(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             state.dataHeatBal->Zone(ZoneLoop).ExtConvAlgo = hcOut;
@@ -2382,8 +2977,13 @@ namespace HeatBalanceManager {
             } else if (Util::SameString("Yes", cAlphaArgs(4)) || lAlphaFieldBlanks(4)) {
                 state.dataHeatBal->Zone(ZoneLoop).isPartOfTotalArea = true;
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, cCurrentModuleObject, state.dataHeatBal->Zone(ZoneLoop).Name));
                 ShowContinueError(state, EnergyPlus::format("Invalid value for {}=\"{}\".", cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, cCurrentModuleObject, state.dataHeatBal->Zone(ZoneLoop).Name));
+                ShowContinueError(state, std::format("Invalid value for {}=\"{}\".", cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -2451,8 +3051,13 @@ namespace HeatBalanceManager {
                     state.dataHeatBal->Zone(zoneNum).spaceIndexes.emplace_back(spaceNum);
                     ++state.dataHeatBal->Zone(zoneNum).numSpaces;
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}={}", RoutineName, cCurrentModuleObject, thisSpace.Name));
                     ShowContinueError(state, EnergyPlus::format("Zone Name ={}not found.", zoneName));
+=======
+                    ShowSevereError(state, std::format("{}{}={}", RoutineName, cCurrentModuleObject, thisSpace.Name));
+                    ShowContinueError(state, std::format("Zone Name ={}not found.", zoneName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 thisSpace.spaceType = ip->getAlphaFieldValue(objectFields, objectSchemaProps, "space_type");
@@ -2470,6 +3075,28 @@ namespace HeatBalanceManager {
                     thisSpace.spaceTypeNum = state.dataGlobal->numSpaceTypes;
                 }
 
+<<<<<<< HEAD
+=======
+                std::string dcsName = ip->getAlphaFieldValue(objectFields, objectSchemaProps, "construction_assignment_set_name");
+                if (!dcsName.empty()) {
+                    auto &dcSets = state.dataConstructionAssignments->constructionAssignmentSets;
+                    auto it = std::find_if(dcSets.begin(), dcSets.end(), [&dcsName](const ConstructionAssignments::ConstructionAssignmentSetData &d) {
+                        return d.Name == dcsName;
+                    });
+                    if (it == dcSets.end()) {
+                        ShowSevereError(state,
+                                        std::format(R"({}{}="{}", invalid construction_assignment_set_name="{}" not found.)",
+                                                    RoutineName,
+                                                    cCurrentModuleObject,
+                                                    thisSpace.Name,
+                                                    dcsName));
+                        ErrorsFound = true;
+                    } else {
+                        thisSpace.constructionAssignmentSetIndex = static_cast<int>(std::distance(dcSets.begin(), it));
+                    }
+                }
+
+>>>>>>> nrel/develop
                 auto extensibles = objectFields.find("tags");
                 auto const &extensionSchemaProps = objectSchemaProps["tags"]["items"]["properties"];
                 if (extensibles != objectFields.end()) {
@@ -2503,14 +3130,22 @@ namespace HeatBalanceManager {
 
                 if (Util::FindItemInList(thisSpaceList.Name, state.dataHeatBal->Zone) > 0) {
                     ShowSevereError(
+<<<<<<< HEAD
                         state,
                         EnergyPlus::format("{}{}=\"{}\":  is a duplicate of a zone name.", RoutineName, cCurrentModuleObject, thisSpaceList.Name));
+=======
+                        state, std::format("{}{}=\"{}\":  is a duplicate of a zone name.", RoutineName, cCurrentModuleObject, thisSpaceList.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (Util::FindItemInList(thisSpaceList.Name, state.dataHeatBal->space) > 0) {
                     ShowSevereError(
+<<<<<<< HEAD
                         state,
                         EnergyPlus::format("{}{}=\"{}\":  is a duplicate of a space name.", RoutineName, cCurrentModuleObject, thisSpaceList.Name));
+=======
+                        state, std::format("{}{}=\"{}\":  is a duplicate of a space name.", RoutineName, cCurrentModuleObject, thisSpaceList.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -2527,8 +3162,13 @@ namespace HeatBalanceManager {
                             thisSpaceList.spaces.emplace_back(thisSpaceNum);
                             ++thisSpaceList.numListSpaces;
                         } else {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}{}={}", RoutineName, cCurrentModuleObject, thisSpaceList.Name));
                             ShowContinueError(state, EnergyPlus::format("Space Name={} not found.", thisSpaceName));
+=======
+                            ShowSevereError(state, std::format("{}{}={}", RoutineName, cCurrentModuleObject, thisSpaceList.Name));
+                            ShowContinueError(state, std::format("Space Name={} not found.", thisSpaceName));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                         thisSpaceList.maxSpaceNameLength = max(thisSpaceList.maxSpaceNameLength, len(thisSpaceName));
@@ -2536,11 +3176,19 @@ namespace HeatBalanceManager {
                         for (int loop = 1; loop <= int(thisSpaceList.spaces.size()) - 1; ++loop) {
                             if (thisSpaceNum == thisSpaceList.spaces(loop)) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("{}{}=\"{}\":  Space Name {} appears more than once in list.",
                                                                    RoutineName,
                                                                    cCurrentModuleObject,
                                                                    thisSpaceList.Name,
                                                                    thisSpaceName));
+=======
+                                                std::format("{}{}=\"{}\":  Space Name {} appears more than once in list.",
+                                                            RoutineName,
+                                                            cCurrentModuleObject,
+                                                            thisSpaceList.Name,
+                                                            thisSpaceName));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -2614,6 +3262,14 @@ namespace HeatBalanceManager {
         using OutAirNodeManager::SetOutAirNodes;
         using WindowEquivalentLayer::InitEquivalentLayerWindowCalculations;
 
+<<<<<<< HEAD
+=======
+        if (state.dataGlobal->AnyEnergyManagementSystemInModel) {
+            HeatBalanceSurfaceManager::InitEMSControlledConstructions(state);
+            HeatBalanceSurfaceManager::InitEMSControlledSurfaceProperties(state);
+        }
+
+>>>>>>> nrel/develop
         if (state.dataGlobal->BeginSimFlag) {
             AllocateHeatBalArrays(state); // Allocate the Module Arrays
             if (state.dataHeatBal->AnyCTF || state.dataHeatBal->AnyEMPD) {
@@ -2658,11 +3314,14 @@ namespace HeatBalanceManager {
             }
         }
 
+<<<<<<< HEAD
         if (state.dataGlobal->AnyEnergyManagementSystemInModel) {
             HeatBalanceSurfaceManager::InitEMSControlledConstructions(state);
             HeatBalanceSurfaceManager::InitEMSControlledSurfaceProperties(state);
         }
 
+=======
+>>>>>>> nrel/develop
         // Init storm window pointers
         if (state.dataSurface->TotStormWin > 0) {
             if (state.dataGlobal->BeginDayFlag) {
@@ -3031,7 +3690,11 @@ namespace HeatBalanceManager {
                         print(state.files.eio, Format_732);
                         state.dataHeatBalMgr->FirstWarmupWrite = false;
                     }
+<<<<<<< HEAD
                     constexpr const char *Format_731{" Warmup Convergence Information - Detailed, {},{},{},{:.10R},{:.10R}\n"};
+=======
+                    constexpr const char *Format_731{" Warmup Convergence Information - Detailed, {},{},{},{:.10G},{:.10G}\n"};
+>>>>>>> nrel/develop
                     print(state.files.eio,
                           Format_731,
                           state.dataHeatBal->Zone(ZoneNum).Name,
@@ -3137,9 +3800,15 @@ namespace HeatBalanceManager {
                     if (sum(state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).PassFlag) != 8) { // pass=2 * 4 values for convergence
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("CheckWarmupConvergence: Loads Initialization, Zone=\"{}\" did not converge after {} warmup days.",
                                                state.dataHeatBal->Zone(ZoneNum).Name,
                                                state.dataHeatBal->MaxNumberOfWarmupDays));
+=======
+                            std::format("CheckWarmupConvergence: Loads Initialization, Zone=\"{}\" did not converge after {} warmup days.",
+                                        state.dataHeatBal->Zone(ZoneNum).Name,
+                                        state.dataHeatBal->MaxNumberOfWarmupDays));
+>>>>>>> nrel/develop
                         if (!state.dataHeatBalMgr->WarmupConvergenceWarning && !state.dataGlobal->DoingSizing) {
                             ShowContinueError(state, "See Warmup Convergence Information in .eio file for details.");
                             state.dataHeatBalMgr->WarmupConvergenceWarning = true;
@@ -3148,6 +3817,7 @@ namespace HeatBalanceManager {
                             state.dataHeatBalMgr->SizingWarmupConvergenceWarning = true;
                         }
                         if (state.dataEnvrn->RunPeriodEnvironment) {
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("...Environment(RunPeriod)=\"{}\"", state.dataEnvrn->EnvironmentName));
                         } else {
                             ShowContinueError(state, EnergyPlus::format("...Environment(SizingPeriod)=\"{}\"", state.dataEnvrn->EnvironmentName));
@@ -3177,6 +3847,33 @@ namespace HeatBalanceManager {
                                                state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).TestMaxCoolLoadValue,
                                                state.dataHeatBal->LoadsConvergTol,
                                                PassFail(state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).PassFlag(4))));
+=======
+                            ShowContinueError(state, std::format("...Environment(RunPeriod)=\"{}\"", state.dataEnvrn->EnvironmentName));
+                        } else {
+                            ShowContinueError(state, std::format("...Environment(SizingPeriod)=\"{}\"", state.dataEnvrn->EnvironmentName));
+                        }
+
+                        ShowContinueError(state,
+                                          std::format("..Max Temp Comparison = {:#G} vs Temperature Convergence Tolerance={:#G} - {} Convergence",
+                                                      state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).TestMaxTempValue,
+                                                      state.dataHeatBal->TempConvergTol,
+                                                      PassFail(state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).PassFlag(1))));
+                        ShowContinueError(state,
+                                          std::format("..Min Temp Comparison = {:#G} vs Temperature Convergence Tolerance={:#G} - {} Convergence",
+                                                      state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).TestMinTempValue,
+                                                      state.dataHeatBal->TempConvergTol,
+                                                      PassFail(state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).PassFlag(2))));
+                        ShowContinueError(state,
+                                          std::format("..Max Heat Load Comparison = {:#G} vs Loads Convergence Tolerance={:#G} - {} Convergence",
+                                                      state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).TestMaxHeatLoadValue,
+                                                      state.dataHeatBal->LoadsConvergTol,
+                                                      PassFail(state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).PassFlag(3))));
+                        ShowContinueError(state,
+                                          std::format("..Max Cool Load Comparison = {:#G} vs Loads Convergence Tolerance={:#G} - {} Convergence",
+                                                      state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).TestMaxCoolLoadValue,
+                                                      state.dataHeatBal->LoadsConvergTol,
+                                                      PassFail(state.dataHeatBalMgr->WarmupConvergenceValues(ZoneNum).PassFlag(4))));
+>>>>>>> nrel/develop
                     }
                 }
 
@@ -3201,11 +3898,19 @@ namespace HeatBalanceManager {
             if ((state.dataGlobal->DayOfSim >= state.dataHeatBal->MaxNumberOfWarmupDays) && state.dataGlobal->WarmupFlag && ConvergenceChecksFailed) {
                 if (state.dataHeatBal->MaxNumberOfWarmupDays < DataHeatBalance::DefaultMaxNumberOfWarmupDays) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("CheckWarmupConvergence: User supplied maximum warmup days={} is insufficient.",
                                                        state.dataHeatBal->MaxNumberOfWarmupDays));
                     ShowContinueError(state,
                                       EnergyPlus::format("Suggest setting maximum number of warmup days to at least {}.",
                                                          DataHeatBalance::DefaultMaxNumberOfWarmupDays));
+=======
+                                    std::format("CheckWarmupConvergence: User supplied maximum warmup days={} is insufficient.",
+                                                state.dataHeatBal->MaxNumberOfWarmupDays));
+                    ShowContinueError(
+                        state,
+                        std::format("Suggest setting maximum number of warmup days to at least {}.", DataHeatBalance::DefaultMaxNumberOfWarmupDays));
+>>>>>>> nrel/develop
                 }
             }
 
@@ -3283,7 +3988,11 @@ namespace HeatBalanceManager {
                 StdDevZoneLoad = std::sqrt(sum(state.dataHeatBalMgr->LoadZoneRptStdDev({1, state.dataHeatBalMgr->CountWarmupDayPoints})) /
                                            double(state.dataHeatBalMgr->CountWarmupDayPoints));
 
+<<<<<<< HEAD
                 constexpr const char *Format_731(" Warmup Convergence Information,{},{},{:.10R},{:.10R},{},{},{:.10R},{:.10R},{},{}\n");
+=======
+                constexpr const char *Format_731(" Warmup Convergence Information,{},{},{:.10G},{:.10G},{},{},{:.10G},{:.10G},{},{}\n");
+>>>>>>> nrel/develop
                 print(state.files.eio,
                       Format_731,
                       state.dataHeatBal->Zone(ZoneNum).Name,
@@ -3362,12 +4071,17 @@ namespace HeatBalanceManager {
                 state.dataEnvrn->PrintEnvrnStampWarmupPrinted = false;
             }
             if (state.dataEnvrn->PrintEnvrnStampWarmup) {
+<<<<<<< HEAD
                 if (state.dataReportFlag->PrintEndDataDictionary && state.dataGlobal->DoOutputReporting) {
+=======
+                if (state.dataReportFlag->PrintEndDataDictionary) {
+>>>>>>> nrel/develop
                     constexpr const char *EndOfHeaderString("End of Data Dictionary"); // End of data dictionary marker
                     print(state.files.eso, "{}\n", EndOfHeaderString);
                     print(state.files.mtr, "{}\n", EndOfHeaderString);
                     state.dataReportFlag->PrintEndDataDictionary = false;
                 }
+<<<<<<< HEAD
                 if (state.dataGlobal->DoOutputReporting) {
                     constexpr const char *EnvironmentStampFormatStr("{},{},{:7.2F},{:7.2F},{:7.2F},{:7.2F}\n"); // Format descriptor for environ stamp
                     print(state.files.eso,
@@ -3389,6 +4103,27 @@ namespace HeatBalanceManager {
                           state.dataEnvrn->Elevation);
                     state.dataEnvrn->PrintEnvrnStampWarmup = false;
                 }
+=======
+                constexpr const char *EnvironmentStampFormatStr("{},{},{:7.2F},{:7.2F},{:7.2F},{:7.2F}\n"); // Format descriptor for environ stamp
+                print(state.files.eso,
+                      EnvironmentStampFormatStr,
+                      "1",
+                      "Warmup {" + state.dataReportFlag->cWarmupDay + "} " + state.dataEnvrn->EnvironmentName,
+                      state.dataEnvrn->Latitude,
+                      state.dataEnvrn->Longitude,
+                      state.dataEnvrn->TimeZoneNumber,
+                      state.dataEnvrn->Elevation);
+
+                print(state.files.mtr,
+                      EnvironmentStampFormatStr,
+                      "1",
+                      "Warmup {" + state.dataReportFlag->cWarmupDay + "} " + state.dataEnvrn->EnvironmentName,
+                      state.dataEnvrn->Latitude,
+                      state.dataEnvrn->Longitude,
+                      state.dataEnvrn->TimeZoneNumber,
+                      state.dataEnvrn->Elevation);
+                state.dataEnvrn->PrintEnvrnStampWarmup = false;
+>>>>>>> nrel/develop
             }
             if (!state.dataGlobal->DoingSizing) {
                 CalcMoreNodeInfo(state);
@@ -3519,6 +4254,7 @@ namespace HeatBalanceManager {
                 DataSurfaces::FrameDividerType(getEnumValue(FrameDividerTypeNamesUC, FrameDividerAlphas(2)));
             if (currentDividerType == DataSurfaces::FrameDividerType::Invalid) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  fmt::format("{}={}, Invalid {}",
                                              state.dataHeatBalMgr->CurrentModuleObject,
                                              std::quoted(FrameDividerAlphas(1)),
@@ -3526,6 +4262,14 @@ namespace HeatBalanceManager {
                 ShowContinueError(
                     state,
                     fmt::format("Entered={}, must be DividedLite or Suspended.  Will be set to DividedLite.", std::quoted(FrameDividerAlphas(2))));
+=======
+                                 std::format("{}=\"{}\", Invalid {}",
+                                             state.dataHeatBalMgr->CurrentModuleObject,
+                                             FrameDividerAlphas(1),
+                                             state.dataIPShortCut->cAlphaFieldNames(2)));
+                ShowContinueError(
+                    state, std::format("Entered=\"{}\", must be DividedLite or Suspended.  Will be set to DividedLite.", FrameDividerAlphas(2)));
+>>>>>>> nrel/develop
                 frameDivider.DividerType = DataSurfaces::FrameDividerType::DividedLite;
             } else {
                 frameDivider.DividerType = currentDividerType;
@@ -3560,6 +4304,7 @@ namespace HeatBalanceManager {
 
             if (frameDivider.DividerWidth > 0.0 && (frameDivider.HorDividers == 0 && frameDivider.VertDividers == 0)) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}: In FrameAndDivider {} {} > 0 ",
                                                     state.dataHeatBalMgr->CurrentModuleObject,
                                                     frameDivider.Name,
@@ -3580,6 +4325,45 @@ namespace HeatBalanceManager {
                                                     state.dataIPShortCut->cNumericFieldNames(20),
                                                     state.dataIPShortCut->cNumericFieldNames(22),
                                                     state.dataIPShortCut->cNumericFieldNames(22)));
+=======
+                                 std::format("{}: In FrameAndDivider {} {} > 0",
+                                             state.dataHeatBalMgr->CurrentModuleObject,
+                                             frameDivider.Name,
+                                             state.dataIPShortCut->cNumericFieldNames(9)));
+                ShowContinueError(state,
+                                  std::format("...but {} = 0 and {} = 0.",
+                                              state.dataIPShortCut->cNumericFieldNames(10),
+                                              state.dataIPShortCut->cNumericFieldNames(11)));
+                ShowContinueError(state, std::format("...{} set to 0.", state.dataIPShortCut->cNumericFieldNames(9)));
+                frameDivider.DividerWidth = 0.0;
+            }
+            if (frameDivider.DividerWidth == 0.0 && (frameDivider.HorDividers > 0 || frameDivider.VertDividers > 0)) {
+                ShowWarningError(state,
+                                 std::format("{}: In FrameAndDivider {} {} = 0",
+                                             state.dataHeatBalMgr->CurrentModuleObject,
+                                             frameDivider.Name,
+                                             state.dataIPShortCut->cNumericFieldNames(9)));
+                ShowContinueError(state,
+                                  std::format("...but {} > 0 or {} > 0.",
+                                              state.dataIPShortCut->cNumericFieldNames(10),
+                                              state.dataIPShortCut->cNumericFieldNames(11)));
+                ShowContinueError(state,
+                                  std::format("...{} and {} set to 0.",
+                                              state.dataIPShortCut->cNumericFieldNames(10),
+                                              state.dataIPShortCut->cNumericFieldNames(11)));
+                frameDivider.HorDividers = 0;
+                frameDivider.VertDividers = 0;
+            }
+            // Prevent InsideSillDepth < InsideReveal
+            if (frameDivider.InsideSillDepth < state.dataSurface->FrameDivider(FrameDividerNum).InsideReveal) {
+                ShowWarningError(state,
+                                 std::format("{}: In FrameAndDivider {} {} is less than {}; it will be set to {}.",
+                                             state.dataHeatBalMgr->CurrentModuleObject,
+                                             frameDivider.Name,
+                                             state.dataIPShortCut->cNumericFieldNames(20),
+                                             state.dataIPShortCut->cNumericFieldNames(22),
+                                             state.dataIPShortCut->cNumericFieldNames(22)));
+>>>>>>> nrel/develop
                 frameDivider.InsideSillDepth = state.dataSurface->FrameDivider(FrameDividerNum).InsideReveal;
             }
 
@@ -3743,9 +4527,15 @@ namespace HeatBalanceManager {
         if (endcol > 0) {
             if (int(NextLine.data[endcol - 1]) == DataSystemVariables::iUnicode_end) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("SearchWindow5DataFile: For \"{}\" in {} file, appears to be a Unicode or binary file.",
                                                    DesiredConstructionName,
                                                    DesiredFilePath));
+=======
+                                std::format("SearchWindow5DataFile: For \"{}\" in {} file, appears to be a Unicode or binary file.",
+                                            DesiredConstructionName,
+                                            DesiredFilePath));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "...This file cannot be read by this program. Please save as PC or Unix file and try again");
                 ShowFatalError(state, "Program terminates due to previous condition.");
             }
@@ -3759,10 +4549,17 @@ namespace HeatBalanceManager {
         }
         ++FileLineCount;
         if (!has_prefixi(NextLine.data, "WINDOW5")) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Error in Data File={}", DesiredFilePath));
             ShowFatalError(state,
                            EnergyPlus::format("Error reading Window5 Data File: first word of window entry is \"{}\", should be Window5.",
                                               NextLine.data.substr(0, 7)));
+=======
+            ShowSevereError(state, std::format("HeatBalanceManager: SearchWindow5DataFile: Error in Data File={}", DesiredFilePath));
+            ShowFatalError(
+                state,
+                std::format("Error reading Window5 Data File: first word of window entry is \"{}\", should be Window5.", NextLine.data.substr(0, 7)));
+>>>>>>> nrel/develop
         }
 
     Label10:;
@@ -3816,11 +4613,19 @@ namespace HeatBalanceManager {
             bool error = false;
             NGlSys = static_cast<int>(Util::ProcessNumber(NextLine.data.substr(19), error));
             if (NGlSys <= 0 || NGlSys > 2 || error) {
+<<<<<<< HEAD
                 ShowFatalError(state,
                                EnergyPlus::format(
                                    "Construction={} from the Window5 data file cannot be used: it has {} glazing systems; only 1 or 2 are allowed.",
                                    DesiredConstructionName,
                                    NGlSys));
+=======
+                ShowFatalError(
+                    state,
+                    std::format("Construction={} from the Window5 data file cannot be used: it has {} glazing systems; only 1 or 2 are allowed.",
+                                DesiredConstructionName,
+                                NGlSys));
+>>>>>>> nrel/develop
             }
             NextLine = W5DataFile.readLine();
             if (NextLine.eof) {
@@ -3845,33 +4650,55 @@ namespace HeatBalanceManager {
                 if (!succeeded) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Error in Read of glazing system values. For glazing system={}",
                                            IGlSys));
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+=======
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Error in Read of glazing system values. For glazing system={}",
+                                    IGlSys));
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (WinHeight(IGlSys) == 0.0 || WinWidth(IGlSys) == 0.0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
                                            "has window height or width = 0 for glazing system {}",
                                            DesiredConstructionName,
                                            IGlSys));
+=======
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
+                                    "has window height or width = 0 for glazing system {}",
+                                    DesiredConstructionName,
+                                    IGlSys));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (NGlass(IGlSys) <= 0 || NGlass(IGlSys) > 4) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
                                            "has 0 or more than 4 glass layers in glazing system {}",
                                            DesiredConstructionName,
                                            IGlSys));
+=======
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
+                                    "has 0 or more than 4 glass layers in glazing system {}",
+                                    DesiredConstructionName,
+                                    IGlSys));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (UValCenter(IGlSys) <= 0.0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
                                            "has Center-of-Glass U-value <= 0 in glazing system {}",
                                            DesiredConstructionName,
@@ -3893,6 +4720,29 @@ namespace HeatBalanceManager {
                                          "has a SHGC <= 0 in glazing system {}",
                                          DesiredConstructionName,
                                          IGlSys));
+=======
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
+                                    "has Center-of-Glass U-value <= 0 in glazing system {}",
+                                    DesiredConstructionName,
+                                    IGlSys));
+                    ErrorsFound = true;
+                }
+                if (SCCenter(IGlSys) <= 0.0) {
+                    ShowWarningError(
+                        state,
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file has flawed data: it "
+                                    "has a Shading Coefficient <= 0 in glazing system {}",
+                                    DesiredConstructionName,
+                                    IGlSys));
+                }
+                if (SHGCCenter(IGlSys) <= 0.0) {
+                    ShowWarningError(
+                        state,
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file has flawed data: it "
+                                    "has a SHGC <= 0 in glazing system {}",
+                                    DesiredConstructionName,
+                                    IGlSys));
+>>>>>>> nrel/develop
                 }
                 WinHeight(IGlSys) *= 0.001;
                 WinWidth(IGlSys) *= 0.001;
@@ -3913,16 +4763,26 @@ namespace HeatBalanceManager {
                 MullionWidth = Util::ProcessNumber(DataLine(10).substr(19), error);
                 if (error) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Mullion Width.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 10, DataLine(10).substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 10, DataLine(10).substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 MullionWidth *= 0.001;
                 MullionOrientation = Util::ProcessNumber(DataLine(10).substr(88), error);
                 if (error) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Mullion Orientation.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 10, DataLine(10).substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 10, DataLine(10).substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -3948,17 +4808,28 @@ namespace HeatBalanceManager {
                                             FrameEmis);
             if (!succeeded) {
                 ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of frame data values.");
+<<<<<<< HEAD
                 ShowContinueError(
                     state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 11, DataLine(11).substr(0, 100)));
+=======
+                ShowContinueError(state,
+                                  std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 11, DataLine(11).substr(0, 100)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             if (FrameWidth > 0.0) {
                 if (FrameConductance <= 0.0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
                                            "has Frame Conductance <= 0.0",
                                            DesiredConstructionName));
+=======
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it "
+                                    "has Frame Conductance <= 0.0",
+                                    DesiredConstructionName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 // Relax this check for Window5 data: 1/28/2008.
@@ -3976,10 +4847,16 @@ namespace HeatBalanceManager {
                 if (FrameEmis <= 0.0 || FrameEmis >= 1.0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it has "
                             "Frame Emissivity <= 0.0 or >= 1.0",
                             DesiredConstructionName));
+=======
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used: it has "
+                                    "Frame Emissivity <= 0.0 or >= 1.0",
+                                    DesiredConstructionName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -4017,15 +4894,23 @@ namespace HeatBalanceManager {
                 if (!dividerReadSucceeded) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Error in Read of divider data values. For Glazing System={}",
                                            IGlSys));
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 11, NextLine.data.substr(0, 100)));
+=======
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Error in Read of divider data values. For Glazing System={}",
+                                    IGlSys));
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 11, NextLine.data.substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 uppercase(DividerType(IGlSys));
                 if (DividerWidth(IGlSys) > 0.0) {
                     if (HorDividers(IGlSys) == 0 && VertDividers(IGlSys) == 0) {
+<<<<<<< HEAD
                         ShowSevereError(state,
                                         EnergyPlus::format(
                                             "HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used:",
@@ -4076,6 +4961,57 @@ namespace HeatBalanceManager {
                                           EnergyPlus::format("glazing system {} has Divider Type = {}; it should be DIVIDEDLITE or SUSPENDED.",
                                                              IGlSys,
                                                              DividerType(IGlSys)));
+=======
+                        ShowSevereError(
+                            state,
+                            std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used:",
+                                        DesiredConstructionName));
+                        ShowContinueError(
+                            state, std::format("glazing system {} has a divider but number of horizontal and vertical divider elements = 0", IGlSys));
+                        ErrorsFound = true;
+                    }
+                    if (DividerConductance(IGlSys) <= 0.0) {
+                        ShowSevereError(
+                            state,
+                            std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used:",
+                                        DesiredConstructionName));
+                        ShowContinueError(state, std::format("glazing system {} has Divider Conductance <= 0.0", IGlSys));
+                        ErrorsFound = true;
+                    }
+                    if (DivEdgeToCenterGlCondRatio(IGlSys) < 1.0) {
+                        ShowSevereError(
+                            state,
+                            std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used:",
+                                        DesiredConstructionName));
+                        ShowContinueError(state, std::format("glazing system {} has Divider Edge-Of-Glass Conduction Ratio < 1.0", IGlSys));
+                        ErrorsFound = true;
+                    }
+                    if (DividerSolAbsorp(IGlSys) < 0.0 || DividerSolAbsorp(IGlSys) > 1.0) {
+                        ShowSevereError(
+                            state,
+                            std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used:",
+                                        DesiredConstructionName));
+                        ShowContinueError(state, std::format("glazing system {} has Divider Solar Absorptance < 0.0 or > 1.0", IGlSys));
+                        ErrorsFound = true;
+                    }
+                    if (DividerEmis(IGlSys) <= 0.0 || DividerEmis(IGlSys) >= 1.0) {
+                        ShowSevereError(
+                            state,
+                            std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used:",
+                                        DesiredConstructionName));
+                        ShowContinueError(state, std::format("glazing system {} has Divider Emissivity <= 0.0 or >= 1.0", IGlSys));
+                        ErrorsFound = true;
+                    }
+                    if (DividerType(IGlSys) != "DIVIDEDLITE" && DividerType(IGlSys) != "SUSPENDED") {
+                        ShowSevereError(
+                            state,
+                            std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used:",
+                                        DesiredConstructionName));
+                        ShowContinueError(state,
+                                          std::format("glazing system {} has Divider Type = {}; it should be DIVIDEDLITE or SUSPENDED.",
+                                                      IGlSys,
+                                                      DividerType(IGlSys)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -4092,9 +5028,15 @@ namespace HeatBalanceManager {
             if (ErrorsFound) {
                 ShowFatalError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used because "
                                        "of above errors",
                                        DesiredConstructionName));
+=======
+                    std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used because "
+                                "of above errors",
+                                DesiredConstructionName));
+>>>>>>> nrel/develop
             }
 
             for (IGlSys = 1; IGlSys <= NGlSys; ++IGlSys) {
@@ -4111,8 +5053,13 @@ namespace HeatBalanceManager {
                 for (IGlass = 1; IGlass <= NGlass(IGlSys); ++IGlass) {
                     auto *mat = new Material::MaterialGlass;
                     mat->group = Material::Group::Glass;
+<<<<<<< HEAD
                     mat->Name = (NGlSys == 1) ? EnergyPlus::format("W5:{}:GLASS{}", DesiredConstructionName, NumName(IGlass))
                                               : EnergyPlus::format("W5:{}:{}:GLASS{}", DesiredConstructionName, NumName(IGlSys), NumName(IGlass));
+=======
+                    mat->Name = (NGlSys == 1) ? std::format("W5:{}:GLASS{}", DesiredConstructionName, NumName(IGlass))
+                                              : std::format("W5:{}:{}:GLASS{}", DesiredConstructionName, NumName(IGlSys), NumName(IGlass));
+>>>>>>> nrel/develop
 
                     s_mat->materials.push_back(mat);
                     mat->Num = s_mat->materials.isize();
@@ -4141,6 +5088,7 @@ namespace HeatBalanceManager {
                     if (mat->Thickness <= 0.0) {
                     }
                     mat->Roughness = Material::SurfaceRoughness::VerySmooth;
+<<<<<<< HEAD
                     mat->AbsorpThermal = mat->AbsorpThermalBack;
                     if (mat->Thickness <= 0.0) {
                         ShowSevereError(
@@ -4150,6 +5098,18 @@ namespace HeatBalanceManager {
                                                mat->Name));
                         ShowContinueError(state, EnergyPlus::format("Line being read={}", NextLine.data));
                         ShowContinueError(state, EnergyPlus::format("Thickness field starts at column 26={}", NextLine.data.substr(25)));
+=======
+                    mat->AbsorpThermalIn = mat->AbsorpThermalBack;
+                    mat->AbsorpThermalOut = mat->AbsorpThermalFront;
+                    if (mat->Thickness <= 0.0) {
+                        ShowSevereError(
+                            state,
+                            std::format("SearchWindow5DataFile: Material=\"{}\" has thickness of 0.0.  Will be set to thickness = .001 but "
+                                        "inaccuracies may result.",
+                                        mat->Name));
+                        ShowContinueError(state, std::format("Line being read={}", NextLine.data));
+                        ShowContinueError(state, std::format("Thickness field starts at column 26={}", NextLine.data.substr(25)));
+>>>>>>> nrel/develop
                         mat->Thickness = 0.001;
                     }
                 }
@@ -4164,8 +5124,13 @@ namespace HeatBalanceManager {
             for (IGlSys = 1; IGlSys <= NGlSys; ++IGlSys) {
                 for (IGap = 1; IGap <= NGaps(IGlSys); ++IGap) {
                     auto *matGas = new Material::MaterialGasMix;
+<<<<<<< HEAD
                     matGas->Name = (NGlSys == 1) ? EnergyPlus::format("W5:{}:GAP{}", DesiredConstructionName, NumName(IGap))
                                                  : EnergyPlus::format("W5:{}:{}:GAP{}", DesiredConstructionName, NumName(IGlSys), NumName(IGap));
+=======
+                    matGas->Name = (NGlSys == 1) ? std::format("W5:{}:GAP{}", DesiredConstructionName, NumName(IGap))
+                                                 : std::format("W5:{}:{}:GAP{}", DesiredConstructionName, NumName(IGlSys), NumName(IGap));
+>>>>>>> nrel/develop
                     s_mat->materials.push_back(matGas);
                     matGas->Num = s_mat->materials.isize();
                     s_mat->materialMap.insert_or_assign(matGas->Name, matGas->Num);
@@ -4355,6 +5320,7 @@ namespace HeatBalanceManager {
                 ++FileLineCount;
                 if (!readItem(NextLine.data.substr(5), TsolTemp)) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of TSol values.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
                     ErrorsFound = true;
@@ -4362,6 +5328,15 @@ namespace HeatBalanceManager {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of TSol values. (out of range [0,1])");
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+                    ErrorsFound = true;
+                } else if (any_lt(TsolTemp, 0.0) || any_gt(TsolTemp, 1.0)) {
+                    ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of TSol values. (out of range [0,1])");
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -4370,19 +5345,33 @@ namespace HeatBalanceManager {
                     ++FileLineCount;
                     if (!readItem(NextLine.data.substr(5), AbsSolTemp(IGlass, _))) {
                         ShowSevereError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("HeatBalanceManager: SearchWindow5DataFile: Error in Read of AbsSol values. For Glass={}", IGlass));
                         ShowContinueError(
                             state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+=======
+                            state, std::format("HeatBalanceManager: SearchWindow5DataFile: Error in Read of AbsSol values. For Glass={}", IGlass));
+                        ShowContinueError(state,
+                                          std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else if (any_lt(AbsSolTemp(IGlass, _), 0.0) || any_gt(AbsSolTemp(IGlass, _), 1.0)) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
                                 "HeatBalanceManager: SearchWindow5DataFile: Error in Read of AbsSol values. (out of range [0,1]) For Glass={}",
                                 IGlass));
                         ShowContinueError(
                             state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+=======
+                            std::format(
+                                "HeatBalanceManager: SearchWindow5DataFile: Error in Read of AbsSol values. (out of range [0,1]) For Glass={}",
+                                IGlass));
+                        ShowContinueError(state,
+                                          std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount, NextLine.data.substr(0, 100)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -4393,6 +5382,7 @@ namespace HeatBalanceManager {
 
                 if (!readItem(DataLine(1).substr(5), RfsolTemp)) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of RfSol values.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 1, DataLine(1).substr(0, 100)));
                     ErrorsFound = true;
@@ -4400,11 +5390,21 @@ namespace HeatBalanceManager {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of RfSol values. (out of range [0,1])");
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 1, DataLine(1).substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 1, DataLine(1).substr(0, 100)));
+                    ErrorsFound = true;
+                } else if (any_lt(RfsolTemp, 0.0) || any_gt(RfsolTemp, 1.0)) {
+                    ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of RfSol values. (out of range [0,1])");
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 1, DataLine(1).substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
                 if (!readItem(DataLine(2).substr(5), RbsolTemp)) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of RbSol values.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 2, DataLine(2).substr(0, 100)));
                     ErrorsFound = true;
@@ -4412,10 +5412,20 @@ namespace HeatBalanceManager {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of RbSol values. (out of range [0,1])");
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 2, DataLine(2).substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 2, DataLine(2).substr(0, 100)));
+                    ErrorsFound = true;
+                } else if (any_lt(RbsolTemp, 0.0) || any_gt(RbsolTemp, 1.0)) {
+                    ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of RbSol values. (out of range [0,1])");
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 2, DataLine(2).substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (!readItem(DataLine(3).substr(5), TvisTemp)) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Tvis values.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 3, DataLine(3).substr(0, 100)));
                     ErrorsFound = true;
@@ -4423,10 +5433,20 @@ namespace HeatBalanceManager {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Tvis values. (out of range [0,1])");
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 3, DataLine(3).substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 3, DataLine(3).substr(0, 100)));
+                    ErrorsFound = true;
+                } else if (any_lt(TvisTemp, 0.0) || any_gt(TvisTemp, 1.0)) {
+                    ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Tvis values. (out of range [0,1])");
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 3, DataLine(3).substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (!readItem(DataLine(4).substr(5), RfvisTemp)) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Rfvis values.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 4, DataLine(4).substr(0, 100)));
                     ErrorsFound = true;
@@ -4434,10 +5454,20 @@ namespace HeatBalanceManager {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Rfvis values. (out of range [0,1])");
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 4, DataLine(4).substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 4, DataLine(4).substr(0, 100)));
+                    ErrorsFound = true;
+                } else if (any_lt(RfvisTemp, 0.0) || any_gt(RfvisTemp, 1.0)) {
+                    ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Rfvis values. (out of range [0,1])");
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 4, DataLine(4).substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (!readItem(DataLine(5).substr(5), RbvisTemp)) {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Rbvis values.");
+<<<<<<< HEAD
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 5, DataLine(5).substr(0, 100)));
                     ErrorsFound = true;
@@ -4445,16 +5475,33 @@ namespace HeatBalanceManager {
                     ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Rbvis values. (out of range [0,1])");
                     ShowContinueError(
                         state, EnergyPlus::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 5, DataLine(5).substr(0, 100)));
+=======
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 5, DataLine(5).substr(0, 100)));
+                    ErrorsFound = true;
+                } else if (any_lt(RbvisTemp, 0.0) || any_gt(RbvisTemp, 1.0)) {
+                    ShowSevereError(state, "HeatBalanceManager: SearchWindow5DataFile: Error in Read of Rbvis values. (out of range [0,1])");
+                    ShowContinueError(state,
+                                      std::format("Line (~{}) in error (first 100 characters)={}", FileLineCount + 5, DataLine(5).substr(0, 100)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 FileLineCount += 5;
 
                 if (ErrorsFound) {
+<<<<<<< HEAD
                     ShowFatalError(state,
                                    EnergyPlus::format(
                                        "HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used because "
                                        "of above errors",
                                        DesiredConstructionName));
+=======
+                    ShowFatalError(
+                        state,
+                        std::format("HeatBalanceManager: SearchWindow5DataFile: Construction={} from the Window5 data file cannot be used because "
+                                    "of above errors",
+                                    DesiredConstructionName));
+>>>>>>> nrel/develop
                 }
 
                 for (int iPhi = 0; iPhi < Window::numPhis; ++iPhi) {
@@ -4747,31 +5794,55 @@ namespace HeatBalanceManager {
 
             if (Ffactor <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}=\"{}\" has {} <= 0.0, must be > 0.0.",
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    ConstructAlphas(1),
                                                    state.dataIPShortCut->cNumericFieldNames(1)));
                 ShowContinueError(state, EnergyPlus::format("Entered value=[{:.2R}]", Ffactor));
+=======
+                                std::format("{}=\"{}\" has {} <= 0.0, must be > 0.0.",
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            ConstructAlphas(1),
+                                            state.dataIPShortCut->cNumericFieldNames(1)));
+                ShowContinueError(state, std::format("Entered value=[{:#G}]", Ffactor));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             if (Area <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}=\"{}\" has {} <= 0.0, must be > 0.0.",
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    ConstructAlphas(1),
                                                    state.dataIPShortCut->cNumericFieldNames(2)));
                 ShowContinueError(state, EnergyPlus::format("Entered value=[{:.2R}]", Area));
+=======
+                                std::format("{}=\"{}\" has {} <= 0.0, must be > 0.0.",
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            ConstructAlphas(1),
+                                            state.dataIPShortCut->cNumericFieldNames(2)));
+                ShowContinueError(state, std::format("Entered value=[{:#G}]", Area));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             if (PerimeterExposed < 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}=\"{}\" has {} <= 0.0, must be > 0.0.",
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    ConstructAlphas(1),
                                                    state.dataIPShortCut->cNumericFieldNames(3)));
                 ShowContinueError(state, EnergyPlus::format("Entered value=[{:.2R}]", PerimeterExposed));
+=======
+                                std::format("{}=\"{}\" has {} <= 0.0, must be > 0.0.",
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            ConstructAlphas(1),
+                                            state.dataIPShortCut->cNumericFieldNames(3)));
+                ShowContinueError(state, std::format("Entered value=[{:#G}]", PerimeterExposed));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -4782,7 +5853,11 @@ namespace HeatBalanceManager {
             thisConstruct.LayerPoint(2) = iFCConcreteLayer;
 
             // The fictitious insulation is the outside layer
+<<<<<<< HEAD
             thisConstruct.LayerPoint(1) = Material::GetMaterialNum(state, EnergyPlus::format("~FC_INSULATION_{}", Loop));
+=======
+            thisConstruct.LayerPoint(1) = Material::GetMaterialNum(state, std::format("~FC_INSULATION_{}", Loop));
+>>>>>>> nrel/develop
 
             // Calculate the thermal resistance of the fictitious insulation layer
             // effective thermal resistance excludes inside and outside air films
@@ -4795,10 +5870,17 @@ namespace HeatBalanceManager {
             Rfic = Reff - Rcon;
             if (Rfic <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}=\"{}\" has calculated R value <= 0.0, must be > 0.0.",
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    ConstructAlphas(1)));
                 ShowContinueError(state, EnergyPlus::format("Calculated value=[{:.2R}] Check definition.", Rfic));
+=======
+                                std::format("{}=\"{}\" has calculated R value <= 0.0, must be > 0.0.",
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            ConstructAlphas(1)));
+                ShowContinueError(state, std::format("Calculated value=[{:#G}] Check definition.", Rfic));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -4851,21 +5933,37 @@ namespace HeatBalanceManager {
 
             if (Cfactor <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{} {} has {} <= 0.0, must be > 0.0.",
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    ConstructAlphas(1),
                                                    state.dataIPShortCut->cNumericFieldNames(1)));
                 ShowContinueError(state, EnergyPlus::format("Entered value=[{:.2R}]", Cfactor));
+=======
+                                std::format("{} {} has {} <= 0.0, must be > 0.0.",
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            ConstructAlphas(1),
+                                            state.dataIPShortCut->cNumericFieldNames(1)));
+                ShowContinueError(state, std::format("Entered value=[{:#G}]", Cfactor));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             if (Height <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{} {} has {} <= 0.0, must be > 0.0.",
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    ConstructAlphas(1),
                                                    state.dataIPShortCut->cNumericFieldNames(2)));
                 ShowContinueError(state, EnergyPlus::format("Entered value=[{:.2R}]", Height));
+=======
+                                std::format("{} {} has {} <= 0.0, must be > 0.0.",
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            ConstructAlphas(1),
+                                            state.dataIPShortCut->cNumericFieldNames(2)));
+                ShowContinueError(state, std::format("Entered value=[{:#G}]", Height));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -4876,7 +5974,11 @@ namespace HeatBalanceManager {
             thisConstruct.LayerPoint(2) = iFCConcreteLayer;
 
             // The fictitious insulation is the outside layer
+<<<<<<< HEAD
             thisConstruct.LayerPoint(1) = Material::GetMaterialNum(state, EnergyPlus::format("~FC_INSULATION_{}", Loop + TotFfactorConstructs));
+=======
+            thisConstruct.LayerPoint(1) = Material::GetMaterialNum(state, std::format("~FC_INSULATION_{}", Loop + TotFfactorConstructs));
+>>>>>>> nrel/develop
 
             // CR 8886 Rsoil should be in SI unit. From ASHRAE 90.1-2010 SI
             if (Height <= 0.25) {
@@ -4893,10 +5995,17 @@ namespace HeatBalanceManager {
             Rfic = Reff - Rcon;
             if (Rfic <= 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}=\"{}\" has calculated R value <= 0.0, must be > 0.0.",
                                                    state.dataHeatBalMgr->CurrentModuleObject,
                                                    ConstructAlphas(1)));
                 ShowContinueError(state, EnergyPlus::format("Calculated value=[{:.2R}] Check definition.", Rfic));
+=======
+                                std::format("{}=\"{}\" has calculated R value <= 0.0, must be > 0.0.",
+                                            state.dataHeatBalMgr->CurrentModuleObject,
+                                            ConstructAlphas(1)));
+                ShowContinueError(state, std::format("Calculated value=[{:#G}] Check definition.", Rfic));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -4926,8 +6035,12 @@ namespace HeatBalanceManager {
                 // this would indicate a major problem in the input processor, not a problem here
                 // I'll still catch this with errorsFound but I cannot make a unit test for it so excluding the line from coverage
                 ShowSevereError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("{}: Somehow getNumObjectsFound was > 0 but epJSON.find found 0", cCurrentModuleObject)); // LCOV_EXCL_LINE
+=======
+                    state, std::format("{}: Somehow getNumObjectsFound was > 0 but epJSON.find found 0", cCurrentModuleObject)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
                 errorsFound = true;                                                                                              // LCOV_EXCL_LINE
             }
             auto &instancesValue = instances.value();
@@ -5016,7 +6129,11 @@ namespace HeatBalanceManager {
         if (NumAlpha != 4) {
             ShowSevereError(
                 state,
+<<<<<<< HEAD
                 EnergyPlus::format(
+=======
+                std::format(
+>>>>>>> nrel/develop
                     "{}{}: Object Definition indicates not = 4 Alpha Objects, Number Indicated={}", RoutineName, cCurrentModuleObject, NumAlpha));
             ErrorsFound = true;
         }
@@ -5137,6 +6254,7 @@ namespace HeatBalanceManager {
                     }
 
                     if (!NumOfLayersMatch) {
+<<<<<<< HEAD
                         ShowSevereError(state,
                                         EnergyPlus::format(
                                             "{}{}=\"{}, object. Number of scheduled surface gains for each layer does not match number of layers in "
@@ -5150,6 +6268,21 @@ namespace HeatBalanceManager {
                                                              NumOfScheduledLayers,
                                                              state.dataIPShortCut->cAlphaArgs(3),
                                                              thisConstruct.TotSolidLayers));
+=======
+                        ShowSevereError(
+                            state,
+                            std::format("{}{}=\"{}, object. Number of scheduled surface gains for each layer does not match number of layers in "
+                                        "referenced construction.",
+                                        RoutineName,
+                                        cCurrentModuleObject,
+                                        state.dataIPShortCut->cAlphaArgs(1)));
+                        ShowContinueError(state,
+                                          std::format("{} have {} schedule layers and {} have {} layers.",
+                                                      state.dataIPShortCut->cAlphaArgs(1),
+                                                      NumOfScheduledLayers,
+                                                      state.dataIPShortCut->cAlphaArgs(3),
+                                                      thisConstruct.TotSolidLayers));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
@@ -5229,8 +6362,13 @@ namespace HeatBalanceManager {
         }
         if ((!ZoneScheduled) && (!ZoneUnscheduled)) {
             // zone is not scheduled nor unscheduled
+<<<<<<< HEAD
             ShowWarningError(
                 state, EnergyPlus::format("Zone {} does not have all surfaces scheduled with surface gains.", state.dataHeatBal->Zone(ZoneNum).Name));
+=======
+            ShowWarningError(state,
+                             std::format("Zone {} does not have all surfaces scheduled with surface gains.", state.dataHeatBal->Zone(ZoneNum).Name));
+>>>>>>> nrel/develop
             ShowContinueError(state,
                               "If at least one surface in the zone is scheduled with surface gains, then all other surfaces within the same zone "
                               "should be scheduled as well.");
@@ -5245,8 +6383,13 @@ namespace HeatBalanceManager {
                     }
 
                     if (SchedPtr == 0) {
+<<<<<<< HEAD
                         ShowContinueError(
                             state, EnergyPlus::format("Surface {} does not have scheduled surface gains.", state.dataSurface->Surface(iSurf).Name));
+=======
+                        ShowContinueError(state,
+                                          std::format("Surface {} does not have scheduled surface gains.", state.dataSurface->Surface(iSurf).Name));
+>>>>>>> nrel/develop
                     }
                 }
             }
@@ -5313,7 +6456,11 @@ namespace HeatBalanceManager {
                 auto &constrNew = state.dataConstruction->Construct(NumNewConst);
 
                 constrNew = constr; // This should be a deep copy
+<<<<<<< HEAD
                 constrNew.Name = EnergyPlus::format("{}_TC_{:.0R}", constr.Name, matGlassTC->matRefs(iTC).specTemp);
+=======
+                constrNew.Name = std::format("{}_TC_{:.0f}", constr.Name, matGlassTC->matRefs(iTC).specTemp);
+>>>>>>> nrel/develop
                 constrNew.LayerPoint(constrNew.TCLayerNum) = matGlassTC->matRefs(iTC).matNum;
                 constrNew.specTemp = matGlassTC->matRefs(iTC).specTemp;
 
@@ -5402,11 +6549,18 @@ namespace HeatBalanceManager {
 
             windowThermalModel.SDScalar = s_ipsc->rNumericArgs(1);
             if ((s_ipsc->rNumericArgs(1) < 0.0) || (s_ipsc->rNumericArgs(1) > 1.0)) {
+<<<<<<< HEAD
                 ShowSevereCustom(state,
                                  eoh,
                                  EnergyPlus::format("{} should be >= 0.0 and <= 1.0, entered value = {:.2R}",
                                                     s_ipsc->cNumericFieldNames(1),
                                                     s_ipsc->rNumericArgs(1)));
+=======
+                ShowSevereCustom(
+                    state,
+                    eoh,
+                    std::format("{} should be >= 0.0 and <= 1.0, entered value = {:.2f}", s_ipsc->cNumericFieldNames(1), s_ipsc->rNumericArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -5422,27 +6576,39 @@ namespace HeatBalanceManager {
                 if (s_ipsc->rNumericArgs(2) <= 0.0) {
                     ErrorsFound = true;
                     ShowSevereCustom(
+<<<<<<< HEAD
                         state,
                         eoh,
                         EnergyPlus::format("{} must be > 0, entered value = {:.2R}", s_ipsc->cNumericFieldNames(2), s_ipsc->rNumericArgs(2)));
+=======
+                        state, eoh, std::format("{} must be > 0, entered value = {:.2f}", s_ipsc->cNumericFieldNames(2), s_ipsc->rNumericArgs(2)));
+>>>>>>> nrel/develop
                 }
 
                 windowThermalModel.InitialTemperature = s_ipsc->rNumericArgs(3);
                 if (s_ipsc->rNumericArgs(3) <= 0.0) {
                     ErrorsFound = true;
                     ShowSevereCustom(
+<<<<<<< HEAD
                         state,
                         eoh,
                         EnergyPlus::format("{} must be > 0, entered value = {:.2R}", s_ipsc->cNumericFieldNames(3), s_ipsc->rNumericArgs(3)));
+=======
+                        state, eoh, std::format("{} must be > 0, entered value = {:.2f}", s_ipsc->cNumericFieldNames(3), s_ipsc->rNumericArgs(3)));
+>>>>>>> nrel/develop
                 }
 
                 windowThermalModel.InitialPressure = s_ipsc->rNumericArgs(4);
                 if (s_ipsc->rNumericArgs(4) <= 0.0) {
                     ErrorsFound = true;
                     ShowSevereCustom(
+<<<<<<< HEAD
                         state,
                         eoh,
                         EnergyPlus::format("{} must be > 0, entered value = {:.2R}", s_ipsc->cNumericFieldNames(4), s_ipsc->rNumericArgs(4)));
+=======
+                        state, eoh, std::format("{} must be > 0, entered value = {:.2f}", s_ipsc->cNumericFieldNames(4), s_ipsc->rNumericArgs(4)));
+>>>>>>> nrel/develop
                 }
             }
 
@@ -5535,9 +6701,15 @@ namespace HeatBalanceManager {
                 ErrorsFound = true;
                 ShowSevereCustom(state,
                                  eoh,
+<<<<<<< HEAD
                                  EnergyPlus::format("{} entered value=\"{}\" invalid matrix dimensions.  Basis matrix dimension can only be 2 x 1.",
                                                     locAlphaFieldNames(5),
                                                     locAlphaArgs(5)));
+=======
+                                 std::format("{} entered value=\"{}\" invalid matrix dimensions.  Basis matrix dimension can only be 2 x 1.",
+                                             locAlphaFieldNames(5),
+                                             locAlphaArgs(5)));
+>>>>>>> nrel/develop
             }
             thisConstruct.BSDFInput.BasisMat.allocate(NumCols, NumRows);
             MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.BasisMatIndex, thisConstruct.BSDFInput.BasisMat);
@@ -5558,7 +6730,11 @@ namespace HeatBalanceManager {
             if (mod((NumAlphas - 9), 3) != 0) {
                 // throw warning if incomplete field set
                 ErrorsFound = true;
+<<<<<<< HEAD
                 ShowSevereCustom(state, eoh, EnergyPlus::format("{} is missing some of the layers or/and gaps.", locAlphaArgs(1)));
+=======
+                ShowSevereCustom(state, eoh, std::format("{} is missing some of the layers or/and gaps.", locAlphaArgs(1)));
+>>>>>>> nrel/develop
             }
 
             if (thisConstruct.BSDFInput.BasisSymmetryType == DataBSDFWindow::BasisSymmetry::None) {
@@ -5579,18 +6755,32 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Solar front transmittance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
                                            "size is defined by Matrix:TwoDimension = \"{}\".",
                                            locAlphaArgs(6),
                                            locAlphaArgs(5)));
+=======
+                        std::format("Solar front transmittance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
+                                    "size is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(6),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Solar front transmittance matrix \"{}\" must have the same number of rows and columns.",
                                                         locAlphaArgs(6)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Solar front transmittance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(6)));
+>>>>>>> nrel/develop
                 }
 
                 if (thisConstruct.BSDFInput.BasisType == DataBSDFWindow::Basis::Custom) {
@@ -5601,10 +6791,17 @@ namespace HeatBalanceManager {
                 thisConstruct.BSDFInput.SolFrtTrans.allocate(NumCols, NumRows);
                 if (thisConstruct.BSDFInput.SolFrtTransIndex == 0) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Solar front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.",
                                                         locAlphaArgs(6)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Solar front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(6)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.SolFrtTransIndex, thisConstruct.BSDFInput.SolFrtTrans);
                 }
@@ -5619,6 +6816,7 @@ namespace HeatBalanceManager {
 
                 if (NumRows != NBasis) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format(
@@ -5626,6 +6824,15 @@ namespace HeatBalanceManager {
                                          "is defined by Matrix:TwoDimension = \"{}\".",
                                          locAlphaArgs(7),
                                          locAlphaArgs(5)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Solar back reflectance matrix \"{}\" is not the same size as it is defined by basis definition. Basis size "
+                                    "is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(7),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
@@ -5633,7 +6840,11 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Solar back reflectance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(7)));
+=======
+                        std::format("Solar back reflectance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(7)));
+>>>>>>> nrel/develop
                 }
 
                 thisConstruct.BSDFInput.SolBkRefl.allocate(NumCols, NumRows);
@@ -5642,7 +6853,11 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Solar back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(7)));
+=======
+                        std::format("Solar back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(7)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.SolBkReflIndex, thisConstruct.BSDFInput.SolBkRefl);
                 }
@@ -5657,6 +6872,7 @@ namespace HeatBalanceManager {
 
                 if (NumRows != NBasis) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format(
@@ -5664,23 +6880,46 @@ namespace HeatBalanceManager {
                                          "size is defined by Matrix:TwoDimension = \"{}\".",
                                          locAlphaArgs(8),
                                          locAlphaArgs(5)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Visible front transmittance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
+                                    "size is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(8),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Visible front transmittance matrix \"{}\" must have the same number of rows and columns.",
                                                         locAlphaArgs(8)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Visible front transmittance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(8)));
+>>>>>>> nrel/develop
                 }
 
                 thisConstruct.BSDFInput.VisFrtTrans.allocate(NumCols, NumRows);
                 if (thisConstruct.BSDFInput.VisFrtTransIndex == 0) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Visible front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.",
                                                         locAlphaArgs(8)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Visible front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(8)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.VisFrtTransIndex, thisConstruct.BSDFInput.VisFrtTrans);
                 }
@@ -5698,18 +6937,29 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Visible back reflectance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
                                            "size is defined by Matrix:TwoDimension = \"{}\".",
                                            locAlphaArgs(9),
                                            locAlphaArgs(5)));
+=======
+                        std::format("Visible back reflectance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
+                                    "size is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(9),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
                     ErrorsFound = true;
                     ShowSevereCustom(
+<<<<<<< HEAD
                         state,
                         eoh,
                         EnergyPlus::format("Visible back reflectance \"{}\" must have the same number of rows and columns.", locAlphaArgs(9)));
+=======
+                        state, eoh, std::format("Visible back reflectance \"{}\" must have the same number of rows and columns.", locAlphaArgs(9)));
+>>>>>>> nrel/develop
                 }
 
                 thisConstruct.BSDFInput.VisBkRefl.allocate(NumCols, NumRows);
@@ -5718,7 +6968,11 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Visible back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(9)));
+=======
+                        std::format("Visible back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(9)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.VisBkReflIndex, thisConstruct.BSDFInput.VisBkRefl);
                 }
@@ -5747,9 +7001,15 @@ namespace HeatBalanceManager {
                             ErrorsFound = true;
                             ShowSevereCustom(state,
                                              eoh,
+<<<<<<< HEAD
                                              EnergyPlus::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
                                                                 locAlphaArgs(AlphaIndex),
                                                                 currentOpticalLayer));
+=======
+                                             std::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
+                                                         locAlphaArgs(AlphaIndex),
+                                                         currentOpticalLayer));
+>>>>>>> nrel/develop
                         }
 
                         if (NumCols != NBasis) {
@@ -5757,6 +7017,7 @@ namespace HeatBalanceManager {
                             ShowSevereCustom(
                                 state,
                                 eoh,
+<<<<<<< HEAD
                                 EnergyPlus::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns "
                                                    "as it is defined by basis matrix."
                                                    "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
@@ -5764,6 +7025,15 @@ namespace HeatBalanceManager {
                                                    currentOpticalLayer,
                                                    NumCols,
                                                    NBasis));
+=======
+                                std::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns "
+                                            "as it is defined by basis matrix."
+                                            "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
+                                            locAlphaArgs(AlphaIndex),
+                                            currentOpticalLayer,
+                                            NumCols,
+                                            NBasis));
+>>>>>>> nrel/develop
                         }
 
                         thisConstruct.BSDFInput.Layer(currentOpticalLayer).AbsNcols = NumCols;
@@ -5773,9 +7043,15 @@ namespace HeatBalanceManager {
                             ShowSevereCustom(
                                 state,
                                 eoh,
+<<<<<<< HEAD
                                 EnergyPlus::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
                                                    locAlphaArgs(AlphaIndex),
                                                    currentOpticalLayer));
+=======
+                                std::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
+                                            locAlphaArgs(AlphaIndex),
+                                            currentOpticalLayer));
+>>>>>>> nrel/develop
                         } else {
                             MatrixDataManager::Get2DMatrix(state,
                                                            thisConstruct.BSDFInput.Layer(currentOpticalLayer).FrtAbsIndex,
@@ -5795,9 +7071,15 @@ namespace HeatBalanceManager {
                             ErrorsFound = true;
                             ShowSevereCustom(state,
                                              eoh,
+<<<<<<< HEAD
                                              EnergyPlus::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
                                                                 locAlphaArgs(AlphaIndex),
                                                                 currentOpticalLayer));
+=======
+                                             std::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
+                                                         locAlphaArgs(AlphaIndex),
+                                                         currentOpticalLayer));
+>>>>>>> nrel/develop
                         }
 
                         if (NumCols != NBasis) {
@@ -5805,6 +7087,7 @@ namespace HeatBalanceManager {
                             ShowSevereCustom(
                                 state,
                                 eoh,
+<<<<<<< HEAD
                                 EnergyPlus::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns as "
                                                    "it is defined by basis matrix."
                                                    "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
@@ -5812,17 +7095,34 @@ namespace HeatBalanceManager {
                                                    currentOpticalLayer,
                                                    NumCols,
                                                    NBasis));
+=======
+                                std::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns as "
+                                            "it is defined by basis matrix."
+                                            "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
+                                            locAlphaArgs(AlphaIndex),
+                                            currentOpticalLayer,
+                                            NumCols,
+                                            NBasis));
+>>>>>>> nrel/develop
                         }
 
                         thisConstruct.BSDFInput.Layer(currentOpticalLayer).BkAbs.allocate(NumCols, NumRows);
                         if (thisConstruct.BSDFInput.Layer(currentOpticalLayer).BkAbsIndex == 0) {
                             ErrorsFound = true;
+<<<<<<< HEAD
                             ShowSevereCustom(
                                 state,
                                 eoh,
                                 EnergyPlus::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
                                                    locAlphaArgs(AlphaIndex),
                                                    currentOpticalLayer));
+=======
+                            ShowSevereCustom(state,
+                                             eoh,
+                                             std::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
+                                                         locAlphaArgs(AlphaIndex),
+                                                         currentOpticalLayer));
+>>>>>>> nrel/develop
                         } else {
                             MatrixDataManager::Get2DMatrix(state,
                                                            thisConstruct.BSDFInput.Layer(currentOpticalLayer).BkAbsIndex,
@@ -5848,27 +7148,48 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Solar front transmittance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
                                            "size is defined by Matrix:TwoDimension = \"{}\".",
                                            locAlphaArgs(6),
                                            locAlphaArgs(5)));
+=======
+                        std::format("Solar front transmittance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
+                                    "size is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(6),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Solar front transmittance matrix \"{}\" must have the same number of rows and columns.",
                                                         locAlphaArgs(6)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Solar front transmittance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(6)));
+>>>>>>> nrel/develop
                 }
 
                 thisConstruct.BSDFInput.SolFrtTrans.allocate(NBasis, NBasis);
                 if (thisConstruct.BSDFInput.SolFrtTransIndex == 0) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Solar front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.",
                                                         locAlphaArgs(6)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Solar front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(6)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.SolFrtTransIndex, state.dataBSDFWindow->BSDFTempMtrx);
 
@@ -5888,6 +7209,7 @@ namespace HeatBalanceManager {
 
                 if (NumRows != NBasis) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format(
@@ -5895,6 +7217,15 @@ namespace HeatBalanceManager {
                                          "is defined by Matrix:TwoDimension = \"{}\".",
                                          locAlphaArgs(7),
                                          locAlphaArgs(5)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Solar back reflectance matrix \"{}\" is not the same size as it is defined by basis definition. Basis size "
+                                    "is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(7),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
@@ -5902,7 +7233,11 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Solar back reflectance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(7)));
+=======
+                        std::format("Solar back reflectance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(7)));
+>>>>>>> nrel/develop
                 }
 
                 thisConstruct.BSDFInput.SolBkRefl.allocate(NBasis, NBasis);
@@ -5911,7 +7246,11 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Solar back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(7)));
+=======
+                        std::format("Solar back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(7)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.SolBkReflIndex, state.dataBSDFWindow->BSDFTempMtrx);
                     thisConstruct.BSDFInput.SolBkRefl = 0.0;
@@ -5930,6 +7269,7 @@ namespace HeatBalanceManager {
 
                 if (NumRows != NBasis) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format(
@@ -5937,23 +7277,46 @@ namespace HeatBalanceManager {
                                          "size is defined by Matrix:TwoDimension = \"{}\".",
                                          locAlphaArgs(8),
                                          locAlphaArgs(5)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Visible front transmittance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
+                                    "size is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(8),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Visible front transmittance matrix \"{}\" must have the same number of rows and columns.",
                                                         locAlphaArgs(8)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Visible front transmittance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(8)));
+>>>>>>> nrel/develop
                 }
 
                 thisConstruct.BSDFInput.VisFrtTrans.allocate(NBasis, NBasis);
                 if (thisConstruct.BSDFInput.VisFrtTransIndex == 0) {
                     ErrorsFound = true;
+<<<<<<< HEAD
                     ShowSevereCustom(state,
                                      eoh,
                                      EnergyPlus::format("Visible front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.",
                                                         locAlphaArgs(8)));
+=======
+                    ShowSevereCustom(
+                        state,
+                        eoh,
+                        std::format("Visible front transmittance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(8)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.VisFrtTransIndex, state.dataBSDFWindow->BSDFTempMtrx);
                     thisConstruct.BSDFInput.VisFrtTrans = 0.0;
@@ -5975,10 +7338,17 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Visible back reflectance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
                                            "size is defined by Matrix:TwoDimension = \"{}\".",
                                            locAlphaArgs(9),
                                            locAlphaArgs(5)));
+=======
+                        std::format("Visible back reflectance matrix \"{}\" is not the same size as it is defined by basis definition. Basis "
+                                    "size is defined by Matrix:TwoDimension = \"{}\".",
+                                    locAlphaArgs(9),
+                                    locAlphaArgs(5)));
+>>>>>>> nrel/develop
                 }
 
                 if (NumRows != NumCols) {
@@ -5986,7 +7356,11 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Visible back reflectance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(9)));
+=======
+                        std::format("Visible back reflectance matrix \"{}\" must have the same number of rows and columns.", locAlphaArgs(9)));
+>>>>>>> nrel/develop
                 }
 
                 thisConstruct.BSDFInput.VisBkRefl.allocate(NBasis, NBasis);
@@ -5995,7 +7369,11 @@ namespace HeatBalanceManager {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Visible back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(9)));
+=======
+                        std::format("Visible back reflectance Matrix:TwoDimension = \"{}\" is missing from the input file.", locAlphaArgs(9)));
+>>>>>>> nrel/develop
                 } else {
                     MatrixDataManager::Get2DMatrix(state, thisConstruct.BSDFInput.VisBkReflIndex, state.dataBSDFWindow->BSDFTempMtrx);
                     thisConstruct.BSDFInput.VisBkRefl = 0.0;
@@ -6016,6 +7394,11 @@ namespace HeatBalanceManager {
 
                 // ALLOCATE(Construct(ConstrNum)%BSDFInput%Layer(NumOfOpticalLayers))
                 for (int Layer = 1; Layer <= thisConstruct.TotLayers; ++Layer) {
+<<<<<<< HEAD
+=======
+                    AlphaIndex = 9 + (Layer * 3) - 2;
+                    currentOpticalLayer = int(Layer / 2) + 1;
+>>>>>>> nrel/develop
 
                     if (mod(Layer, 2) != 0) {
                         thisConstruct.BSDFInput.Layer(currentOpticalLayer).MaterialIndex = thisConstruct.LayerPoint(Layer);
@@ -6033,9 +7416,15 @@ namespace HeatBalanceManager {
                             ErrorsFound = true;
                             ShowSevereCustom(state,
                                              eoh,
+<<<<<<< HEAD
                                              EnergyPlus::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
                                                                 locAlphaArgs(AlphaIndex),
                                                                 currentOpticalLayer));
+=======
+                                             std::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
+                                                         locAlphaArgs(AlphaIndex),
+                                                         currentOpticalLayer));
+>>>>>>> nrel/develop
                         }
 
                         if (NumCols != NBasis) {
@@ -6043,6 +7432,7 @@ namespace HeatBalanceManager {
                             ShowSevereCustom(
                                 state,
                                 eoh,
+<<<<<<< HEAD
                                 EnergyPlus::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns "
                                                    "as it is defined by basis matrix."
                                                    "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
@@ -6050,6 +7440,15 @@ namespace HeatBalanceManager {
                                                    currentOpticalLayer,
                                                    NumCols,
                                                    NBasis));
+=======
+                                std::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns "
+                                            "as it is defined by basis matrix."
+                                            "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
+                                            locAlphaArgs(AlphaIndex),
+                                            currentOpticalLayer,
+                                            NumCols,
+                                            NBasis));
+>>>>>>> nrel/develop
                         }
 
                         thisConstruct.BSDFInput.Layer(currentOpticalLayer).AbsNcols = NumCols;
@@ -6060,9 +7459,15 @@ namespace HeatBalanceManager {
                             ShowSevereCustom(
                                 state,
                                 eoh,
+<<<<<<< HEAD
                                 EnergyPlus::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
                                                    locAlphaArgs(AlphaIndex),
                                                    currentOpticalLayer));
+=======
+                                std::format("Front absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
+                                            locAlphaArgs(AlphaIndex),
+                                            currentOpticalLayer));
+>>>>>>> nrel/develop
                         } else {
                             MatrixDataManager::Get2DMatrix(state,
                                                            thisConstruct.BSDFInput.Layer(currentOpticalLayer).FrtAbsIndex,
@@ -6082,9 +7487,15 @@ namespace HeatBalanceManager {
                             ErrorsFound = true;
                             ShowSevereCustom(state,
                                              eoh,
+<<<<<<< HEAD
                                              EnergyPlus::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
                                                                 locAlphaArgs(AlphaIndex),
                                                                 currentOpticalLayer));
+=======
+                                             std::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have only one row.",
+                                                         locAlphaArgs(AlphaIndex),
+                                                         currentOpticalLayer));
+>>>>>>> nrel/develop
                         }
 
                         if (NumCols != NBasis) {
@@ -6092,6 +7503,7 @@ namespace HeatBalanceManager {
                             ShowSevereCustom(
                                 state,
                                 eoh,
+<<<<<<< HEAD
                                 EnergyPlus::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns as "
                                                    "it is defined by basis matrix."
                                                    "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
@@ -6099,18 +7511,35 @@ namespace HeatBalanceManager {
                                                    currentOpticalLayer,
                                                    NumCols,
                                                    NBasis));
+=======
+                                std::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} must have same number of columns as "
+                                            "it is defined by basis matrix."
+                                            "Matrix has {} number of columns, while basis definition specifies {} number of columns.",
+                                            locAlphaArgs(AlphaIndex),
+                                            currentOpticalLayer,
+                                            NumCols,
+                                            NBasis));
+>>>>>>> nrel/develop
                         }
 
                         thisConstruct.BSDFInput.Layer(currentOpticalLayer).BkAbs.allocate(NumCols, NumRows);
 
                         if (thisConstruct.BSDFInput.Layer(currentOpticalLayer).BkAbsIndex == 0) {
                             ErrorsFound = true;
+<<<<<<< HEAD
                             ShowSevereCustom(
                                 state,
                                 eoh,
                                 EnergyPlus::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
                                                    locAlphaArgs(AlphaIndex),
                                                    currentOpticalLayer));
+=======
+                            ShowSevereCustom(state,
+                                             eoh,
+                                             std::format("Back absorbtance Matrix:TwoDimension = \"{}\" for layer {} is missing from the input file.",
+                                                         locAlphaArgs(AlphaIndex),
+                                                         currentOpticalLayer));
+>>>>>>> nrel/develop
                         } else {
                             MatrixDataManager::Get2DMatrix(state,
                                                            thisConstruct.BSDFInput.Layer(currentOpticalLayer).BkAbsIndex,
@@ -6181,9 +7610,15 @@ namespace HeatBalanceManager {
                   "! <Construction CTF>,Construction Name,Index,#Layers,#CTFs,Time Step {{hours}},ThermalConductance "
                   "{{w/m2-K}},OuterThermalAbsorptance,InnerThermalAbsorptance,OuterSolarAbsorptance,InnerSolarAbsorptance,Roughness\n");
             print(state.files.eio,
+<<<<<<< HEAD
                   "! <Material CTF Summary>,Material Name,Thickness {{m}},Conductivity {{w/m-K}},Density {{kg/m3}},Specific Heat "
                   "{{J/kg-K}},ThermalResistance {{m2-K/w}}\n");
             print(state.files.eio, "! <Material:Air CTF Summary>,Material Name,ThermalResistance {{m2-K/w}}\n");
+=======
+                  "! <Material CTF Summary>,Material Name,Thickness {{m}},Conductivity {{W/m-K}},Density {{kg/m3}},Specific Heat "
+                  "{{J/kg-K}},ThermalResistance {{m2-K/W}}\n");
+            print(state.files.eio, "! <Material:Air CTF Summary>,Material Name,ThermalResistance {{m2-K/W}}\n");
+>>>>>>> nrel/develop
             print(state.files.eio, "! <CTF>,Time,Outside,Cross,Inside,Flux (except final one)\n");
 
             int cCounter = 0; // just used to keep construction index in output report

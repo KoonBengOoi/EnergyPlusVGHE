@@ -537,8 +537,11 @@ TEST_F(EnergyPlusFixture, DualDuctAirTerminal_reportTerminalUnit)
 
     auto &orp = *state->dataOutRptPredefined;
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     auto *schedA = Sched::AddScheduleConstant(*state, "schA");
     auto *schedB = Sched::AddScheduleConstant(*state, "schB");
 
@@ -549,7 +552,10 @@ TEST_F(EnergyPlusFixture, DualDuctAirTerminal_reportTerminalUnit)
 
     auto &siz = state->dataSize->TermUnitFinalZoneSizing;
     siz.allocate(2);
+<<<<<<< HEAD
     siz(1).DesCoolVolFlowMin = 0.15;
+=======
+>>>>>>> nrel/develop
     siz(1).MinOA = 0.05;
     siz(1).CoolDesTemp = 12.5;
     siz(1).HeatDesTemp = 40.0;
@@ -563,11 +569,21 @@ TEST_F(EnergyPlusFixture, DualDuctAirTerminal_reportTerminalUnit)
     ddat(1).MaxAirVolFlowRate = 0.30;
     ddat(1).zoneTurndownMinAirFracSched = schedA;
     ddat(1).OARequirementsPtr = 0;
+<<<<<<< HEAD
 
     ddat(1).reportTerminalUnit(*state);
 
     EXPECT_EQ("0.15", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinFlow, "ADU a"));
     EXPECT_EQ("0.05", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinOutdoorFlow, "ADU a"));
+=======
+    ddat(1).ZoneMinAirFracDes = 0.5;
+    ddat(1).ZoneTurndownMinAirFrac = 0.3;
+
+    ddat(1).reportTerminalUnit(*state);
+
+    EXPECT_EQ("0.0450", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinFlow, "ADU a"));
+    EXPECT_EQ("0.0500", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinOutdoorFlow, "ADU a"));
+>>>>>>> nrel/develop
     EXPECT_EQ("12.50", RetrievePreDefTableEntry(*state, orp.pdchAirTermSupCoolingSP, "ADU a"));
     EXPECT_EQ("40.00", RetrievePreDefTableEntry(*state, orp.pdchAirTermSupHeatingSP, "ADU a"));
     EXPECT_EQ("2000.00", RetrievePreDefTableEntry(*state, orp.pdchAirTermHeatingCap, "ADU a"));
@@ -586,7 +602,10 @@ TEST_F(EnergyPlusFixture, DualDuctAirTerminal_reportTerminalUnit)
     adu(2).Name = "ADU b";
     adu(2).TermUnitSizingNum = 2;
 
+<<<<<<< HEAD
     siz(2).DesCoolVolFlowMin = 0.16;
+=======
+>>>>>>> nrel/develop
     siz(2).MinOA = 0.06;
     siz(2).CoolDesTemp = 12.6;
     siz(2).HeatDesTemp = 41.0;
@@ -598,6 +617,11 @@ TEST_F(EnergyPlusFixture, DualDuctAirTerminal_reportTerminalUnit)
     ddat(2).MaxAirVolFlowRate = 0.31;
     ddat(2).zoneTurndownMinAirFracSched = nullptr;
     ddat(2).OARequirementsPtr = 1;
+<<<<<<< HEAD
+=======
+    ddat(2).ZoneMinAirFracDes = 0.5;
+    ddat(2).ZoneTurndownMinAirFrac = 0.3;
+>>>>>>> nrel/develop
 
     auto &oa = state->dataSize->OARequirements;
     oa.allocate(1);
@@ -605,8 +629,13 @@ TEST_F(EnergyPlusFixture, DualDuctAirTerminal_reportTerminalUnit)
 
     ddat(2).reportTerminalUnit(*state);
 
+<<<<<<< HEAD
     EXPECT_EQ("0.16", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinFlow, "ADU b"));
     EXPECT_EQ("0.06", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinOutdoorFlow, "ADU b"));
+=======
+    EXPECT_EQ("0.0465", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinFlow, "ADU b"));
+    EXPECT_EQ("0.0600", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinOutdoorFlow, "ADU b"));
+>>>>>>> nrel/develop
     EXPECT_EQ("12.60", RetrievePreDefTableEntry(*state, orp.pdchAirTermSupCoolingSP, "ADU b"));
     EXPECT_EQ("41.00", RetrievePreDefTableEntry(*state, orp.pdchAirTermSupHeatingSP, "ADU b"));
     EXPECT_EQ("2100.00", RetrievePreDefTableEntry(*state, orp.pdchAirTermHeatingCap, "ADU b"));

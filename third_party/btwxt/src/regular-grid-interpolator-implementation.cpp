@@ -47,7 +47,11 @@ std::size_t RegularGridInterpolatorImplementation::add_grid_point_data_set(
     const GridPointDataSet& grid_point_data_set)
 {
     if (grid_point_data_set.data.size() != number_of_grid_points) {
+<<<<<<< HEAD
         throw BtwxtException(fmt::format("Input grid point data set (name=\"{}\") size ({}) does "
+=======
+        throw BtwxtException(std::format("Input grid point data set (name=\"{}\") size ({}) does "
+>>>>>>> nrel/develop
                                          "not match number of grid points ({}).",
                                          grid_point_data_set.name,
                                          grid_point_data_set.data.size(),
@@ -71,7 +75,11 @@ void RegularGridInterpolatorImplementation::set_target(const std::vector<double>
 {
     if (target_in.size() != number_of_grid_axes) {
         throw BtwxtException(
+<<<<<<< HEAD
             fmt::format("Target (size={}) and grid (size={}) do not have the same dimensions.",
+=======
+            std::format("Target (size={}) and grid (size={}) do not have the same dimensions.",
+>>>>>>> nrel/develop
                         target_in.size(),
                         number_of_grid_axes),
             *logger);
@@ -94,7 +102,11 @@ const std::vector<double>& RegularGridInterpolatorImplementation::get_target() c
 {
     if (!target_is_set) {
         logger->warning(
+<<<<<<< HEAD
             fmt::format("The current target was requested, but no target has been set."));
+=======
+            std::format("The current target was requested, but no target has been set."));
+>>>>>>> nrel/develop
     }
     return target;
 }
@@ -109,10 +121,17 @@ void RegularGridInterpolatorImplementation::clear_target()
 std::vector<double> RegularGridInterpolatorImplementation::get_results() const
 {
     if (number_of_grid_point_data_sets == 0u) {
+<<<<<<< HEAD
         logger->warning(fmt::format("There are no grid point data sets. No results returned."));
     }
     if (!target_is_set) {
         logger->warning(fmt::format("Results were requested, but no target has been set."));
+=======
+        logger->warning(std::format("There are no grid point data sets. No results returned."));
+    }
+    if (!target_is_set) {
+        logger->warning(std::format("Results were requested, but no target has been set."));
+>>>>>>> nrel/develop
     }
     return results;
 }
@@ -129,7 +148,11 @@ void RegularGridInterpolatorImplementation::normalize_grid_point_data_sets_at_ta
 {
     if (!target_is_set) {
         throw BtwxtException(
+<<<<<<< HEAD
             fmt::format("Cannot normalize grid point data sets. No target has been set."), *logger);
+=======
+            std::format("Cannot normalize grid point data sets. No target has been set."), *logger);
+>>>>>>> nrel/develop
     }
     for (std::size_t data_set_index = 0; data_set_index < number_of_grid_point_data_sets;
          ++data_set_index) {
@@ -144,7 +167,11 @@ double RegularGridInterpolatorImplementation::normalize_grid_point_data_set_at_t
 {
     if (!target_is_set) {
         throw BtwxtException(
+<<<<<<< HEAD
             fmt::format(
+=======
+            std::format(
+>>>>>>> nrel/develop
                 "Cannot normalize grid point data set (name=\"{}\"). No target has been set.",
                 grid_point_data_sets[data_set_index].name),
             *logger);
@@ -165,7 +192,11 @@ void RegularGridInterpolatorImplementation::normalize_grid_point_data_set(
     auto& data_set = grid_point_data_sets[data_set_index].data;
     if (scalar == 0.0) {
         throw BtwxtException(
+<<<<<<< HEAD
             fmt::format("Attempt to normalize grid point data set (name=\"{}\") by zero.",
+=======
+            std::format("Attempt to normalize grid point data set (name=\"{}\") by zero.",
+>>>>>>> nrel/develop
                         grid_point_data_sets[data_set_index].name),
             *logger);
     }
@@ -298,7 +329,11 @@ void RegularGridInterpolatorImplementation::set_axis_sizes()
         std::size_t length = grid_axes[axis_index].get_length();
         if (length == 0) {
             throw BtwxtException(
+<<<<<<< HEAD
                 fmt::format("Grid axis (name=\"{}\") has zero length.", grid_axes[axis_index].name),
+=======
+                std::format("Grid axis (name=\"{}\") has zero length.", grid_axes[axis_index].name),
+>>>>>>> nrel/develop
                 *logger);
         }
         grid_axis_lengths[axis_index] = length;
@@ -420,14 +455,22 @@ void RegularGridInterpolatorImplementation::consolidate_methods()
                 methods[axis_index] = extrapolation_methods[axis_index];
                 break;
             case TargetBoundsStatus::below_lower_extrapolation_limit:
+<<<<<<< HEAD
                 throw BtwxtException(fmt::format(exception_format,
+=======
+                throw BtwxtException(std::format(exception_format,
+>>>>>>> nrel/develop
                                                  target[axis_index],
                                                  "below",
                                                  get_extrapolation_limits(axis_index).first,
                                                  grid_axes[axis_index].name),
                                      *logger);
             case TargetBoundsStatus::above_upper_extrapolation_limit:
+<<<<<<< HEAD
                 throw BtwxtException(fmt::format(exception_format,
+=======
+                throw BtwxtException(std::format(exception_format,
+>>>>>>> nrel/develop
                                                  target[axis_index],
                                                  "above",
                                                  get_extrapolation_limits(axis_index).second,
@@ -448,7 +491,11 @@ void RegularGridInterpolatorImplementation::consolidate_methods()
 void RegularGridInterpolatorImplementation::set_hypercube(std::vector<Method> methods_in)
 {
     if (methods_in.size() != number_of_grid_axes) {
+<<<<<<< HEAD
         throw BtwxtException(fmt::format("Error setting hypercube. Methods vector (size={}) and "
+=======
+        throw BtwxtException(std::format("Error setting hypercube. Methods vector (size={}) and "
+>>>>>>> nrel/develop
                                          "grid (size={}) do not have the dimensions.",
                                          methods_in.size(),
                                          number_of_grid_axes),

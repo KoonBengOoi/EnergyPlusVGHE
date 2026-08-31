@@ -128,7 +128,11 @@ namespace AirflowNetwork {
         Real64 viscosity;
 
         AirState();
+<<<<<<< HEAD
         explicit AirState(double const airDensity);
+=======
+        explicit AirState(double density);
+>>>>>>> nrel/develop
     };
 
 } // namespace AirflowNetwork

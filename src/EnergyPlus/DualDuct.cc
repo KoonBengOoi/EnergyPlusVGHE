@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <string>
 
 // ObjexxFCL Headers
@@ -131,13 +135,18 @@ namespace DualDuct {
         if (CompIndex == 0) {
             DDNum = Util::FindItemInList(CompName, state.dataDualDuct->dd_airterminal, &DualDuctAirTerminal::Name);
             if (DDNum == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("SimulateDualDuct: Damper not found={}", CompName));
+=======
+                ShowFatalError(state, std::format("SimulateDualDuct: Damper not found={}", CompName));
+>>>>>>> nrel/develop
             }
             CompIndex = DDNum;
         } else {
             DDNum = CompIndex;
             if (DDNum > state.dataDualDuct->NumDDAirTerminal || DDNum < 1) {
                 ShowFatalError(state,
+<<<<<<< HEAD
                                EnergyPlus::format("SimulateDualDuct: Invalid CompIndex passed={}, Number of Dampers={}, Damper name={}",
                                                   CompIndex,
                                                   state.dataDualDuct->NumDDAirTerminal,
@@ -151,6 +160,20 @@ namespace DualDuct {
                                            CompIndex,
                                            CompName,
                                            state.dataDualDuct->dd_airterminal(DDNum).Name));
+=======
+                               std::format("SimulateDualDuct: Invalid CompIndex passed={}, Number of Dampers={}, Damper name={}",
+                                           CompIndex,
+                                           state.dataDualDuct->NumDDAirTerminal,
+                                           CompName));
+            }
+            if (state.dataDualDuct->dd_airterminal(DDNum).CheckEquipName) {
+                if (CompName != state.dataDualDuct->dd_airterminal(DDNum).Name) {
+                    ShowFatalError(state,
+                                   std::format("SimulateDualDuct: Invalid CompIndex passed={}, Damper name={}, stored Damper Name for that index={}",
+                                               CompIndex,
+                                               CompName,
+                                               state.dataDualDuct->dd_airterminal(DDNum).Name));
+>>>>>>> nrel/develop
                 }
                 state.dataDualDuct->dd_airterminal(DDNum).CheckEquipName = false;
             }
@@ -181,7 +204,11 @@ namespace DualDuct {
             // Update the current Damper to the outlet nodes
             thisDualDuct.UpdateDualDuct(state);
         } else {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("SimulateDualDuct: Damper not found={}", CompName));
+=======
+            ShowFatalError(state, std::format("SimulateDualDuct: Damper not found={}", CompName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -311,9 +338,15 @@ namespace DualDuct {
                     auto &thisObjType = damperTypeStrings[static_cast<int>(thisDD.DamperType)];
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "{}No matching List:Zone:AirTerminal for AirTerminal:DualDuct = [{},{}].", RoutineName, thisObjType, thisDD.Name));
                     ShowContinueError(state, EnergyPlus::format("...should have outlet node={}", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
+=======
+                        std::format(
+                            "{}No matching List:Zone:AirTerminal for AirTerminal:DualDuct = [{},{}].", RoutineName, thisObjType, thisDD.Name));
+                    ShowContinueError(state, std::format("...should have outlet node={}", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
 
@@ -328,10 +361,15 @@ namespace DualDuct {
                                 if (state.dataZoneEquip->ZoneEquipConfig(CtrlZone).AirDistUnitCool(SupAirIn).OutNode > 0) {
                                     ShowSevereError(state, "Error in connecting a terminal unit to a zone");
                                     ShowContinueError(
+<<<<<<< HEAD
                                         state,
                                         EnergyPlus::format("{} already connects to another zone", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
                                     ShowContinueError(state,
                                                       EnergyPlus::format("Occurs for terminal unit {} = {}", CurrentModuleObject, thisDD.Name));
+=======
+                                        state, std::format("{} already connects to another zone", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
+                                    ShowContinueError(state, std::format("Occurs for terminal unit {} = {}", CurrentModuleObject, thisDD.Name));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "Check terminal unit node names for errors");
                                     ErrorsFound = true;
                                 } else {
@@ -453,9 +491,15 @@ namespace DualDuct {
                     auto &thisObjType = damperTypeStrings[static_cast<int>(thisDD.DamperType)];
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "{}No matching List:Zone:AirTerminal for AirTerminal:DualDuct = [{},{}].", RoutineName, thisObjType, thisDD.Name));
                     ShowContinueError(state, EnergyPlus::format("...should have outlet node={}", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
+=======
+                        std::format(
+                            "{}No matching List:Zone:AirTerminal for AirTerminal:DualDuct = [{},{}].", RoutineName, thisObjType, thisDD.Name));
+                    ShowContinueError(state, std::format("...should have outlet node={}", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
 
@@ -484,8 +528,13 @@ namespace DualDuct {
                 if (!lAlphaBlanks(6)) {
                     thisDD.OARequirementsPtr = Util::FindItemInList(AlphArray(6), state.dataSize->OARequirements);
                     if (thisDD.OARequirementsPtr == 0) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{} = {} not found.", cAlphaFields(6), AlphArray(6)));
                         ShowContinueError(state, EnergyPlus::format("Occurs in {} = {}", cCMO_DDVariableVolume, thisDD.Name));
+=======
+                        ShowSevereError(state, std::format("{} = {} not found.", cAlphaFields(6), AlphArray(6)));
+                        ShowContinueError(state, std::format("Occurs in {} = {}", cCMO_DDVariableVolume, thisDD.Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         thisDD.NoOAFlowInputFromUser = false;
@@ -622,9 +671,15 @@ namespace DualDuct {
                     auto &thisObjType = damperTypeStrings[static_cast<int>(thisDD.DamperType)];
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "{}No matching List:Zone:AirTerminal for AirTerminal:DualDuct = [{},{}].", RoutineName, thisObjType, thisDD.Name));
                     ShowContinueError(state, EnergyPlus::format("...should have outlet node={}", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
+=======
+                        std::format(
+                            "{}No matching List:Zone:AirTerminal for AirTerminal:DualDuct = [{},{}].", RoutineName, thisObjType, thisDD.Name));
+                    ShowContinueError(state, std::format("...should have outlet node={}", state.dataLoopNodes->NodeID(thisDD.OutletNodeNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
 
@@ -656,8 +711,13 @@ namespace DualDuct {
                 }
                 thisDD.OARequirementsPtr = Util::FindItemInList(AlphArray(6), state.dataSize->OARequirements);
                 if (thisDD.OARequirementsPtr == 0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{} = {} not found.", cAlphaFields(6), AlphArray(6)));
                     ShowContinueError(state, EnergyPlus::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
+=======
+                    ShowSevereError(state, std::format("{} = {} not found.", cAlphaFields(6), AlphArray(6)));
+                    ShowContinueError(state, std::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     thisDD.NoOAFlowInputFromUser = false;
@@ -677,11 +737,19 @@ namespace DualDuct {
                         } else {
                             if (thisDD.MaxAirVolFlowRate < thisDD.DesignOAFlowRate) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("The value {:.5R} in {}is lower than the outdoor air requirement.",
                                                                    thisDD.MaxAirVolFlowRate,
                                                                    cNumericFields(1)));
                                 ShowContinueError(state, EnergyPlus::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
                                 ShowContinueError(state, EnergyPlus::format("The design outdoor air requirement is {:.5R}", thisDD.DesignOAFlowRate));
+=======
+                                                std::format("The value {:.5f} in {}is lower than the outdoor air requirement.",
+                                                            thisDD.MaxAirVolFlowRate,
+                                                            cNumericFields(1)));
+                                ShowContinueError(state, std::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
+                                ShowContinueError(state, std::format("The design outdoor air requirement is {:.5f}", thisDD.DesignOAFlowRate));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -693,6 +761,7 @@ namespace DualDuct {
                     if ((DummyOAFlow == 0.0) && (lAlphaBlanks(7))) {       // no worries
                                                                            // do nothing, okay since no per person requirement involved
                     } else if ((DummyOAFlow > 0.0) && (lAlphaBlanks(7))) { // missing input
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{} was blank.", cAlphaFields(7)));
                         ShowContinueError(state, EnergyPlus::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
                         ShowContinueError(state, R"(Valid choices are "CurrentOccupancy" or "DesignOccupancy")");
@@ -700,6 +769,15 @@ namespace DualDuct {
                     } else if ((DummyOAFlow > 0.0) && !(lAlphaBlanks(7))) { // incorrect input
                         ShowSevereError(state, EnergyPlus::format("{} = {} not a valid key choice.", cAlphaFields(7), AlphArray(7)));
                         ShowContinueError(state, EnergyPlus::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
+=======
+                        ShowSevereError(state, std::format("{} was blank.", cAlphaFields(7)));
+                        ShowContinueError(state, std::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
+                        ShowContinueError(state, R"(Valid choices are "CurrentOccupancy" or "DesignOccupancy")");
+                        ErrorsFound = true;
+                    } else if ((DummyOAFlow > 0.0) && !(lAlphaBlanks(7))) { // incorrect input
+                        ShowSevereError(state, std::format("{} = {} not a valid key choice.", cAlphaFields(7), AlphArray(7)));
+                        ShowContinueError(state, std::format("Occurs in {} = {}", cCMO_DDVarVolOA, thisDD.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, R"(Valid choices are "CurrentOccupancy" or "DesignOccupancy")");
                         ErrorsFound = true;
                     }
@@ -732,7 +810,11 @@ namespace DualDuct {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}Errors found in input.  Preceding condition(s) cause termination.", RoutineName));
+=======
+            ShowFatalError(state, std::format("{}Errors found in input.  Preceding condition(s) cause termination.", RoutineName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -752,11 +834,19 @@ namespace DualDuct {
         // Uses the status flags to trigger events.
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
+<<<<<<< HEAD
         int HotInNode;
         int ColdInNode;
         int OAInNode; // Outdoor Air Inlet Node for VAV:OutdoorAir units
         int RAInNode; // Reciruclated Air Inlet Node for VAV:OutdoorAir units
         int OutNode;
+=======
+        int HotInNode = 0;
+        int ColdInNode = 0;
+        int OAInNode = 0; // Outdoor Air Inlet Node for VAV:OutdoorAir units
+        int RAInNode = 0; // Reciruclated Air Inlet Node for VAV:OutdoorAir units
+        int OutNode = 0;
+>>>>>>> nrel/develop
         int Loop;          // Loop checking control variable
         Real64 PeopleFlow; // local sum variable, m3/s
 
@@ -772,6 +862,7 @@ namespace DualDuct {
                     continue;
                 }
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("InitDualDuct: ADU=[Air Distribution Unit,{}] is not on any ZoneHVAC:EquipmentList.",
                                                    state.dataDefineEquipment->AirDistUnit(this->ADUNum).Name));
                 if (this->DamperType == DualDuctDamper::ConstantVolume) {
@@ -784,6 +875,18 @@ namespace DualDuct {
                     ShowContinueError(state, EnergyPlus::format("...Dual Duct Damper=[{},{}] will not be simulated.", cCMO_DDVarVolOA, this->Name));
                 } else {
                     ShowContinueError(state, EnergyPlus::format("...Dual Duct Damper=[unknown/invalid,{}] will not be simulated.", this->Name));
+=======
+                                std::format("InitDualDuct: ADU=[Air Distribution Unit,{}] is not on any ZoneHVAC:EquipmentList.",
+                                            state.dataDefineEquipment->AirDistUnit(this->ADUNum).Name));
+                if (this->DamperType == DualDuctDamper::ConstantVolume) {
+                    ShowContinueError(state, std::format("...Dual Duct Damper=[{},{}] will not be simulated.", cCMO_DDConstantVolume, this->Name));
+                } else if (this->DamperType == DualDuctDamper::VariableVolume) {
+                    ShowContinueError(state, std::format("...Dual Duct Damper=[{},{}] will not be simulated.", cCMO_DDVariableVolume, this->Name));
+                } else if (this->DamperType == DualDuctDamper::OutdoorAir) {
+                    ShowContinueError(state, std::format("...Dual Duct Damper=[{},{}] will not be simulated.", cCMO_DDVarVolOA, this->Name));
+                } else {
+                    ShowContinueError(state, std::format("...Dual Duct Damper=[unknown/invalid,{}] will not be simulated.", this->Name));
+>>>>>>> nrel/develop
                 }
             }
         }
@@ -1449,6 +1552,7 @@ namespace DualDuct {
         Real64 QRALoad;               // Amount of cooling load accounted for by Recirc Stream [W]
         Real64 CpAirZn;               // specific heat of zone air
         Real64 CpAirSysOA;            // specific heat of outdoor air
+<<<<<<< HEAD
         Real64 CpAirSysRA;            // specific heat of recirculated air
         Real64 OAMassFlow;            // Supply air flow rate based on minimum OA requirement - for printing
         Real64 TotMassFlow;           // [kg/sec]   Total Mass Flow Rate from OA and Recirc Inlets
@@ -1456,6 +1560,15 @@ namespace DualDuct {
         int RecircInletNodeNum;
 
         OAInletNodeNum = this->OAInletNodeNum;
+=======
+        Real64 CpAirSysRA = 0.0;      // specific heat of recirculated air
+        Real64 OAMassFlow;            // Supply air flow rate based on minimum OA requirement - for printing
+        Real64 TotMassFlow;           // [kg/sec]   Total Mass Flow Rate from OA and Recirc Inlets
+        int oaInletNodeNum;
+        int RecircInletNodeNum = 0;
+
+        oaInletNodeNum = this->OAInletNodeNum;
+>>>>>>> nrel/develop
         if (this->RecircIsUsed) {
             RecircInletNodeNum = this->RecircAirInletNodeNum;
         }
@@ -1469,7 +1582,11 @@ namespace DualDuct {
 
         // Calculate all of the required Cp's
         CpAirZn = Psychrometrics::PsyCpAirFnW(state.dataLoopNodes->Node(ZoneNodeNum).HumRat);
+<<<<<<< HEAD
         CpAirSysOA = Psychrometrics::PsyCpAirFnW(state.dataLoopNodes->Node(OAInletNodeNum).HumRat);
+=======
+        CpAirSysOA = Psychrometrics::PsyCpAirFnW(state.dataLoopNodes->Node(oaInletNodeNum).HumRat);
+>>>>>>> nrel/develop
         if (this->RecircIsUsed) {
             CpAirSysRA = Psychrometrics::PsyCpAirFnW(state.dataLoopNodes->Node(RecircInletNodeNum).HumRat);
         }
@@ -1716,8 +1833,12 @@ namespace DualDuct {
         if (this->NoOAFlowInputFromUser) {
             ShowSevereError(
                 state,
+<<<<<<< HEAD
                 EnergyPlus::format("CalcOAOnlyMassFlow: Problem in AirTerminal:DualDuct:VAV:OutdoorAir = {}, check outdoor air specification",
                                    this->Name));
+=======
+                std::format("CalcOAOnlyMassFlow: Problem in AirTerminal:DualDuct:VAV:OutdoorAir = {}, check outdoor air specification", this->Name));
+>>>>>>> nrel/develop
             if (present(MaxOAVolFlow)) {
                 MaxOAVolFlow = 0.0;
             }
@@ -2079,12 +2200,36 @@ namespace DualDuct {
         auto &adu = state.dataDefineEquipment->AirDistUnit(this->ADUNum);
         if (!state.dataSize->TermUnitFinalZoneSizing.empty()) {
             auto &sizing = state.dataSize->TermUnitFinalZoneSizing(adu.TermUnitSizingNum);
+<<<<<<< HEAD
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinFlow, adu.Name, sizing.DesCoolVolFlowMin);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinOutdoorFlow, adu.Name, sizing.MinOA);
+=======
+            Real64 minZoneFlow = this->MaxAirVolFlowRate * this->ZoneMinAirFracDes * this->ZoneTurndownMinAirFrac;
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinFlow, adu.Name, minZoneFlow, 4);
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinOutdoorFlow, adu.Name, sizing.MinOA, 4);
+>>>>>>> nrel/develop
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermSupCoolingSP, adu.Name, sizing.CoolDesTemp);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermSupHeatingSP, adu.Name, sizing.HeatDesTemp);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermHeatingCap, adu.Name, sizing.DesHeatLoad);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermCoolingCap, adu.Name, sizing.DesCoolLoad);
+<<<<<<< HEAD
+=======
+
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchLeedVentMinFlowPerZone, sizing.ZoneName, minZoneFlow, 6);
+            Real64 minZoneFlowPerFloorArea = (sizing.TotalZoneFloorArea != 0.0) ? minZoneFlow / sizing.TotalZoneFloorArea : 0.0;
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchLeedVentMinFlowPerArea, sizing.ZoneName, minZoneFlowPerFloorArea, 6);
+            OutputReportPredefined::PreDefTableEntry(state,
+                                                     state.dataOutRptPredefined->pdchLeedVentMinVentPerZone,
+                                                     sizing.ZoneName,
+                                                     sizing.MinOA,
+                                                     6); // minZoneVoa
+            Real64 minZoneVoaPerFloorArea = (sizing.TotalZoneFloorArea != 0.0) ? sizing.MinOA / sizing.TotalZoneFloorArea : 0.0;
+            OutputReportPredefined::PreDefTableEntry(state,
+                                                     state.dataOutRptPredefined->pdchLeedVentMinVentPerArea,
+                                                     sizing.ZoneName,
+                                                     minZoneVoaPerFloorArea,
+                                                     6); // minZoneVoaPerFloorArea
+>>>>>>> nrel/develop
         }
 
         OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermTypeInp, adu.Name, dualDuctDamperNames[(int)this->DamperType]);

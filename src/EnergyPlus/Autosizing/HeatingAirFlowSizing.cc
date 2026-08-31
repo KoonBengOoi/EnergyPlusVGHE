@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/HeatingAirFlowSizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -251,16 +255,24 @@ Real64 HeatingAirFlowSizer::size(EnergyPlusData &state, Real64 _originalValue, b
             std::string msg = this->callingRoutine + ' ' + this->compType + ' ' + this->compName + ", Developer Error: Component sizing incomplete.";
             ShowSevereError(state, msg);
             this->addErrorMessage(msg);
+<<<<<<< HEAD
             msg = EnergyPlus::format("SizingString = {}, SizingResult = {:.1T}", this->sizingString, this->autoSizedValue);
+=======
+            msg = std::format("SizingString = {}, SizingResult = {:.1f}", this->sizingString, this->autoSizedValue);
+>>>>>>> nrel/develop
             ShowContinueError(state, msg);
             this->addErrorMessage(msg);
             errorsFound = true;
         }
         // override sizing string
         if (this->overrideSizeString) {
+<<<<<<< HEAD
             if (this->isEpJSON) {
                 this->sizingString = "heating_supply_air_flow_rate [m3/s]";
             }
+=======
+            this->sizingString = "Heating Supply Air Flow Rate [m3/s]";
+>>>>>>> nrel/develop
         }
         if (this->dataScalableSizingON) {
             if (this->zoneAirFlowSizMethod == DataSizing::SupplyAirFlowRate || this->zoneAirFlowSizMethod == DataSizing::None) {
@@ -280,8 +292,12 @@ Real64 HeatingAirFlowSizer::size(EnergyPlusData &state, Real64 _originalValue, b
 
     if (this->isCoilReportObject) {
         // SizingResult is airflow in m3/s
+<<<<<<< HEAD
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilAirFlow(
             state, this->compName, this->compType, this->autoSizedValue, this->wasAutoSized);
+=======
+        ReportCoilSelection::setCoilAirFlow(state, this->coilReportNum, this->autoSizedValue, this->wasAutoSized);
+>>>>>>> nrel/develop
     }
     if (this->isFanReportObject) {
         //  fill fan peak day and time here

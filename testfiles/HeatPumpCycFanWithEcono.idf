@@ -39,7 +39,11 @@
 !        above the econo limit temperature.
 !        The third design day is very hot and all cooling is by the DX unit.
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     NONE,                    !- Name

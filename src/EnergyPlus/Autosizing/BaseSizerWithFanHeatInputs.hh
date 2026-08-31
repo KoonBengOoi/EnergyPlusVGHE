@@ -73,6 +73,7 @@ struct BaseSizerWithFanHeatInputs : BaseSizer
 
     void getFanInputsForDesHeatGain(EnergyPlusData &state,
                                     int fanIndex,
+<<<<<<< HEAD
                                     Real64 &deltaP,
                                     Real64 &motEff,
                                     Real64 &totEff,
@@ -80,6 +81,15 @@ struct BaseSizerWithFanHeatInputs : BaseSizer
                                     Real64 &fanShaftPow,
                                     Real64 &motInPower,
                                     bool &fanCompModel);
+=======
+                                    Real64 &deltaP_out,
+                                    Real64 &motEff_out,
+                                    Real64 &totEff_out,
+                                    Real64 &motInAirFrac_out,
+                                    Real64 &fanShaftPow_out,
+                                    Real64 &motInPower_out,
+                                    bool &fanCompModel_out);
+>>>>>>> nrel/develop
 
     Real64 calcFanDesHeatGain(Real64 const &airVolFlow);
 

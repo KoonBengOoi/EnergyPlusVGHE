@@ -104,7 +104,11 @@ public:
     int DesignObjectNum;
 
 protected:
+<<<<<<< HEAD
     virtual void SetUp()
+=======
+    void SetUp() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::SetUp(); // Sets up the base fixture first.
 
@@ -164,7 +168,11 @@ protected:
         ExpectedResult3 = 0.0;
     }
 
+<<<<<<< HEAD
     virtual void TearDown()
+=======
+    void TearDown() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::TearDown(); // Remember to tear down the base fixture after cleaning up derived fixture!
     }
@@ -451,7 +459,11 @@ TEST_F(LowTempRadiantSystemTest, SizeLowTempRadiantConstantFlow)
 TEST_F(LowTempRadiantSystemTest, AutosizeLowTempRadiantVariableFlowTest)
 {
 
+<<<<<<< HEAD
     int RadSysNum(1);
+=======
+    int loopRadSysNum(1);
+>>>>>>> nrel/develop
     Real64 HeatingCapacity;
     Real64 CoolingCapacity;
     Real64 HotWaterFlowRate;
@@ -1155,6 +1167,7 @@ TEST_F(LowTempRadiantSystemTest, AutosizeLowTempRadiantVariableFlowTest)
 
     GetLowTempRadiantSystem(*state);
     EXPECT_EQ(1, state->dataLowTempRadSys->NumOfHydrLowTempRadSys);
+<<<<<<< HEAD
     EXPECT_EQ("WEST ZONE RADIANT FLOOR", state->dataLowTempRadSys->RadSysTypes(RadSysNum).Name);
     EXPECT_ENUM_EQ(SystemType::Hydronic, state->dataLowTempRadSys->RadSysTypes(RadSysNum).systemType);
 
@@ -1163,24 +1176,48 @@ TEST_F(LowTempRadiantSystemTest, AutosizeLowTempRadiantVariableFlowTest)
                                             state->dataLowTempRadSys->HydrRadSys(RadSysNum).Name,
                                             DataPlant::PlantEquipmentType::LowTempRadiant_VarFlow,
                                             state->dataLowTempRadSys->HydrRadSys(RadSysNum).HWPlantLoc,
+=======
+    EXPECT_EQ("WEST ZONE RADIANT FLOOR", state->dataLowTempRadSys->RadSysTypes(loopRadSysNum).Name);
+    EXPECT_ENUM_EQ(SystemType::Hydronic, state->dataLowTempRadSys->RadSysTypes(loopRadSysNum).systemType);
+
+    ErrorsFound = false;
+    PlantUtilities::ScanPlantLoopsForObject(*state,
+                                            state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).Name,
+                                            DataPlant::PlantEquipmentType::LowTempRadiant_VarFlow,
+                                            state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).HWPlantLoc,
+>>>>>>> nrel/develop
                                             ErrorsFound,
                                             _,
                                             _,
                                             _,
+<<<<<<< HEAD
                                             state->dataLowTempRadSys->HydrRadSys(RadSysNum).HotWaterInNode,
+=======
+                                            state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).HotWaterInNode,
+>>>>>>> nrel/develop
                                             _);
     EXPECT_FALSE(ErrorsFound);
 
     ErrorsFound = false;
     PlantUtilities::ScanPlantLoopsForObject(*state,
+<<<<<<< HEAD
                                             state->dataLowTempRadSys->HydrRadSys(RadSysNum).Name,
                                             DataPlant::PlantEquipmentType::LowTempRadiant_VarFlow,
                                             state->dataLowTempRadSys->HydrRadSys(RadSysNum).CWPlantLoc,
+=======
+                                            state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).Name,
+                                            DataPlant::PlantEquipmentType::LowTempRadiant_VarFlow,
+                                            state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).CWPlantLoc,
+>>>>>>> nrel/develop
                                             ErrorsFound,
                                             _,
                                             _,
                                             _,
+<<<<<<< HEAD
                                             state->dataLowTempRadSys->HydrRadSys(RadSysNum).ColdWaterInNode,
+=======
+                                            state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).ColdWaterInNode,
+>>>>>>> nrel/develop
                                             _);
     EXPECT_FALSE(ErrorsFound);
 
@@ -1197,6 +1234,7 @@ TEST_F(LowTempRadiantSystemTest, AutosizeLowTempRadiantVariableFlowTest)
     // heating capacity sizing calculation
     state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).NonAirSysDesHeatLoad = 10000.0;
     HeatingCapacity = state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).NonAirSysDesHeatLoad *
+<<<<<<< HEAD
                       state->dataLowTempRadSys->HydrRadSys(RadSysNum).ScaledHeatingCapacity;
     // cooling capacity sizing calculation
     state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).NonAirSysDesCoolLoad = 10000.0;
@@ -1229,6 +1267,40 @@ TEST_F(LowTempRadiantSystemTest, AutosizeLowTempRadiantVariableFlowTest)
     EXPECT_EQ(ChilledWaterFlowRate, state->dataLowTempRadSys->HydrRadSys(RadSysNum).WaterVolFlowMaxCool);
     // Test autosized tube length
     EXPECT_EQ(TubeLengthDes, state->dataLowTempRadSys->HydrRadSys(RadSysNum).TubeLength);
+=======
+                      state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).ScaledHeatingCapacity;
+    // cooling capacity sizing calculation
+    state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).NonAirSysDesCoolLoad = 10000.0;
+    CoolingCapacity = state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).NonAirSysDesCoolLoad *
+                      state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).ScaledCoolingCapacity;
+    // hot water flow rate sizing calculation
+    Density = state->dataLowTempRadSys->HydrRadSys(loopRadSysNum)
+                  .HWPlantLoc.loop->glycol->getDensity(*state, 60.0, "AutosizeLowTempRadiantVariableFlowTest");
+    Cp = state->dataLowTempRadSys->HydrRadSys(loopRadSysNum)
+             .HWPlantLoc.loop->glycol->getSpecificHeat(*state, 60.0, "AutosizeLowTempRadiantVariableFlowTest");
+    HotWaterFlowRate = HeatingCapacity / (state->dataSize->PlantSizData(1).DeltaT * Cp * Density);
+    // chilled water flow rate sizing calculation
+    Density = state->dataLowTempRadSys->HydrRadSys(loopRadSysNum)
+                  .CWPlantLoc.loop->glycol->getDensity(*state, 5.05, "AutosizeLowTempRadiantVariableFlowTest");
+    Cp = state->dataLowTempRadSys->HydrRadSys(loopRadSysNum)
+             .CWPlantLoc.loop->glycol->getSpecificHeat(*state, 5.05, "AutosizeLowTempRadiantVariableFlowTest");
+    ChilledWaterFlowRate = CoolingCapacity / (state->dataSize->PlantSizData(2).DeltaT * Cp * Density);
+    // tuble length sizing calculation
+    state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).TotalSurfaceArea =
+        state->dataSurface->Surface(state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).SurfacePtr(1)).Area;
+    TubeLengthDes =
+        state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).TotalSurfaceArea / 0.1524; // tube length uses the construction perpendicular spacing
+    // do autosize calculations
+    SizeLowTempRadiantSystem(*state, loopRadSysNum, state->dataLowTempRadSys->RadSysTypes(loopRadSysNum).systemType);
+    // Test autosized heat/cool capacity
+    EXPECT_EQ(HeatingCapacity, state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).ScaledHeatingCapacity);
+    EXPECT_EQ(CoolingCapacity, state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).ScaledCoolingCapacity);
+    // Test autosized heat/cool flow rate
+    EXPECT_EQ(HotWaterFlowRate, state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).WaterVolFlowMaxHeat);
+    EXPECT_EQ(ChilledWaterFlowRate, state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).WaterVolFlowMaxCool);
+    // Test autosized tube length
+    EXPECT_EQ(TubeLengthDes, state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).TubeLength);
+>>>>>>> nrel/develop
 }
 
 TEST_F(LowTempRadiantSystemTest, SimulateCapacityPerFloorAreaError)
@@ -2160,9 +2232,15 @@ TEST_F(LowTempRadiantSystemTest, InitLowTempRadiantSystemCFloPump)
     InitLowTempRadiantSystem(*state, false, RadSysNum, systemType, InitErrorFound);
     actualEfficiencyPercentage = state->dataLowTempRadSys->CFloRadSys(RadSysNum).PumpEffic * 100.0;
     std::string const error_string02 = delimited_string(
+<<<<<<< HEAD
         {EnergyPlus::format("   ** Warning ** Check input.  Calc Pump Efficiency={:.5R}% which is less than 50%, for pump in radiant system {}",
                             actualEfficiencyPercentage,
                             state->dataLowTempRadSys->CFloRadSys(RadSysNum).Name)});
+=======
+        {std::format("   ** Warning ** Check input.  Calc Pump Efficiency={:.5f}% which is less than 50%, for pump in radiant system {}",
+                     actualEfficiencyPercentage,
+                     state->dataLowTempRadSys->CFloRadSys(RadSysNum).Name)});
+>>>>>>> nrel/develop
     EXPECT_EQ(state->dataLowTempRadSys->CFloRadSys(RadSysNum).WaterVolFlowMax, state->dataLowTempRadSys->CFloRadSys(RadSysNum).PumpEffic);
     EXPECT_TRUE(compare_err_stream(error_string02, true));
     EXPECT_EQ(InitErrorFound, false);
@@ -2205,9 +2283,15 @@ TEST_F(LowTempRadiantSystemTest, InitLowTempRadiantSystemCFloPump)
     InitLowTempRadiantSystem(*state, false, RadSysNum, systemType, InitErrorFound);
     actualEfficiencyPercentage = state->dataLowTempRadSys->CFloRadSys(RadSysNum).PumpEffic * 100.0;
     std::string const error_string03 = delimited_string(
+<<<<<<< HEAD
         {EnergyPlus::format("   ** Warning ** Check input.  Calc Pump Efficiency={:.5R}% is approaching 100%, for pump in radiant system {}",
                             actualEfficiencyPercentage,
                             state->dataLowTempRadSys->CFloRadSys(RadSysNum).Name)});
+=======
+        {std::format("   ** Warning ** Check input.  Calc Pump Efficiency={:.5f}% is approaching 100%, for pump in radiant system {}",
+                     actualEfficiencyPercentage,
+                     state->dataLowTempRadSys->CFloRadSys(RadSysNum).Name)});
+>>>>>>> nrel/develop
     EXPECT_EQ(state->dataLowTempRadSys->CFloRadSys(RadSysNum).WaterVolFlowMax, state->dataLowTempRadSys->CFloRadSys(RadSysNum).PumpEffic);
     EXPECT_TRUE(compare_err_stream(error_string03, true));
     EXPECT_EQ(InitErrorFound, false);
@@ -2250,9 +2334,15 @@ TEST_F(LowTempRadiantSystemTest, InitLowTempRadiantSystemCFloPump)
     InitLowTempRadiantSystem(*state, false, RadSysNum, systemType, InitErrorFound);
     actualEfficiencyPercentage = state->dataLowTempRadSys->CFloRadSys(RadSysNum).PumpEffic * 100.0;
     std::string const error_string04 = delimited_string(
+<<<<<<< HEAD
         {EnergyPlus::format("   ** Severe  ** Check input.  Calc Pump Efficiency={:.5R}% which is bigger than 100%, for pump in radiant system {}",
                             actualEfficiencyPercentage,
                             state->dataLowTempRadSys->CFloRadSys(RadSysNum).Name)});
+=======
+        {std::format("   ** Severe  ** Check input.  Calc Pump Efficiency={:.5f}% which is bigger than 100%, for pump in radiant system {}",
+                     actualEfficiencyPercentage,
+                     state->dataLowTempRadSys->CFloRadSys(RadSysNum).Name)});
+>>>>>>> nrel/develop
     EXPECT_EQ(state->dataLowTempRadSys->CFloRadSys(RadSysNum).WaterVolFlowMax, state->dataLowTempRadSys->CFloRadSys(RadSysNum).PumpEffic);
     EXPECT_TRUE(compare_err_stream(error_string04, true));
     EXPECT_EQ(InitErrorFound, true);
@@ -2261,7 +2351,11 @@ TEST_F(LowTempRadiantSystemTest, InitLowTempRadiantSystemCFloPump)
 TEST_F(LowTempRadiantSystemTest, LowTempElecRadSurfaceGroupTest)
 {
 
+<<<<<<< HEAD
     int RadSysNum(1);
+=======
+    int loopRadSysNum(1);
+>>>>>>> nrel/develop
 
     std::string const idf_objects = delimited_string({
 
@@ -2354,9 +2448,15 @@ TEST_F(LowTempRadiantSystemTest, LowTempElecRadSurfaceGroupTest)
 
     GetLowTempRadiantSystem(*state);
     EXPECT_EQ(2, state->dataLowTempRadSys->NumOfElecLowTempRadSys);
+<<<<<<< HEAD
     EXPECT_EQ("WEST ZONE RADIANT FLOOR", state->dataLowTempRadSys->RadSysTypes(RadSysNum).Name);
     EXPECT_EQ("EAST ZONE RADIANT FLOOR", state->dataLowTempRadSys->RadSysTypes(RadSysNum + 1).Name);
     EXPECT_ENUM_EQ(SystemType::Electric, state->dataLowTempRadSys->RadSysTypes(RadSysNum).systemType);
+=======
+    EXPECT_EQ("WEST ZONE RADIANT FLOOR", state->dataLowTempRadSys->RadSysTypes(loopRadSysNum).Name);
+    EXPECT_EQ("EAST ZONE RADIANT FLOOR", state->dataLowTempRadSys->RadSysTypes(loopRadSysNum + 1).Name);
+    EXPECT_ENUM_EQ(SystemType::Electric, state->dataLowTempRadSys->RadSysTypes(loopRadSysNum).systemType);
+>>>>>>> nrel/develop
     EXPECT_EQ(state->dataLowTempRadSys->ElecRadSys(1).ZoneName, "WEST ZONE");
     EXPECT_EQ(state->dataLowTempRadSys->ElecRadSys(1).SurfListName, "WEST ZONE SURFACE GROUP");
     // the 2nd surface list group holds data for 1st elec rad sys (#5958)
@@ -2660,7 +2760,11 @@ TEST_F(LowTempRadiantSystemTest, LowTempRadConFlowSystemAutoSizeTempTest)
 TEST_F(LowTempRadiantSystemTest, LowTempRadCalcRadSysHXEffectTermTest)
 {
     state->init_state(*state);
+<<<<<<< HEAD
     int RadSysNum;
+=======
+    int loopRadSysNum;
+>>>>>>> nrel/develop
     SystemType RadSysType;
     Real64 Temperature;
     Real64 WaterMassFlow;
@@ -2672,7 +2776,11 @@ TEST_F(LowTempRadiantSystemTest, LowTempRadCalcRadSysHXEffectTermTest)
     int SurfNum;
 
     // Set values of items that will stay constant for all calls to HX Effectiveness function
+<<<<<<< HEAD
     RadSysNum = 1;
+=======
+    loopRadSysNum = 1;
+>>>>>>> nrel/develop
     SurfNum = 1;
     WaterMassFlow = 0.1;
     FlowFraction = 1.0;
@@ -2680,23 +2788,37 @@ TEST_F(LowTempRadiantSystemTest, LowTempRadCalcRadSysHXEffectTermTest)
     TubeLength = 10.0;
     TubeDiameter = 0.05;
     state->dataPlnt->PlantLoop(1).FluidName = "WATER";
+<<<<<<< HEAD
     state->dataLowTempRadSys->HydrRadSys(RadSysNum).TubeLength = TubeLength;
 
     DesignObjectNum = 1;
     state->dataLowTempRadSys->HydrRadSys(RadSysNum).DesignObjectPtr = 1;
+=======
+    state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).TubeLength = TubeLength;
+
+    DesignObjectNum = 1;
+    state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).DesignObjectPtr = 1;
+>>>>>>> nrel/develop
     state->dataLowTempRadSys->HydronicRadiantSysDesign.allocate(1);
     state->dataLowTempRadSys->HydronicRadiantSysDesign(DesignObjectNum).TubeDiameterInner = TubeDiameter;
     state->dataLowTempRadSys->HydronicRadiantSysDesign(DesignObjectNum).FluidToSlabHeatTransfer = FluidToSlabHeatTransferType::ConvectionOnly;
 
+<<<<<<< HEAD
     state->dataLowTempRadSys->CFloRadSys(RadSysNum).TubeLength = TubeLength;
     DesignObjectNum = 1;
     state->dataLowTempRadSys->CFloRadSys(RadSysNum).DesignObjectPtr = 1;
+=======
+    state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).TubeLength = TubeLength;
+    DesignObjectNum = 1;
+    state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).DesignObjectPtr = 1;
+>>>>>>> nrel/develop
     state->dataLowTempRadSys->CflowRadiantSysDesign.allocate(1);
     state->dataLowTempRadSys->CflowRadiantSysDesign(DesignObjectNum).TubeDiameterInner = TubeDiameter;
     state->dataLowTempRadSys->CflowRadiantSysDesign(DesignObjectNum).FluidToSlabHeatTransfer = FluidToSlabHeatTransferType::ConvectionOnly;
 
     // Test 1: Heating for Hydronic System
     HXEffectFuncResult = 0.0;
+<<<<<<< HEAD
     state->dataLowTempRadSys->HydrRadSys(RadSysNum).opMode = OpMode::Heat;
     RadSysType = SystemType::Hydronic;
     Temperature = 10.0;
@@ -2711,10 +2833,27 @@ TEST_F(LowTempRadiantSystemTest, LowTempRadCalcRadSysHXEffectTermTest)
                                                                                      NumCircs,
                                                                                      state->dataLowTempRadSys->HydrRadSys(RadSysNum).DesignObjectPtr,
                                                                                      RadSysType);
+=======
+    state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).opMode = OpMode::Heat;
+    RadSysType = SystemType::Hydronic;
+    Temperature = 10.0;
+    state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).HWPlantLoc.loopNum = 1;
+    PlantUtilities::SetPlantLocationLinks(*state, state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).HWPlantLoc);
+    HXEffectFuncResult = state->dataLowTempRadSys->HydrRadSys(loopRadSysNum)
+                             .calculateHXEffectivenessTerm(*state,
+                                                           SurfNum,
+                                                           Temperature,
+                                                           WaterMassFlow,
+                                                           FlowFraction,
+                                                           NumCircs,
+                                                           state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).DesignObjectPtr,
+                                                           RadSysType);
+>>>>>>> nrel/develop
     EXPECT_NEAR(HXEffectFuncResult, 62.344, 0.001);
 
     // Test 2: Cooling for Hydronic System
     HXEffectFuncResult = 0.0;
+<<<<<<< HEAD
     state->dataLowTempRadSys->HydrRadSys(RadSysNum).opMode = OpMode::Cool;
     RadSysType = SystemType::Hydronic;
     Temperature = 10.0;
@@ -2729,10 +2868,27 @@ TEST_F(LowTempRadiantSystemTest, LowTempRadCalcRadSysHXEffectTermTest)
                                                                                      NumCircs,
                                                                                      state->dataLowTempRadSys->HydrRadSys(RadSysNum).DesignObjectPtr,
                                                                                      RadSysType);
+=======
+    state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).opMode = OpMode::Cool;
+    RadSysType = SystemType::Hydronic;
+    Temperature = 10.0;
+    state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).CWPlantLoc.loopNum = 1;
+    PlantUtilities::SetPlantLocationLinks(*state, state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).CWPlantLoc);
+    HXEffectFuncResult = state->dataLowTempRadSys->HydrRadSys(loopRadSysNum)
+                             .calculateHXEffectivenessTerm(*state,
+                                                           SurfNum,
+                                                           Temperature,
+                                                           WaterMassFlow,
+                                                           FlowFraction,
+                                                           NumCircs,
+                                                           state->dataLowTempRadSys->HydrRadSys(loopRadSysNum).DesignObjectPtr,
+                                                           RadSysType);
+>>>>>>> nrel/develop
     EXPECT_NEAR(HXEffectFuncResult, 62.344, 0.001);
 
     // Test 3: Heating for Constant Flow System
     HXEffectFuncResult = 0.0;
+<<<<<<< HEAD
     state->dataLowTempRadSys->CFloRadSys(RadSysNum).opMode = OpMode::Heat;
     RadSysType = SystemType::ConstantFlow;
     Temperature = 10.0;
@@ -2747,10 +2903,27 @@ TEST_F(LowTempRadiantSystemTest, LowTempRadCalcRadSysHXEffectTermTest)
                                                                                      NumCircs,
                                                                                      state->dataLowTempRadSys->CFloRadSys(RadSysNum).DesignObjectPtr,
                                                                                      RadSysType);
+=======
+    state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).opMode = OpMode::Heat;
+    RadSysType = SystemType::ConstantFlow;
+    Temperature = 10.0;
+    state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).HWPlantLoc.loopNum = 1;
+    PlantUtilities::SetPlantLocationLinks(*state, state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).HWPlantLoc);
+    HXEffectFuncResult = state->dataLowTempRadSys->CFloRadSys(loopRadSysNum)
+                             .calculateHXEffectivenessTerm(*state,
+                                                           SurfNum,
+                                                           Temperature,
+                                                           WaterMassFlow,
+                                                           FlowFraction,
+                                                           NumCircs,
+                                                           state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).DesignObjectPtr,
+                                                           RadSysType);
+>>>>>>> nrel/develop
     EXPECT_NEAR(HXEffectFuncResult, 62.344, 0.001);
 
     // Test 4: Cooling for Constant Flow System
     HXEffectFuncResult = 0.0;
+<<<<<<< HEAD
     state->dataLowTempRadSys->CFloRadSys(RadSysNum).opMode = OpMode::Cool;
     RadSysType = SystemType::ConstantFlow;
     Temperature = 10.0;
@@ -2765,6 +2938,22 @@ TEST_F(LowTempRadiantSystemTest, LowTempRadCalcRadSysHXEffectTermTest)
                                                                                      NumCircs,
                                                                                      state->dataLowTempRadSys->CFloRadSys(RadSysNum).DesignObjectPtr,
                                                                                      RadSysType);
+=======
+    state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).opMode = OpMode::Cool;
+    RadSysType = SystemType::ConstantFlow;
+    Temperature = 10.0;
+    state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).CWPlantLoc.loopNum = 1;
+    PlantUtilities::SetPlantLocationLinks(*state, state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).CWPlantLoc);
+    HXEffectFuncResult = state->dataLowTempRadSys->CFloRadSys(loopRadSysNum)
+                             .calculateHXEffectivenessTerm(*state,
+                                                           SurfNum,
+                                                           Temperature,
+                                                           WaterMassFlow,
+                                                           FlowFraction,
+                                                           NumCircs,
+                                                           state->dataLowTempRadSys->CFloRadSys(loopRadSysNum).DesignObjectPtr,
+                                                           RadSysType);
+>>>>>>> nrel/develop
     EXPECT_NEAR(HXEffectFuncResult, 62.344, 0.001);
 }
 

@@ -45,6 +45,13 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataBranchAirLoopPlant.hh>
 #include <EnergyPlus/FluidProperties.hh>
@@ -249,6 +256,7 @@ void PlantLoopData::CheckLoopExitNode(EnergyPlusData &state, bool const FirstHVA
                                      "\", Error (CheckLoopExitNode) -- Mass Flow Rate Calculation. Outlet and Inlet differ by more than tolerance.");
                 ShowContinueErrorTimeStamp(state, "");
                 ShowContinueError(state,
+<<<<<<< HEAD
                                   EnergyPlus::format("Loop inlet node={}, flowrate={:.4R} kg/s",
                                                      state.dataLoopNodes->NodeID(LoopInlet),
                                                      state.dataLoopNodes->Node(LoopInlet).MassFlowRate));
@@ -256,6 +264,15 @@ void PlantLoopData::CheckLoopExitNode(EnergyPlusData &state, bool const FirstHVA
                                   EnergyPlus::format("Loop outlet node={}, flowrate={:.4R} kg/s",
                                                      state.dataLoopNodes->NodeID(LoopOutlet),
                                                      state.dataLoopNodes->Node(LoopOutlet).MassFlowRate));
+=======
+                                  std::format("Loop inlet node={}, flowrate={:.4f} kg/s",
+                                              state.dataLoopNodes->NodeID(LoopInlet),
+                                              state.dataLoopNodes->Node(LoopInlet).MassFlowRate));
+                ShowContinueError(state,
+                                  std::format("Loop outlet node={}, flowrate={:.4f} kg/s",
+                                              state.dataLoopNodes->NodeID(LoopOutlet),
+                                              state.dataLoopNodes->Node(LoopOutlet).MassFlowRate));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "This loop might be helped by a bypass.");
             }
             ShowRecurringWarningErrorAtEnd(

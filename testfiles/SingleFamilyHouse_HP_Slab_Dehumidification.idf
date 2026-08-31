@@ -4,7 +4,11 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -157,6 +161,15 @@
     200,                     !- Upper Limit Value
     Continuous;              !- Numeric Type
 
+<<<<<<< HEAD
+=======
+  ScheduleTypeLimits,
+    Humidity,                !- Name
+    0,                       !- Lower Limit Value
+    100,                     !- Upper Limit Value
+    CONTINUOUS;              !- Numeric Type
+
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:DAY:HOURLY ===========
 
   Schedule:Day:Hourly,
@@ -1294,6 +1307,7 @@
     31;                      !- End Day 1
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
+<<<<<<< HEAD
                              !- Field 4
                              !- Field 6
                              !- Field 8
@@ -1316,6 +1330,8 @@
                              !- Field 44
                              !- Field 46
                              !- Field 48
+=======
+>>>>>>> nrel/develop
 
   Schedule:Compact,
     BA_shower_sch,           !- Name
@@ -1347,6 +1363,7 @@
     Until: 23:00,0.00460526444444444, !- Field 47
     Until: 24:00,0.00333484666666667; !- Field 49
 
+<<<<<<< HEAD
                              !- Field 50
                              !- Field 4
                              !- Field 6
@@ -1368,6 +1385,8 @@
                              !- Field 42
                              !- Field 44
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BA_bath_sch,             !- Name
     any number,              !- Schedule Type Limits Name
@@ -1398,6 +1417,7 @@
     Until: 23:00,0.0013455,  !- Field 47
     Until: 24:00,0.000795068181818182; !- Field 49
 
+<<<<<<< HEAD
                              !- Field 50
                              !- Field 4
                              !- Field 6
@@ -1422,6 +1442,8 @@
                              !- Field 46
                              !- Field 48
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BA_sink_sch,             !- Name
     any number,              !- Schedule Type Limits Name
@@ -1452,8 +1474,11 @@
     Until: 23:00,0.0110682456140351, !- Field 47
     Until: 24:00,0.00747106578947368; !- Field 49
 
+<<<<<<< HEAD
                              !- Field 50
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     activity_sch,            !- Name
     any number,              !- Schedule Type Limits Name
@@ -1551,8 +1576,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,22.2222222222223; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     cooling_sch,             !- Name
     Temperature,             !- Schedule Type Limits Name
@@ -1560,8 +1588,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,23.888888888889; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     fan_cycle,               !- Name
     any number,              !- Schedule Type Limits Name
@@ -1569,6 +1600,22 @@
     For: AllDays,            !- Field 2
     Until: 24:00,0;          !- Field 3
 
+<<<<<<< HEAD
+=======
+  Schedule:Compact,
+    SEASONAL RELATIVE HUMIDITY SCH,  !- Name
+    Humidity,                !- Schedule Type Limits Name
+    Through: 3/31,           !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00,50.00,      !- Field 3
+    Through: 9/30,           !- Field 5
+    For: AllDays,            !- Field 6
+    Until: 24:00,55.00,      !- Field 7
+    Through: 12/31,          !- Field 9
+    For: AllDays,            !- Field 10
+    Until: 24:00,50.00;      !- Field 11
+
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
 
   Schedule:Constant,SinkSensSchedule,Fraction,0.687777777777778;
@@ -2152,8 +2199,11 @@
     1;                       !- Multiplier
 
 !-   ===========  ALL OBJECTS IN CLASS: BUILDINGSURFACE:DETAILED ===========
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
+=======
+>>>>>>> nrel/develop
 
   BuildingSurface:Detailed,
     Inter zone floor 1,      !- Name
@@ -2172,10 +2222,13 @@
     12.1330909462833,9.09981820971244,2.60156341463415,  !- X,Y,Z ==> Vertex 3 {m}
     12.1330909462833,0,2.60156341463415;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     ceiling_unit1,           !- Name
     Ceiling,                 !- Surface Type
@@ -2193,10 +2246,13 @@
     12.1330909462833,9.09981820971244,5.19302682926829,  !- X,Y,Z ==> Vertex 3 {m}
     0,9.09981820971244,5.19302682926829;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Roof_front_unit1,        !- Name
     Roof,                    !- Surface Type
@@ -2214,11 +2270,14 @@
     12.1330909462833,4.54990910485622,6.6995631975537,  !- X,Y,Z ==> Vertex 3 {m}
     0,4.54990910485622,6.6995631975537;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Roof_back_unit1,         !- Name
     Roof,                    !- Surface Type
@@ -2236,10 +2295,13 @@
     0,4.54990910485622,6.6995631975537,  !- X,Y,Z ==> Vertex 3 {m}
     12.1330909462833,4.54990910485622,6.6995631975537;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Roof_right_unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2256,9 +2318,12 @@
     12.1330909462833,9.09981820971244,5.19302682926829,  !- X,Y,Z ==> Vertex 2 {m}
     12.1330909462833,4.54990910485622,6.6995631975537;  !- X,Y,Z ==> Vertex 3 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  3 {m}
                                         !- X,Y,Z  1 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Roof_left_unit1,         !- Name
     Wall,                    !- Surface Type
@@ -2275,9 +2340,12 @@
     0,0,5.19302682926829,  !- X,Y,Z ==> Vertex 2 {m}
     0,4.54990910485622,6.6995631975537;  !- X,Y,Z ==> Vertex 3 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  3 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_ldf_1.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2295,9 +2363,12 @@
     12.1330909462833,0,2.60156341463415,  !- X,Y,Z ==> Vertex 3 {m}
     0,0,2.60156341463415;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_sdr_1.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2315,10 +2386,13 @@
     12.1330909462833,9.09981820971244,2.60156341463415,  !- X,Y,Z ==> Vertex 3 {m}
     12.1330909462833,0,2.60156341463415;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_ldb_1.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2336,8 +2410,11 @@
     0,9.09981820971244,2.60156341463415,  !- X,Y,Z ==> Vertex 3 {m}
     12.1330909462833,9.09981820971244,2.60156341463415;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_sdl_1.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2355,10 +2432,13 @@
     0,0,2.60156341463415,  !- X,Y,Z ==> Vertex 3 {m}
     0,9.09981820971244,2.60156341463415;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_ldf_2.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2376,10 +2456,13 @@
     12.1330909462833,0,5.19302682926829,  !- X,Y,Z ==> Vertex 3 {m}
     0,0,5.19302682926829;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_sdr_2.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2397,11 +2480,14 @@
     12.1330909462833,9.09981820971244,5.19302682926829,  !- X,Y,Z ==> Vertex 3 {m}
     12.1330909462833,0,5.19302682926829;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_ldb_2.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2419,9 +2505,12 @@
     0,9.09981820971244,5.19302682926829,  !- X,Y,Z ==> Vertex 3 {m}
     12.1330909462833,9.09981820971244,5.19302682926829;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Wall_sdl_2.unit1,        !- Name
     Wall,                    !- Surface Type
@@ -2439,9 +2528,12 @@
     0,0,5.19302682926829,  !- X,Y,Z ==> Vertex 3 {m}
     0,9.09981820971244,5.19302682926829;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     Floor_unit1,             !- Name
     Floor,                   !- Surface Type
@@ -3563,6 +3655,16 @@
     32.0,                    !- Maximum Dry-Bulb Temperature for Dehumidifier Operation {C}
     0.0;                     !- Off-Cycle Parasitic Electric Load {W}
 
+<<<<<<< HEAD
+=======
+!-   ===========  ALL OBJECTS IN CLASS: ZONECONTROL:HUMIDISTAT ===========
+
+  ZoneControl:Humidistat,
+    Zone 3 Humidistat,       !- Name
+    living_unit1,            !- Zone Name
+    Seasonal Relative Humidity Sch;  !- Humidifying Setpoint Schedule Name
+
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: ZONEHVAC:ENERGYRECOVERYVENTILATOR ===========
 
   ZoneHVAC:EnergyRecoveryVentilator,

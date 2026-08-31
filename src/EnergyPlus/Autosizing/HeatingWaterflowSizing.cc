@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/HeatingWaterflowSizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -139,6 +143,7 @@ Real64 HeatingWaterflowSizer::size(EnergyPlusData &state, Real64 _originalValue,
         }
     }
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->isEpJSON) {
             this->sizingString = "maximum_water_flow_rate [m3/s]";
         }
@@ -153,6 +158,19 @@ Real64 HeatingWaterflowSizer::size(EnergyPlusData &state, Real64 _originalValue,
                 state, this->compName, this->compType, this->plantSizData(this->dataPltSizHeatNum).DeltaT);
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilLvgWaterTemp(
                 state, this->compName, this->compType, Constant::HWInitConvTemp - this->plantSizData(this->dataPltSizHeatNum).DeltaT);
+=======
+        this->sizingString = "Maximum Water Flow Rate [m3/s]";
+    }
+    this->selectSizerOutput(state, errorsFound);
+    if (this->isCoilReportObject) {
+        ReportCoilSelection::setCoilWaterFlowPltSizNum(
+            state, this->coilReportNum, this->autoSizedValue, this->wasAutoSized, this->dataPltSizHeatNum, this->dataWaterLoopNum);
+        ReportCoilSelection::setCoilEntWaterTemp(state, this->coilReportNum, Constant::HWInitConvTemp);
+        if (!this->plantSizData.empty() && this->dataPltSizHeatNum > 0) {
+            ReportCoilSelection::setCoilWaterDeltaT(state, this->coilReportNum, this->plantSizData(this->dataPltSizHeatNum).DeltaT);
+            ReportCoilSelection::setCoilLvgWaterTemp(
+                state, this->coilReportNum, Constant::HWInitConvTemp - this->plantSizData(this->dataPltSizHeatNum).DeltaT);
+>>>>>>> nrel/develop
         }
         this->calcCoilWaterFlowRates(state,
                                      this->compName,

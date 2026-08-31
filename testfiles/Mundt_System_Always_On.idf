@@ -87,7 +87,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     FICTITIOUS BLDG,         !- Name
@@ -1505,8 +1509,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,117.239997864; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     Htg-SetP-Sch,            !- Name
     Temperature,             !- Schedule Type Limits Name

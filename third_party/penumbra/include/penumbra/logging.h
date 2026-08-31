@@ -29,23 +29,38 @@ public:
 protected:
   void write_message(const std::string_view message_type, const std::string_view message) {
     std::string context_string =
+<<<<<<< HEAD
         message_context ? fmt::format(" ({})", *(reinterpret_cast<std::string *>(message_context)))
                         : "";
     std::cout << fmt::format("  [{}]{} {}", message_type, context_string, message) << std::endl;
+=======
+        message_context ? std::format(" ({})", *(reinterpret_cast<std::string *>(message_context)))
+                        : "";
+    std::cout << std::format("  [{}]{} {}", message_type, context_string, message) << std::endl;
+>>>>>>> nrel/develop
   }
 };
 
 class PenumbraException : public Courierr::CourierrException {
 public:
+<<<<<<< HEAD
   explicit PenumbraException(const std::string &message, Courierr::Courierr &logger)
       : CourierrException(message, logger) {}
+=======
+  explicit PenumbraException(const std::string &t_message, Courierr::Courierr &logger)
+      : CourierrException(t_message, logger) {}
+>>>>>>> nrel/develop
 };
 
 class SurfaceException : public PenumbraException {
 public:
   explicit SurfaceException(const unsigned int surface_index,
                             const std::string_view &surface_context, Courierr::Courierr &logger)
+<<<<<<< HEAD
       : PenumbraException(fmt::format(error_message_format, surface_context, surface_index),
+=======
+      : PenumbraException(std::format(error_message_format, surface_context, surface_index),
+>>>>>>> nrel/develop
                           logger) {}
 
 private:
@@ -53,4 +68,8 @@ private:
 };
 } // namespace Penumbra
 
+<<<<<<< HEAD
 #endif // define PENUMBRA_LOGGING_H_
+=======
+#endif // define PENUMBRA_LOGGING_H_
+>>>>>>> nrel/develop

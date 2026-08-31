@@ -46,6 +46,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <string>
 
 // ObjexxFCL Headers
@@ -168,7 +172,11 @@ namespace BranchInputManager {
         //  Find this BranchList in the master BranchList Names
         Found = Util::FindItemInList(BranchListName, state.dataBranchInputManager->BranchList);
         if (Found == 0) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetBranchList: BranchList Name not found={}", BranchListName));
+=======
+            ShowFatalError(state, std::format("GetBranchList: BranchList Name not found={}", BranchListName));
+>>>>>>> nrel/develop
         }
 
         // Set data
@@ -178,10 +186,17 @@ namespace BranchInputManager {
         } else if (state.dataBranchInputManager->BranchList(Found).LoopName != LoopName) {
             ShowSevereError(state, "GetBranchList: BranchList Loop Name already assigned");
             ShowContinueError(state,
+<<<<<<< HEAD
                               EnergyPlus::format("BranchList={}, already assigned to loop={}",
                                                  state.dataBranchInputManager->BranchList(Found).Name,
                                                  state.dataBranchInputManager->BranchList(Found).LoopName));
             ShowContinueError(state, EnergyPlus::format("Now requesting assignment to Loop={}", LoopName));
+=======
+                              std::format("BranchList={}, already assigned to loop={}",
+                                          state.dataBranchInputManager->BranchList(Found).Name,
+                                          state.dataBranchInputManager->BranchList(Found).LoopName));
+            ShowContinueError(state, std::format("Now requesting assignment to Loop={}", LoopName));
+>>>>>>> nrel/develop
             ErrFound = true;
         }
 
@@ -189,8 +204,13 @@ namespace BranchInputManager {
         NumBranchNames = state.dataBranchInputManager->BranchList(Found).NumOfBranchNames;
         if (isize(BranchNames) < NumBranchNames) {
             ShowSevereError(state, "GetBranchList: Branch Names array not big enough to hold Branch Names");
+<<<<<<< HEAD
             ShowContinueError(state, EnergyPlus::format("Input BranchListName={}, in Loop={}", BranchListName, LoopName));
             ShowContinueError(state, fmt::format("BranchName Array size={}, but input size={}", size(BranchNames), (NumBranchNames)));
+=======
+            ShowContinueError(state, std::format("Input BranchListName={}, in Loop={}", BranchListName, LoopName));
+            ShowContinueError(state, std::format("BranchName Array size={}, but input size={}", size(BranchNames), (NumBranchNames)));
+>>>>>>> nrel/develop
             ErrFound = true;
         } else {
             BranchNames = "";
@@ -229,7 +249,11 @@ namespace BranchInputManager {
         //  Find this BranchList in the master BranchList Names
         Found = Util::FindItemInList(BranchListName, state.dataBranchInputManager->BranchList);
         if (Found == 0) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("NumBranchesInBranchList: BranchList Name not found={}", BranchListName));
+=======
+            ShowFatalError(state, std::format("NumBranchesInBranchList: BranchList Name not found={}", BranchListName));
+>>>>>>> nrel/develop
         }
 
         NumBranchesInBranchList = state.dataBranchInputManager->BranchList(Found).NumOfBranchNames;
@@ -280,8 +304,13 @@ namespace BranchInputManager {
             size(CompType), size(CompName), size(CompInletNodeNames), size(CompInletNodeNums), size(CompOutletNodeNames), size(CompOutletNodeNums));
         if (MinCompsAllowed < NumComps) {
             ShowSevereError(state, "GetBranchData: Component List arrays not big enough to hold Number of Components");
+<<<<<<< HEAD
             ShowContinueError(state, EnergyPlus::format("Input BranchName={}, in Loop={}", BranchName, LoopName));
             ShowContinueError(state, fmt::format("Max Component Array size={}, but input size={}", MinCompsAllowed, NumComps));
+=======
+            ShowContinueError(state, std::format("Input BranchName={}, in Loop={}", BranchName, LoopName));
+            ShowContinueError(state, std::format("Max Component Array size={}, but input size={}", MinCompsAllowed, NumComps));
+>>>>>>> nrel/develop
             ShowFatalError(state, "Program terminates due to preceding conditions.");
         }
 
@@ -322,7 +351,11 @@ namespace BranchInputManager {
 
         Found = Util::FindItemInList(BranchName, state.dataBranchInputManager->Branch);
         if (Found == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("NumCompsInBranch:  Branch not found={}", BranchName));
+=======
+            ShowSevereError(state, std::format("NumCompsInBranch:  Branch not found={}", BranchName));
+>>>>>>> nrel/develop
             NumCompsInBranch = 0;
         } else {
             NumCompsInBranch = state.dataBranchInputManager->Branch(Found).NumOfComponents;
@@ -360,7 +393,11 @@ namespace BranchInputManager {
         NumBranches = size(state.dataBranchInputManager->Branch);
 
         if (NumBranches == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetAirBranchIndex:  Branch not found with component = {} \"{}\"", CompType, CompName));
+=======
+            ShowSevereError(state, std::format("GetAirBranchIndex:  Branch not found with component = {} \"{}\"", CompType, CompName));
+>>>>>>> nrel/develop
         } else {
             for (BranchNum = 1; BranchNum <= NumBranches; ++BranchNum) {
                 for (CompNum = 1; CompNum <= state.dataBranchInputManager->Branch(BranchNum).NumOfComponents; ++CompNum) {
@@ -413,7 +450,11 @@ namespace BranchInputManager {
         FanName = std::string();
 
         if (NumBranches == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, fmt::format("GetBranchFanTypeName:  Branch index not found = {}", BranchNum));
+=======
+            ShowSevereError(state, std::format("GetBranchFanTypeName:  Branch index not found = {}", BranchNum));
+>>>>>>> nrel/develop
             ErrFound = true;
         } else {
             if (BranchNum > 0 && BranchNum <= NumBranches) {
@@ -431,7 +472,11 @@ namespace BranchInputManager {
                     ErrFound = true;
                 }
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, fmt::format("GetBranchFanTypeName:  Branch index not found = {}", BranchNum));
+=======
+                ShowSevereError(state, std::format("GetBranchFanTypeName:  Branch index not found = {}", BranchNum));
+>>>>>>> nrel/develop
                 ErrFound = true;
             }
         }
@@ -469,7 +514,11 @@ namespace BranchInputManager {
 
         Found = Util::FindItemInList(BranchName, state.dataBranchInputManager->Branch);
         if (Found == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetInternalBranchData:  Branch not found={}", BranchName));
+=======
+            ShowSevereError(state, std::format("GetInternalBranchData:  Branch not found={}", BranchName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             NumComps = 0;
         } else {
@@ -480,10 +529,17 @@ namespace BranchInputManager {
                 NumComps = state.dataBranchInputManager->Branch(Found).NumOfComponents;
                 BComponents({1, NumComps}) = state.dataBranchInputManager->Branch(Found).Component({1, NumComps});
             } else if (state.dataBranchInputManager->Branch(Found).AssignedLoopName != LoopName) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Attempt to assign branch to two different loops, Branch={}", BranchName));
                 ShowContinueError(
                     state, EnergyPlus::format("Branch already assigned to loop={}", state.dataBranchInputManager->Branch(Found).AssignedLoopName));
                 ShowContinueError(state, EnergyPlus::format("New attempt to assign to loop={}", LoopName));
+=======
+                ShowSevereError(state, std::format("Attempt to assign branch to two different loops, Branch={}", BranchName));
+                ShowContinueError(state,
+                                  std::format("Branch already assigned to loop={}", state.dataBranchInputManager->Branch(Found).AssignedLoopName));
+                ShowContinueError(state, std::format("New attempt to assign to loop={}", LoopName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 NumComps = 0;
             } else {
@@ -530,7 +586,11 @@ namespace BranchInputManager {
             numSplitters = state.dataBranchInputManager->ConnectorLists(ConnNum).NumOfSplitters;
             numMixers = state.dataBranchInputManager->ConnectorLists(ConnNum).NumOfMixers;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Ref: Loop={}, Connector List not found={}", LoopName, ConnectorListName));
+=======
+            ShowSevereError(state, std::format("Ref: Loop={}, Connector List not found={}", LoopName, ConnectorListName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
     }
@@ -574,7 +634,11 @@ namespace BranchInputManager {
         if (not_blank(ConnectorListName)) {
             int Count = Util::FindItemInList(ConnectorListName, state.dataBranchInputManager->ConnectorLists);
             if (Count == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("GetConnectorList: Connector List not found={}", ConnectorListName));
+=======
+                ShowFatalError(state, std::format("GetConnectorList: Connector List not found={}", ConnectorListName));
+>>>>>>> nrel/develop
             }
             Connectoid = state.dataBranchInputManager->ConnectorLists(Count);
             if (present(NumInList)) {
@@ -638,12 +702,20 @@ namespace BranchInputManager {
                 ++MixerNumber;
             }
             if (Count == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("GetLoopMixer: No Mixer Found={}", Connectoid.ConnectorName(1)));
+=======
+                ShowFatalError(state, std::format("GetLoopMixer: No Mixer Found={}", Connectoid.ConnectorName(1)));
+>>>>>>> nrel/develop
             }
         } else if (Util::SameString(Connectoid.ConnectorType(2), cMIXER)) {
             Count = Util::FindItemInList(Connectoid.ConnectorName(2), state.dataBranchInputManager->Mixers);
             if (Count == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("GetLoopMixer: No Mixer Found={}", Connectoid.ConnectorName(2)));
+=======
+                ShowFatalError(state, std::format("GetLoopMixer: No Mixer Found={}", Connectoid.ConnectorName(2)));
+>>>>>>> nrel/develop
             }
         } else {
             Count = 0;
@@ -684,8 +756,12 @@ namespace BranchInputManager {
                                   BComponents,
                                   errFlag);
             if (errFlag) {
+<<<<<<< HEAD
                 ShowContinueError(state,
                                   EnergyPlus::format("..occurs for Connector:Mixer Name={}", state.dataBranchInputManager->Mixers(Count).Name));
+=======
+                ShowContinueError(state, std::format("..occurs for Connector:Mixer Name={}", state.dataBranchInputManager->Mixers(Count).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             if (NumComps > 0) {
@@ -705,9 +781,15 @@ namespace BranchInputManager {
                                        errFlag);
 
                 if (NumInletNodes > isize(InletNodeNames) || NumInletNodes > isize(InletNodeNums)) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state, EnergyPlus::format("GetLoopMixer: Connector:Mixer={} contains too many inlets for size of Inlet Array.", MixerName));
                     ShowContinueError(state, fmt::format("Max array size={}, Mixer statement inlets={}", size(InletNodeNames), NumInletNodes));
+=======
+                    ShowSevereError(state,
+                                    std::format("GetLoopMixer: Connector:Mixer={} contains too many inlets for size of Inlet Array.", MixerName));
+                    ShowContinueError(state, std::format("Max array size={}, Mixer statement inlets={}", size(InletNodeNames), NumInletNodes));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "Program terminates due to preceding condition.");
                 }
                 InletNodeNums = 0;
@@ -785,7 +867,11 @@ namespace BranchInputManager {
         }
 
         if (ConnectorListName.empty()) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetLoopSplitter: ConnectorListName is blank.  LoopName={}", LoopName));
+=======
+            ShowSevereError(state, std::format("GetLoopSplitter: ConnectorListName is blank.  LoopName={}", LoopName));
+>>>>>>> nrel/develop
             ShowFatalError(state, "Program terminates due to previous condition.");
         }
         GetConnectorList(state, ConnectorListName, Connectoid, ConnectorNumber);
@@ -795,12 +881,20 @@ namespace BranchInputManager {
                 ++SplitterNumber;
             }
             if (Count == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("GetLoopSplitter: No Splitter Found={}", Connectoid.ConnectorName(1)));
+=======
+                ShowFatalError(state, std::format("GetLoopSplitter: No Splitter Found={}", Connectoid.ConnectorName(1)));
+>>>>>>> nrel/develop
             }
         } else if (Util::SameString(Connectoid.ConnectorType(2), cSPLITTER)) {
             Count = Util::FindItemInList(Connectoid.ConnectorName(2), state.dataBranchInputManager->Splitters);
             if (Count == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("GetLoopSplitter: No Splitter Found={}", Connectoid.ConnectorName(2)));
+=======
+                ShowFatalError(state, std::format("GetLoopSplitter: No Splitter Found={}", Connectoid.ConnectorName(2)));
+>>>>>>> nrel/develop
             }
         } else {
             Count = 0;
@@ -842,7 +936,11 @@ namespace BranchInputManager {
                                   BComponents,
                                   errFlag);
             if (errFlag) {
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("..occurs for Splitter Name={}", state.dataBranchInputManager->Splitters(Count).Name));
+=======
+                ShowContinueError(state, std::format("..occurs for Splitter Name={}", state.dataBranchInputManager->Splitters(Count).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             if (NumComps > 0) {
@@ -862,10 +960,17 @@ namespace BranchInputManager {
                                        errFlag);
 
                 if (NumOutletNodes > isize(OutletNodeNames) || NumOutletNodes > isize(OutletNodeNums)) {
+<<<<<<< HEAD
                     ShowSevereError(state,
                                     EnergyPlus::format("GetLoopSplitter: Connector:Splitter={} contains too many outlets for size of Outlet Array.",
                                                        SplitterName));
                     ShowContinueError(state, fmt::format("Max array size={}, Splitter statement outlets={}", size(OutletNodeNames), NumOutletNodes));
+=======
+                    ShowSevereError(
+                        state,
+                        std::format("GetLoopSplitter: Connector:Splitter={} contains too many outlets for size of Outlet Array.", SplitterName));
+                    ShowContinueError(state, std::format("Max array size={}, Splitter statement outlets={}", size(OutletNodeNames), NumOutletNodes));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "Program terminates due to preceding condition.");
                 }
                 OutletNodeNums = 0;
@@ -925,15 +1030,25 @@ namespace BranchInputManager {
 
         int Found1 = Util::FindItemInList(BranchListName, state.dataBranchInputManager->BranchList);
         if (Found1 == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetFirstBranchInletNodeName: BranchList=\"{}\", not a valid BranchList Name", BranchListName));
+=======
+            ShowSevereError(state, std::format("GetFirstBranchInletNodeName: BranchList=\"{}\", not a valid BranchList Name", BranchListName));
+>>>>>>> nrel/develop
             InletNodeName = "Invalid Node Name";
         } else {
             int Found2 = Util::FindItemInList(state.dataBranchInputManager->BranchList(Found1).BranchNames(1), state.dataBranchInputManager->Branch);
             if (Found2 == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("GetFirstBranchInletNodeName: BranchList=\"{}\", Branch=\"{}\" not a valid Branch Name",
                                                    BranchListName,
                                                    state.dataBranchInputManager->BranchList(Found1).BranchNames(1)));
+=======
+                                std::format("GetFirstBranchInletNodeName: BranchList=\"{}\", Branch=\"{}\" not a valid Branch Name",
+                                            BranchListName,
+                                            state.dataBranchInputManager->BranchList(Found1).BranchNames(1)));
+>>>>>>> nrel/develop
                 InletNodeName = "Invalid Node Name";
             } else {
                 InletNodeName = state.dataBranchInputManager->Branch(Found2).Component(1).InletNodeName;
@@ -964,7 +1079,11 @@ namespace BranchInputManager {
 
         int Found1 = Util::FindItemInList(BranchListName, state.dataBranchInputManager->BranchList);
         if (Found1 == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetLastBranchOutletNodeName: BranchList=\"{}\", not a valid BranchList Name", BranchListName));
+=======
+            ShowSevereError(state, std::format("GetLastBranchOutletNodeName: BranchList=\"{}\", not a valid BranchList Name", BranchListName));
+>>>>>>> nrel/develop
             OutletNodeName = "Invalid Node Name";
         } else {
             int Found2 = Util::FindItemInList(
@@ -972,10 +1091,17 @@ namespace BranchInputManager {
                 state.dataBranchInputManager->Branch);
             if (Found2 == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("GetLastBranchOutletNodeName: BranchList=\"{}\", Branch=\"{}\" not a valid Branch Name",
                                                    BranchListName,
                                                    state.dataBranchInputManager->BranchList(Found1).BranchNames(
                                                        state.dataBranchInputManager->BranchList(Found1).NumOfBranchNames)));
+=======
+                                std::format("GetLastBranchOutletNodeName: BranchList=\"{}\", Branch=\"{}\" not a valid Branch Name",
+                                            BranchListName,
+                                            state.dataBranchInputManager->BranchList(Found1).BranchNames(
+                                                state.dataBranchInputManager->BranchList(Found1).NumOfBranchNames)));
+>>>>>>> nrel/develop
                 OutletNodeName = "Invalid Node Name";
             } else {
                 OutletNodeName = state.dataBranchInputManager->Branch(Found2)
@@ -1115,8 +1241,13 @@ namespace BranchInputManager {
         state.dataBranchInputManager->Branch(BCount).Name = Alphas(1);
         Curve::GetPressureCurveTypeAndIndex(state, Alphas(2), pressureCurveType, PressureCurveIndex);
         if (pressureCurveType == DataBranchAirLoopPlant::PressureCurveType::Invalid) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
             ShowContinueError(state, EnergyPlus::format("..Invalid {}=\"{}\".", cAlphaFields(2), Alphas(2)));
+=======
+            ShowSevereError(state, std::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
+            ShowContinueError(state, std::format("..Invalid {}=\"{}\".", cAlphaFields(2), Alphas(2)));
+>>>>>>> nrel/develop
             ShowContinueError(state, "This curve could not be found in the input deck.  Ensure that this curve has been entered");
             ShowContinueError(state, " as either a Curve:Functional:PressureDrop or one of Curve:{Linear,Quadratic,Cubic,Exponent}");
             ShowContinueError(state, "This error could be caused by a misspelled curve name");
@@ -1133,22 +1264,37 @@ namespace BranchInputManager {
         Comp = 1;
         for (int Loop = 3; Loop <= NumAlphas; Loop += 4) {
             if (Util::SameString(Alphas(Loop), cSPLITTER) || Util::SameString(Alphas(Loop), cMIXER)) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
                 ShowContinueError(state, EnergyPlus::format("Connector:Splitter/Connector:Mixer not allowed in object {}", CurrentModuleObject));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
+                ShowContinueError(state, std::format("Connector:Splitter/Connector:Mixer not allowed in object {}", CurrentModuleObject));
+>>>>>>> nrel/develop
                 ErrFound = true;
                 continue;
             }
             if (Comp > NumInComps) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
                 ShowContinueError(state, fmt::format("...Number of Arguments indicate [{}], but count of fields indicates [{}]", NumInComps, Comp));
                 ShowContinueError(state, EnergyPlus::format("...examine {} carefully.", CurrentModuleObject));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
+                ShowContinueError(state, std::format("...Number of Arguments indicate [{}], but count of fields indicates [{}]", NumInComps, Comp));
+                ShowContinueError(state, std::format("...examine {} carefully.", CurrentModuleObject));
+>>>>>>> nrel/develop
                 continue;
             }
             state.dataBranchInputManager->Branch(BCount).Component(Comp).CType = Alphas(Loop);
             state.dataBranchInputManager->Branch(BCount).Component(Comp).Name = Alphas(Loop + 1);
             ValidateComponent(state, Alphas(Loop), Alphas(Loop + 1), IsNotOK, CurrentModuleObject);
             if (IsNotOK) {
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("Occurs on {}={}", CurrentModuleObject, Alphas(1)));
+=======
+                ShowContinueError(state, std::format("Occurs on {}={}", CurrentModuleObject, Alphas(1)));
+>>>>>>> nrel/develop
                 ErrFound = true;
             }
             state.dataBranchInputManager->Branch(BCount).Component(Comp).InletNodeName = Alphas(Loop + 2);
@@ -1173,6 +1319,7 @@ namespace BranchInputManager {
                             false,
                             cAlphaFields(Loop + 2));
                 if (NumNodes > 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
                     ShowContinueError(state,
                                       EnergyPlus::format("..invalid {}=\"{}\" must be a single node - appears to be a list.",
@@ -1182,16 +1329,34 @@ namespace BranchInputManager {
                         state,
                         EnergyPlus::format(
                             "Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
+                    ShowContinueError(state,
+                                      std::format("..invalid {}=\"{}\" must be a single node - appears to be a list.",
+                                                  cAlphaFields(Loop + 2),
+                                                  state.dataBranchInputManager->Branch(BCount).Component(Comp).InletNodeName));
+                    ShowContinueError(
+                        state,
+                        std::format("Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+>>>>>>> nrel/develop
                     ErrFound = true;
                 } else {
                     state.dataBranchInputManager->Branch(BCount).Component(Comp).InletNode = NodeNums(1);
                 }
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
                 ShowContinueError(state, EnergyPlus::format("blank required field: {}", cAlphaFields(Loop + 2)));
                 ShowContinueError(state,
                                   EnergyPlus::format(
                                       "Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
+                ShowContinueError(state, std::format("blank required field: {}", cAlphaFields(Loop + 2)));
+                ShowContinueError(
+                    state,
+                    std::format("Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+>>>>>>> nrel/develop
                 ErrFound = true;
             }
             state.dataBranchInputManager->Branch(BCount).Component(Comp).OutletNodeName = Alphas(Loop + 3);
@@ -1216,6 +1381,7 @@ namespace BranchInputManager {
                             false,
                             cAlphaFields(Loop + 3));
                 if (NumNodes > 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
                     ShowContinueError(state,
                                       EnergyPlus::format("..invalid {}=\"{}\" must be a single node - appears to be a list.",
@@ -1225,16 +1391,34 @@ namespace BranchInputManager {
                         state,
                         EnergyPlus::format(
                             "Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
+                    ShowContinueError(state,
+                                      std::format("..invalid {}=\"{}\" must be a single node - appears to be a list.",
+                                                  cAlphaFields(Loop + 2),
+                                                  state.dataBranchInputManager->Branch(BCount).Component(Comp).InletNodeName));
+                    ShowContinueError(
+                        state,
+                        std::format("Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+>>>>>>> nrel/develop
                     ErrFound = true;
                 } else {
                     state.dataBranchInputManager->Branch(BCount).Component(Comp).OutletNode = NodeNums(1);
                 }
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
                 ShowContinueError(state, EnergyPlus::format("blank required field: {}", cAlphaFields(Loop + 3)));
                 ShowContinueError(state,
                                   EnergyPlus::format(
                                       "Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, Alphas(1)));
+                ShowContinueError(state, std::format("blank required field: {}", cAlphaFields(Loop + 3)));
+                ShowContinueError(
+                    state,
+                    std::format("Occurs on {}=\"{}\", {}=\"{}\".", cAlphaFields(Loop), Alphas(Loop), cAlphaFields(Loop + 1), Alphas(Loop + 1)));
+>>>>>>> nrel/develop
                 ErrFound = true;
             }
 
@@ -1318,9 +1502,15 @@ namespace BranchInputManager {
 
         if (NumNumbers > 0) {
             ShowSevereError(state,
+<<<<<<< HEAD
                             EnergyPlus::format("{}{} Object definition contains numbers, cannot be decoded by GetBranchListInput routine.",
                                                RoutineName,
                                                CurrentModuleObject));
+=======
+                            std::format("{}{} Object definition contains numbers, cannot be decoded by GetBranchListInput routine.",
+                                        RoutineName,
+                                        CurrentModuleObject));
+>>>>>>> nrel/develop
             ErrFound = true;
         }
         BCount = 0;
@@ -1345,10 +1535,17 @@ namespace BranchInputManager {
             state.dataBranchInputManager->BranchList(BCount).BranchNames.allocate(NumAlphas - 1);
             if (state.dataBranchInputManager->BranchList(BCount).NumOfBranchNames == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", No branch names entered.",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    state.dataBranchInputManager->BranchList(BCount).Name));
+=======
+                                std::format("{}{}=\"{}\", No branch names entered.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            state.dataBranchInputManager->BranchList(BCount).Name));
+>>>>>>> nrel/develop
                 ErrFound = true;
             } else {
                 state.dataBranchInputManager->BranchList(BCount).BranchNames({1, NumAlphas - 1}) = Alphas({2, NumAlphas});
@@ -1362,6 +1559,7 @@ namespace BranchInputManager {
                                                      state.dataBranchInputManager->Branch);
                         if (Found == 0) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}{}=\"{}\", invalid data.",
                                                                RoutineName,
                                                                CurrentModuleObject,
@@ -1369,6 +1567,15 @@ namespace BranchInputManager {
                             ShowContinueError(state,
                                               EnergyPlus::format("..invalid Branch Name not found=\"{}\".",
                                                                  state.dataBranchInputManager->BranchList(BCount).BranchNames(Loop)));
+=======
+                                            std::format("{}{}=\"{}\", invalid data.",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        state.dataBranchInputManager->BranchList(BCount).Name));
+                            ShowContinueError(state,
+                                              std::format("..invalid Branch Name not found=\"{}\".",
+                                                          state.dataBranchInputManager->BranchList(BCount).BranchNames(Loop)));
+>>>>>>> nrel/develop
                             ErrFound = true;
                         }
                     }
@@ -1388,17 +1595,29 @@ namespace BranchInputManager {
                 }
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, state.dataBranchInputManager->BranchList(BCount).Name));
                 ShowContinueError(state, "..invalid: duplicate branch name specified in the list.");
                 ShowContinueError(state, EnergyPlus::format("..Branch Name={}", TestName));
                 ShowContinueError(state, fmt::format("..Branch Name #{} is duplicate.", Loop));
+=======
+                    std::format(
+                        "{}{}=\"{}\", invalid data.", RoutineName, CurrentModuleObject, state.dataBranchInputManager->BranchList(BCount).Name));
+                ShowContinueError(state, "..invalid: duplicate branch name specified in the list.");
+                ShowContinueError(state, std::format("..Branch Name={}", TestName));
+                ShowContinueError(state, std::format("..Branch Name #{} is duplicate.", Loop));
+>>>>>>> nrel/develop
                 ErrFound = true;
             }
         }
 
         if (ErrFound) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("{} Invalid Input -- preceding condition(s) will likely cause termination.", RoutineName));
+=======
+            ShowSevereError(state, std::format("{} Invalid Input -- preceding condition(s) will likely cause termination.", RoutineName));
+>>>>>>> nrel/develop
         }
         NumOfBranchLists = BCount;
         Alphas.deallocate();
@@ -1472,9 +1691,15 @@ namespace BranchInputManager {
         state.dataInputProcessing->inputProcessor->getObjectDefMaxArgs(state, CurrentModuleObject, NumParams, NumAlphas, NumNumbers);
         if (NumAlphas != 5 || NumNumbers != 0) {
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("GetConnectorList: Illegal \"extension\" to {} object. Internal code does not support > 2 connectors "
                                                 "(Connector:Splitter and Connector:Mixer)",
                                                 CurrentModuleObject));
+=======
+                             std::format("GetConnectorList: Illegal \"extension\" to {} object. Internal code does not support > 2 connectors "
+                                         "(Connector:Splitter and Connector:Mixer)",
+                                         CurrentModuleObject));
+>>>>>>> nrel/develop
         }
         Alphas.allocate(NumAlphas);
         Numbers.dimension(NumNumbers, 0.0);
@@ -1522,8 +1747,12 @@ namespace BranchInputManager {
                 } else {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "GetConnectorListInput: Invalid {}={} in {}={}", cAlphaFields(Arg), Alphas(Arg), CurrentModuleObject, Alphas(1)));
+=======
+                        std::format("GetConnectorListInput: Invalid {}={} in {}={}", cAlphaFields(Arg), Alphas(Arg), CurrentModuleObject, Alphas(1)));
+>>>>>>> nrel/develop
                 }
                 state.dataBranchInputManager->ConnectorLists(Count).ConnectorName(CCount) = Alphas(Arg + 1);
             }
@@ -1567,10 +1796,17 @@ namespace BranchInputManager {
                     // Following code sets up branch names to be matched from Splitter/Mixer data structure
                     if (SplitNum == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("Invalid Connector:Splitter(none)={}, referenced by {}={}",
                                                            state.dataBranchInputManager->ConnectorLists(Count).ConnectorName(Loop),
                                                            CurrentModuleObject,
                                                            state.dataBranchInputManager->ConnectorLists(Count).Name));
+=======
+                                        std::format("Invalid Connector:Splitter(none)={}, referenced by {}={}",
+                                                    state.dataBranchInputManager->ConnectorLists(Count).ConnectorName(Loop),
+                                                    CurrentModuleObject,
+                                                    state.dataBranchInputManager->ConnectorLists(Count).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                         continue;
                     }
@@ -1583,10 +1819,17 @@ namespace BranchInputManager {
                                                     state.dataBranchInputManager->Mixers);
                     if (MixerNum == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("Invalid Connector:Mixer(none)={}, referenced by {}={}",
                                                            state.dataBranchInputManager->ConnectorLists(Count).ConnectorName(Loop),
                                                            CurrentModuleObject,
                                                            state.dataBranchInputManager->ConnectorLists(Count).Name));
+=======
+                                        std::format("Invalid Connector:Mixer(none)={}, referenced by {}={}",
+                                                    state.dataBranchInputManager->ConnectorLists(Count).ConnectorName(Loop),
+                                                    CurrentModuleObject,
+                                                    state.dataBranchInputManager->ConnectorLists(Count).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                         continue;
                     }
@@ -1672,12 +1915,20 @@ namespace BranchInputManager {
                     continue;
                 }
                 //  = 0, not matched.
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("For {}={}", CurrentModuleObject, state.dataBranchInputManager->ConnectorLists(Count).Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("...Item={}, Type={} was not matched.",
                                                      state.dataBranchInputManager->ConnectorLists(Count).ConnectorName(Loop),
                                                      state.dataBranchInputManager->ConnectorLists(Count).ConnectorType(Loop)));
+=======
+                ShowSevereError(state, std::format("For {}={}", CurrentModuleObject, state.dataBranchInputManager->ConnectorLists(Count).Name));
+                ShowContinueError(state,
+                                  std::format("...Item={}, Type={} was not matched.",
+                                              state.dataBranchInputManager->ConnectorLists(Count).ConnectorName(Loop),
+                                              state.dataBranchInputManager->ConnectorLists(Count).ConnectorType(Loop)));
+>>>>>>> nrel/develop
                 if (Util::SameString(state.dataBranchInputManager->ConnectorLists(Count).ConnectorType(Loop), "Connector:Splitter")) {
                     ShowContinueError(
                         state, "The BranchList for this Connector:Splitter does not match the BranchList for its corresponding Connector:Mixer.");
@@ -1797,10 +2048,17 @@ namespace BranchInputManager {
             int Found = Util::FindItemInList(state.dataBranchInputManager->Splitters(Count).InletBranchName, state.dataBranchInputManager->Branch);
             if (Found == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("GetSplitterInput: Invalid Branch={}, referenced as Inlet Branch to {}={}",
                                                    state.dataBranchInputManager->Splitters(Count).InletBranchName,
                                                    CurrentModuleObject,
                                                    state.dataBranchInputManager->Splitters(Count).Name));
+=======
+                                std::format("GetSplitterInput: Invalid Branch={}, referenced as Inlet Branch to {}={}",
+                                            state.dataBranchInputManager->Splitters(Count).InletBranchName,
+                                            CurrentModuleObject,
+                                            state.dataBranchInputManager->Splitters(Count).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             for (Loop = 1; Loop <= state.dataBranchInputManager->Splitters(Count).NumOutletBranches; ++Loop) {
@@ -1808,7 +2066,11 @@ namespace BranchInputManager {
                                              state.dataBranchInputManager->Branch);
                 if (Found == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     fmt::format("GetSplitterInput: Invalid Branch={}, referenced as Outlet Branch # {} to {}={}",
+=======
+                                    std::format("GetSplitterInput: Invalid Branch={}, referenced as Outlet Branch # {} to {}={}",
+>>>>>>> nrel/develop
                                                 state.dataBranchInputManager->Splitters(Count).OutletBranchNames(Loop),
                                                 Loop,
                                                 CurrentModuleObject,
@@ -1826,11 +2088,19 @@ namespace BranchInputManager {
                     continue;
                 }
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}={} specifies an outlet node name the same as the inlet node.",
                                                    CurrentModuleObject,
                                                    state.dataBranchInputManager->Splitters(Count).Name));
                 ShowContinueError(state, EnergyPlus::format("..Inlet Node={}", TestName));
                 ShowContinueError(state, fmt::format("..Outlet Node #{} is duplicate.", Loop));
+=======
+                                std::format("{}={} specifies an outlet node name the same as the inlet node.",
+                                            CurrentModuleObject,
+                                            state.dataBranchInputManager->Splitters(Count).Name));
+                ShowContinueError(state, std::format("..Inlet Node={}", TestName));
+                ShowContinueError(state, std::format("..Outlet Node #{} is duplicate.", Loop));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             for (Loop = 1; Loop <= state.dataBranchInputManager->Splitters(Count).NumOutletBranches; ++Loop) {
@@ -1840,6 +2110,7 @@ namespace BranchInputManager {
                         continue;
                     }
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}={} specifies duplicate outlet nodes in its outlet node list.",
                                                        CurrentModuleObject,
                                                        state.dataBranchInputManager->Splitters(Count).Name));
@@ -1847,13 +2118,26 @@ namespace BranchInputManager {
                         state,
                         fmt::format("..Outlet Node #{} Name={}", Loop, state.dataBranchInputManager->Splitters(Count).OutletBranchNames(Loop)));
                     ShowContinueError(state, fmt::format("..Outlet Node #{} is duplicate.", Loop));
+=======
+                                    std::format("{}={} specifies duplicate outlet nodes in its outlet node list.",
+                                                CurrentModuleObject,
+                                                state.dataBranchInputManager->Splitters(Count).Name));
+                    ShowContinueError(
+                        state,
+                        std::format("..Outlet Node #{} Name={}", Loop, state.dataBranchInputManager->Splitters(Count).OutletBranchNames(Loop)));
+                    ShowContinueError(state, std::format("..Outlet Node #{} is duplicate.", Loop));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetSplitterInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("GetSplitterInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         //  Everything supposed to be good.  Now make sure all branches in Splitter on same side of loop.
@@ -1881,6 +2165,7 @@ namespace BranchInputManager {
                 } else {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "GetSplitterInput: Inlet Splitter Branch=\"{}\" and BranchList=\"{}\" not matched to a Air/Plant/Condenser Loop",
                             TestName,
@@ -1894,6 +2179,19 @@ namespace BranchInputManager {
                 ShowSevereError(state, EnergyPlus::format("GetSplitterInput: Inlet Splitter Branch=\"{}\" not on BranchList", TestName));
                 ShowContinueError(state, "...and therefore, not a valid Loop Splitter.");
                 ShowContinueError(state, EnergyPlus::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+=======
+                        std::format("GetSplitterInput: Inlet Splitter Branch=\"{}\" and BranchList=\"{}\" not matched to a Air/Plant/Condenser Loop",
+                                    TestName,
+                                    BranchListName));
+                    ShowContinueError(state, "...and therefore, not a valid Loop Splitter.");
+                    ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+                    ErrorsFound = true;
+                }
+            } else {
+                ShowSevereError(state, std::format("GetSplitterInput: Inlet Splitter Branch=\"{}\" not on BranchList", TestName));
+                ShowContinueError(state, "...and therefore, not a valid Loop Splitter.");
+                ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             for (Loop = 1; Loop <= state.dataBranchInputManager->Splitters(Count).NumOutletBranches; ++Loop) {
@@ -1914,6 +2212,7 @@ namespace BranchInputManager {
                     FindAirPlantCondenserLoopFromBranchList(state, BranchListName, FoundLoop, FoundSupplyDemandAir, MatchedLoop);
                     if (MatchedLoop) {
                         if (SaveSupplyDemandAir != FoundSupplyDemandAir || SaveLoop != FoundLoop) {
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format(
                                                 "GetSplitterInput: Outlet Splitter Branch=\"{}\" does not match types of Inlet Branch.", TestName));
@@ -1924,16 +2223,31 @@ namespace BranchInputManager {
                             ShowContinueError(state, "...All branches in Loop Splitter must be on same kind of loop and supply/demand side.");
                             ShowContinueError(
                                 state, EnergyPlus::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+=======
+                            ShowSevereError(
+                                state,
+                                std::format("GetSplitterInput: Outlet Splitter Branch=\"{}\" does not match types of Inlet Branch.", TestName));
+                            ShowContinueError(state, std::format("...Inlet Branch is on \"{}\" on \"{}\" side.", SaveLoop, SaveSupplyDemandAir));
+                            ShowContinueError(state, std::format("...Outlet Branch is on \"{}\" on \"{}\" side.", FoundLoop, FoundSupplyDemandAir));
+                            ShowContinueError(state, "...All branches in Loop Splitter must be on same kind of loop and supply/demand side.");
+                            ShowContinueError(state,
+                                              std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     } else {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "GetSplitterInput: Outlet Splitter Branch=\"{}\" and BranchList=\"{}\" not matched to a Air/Plant/Condenser Loop",
                                 TestName,
                                 BranchListName));
                         ShowContinueError(state, "...and therefore, not a valid Loop Splitter.");
+<<<<<<< HEAD
                         ShowContinueError(state,
                                           EnergyPlus::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
                         ErrorsFound = true;
@@ -1943,13 +2257,26 @@ namespace BranchInputManager {
                     ShowContinueError(state, "...and therefore, not a valid Loop Splitter");
                     ShowContinueError(state,
                                       EnergyPlus::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+=======
+                        ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+                        ErrorsFound = true;
+                    }
+                } else {
+                    ShowSevereError(state, std::format("GetSplitterInput: Outlet Splitter Branch=\"{}\" not on BranchList", TestName));
+                    ShowContinueError(state, "...and therefore, not a valid Loop Splitter");
+                    ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Splitters(Count).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetSplitterInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("GetSplitterInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 
@@ -2059,10 +2386,17 @@ namespace BranchInputManager {
             int Found = Util::FindItemInList(state.dataBranchInputManager->Mixers(Count).OutletBranchName, state.dataBranchInputManager->Branch);
             if (Found == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("GetMixerInput: Invalid Branch={}, referenced as Outlet Branch in {}={}",
                                                    state.dataBranchInputManager->Mixers(Count).OutletBranchName,
                                                    CurrentModuleObject,
                                                    state.dataBranchInputManager->Mixers(Count).Name));
+=======
+                                std::format("GetMixerInput: Invalid Branch={}, referenced as Outlet Branch in {}={}",
+                                            state.dataBranchInputManager->Mixers(Count).OutletBranchName,
+                                            CurrentModuleObject,
+                                            state.dataBranchInputManager->Mixers(Count).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             for (Loop = 1; Loop <= state.dataBranchInputManager->Mixers(Count).NumInletBranches; ++Loop) {
@@ -2070,11 +2404,19 @@ namespace BranchInputManager {
                     Util::FindItemInList(state.dataBranchInputManager->Mixers(Count).InletBranchNames(Loop), state.dataBranchInputManager->Branch);
                 if (Found == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("GetMixerInput: Invalid Branch={}, referenced as Inlet Branch # {} in {}={}",
                                                        state.dataBranchInputManager->Mixers(Count).InletBranchNames(Loop),
                                                        Loop,
                                                        CurrentModuleObject,
                                                        state.dataBranchInputManager->Mixers(Count).Name));
+=======
+                                    std::format("GetMixerInput: Invalid Branch={}, referenced as Inlet Branch # {} in {}={}",
+                                                state.dataBranchInputManager->Mixers(Count).InletBranchNames(Loop),
+                                                Loop,
+                                                CurrentModuleObject,
+                                                state.dataBranchInputManager->Mixers(Count).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -2088,11 +2430,19 @@ namespace BranchInputManager {
                     continue;
                 }
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}={} specifies an inlet node name the same as the outlet node.",
                                                    CurrentModuleObject,
                                                    state.dataBranchInputManager->Mixers(Count).Name));
                 ShowContinueError(state, EnergyPlus::format("..Outlet Node={}", TestName));
                 ShowContinueError(state, EnergyPlus::format("..Inlet Node #{} is duplicate.", Loop));
+=======
+                                std::format("{}={} specifies an inlet node name the same as the outlet node.",
+                                            CurrentModuleObject,
+                                            state.dataBranchInputManager->Mixers(Count).Name));
+                ShowContinueError(state, std::format("..Outlet Node={}", TestName));
+                ShowContinueError(state, std::format("..Inlet Node #{} is duplicate.", Loop));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             for (Loop = 1; Loop <= state.dataBranchInputManager->Mixers(Count).NumInletBranches; ++Loop) {
@@ -2102,19 +2452,32 @@ namespace BranchInputManager {
                         continue;
                     }
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}={} specifies duplicate inlet nodes in its inlet node list.",
                                                        CurrentModuleObject,
                                                        state.dataBranchInputManager->Mixers(Count).Name));
                     ShowContinueError(
                         state, fmt::format("..Inlet Node #{} Name={}", Loop, state.dataBranchInputManager->Mixers(Count).InletBranchNames(Loop)));
                     ShowContinueError(state, fmt::format("..Inlet Node #{} is duplicate.", Loop));
+=======
+                                    std::format("{}={} specifies duplicate inlet nodes in its inlet node list.",
+                                                CurrentModuleObject,
+                                                state.dataBranchInputManager->Mixers(Count).Name));
+                    ShowContinueError(
+                        state, std::format("..Inlet Node #{} Name={}", Loop, state.dataBranchInputManager->Mixers(Count).InletBranchNames(Loop)));
+                    ShowContinueError(state, std::format("..Inlet Node #{} is duplicate.", Loop));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetMixerInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("GetMixerInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         //  Everything supposed to be good.  Now make sure all branches in Splitter on same side of loop.
@@ -2140,6 +2503,7 @@ namespace BranchInputManager {
                     SaveSupplyDemandAir = FoundSupplyDemandAir;
                     SaveLoop = FoundLoop;
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(state,
                                     EnergyPlus::format(
                                         "GetMixerInput: Outlet Mixer Branch=\"{}\" and BranchList=\"{}\" not matched to a Air/Plant/Condenser Loop",
@@ -2153,6 +2517,21 @@ namespace BranchInputManager {
                 ShowSevereError(state, EnergyPlus::format("GetMixerInput: Outlet Mixer Branch=\"{}\" not on BranchList", TestName));
                 ShowContinueError(state, "...and therefore, not a valid Loop Mixer.");
                 ShowContinueError(state, EnergyPlus::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+=======
+                    ShowSevereError(
+                        state,
+                        std::format("GetMixerInput: Outlet Mixer Branch=\"{}\" and BranchList=\"{}\" not matched to a Air/Plant/Condenser Loop",
+                                    TestName,
+                                    BranchListName));
+                    ShowContinueError(state, "...and therefore, not a valid Loop Mixer.");
+                    ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+                    ErrorsFound = true;
+                }
+            } else {
+                ShowSevereError(state, std::format("GetMixerInput: Outlet Mixer Branch=\"{}\" not on BranchList", TestName));
+                ShowContinueError(state, "...and therefore, not a valid Loop Mixer.");
+                ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             for (Loop = 1; Loop <= state.dataBranchInputManager->Mixers(Count).NumInletBranches; ++Loop) {
@@ -2173,6 +2552,7 @@ namespace BranchInputManager {
                     FindAirPlantCondenserLoopFromBranchList(state, BranchListName, FoundLoop, FoundSupplyDemandAir, MatchedLoop);
                     if (MatchedLoop) {
                         if (SaveSupplyDemandAir != FoundSupplyDemandAir || SaveLoop != FoundLoop) {
+<<<<<<< HEAD
                             ShowSevereError(
                                 state,
                                 EnergyPlus::format("GetMixerInput: Outlet Mixer Branch=\"{}\" does not match types of Inlet Branch.", TestName));
@@ -2183,11 +2563,20 @@ namespace BranchInputManager {
                             ShowContinueError(state, "...All branches in Loop Mixer must be on same kind of loop and supply/demand side.");
                             ShowContinueError(state,
                                               EnergyPlus::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+=======
+                            ShowSevereError(state,
+                                            std::format("GetMixerInput: Outlet Mixer Branch=\"{}\" does not match types of Inlet Branch.", TestName));
+                            ShowContinueError(state, std::format("...Outlet Branch is on \"{}\" on \"{}\" side.", SaveLoop, SaveSupplyDemandAir));
+                            ShowContinueError(state, std::format("...Inlet Branch is on \"{}\" on \"{}\" side.", FoundLoop, FoundSupplyDemandAir));
+                            ShowContinueError(state, "...All branches in Loop Mixer must be on same kind of loop and supply/demand side.");
+                            ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     } else {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
                                 "GetMixerInput: Inlet Mixer Branch=\"{}\" and BranchList=\"{}\" not matched to a Air/Plant/Condenser Loop",
                                 TestName,
@@ -2201,13 +2590,30 @@ namespace BranchInputManager {
                     ShowSevereError(state, EnergyPlus::format("GetMixerInput: Inlet Mixer Branch=\"{}\" not on BranchList", TestName));
                     ShowContinueError(state, "...and therefore, not a valid Loop Mixer");
                     ShowContinueError(state, EnergyPlus::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+=======
+                            std::format("GetMixerInput: Inlet Mixer Branch=\"{}\" and BranchList=\"{}\" not matched to a Air/Plant/Condenser Loop",
+                                        TestName,
+                                        BranchListName));
+                        ShowContinueError(state, "...and therefore, not a valid Loop Mixer.");
+                        ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+                        ErrorsFound = true;
+                    }
+                } else {
+                    ShowSevereError(state, std::format("GetMixerInput: Inlet Mixer Branch=\"{}\" not on BranchList", TestName));
+                    ShowContinueError(state, "...and therefore, not a valid Loop Mixer");
+                    ShowContinueError(state, std::format("...{}={}", CurrentModuleObject, state.dataBranchInputManager->Mixers(Count).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetMixerInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("GetMixerInput: Fatal Errors Found in {}, program terminates.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 
@@ -2480,6 +2886,11 @@ namespace BranchInputManager {
 
         NumDanglingCount = 0;
         NeverFound = true;
+<<<<<<< HEAD
+=======
+        std::string_view const compType = present(CompType) ? std::string_view{CompType()} : std::string_view{};
+        std::string_view const compName = present(CompName) ? std::string_view{CompName()} : std::string_view{};
+>>>>>>> nrel/develop
         for (BrN = 1; BrN <= (int)state.dataBranchInputManager->Branch.size(); ++BrN) {
             int Found = 0;
             std::string FoundBranchName;
@@ -2507,6 +2918,7 @@ namespace BranchInputManager {
             ++NumDanglingCount;
             if (state.dataGlobal->DisplayExtraWarnings || mustprint) {
                 if (mustprint) {
+<<<<<<< HEAD
                     ShowContinueError(state,
                                       EnergyPlus::format("AuditBranches: Branch=\"{}\" not found on any BranchLists.",
                                                          state.dataBranchInputManager->Branch(BrN).Name));
@@ -2517,16 +2929,36 @@ namespace BranchInputManager {
                     ShowSevereMessage(state,
                                       EnergyPlus::format("AuditBranches: Branch=\"{}\" not found on any BranchLists.",
                                                          state.dataBranchInputManager->Branch(BrN).Name));
+=======
+                    ShowContinueError(
+                        state,
+                        std::format("AuditBranches: Branch=\"{}\" not found on any BranchLists.", state.dataBranchInputManager->Branch(BrN).Name));
+                    if (!FoundBranchName.empty()) {
+                        ShowContinueError(state, std::format("Branch contains component, type=\"{}\", name=\"{}\"", compType, compName));
+                    }
+                } else {
+                    ShowSevereMessage(
+                        state,
+                        std::format("AuditBranches: Branch=\"{}\" not found on any BranchLists.", state.dataBranchInputManager->Branch(BrN).Name));
+>>>>>>> nrel/develop
                     ++state.dataErrTracking->TotalSevereErrors;
                 }
             }
         }
         if (mustprint && NeverFound) { // this may be caught during branch input, not sure
+<<<<<<< HEAD
             ShowContinueError(state, EnergyPlus::format("Component, type=\"{}\", name=\"{}\" was not found on any Branch.", CompType, CompName));
             ShowContinueError(state, "Look for mistyped branch or component names/types.");
         }
         if (!mustprint && NumDanglingCount > 0) {
             ShowSevereMessage(state, fmt::format("AuditBranches: There are {} branch(es) that do not appear on any BranchList.", NumDanglingCount));
+=======
+            ShowContinueError(state, std::format("Component, type=\"{}\", name=\"{}\" was not found on any Branch.", compType, compName));
+            ShowContinueError(state, "Look for mistyped branch or component names/types.");
+        }
+        if (!mustprint && NumDanglingCount > 0) {
+            ShowSevereMessage(state, std::format("AuditBranches: There are {} branch(es) that do not appear on any BranchList.", NumDanglingCount));
+>>>>>>> nrel/develop
             state.dataErrTracking->TotalSevereErrors += NumDanglingCount;
             ShowContinueError(state, "Use Output:Diagnostics,DisplayExtraWarnings; for detail of each branch not on a branch list.");
         }
@@ -2548,7 +2980,11 @@ namespace BranchInputManager {
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         int Loop;
         int Count;
+<<<<<<< HEAD
         int MatchNode;                    // Node Number for match
+=======
+        int MatchNode = 0;                // Node Number for match
+>>>>>>> nrel/develop
         std::string MatchNodeName;        // Name for error message if not matched
         std::string BranchInletNodeName;  // Branch Inlet Node Name
         std::string BranchOutletNodeName; // Branch Outlet Node Name
@@ -2561,7 +2997,11 @@ namespace BranchInputManager {
         //  LOGICAL UniqueNodeError
         int Loop2;
         Node::FluidType BranchFluidType;
+<<<<<<< HEAD
         int InitialBranchFluidNode;
+=======
+        int InitialBranchFluidNode = 0;
+>>>>>>> nrel/develop
         Array1D_int BranchFluidNodes;
         Array1D_int FoundBranches;
         Array1D_int BranchPtrs;
@@ -2623,8 +3063,12 @@ namespace BranchInputManager {
                     FoundBranches(Count) = Found;
                     BranchPtrs(Count) = NumNodesOnBranchList;
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(state,
                                     EnergyPlus::format("Branch not found={}", state.dataBranchInputManager->BranchList(BCount).BranchNames(Count)));
+=======
+                    ShowSevereError(state, std::format("Branch not found={}", state.dataBranchInputManager->BranchList(BCount).BranchNames(Count)));
+>>>>>>> nrel/develop
                     ErrFound = true;
                 }
             }
@@ -2651,8 +3095,14 @@ namespace BranchInputManager {
                     MatchNode = state.dataBranchInputManager->Branch(Found).Component(1).InletNode;
                     MatchNodeName = state.dataBranchInputManager->Branch(Found).Component(1).InletNodeName;
                     BranchInletNodeName = state.dataBranchInputManager->Branch(Found).Component(1).InletNodeName;
+<<<<<<< HEAD
                 } else {
                     ShowWarningError(state, EnergyPlus::format("Branch has no components={}", state.dataBranchInputManager->Branch(Found).Name));
+=======
+                    CheckBranchEquipInZoneHVACEquipList(state, Found, ErrFound);
+                } else {
+                    ShowWarningError(state, std::format("Branch has no components={}", state.dataBranchInputManager->Branch(Found).Name));
+>>>>>>> nrel/develop
                 }
                 NumErr = 0;
                 for (Loop = 1; Loop <= state.dataBranchInputManager->Branch(Found).NumOfComponents; ++Loop) {
@@ -2691,6 +3141,7 @@ namespace BranchInputManager {
                         BranchFluidNodes(NumFluidNodes) = state.dataBranchInputManager->Branch(Found).Component(Loop).OutletNode;
                     }
                     if (state.dataBranchInputManager->Branch(Found).Component(Loop).InletNode != MatchNode) {
+<<<<<<< HEAD
                         ShowSevereError(state,
                                         EnergyPlus::format("Error Detected in BranchList={}", state.dataBranchInputManager->BranchList(BCount).Name));
                         ShowContinueError(state,
@@ -2698,6 +3149,13 @@ namespace BranchInputManager {
                         ShowContinueError(state, EnergyPlus::format("Branch Outlet does not match Inlet, Outlet={}", MatchNodeName));
                         ShowContinueError(
                             state, EnergyPlus::format("Inlet Name={}", state.dataBranchInputManager->Branch(Found).Component(Loop).InletNodeName));
+=======
+                        ShowSevereError(state, std::format("Error Detected in BranchList={}", state.dataBranchInputManager->BranchList(BCount).Name));
+                        ShowContinueError(state, std::format("Actual Error occurs in Branch={}", state.dataBranchInputManager->Branch(Found).Name));
+                        ShowContinueError(state, std::format("Branch Outlet does not match Inlet, Outlet={}", MatchNodeName));
+                        ShowContinueError(state,
+                                          std::format("Inlet Name={}", state.dataBranchInputManager->Branch(Found).Component(Loop).InletNodeName));
+>>>>>>> nrel/develop
                         ErrFound = true;
                         ++NumErr;
                     } else {
@@ -2729,25 +3187,42 @@ namespace BranchInputManager {
             }
             if (MixedFluidTypesOnBranchList) {
                 ShowSevereError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("BranchList={} has mixed fluid types in its nodes.", state.dataBranchInputManager->BranchList(BCount).Name));
+=======
+                    state, std::format("BranchList={} has mixed fluid types in its nodes.", state.dataBranchInputManager->BranchList(BCount).Name));
+>>>>>>> nrel/develop
                 ErrFound = true;
                 if (OriginalBranchFluidType.empty()) {
                     OriginalBranchFluidType = "**Unknown**";
                 }
+<<<<<<< HEAD
                 ShowContinueError(state,
                                   EnergyPlus::format("Initial Node={}, Fluid Type={}",
                                                      state.dataLoopNodes->NodeID(InitialBranchFluidNode),
                                                      OriginalBranchFluidType));
+=======
+                ShowContinueError(
+                    state,
+                    std::format("Initial Node={}, Fluid Type={}", state.dataLoopNodes->NodeID(InitialBranchFluidNode), OriginalBranchFluidType));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "BranchList Topology - Note nodes which do not match that fluid type:");
                 Ptr = 1;
                 EndPtr = BranchPtrs(1);
                 for (Loop = 1; Loop <= state.dataBranchInputManager->BranchList(BCount).NumOfBranchNames; ++Loop) {
                     if (FoundBranches(Loop) != 0) {
+<<<<<<< HEAD
                         ShowContinueError(state, EnergyPlus::format("..Branch={}", state.dataBranchInputManager->Branch(FoundBranches(Loop)).Name));
                     } else {
                         ShowContinueError(
                             state, EnergyPlus::format("..Illegal Branch={}", state.dataBranchInputManager->BranchList(BCount).BranchNames(Loop)));
+=======
+                        ShowContinueError(state, std::format("..Branch={}", state.dataBranchInputManager->Branch(FoundBranches(Loop)).Name));
+                    } else {
+                        ShowContinueError(state,
+                                          std::format("..Illegal Branch={}", state.dataBranchInputManager->BranchList(BCount).BranchNames(Loop)));
+>>>>>>> nrel/develop
                         continue;
                     }
                     for (Loop2 = Ptr; Loop2 <= EndPtr; ++Loop2) {
@@ -2756,8 +3231,12 @@ namespace BranchInputManager {
                             cBranchFluidType = "**Unknown**";
                         }
                         ShowContinueError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("....Node={}, Fluid Type={}", state.dataLoopNodes->NodeID(BranchFluidNodes(Loop2)), cBranchFluidType));
+=======
+                            state, std::format("....Node={}, Fluid Type={}", state.dataLoopNodes->NodeID(BranchFluidNodes(Loop2)), cBranchFluidType));
+>>>>>>> nrel/develop
                     }
                     Ptr = EndPtr + 1;
                     EndPtr = BranchPtrs(Loop + 1);
@@ -2795,11 +3274,17 @@ namespace BranchInputManager {
                     Found = Util::FindItemInList(
                         BranchNodes(Count).UniqueNodeNames(Loop2), BranchNodes(Loop).UniqueNodeNames, BranchNodes(Loop).NumNodes);
                     if (Found != 0) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("Non-unique node name found, name={}", BranchNodes(Count).UniqueNodeNames(Loop2)));
                         ShowContinueError(state,
                                           EnergyPlus::format("..1st occurrence in Branch={}", state.dataBranchInputManager->Branch(Count).Name));
                         ShowContinueError(state,
                                           EnergyPlus::format("..duplicate occurrence in Branch={}", state.dataBranchInputManager->Branch(Loop).Name));
+=======
+                        ShowSevereError(state, std::format("Non-unique node name found, name={}", BranchNodes(Count).UniqueNodeNames(Loop2)));
+                        ShowContinueError(state, std::format("..1st occurrence in Branch={}", state.dataBranchInputManager->Branch(Count).Name));
+                        ShowContinueError(state, std::format("..duplicate occurrence in Branch={}", state.dataBranchInputManager->Branch(Loop).Name));
+>>>>>>> nrel/develop
                         ErrFound = true;
                     }
                 }
@@ -2830,22 +3315,37 @@ namespace BranchInputManager {
                     continue;
                 }
                 ++BCount;
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("Orphan Branch=\"{}\".", state.dataBranchInputManager->Branch(Count).Name));
+=======
+                ShowWarningError(state, std::format("Orphan Branch=\"{}\".", state.dataBranchInputManager->Branch(Count).Name));
+>>>>>>> nrel/develop
 
                 if (state.dataBranchInputManager->Branch(Count).NumOfComponents > 0) {
                     MatchNode = state.dataBranchInputManager->Branch(Count).Component(1).InletNode;
                     MatchNodeName = state.dataBranchInputManager->Branch(Count).Component(1).InletNodeName;
                     BranchInletNodeName = state.dataBranchInputManager->Branch(Count).Component(1).InletNodeName;
                 } else {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("Branch has no components={}", state.dataBranchInputManager->Branch(Count).Name));
+=======
+                    ShowWarningError(state, std::format("Branch has no components={}", state.dataBranchInputManager->Branch(Count).Name));
+>>>>>>> nrel/develop
                 }
                 NumErr = 0;
                 for (Loop = 1; Loop <= state.dataBranchInputManager->Branch(Count).NumOfComponents; ++Loop) {
                     if (state.dataBranchInputManager->Branch(Count).Component(Loop).InletNode != MatchNode) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("Error Detected in Branch={}", state.dataBranchInputManager->Branch(Count).Name));
                         ShowContinueError(state, EnergyPlus::format("Branch Outlet does not match Inlet, Outlet={}", MatchNodeName));
                         ShowContinueError(
                             state, EnergyPlus::format("Inlet Name={}", state.dataBranchInputManager->Branch(Count).Component(Loop).InletNodeName));
+=======
+                        ShowSevereError(state, std::format("Error Detected in Branch={}", state.dataBranchInputManager->Branch(Count).Name));
+                        ShowContinueError(state, std::format("Branch Outlet does not match Inlet, Outlet={}", MatchNodeName));
+                        ShowContinueError(state,
+                                          std::format("Inlet Name={}", state.dataBranchInputManager->Branch(Count).Component(Loop).InletNodeName));
+>>>>>>> nrel/develop
                         ErrFound = true;
                         ++NumErr;
                     } else {

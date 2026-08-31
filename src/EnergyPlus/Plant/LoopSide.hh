@@ -165,7 +165,11 @@ namespace DataPlant {
         void SimulateAllLoopSideBranches(EnergyPlusData &state, Real64 ThisLoopSideFlow, bool FirstHVACIteration, bool &LoopShutDownFlag);
 
         void SimulateLoopSideBranchGroup(
+<<<<<<< HEAD
             EnergyPlusData &state, int FirstBranchNum, int LastBranchNum, Real64 FlowRequest, bool FirstHVACIteration, bool &LoopShutDownFlag);
+=======
+            EnergyPlusData &state, int FirstBranchNum, int LastBranchNum, Real64 t_FlowRequest, bool FirstHVACIteration, bool &LoopShutDownFlag);
+>>>>>>> nrel/develop
 
         void UpdatePlantSplitter(EnergyPlusData &state);
 
@@ -173,7 +177,11 @@ namespace DataPlant {
 
         void TurnOnAllLoopSideBranches();
 
+<<<<<<< HEAD
         void DisableAnyBranchPumpsConnectedToUnloadedEquipment();
+=======
+        void DisableAnyBranchPumpsConnectedToUnloadedEquipment(EnergyPlusData &state);
+>>>>>>> nrel/develop
 
         void DoFlowAndLoadSolutionPass(EnergyPlusData &state, LoopSideLocation OtherSide, int ThisSideInletNode, bool FirstHVACIteration);
 

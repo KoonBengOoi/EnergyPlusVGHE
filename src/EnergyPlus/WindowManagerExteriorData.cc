@@ -45,8 +45,18 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <cassert>
 
+=======
+// C++ Headers
+#include <cassert>
+
+// Third Party Headers
+#include <WCEMultiLayerOptics.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataBSDFWindow.hh>
 #include <EnergyPlus/DataHeatBalance.hh>
@@ -55,8 +65,11 @@
 #include <EnergyPlus/WindowManager.hh>
 #include <EnergyPlus/WindowManagerExteriorData.hh>
 
+<<<<<<< HEAD
 #include <WCEMultiLayerOptics.hpp>
 
+=======
+>>>>>>> nrel/develop
 namespace EnergyPlus {
 
 using namespace DataSurfaces;

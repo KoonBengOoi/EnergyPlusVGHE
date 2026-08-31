@@ -36,9 +36,15 @@ namespace SingleLayerOptics
     private:
         [[nodiscard]] double visibleAhole(const CBeamDirection & t_Direction) const;
         [[nodiscard]] double visibleAcell(const CBeamDirection & t_Direction) const;
+<<<<<<< HEAD
         double m_x;
         double m_y;
         double m_Thickness;
+=======
+        // double m_x;
+        // double m_y;
+        // double m_Thickness;
+>>>>>>> nrel/develop
         double m_Radius;
     };
 
@@ -63,9 +69,15 @@ namespace SingleLayerOptics
         double TransmittanceV(const CBeamDirection & t_Direction) const;
         double TransmittanceH(const CBeamDirection & t_Direction) const;
 
+<<<<<<< HEAD
         double m_x;
         double m_y;
         double m_Thickness;
+=======
+        // double m_x;
+        // double m_y;
+        // double m_Thickness;
+>>>>>>> nrel/develop
         double m_XHole;
         double m_YHole;
     };

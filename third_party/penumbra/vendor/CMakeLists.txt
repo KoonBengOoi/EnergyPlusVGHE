@@ -38,6 +38,10 @@ add_library(tess2 ${libtess2_sources})
 
 target_include_directories(tess2 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libtess2/Include)
 target_include_directories(tess2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libtess2/Source)
+<<<<<<< HEAD
+=======
+target_compile_options(tess2 PRIVATE $<$<COMPILE_LANG_AND_ID:C,AppleClang>:-Wno-shorten-64-to-32>)
+>>>>>>> nrel/develop
 
 if (NOT TARGET courierr)
   add_subdirectory(courierr)

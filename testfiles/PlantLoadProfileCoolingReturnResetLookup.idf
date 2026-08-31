@@ -13,7 +13,11 @@
 ! System:   None.
 ! Plant:    PLANT LOAD PROFILE with DistrictCooling.
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Plant Load Profile Cooling,  !- Name

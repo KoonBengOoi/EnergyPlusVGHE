@@ -15,9 +15,18 @@ This README is really just a place to drop current status while I figure out wha
   - Linux takes 5 minutes and Windows takes 9 minutes
 - build_wheels.yml
   - Runs on demand, on Linux only for now
+<<<<<<< HEAD
 - release_*.yml
   - Only works on tags
   - Runs on all three platforms
+=======
+- release_documentation.yml
+  - Only works on tags
+  - Build and publish the PDF documentation.
+- release_linux.yml, release_mac.yml, release_windows.yml
+  - Only work on tags
+  - Build and publish the platform-specific release packages for Linux, macOS, and Windows
+>>>>>>> nrel/develop
 - test_code_integrity.yml
   - Runs on Linux, about 22 minutes
 - test_debug_builds.yml

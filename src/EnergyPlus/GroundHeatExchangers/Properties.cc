@@ -45,6 +45,13 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/GroundHeatExchangers/Properties.hh>
 #include <EnergyPlus/GroundHeatExchangers/State.hh>
@@ -58,7 +65,11 @@ GLHEVertProps::GLHEVertProps(EnergyPlusData &state, std::string const &objName, 
     // Check for duplicates
     for (const auto &existingObj : state.dataGroundHeatExchanger->vertPropsVector) {
         if (objName == existingObj->name) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("Invalid input for {} object: Duplicate name found: {}", moduleName, existingObj->name));
+=======
+            ShowFatalError(state, std::format("Invalid input for {} object: Duplicate name found: {}", moduleName, existingObj->name));
+>>>>>>> nrel/develop
         }
     }
 
@@ -97,7 +108,11 @@ std::shared_ptr<GLHEVertProps> GLHEVertProps::GetVertProps(EnergyPlusData &state
     if (thisObj != state.dataGroundHeatExchanger->vertPropsVector.end()) {
         return *thisObj;
     }
+<<<<<<< HEAD
     ShowSevereError(state, fmt::format("Object=GroundHeatExchanger:Vertical:Properties, Name={} - not found.", objectName));
+=======
+    ShowSevereError(state, std::format("Object=GroundHeatExchanger:Vertical:Properties, Name={} - not found.", objectName));
+>>>>>>> nrel/develop
     ShowFatalError(state, "Preceding errors cause program termination");
 }
 

@@ -118,6 +118,10 @@ namespace Sched {
     {
         Invalid = -1,
         Year,
+<<<<<<< HEAD
+=======
+        YearRules,
+>>>>>>> nrel/develop
         Compact,
         File,
         Constant,
@@ -215,7 +219,11 @@ namespace Sched {
 
         DaySchedule() = default;
         virtual ~DaySchedule() = default;
+<<<<<<< HEAD
         void can_instantiate()
+=======
+        void can_instantiate() override
+>>>>>>> nrel/develop
         {
             assert(false);
         } // makes class concrete, but don't call this
@@ -224,11 +232,19 @@ namespace Sched {
         bool checkValsForBadIntegers(EnergyPlusData &state) const;
         void populateFromMinuteVals(EnergyPlusData &state, std::array<Real64, Constant::iMinutesInDay> const &minuteVals);
         std::vector<Real64> const &
+<<<<<<< HEAD
         getDayVals([[maybe_unused]] EnergyPlusData &state, [[maybe_unused]] int jDay = -1, [[maybe_unused]] int dayOfWeek = -1)
         {
             return tsVals;
         }
         void setMinMaxVals(EnergyPlusData &state);
+=======
+        getDayVals([[maybe_unused]] EnergyPlusData &state, [[maybe_unused]] int jDay = -1, [[maybe_unused]] int dayOfWeek = -1) override
+        {
+            return tsVals;
+        }
+        void setMinMaxVals(EnergyPlusData &state) override;
+>>>>>>> nrel/develop
     };
 
     struct WeekSchedule : public ScheduleBase
@@ -238,12 +254,45 @@ namespace Sched {
 
         WeekSchedule() = default;
         virtual ~WeekSchedule() = default;
+<<<<<<< HEAD
         void can_instantiate()
+=======
+        void can_instantiate() override
+>>>>>>> nrel/develop
         {
             assert(false);
         } // makes class concrete, but don't call this
 
+<<<<<<< HEAD
         void setMinMaxVals(EnergyPlusData &state);
+=======
+        void setMinMaxVals(EnergyPlusData &state) override;
+    };
+
+    struct WeekRuleSchedule : public ScheduleBase
+    {
+        // Members
+        std::string scheduleYearRulesName;
+        int rulePriorityOrder = 0;
+        DaySchedule *daySched = nullptr;
+        bool applySunday = false;
+        bool applyMonday = false;
+        bool applyTuesday = false;
+        bool applyWednesday = false;
+        bool applyThursday = false;
+        bool applyFriday = false;
+        bool applySaturday = false;
+        std::vector<int> specificDays;
+
+        WeekRuleSchedule() = default;
+        virtual ~WeekRuleSchedule() = default;
+        void can_instantiate() override
+        {
+            assert(false);
+        } // makes class concrete, but don't call this
+
+        void setMinMaxVals(EnergyPlusData &state) override;
+>>>>>>> nrel/develop
     };
 
     struct Schedule : public DayOrYearSchedule
@@ -294,13 +343,18 @@ namespace Sched {
 
         virtual ~ScheduleConstant() = default;
 
+<<<<<<< HEAD
         void can_instantiate()
+=======
+        void can_instantiate() override
+>>>>>>> nrel/develop
         {
             assert(false);
         } // makes class concrete, but don't call this
 
         // Looks up a given Schedule value for an hour & timestep, minding whether DST is enabled or not
         // Negative ts => unspecified, will use TimeStepsInHour
+<<<<<<< HEAD
         Real64 getHrTsVal(EnergyPlusData &state, int hr, int ts = -1) const;
 
         std::vector<Real64> const &getDayVals(EnergyPlusData &state, int jDay = -1, int dayOfWeek = -1);
@@ -317,6 +371,24 @@ namespace Sched {
 
         std::tuple<Real64, int, std::string>
         getValAndCountOnDay(EnergyPlusData &state, bool const isSummer, DayType const dayOfWeek, int const hourOfDay);
+=======
+        Real64 getHrTsVal(EnergyPlusData &state, int hr, int ts = -1) const override;
+
+        std::vector<Real64> const &getDayVals(EnergyPlusData &state, int jDay = -1, int dayOfWeek = -1) override;
+
+        bool hasVal(EnergyPlusData &state, Real64 const val) const override;
+        bool hasFractionalVal(EnergyPlusData &state) const override;
+
+        void setMinMaxVals(EnergyPlusData &state) override;
+
+        std::pair<Real64, Real64> getMinMaxValsByDayType(EnergyPlusData &state, DayTypeGroup const days) override;
+
+        Real64 getAnnualHoursFullLoad(EnergyPlusData &state, int const StartDayOfWeek, bool const isLeapYear) override;
+        Real64 getAnnualHoursGreaterThan1Percent(EnergyPlusData &state, int const StartDayOfWeek, bool const isLeapYear) override;
+
+        std::tuple<Real64, int, std::string>
+        getValAndCountOnDay(EnergyPlusData &state, bool const isSummer, DayType const dayOfWeek, int const hourOfDay) override;
+>>>>>>> nrel/develop
     };
 
     struct ScheduleDetailed : public Schedule
@@ -335,11 +407,16 @@ namespace Sched {
 
         virtual ~ScheduleDetailed() = default;
 
+<<<<<<< HEAD
         void can_instantiate()
+=======
+        void can_instantiate() override
+>>>>>>> nrel/develop
         {
             assert(false);
         } // makes class concrete, but don't call this
 
+<<<<<<< HEAD
         std::vector<Real64> const &getDayVals(EnergyPlusData &state, int jDay = -1, int dayOfWeek = -1);
 
         bool hasVal(EnergyPlusData &state, Real64 const val) const;
@@ -358,6 +435,26 @@ namespace Sched {
 
         std::tuple<Real64, int, std::string>
         getValAndCountOnDay(EnergyPlusData &state, bool const isSummer, DayType const dayOfWeek, int const hourOfDay);
+=======
+        std::vector<Real64> const &getDayVals(EnergyPlusData &state, int jDay = -1, int dayOfWeek = -1) override;
+
+        bool hasVal(EnergyPlusData &state, Real64 const val) const override;
+        bool hasFractionalVal(EnergyPlusData &state) const override;
+
+        void setMinMaxVals(EnergyPlusData &state) override;
+
+        // Looks up a given Schedule value for an hour & timestep, minding whether DST is enabled or not
+        // Negative ts => unspecified, will use TimeStepsInHour
+        Real64 getHrTsVal(EnergyPlusData &state, int hr, int ts = -1) const override;
+
+        std::pair<Real64, Real64> getMinMaxValsByDayType(EnergyPlusData &state, DayTypeGroup const days) override;
+
+        Real64 getAnnualHoursFullLoad(EnergyPlusData &state, int const StartDayOfWeek, bool const isLeapYear) override;
+        Real64 getAnnualHoursGreaterThan1Percent(EnergyPlusData &state, int const StartDayOfWeek, bool const isLeapYear) override;
+
+        std::tuple<Real64, int, std::string>
+        getValAndCountOnDay(EnergyPlusData &state, bool const isSummer, DayType const dayOfWeek, int const hourOfDay) override;
+>>>>>>> nrel/develop
     };
 
     // Functions
@@ -365,6 +462,10 @@ namespace Sched {
     ScheduleConstant *AddScheduleConstant(EnergyPlusData &state, std::string const &name, Real64 value = 0.0);
     DaySchedule *AddDaySchedule(EnergyPlusData &state, std::string const &name);
     WeekSchedule *AddWeekSchedule(EnergyPlusData &state, std::string const &name);
+<<<<<<< HEAD
+=======
+    WeekRuleSchedule *AddWeekRuleSchedule(EnergyPlusData &state, std::string const &name);
+>>>>>>> nrel/develop
 
     void ProcessScheduleInput(EnergyPlusData &state);
 
@@ -382,7 +483,11 @@ namespace Sched {
     // Uses EMS value if actuated, otherwise calls LookUpScheduleValue with ThisHour=DataGlobals::HourOfDay, ThisTimeStep=DataGlobals::TimeStep
     void UpdateScheduleVals(EnergyPlusData &state);
 
+<<<<<<< HEAD
     int GetScheduleTypeNum(EnergyPlusData &state, std::string const &name);
+=======
+    int GetScheduleTypeNum(EnergyPlusData const &state, std::string const &name);
+>>>>>>> nrel/develop
 
     int GetDayScheduleNum(EnergyPlusData &state, std::string const &name);
     DaySchedule *GetDaySchedule(EnergyPlusData &state, std::string const &name);
@@ -390,10 +495,19 @@ namespace Sched {
     int GetWeekScheduleNum(EnergyPlusData &state, std::string const &name);
     WeekSchedule *GetWeekSchedule(EnergyPlusData &state, std::string const &name);
 
+<<<<<<< HEAD
     int GetScheduleNum(EnergyPlusData &state, std::string const &name);
     Schedule *GetSchedule(EnergyPlusData &state, std::string const &name);
     Schedule *GetScheduleAlwaysOn(EnergyPlusData &state);
     Schedule *GetScheduleAlwaysOff(EnergyPlusData &state);
+=======
+    std::vector<WeekRuleSchedule *> GetPrioritizedWeekRuleSchedules(EnergyPlusData &state, std::string const &scheduleYearRulesName, int const day);
+
+    int GetScheduleNum(EnergyPlusData &state, std::string const &name);
+    Schedule *GetSchedule(EnergyPlusData &state, std::string const &name);
+    Schedule *GetScheduleAlwaysOn(EnergyPlusData const &state);
+    Schedule *GetScheduleAlwaysOff(EnergyPlusData const &state);
+>>>>>>> nrel/develop
 
     void ExternalInterfaceSetSchedule(EnergyPlusData &state,
                                       int schedNum,
@@ -505,11 +619,19 @@ struct ScheduleManagerData : BaseGlobalStruct
     std::vector<Sched::Schedule *> schedules;         // Year schedule
     std::vector<Sched::DaySchedule *> daySchedules;
     std::vector<Sched::WeekSchedule *> weekSchedules;
+<<<<<<< HEAD
+=======
+    std::vector<Sched::WeekRuleSchedule *> weekRuleSchedules;
+>>>>>>> nrel/develop
 
     std::map<std::string, int> scheduleTypeMap;
     std::map<std::string, int> scheduleMap;
     std::map<std::string, int> dayScheduleMap;
     std::map<std::string, int> weekScheduleMap;
+<<<<<<< HEAD
+=======
+    std::map<std::string, int> weekRuleScheduleMap;
+>>>>>>> nrel/develop
 
     void init_constant_state(EnergyPlusData &state) override
     {
@@ -553,6 +675,15 @@ struct ScheduleManagerData : BaseGlobalStruct
         }
         weekSchedules.clear();
         weekScheduleMap.clear();
+<<<<<<< HEAD
+=======
+
+        for (auto &weekRuleSchedule : weekRuleSchedules) {
+            delete weekRuleSchedule;
+        }
+        weekRuleSchedules.clear();
+        weekRuleScheduleMap.clear();
+>>>>>>> nrel/develop
     }
 };
 

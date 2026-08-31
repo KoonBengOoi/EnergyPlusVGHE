@@ -14,7 +14,11 @@
 ! FCW, 6/17/04: changed height for daylighting illuminance maps from 0.0m to 0.8m to correspond
 !               to reference point height
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Daylighting Shelf Example,  !- Name

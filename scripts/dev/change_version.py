@@ -89,6 +89,10 @@ idf_folders = [
     Path("performance_tests"),
     Path("datasets"),
     Path("testfiles") / "BasicsFiles",
+<<<<<<< HEAD
+=======
+    Path("tst") / "EnergyPlus" / "unit" / "Resources",
+>>>>>>> nrel/develop
 ]
 
 # walk across the idf and imf files

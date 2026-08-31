@@ -46,6 +46,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/Autosizing/HeatingCapacitySizing.hh>
@@ -106,7 +110,11 @@ namespace BaseboardElectric {
         if (CompIndex == 0) {
             BaseboardNum = Util::FindItemInList(EquipName, baseboard->baseboards, &BaseboardParams::EquipName);
             if (BaseboardNum == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("SimElectricBaseboard: Unit not found={}", EquipName));
+=======
+                ShowFatalError(state, std::format("SimElectricBaseboard: Unit not found={}", EquipName));
+>>>>>>> nrel/develop
             }
             CompIndex = BaseboardNum;
         } else {
@@ -114,6 +122,7 @@ namespace BaseboardElectric {
             int numBaseboards = (int)baseboard->baseboards.size();
             if (BaseboardNum > numBaseboards || BaseboardNum < 1) {
                 ShowFatalError(state,
+<<<<<<< HEAD
                                EnergyPlus::format("SimElectricBaseboard:  Invalid CompIndex passed={}, Number of Units={}, Entered Unit name={}",
                                                   BaseboardNum,
                                                   numBaseboards,
@@ -127,6 +136,20 @@ namespace BaseboardElectric {
                                            BaseboardNum,
                                            EquipName,
                                            baseboard->baseboards(BaseboardNum).EquipName));
+=======
+                               std::format("SimElectricBaseboard:  Invalid CompIndex passed={}, Number of Units={}, Entered Unit name={}",
+                                           BaseboardNum,
+                                           numBaseboards,
+                                           EquipName));
+            }
+            if (baseboard->baseboards(BaseboardNum).CheckEquipName) {
+                if (EquipName != baseboard->baseboards(BaseboardNum).EquipName) {
+                    ShowFatalError(state,
+                                   std::format("SimElectricBaseboard: Invalid CompIndex passed={}, Unit name={}, stored Unit Name for that index={}",
+                                               BaseboardNum,
+                                               EquipName,
+                                               baseboard->baseboards(BaseboardNum).EquipName));
+>>>>>>> nrel/develop
                 }
                 baseboard->baseboards(BaseboardNum).CheckEquipName = false;
             }
@@ -210,7 +233,11 @@ namespace BaseboardElectric {
 
                 // ErrorsFound will be set to True if problem was found, left untouched otherwise
                 VerifyUniqueBaseboardName(
+<<<<<<< HEAD
                     state, cCurrentModuleObject, s_ipsc->cAlphaArgs(1), ErrorsFound, EnergyPlus::format("{} Name", cCurrentModuleObject));
+=======
+                    state, cCurrentModuleObject, s_ipsc->cAlphaArgs(1), ErrorsFound, std::format("{} Name", cCurrentModuleObject));
+>>>>>>> nrel/develop
 
                 ++BaseboardNum;
                 auto &thisBaseboard = baseboard->baseboards(BaseboardNum);
@@ -232,6 +259,7 @@ namespace BaseboardElectric {
                     if (!s_ipsc->lNumericFieldBlanks(iHeatDesignCapacityNumericNum)) {
                         thisBaseboard.ScaledHeatingCapacity = s_ipsc->rNumericArgs(iHeatDesignCapacityNumericNum);
                         if (thisBaseboard.ScaledHeatingCapacity < 0.0 && thisBaseboard.ScaledHeatingCapacity != AutoSize) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
                             ShowContinueError(state,
                                               EnergyPlus::format("Illegal {} = {:.7T}",
@@ -247,6 +275,22 @@ namespace BaseboardElectric {
                                                              s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
                         ShowContinueError(
                             state, EnergyPlus::format("Blank field not allowed for {}", s_ipsc->cNumericFieldNames(iHeatDesignCapacityNumericNum)));
+=======
+                            ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                            ShowContinueError(state,
+                                              std::format("Illegal {} = {:.7f}",
+                                                          s_ipsc->cNumericFieldNames(iHeatDesignCapacityNumericNum),
+                                                          s_ipsc->rNumericArgs(iHeatDesignCapacityNumericNum)));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                        ShowContinueError(
+                            state,
+                            std::format("Input for {} = {}", s_ipsc->cAlphaFieldNames(iHeatCAPMAlphaNum), s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
+                        ShowContinueError(state,
+                                          std::format("Blank field not allowed for {}", s_ipsc->cNumericFieldNames(iHeatDesignCapacityNumericNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } else if (Util::SameString(s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum), "CapacityPerFloorArea")) {
@@ -254,6 +298,7 @@ namespace BaseboardElectric {
                     if (!s_ipsc->lNumericFieldBlanks(iHeatCapacityPerFloorAreaNumericNum)) {
                         thisBaseboard.ScaledHeatingCapacity = s_ipsc->rNumericArgs(iHeatCapacityPerFloorAreaNumericNum);
                         if (thisBaseboard.ScaledHeatingCapacity <= 0.0) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
                             ShowContinueError(state,
                                               EnergyPlus::format("Input for {} = {}",
@@ -283,6 +328,33 @@ namespace BaseboardElectric {
                         ShowContinueError(
                             state,
                             EnergyPlus::format("Blank field not allowed for {}", s_ipsc->cNumericFieldNames(iHeatCapacityPerFloorAreaNumericNum)));
+=======
+                            ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                            ShowContinueError(
+                                state,
+                                std::format("Input for {} = {}", s_ipsc->cAlphaFieldNames(iHeatCAPMAlphaNum), s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
+                            ShowContinueError(state,
+                                              std::format("Illegal {} = {:.7f}",
+                                                          s_ipsc->cNumericFieldNames(iHeatCapacityPerFloorAreaNumericNum),
+                                                          s_ipsc->rNumericArgs(iHeatCapacityPerFloorAreaNumericNum)));
+                            ErrorsFound = true;
+                        } else if (thisBaseboard.ScaledHeatingCapacity == AutoSize) {
+                            ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                            ShowContinueError(
+                                state,
+                                std::format("Input for {} = {}", s_ipsc->cAlphaFieldNames(iHeatCAPMAlphaNum), s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
+                            ShowContinueError(state,
+                                              std::format("Illegal {} = AutoSize", s_ipsc->cNumericFieldNames(iHeatCapacityPerFloorAreaNumericNum)));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                        ShowContinueError(
+                            state,
+                            std::format("Input for {} = {}", s_ipsc->cAlphaFieldNames(iHeatCAPMAlphaNum), s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
+                        ShowContinueError(
+                            state, std::format("Blank field not allowed for {}", s_ipsc->cNumericFieldNames(iHeatCapacityPerFloorAreaNumericNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } else if (Util::SameString(s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum), "FractionOfAutosizedHeatingCapacity")) {
@@ -290,6 +362,7 @@ namespace BaseboardElectric {
                     if (!s_ipsc->lNumericFieldBlanks(iHeatFracOfAutosizedCapacityNumericNum)) {
                         thisBaseboard.ScaledHeatingCapacity = s_ipsc->rNumericArgs(iHeatFracOfAutosizedCapacityNumericNum);
                         if (thisBaseboard.ScaledHeatingCapacity < 0.0) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
                             ShowContinueError(state,
                                               EnergyPlus::format("Illegal {} = {:.7T}",
@@ -313,6 +386,28 @@ namespace BaseboardElectric {
                     ShowContinueError(
                         state,
                         EnergyPlus::format("Illegal {} = {}", s_ipsc->cAlphaFieldNames(iHeatCAPMAlphaNum), s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
+=======
+                            ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                            ShowContinueError(state,
+                                              std::format("Illegal {} = {:.7f}",
+                                                          s_ipsc->cNumericFieldNames(iHeatFracOfAutosizedCapacityNumericNum),
+                                                          s_ipsc->rNumericArgs(iHeatFracOfAutosizedCapacityNumericNum)));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                        ShowContinueError(
+                            state,
+                            std::format("Input for {} = {}", s_ipsc->cAlphaFieldNames(iHeatCAPMAlphaNum), s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
+                        ShowContinueError(
+                            state, std::format("Blank field not allowed for {}", s_ipsc->cNumericFieldNames(iHeatFracOfAutosizedCapacityNumericNum)));
+                        ErrorsFound = true;
+                    }
+                } else {
+                    ShowSevereError(state, std::format("{} = {}", cCurrentModuleObject, thisBaseboard.EquipName));
+                    ShowContinueError(
+                        state, std::format("Illegal {} = {}", s_ipsc->cAlphaFieldNames(iHeatCAPMAlphaNum), s_ipsc->cAlphaArgs(iHeatCAPMAlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -321,8 +416,12 @@ namespace BaseboardElectric {
             }
 
             if (ErrorsFound) {
+<<<<<<< HEAD
                 ShowFatalError(state,
                                EnergyPlus::format("{} Errors found in getting input.  Preceding condition(s) cause termination.", RoutineName));
+=======
+                ShowFatalError(state, std::format("{} Errors found in getting input.  Preceding condition(s) cause termination.", RoutineName));
+>>>>>>> nrel/develop
             }
         }
 
@@ -436,7 +535,11 @@ namespace BaseboardElectric {
             state.dataSize->DataZoneNumber = baseboard.ZonePtr;
             int SizingMethod = HVAC::HeatingCapacitySizing;
             int FieldNum = 1;
+<<<<<<< HEAD
             std::string const SizingString = EnergyPlus::format("{} [W]", baseboard.FieldNames[FieldNum - 1]);
+=======
+            std::string const SizingString = std::format("{} [W]", baseboard.FieldNames[FieldNum - 1]);
+>>>>>>> nrel/develop
             int CapSizingMethod = baseboard.HeatingCapMethod;
             ZoneEqSizing.SizingMethod(SizingMethod) = CapSizingMethod;
             if (CapSizingMethod == DataSizing::HeatingDesignCapacity || CapSizingMethod == DataSizing::CapacityPerFloorArea ||

@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 Standard: c++17
+=======
+Standard: c++20
+>>>>>>> nrel/develop
 AccessModifierOffset: -4
 AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: false

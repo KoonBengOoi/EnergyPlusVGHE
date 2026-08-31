@@ -5,7 +5,11 @@
 !1ZoneUncontrolledCondFDWithVariableKat24C.idf
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 

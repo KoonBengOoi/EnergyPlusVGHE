@@ -888,7 +888,11 @@ namespace OutputReportTabular {
                                    Array1D<Real64> &feneSolarDelaySeq,
                                    std::vector<OutputReportTabular::componentLoadsSpZn> &szCompLoadLoc,
                                    Array2D<Real64> &surfDelaySeq,
+<<<<<<< HEAD
                                    ZompComponentAreasType &componentAreas,
+=======
+                                   ZompComponentAreasType const &componentAreas,
+>>>>>>> nrel/develop
                                    int const iZone,
                                    int const iSpace = 0);
 

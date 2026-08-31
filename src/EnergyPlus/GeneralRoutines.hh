@@ -177,7 +177,11 @@ void ValidateComponent(EnergyPlusData &state,
 );
 
 // Why is this in GeneralRoutines? Asking for a friend
+<<<<<<< HEAD
 void CalcBasinHeaterPower(EnergyPlusData &state,
+=======
+void CalcBasinHeaterPower(EnergyPlusData const &state,
+>>>>>>> nrel/develop
                           Real64 const Capacity,     // Basin heater capacity per degree C below setpoint (W/C)
                           Sched::Schedule *sched,    // Pointer to basin heater schedule
                           Real64 const SetPointTemp, // setpoint temperature for basin heater operation (C)
@@ -215,6 +219,11 @@ Real64 calcZoneSensibleOutput(Real64 const MassFlow, // air mass flow rate, {kg/
                               Real64 const TDBZone,  // dry-bulb temperature at zone air node {C}
                               Real64 const WZone);
 
+<<<<<<< HEAD
+=======
+void CheckBranchEquipInZoneHVACEquipList(EnergyPlusData &state, int const branchNum, bool &errorsFound);
+
+>>>>>>> nrel/develop
 struct GeneralRoutinesData : BaseGlobalStruct
 {
 

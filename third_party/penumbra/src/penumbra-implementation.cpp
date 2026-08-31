@@ -22,7 +22,11 @@ PenumbraImplementation::PenumbraImplementation(int size,
 void PenumbraImplementation::add_surface(const Surface &surface) {
   surface.surface->logger = logger;
   if (surface.surface->name.empty()) {
+<<<<<<< HEAD
     surface.surface->name = fmt::format("Surface {}", surfaces.size());
+=======
+    surface.surface->name = std::format("Surface {}", surfaces.size());
+>>>>>>> nrel/develop
   }
   surfaces.push_back(*surface.surface);
 }

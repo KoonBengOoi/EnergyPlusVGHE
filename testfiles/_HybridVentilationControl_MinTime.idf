@@ -127,7 +127,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Small Office with AirflowNetwork model,  !- Name
@@ -3137,7 +3141,11 @@
   ZoneControl:Humidistat,
     Zone 3 Humidistat,       !- Name
     NORTH ZONE,              !- Zone Name
+<<<<<<< HEAD
     Seasonal Relative Humidity Sch;  !- Humidifying Relative Humidity Setpoint Schedule Name
+=======
+    Seasonal Relative Humidity Sch;  !- Humidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Setpoints,               !- Name

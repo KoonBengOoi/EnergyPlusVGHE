@@ -36,13 +36,21 @@ namespace EffectiveLayers
                                    double height,
                                    double thickness,
                                    const ShadeOpenness & openness,
+<<<<<<< HEAD
                                    Coefficients coefficients) :
+=======
+                                   Coefficients t_coefficients) :
+>>>>>>> nrel/develop
         m_Width(width),
         m_Height(height),
         m_Thickness(thickness),
         m_ShadeOpenness(
           openness.Ah * width * height, openness.Dl, openness.Dr, openness.Dtop, openness.Dbot),
+<<<<<<< HEAD
         coefficients{coefficients}
+=======
+        coefficients{t_coefficients}
+>>>>>>> nrel/develop
     {}
 
     Coefficients::Coefficients(double c1, double c2, double c3, double c4) :
@@ -58,8 +66,13 @@ namespace EffectiveLayers
                                          const ShadeOpenness & openness,
                                          double slatAngle,
                                          double slatWidth,
+<<<<<<< HEAD
                                          Coefficients coefficients) :
         EffectiveLayer(width, height, thickness, openness, coefficients),
+=======
+                                         Coefficients t_coefficients) :
+        EffectiveLayer(width, height, thickness, openness, t_coefficients),
+>>>>>>> nrel/develop
         m_SlatAngleRad(slatAngle * 2.0 * ConstantsData::WCE_PI / 360.0),
         m_SlatWidth(slatWidth)
     {}

@@ -88,7 +88,11 @@ This module defines functions to codesign, notarize and staple macOS files.
 
   The resulting configure options are:
 
+<<<<<<< HEAD
   * :cmake:variable:`CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION`
+=======
+  * :cmake:variable:`CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION`
+>>>>>>> nrel/develop
 
     Pre-populated options from ``security-find-identity -v -p codesign``.
     This should be a valid "Developer ID Application"
@@ -122,7 +126,11 @@ This module defines functions to codesign, notarize and staple macOS files.
 
   This function will therefore run in the CPack staging area, after any rpath adjustments, and ensure the signature sticks.
 
+<<<<<<< HEAD
   It will only do something on ``APPLE`` and if :cmake:variable:`CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION` is defined.
+=======
+  It will only do something on ``APPLE`` and if :cmake:variable:`CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION` is defined.
+>>>>>>> nrel/develop
 
   It requires ``CMP0087`` to be set to ``NEW``.
 
@@ -337,7 +345,11 @@ endfunction()
 #------------------------------------------------------------------------------
 function(setup_macos_codesigning_variables)
   # prefix with CPACK_ so it's properly passed to the POST_BUILD_SCRIPTS
+<<<<<<< HEAD
   set(CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION "${CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION}" CACHE STRING "code signing identity (e.g., \"Developer ID Application: National Renewable Energy Laboratory (K7JYVQJL7R)\") (required for code signing)")
+=======
+  set(CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION "${CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION}" CACHE STRING "code signing identity (e.g., \"Developer ID Application: National Renewable Energy Laboratory (K7JYVQJL7R)\") (required for code signing)")
+>>>>>>> nrel/develop
 
   # Get list of valid codesigning identities from system.
   execute_process(COMMAND security find-identity -v -p codesigning
@@ -346,8 +358,13 @@ function(setup_macos_codesigning_variables)
     ERROR_QUIET
     OUTPUT_STRIP_TRAILING_WHITESPACE
     )
+<<<<<<< HEAD
   if (CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION)
     list(APPEND idents "${CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION}")
+=======
+  if (CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION)
+    list(APPEND idents "${CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION}")
+>>>>>>> nrel/develop
   endif ()
   if (res EQUAL 0 AND lines)
     # Split string into list of lines.
@@ -365,10 +382,17 @@ function(setup_macos_codesigning_variables)
   set(CPACK_CODESIGNING_MACOS_IDENTIFIER "org.nrel.EnergyPlus" CACHE STRING "The code signing identifier, passed as --identifier")
 
   # Populate drop-down box in cmake-gui with the list of valid codesigning identities.
+<<<<<<< HEAD
   set_property(CACHE CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION PROPERTY STRINGS "${idents}")
 
   if(CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION)
     set(CPACK_IFW_PACKAGE_SIGNING_IDENTITY ${CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION} CACHE STRING "set from CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION" FORCE)
+=======
+  set_property(CACHE CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION PROPERTY STRINGS "${idents}")
+
+  if(CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION)
+    set(CPACK_IFW_PACKAGE_SIGNING_IDENTITY ${CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION} CACHE STRING "set from CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION" FORCE)
+>>>>>>> nrel/develop
     mark_as_advanced(CPACK_IFW_PACKAGE_SIGNING_IDENTITY)
 
     set(CPACK_CODESIGNING_NOTARY_PROFILE_NAME "" CACHE STRING "Authenticate using credentials stored in the Keychain by notarytool. Use the profile name that you previously provided via the store-credentials command")
@@ -403,8 +427,13 @@ function(register_install_codesign_target TARGET_NAME DESTINATION COMPONENT)
     return()
   endif()
 
+<<<<<<< HEAD
   if(NOT CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION)
     message(DEBUG "Missing CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION, skipping signing")
+=======
+  if(NOT CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION)
+    message(DEBUG "Missing CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION, skipping signing")
+>>>>>>> nrel/develop
     return()
   endif()
 
@@ -419,7 +448,11 @@ function(register_install_codesign_target TARGET_NAME DESTINATION COMPONENT)
       include(\"${CMAKE_CURRENT_FUNCTION_LIST_FILE}\")
       codesign_files_macos(
         FILES \"\${CMAKE_INSTALL_PREFIX}/${DESTINATION}/$<IF:$<BOOL:$<TARGET_PROPERTY:${TARGET_NAME},MACOSX_BUNDLE>>,$<TARGET_BUNDLE_DIR_NAME:${TARGET_NAME}>,$<TARGET_FILE_NAME:${TARGET_NAME}>>\"
+<<<<<<< HEAD
         SIGNING_IDENTITY \"${CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION}\"
+=======
+        SIGNING_IDENTITY \"${CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION}\"
+>>>>>>> nrel/develop
         IDENTIFIER \"${CPACK_CODESIGNING_MACOS_IDENTIFIER}.${TARGET_NAME}\"
         FORCE VERBOSE $<$<BOOL:$<TARGET_PROPERTY:${TARGET_NAME},MACOSX_BUNDLE>>:DEEP>
         ENTITLEMENTS \"${_ENTITLEMENTS}\"
@@ -433,7 +466,11 @@ function(register_install_codesign_target TARGET_NAME DESTINATION COMPONENT)
       include(\"${CMAKE_CURRENT_FUNCTION_LIST_FILE}\")
       codesign_files_macos(
         FILES \"\${CMAKE_INSTALL_PREFIX}/${DESTINATION}/$<IF:$<BOOL:$<TARGET_PROPERTY:${TARGET_NAME},MACOSX_BUNDLE>>,$<TARGET_BUNDLE_DIR_NAME:${TARGET_NAME}>,$<TARGET_FILE_NAME:${TARGET_NAME}>>\"
+<<<<<<< HEAD
         SIGNING_IDENTITY \"${CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION}\"
+=======
+        SIGNING_IDENTITY \"${CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION}\"
+>>>>>>> nrel/develop
         IDENTIFIER \"${CPACK_CODESIGNING_MACOS_IDENTIFIER}.${TARGET_NAME}\"
         FORCE VERBOSE $<$<BOOL:$<TARGET_PROPERTY:${TARGET_NAME},MACOSX_BUNDLE>>:DEEP>
         )

@@ -102,7 +102,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     NONE,                    !- Name
@@ -2111,7 +2115,11 @@
 
   Output:Variable,*,Heating Coil Defrost Electricity Energy,timestep;
 
+<<<<<<< HEAD
   Output:Meter,Cooling:Electricity,timestep; !- [J]
+=======
+  Output:Meter,Cooling:Electricity,timestep;
+>>>>>>> nrel/develop
 
   Output:Meter,Cooling:Electricity,timestep;
 

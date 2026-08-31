@@ -87,9 +87,15 @@ protected:
     //        return EnergyPlusFixture::process_idd(idd, errors_found);
     //    }
 
+<<<<<<< HEAD
     bool processErrors(EnergyPlusData &state)
     {
         return state.dataInputProcessing->inputProcessor->processErrors(state);
+=======
+    bool processErrors(EnergyPlusData &t_state)
+    {
+        return t_state.dataInputProcessing->inputProcessor->processErrors(t_state);
+>>>>>>> nrel/develop
     }
 
     std::vector<std::string> const &validationErrors()

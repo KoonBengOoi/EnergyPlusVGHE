@@ -85,7 +85,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   ZoneHVAC:WaterToAirHeatPump,
     Zone1WTAHP,              !- Name

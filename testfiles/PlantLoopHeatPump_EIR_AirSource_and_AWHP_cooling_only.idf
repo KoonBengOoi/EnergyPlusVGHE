@@ -9,7 +9,11 @@
 ! System:   None.
 ! Plant:    The cooling loop is served by air-to-water heat pump.
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Plant Load Profile Example,  !- Name

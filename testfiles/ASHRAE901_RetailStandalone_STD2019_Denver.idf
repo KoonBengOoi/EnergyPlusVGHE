@@ -4,7 +4,11 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -306,6 +310,7 @@
     For: AllDays,            !- Field 2
     Until: 24:00,1.0;        !- Field 3
 
+<<<<<<< HEAD
                              !- Field 10
                              !- Field 12
                              !- Field 25
@@ -319,6 +324,8 @@
                              !- Field 52
                              !- Field 54
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_LIGHT_BACK_SCH,     !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -533,6 +540,7 @@
     Until: 19:00,0.1,        !- Field 61
     Until: 24:00,0.0;        !- Field 63
 
+<<<<<<< HEAD
                              !- Field 4
                              !- Field 6
                              !- Field 8
@@ -557,6 +565,8 @@
                              !- Field 54
                              !- Field 56
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_EQUIP_SCH,          !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -593,8 +603,11 @@
     Until: 19:00,0.3988803288, !- Field 55
     Until: 24:00,0.1480294218; !- Field 57
 
+<<<<<<< HEAD
                              !- Field 58
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_ELEVATORS,          !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -2601,10 +2614,13 @@
     3.500,0.0000,0.0500,  !- X,Y,Z ==> Vertex 3 {m}
     3.500,0.0000,2.6600;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Core_Retail_Wall_West_2_Door3,  !- Name
     Door,                    !- Surface Type
@@ -2620,11 +2636,14 @@
     0.000000000000,1.623637755411,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,1.623637755411,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Core_Retail_Wall_West_2_Door2,  !- Name
     Door,                    !- Surface Type
@@ -2640,11 +2659,14 @@
     0.000000000000,12.927175894014,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,12.927175894014,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Core_Retail_Wall_West_2_Door1,  !- Name
     Door,                    !- Surface Type
@@ -2660,11 +2682,14 @@
     0.000000000000,24.147942286061,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,24.147942286061,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Core_Retail_Wall_East_2_Door1,  !- Name
     Door,                    !- Surface Type
@@ -2680,11 +2705,14 @@
     54.270000000000,4.352894104366,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     54.270000000000,4.352894104366,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Core_Retail_Wall_East_2_Door2,  !- Name
     Door,                    !- Surface Type
@@ -2700,11 +2728,14 @@
     54.270000000000,14.723796313442,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     54.270000000000,14.723796313442,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Core_Retail_Wall_East_2_Door3,  !- Name
     Door,                    !- Surface Type
@@ -2720,11 +2751,14 @@
     54.270000000000,25.148878195589,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     54.270000000000,25.148878195589,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Back_Space_Wall_North_Door1,  !- Name
     Door,                    !- Surface Type
@@ -2740,11 +2774,14 @@
     43.295518073175,7.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     43.295518073175,7.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Back_Space_Wall_North_Door2,  !- Name
     Door,                    !- Surface Type
@@ -2760,11 +2797,14 @@
     10.830874671376,7.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     10.830874671376,7.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Back_Space_Wall_East_RollDoor,  !- Name
     Door,                    !- Surface Type
@@ -2780,11 +2820,14 @@
     54.270000000000,5.093406130273,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     54.270000000000,5.093406130273,2.438400000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Back_Space_Wall_North_RollDoor1,  !- Name
     Door,                    !- Surface Type
@@ -2800,11 +2843,14 @@
     34.314862950805,7.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     34.314862950805,7.000000000000,2.438400000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Back_Space_Wall_North_RollDoor2,  !- Name
     Door,                    !- Surface Type
@@ -2820,11 +2866,14 @@
     25.932588335319,7.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     25.932588335319,7.000000000000,2.438400000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Back_Space_Wall_North_RollDoor3,  !- Name
     Door,                    !- Surface Type
@@ -2840,11 +2889,14 @@
     17.262400044305,7.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     17.262400044305,7.000000000000,2.438400000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Back_Space_Wall_West_RollDoor,  !- Name
     Door,                    !- Surface Type
@@ -2860,8 +2912,11 @@
     0.000000000000,1.691790129493,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,1.691790129493,2.438400000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Skylights_r4c1,          !- Name
     Window,                  !- Surface Type

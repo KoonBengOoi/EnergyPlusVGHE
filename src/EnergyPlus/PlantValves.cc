@@ -48,6 +48,12 @@
 // C++ Headers
 #include <algorithm>
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+>>>>>>> nrel/develop
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 
@@ -96,7 +102,11 @@ namespace PlantValves {
             }
         }
         // If we didn't find it, fatal
+<<<<<<< HEAD
         ShowFatalError(state, EnergyPlus::format("TemperValveDataFactory: Error getting inputs for valve named: {}", objectName)); // LCOV_EXCL_LINE
+=======
+        ShowFatalError(state, std::format("TemperValveDataFactory: Error getting inputs for valve named: {}", objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
         // Shut up the compiler
         return nullptr; // LCOV_EXCL_LINE
     }
@@ -237,7 +247,11 @@ namespace PlantValves {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetPlantValvesInput: {} Errors found in input", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("GetPlantValvesInput: {} Errors found in input", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 
@@ -396,7 +410,11 @@ namespace PlantValves {
                     ErrorsFound = true;
                 }
                 if (ErrorsFound) {
+<<<<<<< HEAD
                     ShowFatalError(state, EnergyPlus::format("Errors found in input, TemperingValve object {}", this->Name));
+=======
+                    ShowFatalError(state, std::format("Errors found in input, TemperingValve object {}", this->Name));
+>>>>>>> nrel/develop
                 }
                 this->compDelayedInitFlag = false;
             } // my two time flag for input checking

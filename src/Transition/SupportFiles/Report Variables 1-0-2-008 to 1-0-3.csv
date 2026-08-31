@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 1.0.2.008,1.0.3.xxx
 0,0
 'old variable name','new variable name'
+=======
+1.0.2.008,1.0.3.xxx
+0,0
+'old variable name','new variable name'
+>>>>>>> nrel/develop

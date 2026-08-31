@@ -45,8 +45,18 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <ObjexxFCL/member.functions.hh>
 
+=======
+// C++ Headers
+#include <format>
+
+// ObjexxFCL Headers
+#include <ObjexxFCL/member.functions.hh>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataBranchAirLoopPlant.hh>
 #include <EnergyPlus/DataConvergParams.hh>
@@ -133,7 +143,11 @@ namespace DataPlant {
         // On constant speed branch pump loop sides we need to re-simulate
         if (this->hasConstSpeedBranchPumps) {
             // turn off any pumps connected to unloaded equipment and re-do the flow/load solution pass
+<<<<<<< HEAD
             this->DisableAnyBranchPumpsConnectedToUnloadedEquipment();
+=======
+            this->DisableAnyBranchPumpsConnectedToUnloadedEquipment(state);
+>>>>>>> nrel/develop
             this->DoFlowAndLoadSolutionPass(state, OtherLoopSide, ThisSideInletNode, FirstHVACIteration);
         }
 
@@ -657,8 +671,24 @@ namespace DataPlant {
         }
     }
 
+<<<<<<< HEAD
     void HalfLoopData::DisableAnyBranchPumpsConnectedToUnloadedEquipment()
     {
+=======
+    void HalfLoopData::DisableAnyBranchPumpsConnectedToUnloadedEquipment(EnergyPlusData &state)
+    {
+        // A tower branch can read zero dispatched load just because the loop has not started circulating yet;
+        // disabling its pump while the other side is turning the loop on deadlocks the cold start.
+        bool demandIsTurningLoopOn = false;
+        // plantLoc on a half loop side carries only loopNum/loopSideNum; its .loop pointer is never set
+        if (this->plantLoc.loopNum > 0 && this->plantLoc.loopNum <= state.dataPlnt->TotNumLoops) {
+            auto &thisLoop = state.dataPlnt->PlantLoop(this->plantLoc.loopNum);
+            auto const otherSide = LoopSideOther[static_cast<int>(this->plantLoc.loopSideNum)];
+            demandIsTurningLoopOn = (thisLoop.TypeOfLoop == DataPlant::LoopType::Condenser) &&
+                                    (thisLoop.LoopSide(otherSide).flowRequestNeedAndTurnOn > DataBranchAirLoopPlant::MassFlowTolerance);
+        }
+
+>>>>>>> nrel/develop
         for (int branchNum = 2; branchNum <= this->TotalBranches - 1; ++branchNum) {
             auto &branch = this->Branch(branchNum);
             Real64 totalDispatchedLoadOnBranch = 0.0;
@@ -672,7 +702,11 @@ namespace DataPlant {
                     totalDispatchedLoadOnBranch += component.MyLoad;
                 }
             }
+<<<<<<< HEAD
             if (std::abs(totalDispatchedLoadOnBranch) < 0.001) {
+=======
+            if (std::abs(totalDispatchedLoadOnBranch) < 0.001 && !demandIsTurningLoopOn) {
+>>>>>>> nrel/develop
                 branch.disableOverrideForCSBranchPumping = true;
             }
         }
@@ -778,11 +812,19 @@ namespace DataPlant {
                                               "below the high setpoint.");
                             ShowContinueError(state, "Occurs in PlantLoop=" + thisPlantLoop.Name);
                             ShowContinueError(state,
+<<<<<<< HEAD
                                               EnergyPlus::format("LoadToHeatingSetPoint={:.3R}, LoadToCoolingSetPoint={:.3R}",
                                                                  LoadToHeatingSetPoint,
                                                                  LoadToCoolingSetPoint));
                             ShowContinueError(state, EnergyPlus::format("Loop Heating Low Setpoint={:.2R}", LoopSetPointTemperatureLo));
                             ShowContinueError(state, EnergyPlus::format("Loop Cooling High Setpoint={:.2R}", LoopSetPointTemperatureHi));
+=======
+                                              std::format("LoadToHeatingSetPoint={:.3f}, LoadToCoolingSetPoint={:.3f}",
+                                                          LoadToHeatingSetPoint,
+                                                          LoadToCoolingSetPoint));
+                            ShowContinueError(state, std::format("Loop Heating Low Setpoint={:.2f}", LoopSetPointTemperatureLo));
+                            ShowContinueError(state, std::format("Loop Cooling High Setpoint={:.2f}", LoopSetPointTemperatureHi));
+>>>>>>> nrel/develop
 
                             ShowFatalError(state, "Program terminates due to above conditions.");
                         }
@@ -798,11 +840,19 @@ namespace DataPlant {
                                             "Development Team");
                             ShowContinueError(state, "occurs in PlantLoop=" + thisPlantLoop.Name);
                             ShowContinueError(state,
+<<<<<<< HEAD
                                               EnergyPlus::format("LoadToHeatingSetPoint={:.3R}, LoadToCoolingSetPoint={:.3R}",
                                                                  LoadToHeatingSetPoint,
                                                                  LoadToCoolingSetPoint));
                             ShowContinueError(state, EnergyPlus::format("Loop Heating Setpoint={:.2R}", LoopSetPointTemperatureLo));
                             ShowContinueError(state, EnergyPlus::format("Loop Cooling Setpoint={:.2R}", LoopSetPointTemperatureHi));
+=======
+                                              std::format("LoadToHeatingSetPoint={:.3f}, LoadToCoolingSetPoint={:.3f}",
+                                                          LoadToHeatingSetPoint,
+                                                          LoadToCoolingSetPoint));
+                            ShowContinueError(state, std::format("Loop Heating Setpoint={:.2f}", LoopSetPointTemperatureLo));
+                            ShowContinueError(state, std::format("Loop Cooling Setpoint={:.2f}", LoopSetPointTemperatureHi));
+>>>>>>> nrel/develop
                             ShowFatalError(state, "Program terminates due to above conditions.");
                         }
                     } else {
@@ -1662,9 +1712,15 @@ namespace DataPlant {
                 // Call fatal diagnostic error. !The math should work out!
                 ShowSevereError(state, "ResolveParallelFlows: Dev note, failed to redistribute restricted flow");
                 ShowContinueErrorTimeStamp(state, "");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("Loop side flow = {:.8R} (kg/s)", ThisLoopSideFlow));
                 ShowContinueError(state, EnergyPlus::format("Flow Remaining = {:.8R} (kg/s)", FlowRemaining));
                 ShowContinueError(state, EnergyPlus::format("Parallel Branch requests  = {:.8R} (kg/s)", TotParallelBranchFlowReq));
+=======
+                ShowContinueError(state, std::format("Loop side flow = {:.8f} (kg/s)", ThisLoopSideFlow));
+                ShowContinueError(state, std::format("Flow Remaining = {:.8f} (kg/s)", FlowRemaining));
+                ShowContinueError(state, std::format("Parallel Branch requests  = {:.8f} (kg/s)", TotParallelBranchFlowReq));
+>>>>>>> nrel/develop
             }
 
             // 2)  ! Reset the flow on the Mixer outlet branch
@@ -1682,7 +1738,11 @@ namespace DataPlant {
     void HalfLoopData::SimulateLoopSideBranchGroup(EnergyPlusData &state,
                                                    int const FirstBranchNum,
                                                    int const LastBranchNum,
+<<<<<<< HEAD
                                                    Real64 FlowRequest,
+=======
+                                                   Real64 t_FlowRequest,
+>>>>>>> nrel/develop
                                                    bool const FirstHVACIteration,
                                                    bool &LoopShutDownFlag)
     {
@@ -1741,7 +1801,11 @@ namespace DataPlant {
                     if (this->BranchPumpsExist) {
                         SimulateSinglePump(state, this_comp.location, branch.RequestedMassFlow);
                     } else {
+<<<<<<< HEAD
                         SimulateSinglePump(state, this_comp.location, FlowRequest);
+=======
+                        SimulateSinglePump(state, this_comp.location, t_FlowRequest);
+>>>>>>> nrel/develop
                     }
                     break;
                 case DataPlant::OpScheme::CompSetPtBased:
@@ -1980,8 +2044,13 @@ namespace DataPlant {
         auto const &this_comp(this->Branch(BranchNum).Comp(CompNum));
 
         // Get information
+<<<<<<< HEAD
         int const InletNode(this_comp.NodeNumIn);
         int const OutletNode(this_comp.NodeNumOut);
+=======
+        int const compInletNode(this_comp.NodeNumIn);
+        int const compOutletNode(this_comp.NodeNumOut);
+>>>>>>> nrel/develop
 
         if (this->FlowLock == DataPlant::FlowLock::Unlocked) {
 
@@ -1993,7 +2062,11 @@ namespace DataPlant {
 
             default: {
                 // pumps pipes, etc. will be lumped in here with other component types, but they will have no delta T anyway
+<<<<<<< HEAD
                 ComponentMassFlowRate = state.dataLoopNodes->Node(InletNode).MassFlowRateRequest;
+=======
+                ComponentMassFlowRate = state.dataLoopNodes->Node(compInletNode).MassFlowRateRequest;
+>>>>>>> nrel/develop
                 // make sure components like economizers use the mass flow request
                 break;
             }
@@ -2010,7 +2083,11 @@ namespace DataPlant {
             }
             default: {
                 // pumps pipes, etc. will be lumped in here with other component types, but they will have no delta T anyway
+<<<<<<< HEAD
                 ComponentMassFlowRate = state.dataLoopNodes->Node(OutletNode).MassFlowRate;
+=======
+                ComponentMassFlowRate = state.dataLoopNodes->Node(compOutletNode).MassFlowRate;
+>>>>>>> nrel/develop
             }
             }
 
@@ -2023,8 +2100,13 @@ namespace DataPlant {
         }
 
         // Get an average temperature for the property call
+<<<<<<< HEAD
         Real64 const InletTemp(state.dataLoopNodes->Node(InletNode).Temp);
         Real64 const OutletTemp(state.dataLoopNodes->Node(OutletNode).Temp);
+=======
+        Real64 const InletTemp(state.dataLoopNodes->Node(compInletNode).Temp);
+        Real64 const OutletTemp(state.dataLoopNodes->Node(compOutletNode).Temp);
+>>>>>>> nrel/develop
         Real64 const AverageTemp((InletTemp + OutletTemp) / 2.0);
         Real64 const ComponentCp(state.dataPlnt->PlantLoop(this->plantLoc.loopNum).glycol->getSpecificHeat(state, AverageTemp, RoutineName));
 

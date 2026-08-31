@@ -151,7 +151,10 @@ struct CoilCoolingDXPerformanceBase
     virtual Real64 grossRatedCoolingCOPAtMaxSpeed(EnergyPlusData &state)
     {
         ShowFatalError(state, "Gross Rated Cooling COP is not an available parameter for this coil type.");
+<<<<<<< HEAD
         return 0.0;
+=======
+>>>>>>> nrel/develop
     }
 
     virtual const std::string_view nameAtSpeed(int)
@@ -162,13 +165,19 @@ struct CoilCoolingDXPerformanceBase
     virtual Real64 ratedAirMassFlowRateMaxSpeed(EnergyPlusData &state, [[maybe_unused]] HVAC::CoilMode const mode = HVAC::CoilMode::Normal)
     {
         ShowFatalError(state, "Rated Air Mass Flow Rate is not an available parameter for this coil type.");
+<<<<<<< HEAD
         return 0.0;
+=======
+>>>>>>> nrel/develop
     }
 
     virtual Real64 ratedAirMassFlowRateMinSpeed(EnergyPlusData &state, [[maybe_unused]] HVAC::CoilMode const mode = HVAC::CoilMode::Normal)
     {
         ShowFatalError(state, "Rated Air Mass Flow Rate is not an available parameter for this coil type.");
+<<<<<<< HEAD
         return 0.0;
+=======
+>>>>>>> nrel/develop
     }
 
     virtual Real64 ratedCondAirMassFlowRateNomSpeed([[maybe_unused]] EnergyPlusData &state, [[maybe_unused]] HVAC::CoilMode const mode)
@@ -197,19 +206,28 @@ struct CoilCoolingDXPerformanceBase
     virtual Real64 currentEvapCondPumpPowerAtSpeed(EnergyPlusData &state, int)
     {
         ShowFatalError(state, "Current Evaporator Condenser Pump Power is not an available parameter for this coil type.");
+<<<<<<< HEAD
         return 0.0;
+=======
+>>>>>>> nrel/develop
     }
 
     virtual Real64 evapCondenserEffectivenessAtSpeedIndex(EnergyPlusData &state, int)
     {
         ShowFatalError(state, "Evaporator Condenser Effectiveness is not an available parameter for this coil type.");
+<<<<<<< HEAD
         return 0.0;
+=======
+>>>>>>> nrel/develop
     }
 
     virtual Real64 evapAirFlowFraction(EnergyPlusData &state)
     {
         ShowFatalError(state, "Evaporator Air Flow Fraction is not an available parameter for this coil type.");
+<<<<<<< HEAD
         return 0.0;
+=======
+>>>>>>> nrel/develop
     }
 };
 

@@ -64,6 +64,11 @@
 #include <EnergyPlus/PluginManager.hh>
 #include <EnergyPlus/api/datatransfer.h>
 
+<<<<<<< HEAD
+=======
+#include "EnergyPlus/DataEnvironment.hh"
+
+>>>>>>> nrel/develop
 using namespace EnergyPlus;
 
 class DataExchangeAPIUnitTestFixture : public EnergyPlusFixture
@@ -145,11 +150,18 @@ class DataExchangeAPIUnitTestFixture : public EnergyPlusFixture
     void SetUp() override
     {
         EnergyPlusFixture::SetUp();
+<<<<<<< HEAD
         Real64 timeStep = 1.0;
         OutputProcessor::SetupTimePointers(*state, OutputProcessor::SOVTimeStepType::Zone, timeStep);
         OutputProcessor::SetupTimePointers(*state, OutputProcessor::SOVTimeStepType::HVAC, timeStep);
         *state->dataOutputProcessor->TimeValue.at(OutputProcessor::TimeStepType::Zone).TimeStep = 60;
         *state->dataOutputProcessor->TimeValue.at(OutputProcessor::TimeStepType::System).TimeStep = 60;
+=======
+        state->dataGlobal->TimeStepZone = 1.0 / 60.0;
+        state->dataHVACGlobal->TimeStepSys = state->dataGlobal->TimeStepZone;
+        OutputProcessor::SetupTimePointers(*state, OutputProcessor::TimeStepType::Zone, state->dataGlobal->TimeStepZone);
+        OutputProcessor::SetupTimePointers(*state, OutputProcessor::TimeStepType::System, state->dataHVACGlobal->TimeStepSys);
+>>>>>>> nrel/develop
         state->dataPluginManager->pluginManager = std::make_unique<EnergyPlus::PluginManagement::PluginManager>(*state);
     }
 
@@ -180,6 +192,7 @@ public:
             if (val.meterType) {
                 SetupOutputVariable(*state,
                                     val.varName,
+<<<<<<< HEAD
                                     OutputProcessor::Unit::kg_s,
                                     val.value,
                                     OutputProcessor::SOVTimeStepType::Zone,
@@ -197,16 +210,40 @@ public:
                                     val.value,
                                     OutputProcessor::SOVTimeStepType::Zone,
                                     OutputProcessor::SOVStoreType::Average,
+=======
+                                    Constant::Units::J,
+                                    val.value,
+                                    OutputProcessor::TimeStepType::Zone,
+                                    OutputProcessor::StoreType::Sum,
+                                    val.varKey,
+                                    Constant::eResource::Electricity,
+                                    OutputProcessor::Group::HVAC,
+                                    OutputProcessor::EndUseCat::Heating);
+            } else {
+                SetupOutputVariable(*state,
+                                    val.varName,
+                                    Constant::Units::kg_s,
+                                    val.value,
+                                    OutputProcessor::TimeStepType::Zone,
+                                    OutputProcessor::StoreType::Average,
+>>>>>>> nrel/develop
                                     val.varKey);
             }
         }
         for (auto &val : this->intVariablePlaceholders) {
             SetupOutputVariable(*state,
                                 val.varName,
+<<<<<<< HEAD
                                 OutputProcessor::Unit::kg_s,
                                 val.value,
                                 OutputProcessor::SOVTimeStepType::Zone,
                                 OutputProcessor::SOVStoreType::Average,
+=======
+                                Constant::Units::kg_s,
+                                val.value,
+                                OutputProcessor::TimeStepType::Zone,
+                                OutputProcessor::StoreType::Average,
+>>>>>>> nrel/develop
                                 val.varKey);
         }
     }
@@ -257,19 +294,32 @@ public:
         }
     }
 
+<<<<<<< HEAD
     void addPluginGlobal(EnergyPlus::EnergyPlusData &state, std::string const &varName)
     {
         state.dataPluginManager->pluginManager->addGlobalVariable(state, varName);
     }
 
     void addTrendWithNewGlobal(std::string const &newGlobalVarName, std::string const &trendName, int numTrendValues)
+=======
+    void addPluginGlobal(std::string const &varName)
+    {
+        this->state->dataPluginManager->pluginManager->addGlobalVariable(*this->state, varName);
+    }
+
+    void addTrendWithNewGlobal(std::string const &newGlobalVarName, std::string const &trendName, int numTrendValues) const
+>>>>>>> nrel/develop
     {
         state->dataPluginManager->pluginManager->addGlobalVariable(*state, newGlobalVarName);
         int i = EnergyPlus::PluginManagement::PluginManager::getGlobalVariableHandle(*state, newGlobalVarName, true);
         state->dataPluginManager->trends.emplace_back(*state, trendName, numTrendValues, i);
     }
 
+<<<<<<< HEAD
     void simulateTimeStepAndReport()
+=======
+    void simulateTimeStepAndReport() const
+>>>>>>> nrel/develop
     {
         UpdateMeterReporting(*state);
         UpdateDataandReport(*state, OutputProcessor::TimeStepType::Zone);
@@ -295,7 +345,11 @@ TEST_F(DataExchangeAPIUnitTestFixture, DataTransfer_TestListAllDataInCSV)
     this->setupActuatorsOnceAllAreRequested();
     this->preRequestInternalVariable("Floor Area", "Zone 1", 6.02e23);
     this->setupInternalVariablesOnceAllAreRequested();
+<<<<<<< HEAD
     this->addPluginGlobal(*state, "Plugin_Global_Var_Name");
+=======
+    this->addPluginGlobal("Plugin_Global_Var_Name");
+>>>>>>> nrel/develop
     this->addTrendWithNewGlobal("NewGlobalVarHere", "Trend 1", 3);
     char *charCsvDataFull = listAllAPIDataCSV((void *)this->state);
     std::string csvData = std::string(charCsvDataFull);
@@ -373,6 +427,14 @@ TEST_F(DataExchangeAPIUnitTestFixture, DataTransfer_TestGetVariableValuesRealTyp
     int hChillerHT = getVariableHandle((void *)this->state, "Chiller Heat Transfer", "Chiller 1");
     int hZoneTemp = getVariableHandle((void *)this->state, "Zone Mean Temperature", "Zone 1");
 
+<<<<<<< HEAD
+=======
+    this->state->dataGlobal->HourOfDay = 1;
+    this->state->dataGlobal->MinutesInTimeStep = 1;
+    this->state->dataEnvrn->Month = 1;
+    this->state->dataEnvrn->DayOfMonth = 1;
+
+>>>>>>> nrel/develop
     // pretend like E+ ran a time step
     this->simulateTimeStepAndReport();
 
@@ -408,6 +470,15 @@ TEST_F(DataExchangeAPIUnitTestFixture, DataTransfer_TestGetMeterValues)
     this->setupVariablesOnceAllAreRequested();
     int hFacilityElectricity = getMeterHandle((void *)this->state, "Electricity:Facility");
     EXPECT_GT(hFacilityElectricity, -1);
+<<<<<<< HEAD
+=======
+
+    this->state->dataGlobal->HourOfDay = 1;
+    this->state->dataGlobal->MinutesInTimeStep = 1;
+    this->state->dataEnvrn->Month = 1;
+    this->state->dataEnvrn->DayOfMonth = 1;
+
+>>>>>>> nrel/develop
     // pretend like E+ ran a time step
     this->simulateTimeStepAndReport();
     // get the value for a valid meter
@@ -708,6 +779,44 @@ TEST_F(DataExchangeAPIUnitTestFixture, DataTransfer_Python_EMS_Override)
     EXPECT_TRUE(compare_err_stream(expectedError, true));
 }
 
+<<<<<<< HEAD
+=======
+TEST_F(DataExchangeAPIUnitTestFixture, DataTransfer_PythonHandle_MarksActuatorAsUsed)
+{
+    // Issue #10944: when Python retrieves a handle for an IDF-declared actuator,
+    // mark wasActuated so the end-of-sim unused-actuator check doesn't false-positive
+    // on legitimate Python-driven actuators (Python catches typos itself at handle lookup).
+    std::string const idf_objects = delimited_string({
+        "OutdoorAir:Node, Test node;",
+        "EnergyManagementSystem:Actuator,",
+        "TempSetpointLo,          !- Name",
+        "Test node,               !- Actuated Component Unique Name",
+        "System Node Setpoint,    !- Actuated Component Type",
+        "Temperature Minimum Setpoint;    !- Actuated Component Control Type",
+    });
+
+    ASSERT_TRUE(process_idf(idf_objects));
+    OutAirNodeManager::SetOutAirNodes(*state);
+    EMSManager::CheckIfAnyEMS(*state);
+    state->dataEMSMgr->FinishProcessingUserInput = true;
+    bool anyRan;
+    EMSManager::ManageEMS(*state, EMSManager::EMSCallFrom::SetupSimulation, anyRan);
+    ASSERT_EQ(1, state->dataRuntimeLang->numActuatorsUsed);
+
+    // Before Python handle retrieval, the actuator is un-referenced
+    EXPECT_FALSE(state->dataRuntimeLang->EMSActuatorUsed(1).wasActuated);
+
+    int hActuator = getActuatorHandle(state, "System Node Setpoint", "Temperature Minimum Setpoint", "Test node");
+    EXPECT_GT(hActuator, -1);
+
+    // getActuatorHandle should have flipped the flag
+    EXPECT_TRUE(state->dataRuntimeLang->EMSActuatorUsed(1).wasActuated);
+
+    EMSManager::checkForUnusedActuatorsAtEnd(*state);
+    EXPECT_FALSE(compare_err_stream_substring("Unused EMS Actuator detected", false, false));
+}
+
+>>>>>>> nrel/develop
 TEST_F(DataExchangeAPIUnitTestFixture, DataTransfer_Python_Python_Override)
 {
     // Test for #8084, should warn when getting a handle for an actuator via API Twice

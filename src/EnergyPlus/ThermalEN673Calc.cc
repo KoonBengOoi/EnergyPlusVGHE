@@ -301,8 +301,13 @@ namespace ThermalEN673Calc {
         Real64 cp;
         Real64 pr;
         Array1D<Real64> Gr(maxlay);
+<<<<<<< HEAD
         Real64 A;
         Real64 n;
+=======
+        Real64 A = 0.0;
+        Real64 n = 0.0;
+>>>>>>> nrel/develop
         Real64 hrin;
         Real64 sumRs;
         Real64 sumRsold;

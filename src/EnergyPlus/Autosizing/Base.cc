@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/All_Simple_Sizing.hh>
 #include <EnergyPlus/Autosizing/Base.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
@@ -108,6 +112,10 @@ void BaseSizer::initializeWithinEP(EnergyPlusData &state,
     this->airloopDOAS = state.dataAirLoopHVACDOAS->airloopDOAS;
     if (EnergyPlus::BaseSizer::isValidCoilType(this->compType)) { // coil reports fail if compType is not one of HVAC::cAllCoilTypes
         this->isCoilReportObject = true;
+<<<<<<< HEAD
+=======
+        this->coilReportNum = ReportCoilSelection::getReportIndex(state, this->compName, this->coilType);
+>>>>>>> nrel/develop
     }
     if (EnergyPlus::BaseSizer::isValidFanType(this->compType)) { // fan reports fail if compType is not a valid fan type
         this->isFanReportObject = true;
@@ -311,7 +319,12 @@ void BaseSizer::reportSizerOutput(EnergyPlusData &state,
 
     static constexpr std::string_view Format_990(
         "! <Component Sizing Information>, Component Type, Component Name, Input Field Description, Value\n");
+<<<<<<< HEAD
     static constexpr std::string_view Format_991(" Component Sizing Information, {}, {}, {}, {:.5R}\n");
+=======
+    static constexpr std::string_view Format_991(" Component Sizing Information, {}, {}, {}, {:.6G}\n");
+    static constexpr std::string_view Format_991_HumRat(" Component Sizing Information, {}, {}, {}, {:.3E}\n");
+>>>>>>> nrel/develop
 
     // to do, make this a parameter. Unfortunately this function is used in MANY
     // places so it involves touching most of E+
@@ -320,12 +333,28 @@ void BaseSizer::reportSizerOutput(EnergyPlusData &state,
         state.dataEnvrn->oneTimeCompRptHeaderFlag = false;
     }
 
+<<<<<<< HEAD
     print(state.files.eio, Format_991, CompType, CompName, VarDesc, VarValue);
+=======
+    if (VarDesc.find("Humidity Ratio") != std::string_view::npos) {
+        print(state.files.eio, Format_991_HumRat, CompType, CompName, VarDesc, VarValue);
+    } else {
+        print(state.files.eio, Format_991, CompType, CompName, VarDesc, VarValue);
+    }
+>>>>>>> nrel/develop
     // add to tabular output reports
     OutputReportPredefined::AddCompSizeTableEntry(state, CompType, CompName, VarDesc, VarValue);
 
     if (present(UsrDesc) && present(UsrValue)) {
+<<<<<<< HEAD
         print(state.files.eio, Format_991, CompType, CompName, UsrDesc(), UsrValue());
+=======
+        if (UsrDesc().find("Humidity Ratio") != std::string_view::npos) {
+            print(state.files.eio, Format_991_HumRat, CompType, CompName, UsrDesc(), UsrValue());
+        } else {
+            print(state.files.eio, Format_991, CompType, CompName, UsrDesc(), UsrValue());
+        }
+>>>>>>> nrel/develop
         OutputReportPredefined::AddCompSizeTableEntry(state, CompType, CompName, UsrDesc(), UsrValue);
     } else if (present(UsrDesc) || present(UsrValue)) {
         ShowFatalError(state, "ReportSizingOutput: (Developer Error) - called with user-specified description or value but not both.");
@@ -425,10 +454,17 @@ void BaseSizer::selectSizerOutput(EnergyPlusData &state, bool &errorsFound)
                     std::string msg = this->callingRoutine + ": Potential issue with equipment sizing for " + this->compType + ' ' + this->compName;
                     this->addErrorMessage(msg);
                     ShowMessage(state, msg);
+<<<<<<< HEAD
                     msg = EnergyPlus::format("User-Specified {}{} = {:.5R}", this->sizingStringScalable, this->sizingString, this->originalValue);
                     this->addErrorMessage(msg);
                     ShowContinueError(state, msg);
                     msg = EnergyPlus::format("differs from Design Size {} = {:.5R}", this->sizingString, this->autoSizedValue);
+=======
+                    msg = std::format("User-Specified {}{} = {:#G}", this->sizingStringScalable, this->sizingString, this->originalValue);
+                    this->addErrorMessage(msg);
+                    ShowContinueError(state, msg);
+                    msg = std::format("differs from Design Size {} = {:#G}", this->sizingString, this->autoSizedValue);
+>>>>>>> nrel/develop
                     this->addErrorMessage(msg);
                     ShowContinueError(state, msg);
                     msg = "This may, or may not, indicate mismatched component sizes.";
@@ -449,7 +485,11 @@ void BaseSizer::selectSizerOutput(EnergyPlusData &state, bool &errorsFound)
             std::string msg = this->callingRoutine + ' ' + this->compType + ' ' + this->compName + ", Developer Error: Component sizing incomplete.";
             this->addErrorMessage(msg);
             ShowSevereError(state, msg);
+<<<<<<< HEAD
             msg = EnergyPlus::format("SizingString = {}, SizingResult = {:.1T}", this->sizingString, this->originalValue);
+=======
+            msg = std::format("SizingString = {}, SizingResult = {:.1f}", this->sizingString, this->originalValue);
+>>>>>>> nrel/develop
             this->addErrorMessage(msg);
             ShowContinueError(state, msg);
             this->errorType = AutoSizingResultType::ErrorType1;
@@ -561,10 +601,17 @@ void BaseSizer::select2StgDXHumCtrlSizerOutput(EnergyPlusData &state, bool &erro
                     std::string msg = this->callingRoutine + ": Potential issue with equipment sizing for " + this->compType + ' ' + this->compName;
                     this->addErrorMessage(msg);
                     ShowMessage(state, msg);
+<<<<<<< HEAD
                     msg = EnergyPlus::format("User-Specified {}{} = {:.5R}", this->sizingStringScalable, this->sizingString, this->originalValue);
                     this->addErrorMessage(msg);
                     ShowContinueError(state, msg);
                     msg = EnergyPlus::format("differs from Design Size {} = {:.5R}", this->sizingString, this->autoSizedValue);
+=======
+                    msg = std::format("User-Specified {}{} = {:#G}", this->sizingStringScalable, this->sizingString, this->originalValue);
+                    this->addErrorMessage(msg);
+                    ShowContinueError(state, msg);
+                    msg = std::format("differs from Design Size {} = {:#G}", this->sizingString, this->autoSizedValue);
+>>>>>>> nrel/develop
                     this->addErrorMessage(msg);
                     ShowContinueError(state, msg);
                     msg = "This may, or may not, indicate mismatched component sizes.";
@@ -585,7 +632,11 @@ void BaseSizer::select2StgDXHumCtrlSizerOutput(EnergyPlusData &state, bool &erro
             std::string msg = this->callingRoutine + ' ' + this->compType + ' ' + this->compName + ", Developer Error: Component sizing incomplete.";
             this->addErrorMessage(msg);
             ShowSevereError(state, msg);
+<<<<<<< HEAD
             msg = EnergyPlus::format("SizingString = {}, SizingResult = {:.1T}", this->sizingString, this->originalValue);
+=======
+            msg = std::format("SizingString = {}, SizingResult = {:.1f}", this->sizingString, this->originalValue);
+>>>>>>> nrel/develop
             this->addErrorMessage(msg);
             ShowContinueError(state, msg);
             this->errorType = AutoSizingResultType::ErrorType1;
@@ -607,6 +658,7 @@ void BaseSizer::select2StgDXHumCtrlSizerOutput(EnergyPlusData &state, bool &erro
 
 bool BaseSizer::isValidCoilType(std::string const &_compType)
 {
+<<<<<<< HEAD
     int coilNum = 0;
     for (auto const &coilType : HVAC::cAllCoilTypes) {
         coilNum += 1;
@@ -617,6 +669,10 @@ bool BaseSizer::isValidCoilType(std::string const &_compType)
     }
     this->coilType_Num = 0;
     return false;
+=======
+    this->coilType = static_cast<HVAC::CoilType>(getEnumValue(HVAC::coilTypeNamesUC, Util::makeUPPER(_compType)));
+    return this->coilType != HVAC::CoilType::Invalid;
+>>>>>>> nrel/develop
 }
 
 bool BaseSizer::isValidFanType(std::string const &_compType)
@@ -659,7 +715,33 @@ bool BaseSizer::checkInitialized(EnergyPlusData &state, bool &errorsFound)
 
 void BaseSizer::overrideSizingString(std::string_view const string)
 {
+<<<<<<< HEAD
     this->sizingString = string;
+=======
+    // some strings are set inside loops where field names are read in and change slightly.
+    // (e.g., at Speed 1, at Speed 2, or high_speed vs low_speed)
+    // these cannot easily be set in a component model's sizing function
+    // for those corner cases convert snake_case to Camel Case here:
+    std::string word, result;
+    std::string str{string.data(), string.size()}; // convert string_view to string
+    std::istringstream iss(str);
+    // blank strings will jump to end, Camel Case strings will pass through loop once
+    while (std::getline(iss, word, '_')) {
+        if (word == "for" || word == "per" || word == "at") { // don't Capitalize certain words
+            result += word;
+        } else if (word == "ua") { // Capitalize all letters of certain words
+            std::transform(word.begin(), word.end(), word.begin(), ::toupper);
+            result += word;
+        } else {
+            result += toupper(word[0]); // Capitalize the first letter
+            result += word.substr(1);   // Append the rest of the word
+        }
+        if (result.size() != str.size()) {
+            result.insert(result.size(), " "); // insert space between words but not at end of string
+        }
+    }
+    this->sizingString = result;
+>>>>>>> nrel/develop
     this->overrideSizeString = false;
 }
 
@@ -798,13 +880,21 @@ void BaseSizer::calcCoilWaterFlowRates(EnergyPlusData &state,
         tmpFlowData.resize(size_t(timeStepInDay));
         if (curZoneEqNum > 0) {
             if (heatingLoop) {
+<<<<<<< HEAD
                 for (auto &heatFlowSeq : finalZoneSizing(curZoneEqNum).HeatFlowSeq) {
+=======
+                for (const auto &heatFlowSeq : finalZoneSizing(curZoneEqNum).HeatFlowSeq) {
+>>>>>>> nrel/develop
                     if (heatFlowSeq > peakAirFlow) {
                         peakAirFlow = heatFlowSeq;
                     }
                 }
             } else {
+<<<<<<< HEAD
                 for (auto &coolFlowSeq : finalZoneSizing(curZoneEqNum).CoolFlowSeq) {
+=======
+                for (const auto &coolFlowSeq : finalZoneSizing(curZoneEqNum).CoolFlowSeq) {
+>>>>>>> nrel/develop
                     if (coolFlowSeq > peakAirFlow) {
                         peakAirFlow = coolFlowSeq;
                     }
@@ -824,14 +914,22 @@ void BaseSizer::calcCoilWaterFlowRates(EnergyPlusData &state,
         } else if (curSysNum > state.dataHVACGlobal->NumPrimaryAirSys && curOASysNum > 0) {
             // DOAS is difficult to estimate time step data so for now use a ratio of system flow rate
             if (heatingLoop) {
+<<<<<<< HEAD
                 for (auto &heatFlowSeq :
+=======
+                for (const auto &heatFlowSeq :
+>>>>>>> nrel/develop
                      finalSysSizing(state.dataHVACGlobal->NumPrimaryAirSys).HeatFlowSeq) { // uses last primary air system, not ideal
                     if (heatFlowSeq > peakAirFlow) {
                         peakAirFlow = heatFlowSeq;
                     }
                 }
             } else {
+<<<<<<< HEAD
                 for (auto &coolFlowSeq :
+=======
+                for (const auto &coolFlowSeq :
+>>>>>>> nrel/develop
                      finalSysSizing(state.dataHVACGlobal->NumPrimaryAirSys).CoolFlowSeq) { // uses last primary air system, not ideal
                     if (coolFlowSeq > peakAirFlow) {
                         peakAirFlow = coolFlowSeq;
@@ -853,14 +951,22 @@ void BaseSizer::calcCoilWaterFlowRates(EnergyPlusData &state,
             }
         } else if (curOASysNum > 0) {
             if (heatingLoop) {
+<<<<<<< HEAD
                 for (auto &heatFlowSeq :
+=======
+                for (const auto &heatFlowSeq :
+>>>>>>> nrel/develop
                      finalSysSizing(state.dataHVACGlobal->NumPrimaryAirSys).HeatFlowSeq) { // uses last primary air system, not ideal
                     if (heatFlowSeq > peakAirFlow) {
                         peakAirFlow = heatFlowSeq;
                     }
                 }
             } else {
+<<<<<<< HEAD
                 for (auto &coolFlowSeq :
+=======
+                for (const auto &coolFlowSeq :
+>>>>>>> nrel/develop
                      finalSysSizing(state.dataHVACGlobal->NumPrimaryAirSys).CoolFlowSeq) { // uses last primary air system, not ideal
                     if (coolFlowSeq > peakAirFlow) {
                         peakAirFlow = coolFlowSeq;
@@ -880,13 +986,21 @@ void BaseSizer::calcCoilWaterFlowRates(EnergyPlusData &state,
             }
         } else if (curSysNum > 0) {
             if (heatingLoop) {
+<<<<<<< HEAD
                 for (auto &heatFlowSeq : finalSysSizing(curSysNum).HeatFlowSeq) {
+=======
+                for (const auto &heatFlowSeq : finalSysSizing(curSysNum).HeatFlowSeq) {
+>>>>>>> nrel/develop
                     if (heatFlowSeq > peakAirFlow) {
                         peakAirFlow = heatFlowSeq;
                     }
                 }
             } else {
+<<<<<<< HEAD
                 for (auto &coolFlowSeq : finalSysSizing(curSysNum).CoolFlowSeq) {
+=======
+                for (const auto &coolFlowSeq : finalSysSizing(curSysNum).CoolFlowSeq) {
+>>>>>>> nrel/develop
                     if (coolFlowSeq > peakAirFlow) {
                         peakAirFlow = coolFlowSeq;
                     }
@@ -939,7 +1053,11 @@ void BaseSizer::clearState()
     sizingDesValueFromParent = false;
     airLoopSysFlag = false;
     oaSysFlag = false;
+<<<<<<< HEAD
     coilType_Num = 0;
+=======
+    coilType = HVAC::CoilType::Invalid;
+>>>>>>> nrel/develop
     compType = "";
     compName = "";
     isEpJSON = false;

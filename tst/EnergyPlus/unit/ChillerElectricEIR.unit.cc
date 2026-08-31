@@ -522,7 +522,10 @@ TEST_F(EnergyPlusFixture, ChillerElectricEIR_EvaporativelyCooled_Calculate)
     // set load and run flag
     bool RunFlag(true);
     Real64 MyLoad(-18000.0);
+<<<<<<< HEAD
     openOutputFiles(*state);
+=======
+>>>>>>> nrel/develop
 
     state->dataPlnt->PlantLoop(1).LoopDemandCalcScheme = DataPlant::LoopDemandCalcScheme::SingleSetPoint;
     state->dataLoopNodes->Node(thisEIRChiller.EvapOutletNodeNum).TempSetPoint = 6.67;
@@ -813,8 +816,11 @@ TEST_F(EnergyPlusFixture, ChillerElectricEIR_OutputReport)
     EXPECT_TRUE(process_idf(idf_objects, false));
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     state->dataPlnt->PlantLoop.allocate(state->dataPlnt->TotNumLoops);
     state->dataPlnt->PlantLoop.allocate(state->dataPlnt->TotNumLoops);
     state->dataSize->PlantSizData.allocate(state->dataPlnt->TotNumLoops);

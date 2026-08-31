@@ -593,7 +593,10 @@ TEST_F(EnergyPlusFixture, BaseSizer_RequestSizingZone)
     state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).CoolDesHumRat = 0.0085;
     state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).DesCoolCoilInTemp = 28.0;
     state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).DesCoolCoilInHumRat = 0.0075;
+<<<<<<< HEAD
     state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).DesCoolOAFlowFrac = 0.2;
+=======
+>>>>>>> nrel/develop
     state->dataSize->FinalZoneSizing(state->dataSize->CurZoneEqNum).DesCoolVolFlow = 0.30;
 
     state->dataSize->ZoneSizingRunDone = true;
@@ -916,9 +919,12 @@ TEST_F(EnergyPlusFixture, BaseSizer_FanPeak)
     state->dataGlobal->TimeStepsInHour = 4;
     state->dataGlobal->MinutesInTimeStep = 15;
 
+<<<<<<< HEAD
     // Setup the predefined tables, because that's where the info is written.
     EnergyPlus::OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     // If you wanted to check SQL, you also need this:
     // We enable the report we care about, making sure it's the right one
     // EXPECT_EQ("EquipmentSummary", OutputReportPredefined::reportName(5).name);

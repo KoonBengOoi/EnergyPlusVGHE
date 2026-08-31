@@ -54,6 +54,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 from os import path
 from pathlib import Path
 from sys import argv, exit
@@ -77,15 +78,44 @@ with open(summary_input_md_file) as md:
     md_contents = md.read()
 
 fixed_up_contents = f"""
+=======
+import argparse
+from pathlib import Path
+from sys import exit
+
+
+def build_regression_summary(
+    matrix_os: str, github_sha: str, github_run_id: str, artifact_url: str, repository: str, regressions_dir: Path
+) -> None:
+    summary_input_md_file = regressions_dir / "summary.md"
+    summary_output_js_file = regressions_dir / "summary.js"
+
+    if not summary_input_md_file.exists():
+        print("Regression script shows failure exit code, but could not find summary file.")
+        print("This generally indicates that the regression script had an unhandled failure.")
+        print("Check the 'Run Regressions' GitHub Action step above for more helpful information")
+        exit(1)
+
+    md_contents = summary_input_md_file.read_text()
+
+    fixed_up_contents = f"""
+>>>>>>> nrel/develop
 ### :warning: Regressions detected on {matrix_os} for commit {github_sha}
 
 {md_contents}
 
+<<<<<<< HEAD
  - [View Results](https://github.com/NatLabRockies/EnergyPlus/actions/runs/{github_run_id})
  - [Download Regressions]({artifact_url})
 """
 
 with open(summary_output_js_file, "w") as js:
+=======
+ - [View Results](https://github.com/{repository}/actions/runs/{github_run_id})
+ - [Download Regressions]({artifact_url})
+"""
+
+>>>>>>> nrel/develop
     js_contents = f"""
 module.exports = ({{github, context}}) => {{
     github.rest.issues.createComment({{
@@ -96,4 +126,28 @@ module.exports = ({{github, context}}) => {{
     }})
 }}
 """
+<<<<<<< HEAD
     js.write(js_contents)
+=======
+    summary_output_js_file.write_text(js_contents)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Build regression summary JS file for GitHub Actions comment")
+    parser.add_argument("--os", required=True, dest="matrix_os", help="Matrix OS name")
+    parser.add_argument("--sha", required=True, dest="github_sha", help="GitHub commit SHA")
+    parser.add_argument("--run-id", required=True, dest="github_run_id", help="GitHub Actions run ID")
+    parser.add_argument("--artifact-url", required=True, help="URL to download regression artifacts")
+    parser.add_argument("--repository", required=True, help="GitHub repository in owner/repo format")
+    parser.add_argument("--regressions-dir", required=True, type=Path, help="Path to regressions folder")
+    args = parser.parse_args()
+
+    build_regression_summary(
+        matrix_os=args.matrix_os,
+        github_sha=args.github_sha,
+        github_run_id=args.github_run_id,
+        artifact_url=args.artifact_url,
+        repository=args.repository,
+        regressions_dir=args.regressions_dir,
+    )
+>>>>>>> nrel/develop

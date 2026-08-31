@@ -539,7 +539,11 @@ void PlantCoinicidentAnalysis::ResolveDesignFlowRate(EnergyPlusData &state, int 
               "{},Normalized Change {},Specific Heat{J/kg-K},Density {kg/m3}\n");
         state.dataGlobal->sizingAnalysisEioHeaderDoneOnce = true;
     }
+<<<<<<< HEAD
     chIteration = fmt::to_string(HVACSizingIterCount);
+=======
+    chIteration = std::to_string(HVACSizingIterCount);
+>>>>>>> nrel/develop
     if (setNewSizes) {
         chSetSizes = "Yes";
     } else {
@@ -552,7 +556,11 @@ void PlantCoinicidentAnalysis::ResolveDesignFlowRate(EnergyPlusData &state, int 
     }
 
     print(state.files.eio,
+<<<<<<< HEAD
           "Plant Coincident Sizing Algorithm,{},{},{:.7R},{:.2R},{:.7R},{},{:.6R},{:.6R},{},{:.4R},{:.6R},{:.4R},{:.4R}\n",
+=======
+          "Plant Coincident Sizing Algorithm,{},{},{:.7f},{:.2f},{:.7f},{},{:.6f},{:.6f},{},{:.4f},{:.6f},{:.4f},{:.4f}\n",
+>>>>>>> nrel/develop
           name,
           chIteration,
           newFoundMassFlowRateTimeStamp.runningAvgDataValue,

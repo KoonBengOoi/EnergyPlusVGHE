@@ -66,6 +66,7 @@ struct EnergyPlusData;
 
 namespace VentilatedSlab {
 
+<<<<<<< HEAD
     enum class HeatingCoilType
     {
         Invalid = -1,
@@ -85,6 +86,8 @@ namespace VentilatedSlab {
         Num
     };
 
+=======
+>>>>>>> nrel/develop
     // Parameters for outside air control types:
     enum class OutsideAirControlType
     {
@@ -95,7 +98,11 @@ namespace VentilatedSlab {
         Num
     };
 
+<<<<<<< HEAD
     enum class CoilType
+=======
+    enum class CoilsUsed
+>>>>>>> nrel/develop
     {
         Invalid = -1,
         None,
@@ -174,6 +181,7 @@ namespace VentilatedSlab {
         Sched::Schedule *maxOASched = nullptr;
         // temperature (fixed temp.)
         Sched::Schedule *tempSched = nullptr;
+<<<<<<< HEAD
         int OutsideAirNode;            // outside air node number
         int AirReliefNode;             // relief air node number
         int OAMixerOutNode;            // outlet node after the outside air mixer (inlet to coils if present)
@@ -187,6 +195,21 @@ namespace VentilatedSlab {
         HeatingCoilType hCoilType;     // type of heating coil (water, gas, electric, etc.)
         std::string heatingCoilName;   // name of heating coil
         std::string heatingCoilTypeCh; // type of heating coil (character string)
+=======
+        int OutsideAirNode;                                    // outside air node number
+        int AirReliefNode;                                     // relief air node number
+        int OAMixerOutNode;                                    // outlet node after the outside air mixer (inlet to coils if present)
+        Real64 OutAirVolFlow;                                  // m3/s
+        Real64 OutAirMassFlow;                                 // kg/s
+        Real64 MinOutAirVolFlow;                               // m3/s
+        Real64 MinOutAirMassFlow;                              // kg/s
+        VentilatedSlabConfig SysConfg;                         // type of coil option; options are BOTH, HEATING, COOLING, AND NONE
+        CoilsUsed coilsUsed = CoilsUsed::Invalid;              // type of coil option; options are BOTH, HEATING, COOLING, AND NONE
+        bool heatingCoilPresent;                               // .TRUE. if ventilated slab has a heating coil
+        HVAC::CoilType heatCoilType = HVAC::CoilType::Invalid; // type of heating coil (water, gas, electric, etc.)
+        std::string heatingCoilName;                           // name of heating coil
+        std::string heatingCoilTypeCh;                         // type of heating coil (character string)
+>>>>>>> nrel/develop
         int heatingCoil_Index;
         DataPlant::PlantEquipmentType heatingCoilType;
 
@@ -221,7 +244,11 @@ namespace VentilatedSlab {
         std::string coolingCoilPlantName; // name of cooling coil (child<=CoilSystem:Cooling:Water:HeatExchangerAssisted)
         std::string coolingCoilPlantType; // type of cooling coil (child<=CoilSystem:Cooling:Water:HeatExchangerAssisted)
         DataPlant::PlantEquipmentType coolingCoilType;
+<<<<<<< HEAD
         CoolingCoilType cCoilType; // type of cooling coil:
+=======
+        HVAC::CoilType coolCoilType = HVAC::CoilType::Invalid; // type of cooling coil:
+>>>>>>> nrel/develop
         // 'Coil:Cooling:Water:DetailedGeometry' or
         // 'CoilSystem:Cooling:Water:HeatExchangerAssisted'
         Sched::Schedule *coolingCoilSched = nullptr;
@@ -291,12 +318,17 @@ namespace VentilatedSlab {
               controlType(ControlType::Invalid), ReturnAirNode(0), RadInNode(0), ZoneAirInNode(0), FanOutletNode(0), MSlabInNode(0), MSlabOutNode(0),
               Fan_Index(0), fanType(HVAC::FanType::Invalid), ControlCompTypeNum(0), CompErrIndex(0), MaxAirVolFlow(0.0), MaxAirMassFlow(0.0),
               outsideAirControlType(OutsideAirControlType::Invalid), OutsideAirNode(0), AirReliefNode(0), OAMixerOutNode(0), OutAirVolFlow(0.0),
+<<<<<<< HEAD
               OutAirMassFlow(0.0), MinOutAirVolFlow(0.0), MinOutAirMassFlow(0.0), SysConfg(VentilatedSlabConfig::Invalid),
               coilOption(CoilType::Invalid), heatingCoilPresent(false), hCoilType(HeatingCoilType::Invalid),
+=======
+              OutAirMassFlow(0.0), MinOutAirVolFlow(0.0), MinOutAirMassFlow(0.0), SysConfg(VentilatedSlabConfig::Invalid), heatingCoilPresent(false),
+>>>>>>> nrel/develop
 
               heatingCoil_Index(0), heatingCoilType(DataPlant::PlantEquipmentType::Invalid), heatingCoilSchedValue(0.0), MaxVolHotWaterFlow(0.0),
               MaxVolHotSteamFlow(0.0), MaxHotWaterFlow(0.0), MaxHotSteamFlow(0.0), MinHotSteamFlow(0.0), MinVolHotWaterFlow(0.0),
               MinVolHotSteamFlow(0.0), MinHotWaterFlow(0.0), HotControlNode(0), HotCoilOutNodeNum(0), HotControlOffset(0.0), HWPlantLoc{},
+<<<<<<< HEAD
               coolingCoilPresent(false), coolingCoil_Index(0), coolingCoilType(DataPlant::PlantEquipmentType::Invalid),
               cCoilType(CoolingCoilType::Invalid), coolingCoilSchedValue(0.0), MaxVolColdWaterFlow(0.0), MaxColdWaterFlow(0.0),
               MinVolColdWaterFlow(0.0), MinColdWaterFlow(0.0), ColdControlNode(0), ColdCoilOutNodeNum(0), ColdControlOffset(0.0), CWPlantLoc{},
@@ -307,6 +339,17 @@ namespace VentilatedSlab {
               AirMassFlowRate(0.0), AirVolFlow(0.0), SlabInTemp(0.0), SlabOutTemp(0.0), ReturnAirTemp(0.0), FanOutletTemp(0.0), ZoneInletTemp(0.0),
               HVACSizingIndex(0), FirstPass(true), ZeroVentSlabSourceSumHATsurf(0.0), QRadSysSrcAvg(0.0), LastQRadSysSrc(0.0),
               LastSysTimeElapsed(0.0), LastTimeStepSys(0.0)
+=======
+              coolingCoilPresent(false), coolingCoil_Index(0), coolingCoilType(DataPlant::PlantEquipmentType::Invalid), coolingCoilSchedValue(0.0),
+              MaxVolColdWaterFlow(0.0), MaxColdWaterFlow(0.0), MinVolColdWaterFlow(0.0), MinColdWaterFlow(0.0), ColdControlNode(0),
+              ColdCoilOutNodeNum(0), ColdControlOffset(0.0), CWPlantLoc{}, CondErrIndex(0), EnrgyImbalErrIndex(0), RadSurfNum(0), MSlabIn(0),
+              MSlabOut(0), DirectHeatLossPower(0.0), DirectHeatLossEnergy(0.0), DirectHeatGainPower(0.0), DirectHeatGainEnergy(0.0),
+              TotalVentSlabRadPower(0.0), RadHeatingPower(0.0), RadHeatingEnergy(0.0), RadCoolingPower(0.0), RadCoolingEnergy(0.0),
+              HeatCoilPower(0.0), HeatCoilEnergy(0.0), TotCoolCoilPower(0.0), TotCoolCoilEnergy(0.0), SensCoolCoilPower(0.0), SensCoolCoilEnergy(0.0),
+              LateCoolCoilPower(0.0), LateCoolCoilEnergy(0.0), ElecFanPower(0.0), ElecFanEnergy(0.0), AirMassFlowRate(0.0), AirVolFlow(0.0),
+              SlabInTemp(0.0), SlabOutTemp(0.0), ReturnAirTemp(0.0), FanOutletTemp(0.0), ZoneInletTemp(0.0), HVACSizingIndex(0), FirstPass(true),
+              ZeroVentSlabSourceSumHATsurf(0.0), QRadSysSrcAvg(0.0), LastQRadSysSrc(0.0), LastSysTimeElapsed(0.0), LastTimeStepSys(0.0)
+>>>>>>> nrel/develop
         {
         }
     };

@@ -50,8 +50,15 @@
 // Google Test Headers
 #include <gtest/gtest.h>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include "Fixtures/EnergyPlusFixture.hh"
+=======
+// Fixture Headers
+#include "Fixtures/EnergyPlusFixture.hh"
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataHVACGlobals.hh>
 #include <EnergyPlus/DataHeatBalance.hh>
@@ -115,7 +122,11 @@ TEST_F(EnergyPlusFixture, HighTempRadiantSystemTest_GetHighTempRadiantSystem)
                           "   ** Severe  ** Fraction of radiation distributed to surfaces and people sums up to less than 1 for ZONERADHEATER",
                           "   **   ~~~   ** This would result in some of the radiant energy delivered by the high temp radiant heater being lost.",
                           "   **   ~~~   ** The sum of all radiation fractions to surfaces = 0.80000",
+<<<<<<< HEAD
                           "   **   ~~~   ** The radiant fraction to people = 4.00000E-002",
+=======
+                          "   **   ~~~   ** The radiant fraction to people = 0.04000",
+>>>>>>> nrel/develop
                           "   **   ~~~   ** So, all radiant fractions including surfaces and people = 0.84000",
                           "   **   ~~~   ** This means that the fraction of radiant energy that would be lost from the high temperature radiant "
                           "heater would be = 0.16000",

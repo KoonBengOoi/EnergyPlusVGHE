@@ -73,7 +73,11 @@ using namespace OutputProcessor;
 class HVACSizingSimulationManagerTest : public EnergyPlusFixture
 {
 protected:
+<<<<<<< HEAD
     virtual void SetUp()
+=======
+    void SetUp() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::SetUp(); // Sets up the base fixture first.
 
@@ -112,8 +116,11 @@ protected:
 
         state->dataPlnt->PlantLoop(1).LoopSide(LoopSideLocation::Supply).NodeNumIn = 1;
 
+<<<<<<< HEAD
         SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
         // need a node to log mass flow rate from
         state->dataLoopNodes->Node.allocate(1);
         // OutputProcessor::TimeValue.allocate(2);
@@ -130,7 +137,11 @@ protected:
         state->dataOutputProcessor->TimeValue[(int)OutputProcessor::TimeStepType::System].CurMinute = 0;
     }
 
+<<<<<<< HEAD
     virtual void TearDown()
+=======
+    void TearDown() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::TearDown(); // Remember to tear down the base fixture after cleaning up derived fixture!
     }

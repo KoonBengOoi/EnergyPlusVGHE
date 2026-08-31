@@ -518,9 +518,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::DOP;
         }
@@ -550,9 +556,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::SOP;
         }
@@ -581,9 +593,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::HOP;
         }
@@ -609,9 +627,15 @@ namespace AirflowNetwork {
                       [[maybe_unused]] const AirState &propM, // Node 2 properties
                       std::array<Real64, 2> &F,               // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF               // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::SMF;
         }
@@ -637,9 +661,15 @@ namespace AirflowNetwork {
                       const AirState &propM,               // Node 2 properties
                       std::array<Real64, 2> &F,            // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF            // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::SVF;
         }
@@ -689,6 +719,7 @@ namespace AirflowNetwork {
                       const AirState &propM,        // Node 2 properties
                       std::array<Real64, 2> &F,     // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF     // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual int calculate(EnergyPlusData &state,
@@ -702,6 +733,21 @@ namespace AirflowNetwork {
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        int calculate([[maybe_unused]] EnergyPlusData &state,
+                      const Real64 pdrop,       // Total pressure drop across a component (P1 - P2) [Pa]
+                      const Real64 multiplier,  // Element multiplier
+                      const Real64 control,     // Element control signal
+                      const AirState &propN,    // Node 1 properties
+                      const AirState &propM,    // Node 2 properties
+                      std::array<Real64, 2> &F, // Airflow through the component [kg/s]
+                      std::array<Real64, 2> &DF // Partial derivative:  DF/DP
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::SCR;
         }
@@ -732,7 +778,11 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -742,9 +792,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::SEL;
         }
@@ -782,7 +838,11 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate(EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -792,9 +852,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::EXF;
         }
@@ -919,7 +985,11 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate(EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -929,9 +999,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::PLR;
         }
@@ -960,7 +1036,11 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -970,9 +1050,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::ELR;
         }
@@ -1018,7 +1104,11 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -1028,9 +1118,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::DWC;
         }
@@ -1058,14 +1154,22 @@ namespace AirflowNetwork {
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       bool const LFLAG,                         // Initialization flag.If = 1, use laminar relationship
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
+<<<<<<< HEAD
                       int const i,                              // Linkage number
+=======
+                      [[maybe_unused]] int const i,             // Linkage number
+>>>>>>> nrel/develop
                       [[maybe_unused]] const Real64 multiplier, // Element multiplier
                       [[maybe_unused]] const Real64 control,    // Element control signal
                       const AirState &propN,                    // Node 1 properties
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -1075,9 +1179,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::DMP;
         }
@@ -1113,9 +1223,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::CVF;
         }
@@ -1139,17 +1255,30 @@ namespace AirflowNetwork {
         {
         }
 
+<<<<<<< HEAD
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       bool const LFLAG,                         // Initialization flag.If = 1, use laminar relationship
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
                       int const i,                              // Linkage number
                       [[maybe_unused]] const Real64 multiplier, // Element multiplier
                       [[maybe_unused]] const Real64 control,    // Element control signal
+=======
+        int calculate(EnergyPlusData &state,
+                      bool const LFLAG,                         // Initialization flag.If = 1, use laminar relationship
+                      Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
+                      [[maybe_unused]] int const i,             // Linkage number
+                      [[maybe_unused]] const Real64 multiplier, // Element multiplier
+                      const Real64 control,                     // Element control signal
+>>>>>>> nrel/develop
                       const AirState &propN,                    // Node 1 properties
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate(EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -1159,9 +1288,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::FAN;
         }
@@ -1190,7 +1325,11 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -1200,9 +1339,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::COI;
         }
@@ -1231,7 +1376,11 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
+=======
+                      ) override;
+>>>>>>> nrel/develop
 
         int calculate([[maybe_unused]] EnergyPlusData &state,
                       Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -1241,9 +1390,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::HEX;
         }
@@ -1274,9 +1429,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::TMU;
         }
@@ -1303,9 +1464,15 @@ namespace AirflowNetwork {
                       const AirState &propM,                    // Node 2 properties
                       std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
                       std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+<<<<<<< HEAD
         );
 
         virtual ComponentType type()
+=======
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::CPD;
         }
@@ -1437,6 +1604,7 @@ namespace AirflowNetwork {
         {
         }
 
+<<<<<<< HEAD
         virtual int calculate(EnergyPlusData &state,
                               bool const LFLAG,                         // Initialization flag.If = 1, use laminar relationship
                               const Real64 PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -1450,6 +1618,21 @@ namespace AirflowNetwork {
         );
 
         virtual ComponentType type()
+=======
+        int calculate(EnergyPlusData &state,
+                      bool const LFLAG,                         // Initialization flag.If = 1, use laminar relationship
+                      const Real64 PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
+                      int const i,                              // Linkage number
+                      [[maybe_unused]] const Real64 multiplier, // Element multiplier
+                      [[maybe_unused]] const Real64 control,    // Element control signal
+                      const AirState &propN,                    // Node 1 properties
+                      const AirState &propM,                    // Node 2 properties
+                      std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
+                      std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::OAF;
         }
@@ -1463,6 +1646,7 @@ namespace AirflowNetwork {
         {
         }
 
+<<<<<<< HEAD
         virtual int calculate(EnergyPlusData &state,
                               bool const LFLAG,                         // Initialization flag.If = 1, use laminar relationship
                               const Real64 PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
@@ -1476,6 +1660,21 @@ namespace AirflowNetwork {
         );
 
         virtual ComponentType type()
+=======
+        int calculate(EnergyPlusData &state,
+                      bool const LFLAG,                         // Initialization flag.If = 1, use laminar relationship
+                      const Real64 PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
+                      int const i,                              // Linkage number
+                      [[maybe_unused]] const Real64 multiplier, // Element multiplier
+                      [[maybe_unused]] const Real64 control,    // Element control signal
+                      const AirState &propN,                    // Node 1 properties
+                      const AirState &propM,                    // Node 2 properties
+                      std::array<Real64, 2> &F,                 // Airflow through the component [kg/s]
+                      std::array<Real64, 2> &DF                 // Partial derivative:  DF/DP
+                      ) override;
+
+        ComponentType type() override
+>>>>>>> nrel/develop
         {
             return ComponentType::REL;
         }

@@ -1521,6 +1521,11 @@ namespace RefrigeratedCase {
 
     void ZeroHVACValues(EnergyPlusData &state);
 
+<<<<<<< HEAD
+=======
+    Real64 CalcTransMTActualEnthalpyChange(Real64 hCompInHP, Real64 hGasCoolerOut, Real64 delHSubcoolerDis);
+
+>>>>>>> nrel/develop
 } // namespace RefrigeratedCase
 
 struct RefrigeratedCaseData : BaseGlobalStruct

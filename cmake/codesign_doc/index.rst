@@ -10,7 +10,11 @@ Influencial Configuration Variables
 
 Influencial configuration variables on macOS
 
+<<<<<<< HEAD
 .. cmake:variable:: CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION
+=======
+.. cmake:variable:: CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION
+>>>>>>> nrel/develop
 
   This is something like ``Developer ID Application: <The Name> (<TEAMID>)``.
   Refer to :cmake:command:`setup_macos_codesigning_variables` which pre-populates it with options from ``security-find-identity -v -p codesign``

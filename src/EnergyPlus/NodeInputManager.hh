@@ -100,14 +100,23 @@ namespace Node {
                      std::string const &NodeObjectName,         // Node Object Name (i.e. "MyChiller")
                      Node::ConnectionType nodeConnectionType,   // Node Connection Type (see DataLoopNode)
                      CompFluidStream NodeFluidStream,           // Which Fluid Stream (1,2,3,...)
+<<<<<<< HEAD
                      bool ObjectIsParent,                       // True/False
+=======
+                     bool t_ObjectIsParent,                     // True/False
+>>>>>>> nrel/develop
                      bool const IncrementFluidStream = false,   // True/False
                      std::string_view const InputFieldName = {} // Input Field Name
     );
 
     void SetupNodeVarsForReporting(EnergyPlusData &state);
 
+<<<<<<< HEAD
     void GetNodeListsInput(EnergyPlusData &state, bool &ErrorsFound); // Set to true when requested Node List not found, unchanged otherwise
+=======
+    void GetNodeListsInput(EnergyPlusData &state,
+                           [[maybe_unused]] bool &ErrorsFound); // Set to true when requested Node List not found, unchanged otherwise
+>>>>>>> nrel/develop
 
     int AssignNodeNumber(EnergyPlusData &state,
                          std::string const &Name,       // Name for assignment
@@ -122,7 +131,11 @@ namespace Node {
                           Node::FluidType nodeFluidType,             // Fluidtype for checking/setting node FluidType
                           Node::ConnectionType nodeConnectionType,   // Node Connection Type (see DataLoopNode)
                           CompFluidStream NodeFluidStream,           // Which Fluid Stream (1,2,3,...)
+<<<<<<< HEAD
                           bool ObjectIsParent,                       // True/False
+=======
+                          bool t_ObjectIsParent,                     // True/False
+>>>>>>> nrel/develop
                           std::string_view const InputFieldName = {} // Input Field Name
     );
 

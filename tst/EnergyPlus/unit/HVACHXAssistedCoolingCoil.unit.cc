@@ -513,7 +513,10 @@ TEST_F(EnergyPlusFixture, HXAssistCCUnitarySystem_VStest1)
     state->dataEnvrn->StdRhoAir = Psychrometrics::PsyRhoAirFnPbTdbW(*state, 101325.0, 20.0, 0.0); // initialize RhoAir
     state->dataLoopNodes->Node(InletNode).MassFlowRateMaxAvail = thisSys->m_MaxCoolAirVolFlow * state->dataEnvrn->StdRhoAir;
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     thisSys->simulate(*state,
                       compName,
                       FirstHVACIteration,
@@ -921,6 +924,10 @@ TEST_F(EnergyPlusFixture, HXAssistCCUnitarySystem_NewDXCoil_Processing_Test)
         "    0.0,                     !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}",
         "    ,                        !- Latent Capacity Time Constant {s}",
         "    0.0,                     !- Nominal Time for Condensate Removal to Begin {s}",
+<<<<<<< HEAD
+=======
+        "    Yes,                     !- Apply Part Load Fraction to Speeds Greater than 1",
+>>>>>>> nrel/develop
         "    ,                        !- Apply Latent Degradation to Speeds Greater than 1",
         "    AirCooled,               !- Condenser Type",
         "    ,                        !- Nominal Evaporative Condenser Pump Power {W}",

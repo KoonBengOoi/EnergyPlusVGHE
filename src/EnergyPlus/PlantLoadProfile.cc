@@ -48,6 +48,12 @@
 // C++ Headers
 #include <cmath>
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+>>>>>>> nrel/develop
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 
@@ -104,9 +110,13 @@ PlantComponent *PlantProfileData::factory(EnergyPlusData &state, std::string con
         return thisObj;
     }
     // If we didn't find it, fatal
+<<<<<<< HEAD
     ShowFatalError(state, EnergyPlus::format("PlantLoadProfile::factory: Error getting inputs for pipe named: {}", objectName));
     // Shut up the compiler
     return nullptr;
+=======
+    ShowFatalError(state, std::format("PlantLoadProfile::factory: Error getting inputs for pipe named: {}", objectName));
+>>>>>>> nrel/develop
 }
 
 void PlantProfileData::onInitLoopEquip(EnergyPlusData &state, [[maybe_unused]] const PlantLocation &calledFromLocation)
@@ -288,7 +298,11 @@ void PlantProfileData::InitPlantProfile(EnergyPlusData &state)
             } else { //(this->FluidType == PlantLoopFluidType::Steam)
                 FluidDensityInit = this->plantLoc.loop->steam->getSatDensity(state, inletTemp, 1.0, RoutineName);
             }
+<<<<<<< HEAD
             Real64 Cp;
+=======
+            Real64 Cp = 0.0;
+>>>>>>> nrel/develop
             if (this->FluidType == PlantLoopFluidType::Water) {
                 Cp = this->plantLoc.loop->glycol->getSpecificHeat(state, inletTemp, RoutineName);
             } else if (this->FluidType == PlantLoopFluidType::Steam) {
@@ -593,7 +607,11 @@ void GetPlantProfileInput(EnergyPlusData &state)
             }
 
             if (ErrorsFound) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("Errors in {} input.", cCurrentModuleObject));
+=======
+                ShowFatalError(state, std::format("Errors in {} input.", cCurrentModuleObject));
+>>>>>>> nrel/develop
             }
 
         } // ProfileNum

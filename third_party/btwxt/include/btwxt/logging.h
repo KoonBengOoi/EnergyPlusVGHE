@@ -22,18 +22,33 @@ namespace Btwxt {
         void write_message(const std::string_view message_type, const std::string_view message) {
             std::string context_string =
                     message_context
+<<<<<<< HEAD
                     ? fmt::format(" ({})", *(reinterpret_cast<std::string *>(message_context)))
                     : "";
             std::cout << fmt::format("  [{}]{} {}", message_type, context_string, message) << std::endl;
+=======
+                    ? std::format(" ({})", *(reinterpret_cast<std::string *>(message_context)))
+                    : "";
+            std::cout << std::format("  [{}]{} {}", message_type, context_string, message) << std::endl;
+>>>>>>> nrel/develop
         }
     };
 
     class BtwxtException : public Courierr::CourierrException {
     public:
+<<<<<<< HEAD
         explicit BtwxtException(const std::string &message, Courierr::Courierr &logger)
                 : CourierrException(message, logger) {
+=======
+        explicit BtwxtException(const std::string &t_message, Courierr::Courierr &logger)
+                : CourierrException(t_message, logger) {
+>>>>>>> nrel/develop
         }
     };
 }
 
+<<<<<<< HEAD
 #endif // define BTWXT_LOGGING_H_
+=======
+#endif // define BTWXT_LOGGING_H_
+>>>>>>> nrel/develop

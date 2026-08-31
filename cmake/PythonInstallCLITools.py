@@ -57,12 +57,21 @@ import argparse
 import platform
 from pathlib import Path
 from subprocess import run
+<<<<<<< HEAD
 from sys import argv, executable
 
 PKGS = {
     "energyplus_launch": "3.7.4",
     "energyplus_transition_tools": "2.1.4",
     "ghedesigner": "2.0",
+=======
+from sys import executable
+
+PKGS = {
+    "energyplus_launch": "3.7.4",
+    "energyplus_transition_tools": "3.0.0",
+    "ghedesigner": "2.1.1",
+>>>>>>> nrel/develop
 }
 
 

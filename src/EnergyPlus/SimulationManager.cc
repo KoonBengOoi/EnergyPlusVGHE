@@ -45,20 +45,34 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 // FMI-Related Headers
 extern "C" {
 #include <FMI/main.h>
 }
 
 // C++ Headers
+=======
+// C++ Headers
+#include <format>
+>>>>>>> nrel/develop
 #include <memory>
 #include <string>
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 #include <ObjexxFCL/Array1D.hh>
+<<<<<<< HEAD
 #include <ObjexxFCL/environment.hh>
 #include <ObjexxFCL/string.functions.hh>
+
+=======
+#include <ObjexxFCL/string.functions.hh>
+
+// Third Party Headers
+extern "C" {
+#include <FMI/main.h>
+}
 
 // EnergyPlus Headers
 #include <EnergyPlus/BranchInputManager.hh>
@@ -66,7 +80,89 @@ extern "C" {
 #include <EnergyPlus/CostEstimateManager.hh>
 #include <EnergyPlus/CurveManager.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
+#include <EnergyPlus/DataBranchNodeConnections.hh>
+#include <EnergyPlus/DataConvergParams.hh>
+#include <EnergyPlus/DataErrorTracking.hh>
+#include <EnergyPlus/DataGlobalConstants.hh>
+#include <EnergyPlus/DataHVACGlobals.hh>
+#include <EnergyPlus/DataHeatBalFanSys.hh>
+#include <EnergyPlus/DataHeatBalance.hh>
+#include <EnergyPlus/DataIPShortCuts.hh>
+#include <EnergyPlus/DataLoopNode.hh>
+#include <EnergyPlus/DataOutputs.hh>
+#include <EnergyPlus/DataReportingFlags.hh>
+#include <EnergyPlus/DataRuntimeLanguage.hh>
+#include <EnergyPlus/DataStringGlobals.hh>
+#include <EnergyPlus/DataSurfaces.hh>
+#include <EnergyPlus/DataSystemVariables.hh>
+#include <EnergyPlus/DataZoneEquipment.hh>
+#include <EnergyPlus/DemandManager.hh>
+#include <EnergyPlus/DisplayRoutines.hh>
+#include <EnergyPlus/DualDuct.hh>
+#include <EnergyPlus/EMSManager.hh>
+#include <EnergyPlus/EconomicLifeCycleCost.hh>
+#include <EnergyPlus/EconomicTariff.hh>
+#include <EnergyPlus/ElectricPowerServiceManager.hh>
+#include <EnergyPlus/ExteriorEnergyUse.hh>
+#include <EnergyPlus/ExternalInterface.hh>
+#include <EnergyPlus/FaultsManager.hh>
+#include <EnergyPlus/FileSystem.hh>
+#include <EnergyPlus/GeneralRoutines.hh>
+#include <EnergyPlus/HVACControllers.hh>
+#include <EnergyPlus/HVACManager.hh>
+#include <EnergyPlus/HVACSizingSimulationManager.hh>
+#include <EnergyPlus/HeatBalanceAirManager.hh>
+#include <EnergyPlus/HeatBalanceIntRadExchange.hh>
+#include <EnergyPlus/HeatBalanceManager.hh>
+#include <EnergyPlus/HeatBalanceSurfaceManager.hh>
+#include <EnergyPlus/InputProcessing/InputProcessor.hh>
+#include <EnergyPlus/MixedAir.hh>
+#include <EnergyPlus/NodeInputManager.hh>
+#include <EnergyPlus/OutAirNodeManager.hh>
+#include <EnergyPlus/OutputProcessor.hh>
+#include <EnergyPlus/OutputReportTabular.hh>
+#include <EnergyPlus/OutputReports.hh>
+#include <EnergyPlus/Plant/PlantManager.hh>
+#include <EnergyPlus/PlantPipingSystemsManager.hh>
+#include <EnergyPlus/PluginManager.hh>
+#include <EnergyPlus/PollutionModule.hh>
+#include <EnergyPlus/Psychrometrics.hh>
+#include <EnergyPlus/RefrigeratedCase.hh>
+#include <EnergyPlus/ResultsFramework.hh>
+#include <EnergyPlus/SetPointManager.hh>
+#include <EnergyPlus/SimulationManager.hh>
+#include <EnergyPlus/SizingManager.hh>
+#include <EnergyPlus/SolarShading.hh>
+#include <EnergyPlus/SurfaceGeometry.hh>
+#include <EnergyPlus/SystemReports.hh>
+#include <EnergyPlus/UtilityRoutines.hh>
+#include <EnergyPlus/WeatherManager.hh>
+#include <EnergyPlus/ZoneContaminantPredictorCorrector.hh>
+#include <EnergyPlus/ZoneEquipmentManager.hh>
+#include <EnergyPlus/ZoneTempPredictorCorrector.hh>
+#include <EnergyPlus/api/datatransfer.h>
+
+extern "C" {
+}
+
+// C++ Headers
+#include <memory>
+#include <string>
+
+// ObjexxFCL Headers
+#include <ObjexxFCL/Array1D.hh>
+
+>>>>>>> nrel/develop
+// EnergyPlus Headers
+#include <EnergyPlus/BranchInputManager.hh>
+#include <EnergyPlus/BranchNodeConnections.hh>
+#include <EnergyPlus/CostEstimateManager.hh>
+#include <EnergyPlus/CurveManager.hh>
+#include <EnergyPlus/Data/EnergyPlusData.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/DataAirLoop.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/DataBranchNodeConnections.hh>
 #include <EnergyPlus/DataConvergParams.hh>
 #include <EnergyPlus/DataErrorTracking.hh>
@@ -130,8 +226,11 @@ extern "C" {
 #include <EnergyPlus/ZoneContaminantPredictorCorrector.hh>
 #include <EnergyPlus/ZoneEquipmentManager.hh>
 #include <EnergyPlus/ZoneTempPredictorCorrector.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/api/datatransfer.h>
 
+=======
+>>>>>>> nrel/develop
 namespace EnergyPlus {
 namespace SimulationManager {
 
@@ -212,7 +311,11 @@ namespace SimulationManager {
 
         CheckForMisMatchedEnvironmentSpecifications(state);
         CheckForRequestedReporting(state);
+<<<<<<< HEAD
         OutputReportPredefined::SetPredefinedTables(state);
+=======
+        // OutputReportPredefined::SetPredefinedTables(state); // this is being called via init_constant_state now
+>>>>>>> nrel/develop
         SetPreConstructionInputParameters(state); // establish array bounds for constructions early
 
         OutputProcessor::SetupTimePointers(
@@ -220,7 +323,10 @@ namespace SimulationManager {
         OutputProcessor::SetupTimePointers(state, OutputProcessor::TimeStepType::System, state.dataHVACGlobal->TimeStepSys);
 
         createFacilityElectricPowerServiceObject(state);
+<<<<<<< HEAD
         createCoilSelectionReportObj(state);
+=======
+>>>>>>> nrel/develop
         // read object information early in simulation
         isInputObjectUsed(state);
 
@@ -269,7 +375,13 @@ namespace SimulationManager {
 
         Weather::ResetEnvironmentCounter(state);
 
+<<<<<<< HEAD
         SetupSimulation(state, ErrorsFound);
+=======
+        state.dataGlobal->SetupFlag = true; // #11550: During Warmup -> During Setup
+        SetupSimulation(state, ErrorsFound);
+        state.dataGlobal->SetupFlag = false;
+>>>>>>> nrel/develop
 
         FaultsManager::CheckAndReadFaults(state);
 
@@ -442,7 +554,11 @@ namespace SimulationManager {
                 }
 
                 ++state.dataGlobal->DayOfSim;
+<<<<<<< HEAD
                 state.dataGlobal->DayOfSimChr = fmt::to_string(state.dataGlobal->DayOfSim);
+=======
+                state.dataGlobal->DayOfSimChr = std::to_string(state.dataGlobal->DayOfSim);
+>>>>>>> nrel/develop
                 if (!state.dataGlobal->WarmupFlag) {
                     ++state.dataEnvrn->CurrentOverallSimDay;
                     DisplaySimDaysProgress(state, state.dataEnvrn->CurrentOverallSimDay, state.dataEnvrn->TotalOverallSimDays);
@@ -454,7 +570,11 @@ namespace SimulationManager {
 
                 if (state.dataGlobal->WarmupFlag) {
                     ++state.dataReportFlag->NumOfWarmupDays;
+<<<<<<< HEAD
                     state.dataReportFlag->cWarmupDay = fmt::to_string(state.dataReportFlag->NumOfWarmupDays);
+=======
+                    state.dataReportFlag->cWarmupDay = std::to_string(state.dataReportFlag->NumOfWarmupDays);
+>>>>>>> nrel/develop
                     DisplayString(state, "Warming up {" + state.dataReportFlag->cWarmupDay + '}');
                 } else if (state.dataGlobal->DayOfSim == 1) {
                     if (state.dataSysVars->ReportDuringWarmup) {
@@ -647,12 +767,20 @@ namespace SimulationManager {
         Array1D_string Alphas(10);
         Array1D<Real64> Number(4);
         int NumAlpha;
+<<<<<<< HEAD
         int NumNumber;
+=======
+        int NumNumber = 0;
+>>>>>>> nrel/develop
         int IOStat;
         int NumDebugOut;
         int MinInt;
         int Num;
+<<<<<<< HEAD
         int Which;
+=======
+        int Which = 1;
+>>>>>>> nrel/develop
         bool ErrorsFound;
         int NumRunControl;
         std::string VersionID;
@@ -684,6 +812,7 @@ namespace SimulationManager {
                 Which = static_cast<int>(index(Alphas(1), MatchVersion));
             }
             if (Which != 0) {
+<<<<<<< HEAD
                 ShowWarningError(
                     state, EnergyPlus::format("{}: in IDF=\"{}\" not the same as expected=\"{}\"", CurrentModuleObject, Alphas(1), MatchVersion));
             }
@@ -693,6 +822,16 @@ namespace SimulationManager {
                              EnergyPlus::format("{}: missing in IDF, processing for EnergyPlus version=\"{}\"", CurrentModuleObject, MatchVersion));
         } else {
             ShowSevereError(state, EnergyPlus::format("Too many {} Objects found.", CurrentModuleObject));
+=======
+                ShowWarningError(state,
+                                 std::format("{}: in IDF=\"{}\" not the same as expected=\"{}\"", CurrentModuleObject, Alphas(1), MatchVersion));
+            }
+            VersionID = Alphas(1);
+        } else if (Num == 0) {
+            ShowWarningError(state, std::format("{}: missing in IDF, processing for EnergyPlus version=\"{}\"", CurrentModuleObject, MatchVersion));
+        } else {
+            ShowSevereError(state, std::format("Too many {} Objects found.", CurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -822,12 +961,18 @@ namespace SimulationManager {
                 state.dataGlobal->TimeStepsInHour = 2; // Force 30 minute time steps on CI
             }
             if (state.dataGlobal->TimeStepsInHour <= 0 || state.dataGlobal->TimeStepsInHour > 60) {
+<<<<<<< HEAD
                 Alphas(1) = fmt::to_string(state.dataGlobal->TimeStepsInHour);
                 ShowWarningError(state, EnergyPlus::format("{}: Requested number ({}) invalid, Defaulted to 4", CurrentModuleObject, Alphas(1)));
+=======
+                Alphas(1) = std::to_string(state.dataGlobal->TimeStepsInHour);
+                ShowWarningError(state, std::format("{}: Requested number ({}) invalid, Defaulted to 4", CurrentModuleObject, Alphas(1)));
+>>>>>>> nrel/develop
                 state.dataGlobal->TimeStepsInHour = 4;
             } else if (mod(60, state.dataGlobal->TimeStepsInHour) != 0) {
                 MinInt = 9999;
                 for (Num = 1; Num <= 12; ++Num) {
+<<<<<<< HEAD
                     if (std::abs(state.dataGlobal->TimeStepsInHour - Div60[Num - 1]) > MinInt) {
                         continue;
                     }
@@ -848,10 +993,33 @@ namespace SimulationManager {
                                        CurrentModuleObject,
                                        state.dataGlobal->TimeStepsInHour));
                 ShowContinueError(state, EnergyPlus::format("...{} is set to 20.", CurrentModuleObject));
+=======
+                    int const ThisDiff = std::abs(state.dataGlobal->TimeStepsInHour - Div60[Num - 1]);
+                    if (ThisDiff > MinInt) {
+                        continue;
+                    }
+                    MinInt = ThisDiff;
+                    Which = Num;
+                }
+                ShowWarningError(state,
+                                 std::format("{}: Requested number ({}) not evenly divisible into 60, defaulted to nearest ({}).",
+                                             CurrentModuleObject,
+                                             state.dataGlobal->TimeStepsInHour,
+                                             Div60[Which - 1]));
+                state.dataGlobal->TimeStepsInHour = Div60[Which - 1];
+            }
+            if (CondFDAlgo && state.dataGlobal->TimeStepsInHour < 20) {
+                ShowWarningError(state,
+                                 std::format("{}: Requested number ({}) cannot be used when Conduction Finite Difference algorithm is selected.",
+                                             CurrentModuleObject,
+                                             state.dataGlobal->TimeStepsInHour));
+                ShowContinueError(state, std::format("...{} is set to 20.", CurrentModuleObject));
+>>>>>>> nrel/develop
                 state.dataGlobal->TimeStepsInHour = 20;
             }
             if (state.dataGlobal->TimeStepsInHour < 4 && state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, "Zone") > 0) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}: Requested number ({}) is less than the suggested minimum of 4.",
                                                     CurrentModuleObject,
                                                     state.dataGlobal->TimeStepsInHour));
@@ -861,17 +1029,35 @@ namespace SimulationManager {
             }
         } else if (Num == 0 && state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, "Zone") > 0 && !CondFDAlgo) {
             ShowWarningError(state, EnergyPlus::format("No {} object found.  Number of TimeSteps in Hour defaulted to 4.", CurrentModuleObject));
+=======
+                                 std::format("{}: Requested number ({}) is less than the suggested minimum of 4.",
+                                             CurrentModuleObject,
+                                             state.dataGlobal->TimeStepsInHour));
+                ShowContinueError(
+                    state, std::format("Please see entry for {} in Input/Output Reference for discussion of considerations.", CurrentModuleObject));
+            }
+        } else if (Num == 0 && state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, "Zone") > 0 && !CondFDAlgo) {
+            ShowWarningError(state, std::format("No {} object found.  Number of TimeSteps in Hour defaulted to 4.", CurrentModuleObject));
+>>>>>>> nrel/develop
             state.dataGlobal->TimeStepsInHour = 4;
         } else if (Num == 0 && !CondFDAlgo) {
             state.dataGlobal->TimeStepsInHour = 4;
         } else if (Num == 0 && state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, "Zone") > 0 && CondFDAlgo) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("No {} object found.  Number of TimeSteps in Hour defaulted to 20.", CurrentModuleObject));
+=======
+            ShowWarningError(state, std::format("No {} object found.  Number of TimeSteps in Hour defaulted to 20.", CurrentModuleObject));
+>>>>>>> nrel/develop
             ShowContinueError(state, "...Due to presence of Conduction Finite Difference Algorithm selection.");
             state.dataGlobal->TimeStepsInHour = 20;
         } else if (Num == 0 && CondFDAlgo) {
             state.dataGlobal->TimeStepsInHour = 20;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Too many {} Objects found.", CurrentModuleObject));
+=======
+            ShowSevereError(state, std::format("Too many {} Objects found.", CurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -901,7 +1087,11 @@ namespace SimulationManager {
             if (MinInt < 0 || MinInt > 60) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}: Requested {} ({}) invalid. Set to 1 minute.", CurrentModuleObject, state.dataIPShortCut->cNumericFieldNames(1), MinInt));
                 state.dataConvergeParams->MinTimeStepSys = 1.0 / 60.0;
             } else if (MinInt == 0) { // Set to TimeStepZone
@@ -936,7 +1126,11 @@ namespace SimulationManager {
             state.dataConvergeParams->MinPlantSubIterations = 2;
             state.dataConvergeParams->MaxPlantSubIterations = 8;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Too many {} Objects found.", CurrentModuleObject));
+=======
+            ShowSevereError(state, std::format("Too many {} Objects found.", CurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -947,8 +1141,12 @@ namespace SimulationManager {
         CurrentModuleObject = "Output:DebuggingData";
         NumDebugOut = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, CurrentModuleObject);
         if (NumDebugOut > 1) {
+<<<<<<< HEAD
             ShowWarningError(state,
                              EnergyPlus::format("{}: More than 1 occurrence of this object found, only first will be used.", CurrentModuleObject));
+=======
+            ShowWarningError(state, std::format("{}: More than 1 occurrence of this object found, only first will be used.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
         if (NumDebugOut > 0) {
             state.dataInputProcessing->inputProcessor->getObjectItem(state, CurrentModuleObject, 1, Alphas, NumAlpha, Number, NumNumber, IOStat);
@@ -966,14 +1164,24 @@ namespace SimulationManager {
             if (Num > 1) {
                 // Let it slide, but warn
                 // ErrorsFound = true;
+<<<<<<< HEAD
                 ShowWarningError(
                     state, EnergyPlus::format("{}: More than 1 occurrence of this object found, only first will be used.", CurrentModuleObject));
+=======
+                ShowWarningError(state,
+                                 std::format("{}: More than 1 occurrence of this object found, only first will be used.", CurrentModuleObject));
+>>>>>>> nrel/develop
             }
             auto const instances = state.dataInputProcessing->inputProcessor->epJSON.find(CurrentModuleObject);
 
             if (instances != state.dataInputProcessing->inputProcessor->epJSON.end()) {
                 auto &instancesValue = instances.value();
+<<<<<<< HEAD
                 for (auto instance = instancesValue.begin(); instance != instancesValue.end(); ++instance) {
+=======
+                auto instance = instancesValue.begin();
+                if (instance != instancesValue.end()) {
+>>>>>>> nrel/develop
                     auto const &fields = instance.value();
                     std::string const &thisObjectName = instance.key();
                     state.dataInputProcessing->inputProcessor->markObjectAsUsed(CurrentModuleObject, thisObjectName);
@@ -987,8 +1195,12 @@ namespace SimulationManager {
                             auto it = diagnosticsExtensible.find("key");
                             if (it == diagnosticsExtensible.end()) {
                                 ShowWarningError(
+<<<<<<< HEAD
                                     state,
                                     EnergyPlus::format("{}: empty key found, consider removing it to avoid this warning.", CurrentModuleObject));
+=======
+                                    state, std::format("{}: empty key found, consider removing it to avoid this warning.", CurrentModuleObject));
+>>>>>>> nrel/develop
                                 continue;
                             }
                             std::string diagnosticName = it->get<std::string>();
@@ -1042,6 +1254,7 @@ namespace SimulationManager {
                                 //        CreateMinimalSurfaceVariables=.FALSE.
                             } else if (!diagnosticName.empty()) {
                                 ShowWarningError(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("GetProjectData: {}=\"{}\", Invalid value for field, entered value ignored.",
                                                                     CurrentModuleObject,
                                                                     diagnosticName));
@@ -1051,6 +1264,14 @@ namespace SimulationManager {
 
                     // Don't process the duplicate ones
                     break;
+=======
+                                                 std::format("GetProjectData: {}=\"{}\", Invalid value for field, entered value ignored.",
+                                                             CurrentModuleObject,
+                                                             diagnosticName));
+                            }
+                        }
+                    }
+>>>>>>> nrel/develop
                 }
             }
         }
@@ -1160,6 +1381,7 @@ namespace SimulationManager {
                         if (NumPltSizInput == 0 && state.dataGlobal->DoHVACSizingSimulation && state.dataGlobal->DoPlantSizing) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "GetProjectData: No {} object entered when the Do HVAC Sizing Simulation and Do Plant Sizing are both YES in the "
                                     "SimulationControl object.",
@@ -1168,6 +1390,14 @@ namespace SimulationManager {
                                               EnergyPlus::format("...When these input flags are both yes, a {} object is required.", spObject));
                             ShowContinueError(state,
                                               EnergyPlus::format("...Either add one or more appropriate {} objects to the input file", spObject));
+=======
+                                std::format(
+                                    "GetProjectData: No {} object entered when the Do HVAC Sizing Simulation and Do Plant Sizing are both YES in the "
+                                    "SimulationControl object.",
+                                    spObject));
+                            ShowContinueError(state, std::format("...When these input flags are both yes, a {} object is required.", spObject));
+                            ShowContinueError(state, std::format("...Either add one or more appropriate {} objects to the input file", spObject));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "...or change both the Do HVAC Sizing Simulation and Do Plant Sizing are both YES. ");
                             ErrorsFound = true;
                         }
@@ -1194,7 +1424,11 @@ namespace SimulationManager {
         Num = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, CurrentModuleObject);
         if (Num > 1) {
             ErrorsFound = true;
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetProjectData: Only one (\"1\") {} object per simulation is allowed.", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("GetProjectData: Only one (\"1\") {} object per simulation is allowed.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
         state.dataGlobal->createPerfLog = Num > 0;
         std::string overrideModeValue = "Normal";
@@ -1286,16 +1520,26 @@ namespace SimulationManager {
                             state.dataConvergeParams->MaxZoneTempDiff = fields.at("maxzonetempdiff").get<Real64>();
                             ShowWarningError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("PerformancePrecisionTradeoffs using the Advanced Override Mode, MaxZoneTempDiff set to: {:.4R}",
                                                    state.dataConvergeParams->MaxZoneTempDiff));
+=======
+                                std::format("PerformancePrecisionTradeoffs using the Advanced Override Mode, MaxZoneTempDiff set to: {:.4f}",
+                                            state.dataConvergeParams->MaxZoneTempDiff));
+>>>>>>> nrel/develop
                             advancedModeUsed = true;
                         }
                         if (fields.find("maxalloweddeltemp") != fields.end()) { // not required field, has default value
                             state.dataHeatBal->MaxAllowedDelTemp = fields.at("maxalloweddeltemp").get<Real64>();
                             ShowWarningError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("PerformancePrecisionTradeoffs using the Advanced Override Mode, MaxAllowedDelTemp set to: {:.4R}",
                                                    state.dataHeatBal->MaxAllowedDelTemp));
+=======
+                                std::format("PerformancePrecisionTradeoffs using the Advanced Override Mode, MaxAllowedDelTemp set to: {:.4f}",
+                                            state.dataHeatBal->MaxAllowedDelTemp));
+>>>>>>> nrel/develop
                             advancedModeUsed = true;
                         }
                         if (advancedModeUsed) {
@@ -1308,8 +1552,12 @@ namespace SimulationManager {
                         }
                     } else {
                         ShowSevereError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("Invalid over ride mode specified in PerformancePrecisionTradeoffs object: {}", overrideModeValue));
+=======
+                            state, std::format("Invalid over ride mode specified in PerformancePrecisionTradeoffs object: {}", overrideModeValue));
+>>>>>>> nrel/develop
                     }
 
                     if (overrideTimestep) {
@@ -1453,21 +1701,35 @@ namespace SimulationManager {
             Alphas(2) = "ScriptF";
         }
         Alphas(3) = overrideModeValue;
+<<<<<<< HEAD
         Alphas(4) = fmt::to_string(state.dataGlobal->TimeStepsInHour);
+=======
+        Alphas(4) = std::to_string(state.dataGlobal->TimeStepsInHour);
+>>>>>>> nrel/develop
         if (state.dataHeatBal->OverrideZoneAirSolutionAlgo) {
             Alphas(5) = "Yes";
         } else {
             Alphas(5) = "No";
         }
+<<<<<<< HEAD
         Alphas(6) = fmt::to_string(state.dataHeatBal->MinNumberOfWarmupDays);
+=======
+        Alphas(6) = std::to_string(state.dataHeatBal->MinNumberOfWarmupDays);
+>>>>>>> nrel/develop
         if (state.dataEnvrn->forceBeginEnvResetSuppress) {
             Alphas(7) = "Yes";
         } else {
             Alphas(7) = "No";
         }
+<<<<<<< HEAD
         Alphas(8) = EnergyPlus::format("{:.1R}", state.dataConvergeParams->MinTimeStepSys * 60.0);
         Alphas(9) = EnergyPlus::format("{:.3R}", state.dataConvergeParams->MaxZoneTempDiff);
         Alphas(10) = EnergyPlus::format("{:.4R}", state.dataHeatBal->MaxAllowedDelTemp);
+=======
+        Alphas(8) = std::format("{:.1f}", state.dataConvergeParams->MinTimeStepSys * 60.0);
+        Alphas(9) = std::format("{:.3f}", state.dataConvergeParams->MaxZoneTempDiff);
+        Alphas(10) = std::format("{:.4f}", state.dataHeatBal->MaxAllowedDelTemp);
+>>>>>>> nrel/develop
         std::string pptHeader = "! <Performance Precision Tradeoffs>, Use Coil Direct Simulation, "
                                 "Zone Radiant Exchange Algorithm, Override Mode, Number of Timestep In Hour, "
                                 "Force Euler Method, Minimum Number of Warmup Days, Force Suppress All Begin Environment Resets, "
@@ -1483,7 +1745,11 @@ namespace SimulationManager {
               "{}\n",
               "! <Output Reporting Tolerances>, Tolerance for Time Heating Setpoint Not Met, Tolerance for Zone Cooling Setpoint Not Met Time");
         // Formats
+<<<<<<< HEAD
         static constexpr std::string_view Format_751(" Output Reporting Tolerances, {:.3R}, {:.3R}, \n");
+=======
+        static constexpr std::string_view Format_751(" Output Reporting Tolerances, {:.3f}, {:.3f}, \n");
+>>>>>>> nrel/develop
 
         print(state.files.eio, Format_751, std::abs(deviationFromSetPtThresholdHtg), deviationFromSetPtThresholdClg);
 
@@ -1522,12 +1788,21 @@ namespace SimulationManager {
             Util::appendPerfLog(state, "Zone Radiant Exchange Algorithm", "ScriptF");
         }
         Util::appendPerfLog(state, "Override Mode", currentOverrideModeValue);
+<<<<<<< HEAD
         Util::appendPerfLog(state, "Number of Timesteps per Hour", fmt::to_string(state.dataGlobal->TimeStepsInHour));
         Util::appendPerfLog(state, "Minimum Number of Warmup Days", fmt::to_string(state.dataHeatBal->MinNumberOfWarmupDays));
         Util::appendPerfLog(state, "SuppressAllBeginEnvironmentResets", bool_to_string(state.dataEnvrn->forceBeginEnvResetSuppress));
         Util::appendPerfLog(state, "Minimum System Timestep", EnergyPlus::format("{:.1R}", state.dataConvergeParams->MinTimeStepSys * 60.0));
         Util::appendPerfLog(state, "MaxZoneTempDiff", EnergyPlus::format("{:.2R}", state.dataConvergeParams->MaxZoneTempDiff));
         Util::appendPerfLog(state, "MaxAllowedDelTemp", EnergyPlus::format("{:.4R}", state.dataHeatBal->MaxAllowedDelTemp));
+=======
+        Util::appendPerfLog(state, "Number of Timesteps per Hour", std::to_string(state.dataGlobal->TimeStepsInHour));
+        Util::appendPerfLog(state, "Minimum Number of Warmup Days", std::to_string(state.dataHeatBal->MinNumberOfWarmupDays));
+        Util::appendPerfLog(state, "SuppressAllBeginEnvironmentResets", bool_to_string(state.dataEnvrn->forceBeginEnvResetSuppress));
+        Util::appendPerfLog(state, "Minimum System Timestep", std::format("{:.1f}", state.dataConvergeParams->MinTimeStepSys * 60.0));
+        Util::appendPerfLog(state, "MaxZoneTempDiff", std::format("{:.2f}", state.dataConvergeParams->MaxZoneTempDiff));
+        Util::appendPerfLog(state, "MaxAllowedDelTemp", std::format("{:.4f}", state.dataHeatBal->MaxAllowedDelTemp));
+>>>>>>> nrel/develop
     }
 
     std::string bool_to_string(bool logical)
@@ -1707,6 +1982,7 @@ namespace SimulationManager {
     {
         auto result = std::make_unique<std::ofstream>(filePath, mode); // (AUTO_OK_UPTR)
         if (!result->good()) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("OpenOutputFiles: Could not open file {} for output (write).", filePath));
         }
         return result;
@@ -1727,6 +2003,9 @@ namespace SimulationManager {
         } catch (const std::system_error &error) {
             ShowSevereError(state, error.what());
             ShowFatalError(state, EnergyPlus::format("OpenOutputFiles: Could not open file {} for output (write).", filePath));
+=======
+            ShowFatalError(state, std::format("OpenOutputFiles: Could not open file {} for output (write).", filePath));
+>>>>>>> nrel/develop
         }
         return result;
     }
@@ -1869,7 +2148,11 @@ namespace SimulationManager {
             print(
                 state.files.eio, "{}\n", "! <ConductionFiniteDifference Numerical Parameters>, Starting Relaxation Factor, Final Relaxation Factor");
             print(state.files.eio,
+<<<<<<< HEAD
                   "ConductionFiniteDifference Numerical Parameters, {:.3R}, {:.3R}\n",
+=======
+                  "ConductionFiniteDifference Numerical Parameters, {:.3f}, {:.3f}\n",
+>>>>>>> nrel/develop
                   state.dataHeatBal->CondFDRelaxFactorInput,
                   state.dataHeatBal->CondFDRelaxFactor);
         }
@@ -1885,17 +2168,29 @@ namespace SimulationManager {
             if (state.dataSysVars->iEnvSetThreads == 0) {
                 cEnvSetThreads = "Not Set";
             } else {
+<<<<<<< HEAD
                 cEnvSetThreads = fmt::to_string(state.dataSysVars->iEnvSetThreads);
+=======
+                cEnvSetThreads = std::to_string(state.dataSysVars->iEnvSetThreads);
+>>>>>>> nrel/develop
             }
             if (state.dataSysVars->iepEnvSetThreads == 0) {
                 cepEnvSetThreads = "Not Set";
             } else {
+<<<<<<< HEAD
                 cepEnvSetThreads = fmt::to_string(state.dataSysVars->iepEnvSetThreads);
+=======
+                cepEnvSetThreads = std::to_string(state.dataSysVars->iepEnvSetThreads);
+>>>>>>> nrel/develop
             }
             if (state.dataSysVars->iIDFSetThreads == 0) {
                 cIDFSetThreads = "Not Set";
             } else {
+<<<<<<< HEAD
                 cIDFSetThreads = fmt::to_string(state.dataSysVars->iIDFSetThreads);
+=======
+                cIDFSetThreads = std::to_string(state.dataSysVars->iIDFSetThreads);
+>>>>>>> nrel/develop
             }
             if (state.dataSysVars->lnumActiveSims) {
                 print(state.files.eio,
@@ -2110,7 +2405,11 @@ namespace SimulationManager {
                   Node::ConnectionObjectTypeNamesUC[static_cast<int>(state.dataBranchNodeConnections->NodeConnections(Loop).ObjectType)],
                   state.dataBranchNodeConnections->NodeConnections(Loop).ObjectName,
                   Node::ConnectionTypeNames[static_cast<int>(state.dataBranchNodeConnections->NodeConnections(Loop).ConnectionType)],
+<<<<<<< HEAD
                   state.dataBranchNodeConnections->NodeConnections(Loop).FluidStream);
+=======
+                  static_cast<int>(state.dataBranchNodeConnections->NodeConnections(Loop).FluidStream));
+>>>>>>> nrel/develop
             // Build ParentNodeLists
             if ((state.dataBranchNodeConnections->NodeConnections(Loop).ConnectionType == Node::ConnectionType::Inlet) ||
                 (state.dataBranchNodeConnections->NodeConnections(Loop).ConnectionType == Node::ConnectionType::Outlet)) {
@@ -2176,7 +2475,11 @@ namespace SimulationManager {
                   Node::ConnectionObjectTypeNamesUC[static_cast<int>(state.dataBranchNodeConnections->NodeConnections(Loop).ObjectType)],
                   state.dataBranchNodeConnections->NodeConnections(Loop).ObjectName,
                   Node::ConnectionTypeNames[static_cast<int>(state.dataBranchNodeConnections->NodeConnections(Loop).ConnectionType)],
+<<<<<<< HEAD
                   state.dataBranchNodeConnections->NodeConnections(Loop).FluidStream);
+=======
+                  static_cast<int>(state.dataBranchNodeConnections->NodeConnections(Loop).FluidStream));
+>>>>>>> nrel/develop
         }
 
         int NumNonConnected = 0;
@@ -2274,6 +2577,7 @@ namespace SimulationManager {
                     state.dataSimulationManager->WarningOut = false;
                 }
                 ShowWarningError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("Node Connection Error for object {}={}", CType, state.dataBranchNodeConnections->CompSets(Count).CName));
                 ShowContinueError(
@@ -2281,6 +2585,13 @@ namespace SimulationManager {
                     EnergyPlus::format("  {} not on any Branch or Parent Object", state.dataBranchNodeConnections->CompSets(Count).Description));
                 ShowContinueError(state, EnergyPlus::format("  Inlet Node : {}", state.dataBranchNodeConnections->CompSets(Count).InletNodeName));
                 ShowContinueError(state, EnergyPlus::format("  Outlet Node: {}", state.dataBranchNodeConnections->CompSets(Count).OutletNodeName));
+=======
+                    state, std::format("Node Connection Error for object {}={}", CType, state.dataBranchNodeConnections->CompSets(Count).CName));
+                ShowContinueError(
+                    state, std::format("  {} not on any Branch or Parent Object", state.dataBranchNodeConnections->CompSets(Count).Description));
+                ShowContinueError(state, std::format("  Inlet Node : {}", state.dataBranchNodeConnections->CompSets(Count).InletNodeName));
+                ShowContinueError(state, std::format("  Outlet Node: {}", state.dataBranchNodeConnections->CompSets(Count).OutletNodeName));
+>>>>>>> nrel/develop
                 ++state.dataBranchNodeConnections->NumNodeConnectionErrors;
                 if (state.dataBranchNodeConnections->CompSets(Count).ComponentObjectType ==
                     Node::ConnectionObjectType::SolarCollectorUnglazedTranspired) {
@@ -2295,12 +2606,21 @@ namespace SimulationManager {
                     state.dataSimulationManager->WarningOut = false;
                 }
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("Potential Node Connection Error for object {}, name={}",
                                                    CType,
                                                    state.dataBranchNodeConnections->CompSets(Count).CName));
                 ShowContinueError(state, "  Node Types are still UNDEFINED -- See Branch/Node Details file for further information");
                 ShowContinueError(state, EnergyPlus::format("  Inlet Node : {}", state.dataBranchNodeConnections->CompSets(Count).InletNodeName));
                 ShowContinueError(state, EnergyPlus::format("  Outlet Node: {}", state.dataBranchNodeConnections->CompSets(Count).OutletNodeName));
+=======
+                                std::format("Potential Node Connection Error for object {}, name={}",
+                                            CType,
+                                            state.dataBranchNodeConnections->CompSets(Count).CName));
+                ShowContinueError(state, "  Node Types are still UNDEFINED -- See Branch/Node Details file for further information");
+                ShowContinueError(state, std::format("  Inlet Node : {}", state.dataBranchNodeConnections->CompSets(Count).InletNodeName));
+                ShowContinueError(state, std::format("  Outlet Node: {}", state.dataBranchNodeConnections->CompSets(Count).OutletNodeName));
+>>>>>>> nrel/develop
                 nodeConnectionErrorFlag = true;
                 ++state.dataBranchNodeConnections->NumNodeConnectionErrors;
             }
@@ -2336,6 +2656,7 @@ namespace SimulationManager {
                 std::string_view const ParentCType1 =
                     Node::ConnectionObjectTypeNamesUC[static_cast<int>(state.dataBranchNodeConnections->CompSets(Count).ParentObjectType)];
                 ShowWarningError(state, "Component plus inlet/outlet node pair used more than once:");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("  Component  : {}={}", CType, state.dataBranchNodeConnections->CompSets(Count).CName));
                 ShowContinueError(state, EnergyPlus::format("  Inlet Node : {}", state.dataBranchNodeConnections->CompSets(Count).InletNodeName));
                 ShowContinueError(state, EnergyPlus::format("  Outlet Node: {}", state.dataBranchNodeConnections->CompSets(Count).OutletNodeName));
@@ -2343,6 +2664,15 @@ namespace SimulationManager {
                     state, EnergyPlus::format("  Used by    : {}={}", ParentCType, state.dataBranchNodeConnections->CompSets(Count).ParentCName));
                 ShowContinueError(
                     state, EnergyPlus::format("  and  by    : {}={}", ParentCType1, state.dataBranchNodeConnections->CompSets(Count1).ParentCName));
+=======
+                ShowContinueError(state, std::format("  Component  : {}={}", CType, state.dataBranchNodeConnections->CompSets(Count).CName));
+                ShowContinueError(state, std::format("  Inlet Node : {}", state.dataBranchNodeConnections->CompSets(Count).InletNodeName));
+                ShowContinueError(state, std::format("  Outlet Node: {}", state.dataBranchNodeConnections->CompSets(Count).OutletNodeName));
+                ShowContinueError(state,
+                                  std::format("  Used by    : {}={}", ParentCType, state.dataBranchNodeConnections->CompSets(Count).ParentCName));
+                ShowContinueError(state,
+                                  std::format("  and  by    : {}={}", ParentCType1, state.dataBranchNodeConnections->CompSets(Count1).ParentCName));
+>>>>>>> nrel/develop
                 ++state.dataBranchNodeConnections->NumNodeConnectionErrors;
             }
         }
@@ -2758,12 +3088,20 @@ namespace SimulationManager {
             ShowMessage(state, "No node connection errors were found.");
         } else {
             if (state.dataBranchNodeConnections->NumNodeConnectionErrors > 1) {
+<<<<<<< HEAD
                 ShowMessage(
                     state,
                     EnergyPlus::format("There were {} node connection errors noted.", state.dataBranchNodeConnections->NumNodeConnectionErrors));
             } else {
                 ShowMessage(
                     state, EnergyPlus::format("There was {} node connection error noted.", state.dataBranchNodeConnections->NumNodeConnectionErrors));
+=======
+                ShowMessage(state,
+                            std::format("There were {} node connection errors noted.", state.dataBranchNodeConnections->NumNodeConnectionErrors));
+            } else {
+                ShowMessage(state,
+                            std::format("There was {} node connection error noted.", state.dataBranchNodeConnections->NumNodeConnectionErrors));
+>>>>>>> nrel/develop
             }
         }
 
@@ -2788,12 +3126,18 @@ namespace SimulationManager {
         // using SQLiteProcedures::CreateSQLiteDatabase;
         state.dataGlobal->DoingInputProcessing = false;
 
+<<<<<<< HEAD
         state.dataInputProcessing->inputProcessor->preProcessorCheck(
             state, state.dataSimulationManager->PreP_Fatal); // Check Preprocessor objects for warning, severe, etc errors.
 
         if (state.dataSimulationManager->PreP_Fatal) {
             ShowFatalError(state, "Preprocessor condition(s) cause termination.");
         }
+=======
+        // Preprocessor objects (Output:PreprocessorMessage) are now checked in InputProcessor::processInput(),
+        // before epJSON schema validation can abort the run, so that a Fatal preprocessor message is not hidden
+        // behind unrelated schema errors caused by the preprocessor's malformed output.
+>>>>>>> nrel/develop
 
         state.dataInputProcessing->inputProcessor->preScanReportingVariables(state);
     }

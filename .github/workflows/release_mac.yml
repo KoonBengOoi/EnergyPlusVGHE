@@ -29,16 +29,28 @@ jobs:
       # fail-fast: Default is true, switch to false to allow one platform to fail and still run others
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         macos_dev_target: [12.1, 13.0]
         include:
         - macos_dev_target: 12.1
           os: macos-15-intel
+=======
+        os: [macos-15-intel, macos-14]
+        include:
+        - os: macos-15-intel
+          macos_dev_target: 13.3
+>>>>>>> nrel/develop
           allow_failure: false
           arch: x86_64
           python-arch: x64
           pretty: "Mac x64"
+<<<<<<< HEAD
         - macos_dev_target: 13.0
           os: macos-14
+=======
+        - os: macos-14
+          macos_dev_target: 14.0
+>>>>>>> nrel/develop
           allow_failure: false
           arch: arm64
           python-arch: arm64
@@ -49,7 +61,11 @@ jobs:
       contents: write
 
     steps:
+<<<<<<< HEAD
     - uses: actions/checkout@v6
+=======
+    - uses: actions/checkout@v7
+>>>>>>> nrel/develop
 
 #    - name: Setup QtIFW 4.x
 #      uses: jmarrec/setup-qtifw@v1
@@ -98,9 +114,15 @@ jobs:
 
         # Download my patched QtIFW
         mkdir QtIFW && cd QtIFW
+<<<<<<< HEAD
         aria2c https://github.com/jmarrec/QtIFW-fixup/releases/download/v5.0.0-dev-with-fixup/QtIFW-5.0.0-${{ matrix.arch }}.zip
         xattr -r -d com.apple.quarantine ./QtIFW-5.0.0-${{ matrix.arch }}.zip
         unzip QtIFW-5.0.0-${{ matrix.arch }}.zip
+=======
+        aria2c https://github.com/jmarrec/QtIFW-fixup/releases/download/v4.11.0-Patched/QtIFW-4.11.0-${{ matrix.arch }}.zip
+        xattr -r -d com.apple.quarantine ./QtIFW-4.11.0-${{ matrix.arch }}.zip
+        unzip QtIFW-4.11.0-${{ matrix.arch }}.zip
+>>>>>>> nrel/develop
         rm -Rf ./*.zip
         chmod +x *
         ./installerbase --version
@@ -145,9 +167,12 @@ jobs:
         # The MACOSX_DEPLOYMENT_TARGET environment variable sets the default value for the CMAKE_OSX_DEPLOYMENT_TARGET variable.
         # We use cmake commands to build some subprojects, so setting it globally
         echo MACOSX_DEPLOYMENT_TARGET=${{ matrix.macos_dev_target }} >> $GITHUB_ENV
+<<<<<<< HEAD
         echo "Installing gcc@13 for gfortran support of -static-libquadmath"
         brew list gcc@13 || brew install gcc@13
         which gfortran-13 || echo "FC=$(brew --prefix gcc@13)/bin/gfortran-13" >> $GITHUB_ENV
+=======
+>>>>>>> nrel/develop
         brew install ninja tcl-tk
 
     - name: Install required LaTeX packages by building the Test document
@@ -175,7 +200,11 @@ jobs:
               -DBUILD_FORTRAN:BOOL=ON -DBUILD_PACKAGE:BOOL=ON \
               -DDOCUMENTATION_BUILD:STRING=$DOCUMENTATION_BUILD -DTEX_INTERACTION:STRING="batchmode" \
               -DENABLE_OPENMP:BOOL=OFF \
+<<<<<<< HEAD
               -DCPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION:STRING="Developer ID Application: National Renewable Energy Laboratory (K7JYVQJL7R)" \
+=======
+              -DCPACK_CODESIGNING_DEVELOPER_ID_APPLICATION:STRING="Developer ID Application: National Renewable Energy Laboratory (K7JYVQJL7R)" \
+>>>>>>> nrel/develop
               -DCPACK_CODESIGNING_NOTARY_PROFILE_NAME:STRING=EnergyPlus \
               ../
 
@@ -287,6 +316,7 @@ jobs:
       # fail-fast: Default is true, switch to false to allow one platform to fail and still run others
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         macos_dev_target: [12.1, 13.0]
         include:
           - macos_dev_target: 12.1
@@ -302,11 +332,32 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6  # Still need E+ checked out to get testing scripts
+=======
+        os: [macos-15-intel, macos-14]
+        include:
+          - os: macos-15-intel
+            macos_dev_target: 13.3
+            arch: x86_64
+            python-arch: x64
+            test_key: mac12
+          - os: macos-14
+            macos_dev_target: 14.0
+            arch: arm64
+            python-arch: arm64
+            test_key: mac14-arm64
+
+    steps:
+    - uses: actions/checkout@v7  # Still need E+ checked out to get testing scripts
+>>>>>>> nrel/develop
       with:
         path: checkout
 
     - name: Set up Python ${{ env.Python_REQUIRED_VERSION }}
+<<<<<<< HEAD
       uses: actions/setup-python@v6
+=======
+      uses: actions/setup-python@v7
+>>>>>>> nrel/develop
       id: setup-python
       with:
         python-version: ${{ env.Python_REQUIRED_VERSION }}

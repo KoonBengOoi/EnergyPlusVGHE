@@ -137,7 +137,10 @@ using ObjexxFCL::Vector4;
 
 // ObjexxFCL Functions
 #include <ObjexxFCL/Array.functions.hh>
+<<<<<<< HEAD
 // #include <ObjexxFCL/Fmath.hh>
+=======
+>>>>>>> nrel/develop
 #include <ObjexxFCL/environment.hh>
 #include <ObjexxFCL/floops.hh>
 #include <ObjexxFCL/numeric.hh>

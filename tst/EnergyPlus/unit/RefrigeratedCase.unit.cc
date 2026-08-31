@@ -65,7 +65,10 @@
 #include <EnergyPlus/RefrigeratedCase.hh>
 
 // Standard headers
+<<<<<<< HEAD
 #include <fmt/format.h>
+=======
+>>>>>>> nrel/develop
 #include <string>
 #include <string_view>
 
@@ -383,7 +386,11 @@ Schedule:Compact,
   Until: 24:00,0.0;        !- Field 21
 )IDF";
 
+<<<<<<< HEAD
     ASSERT_TRUE(process_idf(fmt::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+=======
+    ASSERT_TRUE(process_idf(std::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+>>>>>>> nrel/develop
     state->init_state(*state);
 
     state->dataZoneEquip->ZoneEquipInputsFilled = true;
@@ -479,7 +486,11 @@ Refrigeration:WalkIn,
   None;                    !- Stocking Door Opening Protection Type Facing Zone 1
 )IDF";
 
+<<<<<<< HEAD
     ASSERT_TRUE(process_idf(fmt::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+=======
+    ASSERT_TRUE(process_idf(std::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+>>>>>>> nrel/develop
     state->init_state(*state);
 
     state->dataZoneEquip->ZoneEquipInputsFilled = true;
@@ -577,7 +588,11 @@ Refrigeration:WalkIn,
   None;                    !- Stocking Door Opening Protection Type Facing Zone 1
 )IDF";
 
+<<<<<<< HEAD
     ASSERT_TRUE(process_idf(fmt::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+=======
+    ASSERT_TRUE(process_idf(std::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+>>>>>>> nrel/develop
     state->init_state(*state);
 
     state->dataZoneEquip->ZoneEquipInputsFilled = true;
@@ -735,7 +750,11 @@ Schedule:Compact,
   Until: 24:00,0.0;        !- Field 21
 )IDF";
 
+<<<<<<< HEAD
     ASSERT_TRUE(process_idf(fmt::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+=======
+    ASSERT_TRUE(process_idf(std::format("{}\n{}", oneZoneBuildingWithIdealLoads, idf_objects))); // read idf objects
+>>>>>>> nrel/develop
     state->init_state(*state);
 
     state->dataZoneEquip->ZoneEquipInputsFilled = true;
@@ -2787,3 +2806,28 @@ TEST_F(EnergyPlusFixture, DesuperheaterRefrigeration)
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+TEST_F(EnergyPlusFixture, TranscriticalSystem_CapacityCorrectionUsesPostSubcoolerEnthalpy)
+{
+    constexpr Real64 hCompInHP = 460000.0;
+    constexpr Real64 hGasCoolerOut = 300000.0;
+    constexpr Real64 delHSubcoolerDis = 15000.0; // positive on discharge side in this convention
+    constexpr Real64 caseEnthalpyChangeRatedMT = 120000.0;
+    constexpr Real64 massCorrectionMT = 0.92;
+
+    const Real64 totalHDeltaWithSubcooler = RefrigeratedCase::CalcTransMTActualEnthalpyChange(hCompInHP, hGasCoolerOut, delHSubcoolerDis);
+    const Real64 totalHDeltaNoSubcooler = RefrigeratedCase::CalcTransMTActualEnthalpyChange(hCompInHP, hGasCoolerOut, 0.0);
+
+    EXPECT_NEAR(totalHDeltaWithSubcooler, 145000.0, 1e-9);
+    EXPECT_NEAR(totalHDeltaNoSubcooler, 160000.0, 1e-9);
+    EXPECT_LT(totalHDeltaWithSubcooler, totalHDeltaNoSubcooler);
+
+    const Real64 capCorrWithSubcooler = massCorrectionMT * totalHDeltaWithSubcooler / caseEnthalpyChangeRatedMT;
+    const Real64 capCorrNoSubcooler = massCorrectionMT * totalHDeltaNoSubcooler / caseEnthalpyChangeRatedMT;
+
+    // Expected direction: adding subcooler term reduces capacity correction
+    EXPECT_LT(capCorrWithSubcooler, capCorrNoSubcooler);
+}
+>>>>>>> nrel/develop

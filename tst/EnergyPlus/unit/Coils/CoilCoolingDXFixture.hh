@@ -136,6 +136,11 @@ protected:
             " 100,                                   ", // latent time constant
             " 300,                                   ", // latent time for removal
                                                         // to begin
+<<<<<<< HEAD
+=======
+            " Yes,                                   ", // apply plf in higher
+                                                        // speeds than 1
+>>>>>>> nrel/develop
             " Yes,                                   ", // apply latent in higher
                                                         // speeds than 1
             " EvaporativelyCooled,                   ", // condenser type

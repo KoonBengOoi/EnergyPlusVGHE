@@ -45,7 +45,11 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 // C++ headers
+=======
+// C++ Headers
+>>>>>>> nrel/develop
 #include <ios>
 #include <memory>
 #include <sstream>
@@ -159,7 +163,10 @@ std::unique_ptr<SQLite> CreateSQLiteDatabase(EnergyPlusData &state)
                                         writeTabularDataToSQLite);
     } catch (const std::runtime_error &error) {
         ShowFatalError(state, error.what());
+<<<<<<< HEAD
         return nullptr;
+=======
+>>>>>>> nrel/develop
     }
 }
 
@@ -1246,12 +1253,21 @@ void SQLite::initializeTabularDataTable()
 
     sqliteExecuteCommand(sql);
 
+<<<<<<< HEAD
     sqliteExecuteCommand(format("INSERT INTO StringTypes VALUES({},'ReportName');", ReportNameId));
     sqliteExecuteCommand(format("INSERT INTO StringTypes VALUES({},'ReportForString');", ReportForStringId));
     sqliteExecuteCommand(format("INSERT INTO StringTypes VALUES({},'TableName');", TableNameId));
     sqliteExecuteCommand(format("INSERT INTO StringTypes VALUES({},'RowName');", RowNameId));
     sqliteExecuteCommand(format("INSERT INTO StringTypes VALUES({},'ColumnName');", ColumnNameId));
     sqliteExecuteCommand(format("INSERT INTO StringTypes VALUES({},'Units');", UnitsId));
+=======
+    sqliteExecuteCommand(std::format("INSERT INTO StringTypes VALUES({},'ReportName');", ReportNameId));
+    sqliteExecuteCommand(std::format("INSERT INTO StringTypes VALUES({},'ReportForString');", ReportForStringId));
+    sqliteExecuteCommand(std::format("INSERT INTO StringTypes VALUES({},'TableName');", TableNameId));
+    sqliteExecuteCommand(std::format("INSERT INTO StringTypes VALUES({},'RowName');", RowNameId));
+    sqliteExecuteCommand(std::format("INSERT INTO StringTypes VALUES({},'ColumnName');", ColumnNameId));
+    sqliteExecuteCommand(std::format("INSERT INTO StringTypes VALUES({},'Units');", UnitsId));
+>>>>>>> nrel/develop
 
     constexpr std::string_view sql2 = "CREATE TABLE Strings ( "
                                       "StringIndex INTEGER PRIMARY KEY, "
@@ -1924,7 +1940,11 @@ void SQLite::createSQLiteTabularDataRecords(Array2D_string const &body, // html 
         int const reportNameIndex = createSQLiteStringTableRecord(reportName, ReportNameId);
         int const reportForStringIndex = createSQLiteStringTableRecord(reportForString, ReportForStringId);
         int const tableNameIndex = createSQLiteStringTableRecord(tableName, TableNameId);
+<<<<<<< HEAD
         int unitsIndex;
+=======
+        int unitsIndex = 0;
+>>>>>>> nrel/develop
 
         for (size_t iCol = 0, k = body.index(1, 1); iCol < sizeColumnLabels; ++iCol) {
             std::string colUnits;

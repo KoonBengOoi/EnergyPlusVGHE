@@ -109,7 +109,11 @@ Real64 OutDryBulbTempAt(EnergyPlusData &state, Real64 const Z) // Height above g
 
     if (LocalOutDryBulbTemp < -100.0) {
         ShowSevereError(state, "OutDryBulbTempAt: outdoor drybulb temperature < -100 C");
+<<<<<<< HEAD
         ShowContinueError(state, EnergyPlus::format("...check heights, this height=[{:.0R}].", Z));
+=======
+        ShowContinueError(state, std::format("...check heights, this height=[{:.0f}].", Z));
+>>>>>>> nrel/develop
         ShowFatalError(state, "Program terminates due to preceding condition(s).");
     }
 
@@ -152,7 +156,11 @@ Real64 OutWetBulbTempAt(EnergyPlusData &state, Real64 const Z) // Height above g
 
     if (LocalOutWetBulbTemp < -100.0) {
         ShowSevereError(state, "OutWetBulbTempAt: outdoor wetbulb temperature < -100 C");
+<<<<<<< HEAD
         ShowContinueError(state, EnergyPlus::format("...check heights, this height=[{:.0R}].", Z));
+=======
+        ShowContinueError(state, std::format("...check heights, this height=[{:.0f}].", Z));
+>>>>>>> nrel/develop
         ShowFatalError(state, "Program terminates due to preceding condition(s).");
     }
 
@@ -237,11 +245,19 @@ void SetOutBulbTempAt_error(EnergyPlusData &state, std::string const &Settings, 
 {
     // Using/Aliasing
 
+<<<<<<< HEAD
     ShowSevereError(state, EnergyPlus::format("SetOutBulbTempAt: {} Outdoor Temperatures < -100 C", Settings));
     ShowContinueError(state, EnergyPlus::format("...check {} Heights - Maximum {} Height=[{:.0R}].", Settings, Settings, max_height));
     if (max_height >= 20000.0) {
         ShowContinueError(state, "...according to your maximum Z height, your building is somewhere in the Stratosphere.");
         ShowContinueError(state, EnergyPlus::format("...look at {} Name= {}", Settings, SettingsName));
+=======
+    ShowSevereError(state, std::format("SetOutBulbTempAt: {} Outdoor Temperatures < -100 C", Settings));
+    ShowContinueError(state, std::format("...check {} Heights - Maximum {} Height=[{:.0f}].", Settings, Settings, max_height));
+    if (max_height >= 20000.0) {
+        ShowContinueError(state, "...according to your maximum Z height, your building is somewhere in the Stratosphere.");
+        ShowContinueError(state, std::format("...look at {} Name= {}", Settings, SettingsName));
+>>>>>>> nrel/develop
     }
     ShowFatalError(state, "Program terminates due to preceding condition(s).");
 }

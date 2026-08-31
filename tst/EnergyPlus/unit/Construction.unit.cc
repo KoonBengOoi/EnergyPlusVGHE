@@ -68,8 +68,11 @@ TEST_F(EnergyPlusFixture, Construction_reportLayers)
     auto &m = state->dataMaterial;
     auto &orp = *state->dataOutRptPredefined;
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     auto *mata = new Material::MaterialBase;
     mata->Name = "mat a";
     m->materials.push_back(mata);

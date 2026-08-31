@@ -4,7 +4,11 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -553,11 +557,14 @@
     Until: 16:00,0.679,      !- Field 25
     Until: 24:00,0.485;      !- Field 27
 
+<<<<<<< HEAD
                              !- Field 8
                              !- Field 10
                              !- Field 29
                              !- Field 36
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_LIGHT_OFFICE_BSMT_SCH,  !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -740,6 +747,7 @@
     Until: 16:00,0.6,        !- Field 37
     Until: 24:00,0.4;        !- Field 39
 
+<<<<<<< HEAD
                              !- Field 4
                              !- Field 6
                              !- Field 8
@@ -753,6 +761,8 @@
                              !- Field 32
                              !- Field 34
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_EQUIP_SCH,          !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -778,8 +788,11 @@
     Until: 16:00,0.3492682264, !- Field 33
     Until: 24:00,0.2619511698; !- Field 35
 
+<<<<<<< HEAD
                              !- Field 36
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_EQUIP_EXTD_SCH,     !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -1997,7 +2010,10 @@
     Until: 07:00,1.0,        !- Field 3
     Until: 24:00,0.445694444444444; !- Field 5
 
+<<<<<<< HEAD
                              !- Field 6
+=======
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
 
   Schedule:Constant,VAV_1 Max OA Fraction,,1.0;
@@ -10887,10 +10903,13 @@
     9.453,53.3400,17.9830,  !- X,Y,Z ==> Vertex 3 {m}
     9.453,53.3400,19.2020;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     ER_Exam3_Mult4_Flr_1_Wall_East_Door,  !- Name
     Door,                    !- Surface Type
@@ -10906,11 +10925,14 @@
     70.104000000000,8.273508108820,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     70.104000000000,8.273508108820,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     ER_Trauma1_Flr_1_Wall_East_Door,  !- Name
     Door,                    !- Surface Type
@@ -10926,11 +10948,14 @@
     70.104000000000,3.673213671662,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     70.104000000000,3.673213671662,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Corridor_Flr_1_Wall_South_Door2,  !- Name
     Door,                    !- Surface Type
@@ -10946,11 +10971,14 @@
     36.867843675091,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     36.867843675091,0.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Corridor_Flr_1_Wall_North_Door2,  !- Name
     Door,                    !- Surface Type
@@ -10966,11 +10994,14 @@
     31.050836137530,53.340000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     31.050836137530,53.340000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Lobby_Records_Flr_1_Wall_1_South_Door,  !- Name
     Door,                    !- Surface Type
@@ -10986,11 +11017,14 @@
     4.500270154051,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     4.500270154051,0.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Lobby_Records_Flr_1_Wall_2_South_Door,  !- Name
     Door,                    !- Surface Type
@@ -11006,11 +11040,14 @@
     27.967667114353,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     27.967667114353,0.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Lobby_Records_Flr_1_Wall_North_Door1,  !- Name
     Door,                    !- Surface Type
@@ -11026,11 +11063,14 @@
     25.460263905857,53.340000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     25.460263905857,53.340000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Lobby_Records_Flr_1_Wall_North_Door3,  !- Name
     Door,                    !- Surface Type
@@ -11046,11 +11086,14 @@
     2.839882444979,53.340000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     2.839882444979,53.340000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     ER_Exam1_Mult4_Flr_1_Wall_South_Door,  !- Name
     Door,                    !- Surface Type
@@ -11066,11 +11109,14 @@
     43.202605250969,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     43.202605250969,0.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     ER_Trauma1_Flr_1_Wall_South_Door,  !- Name
     Door,                    !- Surface Type
@@ -11086,11 +11132,14 @@
     66.293646485980,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     66.293646485980,0.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     ER_Trauma2_Flr_1_Wall_East_Door,  !- Name
     Door,                    !- Surface Type
@@ -11106,11 +11155,14 @@
     70.104000000000,50.700449019517,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     70.104000000000,50.700449019517,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     ER_Trauma2_Flr_1_Wall_North_Door,  !- Name
     Door,                    !- Surface Type
@@ -11126,11 +11178,14 @@
     65.520546561573,53.340000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     65.520546561573,53.340000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     ER_Triage_Mult4_Flr_1_Wall_North_Door,  !- Name
     Door,                    !- Surface Type
@@ -11146,11 +11201,14 @@
     43.532056441754,53.340000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     43.532056441754,53.340000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Corridor_Flr_1_Wall_South_Door1,  !- Name
     Door,                    !- Surface Type
@@ -11166,11 +11224,14 @@
     32.411018875192,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     32.411018875192,0.000000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Corridor_Flr_1_Wall_North_Door1,  !- Name
     Door,                    !- Surface Type
@@ -11186,11 +11247,14 @@
     36.616063591957,53.340000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     36.616063591957,53.340000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Lobby_Records_Flr_1_Wall_North_Door2,  !- Name
     Door,                    !- Surface Type
@@ -11206,11 +11270,14 @@
     15.594601079618,53.340000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     15.594601079618,53.340000000000,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Lobby_Records_Flr_1_Wall_2_South_RollDoor,  !- Name
     Door,                    !- Surface Type
@@ -11226,7 +11293,10 @@
     25.531082864734,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     25.531082864734,0.000000000000,2.438400000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
+=======
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: INTERNALMASS ===========
 
   InternalMass,
@@ -18296,32 +18366,57 @@
   ZoneControl:Humidistat,
     ER_Exam3_Mult4_Flr_1 Humidistat,  !- Name
     ER_Exam3_Mult4_Flr_1,    !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch_addDI,   !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch_addDI,   !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Humidistat,
     OR2_Mult5_Flr_2 Humidistat,  !- Name
     OR2_Mult5_Flr_2,         !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch_addDI,   !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch_addDI,   !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Humidistat,
     ICU_Flr_2 Humidistat,    !- Name
     ICU_Flr_2,               !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch_addDI_ICU,  !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch_addDI_ICU,  !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Humidistat,
     Lab_Flr_3 Humidistat,    !- Name
     Lab_Flr_3,               !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch_addDI,   !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch_addDI,   !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Humidistat,
     PatRoom5_Mult10_Flr_4 Humidistat,  !- Name
     PatRoom5_Mult10_Flr_4,   !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch_addDI,   !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch_addDI,   !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONECONTROL:THERMOSTAT ===========
 
@@ -28113,12 +28208,15 @@
     Schedule Value;          !- Actuated Component Control Type
 
   EnergyManagementSystem:Actuator,
+<<<<<<< HEAD
     BypassHXStatus,          !- Name
     Bypass Heat Exchanger Status,  !- Actuated Component Unique Name
     Schedule:Constant,       !- Actuated Component Type
     Schedule Value;          !- Actuated Component Control Type
 
   EnergyManagementSystem:Actuator,
+=======
+>>>>>>> nrel/develop
     HRC_SPM_Reset,           !- Name
     Heat Recovery Chiller Bypass Loop Setpoint Schedule,  !- Actuated Component Unique Name
     Schedule:Constant,       !- Actuated Component Type
@@ -28143,12 +28241,15 @@
     On/Off Supervisory;      !- Actuated Component Control Type
 
   EnergyManagementSystem:Actuator,
+<<<<<<< HEAD
     Chiller1PumpFlow,        !- Name
     COOLSYS1 CHILLER1 PUMP,  !- Actuated Component Unique Name
     Pump,                    !- Actuated Component Type
     Pump Mass Flow Rate;     !- Actuated Component Control Type
 
   EnergyManagementSystem:Actuator,
+=======
+>>>>>>> nrel/develop
     Chiller2PumpFlow,        !- Name
     COOLSYS1 CHILLER2 PUMP,  !- Actuated Component Unique Name
     Pump,                    !- Actuated Component Type

@@ -95,7 +95,11 @@ TEST_F(EnergyPlusFixture, Fans_FanSizing)
 
     std::string eiooutput = std::string("! <Component Sizing Information>, Component Type, Component Name, Input Field Description, Value\n"
                                         " Component Sizing Information, Fan:OnOff, Test Fan, Design Size Maximum Flow Rate [m3/s], 1.00635\n"
+<<<<<<< HEAD
                                         " Component Sizing Information, Fan:OnOff, Test Fan, Design Electric Power Consumption [W], 1257.93750\n");
+=======
+                                        " Component Sizing Information, Fan:OnOff, Test Fan, Design Electric Power Consumption [W], 1257.94\n");
+>>>>>>> nrel/develop
     EXPECT_TRUE(compare_eio_stream(eiooutput, true));
 }
 

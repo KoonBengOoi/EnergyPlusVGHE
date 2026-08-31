@@ -29,7 +29,11 @@
 !         Systems are set to Night Cycle during setup/setback.
 !
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,6;
 

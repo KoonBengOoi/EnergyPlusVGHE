@@ -328,7 +328,11 @@ namespace Curve {
 
     Real64 GetNormalPoint(int CurveIndex);
 
+<<<<<<< HEAD
     int GetCurveIndex(EnergyPlusData &state, std::string const &CurveName); // name of the curve
+=======
+    int GetCurveIndex(EnergyPlusData const &state, std::string const &CurveName); // name of the curve
+>>>>>>> nrel/develop
 
     Curve *GetCurve(EnergyPlusData &state, std::string const &curveName);
 

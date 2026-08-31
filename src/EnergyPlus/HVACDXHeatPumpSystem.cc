@@ -125,8 +125,11 @@ namespace HVACDXHeatPumpSystem {
         int DXSystemNum;      // Index to CoilSystem:Heating:DX object
         Real64 AirMassFlow;   // DX System air mass flow rate
 
+<<<<<<< HEAD
         auto &DXHeatPumpSystem(state.dataHVACDXHeatPumpSys->DXHeatPumpSystem);
 
+=======
+>>>>>>> nrel/develop
         // Obtains and Allocates DX Cooling System related parameters from input file
         if (state.dataHVACDXHeatPumpSys->GetInputFlag) { // First time subroutine has been entered
             // Get the DXCoolingSystem input
@@ -138,15 +141,22 @@ namespace HVACDXHeatPumpSystem {
 
         // Find the correct DXSystemNumber
         if (CompIndex == 0) {
+<<<<<<< HEAD
             DXSystemNum = Util::FindItemInList(DXHeatPumpSystemName, DXHeatPumpSystem);
             if (DXSystemNum == 0) {
                 ShowFatalError(state, EnergyPlus::format("SimDXHeatPumpSystem: DXUnit not found={}", DXHeatPumpSystemName));
+=======
+            DXSystemNum = Util::FindItemInList(DXHeatPumpSystemName, state.dataHVACDXHeatPumpSys->DXHeatPumpSystem);
+            if (DXSystemNum == 0) {
+                ShowFatalError(state, std::format("SimDXHeatPumpSystem: DXUnit not found={}", DXHeatPumpSystemName));
+>>>>>>> nrel/develop
             }
             CompIndex = DXSystemNum;
         } else {
             DXSystemNum = CompIndex;
             if (DXSystemNum > NumDXHeatPumpSystems || DXSystemNum < 1) {
                 ShowFatalError(state,
+<<<<<<< HEAD
                                EnergyPlus::format("SimDXHeatPumpSystem:  Invalid CompIndex passed={}, Number of DX Units={}, DX Unit name={}",
                                                   DXSystemNum,
                                                   NumDXHeatPumpSystems,
@@ -160,6 +170,22 @@ namespace HVACDXHeatPumpSystem {
                                            DXSystemNum,
                                            DXHeatPumpSystemName,
                                            DXHeatPumpSystem(DXSystemNum).Name));
+=======
+                               std::format("SimDXHeatPumpSystem:  Invalid CompIndex passed={}, Number of DX Units={}, DX Unit name={}",
+                                           DXSystemNum,
+                                           NumDXHeatPumpSystems,
+                                           DXHeatPumpSystemName));
+            }
+            if (state.dataHVACDXHeatPumpSys->CheckEquipName(DXSystemNum)) {
+                auto &dxhpSystem = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXSystemNum);
+                if (DXHeatPumpSystemName != dxhpSystem.Name) {
+                    ShowFatalError(
+                        state,
+                        std::format("SimDXHeatPumpSystem: Invalid CompIndex passed={}, DX Unit name={}, stored DX Unit Name for that index={}",
+                                    DXSystemNum,
+                                    DXHeatPumpSystemName,
+                                    dxhpSystem.Name));
+>>>>>>> nrel/develop
                 }
                 state.dataHVACDXHeatPumpSys->CheckEquipName(DXSystemNum) = false;
             }
@@ -175,6 +201,7 @@ namespace HVACDXHeatPumpSystem {
         // Control the DX Heating System
         ControlDXHeatingSystem(state, DXSystemNum, FirstHVACIteration);
 
+<<<<<<< HEAD
         // simulate DX Heating System
         CompName = DXHeatPumpSystem(DXSystemNum).HeatPumpCoilName;
 
@@ -197,21 +224,50 @@ namespace HVACDXHeatPumpSystem {
                                   DXHeatPumpSystem(DXSystemNum).PartLoadFrac,
                                   DXHeatPumpSystem(DXSystemNum).SpeedNum,
                                   DXHeatPumpSystem(DXSystemNum).SpeedRatio,
+=======
+        auto &dxhpSystem = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXSystemNum);
+        // simulate DX Heating System
+        CompName = dxhpSystem.HeatPumpCoilName;
+
+        switch (dxhpSystem.coilType) {
+        case HVAC::CoilType::HeatingDXSingleSpeed: { // COIL:DX:COOLINGBYPASSFACTOREMPIRICAL
+            SimDXCoil(
+                state, CompName, HVAC::CompressorOp::On, FirstHVACIteration, dxhpSystem.HeatPumpCoilIndex, dxhpSystem.fanOp, dxhpSystem.PartLoadFrac);
+        } break;
+        case HVAC::CoilType::HeatingDXVariableSpeed: { // Coil:Heating:DX:VariableSpeed
+            SimVariableSpeedCoils(state,
+                                  CompName,
+                                  dxhpSystem.HeatPumpCoilIndex,
+                                  dxhpSystem.fanOp,
+                                  HVAC::CompressorOp::On,
+                                  dxhpSystem.PartLoadFrac,
+                                  dxhpSystem.SpeedNum,
+                                  dxhpSystem.SpeedRatio,
+>>>>>>> nrel/develop
                                   state.dataHVACDXHeatPumpSys->QZnReq,
                                   state.dataHVACDXHeatPumpSys->QLatReq,
                                   state.dataHVACDXHeatPumpSys->OnOffAirFlowRatio);
         } break;
         default: {
+<<<<<<< HEAD
             ShowFatalError(
                 state, EnergyPlus::format("SimDXCoolingSystem: Invalid DX Heating System/Coil={}", DXHeatPumpSystem(DXSystemNum).HeatPumpCoilType));
+=======
+            ShowFatalError(state,
+                           std::format("SimDXCoolingSystem: Invalid DX Heating System/Coil={}", HVAC::coilTypeNames[(int)dxhpSystem.coilType]));
+>>>>>>> nrel/develop
         } break;
         }
         // set econo lockout flag
         // set econo lockout flag
         if (AirLoopNum != -1) { // IF the system is not an equipment of outdoor air unit
 
+<<<<<<< HEAD
             if ((DXHeatPumpSystem(DXSystemNum).PartLoadFrac > 0.0) &&
                 state.dataAirLoop->AirLoopControlInfo(AirLoopNum).CanLockoutEconoWithCompressor) {
+=======
+            if ((dxhpSystem.PartLoadFrac > 0.0) && state.dataAirLoop->AirLoopControlInfo(AirLoopNum).CanLockoutEconoWithCompressor) {
+>>>>>>> nrel/develop
                 state.dataAirLoop->AirLoopControlInfo(AirLoopNum).ReqstEconoLockoutWithCompressor = true;
             } else {
                 state.dataAirLoop->AirLoopControlInfo(AirLoopNum).ReqstEconoLockoutWithCompressor = false;
@@ -219,8 +275,13 @@ namespace HVACDXHeatPumpSystem {
         }
 
         if (present(QTotOut)) {
+<<<<<<< HEAD
             int InletNodeNum = DXHeatPumpSystem(DXSystemNum).DXHeatPumpCoilInletNodeNum;
             int OutletNodeNum = DXHeatPumpSystem(DXSystemNum).DXHeatPumpCoilOutletNodeNum;
+=======
+            int InletNodeNum = dxhpSystem.DXHeatPumpCoilInletNodeNum;
+            int OutletNodeNum = dxhpSystem.DXHeatPumpCoilOutletNodeNum;
+>>>>>>> nrel/develop
             AirMassFlow = state.dataLoopNodes->Node(OutletNodeNum).MassFlowRate;
             QTotOut = AirMassFlow * (state.dataLoopNodes->Node(InletNodeNum).Enthalpy - state.dataLoopNodes->Node(OutletNodeNum).Enthalpy);
         }
@@ -270,14 +331,21 @@ namespace HVACDXHeatPumpSystem {
         Array1D_bool lAlphaBlanks;       // Logical array, alpha field input BLANK = .TRUE.
         Array1D_bool lNumericBlanks;     // Logical array, numeric field input BLANK = .TRUE.
 
+<<<<<<< HEAD
         auto &DXHeatPumpSystem(state.dataHVACDXHeatPumpSys->DXHeatPumpSystem);
 
+=======
+>>>>>>> nrel/develop
         CurrentModuleObject = "CoilSystem:Heating:DX";
         // Update Num in state and make local convenience copy
         int NumDXHeatPumpSystems = state.dataHVACDXHeatPumpSys->NumDXHeatPumpSystems =
             state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, CurrentModuleObject);
 
+<<<<<<< HEAD
         DXHeatPumpSystem.allocate(NumDXHeatPumpSystems);
+=======
+        state.dataHVACDXHeatPumpSys->DXHeatPumpSystem.allocate(NumDXHeatPumpSystems);
+>>>>>>> nrel/develop
         state.dataHVACDXHeatPumpSys->CheckEquipName.dimension(NumDXHeatPumpSystems, true);
 
         state.dataInputProcessing->inputProcessor->getObjectDefMaxArgs(
@@ -307,17 +375,29 @@ namespace HVACDXHeatPumpSystem {
                                                                      cNumericFields);
 
             ErrorObjectHeader eoh{routineName, CurrentModuleObject, Alphas(1)};
+<<<<<<< HEAD
             DXHeatPumpSystem(DXHeatSysNum).DXHeatPumpSystemType = CurrentModuleObject; // push Object Name into data array
             DXHeatPumpSystem(DXHeatSysNum).Name = Alphas(1);
 
             if (lAlphaBlanks(2)) {
                 DXHeatPumpSystem(DXHeatSysNum).availSched = Sched::GetScheduleAlwaysOn(state);
             } else if ((DXHeatPumpSystem(DXHeatSysNum).availSched = Sched::GetSchedule(state, Alphas(2))) == nullptr) {
+=======
+
+            auto &dxhpSys = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXHeatSysNum);
+            dxhpSys.DXHeatPumpSystemType = CurrentModuleObject; // push Object Name into data array
+            dxhpSys.Name = Alphas(1);
+
+            if (lAlphaBlanks(2)) {
+                dxhpSys.availSched = Sched::GetScheduleAlwaysOn(state);
+            } else if ((dxhpSys.availSched = Sched::GetSchedule(state, Alphas(2))) == nullptr) {
+>>>>>>> nrel/develop
                 ShowSevereItemNotFound(state, eoh, cAlphaFields(2), Alphas(2));
                 state.dataHVACDXHeatPumpSys->ErrorsFound = true;
             }
 
             if (Util::SameString(Alphas(3), "Coil:Heating:DX:SingleSpeed")) {
+<<<<<<< HEAD
 
                 DXHeatPumpSystem(DXHeatSysNum).HeatPumpCoilType = Alphas(3);
                 DXHeatPumpSystem(DXHeatSysNum).HeatPumpCoilType_Num = HVAC::CoilDX_HeatingEmpirical;
@@ -376,10 +456,54 @@ namespace HVACDXHeatPumpSystem {
                               CurrentModuleObject);
             if (IsNotOK) {
                 ShowContinueError(state, EnergyPlus::format("In {} = \"{}\".", CurrentModuleObject, DXHeatPumpSystem(DXHeatSysNum).Name));
+=======
+                dxhpSys.coilType = HVAC::CoilType::HeatingDXSingleSpeed;
+
+                dxhpSys.HeatPumpCoilName = Alphas(4);
+            } else if (Util::SameString(Alphas(3), "Coil:Heating:DX:VariableSpeed")) {
+
+                dxhpSys.coilType = HVAC::CoilType::HeatingDXVariableSpeed;
+
+                dxhpSys.HeatPumpCoilName = Alphas(4);
+
+            } else {
+                ShowSevereError(state, std::format("Invalid entry for {} :{}", cAlphaFields(3), Alphas(3)));
+                ShowContinueError(state, std::format("In {}=\"{}\".", CurrentModuleObject, dxhpSys.Name));
+                state.dataHVACDXHeatPumpSys->ErrorsFound = true;
+            }
+
+            if (dxhpSys.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+                dxhpSys.DXHeatPumpCoilInletNodeNum = GetCoilInletNodeVariableSpeed(
+                    state, HVAC::coilTypeNames[(int)dxhpSys.coilType], dxhpSys.HeatPumpCoilName, state.dataHVACDXHeatPumpSys->ErrorsFound);
+                dxhpSys.DXHeatPumpCoilOutletNodeNum = GetCoilOutletNodeVariableSpeed(
+                    state, HVAC::coilTypeNames[(int)dxhpSys.coilType], dxhpSys.HeatPumpCoilName, state.dataHVACDXHeatPumpSys->ErrorsFound);
+            } else {
+                dxhpSys.DXHeatPumpCoilInletNodeNum = GetCoilInletNode(
+                    state, HVAC::coilTypeNames[(int)dxhpSys.coilType], dxhpSys.HeatPumpCoilName, state.dataHVACDXHeatPumpSys->ErrorsFound);
+
+                dxhpSys.DXHeatPumpCoilOutletNodeNum = GetCoilOutletNode(
+                    state, HVAC::coilTypeNames[(int)dxhpSys.coilType], dxhpSys.HeatPumpCoilName, state.dataHVACDXHeatPumpSys->ErrorsFound);
+            }
+
+            // Coil air-side outlet node is the control node
+            dxhpSys.DXSystemControlNodeNum = dxhpSys.DXHeatPumpCoilOutletNodeNum;
+
+            TestCompSet(state,
+                        CurrentModuleObject,
+                        dxhpSys.Name,
+                        state.dataLoopNodes->NodeID(dxhpSys.DXHeatPumpCoilInletNodeNum),
+                        state.dataLoopNodes->NodeID(dxhpSys.DXHeatPumpCoilOutletNodeNum),
+                        "Air Nodes");
+
+            ValidateComponent(state, HVAC::coilTypeNames[(int)dxhpSys.coilType], dxhpSys.HeatPumpCoilName, IsNotOK, CurrentModuleObject);
+            if (IsNotOK) {
+                ShowContinueError(state, std::format("In {} = \"{}\".", CurrentModuleObject, dxhpSys.Name));
+>>>>>>> nrel/develop
                 state.dataHVACDXHeatPumpSys->ErrorsFound = true;
             }
 
             SetUpCompSets(state,
+<<<<<<< HEAD
                           DXHeatPumpSystem(DXHeatSysNum).DXHeatPumpSystemType,
                           DXHeatPumpSystem(DXHeatSysNum).Name,
                           DXHeatPumpSystem(DXHeatSysNum).HeatPumpCoilType,
@@ -396,16 +520,37 @@ namespace HVACDXHeatPumpSystem {
             } else {
                 VariableSpeedCoils::SetCoilSystemHeatingDXFlag(
                     state, DXHeatPumpSystem(DXHeatSysNum).HeatPumpCoilType, DXHeatPumpSystem(DXHeatSysNum).HeatPumpCoilName);
+=======
+                          dxhpSys.DXHeatPumpSystemType,
+                          dxhpSys.Name,
+                          HVAC::coilTypeNames[(int)dxhpSys.coilType],
+                          dxhpSys.HeatPumpCoilName,
+                          state.dataLoopNodes->NodeID(dxhpSys.DXHeatPumpCoilInletNodeNum),
+                          state.dataLoopNodes->NodeID(dxhpSys.DXHeatPumpCoilOutletNodeNum));
+
+            // Supply air fan operating mode defaulted to constant fan cycling coil/compressor
+            dxhpSys.fanOp = HVAC::FanOp::Continuous;
+
+            if (dxhpSys.coilType != HVAC::CoilType::HeatingDXVariableSpeed) {
+                DXCoils::SetCoilSystemHeatingDXFlag(state, HVAC::coilTypeNames[(int)dxhpSys.coilType], dxhpSys.HeatPumpCoilName);
+            } else {
+                VariableSpeedCoils::SetCoilSystemHeatingDXFlag(state, HVAC::coilTypeNames[(int)dxhpSys.coilType], dxhpSys.HeatPumpCoilName);
+>>>>>>> nrel/develop
             }
 
         } // End of the DX System Loop
 
         if (state.dataHVACDXHeatPumpSys->ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}Errors found in input.  Program terminates.", RoutineName));
+=======
+            ShowFatalError(state, std::format("{}Errors found in input.  Program terminates.", RoutineName));
+>>>>>>> nrel/develop
         }
 
         for (DXHeatSysNum = 1; DXHeatSysNum <= NumDXHeatPumpSystems; ++DXHeatSysNum) {
             // Setup Report variables for the DXHeatingSystem that is not reported in the components themselves
+<<<<<<< HEAD
             SetupOutputVariable(state,
                                 "Coil System Part Load Ratio",
                                 Constant::Units::None,
@@ -413,6 +558,17 @@ namespace HVACDXHeatPumpSystem {
                                 OutputProcessor::TimeStepType::System,
                                 OutputProcessor::StoreType::Average,
                                 DXHeatPumpSystem(DXHeatSysNum).Name);
+=======
+
+            auto &dxhpSystem = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXHeatSysNum);
+            SetupOutputVariable(state,
+                                "Coil System Part Load Ratio",
+                                Constant::Units::None,
+                                dxhpSystem.PartLoadFrac,
+                                OutputProcessor::TimeStepType::System,
+                                OutputProcessor::StoreType::Average,
+                                dxhpSystem.Name);
+>>>>>>> nrel/develop
         }
 
         Alphas.deallocate();
@@ -480,18 +636,30 @@ namespace HVACDXHeatPumpSystem {
                         if (state.dataLoopNodes->Node(ControlNode).TempSetPoint == Node::SensedNodeFlagValue) {
                             if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("{}: Missing temperature setpoint for DX unit= {}",
                                                                    DXHeatPumpSystem.DXHeatPumpSystemType,
                                                                    DXHeatPumpSystem.Name));
+=======
+                                                std::format("{}: Missing temperature setpoint for DX unit= {}",
+                                                            DXHeatPumpSystem.DXHeatPumpSystemType,
+                                                            DXHeatPumpSystem.Name));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "  use a Set Point Manager to establish a setpoint at the unit control node.");
                                 state.dataHVACGlobal->SetPointErrorFlag = true;
                             } else {
                                 CheckIfNodeSetPointManagedByEMS(state, ControlNode, HVAC::CtrlVarType::Temp, state.dataHVACGlobal->SetPointErrorFlag);
                                 if (state.dataHVACGlobal->SetPointErrorFlag) {
                                     ShowSevereError(state,
+<<<<<<< HEAD
                                                     EnergyPlus::format("{}: Missing temperature setpoint for DX unit= {}",
                                                                        DXHeatPumpSystem.DXHeatPumpSystemType,
                                                                        DXHeatPumpSystem.Name));
+=======
+                                                    std::format("{}: Missing temperature setpoint for DX unit= {}",
+                                                                DXHeatPumpSystem.DXHeatPumpSystemType,
+                                                                DXHeatPumpSystem.Name));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "  use a Set Point Manager to establish a setpoint at the unit control node.");
                                     ShowContinueError(state,
                                                       "  or use an EMS actuator to establish a temperature setpoint at the unit control node.");
@@ -504,6 +672,7 @@ namespace HVACDXHeatPumpSystem {
             state.dataHVACDXHeatPumpSys->MySetPointCheckFlag = false;
         }
 
+<<<<<<< HEAD
         // These initializations are done every iteration
         if (AirLoopNum == -1) { // This IF-Then routine is just for ZoneHVAC:OUTDOORAIRUNIT
 
@@ -513,6 +682,18 @@ namespace HVACDXHeatPumpSystem {
             ControlNode = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXSystemNum).DXSystemControlNodeNum;
             state.dataHVACDXHeatPumpSys->EconomizerFlag = state.dataAirLoop->AirLoopControlInfo(AirLoopNum).EconoActive;
             state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXSystemNum).DesiredOutletTemp = state.dataLoopNodes->Node(ControlNode).TempSetPoint;
+=======
+        auto &dxhpSystem = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXSystemNum);
+        // These initializations are done every iteration
+        if (AirLoopNum == -1) { // This IF-Then routine is just for ZoneHVAC:OUTDOORAIRUNIT
+
+            dxhpSystem.DesiredOutletTemp = OAUCoilOutletTemp;
+
+        } else { // Not Outdoor Air Unit
+            ControlNode = dxhpSystem.DXSystemControlNodeNum;
+            state.dataHVACDXHeatPumpSys->EconomizerFlag = state.dataAirLoop->AirLoopControlInfo(AirLoopNum).EconoActive;
+            dxhpSystem.DesiredOutletTemp = state.dataLoopNodes->Node(ControlNode).TempSetPoint;
+>>>>>>> nrel/develop
         }
     }
 
@@ -583,6 +764,7 @@ namespace HVACDXHeatPumpSystem {
         int I;                    // interation increment
         Real64 SpeedRatio;        // speed ratio between two neighboring speeds
 
+<<<<<<< HEAD
         auto &DXHeatPumpSystem = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXSystemNum);
 
         // Set local variables
@@ -593,6 +775,18 @@ namespace HVACDXHeatPumpSystem {
         DesOutTemp = DXHeatPumpSystem.DesiredOutletTemp;
         CompName = DXHeatPumpSystem.HeatPumpCoilName;
         fanOp = DXHeatPumpSystem.fanOp;
+=======
+        auto &dxhpSystem = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXSystemNum);
+
+        // Set local variables
+        // Retrieve the load on the controlled zone
+        OutletNode = dxhpSystem.DXHeatPumpCoilOutletNodeNum;
+        InletNode = dxhpSystem.DXHeatPumpCoilInletNodeNum;
+        ControlNode = dxhpSystem.DXSystemControlNodeNum;
+        DesOutTemp = dxhpSystem.DesiredOutletTemp;
+        CompName = dxhpSystem.HeatPumpCoilName;
+        fanOp = dxhpSystem.fanOp;
+>>>>>>> nrel/develop
 
         PartLoadFrac = 0.0;
 
@@ -610,6 +804,7 @@ namespace HVACDXHeatPumpSystem {
         SpeedRatio = 0.0;
 
         // If there is a fault of coil SAT Sensor
+<<<<<<< HEAD
         if (DXHeatPumpSystem.FaultyCoilSATFlag && (!state.dataGlobal->WarmupFlag) && (!state.dataGlobal->DoingSizing) &&
             (!state.dataGlobal->KickOffSimulation)) {
             // calculate the sensor offset using fault information
@@ -621,6 +816,19 @@ namespace HVACDXHeatPumpSystem {
 
         // If DXHeatingSystem is scheduled on and there is flow
         if ((DXHeatPumpSystem.availSched->getCurrentVal() > 0.0) && (state.dataLoopNodes->Node(InletNode).MassFlowRate > MinAirMassFlow)) {
+=======
+        if (dxhpSystem.FaultyCoilSATFlag && (!state.dataGlobal->WarmupFlag) && (!state.dataGlobal->DoingSizing) &&
+            (!state.dataGlobal->KickOffSimulation)) {
+            // calculate the sensor offset using fault information
+            int FaultIndex = dxhpSystem.FaultyCoilSATIndex;
+            dxhpSystem.FaultyCoilSATOffset = state.dataFaultsMgr->FaultsCoilSATSensor(FaultIndex).CalFaultOffsetAct(state);
+            // update the DesOutTemp
+            DesOutTemp -= dxhpSystem.FaultyCoilSATOffset;
+        }
+
+        // If DXHeatingSystem is scheduled on and there is flow
+        if ((dxhpSystem.availSched->getCurrentVal() > 0.0) && (state.dataLoopNodes->Node(InletNode).MassFlowRate > MinAirMassFlow)) {
+>>>>>>> nrel/develop
 
             // Determine if there is a sensible load on this system
             if ((state.dataLoopNodes->Node(InletNode).Temp < state.dataLoopNodes->Node(ControlNode).TempSetPoint) &&
@@ -634,6 +842,7 @@ namespace HVACDXHeatPumpSystem {
                 {
                     Real64 TempOut1;
 
+<<<<<<< HEAD
                     switch (DXHeatPumpSystem.HeatPumpCoilType_Num) {
                     case HVAC::CoilDX_HeatingEmpirical: { // Coil:Heating:DX:SingleSpeed
 
@@ -641,14 +850,26 @@ namespace HVACDXHeatPumpSystem {
                         PartLoadFrac = 0.0;
                         SimDXCoil(
                             state, CompName, HVAC::CompressorOp::On, FirstHVACIteration, DXHeatPumpSystem.HeatPumpCoilIndex, fanOp, PartLoadFrac);
+=======
+                    switch (dxhpSystem.coilType) {
+                    case HVAC::CoilType::HeatingDXSingleSpeed: { // Coil:Heating:DX:SingleSpeed
+
+                        // Get no load result
+                        PartLoadFrac = 0.0;
+                        SimDXCoil(state, CompName, HVAC::CompressorOp::On, FirstHVACIteration, dxhpSystem.HeatPumpCoilIndex, fanOp, PartLoadFrac);
+>>>>>>> nrel/develop
                         NoOutput = state.dataLoopNodes->Node(InletNode).MassFlowRate *
                                    (PsyHFnTdbW(state.dataLoopNodes->Node(OutletNode).Temp, state.dataLoopNodes->Node(OutletNode).HumRat) -
                                     PsyHFnTdbW(state.dataLoopNodes->Node(InletNode).Temp, state.dataLoopNodes->Node(OutletNode).HumRat));
 
                         // Get full load result
                         PartLoadFrac = 1.0;
+<<<<<<< HEAD
                         SimDXCoil(
                             state, CompName, HVAC::CompressorOp::On, FirstHVACIteration, DXHeatPumpSystem.HeatPumpCoilIndex, fanOp, PartLoadFrac);
+=======
+                        SimDXCoil(state, CompName, HVAC::CompressorOp::On, FirstHVACIteration, dxhpSystem.HeatPumpCoilIndex, fanOp, PartLoadFrac);
+>>>>>>> nrel/develop
 
                         FullOutput = state.dataLoopNodes->Node(InletNode).MassFlowRate *
                                      (PsyHFnTdbW(state.dataLoopNodes->Node(OutletNode).Temp, state.dataLoopNodes->Node(InletNode).HumRat) -
@@ -670,7 +891,11 @@ namespace HVACDXHeatPumpSystem {
                             //           OutletTempDXCoil is the full capacity outlet temperature at PartLoadFrac = 1 from the CALL above. If this
                             //           temp is greater than the desired outlet temp, then run the compressor at PartLoadFrac = 1, otherwise find the
                             //           operating PLR.
+<<<<<<< HEAD
                             OutletTempDXCoil = state.dataDXCoils->DXCoilOutletTemp(DXHeatPumpSystem.HeatPumpCoilIndex);
+=======
+                            OutletTempDXCoil = state.dataDXCoils->DXCoilOutletTemp(dxhpSystem.HeatPumpCoilIndex);
+>>>>>>> nrel/develop
                             if (OutletTempDXCoil < DesOutTemp) {
                                 PartLoadFrac = 1.0;
                             } else {
@@ -681,11 +906,19 @@ namespace HVACDXHeatPumpSystem {
                                               CompName,
                                               HVAC::CompressorOp::On,
                                               FirstHVACIteration,
+<<<<<<< HEAD
                                               DXHeatPumpSystem.HeatPumpCoilIndex,
                                               fanOp,
                                               PartLoadFrac);
                                 } else {
                                     int coilIndex = DXHeatPumpSystem.HeatPumpCoilIndex;
+=======
+                                              dxhpSystem.HeatPumpCoilIndex,
+                                              fanOp,
+                                              PartLoadFrac);
+                                } else {
+                                    int coilIndex = dxhpSystem.HeatPumpCoilIndex;
+>>>>>>> nrel/develop
                                     auto f = [&state, coilIndex, DesOutTemp](Real64 const PartLoadFrac) {
                                         DXCoils::CalcDXHeatingCoil(state, coilIndex, PartLoadFrac, HVAC::FanOp::Continuous, 1.0);
                                         Real64 OutletAirTemp = state.dataDXCoils->DXCoilOutletTemp(coilIndex);
@@ -695,6 +928,7 @@ namespace HVACDXHeatPumpSystem {
                                     SolveRoot(state, Acc, MaxIte, SolFla, PartLoadFrac, f, 0.0, 1.0);
                                     if (SolFla == -1) {
                                         if (!state.dataGlobal->WarmupFlag) {
+<<<<<<< HEAD
                                             if (DXHeatPumpSystem.DXCoilSensPLRIter < 1) {
                                                 ++DXHeatPumpSystem.DXCoilSensPLRIter;
                                                 ShowWarningError(
@@ -706,16 +940,37 @@ namespace HVACDXHeatPumpSystem {
                                                 ShowContinueError(
                                                     state, EnergyPlus::format("Estimated part-load ratio  = {:.3R}", (ReqOutput / FullOutput)));
                                                 ShowContinueError(state, EnergyPlus::format("Calculated part-load ratio = {:.3R}", PartLoadFrac));
+=======
+                                            if (dxhpSystem.DXCoilSensPLRIter < 1) {
+                                                ++dxhpSystem.DXCoilSensPLRIter;
+                                                ShowWarningError(
+                                                    state,
+                                                    std::format(
+                                                        "{} - Iteration limit exceeded calculating DX unit sensible part-load ratio for unit = {}",
+                                                        dxhpSystem.DXHeatPumpSystemType,
+                                                        dxhpSystem.Name));
+                                                ShowContinueError(state,
+                                                                  std::format("Estimated part-load ratio  = {:.3f}", (ReqOutput / FullOutput)));
+                                                ShowContinueError(state, std::format("Calculated part-load ratio = {:.3f}", PartLoadFrac));
+>>>>>>> nrel/develop
                                                 ShowContinueErrorTimeStamp(
                                                     state,
                                                     "The calculated part-load ratio will be used and the simulation continues. Occurrence info:");
                                             } else {
                                                 ShowRecurringWarningErrorAtEnd(state,
+<<<<<<< HEAD
                                                                                DXHeatPumpSystem.DXHeatPumpSystemType + " \"" + DXHeatPumpSystem.Name +
                                                                                    "\" - Iteration limit exceeded calculating sensible part-load "
                                                                                    "ratio error continues. Sensible "
                                                                                    "PLR statistics follow.",
                                                                                DXHeatPumpSystem.DXCoilSensPLRIterIndex,
+=======
+                                                                               dxhpSystem.DXHeatPumpSystemType + " \"" + dxhpSystem.Name +
+                                                                                   "\" - Iteration limit exceeded calculating sensible part-load "
+                                                                                   "ratio error continues. Sensible "
+                                                                                   "PLR statistics follow.",
+                                                                               dxhpSystem.DXCoilSensPLRIterIndex,
+>>>>>>> nrel/develop
                                                                                PartLoadFrac,
                                                                                PartLoadFrac);
                                             }
@@ -723,6 +978,7 @@ namespace HVACDXHeatPumpSystem {
                                     } else if (SolFla == -2) {
                                         PartLoadFrac = ReqOutput / FullOutput;
                                         if (!state.dataGlobal->WarmupFlag) {
+<<<<<<< HEAD
                                             if (DXHeatPumpSystem.DXCoilSensPLRFail < 1) {
                                                 ++DXHeatPumpSystem.DXCoilSensPLRFail;
                                                 ShowWarningError(
@@ -732,16 +988,34 @@ namespace HVACDXHeatPumpSystem {
                                                                        DXHeatPumpSystem.DXHeatPumpSystemType,
                                                                        DXHeatPumpSystem.Name));
                                                 ShowContinueError(state, EnergyPlus::format("Estimated part-load ratio = {:.3R}", PartLoadFrac));
+=======
+                                            if (dxhpSystem.DXCoilSensPLRFail < 1) {
+                                                ++dxhpSystem.DXCoilSensPLRFail;
+                                                ShowWarningError(
+                                                    state,
+                                                    std::format("{} - DX unit sensible part-load ratio calculation failed: part-load ratio "
+                                                                "limits exceeded, for unit = {}",
+                                                                dxhpSystem.DXHeatPumpSystemType,
+                                                                dxhpSystem.Name));
+                                                ShowContinueError(state, std::format("Estimated part-load ratio = {:.3f}", PartLoadFrac));
+>>>>>>> nrel/develop
                                                 ShowContinueErrorTimeStamp(
                                                     state,
                                                     "The estimated part-load ratio will be used and the simulation continues. Occurrence info:");
                                             } else {
                                                 ShowRecurringWarningErrorAtEnd(
                                                     state,
+<<<<<<< HEAD
                                                     DXHeatPumpSystem.DXHeatPumpSystemType + " \"" + DXHeatPumpSystem.Name +
                                                         "\" - DX unit sensible part-load ratio calculation failed error continues. Sensible PLR "
                                                         "statistics follow.",
                                                     DXHeatPumpSystem.DXCoilSensPLRFailIndex,
+=======
+                                                    dxhpSystem.DXHeatPumpSystemType + " \"" + dxhpSystem.Name +
+                                                        "\" - DX unit sensible part-load ratio calculation failed error continues. Sensible PLR "
+                                                        "statistics follow.",
+                                                    dxhpSystem.DXCoilSensPLRFailIndex,
+>>>>>>> nrel/develop
                                                     PartLoadFrac,
                                                     PartLoadFrac);
                                             }
@@ -757,7 +1031,11 @@ namespace HVACDXHeatPumpSystem {
                             PartLoadFrac = 0.0;
                         }
                     } break;
+<<<<<<< HEAD
                     case HVAC::Coil_HeatingAirToAirVariableSpeed: {
+=======
+                    case HVAC::CoilType::HeatingDXVariableSpeed: {
+>>>>>>> nrel/develop
                         // variable-speed air-to-air heating coil, begin -------------------------
                         // Get no load result
                         PartLoadFrac = 0.0;
@@ -769,7 +1047,11 @@ namespace HVACDXHeatPumpSystem {
 
                         SimVariableSpeedCoils(state,
                                               CompName,
+<<<<<<< HEAD
                                               DXHeatPumpSystem.HeatPumpCoilIndex,
+=======
+                                              dxhpSystem.HeatPumpCoilIndex,
+>>>>>>> nrel/develop
                                               fanOp,
                                               HVAC::CompressorOp::On,
                                               PartLoadFrac,
@@ -779,7 +1061,11 @@ namespace HVACDXHeatPumpSystem {
                                               QLatReq,
                                               OnOffAirFlowRatio);
 
+<<<<<<< HEAD
                         VSCoilIndex = DXHeatPumpSystem.HeatPumpCoilIndex;
+=======
+                        VSCoilIndex = dxhpSystem.HeatPumpCoilIndex;
+>>>>>>> nrel/develop
                         NumOfSpeeds = state.dataVariableSpeedCoils->VarSpeedCoil(VSCoilIndex).NumOfSpeeds;
 
                         NoOutput = state.dataLoopNodes->Node(InletNode).MassFlowRate *
@@ -900,6 +1186,7 @@ namespace HVACDXHeatPumpSystem {
 
                                         if (SolFla == -1) {
                                             if (!state.dataGlobal->WarmupFlag) {
+<<<<<<< HEAD
                                                 if (DXHeatPumpSystem.DXCoilSensPLRIter < 1) {
                                                     ++DXHeatPumpSystem.DXCoilSensPLRIter;
                                                     ShowWarningError(
@@ -911,16 +1198,36 @@ namespace HVACDXHeatPumpSystem {
                                                     ShowContinueError(
                                                         state, EnergyPlus::format("Estimated part-load ratio  = {:.3R}", (ReqOutput / FullOutput)));
                                                     ShowContinueError(state, EnergyPlus::format("Calculated part-load ratio = {:.3R}", PartLoadFrac));
+=======
+                                                if (dxhpSystem.DXCoilSensPLRIter < 1) {
+                                                    ++dxhpSystem.DXCoilSensPLRIter;
+                                                    ShowWarningError(
+                                                        state,
+                                                        std::format("{} - Iteration limit exceeded calculating DX unit sensible part-load "
+                                                                    "ratio for unit = {}",
+                                                                    dxhpSystem.DXHeatPumpSystemType,
+                                                                    dxhpSystem.Name));
+                                                    ShowContinueError(state,
+                                                                      std::format("Estimated part-load ratio  = {:.3f}", (ReqOutput / FullOutput)));
+                                                    ShowContinueError(state, std::format("Calculated part-load ratio = {:.3f}", PartLoadFrac));
+>>>>>>> nrel/develop
                                                     ShowContinueErrorTimeStamp(
                                                         state,
                                                         "The calculated part-load ratio will be used and the simulation continues. Occurrence info:");
                                                 } else {
                                                     ShowRecurringWarningErrorAtEnd(
                                                         state,
+<<<<<<< HEAD
                                                         DXHeatPumpSystem.DXHeatPumpSystemType + " \"" + DXHeatPumpSystem.Name +
                                                             "\" - Iteration limit exceeded calculating sensible part-load ratio error continues. "
                                                             "Sensible PLR statistics follow.",
                                                         DXHeatPumpSystem.DXCoilSensPLRIterIndex,
+=======
+                                                        dxhpSystem.DXHeatPumpSystemType + " \"" + dxhpSystem.Name +
+                                                            "\" - Iteration limit exceeded calculating sensible part-load ratio error continues. "
+                                                            "Sensible PLR statistics follow.",
+                                                        dxhpSystem.DXCoilSensPLRIterIndex,
+>>>>>>> nrel/develop
                                                         PartLoadFrac,
                                                         PartLoadFrac);
                                                 }
@@ -928,6 +1235,7 @@ namespace HVACDXHeatPumpSystem {
                                         } else if (SolFla == -2) {
                                             PartLoadFrac = ReqOutput / FullOutput;
                                             if (!state.dataGlobal->WarmupFlag) {
+<<<<<<< HEAD
                                                 if (DXHeatPumpSystem.DXCoilSensPLRFail < 1) {
                                                     ++DXHeatPumpSystem.DXCoilSensPLRFail;
                                                     ShowWarningError(
@@ -937,16 +1245,34 @@ namespace HVACDXHeatPumpSystem {
                                                                            DXHeatPumpSystem.DXHeatPumpSystemType,
                                                                            DXHeatPumpSystem.Name));
                                                     ShowContinueError(state, EnergyPlus::format("Estimated part-load ratio = {:.3R}", PartLoadFrac));
+=======
+                                                if (dxhpSystem.DXCoilSensPLRFail < 1) {
+                                                    ++dxhpSystem.DXCoilSensPLRFail;
+                                                    ShowWarningError(
+                                                        state,
+                                                        std::format("{} - DX unit sensible part-load ratio calculation failed: part-load "
+                                                                    "ratio limits exceeded, for unit = {}",
+                                                                    dxhpSystem.DXHeatPumpSystemType,
+                                                                    dxhpSystem.Name));
+                                                    ShowContinueError(state, std::format("Estimated part-load ratio = {:.3f}", PartLoadFrac));
+>>>>>>> nrel/develop
                                                     ShowContinueErrorTimeStamp(
                                                         state,
                                                         "The estimated part-load ratio will be used and the simulation continues. Occurrence info:");
                                                 } else {
                                                     ShowRecurringWarningErrorAtEnd(
                                                         state,
+<<<<<<< HEAD
                                                         DXHeatPumpSystem.DXHeatPumpSystemType + " \"" + DXHeatPumpSystem.Name +
                                                             "\" - DX unit sensible part-load ratio calculation failed error continues. Sensible PLR "
                                                             "statistics follow.",
                                                         DXHeatPumpSystem.DXCoilSensPLRFailIndex,
+=======
+                                                        dxhpSystem.DXHeatPumpSystemType + " \"" + dxhpSystem.Name +
+                                                            "\" - DX unit sensible part-load ratio calculation failed error continues. Sensible PLR "
+                                                            "statistics follow.",
+                                                        dxhpSystem.DXCoilSensPLRFailIndex,
+>>>>>>> nrel/develop
                                                         PartLoadFrac,
                                                         PartLoadFrac);
                                                 }
@@ -976,6 +1302,7 @@ namespace HVACDXHeatPumpSystem {
                                         General::SolveRoot(state, Acc, MaxIte, SolFla, PartLoadFrac, f, 1.0e-10, 1.0);
                                         if (SolFla == -1) {
                                             if (!state.dataGlobal->WarmupFlag) {
+<<<<<<< HEAD
                                                 if (DXHeatPumpSystem.DXCoilSensPLRIter < 1) {
                                                     ++DXHeatPumpSystem.DXCoilSensPLRIter;
                                                     ShowWarningError(
@@ -987,16 +1314,36 @@ namespace HVACDXHeatPumpSystem {
                                                     ShowContinueError(
                                                         state, EnergyPlus::format("Estimated part-load ratio  = {:.3R}", (ReqOutput / FullOutput)));
                                                     ShowContinueError(state, EnergyPlus::format("Calculated part-load ratio = {:.3R}", PartLoadFrac));
+=======
+                                                if (dxhpSystem.DXCoilSensPLRIter < 1) {
+                                                    ++dxhpSystem.DXCoilSensPLRIter;
+                                                    ShowWarningError(
+                                                        state,
+                                                        std::format("{} - Iteration limit exceeded calculating DX unit sensible part-load "
+                                                                    "ratio for unit = {}",
+                                                                    dxhpSystem.DXHeatPumpSystemType,
+                                                                    dxhpSystem.Name));
+                                                    ShowContinueError(state,
+                                                                      std::format("Estimated part-load ratio  = {:.3f}", (ReqOutput / FullOutput)));
+                                                    ShowContinueError(state, std::format("Calculated part-load ratio = {:.3f}", PartLoadFrac));
+>>>>>>> nrel/develop
                                                     ShowContinueErrorTimeStamp(
                                                         state,
                                                         "The calculated part-load ratio will be used and the simulation continues. Occurrence info:");
                                                 } else {
                                                     ShowRecurringWarningErrorAtEnd(
                                                         state,
+<<<<<<< HEAD
                                                         DXHeatPumpSystem.DXHeatPumpSystemType + " \"" + DXHeatPumpSystem.Name +
                                                             "\" - Iteration limit exceeded calculating sensible part-load ratio error continues. "
                                                             "Sensible PLR statistics follow.",
                                                         DXHeatPumpSystem.DXCoilSensPLRIterIndex,
+=======
+                                                        dxhpSystem.DXHeatPumpSystemType + " \"" + dxhpSystem.Name +
+                                                            "\" - Iteration limit exceeded calculating sensible part-load ratio error continues. "
+                                                            "Sensible PLR statistics follow.",
+                                                        dxhpSystem.DXCoilSensPLRIterIndex,
+>>>>>>> nrel/develop
                                                         PartLoadFrac,
                                                         PartLoadFrac);
                                                 }
@@ -1004,6 +1351,7 @@ namespace HVACDXHeatPumpSystem {
                                         } else if (SolFla == -2) {
                                             PartLoadFrac = ReqOutput / FullOutput;
                                             if (!state.dataGlobal->WarmupFlag) {
+<<<<<<< HEAD
                                                 if (DXHeatPumpSystem.DXCoilSensPLRFail < 1) {
                                                     ++DXHeatPumpSystem.DXCoilSensPLRFail;
                                                     ShowWarningError(
@@ -1013,16 +1361,34 @@ namespace HVACDXHeatPumpSystem {
                                                                            DXHeatPumpSystem.DXHeatPumpSystemType,
                                                                            DXHeatPumpSystem.Name));
                                                     ShowContinueError(state, EnergyPlus::format("Estimated part-load ratio = {:.3R}", PartLoadFrac));
+=======
+                                                if (dxhpSystem.DXCoilSensPLRFail < 1) {
+                                                    ++dxhpSystem.DXCoilSensPLRFail;
+                                                    ShowWarningError(
+                                                        state,
+                                                        std::format("{} - DX unit sensible part-load ratio calculation failed: part-load "
+                                                                    "ratio limits exceeded, for unit = {}",
+                                                                    dxhpSystem.DXHeatPumpSystemType,
+                                                                    dxhpSystem.Name));
+                                                    ShowContinueError(state, std::format("Estimated part-load ratio = {:.3f}", PartLoadFrac));
+>>>>>>> nrel/develop
                                                     ShowContinueErrorTimeStamp(
                                                         state,
                                                         "The estimated part-load ratio will be used and the simulation continues. Occurrence info:");
                                                 } else {
                                                     ShowRecurringWarningErrorAtEnd(
                                                         state,
+<<<<<<< HEAD
                                                         DXHeatPumpSystem.DXHeatPumpSystemType + " \"" + DXHeatPumpSystem.Name +
                                                             "\" - DX unit sensible part-load ratio calculation failed error continues. Sensible PLR "
                                                             "statistics follow.",
                                                         DXHeatPumpSystem.DXCoilSensPLRFailIndex,
+=======
+                                                        dxhpSystem.DXHeatPumpSystemType + " \"" + dxhpSystem.Name +
+                                                            "\" - DX unit sensible part-load ratio calculation failed error continues. Sensible PLR "
+                                                            "statistics follow.",
+                                                        dxhpSystem.DXCoilSensPLRFailIndex,
+>>>>>>> nrel/develop
                                                         PartLoadFrac,
                                                         PartLoadFrac);
                                                 }
@@ -1040,9 +1406,15 @@ namespace HVACDXHeatPumpSystem {
                         }
                     } break;
                     default: {
+<<<<<<< HEAD
                         ShowFatalError(
                             state,
                             EnergyPlus::format("ControlDXHeatingSystem: Invalid DXHeatPumpSystem coil type = {}", DXHeatPumpSystem.HeatPumpCoilType));
+=======
+                        ShowFatalError(state,
+                                       std::format("ControlDXHeatingSystem: Invalid DXHeatPumpSystem coil type = {}",
+                                                   HVAC::coilTypeNames[(int)dxhpSystem.coilType]));
+>>>>>>> nrel/develop
                     } break;
                     }
                 }
@@ -1050,9 +1422,15 @@ namespace HVACDXHeatPumpSystem {
         } // End of If DXheatingSystem is scheduled on and there is flow
 
         // Set the final results
+<<<<<<< HEAD
         DXHeatPumpSystem.PartLoadFrac = PartLoadFrac;
         DXHeatPumpSystem.SpeedRatio = SpeedRatio;
         DXHeatPumpSystem.SpeedNum = SpeedNum;
+=======
+        dxhpSystem.PartLoadFrac = PartLoadFrac;
+        dxhpSystem.SpeedRatio = SpeedRatio;
+        dxhpSystem.SpeedNum = SpeedNum;
+>>>>>>> nrel/develop
     }
 
     //******************************************************************************
@@ -1140,7 +1518,12 @@ namespace HVACDXHeatPumpSystem {
         if (state.dataHVACDXHeatPumpSys->NumDXHeatPumpSystems > 0) {
             int DXHeatSysNum = Util::FindItemInList(DXHeatCoilSysName, state.dataHVACDXHeatPumpSys->DXHeatPumpSystem);
             if (DXHeatSysNum > 0 && DXHeatSysNum <= state.dataHVACDXHeatPumpSys->NumDXHeatPumpSystems) {
+<<<<<<< HEAD
                 NodeNum = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXHeatSysNum).DXHeatPumpCoilInletNodeNum;
+=======
+                auto const &dxhpSystem = state.dataHVACDXHeatPumpSys->DXHeatPumpSystem(DXHeatSysNum);
+                NodeNum = dxhpSystem.DXHeatPumpCoilInletNodeNum;
+>>>>>>> nrel/develop
             }
         }
         if (NodeNum == 0) {

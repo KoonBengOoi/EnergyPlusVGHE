@@ -43,7 +43,11 @@ void printError(const char *msg);
 
 void printfError(const char *str1, const char *str2);
 
+<<<<<<< HEAD
 void setDebug();
+=======
+void setDebug(void);
+>>>>>>> nrel/develop
 
 int unpack(const char *fmuFilNam, const char *tmpPat);
 

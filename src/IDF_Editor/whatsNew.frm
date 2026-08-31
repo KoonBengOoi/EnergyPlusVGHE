@@ -90,6 +90,13 @@ End Sub
 Private Sub Form_Load()
 Dim t As String
 t = ""
+<<<<<<< HEAD
+=======
+t = t & "New Features of IDF Editor Version 1.56" & vbCrLf
+t = t & "-------------------------------------------------------------------------------" & vbCrLf
+t = t & "Added VIEW .. FONT SIZE to change the size of the text on the main window. " & vbCrLf & vbCrLf
+
+>>>>>>> nrel/develop
 t = t & "New Features of IDF Editor Version 1.50" & vbCrLf
 t = t & "-------------------------------------------------------------------------------" & vbCrLf
 t = t & "New 'Duplicate Object and Change' menu item under Edit and 'Dup Obj + Chg' toolbar item. This will duplicate the currently selected object and for " _

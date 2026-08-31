@@ -55,7 +55,10 @@
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
 #include <EnergyPlus/DataGlobals.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/DataIPShortCuts.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/DataReportingFlags.hh>
 #include <EnergyPlus/General.hh>
 #include <EnergyPlus/GroundTemperatureModeling/FiniteDifferenceGroundTemperatureModel.hh>
@@ -81,16 +84,20 @@ namespace GroundTemp {
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         bool found = false;
+<<<<<<< HEAD
         int NumNums;
         int NumAlphas;
         int IOStat;
 
+=======
+>>>>>>> nrel/develop
         // New shared pointer for this model object
         auto *thisModel = new FiniteDiffGroundTempsModel();
 
         GroundTemp::ModelType modelType = GroundTemp::ModelType::FiniteDiff;
 
         // Search through finite diff models here
+<<<<<<< HEAD
         std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNamesUC[(int)modelType];
         const int numCurrModels = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, cCurrentModuleObject);
 
@@ -116,6 +123,36 @@ namespace GroundTemp {
                 thisModel->waterContent = state.dataIPShortCut->rNumericArgs(4) / 100.0;
                 thisModel->saturatedWaterContent = state.dataIPShortCut->rNumericArgs(5) / 100.0;
                 thisModel->evapotransCoeff = state.dataIPShortCut->rNumericArgs(6);
+=======
+        std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNames[(int)modelType];
+        std::string const currentModuleObject(cCurrentModuleObject);
+        auto *inputProcessor = state.dataInputProcessing->inputProcessor.get();
+        auto const modelInstances = inputProcessor->epJSON.find(currentModuleObject);
+        if (modelInstances == inputProcessor->epJSON.end()) {
+            ShowFatalError(state, std::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+        }
+        auto const &modelSchemaProps = inputProcessor->getObjectSchemaProps(state, currentModuleObject);
+
+        for (auto const &modelInstance : modelInstances.value().items()) {
+            auto const modelName = Util::makeUPPER(modelInstance.key());
+            auto const &modelFields = modelInstance.value();
+
+            if (objectName == modelName) {
+                // Read input into object here
+                inputProcessor->markObjectAsUsed(currentModuleObject, modelInstance.key());
+
+                thisModel->modelType = modelType;
+                thisModel->Name = modelName;
+                thisModel->baseConductivity = inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_thermal_conductivity");
+                thisModel->baseDensity = inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_density");
+                thisModel->baseSpecificHeat = inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_specific_heat");
+                thisModel->waterContent =
+                    inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_moisture_content_volume_fraction") / 100.0;
+                thisModel->saturatedWaterContent =
+                    inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_moisture_content_volume_fraction_at_saturation") / 100.0;
+                thisModel->evapotransCoeff =
+                    inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "evapotranspiration_ground_cover_parameter");
+>>>>>>> nrel/develop
 
                 found = true;
                 break;
@@ -132,7 +169,11 @@ namespace GroundTemp {
             return thisModel;
         }
 
+<<<<<<< HEAD
         ShowFatalError(state, fmt::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+=======
+        ShowFatalError(state, std::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+>>>>>>> nrel/develop
         return nullptr;
     }
 
@@ -782,11 +823,19 @@ namespace GroundTemp {
         for (int cell = 1; cell <= totalNumCells; ++cell) {
             auto &thisCell = cellArray(cell);
 
+<<<<<<< HEAD
             Real64 depth = (thisCell.maxZValue + thisCell.minZValue) / 2.0;
 
             // Initialize temperatures
             if (tempModel) {
                 thisCell.temperature = tempModel->getGroundTempAtTimeInSeconds(state, depth, 0.0); // Initialized at first day of year
+=======
+            Real64 cellDepth = (thisCell.maxZValue + thisCell.minZValue) / 2.0;
+
+            // Initialize temperatures
+            if (tempModel) {
+                thisCell.temperature = tempModel->getGroundTempAtTimeInSeconds(state, cellDepth, 0.0); // Initialized at first day of year
+>>>>>>> nrel/develop
             }
             thisCell.temperature_finalConvergence = thisCell.temperature;
             thisCell.temperature_prevIteration = thisCell.temperature;

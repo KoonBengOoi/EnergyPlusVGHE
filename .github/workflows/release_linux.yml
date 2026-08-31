@@ -35,7 +35,11 @@ jobs:
       contents: write
 
     steps:
+<<<<<<< HEAD
     - uses: actions/checkout@v6
+=======
+    - uses: actions/checkout@v7
+>>>>>>> nrel/develop
 
     - name: Set up Python ${{ env.Python_REQUIRED_VERSION }}
       id: setup-python
@@ -140,12 +144,20 @@ jobs:
             test_key: ubuntu2404-arm64
 
     steps:
+<<<<<<< HEAD
       - uses: actions/checkout@v6  # Still need E+ checked out to get testing scripts
+=======
+      - uses: actions/checkout@v7  # Still need E+ checked out to get testing scripts
+>>>>>>> nrel/develop
         with:
           path: checkout
 
       - name: Set up Python ${{ env.Python_REQUIRED_VERSION }}
+<<<<<<< HEAD
         uses: actions/setup-python@v6
+=======
+        uses: actions/setup-python@v7
+>>>>>>> nrel/develop
         id: setup-python
         with:
           python-version: ${{ env.Python_REQUIRED_VERSION }}

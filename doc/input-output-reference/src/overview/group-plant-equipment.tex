@@ -4343,6 +4343,11 @@ Outputs available from the boiler:
     HVAC,Average,Boiler Part Load Ratio
     \item
     HVAC,Average,Boiler Efficiency
+<<<<<<< HEAD
+=======
+    \item
+    HVAC,Average,Boiler Coefficient of Performance {[}W/W{]}
+>>>>>>> nrel/develop
 \end{itemize}
 
 ~ One of the following blocks will be applicable based on fuel type:
@@ -4497,6 +4502,15 @@ This output is the thermal efficiency for the boiler during heating operation. I
 
 \emph{Note that this variable is reported as zero when the boiler is not operating. When reported for frequencies longer than ``detailed'' (such as timestep, hourly, daily, monthly or environment), this output will only be meaningful when the boiler is operating for the entire reporting period. To determine an efficiency for a longer time period, compute the efficiency based on boiler heating rate divided by boiler gas rate over the desired period.}
 
+<<<<<<< HEAD
+=======
+\paragraph{Boiler Coefficient of Performance {[]}}\label{boiler-coefficient-of-performance}
+
+This output is the operating coefficient of performance for the boiler during heating operation. At each timestep, it is calculated by dividing Boiler Heating Rate by the sum of Boiler \textless{}Fuel Type\textgreater{} Rate, Boiler Ancillary Electricity Rate, and, for non-electric boilers, Boiler Ancillary \textless{}Fuel Type\textgreater{} Rate.
+
+\emph{This variable is zero when the boiler is not producing heat. At reporting frequencies longer than ``detailed,'' EnergyPlus reports the time-weighted average of the timestep COP values, including zero values while the boiler is off. This value is not the COP for the reporting period. Calculate the reporting-period COP by dividing summed Boiler Heating Energy by the sum of Boiler \textless{}Fuel Type\textgreater{} Energy, Boiler Ancillary Electricity Energy, and, for non-electric boilers, Boiler Ancillary \textless{}Fuel Type\textgreater{} Energy over the same period.}
+
+>>>>>>> nrel/develop
 \paragraph{Boiler \textless{}Fuel Type\textgreater{} Rate {[}W{]}}\label{boiler-fuel-type-rate-w}
 
 \paragraph{Boiler \textless{}Fuel Type\textgreater{} Energy {[}J{]} \textbackslash{}}\label{boiler-fuel-type-energy-j}
@@ -4632,6 +4646,11 @@ Outputs available from the steam boiler:
     \item
     HVAC,Average,Boiler Steam Efficiency
     \item
+<<<<<<< HEAD
+=======
+    HVAC,Average,Boiler Steam Coefficient of Performance {[}W/W{]}
+    \item
+>>>>>>> nrel/develop
     Zone,Meter,Boilers:EnergyTransfer {[}J{]}
     \item
     HVAC,Average,Boiler Steam Inlet Temperature {[}C{]}
@@ -4745,6 +4764,15 @@ This output is the thermal efficiency for the boiler during heating operation. I
 
 \emph{Note that this variable is reported as zero when the boiler is not operating. When reported for frequencies longer than ``detailed'' (such as timestep, hourly, daily, monthly or environment), this output will only be meaningful when the boiler is operating for the entire reporting period. To determine an efficiency for a longer time period, compute the efficiency based on boiler heating rate divided by boiler \textless{}Fuel Type\textgreater{} rate over the desired period.}
 
+<<<<<<< HEAD
+=======
+\paragraph{Boiler Steam Coefficient of Performance {[]}}\label{boiler-steam-coefficient-of-performance}
+
+This output is the operating coefficient of performance for the steam boiler during heating operation. At each timestep, it is calculated by dividing Boiler Heating Rate by Boiler \textless{}Fuel Type\textgreater{} Rate.
+
+\emph{This variable is zero when the steam boiler is not producing heat. At reporting frequencies longer than ``detailed,'' EnergyPlus reports the time-weighted average of the timestep COP values, including zero values while the boiler is off. This value is not the COP for the reporting period. Calculate the reporting-period COP by dividing summed Boiler Heating Energy by summed Boiler \textless{}Fuel Type\textgreater{} Energy over the same period.}
+
+>>>>>>> nrel/develop
 \paragraph{Boiler Steam Inlet Temperature {[}C{]}}\label{boiler-steam-inlet-temperature-c}
 
 \paragraph{Boiler Steam Outlet Temperature {[}C{]}}\label{boiler-steam-outlet-temperature-c}
@@ -7233,10 +7261,13 @@ Users are required to define three different nodes such as chilled water, hot wa
 
 This alpha field contains the identifying name of the central heat pump system.
 
+<<<<<<< HEAD
 \paragraph{Field: Control Method}\label{field-control-method}
 
 This field must contain a keyword defines how the central heat pump system controls the interaction between the chiller-heater modules and the water loops to meet the cooling and heating demands. Currently, the only available option is SmartMixing.
 
+=======
+>>>>>>> nrel/develop
 \paragraph{Field: Cooling Loop Inlet Node Name}\label{field-cooling-loop-inlet-node-name}
 
 This alpha field contains the identifying name of the chilled water inlet node.
@@ -7294,7 +7325,10 @@ An example of this statement in an IDF is:
 \begin{lstlisting}
 CentralHeatPumpSystem,
   ChillerBank,                !- Name
+<<<<<<< HEAD
   SmartMixing,                !- Control Method
+=======
+>>>>>>> nrel/develop
   Chiller Inlet Node,         !- Cooling Loop Inlet Node Name
   Chiller Outlet Node,        !- Cooling Loop Outlet Node Name
   Condenser Inlet Node,       !- Source Loop Inlet Node Name
@@ -7496,10 +7530,13 @@ This numeric field contains the design hot water flow rate in m\(^{3}\)/s. The m
 
 This numeric field contains the fraction of efficiency of the compressor electrical energy consumption that must be rejected by the condenser. This value must be between 0.0 and 1.0, and the default value is 1.0.
 
+<<<<<<< HEAD
 \subsubsection{Field: Condenser Type}\label{field-condenser-type-7}
 
 This alpha field contains the type of condenser.  The two valid options include AirCooled and WaterCooled. If WaterCooled is selected, the full specification of the condenser loop and its associated equipment is required. The default value is WaterCooled.
 
+=======
+>>>>>>> nrel/develop
 \subsubsection{Field: Cooling Mode Temperature Curve Condenser Water Independent Variable}\label{field-cooling-mode-temperature-curve-condenser-water-independent-variable}
 
 This alpha field determines whether the entering or leaving condenser water temperature is used in the cooling mode unloading performance curves that follow. Valid variables include EnteringCondenser and LeavingCondenser, and the default variable is EnteringCondenser. The condenser temperature used for the cooling mode unloading performance curves will be dependent on this field input. For example, leaving condenser water temperature will be used when the LeavingCondenser is chosen, otherwise entering condenser water temperature.
@@ -7565,7 +7602,10 @@ ChillerHeaterPerformance:Electric:EIR,
   0.0005525,                  !- Design Condenser Water Flow Rate {m$^{3}$/s}
   0.0003525,                  !- Design Hot Water Flow Rate {m$^{3}$/s}
   1,                          !- Compressor Motor Efficiency
+<<<<<<< HEAD
   WaterCooled,                !- Condenser Type
+=======
+>>>>>>> nrel/develop
   EnteringCondenser,          !- Cooling Mode Temperature Curve Condenser Water Independent Variable
   ChillerHeaterClgCapFT,      !- Cooling Mode Cooling Capacity Function of Temperature Curve Name
   ChillerHeaterClgEIRFT,      !- Cooling Mode Electric Input to Cooling Output Ratio Function of

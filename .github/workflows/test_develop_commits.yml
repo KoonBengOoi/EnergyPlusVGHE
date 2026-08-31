@@ -2,7 +2,11 @@ name: Develop Branch Testing
 
 on:
   push:
+<<<<<<< HEAD
     branches: [ develop, fixPythonEngineBuild ]  # run this on all commits to the develop branch
+=======
+    branches: [ develop ]  # run this on all commits to the develop branch
+>>>>>>> nrel/develop
 
 defaults:
   run:
@@ -29,14 +33,27 @@ jobs:
 #          nproc: 3
 #          pretty: "Standard Build on Mac x64"
 #          alternate: false
+<<<<<<< HEAD
         - os: macos-14
           macos_dev_target: 13.0
+=======
+#          build-type: release
+#          run-tests: true
+        - os: macos-14
+          macos_dev_target: 14.0
+>>>>>>> nrel/develop
           arch: arm64
           python-arch: arm64
           generator: "Unix Makefiles"
           nproc: 3
           pretty: "Standard Build on Mac arm64"
           alternate: false
+<<<<<<< HEAD
+=======
+          build-type: release
+          run-tests: true
+          link-with-python: true
+>>>>>>> nrel/develop
 #        - os: ubuntu-24.04
 #          arch: x86_64
 #          python-arch: x64
@@ -44,6 +61,7 @@ jobs:
 #          nproc: 4
 #          pretty: "Standard Build on Ubuntu 24.04"
 #          alternate: false
+<<<<<<< HEAD
 #        - os: windows-2022
 #          arch: x86_64
 #          python-arch: x64
@@ -51,6 +69,31 @@ jobs:
 #          nproc: 4
 #          pretty: "Standard Build on Windows VS 2022"
 #          alternate: false
+=======
+#          build-type: release
+#          run-tests: true
+#          link-with-python: true
+        - os: windows-2022
+          arch: x86_64
+          python-arch: x64
+          generator: "Visual Studio 17 2022"
+          nproc: 4
+          pretty: "Standard Build on Windows VS 2022 - Debug"
+          alternate: false
+          build-type: debug
+          run-tests: false
+          link-with-python: true
+        - os: windows-2022
+          arch: x86_64
+          python-arch: x64
+          generator: "Visual Studio 17 2022"
+          nproc: 4
+          pretty: "Standard Build on Windows VS 2022 - Debug, No Python"
+          alternate: false
+          build-type: debug
+          run-tests: false
+          link-with-python: false
+>>>>>>> nrel/develop
         - os: ubuntu-24.04
           arch: x86_64
           python-arch: x64
@@ -58,21 +101,34 @@ jobs:
           nproc: 4
           pretty: "Alternate Build on Ubuntu 24.04"
           alternate: true
+<<<<<<< HEAD
+=======
+          build-type: release
+          run-tests: false
+          link-with-python: false
+>>>>>>> nrel/develop
 
     steps:
 
     - name: Set up Python ${{ env.Python_REQUIRED_VERSION }}
       id: setup-python
+<<<<<<< HEAD
       uses: actions/setup-python@v6
+=======
+      uses: actions/setup-python@v7
+>>>>>>> nrel/develop
       with:
         python-version: ${{ env.Python_REQUIRED_VERSION }}
 
     - name: Install Dependencies for Mac
       if: ${{ runner.os == 'macOS' }}
       run: |
+<<<<<<< HEAD
         brew update
         brew install gcc@13
         echo "FC=$(brew --prefix gcc@13)/bin/gfortran-13" >> $GITHUB_ENV
+=======
+>>>>>>> nrel/develop
         echo MACOSX_DEPLOYMENT_TARGET=${{ matrix.macos_dev_target }} >> $GITHUB_ENV
 
     - name: Install Dependencies for Linux
@@ -85,7 +141,11 @@ jobs:
           echo "FC=gfortran-13" >> $GITHUB_ENV
         fi
 
+<<<<<<< HEAD
     - uses: actions/checkout@v6
+=======
+    - uses: actions/checkout@v7
+>>>>>>> nrel/develop
 
     - name: Create Build Directory
       run: cmake -E make_directory ./build/
@@ -96,10 +156,17 @@ jobs:
       run: >
         cmake
         -G "${{ matrix.generator }}"
+<<<<<<< HEAD
         -DCMAKE_BUILD_TYPE:STRING=Release
         -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=${{ matrix.macos_dev_target }}
         -DLINK_WITH_PYTHON:BOOL=ON
         -DPYTHON_CLI:BOOL=ON
+=======
+        -DCMAKE_BUILD_TYPE:STRING="${{ matrix.build-type }}"
+        -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=${{ matrix.macos_dev_target }}
+        -DLINK_WITH_PYTHON:BOOL=${{ matrix.link-with-python }}
+        -DPYTHON_CLI:BOOL=${{ matrix.link-with-python }}
+>>>>>>> nrel/develop
         -DPython_REQUIRED_VERSION:STRING=${{ steps.setup-python.outputs.python-version }}
         -DPython_ROOT_DIR:PATH=$RUNNER_TOOL_CACHE/Python/${{ steps.setup-python.outputs.python-version }}/${{ matrix.python-arch }}/
         -DBUILD_TESTING:BOOL=ON
@@ -114,14 +181,24 @@ jobs:
       working-directory: ./build/
       run: >
         cmake
+<<<<<<< HEAD
         -DCMAKE_BUILD_TYPE=Release
         -DLINK_WITH_PYTHON=OFF
+=======
+        -DCMAKE_BUILD_TYPE="${{ matrix.build-type }}"
+        -DLINK_WITH_PYTHON=${{ matrix.link-with-python }}
+>>>>>>> nrel/develop
         -DUSE_PSYCHROMETRICS_CACHING=OFF
         -DUSE_GLYCOL_CACHING=OFF
         -DOPENGL_REQUIRED=OFF
         -DUSE_PSYCH_STATS=ON
         -DUSE_PSYCH_ERRORS=OFF
         -DENABLE_PCH=OFF
+<<<<<<< HEAD
+=======
+        -DBUILD_TESTING:BOOL=ON
+        -DBUILD_FORTRAN:BOOL=ON
+>>>>>>> nrel/develop
         ../
 
     - name: Build
@@ -129,6 +206,7 @@ jobs:
       working-directory: ./build
       run: |
         echo "::add-matcher::./.github/workflows/cpp-problem-matcher.json"
+<<<<<<< HEAD
         cmake --build . -j ${{ matrix.nproc }} --config Release
         echo "::remove-matcher owner=gcc-problem-matcher::"
 
@@ -137,3 +215,32 @@ jobs:
       if: matrix.alternate == false
       working-directory: ./build
       run: ctest -C Release -j ${{ matrix.nproc }}
+=======
+        cmake --build . -j ${{ matrix.nproc }} --config "${{ matrix.build-type }}"
+        echo "::remove-matcher owner=gcc-problem-matcher::"
+
+    - name: Test
+      if: matrix.run-tests == true
+      working-directory: ./build
+      run: |
+        begin_group() { echo -e "::group::\033[93m$1\033[0m"; }
+
+        Color_Off='\033[0m'       # Text Reset
+
+        # Regular Colors
+        Red='\033[0;31m'
+        Green='\033[0;32m'
+
+        begin_group "Running CTests"
+        if ctest -C "${{ matrix.build-type }}" -j ${{ matrix.nproc }}; then
+          echo "::endgroup::"
+          echo -e "✅ ${Green}All tests passed${Color_Off}"
+        else
+          echo "::endgroup::"
+          echo -e "❌ ${Red}Some Tests Failed${Color_Off}"
+          begin_group "Re-running failed tests verbosely..."
+          ctest -C "${{ matrix.build-type }}" --rerun-failed -VV || true
+          echo "::endgroup::"
+          exit 1
+        fi;
+>>>>>>> nrel/develop

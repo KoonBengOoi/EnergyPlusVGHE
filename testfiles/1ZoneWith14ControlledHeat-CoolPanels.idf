@@ -394,7 +394,11 @@
     290,                     !- Density {kg/m3}
     590;                     !- Specific Heat {J/kg-K}
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 

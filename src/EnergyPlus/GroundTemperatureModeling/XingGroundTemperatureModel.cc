@@ -48,10 +48,16 @@
 // C++ Headers
 #include <memory>
 
+<<<<<<< HEAD
 // EnergyPlus headers
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataGlobalConstants.hh>
 #include <EnergyPlus/DataIPShortCuts.hh>
+=======
+// EnergyPlus Headers
+#include <EnergyPlus/Data/EnergyPlusData.hh>
+#include <EnergyPlus/DataGlobalConstants.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/GroundTemperatureModeling/XingGroundTemperatureModel.hh>
 #include <EnergyPlus/InputProcessing/InputProcessor.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
@@ -73,21 +79,36 @@ namespace GroundTemp {
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         bool found = false;
+<<<<<<< HEAD
         int NumNums;
         int NumAlphas;
         int IOStat;
 
+=======
+>>>>>>> nrel/develop
         // New shared pointer for this model object
         auto *thisModel = new XingGroundTempsModel();
 
         ModelType modelType = ModelType::Xing;
 
+<<<<<<< HEAD
         std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNamesUC[(int)modelType];
         const int numCurrModels = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, cCurrentModuleObject);
+=======
+        std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNames[(int)modelType];
+        std::string const currentModuleObject(cCurrentModuleObject);
+        auto *inputProcessor = state.dataInputProcessing->inputProcessor.get();
+        auto const modelInstances = inputProcessor->epJSON.find(currentModuleObject);
+        if (modelInstances == inputProcessor->epJSON.end()) {
+            ShowFatalError(state, std::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+        }
+        auto const &modelSchemaProps = inputProcessor->getObjectSchemaProps(state, currentModuleObject);
+>>>>>>> nrel/develop
 
         thisModel->modelType = modelType;
         thisModel->Name = objectName;
 
+<<<<<<< HEAD
         for (int modelNum = 1; modelNum <= numCurrModels; ++modelNum) {
 
             state.dataInputProcessing->inputProcessor->getObjectItem(state,
@@ -109,6 +130,27 @@ namespace GroundTemp {
                 thisModel->surfTempAmplitude_2 = state.dataIPShortCut->rNumericArgs(6);
                 thisModel->phaseShift_1 = state.dataIPShortCut->rNumericArgs(7);
                 thisModel->phaseShift_2 = state.dataIPShortCut->rNumericArgs(8);
+=======
+        for (auto const &modelInstance : modelInstances.value().items()) {
+            auto const modelName = Util::makeUPPER(modelInstance.key());
+            auto const &modelFields = modelInstance.value();
+
+            if (thisModel->Name == modelName) {
+                // Read remaining input into object here
+                inputProcessor->markObjectAsUsed(currentModuleObject, modelInstance.key());
+                thisModel->Name = modelName;
+                thisModel->groundThermalDiffusivity = inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_thermal_conductivity") /
+                                                      (inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_density") *
+                                                       inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_specific_heat")) *
+                                                      Constant::rSecsInDay;
+                thisModel->aveGroundTemp = inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "average_soil_surface_temperature");
+                thisModel->surfTempAmplitude_1 =
+                    inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_surface_temperature_amplitude_1");
+                thisModel->surfTempAmplitude_2 =
+                    inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "soil_surface_temperature_amplitude_2");
+                thisModel->phaseShift_1 = inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "phase_shift_of_temperature_amplitude_1");
+                thisModel->phaseShift_2 = inputProcessor->getRealFieldValue(modelFields, modelSchemaProps, "phase_shift_of_temperature_amplitude_2");
+>>>>>>> nrel/develop
 
                 found = true;
                 break;
@@ -120,7 +162,11 @@ namespace GroundTemp {
             return thisModel;
         }
 
+<<<<<<< HEAD
         ShowFatalError(state, fmt::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+=======
+        ShowFatalError(state, std::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+>>>>>>> nrel/develop
         return nullptr;
     }
 

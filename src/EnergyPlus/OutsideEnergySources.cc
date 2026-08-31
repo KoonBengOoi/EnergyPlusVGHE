@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <iostream>
 #include <string>
 
@@ -100,10 +104,14 @@ PlantComponent *OutsideEnergySourceSpecs::factory(EnergyPlusData &state, DataPla
         }
     }
     // If we didn't find it, fatal
+<<<<<<< HEAD
     ShowFatalError(state,
                    EnergyPlus::format("OutsideEnergySourceSpecsFactory: Error getting inputs for source named: {}", objectName)); // LCOV_EXCL_LINE
     // Shut up the compiler
     return nullptr; // LCOV_EXCL_LINE
+=======
+    ShowFatalError(state, std::format("OutsideEnergySourceSpecsFactory: Error getting inputs for source named: {}", objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
 }
 
 void OutsideEnergySourceSpecs::simulate(EnergyPlusData &state,
@@ -293,8 +301,13 @@ void GetOutsideEnergySourcesInput(EnergyPlusData &state)
 
     if (ErrorsFound) {
         ShowFatalError(state,
+<<<<<<< HEAD
                        EnergyPlus::format("Errors found in processing input for {}, Preceding condition caused termination.",
                                           state.dataIPShortCut->cCurrentModuleObject));
+=======
+                       std::format("Errors found in processing input for {}, Preceding condition caused termination.",
+                                   state.dataIPShortCut->cCurrentModuleObject));
+>>>>>>> nrel/develop
     }
 }
 
@@ -365,6 +378,7 @@ void OutsideEnergySourceSpecs::size(EnergyPlusData &state)
         Real64 NomCapDes;
         if (this->EnergyType == DataPlant::PlantEquipmentType::PurchChilledWater ||
             this->EnergyType == DataPlant::PlantEquipmentType::PurchHotWater) {
+<<<<<<< HEAD
             Real64 const rho = loop.glycol->getDensity(state, Constant::InitConvTemp, EnergyPlus::format("Size {}", typeName));
             Real64 const Cp = loop.glycol->getSpecificHeat(state, Constant::InitConvTemp, EnergyPlus::format("Size {}", typeName));
             NomCapDes = Cp * rho * state.dataSize->PlantSizData(PltSizNum).DeltaT * state.dataSize->PlantSizData(PltSizNum).DesVolFlowRate;
@@ -373,6 +387,16 @@ void OutsideEnergySourceSpecs::size(EnergyPlusData &state)
             Real64 const rhoSteam = loop.steam->getSatDensity(state, tempSteam, 1.0, EnergyPlus::format("Size {}", typeName));
             Real64 const EnthSteamDry = loop.steam->getSatEnthalpy(state, tempSteam, 1.0, EnergyPlus::format("Size {}", typeName));
             Real64 const EnthSteamWet = loop.steam->getSatEnthalpy(state, tempSteam, 0.0, EnergyPlus::format("Size {}", typeName));
+=======
+            Real64 const rho = loop.glycol->getDensity(state, Constant::InitConvTemp, std::format("Size {}", typeName));
+            Real64 const Cp = loop.glycol->getSpecificHeat(state, Constant::InitConvTemp, std::format("Size {}", typeName));
+            NomCapDes = Cp * rho * state.dataSize->PlantSizData(PltSizNum).DeltaT * state.dataSize->PlantSizData(PltSizNum).DesVolFlowRate;
+        } else { // this->EnergyType == DataPlant::TypeOf_PurchSteam
+            Real64 const tempSteam = loop.steam->getSatTemperature(state, state.dataEnvrn->StdBaroPress, std::format("Size {}", typeName));
+            Real64 const rhoSteam = loop.steam->getSatDensity(state, tempSteam, 1.0, std::format("Size {}", typeName));
+            Real64 const EnthSteamDry = loop.steam->getSatEnthalpy(state, tempSteam, 1.0, std::format("Size {}", typeName));
+            Real64 const EnthSteamWet = loop.steam->getSatEnthalpy(state, tempSteam, 0.0, std::format("Size {}", typeName));
+>>>>>>> nrel/develop
             Real64 const LatentHeatSteam = EnthSteamDry - EnthSteamWet;
             NomCapDes = rhoSteam * state.dataSize->PlantSizData(PltSizNum).DesVolFlowRate * LatentHeatSteam;
         }
@@ -398,9 +422,15 @@ void OutsideEnergySourceSpecs::size(EnergyPlusData &state)
                                                      NomCapUser);
                         if (state.dataGlobal->DisplayExtraWarnings) {
                             if ((std::abs(NomCapDes - NomCapUser) / NomCapUser) > state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                 ShowMessage(state, EnergyPlus::format("Size {}: Potential issue with equipment sizing for {}", typeName, this->Name));
                                 ShowContinueError(state, EnergyPlus::format("User-Specified Nominal Capacity of {:.2R} [W]", NomCapUser));
                                 ShowContinueError(state, EnergyPlus::format("differs from Design Size Nominal Capacity of {:.2R} [W]", NomCapDes));
+=======
+                                ShowMessage(state, std::format("Size {}: Potential issue with equipment sizing for {}", typeName, this->Name));
+                                ShowContinueError(state, std::format("User-Specified Nominal Capacity of {:.2f} [W]", NomCapUser));
+                                ShowContinueError(state, std::format("differs from Design Size Nominal Capacity of {:.2f} [W]", NomCapDes));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                 ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                             }
@@ -411,8 +441,13 @@ void OutsideEnergySourceSpecs::size(EnergyPlusData &state)
         }
     } else {
         if (this->NomCapWasAutoSized && state.dataPlnt->PlantFirstSizesOkayToFinalize) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Autosizing of {} nominal capacity requires a loop Sizing:Plant object", typeName));
             ShowContinueError(state, EnergyPlus::format("Occurs in {} object={}", typeName, this->Name));
+=======
+            ShowSevereError(state, std::format("Autosizing of {} nominal capacity requires a loop Sizing:Plant object", typeName));
+            ShowContinueError(state, std::format("Occurs in {} object={}", typeName, this->Name));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
         if (!this->NomCapWasAutoSized && this->NomCap > 0.0 && state.dataPlnt->PlantFinalSizesOkayToReport) {
@@ -545,7 +580,11 @@ void OutsideEnergySourceSpecs::oneTimeInit_new(EnergyPlusData &state)
         meterTypeKey = Constant::eResource::DistrictHeatingSteam;
     }
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}Energy", reportVarPrefix),
+=======
+                        std::format("{}Energy", reportVarPrefix),
+>>>>>>> nrel/develop
                         Constant::Units::J,
                         this->EnergyTransfer,
                         OutputProcessor::TimeStepType::System,
@@ -555,28 +594,44 @@ void OutsideEnergySourceSpecs::oneTimeInit_new(EnergyPlusData &state)
                         OutputProcessor::Group::Plant,
                         heatingOrCooling);
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}Rate", reportVarPrefix),
+=======
+                        std::format("{}Rate", reportVarPrefix),
+>>>>>>> nrel/develop
                         Constant::Units::W,
                         this->EnergyRate,
                         OutputProcessor::TimeStepType::System,
                         OutputProcessor::StoreType::Average,
                         this->Name);
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}Inlet Temperature", reportVarPrefix),
+=======
+                        std::format("{}Inlet Temperature", reportVarPrefix),
+>>>>>>> nrel/develop
                         Constant::Units::C,
                         this->InletTemp,
                         OutputProcessor::TimeStepType::System,
                         OutputProcessor::StoreType::Average,
                         this->Name);
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}Outlet Temperature", reportVarPrefix),
+=======
+                        std::format("{}Outlet Temperature", reportVarPrefix),
+>>>>>>> nrel/develop
                         Constant::Units::C,
                         this->OutletTemp,
                         OutputProcessor::TimeStepType::System,
                         OutputProcessor::StoreType::Average,
                         this->Name);
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}Mass Flow Rate", reportVarPrefix),
+=======
+                        std::format("{}Mass Flow Rate", reportVarPrefix),
+>>>>>>> nrel/develop
                         Constant::Units::kg_s,
                         this->MassFlowRate,
                         OutputProcessor::TimeStepType::System,

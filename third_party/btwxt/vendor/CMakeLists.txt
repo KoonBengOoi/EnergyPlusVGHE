@@ -1,6 +1,7 @@
 include(initialize-submodules)
 initialize_submodules()
 
+<<<<<<< HEAD
 if (NOT TARGET fmt)
     add_subdirectory(fmt)
     set(FMT_INSTALL OFF CACHE BOOL "" FORCE)
@@ -8,6 +9,8 @@ if (NOT TARGET fmt)
             FMT_LIB_DIR FMT_MODULE FMT_OS FMT_PEDANTIC FMT_PKGCONFIG_DIR FMT_SYSTEM_HEADERS FMT_TEST FMT_WERROR)
 endif ()
 
+=======
+>>>>>>> nrel/develop
 # googletest library
 if (${PROJECT_NAME}_BUILD_TESTING AND NOT TARGET gtest)
 

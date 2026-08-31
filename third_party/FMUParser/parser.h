@@ -50,8 +50,13 @@ FILE *fmuFil = NULL; /// FMU file name
 #define true 1
 #define false 0
 
+<<<<<<< HEAD
 typedef const char *(*fGetModelTypesPlatform)();
 typedef const char *(*fGetVersion)();
+=======
+typedef const char *(*fGetModelTypesPlatform)(void);
+typedef const char *(*fGetVersion)(void);
+>>>>>>> nrel/develop
 typedef fmiComponent (*fInstantiateModel)(fmiString instanceName, fmiString GUID, fmiCallbackFunctions functions, fmiBoolean loggingOn);
 typedef void (*fFreeModelInstance)(fmiComponent c);
 typedef fmiStatus (*fSetDebugLogging)(fmiComponent c, fmiBoolean loggingOn);
@@ -117,4 +122,8 @@ typedef struct
 
 int callparser(const char *fmuFilNam, const char *tmpPat);
 
+<<<<<<< HEAD
 void help();
+=======
+void help(void);
+>>>>>>> nrel/develop

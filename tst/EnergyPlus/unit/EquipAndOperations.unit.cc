@@ -79,7 +79,11 @@ public:
     {
     }
 
+<<<<<<< HEAD
     virtual void SetUp()
+=======
+    void SetUp() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::SetUp(); // Sets up individual test cases.
 
@@ -170,7 +174,11 @@ public:
             }
         }
     }
+<<<<<<< HEAD
     virtual void TearDown()
+=======
+    void TearDown() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::TearDown(); // Remember to tear down the base fixture after cleaning up derived fixture!
     }

@@ -47,15 +47,27 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <numeric>
 #include <string>
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include <AirflowNetwork/Elements.hpp>
 #include <AirflowNetwork/Solver.hpp>
+=======
+// Local Headers
+#include <AirflowNetwork/Elements.hpp>
+#include <AirflowNetwork/Solver.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Construction.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataDefineEquip.hh>
@@ -77,6 +89,10 @@
 #include <EnergyPlus/DuctLoss.hh>
 #include <EnergyPlus/FaultsManager.hh>
 #include <EnergyPlus/FileSystem.hh>
+<<<<<<< HEAD
+=======
+#include <EnergyPlus/Formatters.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/General.hh>
 #include <EnergyPlus/GeneralRoutines.hh>
 #include <EnergyPlus/GlobalNames.hh>
@@ -370,7 +386,11 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
     }
 
     if (ErrorsFound) {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("GetZoneAirSetpoints: Errors with invalid names in {} objects.", s_ipsc->cCurrentModuleObject));
+=======
+        ShowSevereError(state, std::format("GetZoneAirSetpoints: Errors with invalid names in {} objects.", s_ipsc->cCurrentModuleObject));
+>>>>>>> nrel/develop
         ShowContinueError(state, "...These will not be read in.  Other errors may occur.");
         state.dataZoneCtrls->NumTempControlledZones = 0;
     }
@@ -496,23 +516,39 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                         }
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}=\"{} invalid {}=[{:.0T}].",
                                                            s_ipsc->cCurrentModuleObject,
                                                            s_ipsc->cAlphaArgs(1),
                                                            s_ipsc->cNumericFieldNames(1),
                                                            s_ipsc->rNumericArgs(1)));
+=======
+                                        std::format("{}=\"{} invalid {}=[{:.0f}].",
+                                                    s_ipsc->cCurrentModuleObject,
+                                                    s_ipsc->cAlphaArgs(1),
+                                                    s_ipsc->cNumericFieldNames(1),
+                                                    s_ipsc->rNumericArgs(1)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "..Allowable values must be greater or equal to 0");
                         ErrorsFound = true;
                     }
                 }
 
                 if (tempZone.DeltaTCutSet > 0.0 && !tempZone.setpts[(int)HVAC::SetptType::SingleHeatCool].Name.empty()) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format("{}=\"{}: The choice of Temperature Difference Between Cutout And Setpoint will not be applied "
                                            "to ThermostatSetpoint:SingleHeatingOrCooling.",
                                            s_ipsc->cCurrentModuleObject,
                                            s_ipsc->cAlphaArgs(1)));
+=======
+                    ShowWarningError(state,
+                                     std::format("{}=\"{}: The choice of Temperature Difference Between Cutout And Setpoint will not be applied "
+                                                 "to ThermostatSetpoint:SingleHeatingOrCooling.",
+                                                 s_ipsc->cCurrentModuleObject,
+                                                 s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 }
             }
         } // NumTStatStatements
@@ -682,12 +718,20 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
 
             int setptIdx = Util::FindItem(setpt.Name, s_ztpc->tempSetptScheds[(int)setptType]);
             if (setptIdx <= 0) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state,
                     EnergyPlus::format("ZoneControl:Thermostat = {}, control name = {} was not found in ThermostatSetpoint object type = {}.",
                                        tempZone.Name,
                                        setpt.Name,
                                        setptTypeNames[(int)setptType]));
+=======
+                ShowSevereError(state,
+                                std::format("ZoneControl:Thermostat = {}, control name = {} was not found in ThermostatSetpoint object type = {}.",
+                                            tempZone.Name,
+                                            setpt.Name,
+                                            setptTypeNames[(int)setptType]));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "  In the input syntax for the ZoneControl:Thermostat, the user must enter valid pairs of control");
                 ShowContinueError(state, "  type and control name.  The ZoneControl:Thermostat control name shown above was either blank or");
                 ShowContinueError(state, "  was not found among the valid ThermostatSetpoint objects.  Either add a ThermostatSetpoint object");
@@ -723,7 +767,11 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
 
         if (SchedMin == (int)HVAC::SetptType::Uncontrolled && SchedMax == (int)HVAC::SetptType::Uncontrolled) {
             if (FindNumberInList(tempZone.setptTypeSched->Num, CTSchedMapToControlledZone, state.dataZoneCtrls->NumTempControlledZones) == 0) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
+=======
+                ShowSevereError(state, std::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "..specifies control type 0 for all entries.");
                 ShowContinueError(state, "All zones using this Control Type Schedule have no heating or cooling available.");
             }
@@ -736,6 +784,7 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
             if (!setpt.isUsed) {
                 // Catch early issues
                 if (tempZone.setptTypeSched->hasVal(state, (int)setptType)) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("..specifies {} ({}) as the control type. Not valid for this zone.",
@@ -743,6 +792,15 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                                                          setptTypeNames[(int)setptType]));
                     ShowContinueError(state, EnergyPlus::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
                     ShowContinueError(state, EnergyPlus::format("..reference ZONE={}", tempZone.ZoneName));
+=======
+                    ShowSevereError(state, std::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
+                    ShowContinueError(state,
+                                      std::format("..specifies {} ({}) as the control type. Not valid for this zone.",
+                                                  (int)setptType,
+                                                  setptTypeNames[(int)setptType]));
+                    ShowContinueError(state, std::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
+                    ShowContinueError(state, std::format("..reference ZONE={}", tempZone.ZoneName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 continue;
@@ -752,6 +810,7 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 (setptType == HVAC::SetptType::SingleHeat || setptType == HVAC::SetptType::SingleHeatCool ||
                  setptType == HVAC::SetptType::DualHeatCool) &&
                 tempZone.setptTypeSched->hasVal(state, (int)setptType)) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("..specifies {} ({}) as the control type. Not valid for this zone.",
@@ -759,6 +818,14 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                                                      setptTypeNames[(int)setptType]));
                 ShowContinueError(state, EnergyPlus::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
                 ShowContinueError(state, EnergyPlus::format("..reference ZONE={}", tempZone.ZoneName));
+=======
+                ShowSevereError(state, std::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
+                ShowContinueError(
+                    state,
+                    std::format("..specifies {} ({}) as the control type. Not valid for this zone.", (int)setptType, setptTypeNames[(int)setptType]));
+                ShowContinueError(state, std::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
+                ShowContinueError(state, std::format("..reference ZONE={}", tempZone.ZoneName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -766,6 +833,7 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 (setptType == HVAC::SetptType::SingleCool || setptType == HVAC::SetptType::SingleHeatCool ||
                  setptType == HVAC::SetptType::DualHeatCool) &&
                 tempZone.setptTypeSched->hasVal(state, (int)setptType)) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("..specifies {} ({}) as the control type. Not valid for this zone.",
@@ -773,6 +841,14 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                                                      setptTypeNames[(int)setptType]));
                 ShowContinueError(state, EnergyPlus::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
                 ShowContinueError(state, EnergyPlus::format("..reference ZONE={}", tempZone.ZoneName));
+=======
+                ShowSevereError(state, std::format("Control Type Schedule={}", tempZone.setptTypeSched->Name));
+                ShowContinueError(
+                    state,
+                    std::format("..specifies {} ({}) as the control type. Not valid for this zone.", (int)setptType, setptTypeNames[(int)setptType]));
+                ShowContinueError(state, std::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
+                ShowContinueError(state, std::format("..reference ZONE={}", tempZone.ZoneName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         } // for (setptType)
@@ -795,11 +871,19 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
             if (!TStatControlTypes(TempControlledZoneNum).MustHave[(int)setptType]) {
                 continue;
             }
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Schedule={}", tempZone.setptTypeSched->Name));
             ShowContinueError(
                 state, EnergyPlus::format("...should include control type {} ({}) but does not.", (int)setptType, setptTypeNames[(int)setptType]));
             ShowContinueError(state, EnergyPlus::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
             ShowContinueError(state, EnergyPlus::format("..reference ZONE={}", tempZone.ZoneName));
+=======
+            ShowWarningError(state, std::format("Schedule={}", tempZone.setptTypeSched->Name));
+            ShowContinueError(state,
+                              std::format("...should include control type {} ({}) but does not.", (int)setptType, setptTypeNames[(int)setptType]));
+            ShowContinueError(state, std::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), tempZone.Name));
+            ShowContinueError(state, std::format("..reference ZONE={}", tempZone.ZoneName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -844,11 +928,19 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
         humidControlledZone.ActualZoneNum = Util::FindItem(s_ipsc->cAlphaArgs(2), Zone);
         if (humidControlledZone.ActualZoneNum == 0) {
             ShowSevereError(state,
+<<<<<<< HEAD
                             EnergyPlus::format("{}=\"{} invalid {}=\"{}\" not found.",
                                                s_ipsc->cCurrentModuleObject,
                                                s_ipsc->cAlphaArgs(1),
                                                s_ipsc->cAlphaFieldNames(2),
                                                s_ipsc->cAlphaArgs(2)));
+=======
+                            std::format("{}=\"{} invalid {}=\"{}\" not found.",
+                                        s_ipsc->cCurrentModuleObject,
+                                        s_ipsc->cAlphaArgs(1),
+                                        s_ipsc->cAlphaFieldNames(2),
+                                        s_ipsc->cAlphaArgs(2)));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         } else {
             state.dataHeatBal->Zone(humidControlledZone.ActualZoneNum).humidityControlZoneIndex = HumidControlledZoneNum;
@@ -869,6 +961,13 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
             ErrorsFound = true;
         }
 
+<<<<<<< HEAD
+=======
+        // Control variable
+        humidControlledZone.humidityControlVariableType =
+            static_cast<DataZoneControls::HumidityCtrlVarType>(getEnumValue(DataZoneControls::humidityCtrlVarTypeNamesUC, s_ipsc->cAlphaArgs(5)));
+
+>>>>>>> nrel/develop
     } // HumidControlledZoneNum
 
     // Start to read Thermal comfort control objects
@@ -914,18 +1013,30 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
             ComfortTStatObjects(Item).ZoneOrZoneListPtr = ZLItem;
         } else {
             ShowSevereError(state,
+<<<<<<< HEAD
                             EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\" not found.",
                                                s_ipsc->cCurrentModuleObject,
                                                s_ipsc->cAlphaArgs(1),
                                                s_ipsc->cAlphaFieldNames(2),
                                                s_ipsc->cAlphaArgs(2)));
+=======
+                            std::format("{}=\"{}\" invalid {}=\"{}\" not found.",
+                                        s_ipsc->cCurrentModuleObject,
+                                        s_ipsc->cAlphaArgs(1),
+                                        s_ipsc->cAlphaFieldNames(2),
+                                        s_ipsc->cAlphaArgs(2)));
+>>>>>>> nrel/develop
             errFlag = true;
             ErrorsFound = true;
         }
     }
 
     if (errFlag) {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("GetZoneAirSetpoints: Errors with invalid names in {} objects.", s_ipsc->cCurrentModuleObject));
+=======
+        ShowSevereError(state, std::format("GetZoneAirSetpoints: Errors with invalid names in {} objects.", s_ipsc->cCurrentModuleObject));
+>>>>>>> nrel/develop
         ShowContinueError(state, "...These will not be read in.  Other errors may occur.");
         state.dataZoneCtrls->NumComfortControlledZones = 0;
     }
@@ -999,11 +1110,19 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 // Could not find a people object for this particular zone
                 if (IZoneCount == 0 && comfortZone.ActualZoneNum > 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{} no PEOPLE in {}=\"{}\" - cannot use Comfort Control.",
                                                        s_ipsc->cCurrentModuleObject,
                                                        s_ipsc->cAlphaArgs(1),
                                                        s_ipsc->cAlphaFieldNames(2),
                                                        s_ipsc->cAlphaArgs(2)));
+=======
+                                    std::format("{}=\"{} no PEOPLE in {}=\"{}\" - cannot use Comfort Control.",
+                                                s_ipsc->cCurrentModuleObject,
+                                                s_ipsc->cAlphaArgs(1),
+                                                s_ipsc->cAlphaFieldNames(2),
+                                                s_ipsc->cAlphaArgs(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -1041,42 +1160,71 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
 
                     // Check activity level
                     if (people.activityLevelSched == nullptr) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("GetPeople Activity Level: Activity level schedule is not found={}", people.Name));
+=======
+                        ShowSevereError(state, std::format("GetPeople Activity Level: Activity level schedule is not found={}", people.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Required when the zone has Thermal Comfort Controls.");
                         ErrorsFound = true;
                     } else if (!people.activityLevelSched->checkMinMaxVals(state, Clusive::In, 72.0, Clusive::In, 909.0)) {
                         ShowSevereError(state, "GetPeople Activity Level: Invalid activity level values entered for thermal comfort calculation");
+<<<<<<< HEAD
                         ShowContinueError(state, EnergyPlus::format("Outside of range values [72,909], Reference object={}", people.Name));
+=======
+                        ShowContinueError(state, std::format("Outside of range values [72,909], Reference object={}", people.Name));
+>>>>>>> nrel/develop
                     }
 
                     // Check Work Efficiency
                     if (people.workEffSched == nullptr) {
+<<<<<<< HEAD
                         ShowSevereError(state,
                                         EnergyPlus::format("GetPeople work efficiency: Work efficiency schedule is not found={}", people.Name));
+=======
+                        ShowSevereError(state, std::format("GetPeople work efficiency: Work efficiency schedule is not found={}", people.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Required when the zone has Thermal Comfort Controls.");
                         ErrorsFound = true;
                     } else if (!people.workEffSched->checkMinMaxVals(state, Clusive::In, 0.0, Clusive::In, 1.0)) {
                         ShowSevereError(state, "GetPeople work efficiency: Invalid work efficiency values entered for thermal comfort calculation");
+<<<<<<< HEAD
                         ShowContinueError(state, EnergyPlus::format("Outside of range values [0,1], Reference object={}", people.Name));
+=======
+                        ShowContinueError(state, std::format("Outside of range values [0,1], Reference object={}", people.Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
                     // Check Clothing Insulation
                     if (people.clothingSched == nullptr) {
+<<<<<<< HEAD
                         ShowSevereError(
                             state, EnergyPlus::format("GetPeople Clothing Insulation: Clothing Insulation schedule is not found={}", people.Name));
+=======
+                        ShowSevereError(state,
+                                        std::format("GetPeople Clothing Insulation: Clothing Insulation schedule is not found={}", people.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Required when the zone has Thermal Comfort Controls.");
                         ErrorsFound = true;
                     } else if (!people.clothingSched->checkMinMaxVals(state, Clusive::In, 0.0, Clusive::In, 2.0)) {
                         ShowSevereError(state,
                                         "GetPeople Clothing Insulation: Invalid Clothing Insulation values entered for thermal comfort calculation");
+<<<<<<< HEAD
                         ShowContinueError(state, EnergyPlus::format("Outside of range values [0.0,2.0], Reference object={}", people.Name));
+=======
+                        ShowContinueError(state, std::format("Outside of range values [0.0,2.0], Reference object={}", people.Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
                     // Check Air velocity
                     if (people.airVelocitySched == nullptr) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("GetPeople Air Velocity: Air velocity schedule is not found={}", people.Name));
+=======
+                        ShowSevereError(state, std::format("GetPeople Air Velocity: Air velocity schedule is not found={}", people.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Required when the zone has Thermal Comfort Controls.");
                         ErrorsFound = true;
                     }
@@ -1087,11 +1235,19 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                     comfortZone.TdbMinSetPoint = s_ipsc->rNumericArgs(1);
                     if (s_ipsc->rNumericArgs(1) > 50 || s_ipsc->rNumericArgs(1) < 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}=\"{} invalid {}=[{:.0T}].",
                                                            s_ipsc->cCurrentModuleObject,
                                                            s_ipsc->cAlphaArgs(1),
                                                            s_ipsc->cNumericFieldNames(1),
                                                            s_ipsc->rNumericArgs(1)));
+=======
+                                        std::format("{}=\"{} invalid {}=[{:.0f}].",
+                                                    s_ipsc->cCurrentModuleObject,
+                                                    s_ipsc->cAlphaArgs(1),
+                                                    s_ipsc->cNumericFieldNames(1),
+                                                    s_ipsc->rNumericArgs(1)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "..Allowable values must be between 0 C and 50 C");
                         ErrorsFound = true;
                     }
@@ -1100,26 +1256,45 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                     comfortZone.TdbMaxSetPoint = s_ipsc->rNumericArgs(2);
                     if (s_ipsc->rNumericArgs(2) > 50 || s_ipsc->rNumericArgs(2) < 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}=\"{} invalid {}=[{:.0T}].",
                                                            s_ipsc->cCurrentModuleObject,
                                                            s_ipsc->cAlphaArgs(1),
                                                            s_ipsc->cNumericFieldNames(2),
                                                            s_ipsc->rNumericArgs(2)));
+=======
+                                        std::format("{}=\"{} invalid {}=[{:.0f}].",
+                                                    s_ipsc->cCurrentModuleObject,
+                                                    s_ipsc->cAlphaArgs(1),
+                                                    s_ipsc->cNumericFieldNames(2),
+                                                    s_ipsc->rNumericArgs(2)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "..Allowable values must be between 0 C and 50 C");
                         ErrorsFound = true;
                     }
                 }
                 // Ensure MaxTemp >= MinTemp
                 if (comfortZone.TdbMinSetPoint > comfortZone.TdbMaxSetPoint) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}=\"{}", s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(state, EnergyPlus::format("..{} > {}", s_ipsc->cNumericFieldNames(1), s_ipsc->cNumericFieldNames(2)));
                     ShowContinueError(state, EnergyPlus::format("..[{:.0T}] > [{:.0T}].", s_ipsc->rNumericArgs(1), s_ipsc->rNumericArgs(2)));
+=======
+                    ShowSevereError(state, std::format("{}=\"{}", s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(state, std::format("..{} > {}", s_ipsc->cNumericFieldNames(1), s_ipsc->cNumericFieldNames(2)));
+                    ShowContinueError(state, std::format("..[{:.0f}] > [{:.0f}].", s_ipsc->rNumericArgs(1), s_ipsc->rNumericArgs(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 // If MaxTemp = MinTemp, no thermal comfort control
                 if (comfortZone.TdbMinSetPoint == comfortZone.TdbMaxSetPoint) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}=\"{}", s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(state, EnergyPlus::format("..{} = {}", s_ipsc->cNumericFieldNames(1), s_ipsc->cNumericFieldNames(2)));
+=======
+                    ShowSevereError(state, std::format("{}=\"{}", s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(state, std::format("..{} = {}", s_ipsc->cNumericFieldNames(1), s_ipsc->cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The zone will be controlled using this dry-bulb temperature setpoint.");
                 }
 
@@ -1370,7 +1545,11 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
 
         if (SchedMin == (int)HVAC::SetptType::Uncontrolled && SchedMax == (int)HVAC::SetptType::Uncontrolled) {
             if (FindNumberInList(comfortZone.setptTypeSched->Num, CCmSchedMapToControlledZone, state.dataZoneCtrls->NumComfortControlledZones) == 0) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("Control Type Schedule={}", comfortZone.setptTypeSched->Name));
+=======
+                ShowWarningError(state, std::format("Control Type Schedule={}", comfortZone.setptTypeSched->Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "..specifies control type 0 for all entries.");
                 ShowContinueError(state, "All zones using this Control Type Schedule have no thermal comfort control.");
             }
@@ -1389,6 +1568,7 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 (setptType == HVAC::SetptType::SingleHeat || setptType == HVAC::SetptType::SingleHeatCool ||
                  setptType == HVAC::SetptType::DualHeatCool) &&
                 comfortZone.setptTypeSched->hasVal(state, (int)setptType)) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Control Type Schedule={}", comfortZone.setptTypeSched->Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("..specifies {} ({}) as the control type. Not valid for this zone.",
@@ -1396,6 +1576,14 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                                                      setptTypeNames[(int)setptType]));
                 ShowContinueError(state, EnergyPlus::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), comfortZone.Name));
                 ShowContinueError(state, EnergyPlus::format("..reference ZONE={}", comfortZone.ZoneName));
+=======
+                ShowSevereError(state, std::format("Control Type Schedule={}", comfortZone.setptTypeSched->Name));
+                ShowContinueError(
+                    state,
+                    std::format("..specifies {} ({}) as the control type. Not valid for this zone.", (int)setptType, setptTypeNames[(int)setptType]));
+                ShowContinueError(state, std::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), comfortZone.Name));
+                ShowContinueError(state, std::format("..reference ZONE={}", comfortZone.ZoneName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1403,6 +1591,7 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 (setptType == HVAC::SetptType::SingleCool || setptType == HVAC::SetptType::SingleHeatCool ||
                  setptType == HVAC::SetptType::DualHeatCool) &&
                 comfortZone.setptTypeSched->hasVal(state, (int)setptType)) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Control Type Schedule={}", comfortZone.setptTypeSched->Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("..specifies {} ({}) as the control type. Not valid for this zone.",
@@ -1410,6 +1599,14 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                                                      setptTypeNames[(int)setptType]));
                 ShowContinueError(state, EnergyPlus::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), comfortZone.Name));
                 ShowContinueError(state, EnergyPlus::format("..reference ZONE={}", comfortZone.ZoneName));
+=======
+                ShowSevereError(state, std::format("Control Type Schedule={}", comfortZone.setptTypeSched->Name));
+                ShowContinueError(
+                    state,
+                    std::format("..specifies {} ({}) as the control type. Not valid for this zone.", (int)setptType, setptTypeNames[(int)setptType]));
+                ShowContinueError(state, std::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TStat), comfortZone.Name));
+                ShowContinueError(state, std::format("..reference ZONE={}", comfortZone.ZoneName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         } // for (setptType)
@@ -1433,12 +1630,20 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 continue;
             }
 
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Schedule={}", comfortZone.setptTypeSched->Name));
             ShowContinueError(
                 state,
                 EnergyPlus::format("...should include control type {} ({}) but does not.", (int)setptType, comfortSetptTypeNames[(int)setptType]));
             ShowContinueError(state, EnergyPlus::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TCTStat), comfortZone.Name));
             ShowContinueError(state, EnergyPlus::format("...reference ZONE={}", comfortZone.ZoneName));
+=======
+            ShowWarningError(state, std::format("Schedule={}", comfortZone.setptTypeSched->Name));
+            ShowContinueError(
+                state, std::format("...should include control type {} ({}) but does not.", (int)setptType, comfortSetptTypeNames[(int)setptType]));
+            ShowContinueError(state, std::format("..reference {}={}", cZControlTypes((int)ZoneControlTypes::TCTStat), comfortZone.Name));
+            ShowContinueError(state, std::format("...reference ZONE={}", comfortZone.ZoneName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -1519,11 +1724,19 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
 
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\" not found.",
                                                        s_ipsc->cCurrentModuleObject,
                                                        s_ipsc->cAlphaArgs(1),
                                                        s_ipsc->cAlphaFieldNames(2),
                                                        s_ipsc->cAlphaArgs(2)));
+=======
+                                    std::format("{}=\"{}\" invalid {}=\"{}\" not found.",
+                                                s_ipsc->cCurrentModuleObject,
+                                                s_ipsc->cAlphaArgs(1),
+                                                s_ipsc->cAlphaFieldNames(2),
+                                                s_ipsc->cAlphaArgs(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -1746,10 +1959,17 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 // throw error
             } else {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}={} invalid {} reference not found.",
                                                    s_ipsc->cCurrentModuleObject,
                                                    s_ipsc->cAlphaArgs(1),
                                                    cZControlTypes(static_cast<int>(ZoneControlTypes::TStat))));
+=======
+                                std::format("{}={} invalid {} reference not found.",
+                                            s_ipsc->cCurrentModuleObject,
+                                            s_ipsc->cAlphaArgs(1),
+                                            cZControlTypes(static_cast<int>(ZoneControlTypes::TStat))));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         } // loop over NumOpTempControlledZones
@@ -1784,10 +2004,17 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 found = Util::FindItem(s_ipsc->cAlphaArgs(1), state.dataZoneCtrls->TempControlledZone);
                 if (found == 0) { // throw error
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}={} invalid {} reference not found.",
                                                        s_ipsc->cCurrentModuleObject,
                                                        s_ipsc->cAlphaArgs(1),
                                                        cZControlTypes(static_cast<int>(ZoneControlTypes::TStat))));
+=======
+                                    std::format("{}={} invalid {} reference not found.",
+                                                s_ipsc->cCurrentModuleObject,
+                                                s_ipsc->cAlphaArgs(1),
+                                                cZControlTypes(static_cast<int>(ZoneControlTypes::TStat))));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     TempControlledZoneNum = found;
@@ -1959,17 +2186,29 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
             state.dataZoneCtrls->StagedTStatObjects(Item).ZoneOrZoneListPtr = ZLItem;
         } else {
             ShowSevereError(state,
+<<<<<<< HEAD
                             EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\" not found.",
                                                s_ipsc->cCurrentModuleObject,
                                                s_ipsc->cAlphaArgs(1),
                                                s_ipsc->cAlphaFieldNames(2),
                                                s_ipsc->cAlphaArgs(2)));
+=======
+                            std::format("{}=\"{}\" invalid {}=\"{}\" not found.",
+                                        s_ipsc->cCurrentModuleObject,
+                                        s_ipsc->cAlphaArgs(1),
+                                        s_ipsc->cAlphaFieldNames(2),
+                                        s_ipsc->cAlphaArgs(2)));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
     }
 
     if (ErrorsFound) {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("GetStagedDualSetpoint: Errors with invalid names in {} objects.", s_ipsc->cCurrentModuleObject));
+=======
+        ShowSevereError(state, std::format("GetStagedDualSetpoint: Errors with invalid names in {} objects.", s_ipsc->cCurrentModuleObject));
+>>>>>>> nrel/develop
         ShowContinueError(state, "...These will not be read in.  Other errors may occur.");
         s_ztpc->NumStageCtrZone = 0;
     }
@@ -2021,6 +2260,7 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                 } else {
                     stageZone.ZoneName = s_ipsc->cAlphaArgs(2); // for continuity
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\" zone previously assigned.",
                                                        s_ipsc->cCurrentModuleObject,
                                                        s_ipsc->cAlphaArgs(1),
@@ -2029,6 +2269,16 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                     ShowContinueError(state,
                                       EnergyPlus::format("...Zone was previously assigned to Setpt=\"{}\".",
                                                          state.dataZoneCtrls->StageControlledZone(ZoneAssigned).Name));
+=======
+                                    std::format("{}=\"{}\" invalid {}=\"{}\" zone previously assigned.",
+                                                s_ipsc->cCurrentModuleObject,
+                                                s_ipsc->cAlphaArgs(1),
+                                                s_ipsc->cAlphaFieldNames(2),
+                                                s_ipsc->cAlphaArgs(2)));
+                    ShowContinueError(
+                        state,
+                        std::format("...Zone was previously assigned to Setpt=\"{}\".", state.dataZoneCtrls->StageControlledZone(ZoneAssigned).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     continue;
                 }
@@ -2092,11 +2342,19 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                             if (s_ipsc->rNumericArgs(2 + i) >= s_ipsc->rNumericArgs(1 + i)) {
                                 ShowSevereCustom(state,
                                                  eoh,
+<<<<<<< HEAD
                                                  EnergyPlus::format("{} = {:.1R} must be less than than  {}={:.1R}",
                                                                     s_ipsc->cNumericFieldNames(2 + i),
                                                                     s_ipsc->rNumericArgs(2 + i),
                                                                     s_ipsc->cNumericFieldNames(1 + i),
                                                                     s_ipsc->rNumericArgs(1 + i)));
+=======
+                                                 std::format("{} = {:.1f} must be less than than  {}={:.1f}",
+                                                             s_ipsc->cNumericFieldNames(2 + i),
+                                                             s_ipsc->rNumericArgs(2 + i),
+                                                             s_ipsc->cNumericFieldNames(1 + i),
+                                                             s_ipsc->rNumericArgs(1 + i)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -2142,11 +2400,19 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
                         if (i > 1 && s_ipsc->rNumericArgs(8 + i) <= s_ipsc->rNumericArgs(7 + i)) {
                             ShowSevereCustom(state,
                                              eoh,
+<<<<<<< HEAD
                                              EnergyPlus::format("{} = {:.1R} must be greater than {} = {:.1R}",
                                                                 s_ipsc->cNumericFieldNames(8 + i),
                                                                 s_ipsc->rNumericArgs(8 + i),
                                                                 s_ipsc->cNumericFieldNames(7 + i),
                                                                 s_ipsc->rNumericArgs(7 + i)));
+=======
+                                             std::format("{} = {:.1f} must be greater than {} = {:.1f}",
+                                                         s_ipsc->cNumericFieldNames(8 + i),
+                                                         s_ipsc->rNumericArgs(8 + i),
+                                                         s_ipsc->cNumericFieldNames(7 + i),
+                                                         s_ipsc->rNumericArgs(7 + i)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -2159,8 +2425,12 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
             (s_ip->getNumObjectsFound(state, "SetpointManager:SingleZone:OneStageCooling") == 0) &&
             (s_ip->getNumObjectsFound(state, "SetpointManager:SingleZone:OneStageHeating") == 0)) {
             ShowWarningError(
+<<<<<<< HEAD
                 state,
                 EnergyPlus::format("{} is applicable to only selected HVAC objects which are missing from input.", s_ipsc->cCurrentModuleObject));
+=======
+                state, std::format("{} is applicable to only selected HVAC objects which are missing from input.", s_ipsc->cCurrentModuleObject));
+>>>>>>> nrel/develop
             ShowContinueError(state, "Model should include one or more of the following objects:  ");
             ShowContinueError(state, "AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed, AirLoopHVAC:UnitarySystem, ");
             ShowContinueError(
@@ -2168,6 +2438,55 @@ void GetZoneAirSetPoints(EnergyPlusData &state)
         }
     } // NumStageControlledZones > 0
 
+<<<<<<< HEAD
+=======
+    // Warn when a thermostat-controlled zone contains an ElectricEquipment:ITE:AirCooled object using FlowControlWithApproachTemperatures: in that
+    // case the zone cooling setpoint is bypassed in PredictSystemLoads (LoadToCoolingSetPoint is driven by Zone.AdjustedReturnTempByITE instead), so
+    // the zone air temperature will not track the thermostat
+    for (int TempCtrlZoneNum = 1; TempCtrlZoneNum <= state.dataZoneCtrls->NumTempControlledZones; ++TempCtrlZoneNum) {
+        auto const &tempZone = state.dataZoneCtrls->TempControlledZone(TempCtrlZoneNum);
+        if (tempZone.ActualZoneNum == 0) {
+            continue;
+        }
+        if (!state.dataHeatBal->Zone(tempZone.ActualZoneNum).HasAdjustedReturnTempByITE) {
+            continue;
+        }
+
+        // Only matters if the thermostat actually has a cooling setpoint
+        if (tempZone.setptTypeSched == nullptr) {
+            continue;
+        }
+        bool hasActiveCoolingControl =
+            (tempZone.setpts[(int)HVAC::SetptType::SingleCool].isUsed && tempZone.setptTypeSched->hasVal(state, (int)HVAC::SetptType::SingleCool)) ||
+            (tempZone.setpts[(int)HVAC::SetptType::SingleHeatCool].isUsed &&
+             tempZone.setptTypeSched->hasVal(state, (int)HVAC::SetptType::SingleHeatCool)) ||
+            (tempZone.setpts[(int)HVAC::SetptType::DualHeatCool].isUsed &&
+             tempZone.setptTypeSched->hasVal(state, (int)HVAC::SetptType::DualHeatCool));
+        if (!hasActiveCoolingControl) {
+            continue;
+        }
+
+        std::string iteqName;
+        for (int Loop = 1; Loop <= state.dataHeatBal->TotITEquip; ++Loop) {
+            auto const &thisITEq = state.dataHeatBal->ZoneITEq(Loop);
+            if (thisITEq.ZonePtr == tempZone.ActualZoneNum && thisITEq.FlowControlWithApproachTemps) {
+                iteqName = thisITEq.Name;
+                break;
+            }
+        }
+
+        ShowWarningError(state,
+                         std::format("GetZoneAirSetPoints: ZoneControl:Thermostat=\"{}\" controls Zone=\"{}\", which contains "
+                                     "ElectricEquipment:ITE:AirCooled=\"{}\" with Air Flow Calculation Method="
+                                     "FlowControlWithApproachTemperatures.",
+                                     tempZone.Name,
+                                     tempZone.ZoneName,
+                                     iteqName));
+        ShowContinueError(state, "...The zone cooling setpoint is ignored for this zone; the controlled variable is the supply air temperature.");
+        ShowContinueError(state, "...Zone air temperature may float well above the cooling setpoint and cooling unmet hours do not apply.");
+        ShowContinueError(state, "...Use Air Flow Calculation Method=FlowFromSystem if zone air temperature should follow the thermostat.");
+    }
+>>>>>>> nrel/develop
     if (ErrorsFound) {
         ShowFatalError(state, "Errors getting Zone Control input data.  Preceding condition(s) cause termination.");
     }
@@ -2269,8 +2588,13 @@ void CalculateMonthlyRunningAverageDryBulb(EnergyPlusData &state, Array1D<Real64
         }
     } else {
         ShowFatalError(state,
+<<<<<<< HEAD
                        EnergyPlus::format("CalcThermalComfortAdaptive: Could not open file {} for input (read). (File does not exist)",
                                           state.files.inputWeatherFilePath.filePath));
+=======
+                       std::format("CalcThermalComfortAdaptive: Could not open file {} for input (read). (File does not exist)",
+                                   state.files.inputWeatherFilePath.filePath));
+>>>>>>> nrel/develop
     }
 }
 
@@ -2288,7 +2612,11 @@ void CalculateAdaptiveComfortSetPointSchl(EnergyPlusData &state, Array1D<Real64>
     int constexpr summerDesignDayTypeIndex(9);
     Real64 GrossApproxAvgDryBulbDesignDay(0.0);
 
+<<<<<<< HEAD
     auto &s_ztpc = state.dataZoneTempPredictorCorrector;
+=======
+    const auto &s_ztpc = state.dataZoneTempPredictorCorrector;
+>>>>>>> nrel/develop
 
     for (size_t i = 1; i <= state.dataWeather->DesDayInput.size(); i++) {
         // Summer design day
@@ -2304,11 +2632,18 @@ void CalculateAdaptiveComfortSetPointSchl(EnergyPlusData &state, Array1D<Real64>
             if (GrossApproxAvgDryBulbDesignDay > 10 && GrossApproxAvgDryBulbDesignDay < 30) {
                 s_ztpc->AdapComfortSetPointSummerDesDay[3] = 0.33 * GrossApproxAvgDryBulbDesignDay + 18.8;
                 s_ztpc->AdapComfortSetPointSummerDesDay[4] = 0.33 * GrossApproxAvgDryBulbDesignDay + 20.8;
+<<<<<<< HEAD
                 ; // What is this?
                 s_ztpc->AdapComfortSetPointSummerDesDay[5] = 0.33 * GrossApproxAvgDryBulbDesignDay + 21.8;
                 ;
                 s_ztpc->AdapComfortSetPointSummerDesDay[6] = 0.33 * GrossApproxAvgDryBulbDesignDay + 22.8;
                 ;
+=======
+                // What is this?
+                s_ztpc->AdapComfortSetPointSummerDesDay[5] = 0.33 * GrossApproxAvgDryBulbDesignDay + 21.8;
+
+                s_ztpc->AdapComfortSetPointSummerDesDay[6] = 0.33 * GrossApproxAvgDryBulbDesignDay + 22.8;
+>>>>>>> nrel/develop
             }
         }
     }
@@ -2416,7 +2751,11 @@ void InitZoneAirSetPoints(EnergyPlusData &state)
             state.dataZoneEnergyDemand->spaceSysMoistureDemand.allocate(state.dataGlobal->numSpaces);
         }
 
+<<<<<<< HEAD
         int TRefFlag; // Flag for Reference Temperature process in Zones
+=======
+        int TRefFlag = 0; // Flag for Reference Temperature process in Zones
+>>>>>>> nrel/develop
         for (int zoneNum = 1; zoneNum <= NumOfZones; ++zoneNum) {
             bool FirstSurfFlag = true;
             for (int spaceNum : state.dataHeatBal->Zone(zoneNum).spaceIndexes) {
@@ -2430,8 +2769,13 @@ void InitZoneAirSetPoints(EnergyPlusData &state)
                     // (either mean air, bulk air, or supply air temp).
                     if (state.dataSurface->SurfTAirRef(SurfNum) != TRefFlag) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("Different reference air temperatures for difference surfaces encountered in zone {}",
                                                             state.dataHeatBal->Zone(zoneNum).Name));
+=======
+                                         std::format("Different reference air temperatures for difference surfaces encountered in zone {}",
+                                                     state.dataHeatBal->Zone(zoneNum).Name));
+>>>>>>> nrel/develop
                     }
                 }
             }
@@ -2682,10 +3026,16 @@ void InitZoneAirSetPoints(EnergyPlusData &state)
         auto &tempZone = state.dataZoneCtrls->TempControlledZone(Loop);
         if (state.dataZoneEquip->ZoneEquipInputsFilled && !s_ztpc->ControlledZonesChecked) {
             if (!VerifyControlledZoneForThermostat(state, tempZone.ZoneName)) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}Zone=\"{}\" has specified a Thermostatic control but is not a controlled zone.",
                                                    RoutineName,
                                                    tempZone.ZoneName));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}Zone=\"{}\" has specified a Thermostatic control but is not a controlled zone.", RoutineName, tempZone.ZoneName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "...must have a ZoneHVAC:EquipmentConnections specification for this zone.");
                 s_ztpc->ErrorsFound = true;
             }
@@ -2744,10 +3094,16 @@ void InitZoneAirSetPoints(EnergyPlusData &state)
         auto const &comfortZone = state.dataZoneCtrls->ComfortControlledZone(Loop);
         if (state.dataZoneEquip->ZoneEquipInputsFilled && !s_ztpc->ControlledZonesChecked) {
             if (!VerifyControlledZoneForThermostat(state, comfortZone.ZoneName)) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}Zone=\"{}\" has specified a Comfort control but is not a controlled zone.",
                                                    RoutineName,
                                                    comfortZone.ZoneName));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}Zone=\"{}\" has specified a Comfort control but is not a controlled zone.", RoutineName, comfortZone.ZoneName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "...must have a ZoneHVAC:EquipmentConnections specification for this zone.");
                 s_ztpc->ErrorsFound = true;
             }
@@ -2838,28 +3194,44 @@ void ZoneSpaceHeatBalanceData::beginEnvironmentInit(EnergyPlusData &state)
 void ZoneSpaceHeatBalanceData::setUpOutputVars(EnergyPlusData &state, std::string_view prefix, std::string const &name)
 {
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} Air Temperature", prefix),
+=======
+                        std::format("{} Air Temperature", prefix),
+>>>>>>> nrel/develop
                         Constant::Units::C,
                         this->ZT,
                         OutputProcessor::TimeStepType::System,
                         OutputProcessor::StoreType::Average,
                         name);
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} Air Humidity Ratio", prefix),
+=======
+                        std::format("{} Air Humidity Ratio", prefix),
+>>>>>>> nrel/develop
                         Constant::Units::None,
                         this->airHumRat,
                         OutputProcessor::TimeStepType::System,
                         OutputProcessor::StoreType::Average,
                         name);
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} Air Relative Humidity", prefix),
+=======
+                        std::format("{} Air Relative Humidity", prefix),
+>>>>>>> nrel/develop
                         Constant::Units::Perc,
                         this->airRelHum,
                         OutputProcessor::TimeStepType::System,
                         OutputProcessor::StoreType::Average,
                         name);
     SetupOutputVariable(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} Mean Radiant Temperature", prefix),
+=======
+                        std::format("{} Mean Radiant Temperature", prefix),
+>>>>>>> nrel/develop
                         Constant::Units::C,
                         this->MRT,
                         OutputProcessor::TimeStepType::Zone,
@@ -2930,9 +3302,14 @@ void PredictSystemLoads(EnergyPlusData &state,
                 if (thisStageControlZone.StageErrCount < 2) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "ZoneControl:Thermostat:StagedDualSetpoint: The heating setpoint is equal to or above the cooling setpoint in {}",
                             thisStageControlZone.Name));
+=======
+                        std::format("ZoneControl:Thermostat:StagedDualSetpoint: The heating setpoint is equal to or above the cooling setpoint in {}",
+                                    thisStageControlZone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The zone heating setpoint is set to the cooling setpoint - 0.1C.");
                     ShowContinueErrorTimeStamp(state, "Occurrence info:");
                 } else {
@@ -3097,9 +3474,15 @@ void PredictSystemLoads(EnergyPlusData &state,
                                         "DualSetPointWithDeadBand: When Temperature Difference Between Cutout And Setpoint is applied, the heating "
                                         "setpoint is greater than the cooling setpoint. ");
                         ShowContinueErrorTimeStamp(
+<<<<<<< HEAD
                             state, EnergyPlus::format("occurs in Zone={}", state.dataHeatBal->Zone(thisTempControlledZone.ActualZoneNum).Name));
                         ShowContinueError(state, EnergyPlus::format("Zone Heating ThermostatSetPoint={:.2R}", zoneTstatSetpt.setptLo));
                         ShowContinueError(state, EnergyPlus::format("Zone Cooling ThermostatSetPoint={:.2R}", zoneTstatSetpt.setptHi));
+=======
+                            state, std::format("occurs in Zone={}", state.dataHeatBal->Zone(thisTempControlledZone.ActualZoneNum).Name));
+                        ShowContinueError(state, std::format("Zone Heating ThermostatSetPoint={:.2f}", zoneTstatSetpt.setptLo));
+                        ShowContinueError(state, std::format("Zone Cooling ThermostatSetPoint={:.2f}", zoneTstatSetpt.setptHi));
+>>>>>>> nrel/develop
                         ShowFatalError(state, "Program terminates due to above conditions.");
                     }
                 } break;
@@ -3412,10 +3795,17 @@ void CalcZoneAirTempSetPoints(EnergyPlusData &state)
 
         default: {
             ShowSevereError(state,
+<<<<<<< HEAD
                             EnergyPlus::format("CalcZoneAirTempSetpoints: Illegal control type for Zone={}, Found value={}, in Schedule={}",
                                                Zone(ActualZoneNum).Name,
                                                TempControlType(ActualZoneNum),
                                                tempZone.setptTypeSched->Name));
+=======
+                            std::format("CalcZoneAirTempSetpoints: Illegal control type for Zone={}, Found value={}, in Schedule={}",
+                                        Zone(ActualZoneNum).Name,
+                                        setptTypeNames[(int)TempControlType(ActualZoneNum)],
+                                        tempZone.setptTypeSched->Name));
+>>>>>>> nrel/develop
 
         } break;
         } // switch
@@ -3491,8 +3881,29 @@ void ZoneSpaceHeatBalanceData::calcPredictedHumidityRatio(EnergyPlusData &state,
     if (thisZone.humidityControlZoneIndex > 0) {
         auto &humidityControlZone = state.dataZoneCtrls->HumidityControlZone(thisZone.humidityControlZoneIndex);
         assert(humidityControlZone.ActualZoneNum == zoneNum);
+<<<<<<< HEAD
         ZoneRHHumidifyingSetPoint = humidityControlZone.humidifyingSched->getCurrentVal();
         ZoneRHDehumidifyingSetPoint = humidityControlZone.dehumidifyingSched->getCurrentVal();
+=======
+        if (humidityControlZone.humidityControlVariableType == DataZoneControls::HumidityCtrlVarType::RelativeHumidity) {
+            ZoneRHHumidifyingSetPoint = humidityControlZone.humidifyingSched->getCurrentVal();
+            ZoneRHDehumidifyingSetPoint = humidityControlZone.dehumidifyingSched->getCurrentVal();
+        } else if (humidityControlZone.humidityControlVariableType ==
+                   DataZoneControls::HumidityCtrlVarType::DewPoint) { // Recalculate RH setpoint from DP
+            ZoneRHHumidifyingSetPoint =
+                100 * Psychrometrics::PsyRhFnTdbWPb(
+                          state,
+                          this->ZT,
+                          Psychrometrics::PsyWFnTdpPb(state, humidityControlZone.humidifyingSched->getCurrentVal(), state.dataEnvrn->OutBaroPress),
+                          state.dataEnvrn->OutBaroPress);
+            ZoneRHDehumidifyingSetPoint =
+                100 * Psychrometrics::PsyRhFnTdbWPb(
+                          state,
+                          this->ZT,
+                          Psychrometrics::PsyWFnTdpPb(state, humidityControlZone.dehumidifyingSched->getCurrentVal(), state.dataEnvrn->OutBaroPress),
+                          state.dataEnvrn->OutBaroPress);
+        }
+>>>>>>> nrel/develop
 
         // Apply EMS values to overwrite the humidistat values
         if (humidityControlZone.EMSOverrideHumidifySetPointOn) {
@@ -3546,11 +3957,19 @@ void ZoneSpaceHeatBalanceData::calcPredictedHumidityRatio(EnergyPlusData &state,
 
                         // The FaultsThermostatOffset specified in the FaultHumidistatOffset is not found
                         if (!IsThermostatFound) {
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format(
                                                 "FaultModel:HumidistatOffset = \"{}\" invalid Reference Humidistat Offset Name = \"{}\" not found.",
                                                 state.dataFaultsMgr->FaultsHumidistatOffset(iFault).Name,
                                                 state.dataFaultsMgr->FaultsHumidistatOffset(iFault).FaultyThermostatName));
+=======
+                            ShowSevereError(
+                                state,
+                                std::format("FaultModel:HumidistatOffset = \"{}\" invalid Reference Humidistat Offset Name = \"{}\" not found.",
+                                            state.dataFaultsMgr->FaultsHumidistatOffset(iFault).Name,
+                                            state.dataFaultsMgr->FaultsHumidistatOffset(iFault).FaultyThermostatName));
+>>>>>>> nrel/develop
                             ShowFatalError(state, "Errors getting FaultModel input data.  Preceding condition(s) cause termination.");
                         }
 
@@ -3609,9 +4028,15 @@ void ZoneSpaceHeatBalanceData::calcPredictedHumidityRatio(EnergyPlusData &state,
         // Run-time error check
         if (ZoneRHHumidifyingSetPoint > ZoneRHDehumidifyingSetPoint) {
             if (humidityControlZone.ErrorIndex == 0) {
+<<<<<<< HEAD
                 ShowWarningMessage(state,
                                    EnergyPlus::format("HUMIDISTAT: The humidifying setpoint is above the dehumidifying setpoint in {}",
                                                       humidityControlZone.ControlName));
+=======
+                ShowWarningMessage(
+                    state,
+                    std::format("HUMIDISTAT: The humidifying setpoint is above the dehumidifying setpoint in {}", humidityControlZone.ControlName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "The zone humidifying setpoint is set to the dehumidifying setpoint.");
                 ShowContinueErrorTimeStamp(state, "Occurrence info:");
             }
@@ -3778,6 +4203,7 @@ void ZoneSpaceHeatBalanceData::calcPredictedHumidityRatio(EnergyPlusData &state,
             } else { // this should never occur!
                 ShowSevereError(
                     state, "Humidistat: Unanticipated combination of humidifying and dehumidifying loads - report to EnergyPlus Development Team");
+<<<<<<< HEAD
                 ShowContinueErrorTimeStamp(state, EnergyPlus::format("occurs in Zone = {}", thisZone.Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("LoadToHumidifySetPoint={:.5R}, LoadToDehumidifySetPoint={:.5R}",
@@ -3785,6 +4211,14 @@ void ZoneSpaceHeatBalanceData::calcPredictedHumidityRatio(EnergyPlusData &state,
                                                      LoadToDehumidifySetPoint));
                 ShowContinueError(state, EnergyPlus::format("Zone RH Humidifying Set-point={:.1R}", ZoneRHHumidifyingSetPoint));
                 ShowContinueError(state, EnergyPlus::format("Zone RH Dehumidifying Set-point={:.2R}", ZoneRHDehumidifyingSetPoint));
+=======
+                ShowContinueErrorTimeStamp(state, std::format("occurs in Zone = {}", thisZone.Name));
+                ShowContinueError(
+                    state,
+                    std::format("LoadToHumidifySetPoint={:.5f}, LoadToDehumidifySetPoint={:.5f}", LoadToHumidifySetPoint, LoadToDehumidifySetPoint));
+                ShowContinueError(state, std::format("Zone RH Humidifying Set-point={:.1f}", ZoneRHHumidifyingSetPoint));
+                ShowContinueError(state, std::format("Zone RH Dehumidifying Set-point={:.2f}", ZoneRHDehumidifyingSetPoint));
+>>>>>>> nrel/develop
                 ShowFatalError(state, "Program terminates due to above conditions.");
             }
         }
@@ -4097,7 +4531,11 @@ Real64 ZoneSpaceHeatBalanceData::correctAirTemp(
     // Hybrid modeling start
     // SpaceHB TODO: For now, hybrid model is only for zones
     if (spaceNum == 0 && state.dataHybridModel->FlagHybridModel) {
+<<<<<<< HEAD
         auto &hmZone = state.dataHybridModel->hybridModelZones(zoneNum);
+=======
+        const auto &hmZone = state.dataHybridModel->hybridModelZones(zoneNum);
+>>>>>>> nrel/develop
         if ((hmZone.InfiltrationCalc_T || hmZone.InternalThermalMassCalc_T || hmZone.PeopleCountCalc_T) && (!state.dataGlobal->WarmupFlag) &&
             (!state.dataGlobal->DoingSizing)) {
             InverseModelTemperature(state,
@@ -4578,7 +5016,11 @@ void ZoneSpaceHeatBalanceData::correctHumRat(EnergyPlusData &state, int const zo
     // HybridModel with measured humidity ratio begins
     // SpaceHB TODO: For now, hybrid model is only for zones
     if (spaceNum == 0 && state.dataHybridModel->FlagHybridModel) {
+<<<<<<< HEAD
         auto &hmZone = state.dataHybridModel->hybridModelZones(zoneNum);
+=======
+        const auto &hmZone = state.dataHybridModel->hybridModelZones(zoneNum);
+>>>>>>> nrel/develop
         if ((hmZone.InfiltrationCalc_H || hmZone.PeopleCountCalc_H) && (!state.dataGlobal->WarmupFlag) && (!state.dataGlobal->DoingSizing)) {
             Real64 LatentGainExceptPeople = 0.0;
             if (hmZone.PeopleCountCalc_H) {
@@ -4970,9 +5412,15 @@ void processInverseModelMultpHM(EnergyPlusData &state,
         multiplierHM = minHMMultValue;
     } else if (multiplierHM > maxHMMultValue) { // as per suggestions in Defect #10508, only warn if greater than the max
         if (thisZoneHB.hmThermalMassMultErrIndex == 0) {
+<<<<<<< HEAD
             ShowWarningMessage(state, EnergyPlus::format("Hybrid model thermal mass multiplier higher than the limit for {}", zone.Name));
             ShowContinueError(state, "This means that the ratio of the zone air heat capacity for the current time step to the");
             ShowContinueError(state, EnergyPlus::format("zone air heat storage is higher than the maximum limit of {:.1R}.", maxHMMultValue));
+=======
+            ShowWarningMessage(state, std::format("Hybrid model thermal mass multiplier higher than the limit for {}", zone.Name));
+            ShowContinueError(state, "This means that the ratio of the zone air heat capacity for the current time step to the");
+            ShowContinueError(state, std::format("zone air heat storage is higher than the maximum limit of {:.1f}.", maxHMMultValue));
+>>>>>>> nrel/develop
         }
         ShowRecurringWarningErrorAtEnd(
             state, "Hybrid model thermal mass multiplier limit exceeded in zone " + zone.Name, thisZoneHB.hmThermalMassMultErrIndex);
@@ -5389,8 +5837,12 @@ SumHATOutput SpaceHeatBalanceData::calcSumHAT(EnergyPlusData &state, int const z
             // check whether this zone is a controlled zone or not
             if (!thisZone.IsControlled) {
                 ShowFatalError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("Zones must be controlled for Ceiling-Diffuser Convection model. No system serves zone {}", thisZone.Name));
+=======
+                    state, std::format("Zones must be controlled for Ceiling-Diffuser Convection model. No system serves zone {}", thisZone.Name));
+>>>>>>> nrel/develop
                 return results;
             }
             // determine supply air temperature as a weighted average of the inlet temperatures.
@@ -5656,8 +6108,13 @@ void CalcZoneComponentLoadSums(EnergyPlusData &state,
         if ((std::abs(thisAirRpt.imBalance) > Threshold) && (!state.dataGlobal->WarmupFlag) &&
             (!state.dataGlobal->DoingSizing)) { // air balance is out by more than threshold
             if (thisZone.AirHBimBalanceErrIndex == 0) {
+<<<<<<< HEAD
                 ShowWarningMessage(state, EnergyPlus::format("Zone Air Heat Balance is out of balance for zone named {}", thisZone.Name));
                 ShowContinueError(state, EnergyPlus::format("Zone Air Heat Balance Deviation Rate is more than {:.1R} {{W}}", Threshold));
+=======
+                ShowWarningMessage(state, std::format("Zone Air Heat Balance is out of balance for zone named {}", thisZone.Name));
+                ShowContinueError(state, std::format("Zone Air Heat Balance Deviation Rate is more than {:.1f} {{W}}", Threshold));
+>>>>>>> nrel/develop
                 if (state.dataHVACGlobal->TurnFansOn) {
                     ShowContinueError(state, "Night cycle fan operation may be causing above error");
                 }
@@ -5665,7 +6122,11 @@ void CalcZoneComponentLoadSums(EnergyPlusData &state,
                 ShowContinueErrorTimeStamp(state, " Occurrence info:");
             }
             ShowRecurringWarningErrorAtEnd(state,
+<<<<<<< HEAD
                                            EnergyPlus::format("Zone Air Heat Balance is out of balance ... zone named {}", thisZone.Name),
+=======
+                                           std::format("Zone Air Heat Balance is out of balance ... zone named {}", thisZone.Name),
+>>>>>>> nrel/develop
                                            thisZone.AirHBimBalanceErrIndex,
                                            std::abs(thisAirRpt.imBalance) - Threshold,
                                            std::abs(thisAirRpt.imBalance) - Threshold,
@@ -5905,7 +6366,11 @@ void AdjustOperativeSetPointsforAdapComfort(EnergyPlusData &state, int const Tem
     // PURPOSE OF THIS SUBROUTINE:
     // This routine adjust the operative setpoints for each controlled adaptive thermal comfort models.
 
+<<<<<<< HEAD
     auto &s_ztpc = state.dataZoneTempPredictorCorrector;
+=======
+    const auto &s_ztpc = state.dataZoneTempPredictorCorrector;
+>>>>>>> nrel/develop
     auto const &tempControlledZone = state.dataZoneCtrls->TempControlledZone(TempControlledZoneID);
     auto const &AdapComfortDailySetPointSchedule = s_ztpc->AdapComfortDailySetPointSchedule;
 
@@ -6032,11 +6497,18 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
             if (zoneComfortControlsFanger.LowPMV > zoneComfortControlsFanger.HighPMV) {
                 ++zoneComfortControlsFanger.DualPMVErrCount;
                 if (zoneComfortControlsFanger.DualPMVErrCount < 2) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format("ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint: The heating PMV setpoint is above the "
                                            "cooling PMV setpoint in {}",
                                            comfortZone.setpts[(int)HVAC::SetptType::DualHeatCool].Name));
+=======
+                    ShowWarningError(state,
+                                     std::format("ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint: The heating PMV setpoint is above the "
+                                                 "cooling PMV setpoint in {}",
+                                                 comfortZone.setpts[(int)HVAC::SetptType::DualHeatCool].Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The zone dual heating PMV setpoint is set to the dual cooling PMV setpoint.");
                     ShowContinueErrorTimeStamp(state, "Occurrence info:");
                 } else {
@@ -6051,12 +6523,20 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
         } break;
 
         default: {
+<<<<<<< HEAD
             ShowSevereError(
                 state,
                 EnergyPlus::format("CalcZoneAirTempSetpoints: Illegal thermal control control type for Zone={}, Found value={}, in Schedule={}",
                                    zone.Name,
                                    s_hbfs->ComfortControlTypeRpt(ActualZoneNum),
                                    comfortZone.setptTypeSched->Name));
+=======
+            ShowSevereError(state,
+                            std::format("CalcZoneAirTempSetpoints: Illegal thermal control control type for Zone={}, Found value={}, in Schedule={}",
+                                        zone.Name,
+                                        s_hbfs->ComfortControlTypeRpt(ActualZoneNum),
+                                        comfortZone.setptTypeSched->Name));
+>>>>>>> nrel/develop
         } break;
         } // switch
 
@@ -6133,9 +6613,15 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
                 if (comfortZone.PeopleAverageErrIndex == 0) {
                     ShowWarningMessage(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ZoneControl:Thermostat:ThermalComfort: The total number of people in Zone = {} is zero. The People "
                                            "Average option is not used.",
                                            zone.Name));
+=======
+                        std::format("ZoneControl:Thermostat:ThermalComfort: The total number of people in Zone = {} is zero. The People "
+                                    "Average option is not used.",
+                                    zone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The Object Average option is used instead. Simulation continues .....");
                     ShowContinueErrorTimeStamp(state, "Occurrence info:");
                 }
@@ -6189,11 +6675,18 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
             if (SetPointLo < comfortZone.TdbMinSetPoint) {
                 SetPointLo = comfortZone.TdbMinSetPoint;
                 if (comfortZone.TdbMinErrIndex < 2) {
+<<<<<<< HEAD
                     ShowWarningMessage(
                         state,
                         EnergyPlus::format("ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating temperature is below the Minimum dry-bulb "
                                            "temperature setpoint {}",
                                            comfortZone.Name));
+=======
+                    ShowWarningMessage(state,
+                                       std::format("ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating temperature is below the Minimum dry-bulb "
+                                                   "temperature setpoint {}",
+                                                   comfortZone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The zone heating setpoint is set to the Minimum dry-bulb temperature setpoint");
                     ShowContinueErrorTimeStamp(state, "Occurrence info:");
                 }
@@ -6214,11 +6707,18 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
             if (SetPointLo > comfortZone.TdbMaxSetPoint) {
                 SetPointLo = comfortZone.TdbMaxSetPoint;
                 if (comfortZone.TdbMaxErrIndex == 0) {
+<<<<<<< HEAD
                     ShowWarningMessage(
                         state,
                         EnergyPlus::format("ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling temperature is above the Maximum dry-bulb "
                                            "temperature setpoint {}",
                                            comfortZone.Name));
+=======
+                    ShowWarningMessage(state,
+                                       std::format("ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling temperature is above the Maximum dry-bulb "
+                                                   "temperature setpoint {}",
+                                                   comfortZone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The zone cooling setpoint is set to the Maximum dry-bulb temperature setpoint");
                     ShowContinueErrorTimeStamp(state, "Occurrence info:");
                 }
@@ -6249,9 +6749,15 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
                 if (comfortZone.TdbHCErrIndex == 0) {
                     ShowWarningMessage(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling temperature is above the Maximum or "
                                            "below the Minimum dry-bulb temperature setpoint {}",
                                            comfortZone.Name));
+=======
+                        std::format("ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling temperature is above the Maximum or "
+                                    "below the Minimum dry-bulb temperature setpoint {}",
+                                    comfortZone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "The zone setpoint is set to the Maximum dry-bulb temperature setpoint if above or the Minimum "
                                       "dry-bulb temperature setpoint if below");
@@ -6276,11 +6782,18 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
                 SetPointLo = comfortZone.TdbMinSetPoint;
 
                 if (comfortZone.TdbDualMinErrIndex == 0) {
+<<<<<<< HEAD
                     ShowWarningMessage(
                         state,
                         EnergyPlus::format("ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint temperature is below the Minimum dry-bulb "
                                            "temperature setpoint {}",
                                            comfortZone.Name));
+=======
+                    ShowWarningMessage(state,
+                                       std::format("ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint temperature is below the Minimum dry-bulb "
+                                                   "temperature setpoint {}",
+                                                   comfortZone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The zone dual heating setpoint is set to the Minimum dry-bulb temperature setpoint");
                     ShowContinueErrorTimeStamp(state, "Occurrence info:");
                 }
@@ -6294,11 +6807,18 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
             if (SetPointHi > comfortZone.TdbMaxSetPoint) {
                 SetPointHi = comfortZone.TdbMaxSetPoint;
                 if (comfortZone.TdbDualMaxErrIndex == 0) {
+<<<<<<< HEAD
                     ShowWarningMessage(
                         state,
                         EnergyPlus::format("ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint temperature is above the Maximum dry-bulb "
                                            "temperature setpoint in zone = {}",
                                            comfortZone.Name));
+=======
+                    ShowWarningMessage(state,
+                                       std::format("ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint temperature is above the Maximum dry-bulb "
+                                                   "temperature setpoint in zone = {}",
+                                                   comfortZone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The zone dual cooling setpoint is set to the Maximum dry-bulb temperature setpoint");
                     ShowContinueErrorTimeStamp(state, "Occurrence info:");
                 }
@@ -6319,10 +6839,17 @@ void CalcZoneAirComfortSetPoints(EnergyPlusData &state)
         default: {
             ShowSevereError(
                 state,
+<<<<<<< HEAD
                 EnergyPlus::format("CalcZoneAirComfortSetpoints: Illegal thermal control control type for Zone={}, Found value={}, in Schedule={}",
                                    zone.Name,
                                    s_hbfs->ComfortControlTypeRpt(ActualZoneNum),
                                    comfortZone.setptTypeSched->Name));
+=======
+                std::format("CalcZoneAirComfortSetpoints: Illegal thermal control control type for Zone={}, Found value={}, in Schedule={}",
+                            zone.Name,
+                            s_hbfs->ComfortControlTypeRpt(ActualZoneNum),
+                            comfortZone.setptTypeSched->Name));
+>>>>>>> nrel/develop
         } break;
         } // switch ()
     }
@@ -6378,9 +6905,14 @@ void GetComfortSetPoints(EnergyPlusData &state,
                 if (s_ztpc->IterLimitExceededNum1 == 1) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "{}: Iteration limit exceeded calculating thermal comfort Fanger setpoint and non-converged setpoint is used",
                             comfortControlledZone.Name));
+=======
+                        std::format("{}: Iteration limit exceeded calculating thermal comfort Fanger setpoint and non-converged setpoint is used",
+                                    comfortControlledZone.Name));
+>>>>>>> nrel/develop
                 } else {
                     ShowRecurringWarningErrorAtEnd(state,
                                                    comfortControlledZone.Name + ":  Iteration limit exceeded calculating thermal comfort setpoint.",
@@ -6393,6 +6925,7 @@ void GetComfortSetPoints(EnergyPlusData &state,
             if (!state.dataGlobal->WarmupFlag) {
                 ++s_ztpc->IterLimitExceededNum2;
                 if (s_ztpc->IterLimitExceededNum2 == 1) {
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format(
                                          "{}: Solution is not found in calculating thermal comfort Fanger setpoint and the minimum setpoint is used",
@@ -6401,6 +6934,16 @@ void GetComfortSetPoints(EnergyPlusData &state,
                     ShowRecurringWarningErrorAtEnd(
                         state,
                         EnergyPlus::format("{}:  Solution is not found in  calculating thermal comfort Fanger setpoint.", comfortControlledZone.Name),
+=======
+                    ShowWarningError(
+                        state,
+                        std::format("{}: Solution is not found in calculating thermal comfort Fanger setpoint and the minimum setpoint is used",
+                                    comfortControlledZone.Name));
+                } else {
+                    ShowRecurringWarningErrorAtEnd(
+                        state,
+                        std::format("{}:  Solution is not found in  calculating thermal comfort Fanger setpoint.", comfortControlledZone.Name),
+>>>>>>> nrel/develop
                         s_ztpc->IterLimitErrIndex2,
                         Tset,
                         Tset);
@@ -6559,7 +7102,11 @@ void FillPredefinedTableOnThermostatSetpoints(EnergyPlusData &state)
 {
     // J.Glazer - Aug 2017
     using namespace OutputReportPredefined;
+<<<<<<< HEAD
     auto &s_ztpc = state.dataZoneTempPredictorCorrector;
+=======
+    const auto &s_ztpc = state.dataZoneTempPredictorCorrector;
+>>>>>>> nrel/develop
 
     std::vector<int> uniqSch;
     uniqSch.reserve(s_ztpc->NumTempControls[(int)HVAC::SetptType::SingleHeat] + s_ztpc->NumTempControls[(int)HVAC::SetptType::SingleCool] +
@@ -6698,7 +7245,11 @@ void FillPredefinedTableOnThermostatSchedules(EnergyPlusData &state)
     };
     using ControlTypeInfoMemPtr = std::string ControlTypeInfo::*;
 
+<<<<<<< HEAD
     // How many people on the EnergyPlus team understand this code?
+=======
+    // Traverses a vector of ControlTypeInfo and joins the values of the specified member pointer with a comma, skipping empty values
+>>>>>>> nrel/develop
     auto joinStrings = [](const std::vector<ControlTypeInfo> &infos, ControlTypeInfoMemPtr memPtr) -> std::string {
         std::vector<std::string> result;
         result.reserve(infos.size());
@@ -6709,7 +7260,11 @@ void FillPredefinedTableOnThermostatSchedules(EnergyPlusData &state)
             }
             result.emplace_back(std::move(val));
         }
+<<<<<<< HEAD
         return fmt::format("{}", fmt::join(result, ", "));
+=======
+        return std::format("{}", EnergyPlus::join(result, ", "));
+>>>>>>> nrel/develop
     };
 
     for (int idx = 1; idx <= state.dataZoneCtrls->NumTempControlledZones; ++idx) {
@@ -6971,8 +7526,11 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
         ZoneSetPoint = zoneTstatSetpt.setpt;
         if (RAFNFrac > 0.0) {
             LoadToHeatingSetPoint = LoadToHeatingSetPoint / RAFNFrac;
+<<<<<<< HEAD
         }
         if (RAFNFrac > 0.0) {
+=======
+>>>>>>> nrel/develop
             LoadToCoolingSetPoint = LoadToCoolingSetPoint / RAFNFrac;
         }
 
@@ -6995,6 +7553,7 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
             ShowSevereError(state,
                             "HVAC::SetptType::SingleHeatCool: Effective heating set-point higher than effective cooling set-point - use "
                             "DualSetPointWithDeadBand if using unmixed air model");
+<<<<<<< HEAD
             ShowContinueErrorTimeStamp(state, EnergyPlus::format("occurs in Zone={}", thisZone.Name));
             ShowContinueError(
                 state,
@@ -7002,6 +7561,14 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
             ShowContinueError(state, EnergyPlus::format("Zone TempDepZnLd={:.2R}", this->tempDepLoad));
             ShowContinueError(state, EnergyPlus::format("Zone TempIndZnLd={:.2R}", this->tempIndLoad));
             ShowContinueError(state, EnergyPlus::format("Zone ThermostatSetPoint={:.2R}", zoneTstatSetpt.setpt));
+=======
+            ShowContinueErrorTimeStamp(state, std::format("occurs in Zone={}", thisZone.Name));
+            ShowContinueError(
+                state, std::format("LoadToHeatingSetPoint={:.3f}, LoadToCoolingSetPoint={:.3f}", LoadToHeatingSetPoint, LoadToCoolingSetPoint));
+            ShowContinueError(state, std::format("Zone TempDepZnLd={:.2f}", this->tempDepLoad));
+            ShowContinueError(state, std::format("Zone TempIndZnLd={:.2f}", this->tempIndLoad));
+            ShowContinueError(state, std::format("Zone ThermostatSetPoint={:.2f}", zoneTstatSetpt.setpt));
+>>>>>>> nrel/develop
             ShowFatalError(state, "Program terminates due to above conditions.");
         }
 
@@ -7020,6 +7587,7 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
         } else { // this should never occur!
             ShowSevereError(state,
                             "SingleHeatCoolSetPoint: Unanticipated combination of heating and cooling loads - report to EnergyPlus Development Team");
+<<<<<<< HEAD
             ShowContinueErrorTimeStamp(state, EnergyPlus::format("occurs in Zone={}", thisZone.Name));
             ShowContinueError(
                 state,
@@ -7027,6 +7595,14 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
             ShowContinueError(state, EnergyPlus::format("Zone TempDepZnLd={:.2R}", this->tempDepLoad));
             ShowContinueError(state, EnergyPlus::format("Zone TempIndZnLd={:.2R}", this->tempIndLoad));
             ShowContinueError(state, EnergyPlus::format("Zone ThermostatSetPoint={:.2R}", zoneTstatSetpt.setpt));
+=======
+            ShowContinueErrorTimeStamp(state, std::format("occurs in Zone={}", thisZone.Name));
+            ShowContinueError(
+                state, std::format("LoadToHeatingSetPoint={:.3f}, LoadToCoolingSetPoint={:.3f}", LoadToHeatingSetPoint, LoadToCoolingSetPoint));
+            ShowContinueError(state, std::format("Zone TempDepZnLd={:.2f}", this->tempDepLoad));
+            ShowContinueError(state, std::format("Zone TempIndZnLd={:.2f}", this->tempIndLoad));
+            ShowContinueError(state, std::format("Zone ThermostatSetPoint={:.2f}", zoneTstatSetpt.setpt));
+>>>>>>> nrel/develop
             ShowFatalError(state, "Program terminates due to above conditions.");
         }
     } break;
@@ -7063,8 +7639,11 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
 
         if (RAFNFrac > 0.0) {
             LoadToHeatingSetPoint = LoadToHeatingSetPoint / RAFNFrac;
+<<<<<<< HEAD
         }
         if (RAFNFrac > 0.0) {
+=======
+>>>>>>> nrel/develop
             LoadToCoolingSetPoint = LoadToCoolingSetPoint / RAFNFrac;
         }
 
@@ -7083,6 +7662,7 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
             ShowSevereError(state,
                             "DualSetPointWithDeadBand: Effective heating set-point higher than effective cooling set-point - increase "
                             "deadband if using unmixed air model");
+<<<<<<< HEAD
             ShowContinueErrorTimeStamp(state, EnergyPlus::format("occurs in Zone={}", thisZone.Name));
             ShowContinueError(
                 state,
@@ -7091,6 +7671,15 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
             ShowContinueError(state, EnergyPlus::format("Zone TempIndZnLd={:.2R}", this->tempIndLoad));
             ShowContinueError(state, EnergyPlus::format("Zone Heating ThermostatSetPoint={:.2R}", zoneTstatSetpt.setptLo));
             ShowContinueError(state, EnergyPlus::format("Zone Cooling ThermostatSetPoint={:.2R}", zoneTstatSetpt.setptHi));
+=======
+            ShowContinueErrorTimeStamp(state, std::format("occurs in Zone={}", thisZone.Name));
+            ShowContinueError(
+                state, std::format("LoadToHeatingSetPoint={:.3f}, LoadToCoolingSetPoint={:.3f}", LoadToHeatingSetPoint, LoadToCoolingSetPoint));
+            ShowContinueError(state, std::format("Zone TempDepZnLd={:.2f}", this->tempDepLoad));
+            ShowContinueError(state, std::format("Zone TempIndZnLd={:.2f}", this->tempIndLoad));
+            ShowContinueError(state, std::format("Zone Heating ThermostatSetPoint={:.2f}", zoneTstatSetpt.setptLo));
+            ShowContinueError(state, std::format("Zone Cooling ThermostatSetPoint={:.2f}", zoneTstatSetpt.setptHi));
+>>>>>>> nrel/develop
             ShowFatalError(state, "Program terminates due to above conditions.");
         }
 
@@ -7112,6 +7701,7 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
         } else { // this should never occur!
             ShowSevereError(
                 state, "DualSetPointWithDeadBand: Unanticipated combination of heating and cooling loads - report to EnergyPlus Development Team");
+<<<<<<< HEAD
             ShowContinueErrorTimeStamp(state, EnergyPlus::format("occurs in Zone={}", thisZone.Name));
             ShowContinueError(
                 state,
@@ -7121,6 +7711,16 @@ void ZoneSpaceHeatBalanceData::calcPredictedSystemLoad(EnergyPlusData &state, Re
             ShowContinueError(state, EnergyPlus::format("Zone TempDepZnLd={:.2R}", this->tempDepLoad));
             ShowContinueError(state, EnergyPlus::format("Zone TempIndZnLd={:.2R}", this->tempIndLoad));
             ShowContinueError(state, EnergyPlus::format("Zone ThermostatSetPoint={:.2R}", zoneTstatSetpt.setpt));
+=======
+            ShowContinueErrorTimeStamp(state, std::format("occurs in Zone={}", thisZone.Name));
+            ShowContinueError(
+                state, std::format("LoadToHeatingSetPoint={:.3f}, LoadToCoolingSetPoint={:.3f}", LoadToHeatingSetPoint, LoadToCoolingSetPoint));
+            ShowContinueError(state, std::format("Zone Heating Set-point={:.2f}", zoneTstatSetpt.setptLo));
+            ShowContinueError(state, std::format("Zone Cooling Set-point={:.2f}", zoneTstatSetpt.setptHi));
+            ShowContinueError(state, std::format("Zone TempDepZnLd={:.2f}", this->tempDepLoad));
+            ShowContinueError(state, std::format("Zone TempIndZnLd={:.2f}", this->tempIndLoad));
+            ShowContinueError(state, std::format("Zone ThermostatSetPoint={:.2f}", zoneTstatSetpt.setpt));
+>>>>>>> nrel/develop
 
             ShowFatalError(state, "Program terminates due to above conditions.");
         }

@@ -47,14 +47,29 @@
 
 // C++ Headers
 #include <algorithm>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <fstream>
 #include <iostream>
 #include <istream>
 #include <memory>
 #include <unordered_set>
 
+<<<<<<< HEAD
 #include <ObjexxFCL/Array1S.hh>
 
+=======
+// ObjexxFCL Headers
+#include <ObjexxFCL/Array1S.hh>
+
+// Third Party Headers
+#include <embedded/EmbeddedEpJSONSchema.hh>
+#include <milo/dtoa.h>
+#include <milo/itoa.h>
+
+>>>>>>> nrel/develop
 // EnergyPlus Headers
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataIPShortCuts.hh>
@@ -70,11 +85,14 @@
 #include <EnergyPlus/InputProcessing/InputValidation.hh>
 #include <EnergyPlus/OutputProcessor.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
+<<<<<<< HEAD
 #include <embedded/EmbeddedEpJSONSchema.hh>
 
 #include <fmt/os.h>
 #include <milo/dtoa.h>
 #include <milo/itoa.h>
+=======
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 // Module containing the input processor routines
@@ -259,8 +277,12 @@ void cleanEPJSON(json &epjson)
 void InputProcessor::processInput(EnergyPlusData &state)
 {
     if (!FileSystem::fileExists(state.dataStrGlobals->inputFilePath)) {
+<<<<<<< HEAD
         ShowFatalError(state, fmt::format("Input file path {} not found", state.dataStrGlobals->inputFilePath));
         return;
+=======
+        ShowFatalError(state, std::format("Input file path {} not found", state.dataStrGlobals->inputFilePath));
+>>>>>>> nrel/develop
     }
 
     try {
@@ -290,6 +312,7 @@ void InputProcessor::processInput(EnergyPlusData &state)
     bool versionMatch = checkVersionMatch(state);
     bool unsupportedFound = checkForUnsupportedObjects(state);
 
+<<<<<<< HEAD
     if (!is_valid || hasErrors || unsupportedFound) {
         ShowFatalError(state, "Errors occurred on processing input file. Preceding condition(s) cause termination.");
     }
@@ -305,6 +328,10 @@ void InputProcessor::processInput(EnergyPlusData &state)
         }
     }
 
+=======
+    // Set up the object/field lookup maps before checking for preprocessor messages below, since
+    // preProcessorCheck() needs getObjectItem() to be functional.
+>>>>>>> nrel/develop
     initializeMaps();
 
     int MaxArgs = 0;
@@ -319,6 +346,29 @@ void InputProcessor::processInput(EnergyPlusData &state)
     state.dataIPShortCut->rNumericArgs.dimension(MaxNumeric, 0.0);
     state.dataIPShortCut->lNumericFieldBlanks.dimension(MaxNumeric, false);
 
+<<<<<<< HEAD
+=======
+    // Check for Output:PreprocessorMessage objects here, before the fatal abort below, so that a
+    // preprocessor's actual root-cause message (e.g. from ExpandObjects) is shown to the user even
+    // when the preprocessor's malformed output also triggers epJSON schema validation errors.
+    bool const PreP_Fatal = preProcessorCheck(state);
+
+    if (!is_valid || hasErrors || unsupportedFound || PreP_Fatal) {
+        ShowFatalError(state, "Errors occurred on processing input file. Preceding condition(s) cause termination.");
+    }
+
+    if (state.dataGlobal->isEpJSON && (state.dataGlobal->outputEpJSONConversion || state.dataGlobal->outputEpJSONConversionOnly)) {
+        if (versionMatch) {
+            std::string const encoded = idf_parser->encode(epJSON, schema());
+            fs::path convertedEpJSON = FileSystem::makeNativePath(
+                FileSystem::replaceFileExtension(state.dataStrGlobals->outDirPath / state.dataStrGlobals->inputFilePathNameOnly, ".idf"));
+            FileSystem::writeFile<FileSystem::FileTypes::IDF>(convertedEpJSON, encoded);
+        } else {
+            ShowWarningError(state, "Skipping conversion of epJSON to IDF due to mismatched Version.");
+        }
+    }
+
+>>>>>>> nrel/develop
     reportIDFRecordsStats(state);
 }
 
@@ -502,7 +552,11 @@ int InputProcessor::getNumSectionsFound(std::string const &SectionWord)
     return static_cast<int>(SectionWord_iter.value().size());
 }
 
+<<<<<<< HEAD
 int InputProcessor::getNumObjectsFound(EnergyPlusData &state, std::string_view const ObjectWord)
+=======
+int InputProcessor::getNumObjectsFound([[maybe_unused]] EnergyPlusData &state, std::string_view const ObjectWord)
+>>>>>>> nrel/develop
 {
 
     // FUNCTION INFORMATION:
@@ -530,6 +584,7 @@ int InputProcessor::getNumObjectsFound(EnergyPlusData &state, std::string_view c
         return static_cast<int>(epJSON[tmp_umit->second].size());
     }
     return static_cast<int>(find_obj.value().size());
+<<<<<<< HEAD
 
     if (schema()["properties"].find(std::string(ObjectWord)) == schema()["properties"].end()) {
         auto tmp_umit = caseInsensitiveObjectMap.find(convertToUpper(ObjectWord));
@@ -538,6 +593,8 @@ int InputProcessor::getNumObjectsFound(EnergyPlusData &state, std::string_view c
         }
     }
     return 0;
+=======
+>>>>>>> nrel/develop
 }
 
 bool InputProcessor::findDefault(std::string &default_value, json const &schema_field_obj)
@@ -622,8 +679,16 @@ std::string InputProcessor::getAlphaFieldValue(json const &ep_object, json const
 {
     // Return the value of fieldName in ep_object as a string.
     // If the field is not present in ep_object then return its default if there is one, or return an empty string
+<<<<<<< HEAD
     auto const &fprops = schema_obj_props[fieldName];
     assert(!fprops.empty()); // Check that field name exists in the schema for this object type
+=======
+    auto const fpropsIt = schema_obj_props.find(fieldName);
+    if (fpropsIt == schema_obj_props.end()) {
+        throw std::runtime_error("InputProcessor schema field lookup failed for string field \"" + fieldName + "\"");
+    }
+    auto const &fprops = fpropsIt.value();
+>>>>>>> nrel/develop
 
     uc = (fprops.find("retaincase") == fprops.end());
 
@@ -664,8 +729,16 @@ Real64 InputProcessor::getRealFieldValue(json const &ep_object, json const &sche
         }
     }
 
+<<<<<<< HEAD
     auto const &schema_field_obj = schema_obj_props[fieldName];
     assert(!schema_field_obj.empty()); // Check that field name exists in the schema for this object type
+=======
+    auto const schemaFieldIt = schema_obj_props.find(fieldName);
+    if (schemaFieldIt == schema_obj_props.end()) {
+        throw std::runtime_error("InputProcessor schema field lookup failed for numeric field \"" + fieldName + "\"");
+    }
+    auto const &schema_field_obj = schemaFieldIt.value();
+>>>>>>> nrel/develop
 
     auto const find_default = schema_field_obj.find("default");
     if (find_default != schema_field_obj.end()) {
@@ -687,8 +760,16 @@ int InputProcessor::getIntFieldValue(json const &ep_object, json const &schema_o
     // If the field value is a string, then assume autosize or autocalculate and return Constant::AutoCalculate(-99999).
     // If the field is not present in ep_object then return its default if there is one, or return 0
 
+<<<<<<< HEAD
     auto const &schema_field_obj = schema_obj_props[fieldName];
     assert(!schema_field_obj.empty()); // Check that field name exists in the schema for this object type
+=======
+    auto const schemaFieldIt = schema_obj_props.find(fieldName);
+    if (schemaFieldIt == schema_obj_props.end()) {
+        throw std::runtime_error("InputProcessor schema field lookup failed for integer field \"" + fieldName + "\"");
+    }
+    auto const &schema_field_obj = schemaFieldIt.value();
+>>>>>>> nrel/develop
     int value = 0;
     Real64 defaultValue = 0.0;
     auto it = ep_object.find(fieldName);
@@ -904,7 +985,11 @@ const json &InputProcessor::getJSONObjectItem(EnergyPlusData &state, std::string
         auto tmp_umit = caseInsensitiveObjectMap.find(convertToUpper(objectInfo.objectType));
         if (tmp_umit == caseInsensitiveObjectMap.end()) {
             // indicates object type not found, see function GeneralRoutines::ValidateComponent
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format(R"(ObjectType of type "{}" requested was not found in input)", objectInfo.objectType));
+=======
+            ShowFatalError(state, std::format(R"(ObjectType of type "{}" requested was not found in input)", objectInfo.objectType));
+>>>>>>> nrel/develop
         }
         objectInfo.objectType = tmp_umit->second;
         obj_iter = epJSON.find(objectInfo.objectType);
@@ -924,9 +1009,14 @@ const json &InputProcessor::getJSONObjectItem(EnergyPlusData &state, std::string
         }
     }
 
+<<<<<<< HEAD
     ShowFatalError(
         state, EnergyPlus::format(R"(Name "{}" requested was not found in input for ObjectType "{}")", objectInfo.objectType, objectInfo.objectName));
     throw;
+=======
+    ShowFatalError(state,
+                   std::format(R"(Name "{}" requested was not found in input for ObjectType "{}")", objectInfo.objectType, objectInfo.objectName));
+>>>>>>> nrel/develop
 }
 
 void InputProcessor::getObjectItem(EnergyPlusData &state,
@@ -1033,7 +1123,11 @@ void InputProcessor::getObjectItem(EnergyPlusData &state,
         auto const field_info = legacy_idd_field_info.find(field);
         auto const &field_info_val = field_info.value();
         if (field_info == legacy_idd_field_info.end()) {
+<<<<<<< HEAD
             ShowFatalError(state, fmt::format(R"(Could not find field = "{}" in "{}" in epJSON Schema.)", field, Object));
+=======
+            ShowFatalError(state, std::format(R"(Could not find field = "{}" in "{}" in epJSON Schema.)", field, Object));
+>>>>>>> nrel/develop
         }
 
         bool within_idf_fields = (i < maxFields.max_fields);
@@ -1090,7 +1184,11 @@ void InputProcessor::getObjectItem(EnergyPlusData &state,
                     auto const &field_info_val = field_info.value();
 
                     if (field_info == legacy_idd_field_info.end()) {
+<<<<<<< HEAD
                         ShowFatalError(state, fmt::format(R"(Could not find field = "{}" in "{}" in epJSON Schema.)", field_name, Object));
+=======
+                        ShowFatalError(state, std::format(R"(Could not find field = "{}" in "{}" in epJSON Schema.)", field_name, Object));
+>>>>>>> nrel/develop
                     }
 
                     bool within_idf_extensible_fields = (extensible_count < maxFields.max_extensible_fields);
@@ -1417,7 +1515,11 @@ void InputProcessor::getObjectDefMaxArgs(EnergyPlusData &state,
     if (auto found = props.find(std::string(ObjectWord)); found == props.end()) {
         auto tmp_umit = caseInsensitiveObjectMap.find(convertToUpper(ObjectWord));
         if (tmp_umit == caseInsensitiveObjectMap.end()) {
+<<<<<<< HEAD
             ShowSevereError(state, fmt::format(R"(getObjectDefMaxArgs: Did not find object="{}" in list of objects.)", ObjectWord));
+=======
+            ShowSevereError(state, std::format(R"(getObjectDefMaxArgs: Did not find object="{}" in list of objects.)", ObjectWord));
+>>>>>>> nrel/develop
             return;
         }
         object = &props[tmp_umit->second];
@@ -1430,7 +1532,11 @@ void InputProcessor::getObjectDefMaxArgs(EnergyPlusData &state,
     if (auto found = epJSON.find(std::string(ObjectWord)); found == epJSON.end()) {
         auto tmp_umit = caseInsensitiveObjectMap.find(convertToUpper(ObjectWord));
         if (tmp_umit == caseInsensitiveObjectMap.end()) {
+<<<<<<< HEAD
             ShowSevereError(state, fmt::format(R"(getObjectDefMaxArgs: Did not find object="{}" in list of objects.)", ObjectWord));
+=======
+            ShowSevereError(state, std::format(R"(getObjectDefMaxArgs: Did not find object="{}" in list of objects.)", ObjectWord));
+>>>>>>> nrel/develop
             return;
         }
         objects = &epJSON[tmp_umit->second];
@@ -1719,14 +1825,24 @@ void InputProcessor::reportOrphanRecordObjects(EnergyPlusData &state)
     }
 
     if ((!unusedInputs.empty()) && !state.dataGlobal->DisplayUnusedObjects) {
+<<<<<<< HEAD
         u64toa(unusedInputs.size(), s);
         ShowMessage(state, "There are " + std::string(s) + " unused objects in input.");
+=======
+        ShowMessage(state, std::format("There are {} unused objects in input.", unusedInputs.size()));
+>>>>>>> nrel/develop
         ShowMessage(state, "Use Output:Diagnostics,DisplayUnusedObjects; to see them.");
     }
 }
 
+<<<<<<< HEAD
 void InputProcessor::preProcessorCheck(EnergyPlusData &state, bool &PreP_Fatal) // True if a preprocessor flags a fatal error
 {
+=======
+bool InputProcessor::preProcessorCheck(EnergyPlusData &state) // Returns true if a preprocessor flags a fatal error
+{
+    bool PreP_Fatal = false;
+>>>>>>> nrel/develop
 
     // SUBROUTINE INFORMATION:
     //       AUTHOR         Linda Lawrie
@@ -1840,6 +1956,10 @@ void InputProcessor::preProcessorCheck(EnergyPlusData &state, bool &PreP_Fatal) 
             }
         }
     }
+<<<<<<< HEAD
+=======
+    return PreP_Fatal;
+>>>>>>> nrel/develop
 }
 
 void InputProcessor::preScanReportingVariables(EnergyPlusData &state)
@@ -2437,10 +2557,17 @@ void InputProcessor::addRecordToOutputVariableStructure(EnergyPlusData &state, s
                  DataOutputs::OutputReportingVariables,
                  // Util::case_insensitive_hasher,
                  Util::case_insensitive_comparator>
+<<<<<<< HEAD
             data;
         // data.reserve(32);
         data.emplace(KeyValue, DataOutputs::OutputReportingVariables(state, KeyValue, VarName));
         state.dataOutput->OutputVariablesForSimulation.emplace(VarName, std::move(data));
+=======
+            newVarData;
+        // newVarData.reserve(32);
+        newVarData.emplace(KeyValue, DataOutputs::OutputReportingVariables(state, KeyValue, VarName));
+        state.dataOutput->OutputVariablesForSimulation.emplace(VarName, std::move(newVarData));
+>>>>>>> nrel/develop
     } else {
         found->second.emplace(KeyValue, DataOutputs::OutputReportingVariables(state, KeyValue, VarName));
     }

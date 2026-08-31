@@ -1004,6 +1004,7 @@ TEST_F(EnergyPlusFixture, processInputForEIRPLHP_AWHP)
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].referenceCapacity, 500);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].ratedCapacity[0], 120);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].ratedCOP[0], 4);
+<<<<<<< HEAD
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].capFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncPLRCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
@@ -1017,6 +1018,21 @@ TEST_F(EnergyPlusFixture, processInputForEIRPLHP_AWHP)
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].capFuncTempCurveIndex[2], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncTempCurveIndex[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncPLRCurveIndex[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+=======
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].capFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncPLRCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].ratedCapacity[1], 240);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].ratedCOP[1], 3.5);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].capFuncTempCurveIndices[1], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncTempCurveIndices[1], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncPLRCurveIndices[1], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].ratedCapacity[2], 500);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].ratedCOP[2], 2.0);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].capFuncTempCurveIndices[2], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncTempCurveIndices[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[0].powerRatioFuncPLRCurveIndices[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+>>>>>>> nrel/develop
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[0].operatingModeControlMethod, HeatPumpAirToWater::OperatingModeControlMethod::Load);
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[0].operatingModeControlOptionMultipleUnit,
                    HeatPumpAirToWater::OperatingModeControlOptionMultipleUnit::SingleMode);
@@ -1055,6 +1071,7 @@ TEST_F(EnergyPlusFixture, processInputForEIRPLHP_AWHP)
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].referenceCapacity, 50000);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].ratedCapacity[0], 100);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].ratedCOP[0], 3);
+<<<<<<< HEAD
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].capFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncPLRCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
@@ -1068,6 +1085,21 @@ TEST_F(EnergyPlusFixture, processInputForEIRPLHP_AWHP)
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].capFuncTempCurveIndex[2], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncTempCurveIndex[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncPLRCurveIndex[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+=======
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].capFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncPLRCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].ratedCapacity[1], 200);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].ratedCOP[1], 3.5);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].capFuncTempCurveIndices[1], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncTempCurveIndices[1], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncPLRCurveIndices[1], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].ratedCapacity[2], 50000);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].ratedCOP[2], 2.5);
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].capFuncTempCurveIndices[2], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncTempCurveIndices[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[1].powerRatioFuncPLRCurveIndices[2], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+>>>>>>> nrel/develop
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[1].operatingModeControlMethod, HeatPumpAirToWater::OperatingModeControlMethod::Load);
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[1].operatingModeControlOptionMultipleUnit,
                    HeatPumpAirToWater::OperatingModeControlOptionMultipleUnit::SingleMode);
@@ -1101,9 +1133,15 @@ TEST_F(EnergyPlusFixture, processInputForEIRPLHP_AWHP)
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].referenceCapacity, -99999);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].ratedCapacity[0], -99999);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].ratedCOP[0], 3.0);
+<<<<<<< HEAD
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].capFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].powerRatioFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].powerRatioFuncPLRCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+=======
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].capFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].powerRatioFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[2].powerRatioFuncPLRCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+>>>>>>> nrel/develop
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[2].operatingModeControlMethod, HeatPumpAirToWater::OperatingModeControlMethod::Load);
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[2].operatingModeControlOptionMultipleUnit,
                    HeatPumpAirToWater::OperatingModeControlOptionMultipleUnit::SingleMode);
@@ -1140,9 +1178,15 @@ TEST_F(EnergyPlusFixture, processInputForEIRPLHP_AWHP)
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].referenceCapacity, -99999);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].ratedCapacity[0], -99999);
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].ratedCOP[0], 3.0);
+<<<<<<< HEAD
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].capFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].powerRatioFuncTempCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
     EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].powerRatioFuncPLRCurveIndex[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+=======
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].capFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].powerRatioFuncTempCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP"));
+    EXPECT_EQ(state->dataHeatPumpAirToWater->heatPumps[3].powerRatioFuncPLRCurveIndices[0], Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR"));
+>>>>>>> nrel/develop
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[3].operatingModeControlMethod, HeatPumpAirToWater::OperatingModeControlMethod::Load);
     EXPECT_ENUM_EQ(state->dataHeatPumpAirToWater->heatPumps[3].operatingModeControlOptionMultipleUnit,
                    HeatPumpAirToWater::OperatingModeControlOptionMultipleUnit::SingleMode);
@@ -1293,6 +1337,7 @@ TEST_F(EnergyPlusFixture, calcPowerUsage_AWHP)
     thisAWHP.numSpeeds = 2;
     thisAWHP.ratedCapacity[0] = 600;
     thisAWHP.ratedCOP[0] = 1;
+<<<<<<< HEAD
     thisAWHP.capFuncTempCurveIndex[0] = Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP");
     thisAWHP.powerRatioFuncTempCurveIndex[0] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP");
     thisAWHP.powerRatioFuncPLRCurveIndex[0] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR");
@@ -1301,6 +1346,16 @@ TEST_F(EnergyPlusFixture, calcPowerUsage_AWHP)
     thisAWHP.capFuncTempCurveIndex[1] = Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP");
     thisAWHP.powerRatioFuncTempCurveIndex[1] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP");
     thisAWHP.powerRatioFuncPLRCurveIndex[1] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR");
+=======
+    thisAWHP.capFuncTempCurveIndices[0] = Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP");
+    thisAWHP.powerRatioFuncTempCurveIndices[0] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP");
+    thisAWHP.powerRatioFuncPLRCurveIndices[0] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR");
+    thisAWHP.ratedCapacity[1] = 1200;
+    thisAWHP.ratedCOP[1] = 1;
+    thisAWHP.capFuncTempCurveIndices[1] = Curve::GetCurveIndex(*state, "CAPCURVEFUNCTEMP");
+    thisAWHP.powerRatioFuncTempCurveIndices[1] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCTEMP");
+    thisAWHP.powerRatioFuncPLRCurveIndices[1] = Curve::GetCurveIndex(*state, "EIRCURVEFUNCPLR");
+>>>>>>> nrel/develop
     thisAWHP.heatPumpMultiplier = 2;
     thisAWHP.cyclingRatio = 1.0;
     Real64 availableCapacityBeforeMultiplier = thisAWHP.ratedCapacity[1];
@@ -1384,8 +1439,13 @@ TEST_F(EnergyPlusFixture, calcOpMode_AWHP)
     state->init_state(*state);
     auto thisAWHP = HeatPumpAirToWater();
     auto companionAWHP = HeatPumpAirToWater();
+<<<<<<< HEAD
     thisAWHP.companionHeatPumpCoil = &companionAWHP;
     companionAWHP.companionHeatPumpCoil = &thisAWHP;
+=======
+    thisAWHP.companionAWHPCoil = &companionAWHP;
+    companionAWHP.companionAWHPCoil = &thisAWHP;
+>>>>>>> nrel/develop
     thisAWHP.heatPumpMultiplier = 6;
     companionAWHP.heatPumpMultiplier = 6;
     thisAWHP.referenceCapacityOneUnit = 100;
@@ -1418,10 +1478,17 @@ TEST_F(EnergyPlusFixture, calcOpMode_AWHP)
     PlantUtilities::SetPlantLocationLinks(*state, companionAWHP.loadSidePlantLoc);
     companionAWHP.OperationModeEMSOverrideOn = false;
 
+<<<<<<< HEAD
     thisAWHP.capFuncTempCurveIndex[0] = 1;
     thisAWHP.loadSideOutletTemp = 65;
     thisAWHP.sourceSideInletTemp = 20;
     companionAWHP.capFuncTempCurveIndex[0] = 1;
+=======
+    thisAWHP.capFuncTempCurveIndices[0] = 1;
+    thisAWHP.loadSideOutletTemp = 65;
+    thisAWHP.sourceSideInletTemp = 20;
+    companionAWHP.capFuncTempCurveIndices[0] = 1;
+>>>>>>> nrel/develop
     companionAWHP.loadSideOutletTemp = 65;
     companionAWHP.sourceSideInletTemp = 20;
 
@@ -2019,7 +2086,11 @@ TEST_F(EnergyPlusFixture, EIRPLHP_Initialization_SetpointMissing)
     state->dataLoopNodes->Node(thisHeatingPLHP->loadSideNodes.outlet).TempSetPointLo = Node::SensedNodeFlagValue;
 
     // reset the flag to force re-running oneTimeInit
+<<<<<<< HEAD
     thisHeatingPLHP->oneTimeInitFlag = true;
+=======
+    thisHeatingPLHP->oneTimeInitFlagPLHP = true;
+>>>>>>> nrel/develop
     thisHeatingPLHP->SetpointSetToLoopErrDone = false;
     thisHeatingPLHP->onInitLoopEquip(*state, myLocation);
 
@@ -3994,12 +4065,23 @@ TEST_F(EnergyPlusFixture, Initialization2_AirSource)
     // do a bit of extra wiring up to the plant
     PLHPPlantLoadSideComp.Name = thisCoolingPLHP->name;
     PLHPPlantLoadSideComp.NodeNumIn = thisCoolingPLHP->loadSideNodes.inlet;
+<<<<<<< HEAD
+=======
+    PLHPPlantLoadSideComp.NodeNumOut = thisCoolingPLHP->loadSideNodes.outlet;
+>>>>>>> nrel/develop
 
     // call for all initialization
     state->dataGlobal->BeginEnvrnFlag = true;
     state->dataPlnt->PlantFirstSizesOkayToFinalize = true;
     thisCoolingPLHP->onInitLoopEquip(*state, myLocation);
 
+<<<<<<< HEAD
+=======
+    // Component flow control type
+    auto &comp = DataPlant::CompData::getPlantComponent(*state, thisCoolingPLHP->loadSidePlantLoc);
+    comp.FlowCtrl = DataBranchAirLoopPlant::ControlType::SeriesActive;
+
+>>>>>>> nrel/develop
     // call with run flag off, loose limits on node min/max
     thisCoolingPLHP->running = false;
     Real64 constexpr currentLoad = 0.0;
@@ -4053,6 +4135,22 @@ TEST_F(EnergyPlusFixture, Initialization2_AirSource)
     thisCoolingPLHP->setOperatingFlowRatesASHP(*state, firstHVACIteration, currentLoad);
     EXPECT_NEAR(0.14, thisCoolingPLHP->loadSideMassFlowRate, 0.001);
     EXPECT_NEAR(1.29, thisCoolingPLHP->sourceSideMassFlowRate, 0.1);
+<<<<<<< HEAD
+=======
+
+    // Change control type
+    comp.FlowCtrl = DataBranchAirLoopPlant::ControlType::Active;
+    state->dataPlnt->PlantLoop(1).LoopSide(DataPlant::LoopSideLocation::Supply).FlowLock = DataPlant::FlowLock::Unlocked;
+    state->dataLoopNodes->Node(thisCoolingPLHP->loadSideNodes.inlet).MassFlowRateMinAvail = 0.0;
+    thisCoolingPLHP->running = true;
+    thisCoolingPLHP->setOperatingFlowRatesASHP(*state, firstHVACIteration, currentLoad); // no load
+    EXPECT_NEAR(0.0, thisCoolingPLHP->loadSideMassFlowRate, 0.001);
+    EXPECT_NEAR(0.0, thisCoolingPLHP->sourceSideMassFlowRate, 0.001);
+    thisCoolingPLHP->running = true;
+    thisCoolingPLHP->setOperatingFlowRatesASHP(*state, firstHVACIteration, -5000);
+    EXPECT_NEAR(1.0, thisCoolingPLHP->loadSideMassFlowRate, 0.01);
+    EXPECT_NEAR(1.29, thisCoolingPLHP->sourceSideMassFlowRate, 0.01);
+>>>>>>> nrel/develop
 }
 
 TEST_F(EnergyPlusFixture, TestSizing_FullyAutosizedCoolingWithCompanion_AirSource)
@@ -5274,6 +5372,13 @@ TEST_F(EnergyPlusFixture, TestOperatingFlowRates_FullyAutosized_AirSource)
     // assign the plant sizing data
     state->dataPlnt->PlantLoop(1).PlantSizNum = 1;
 
+<<<<<<< HEAD
+=======
+    // Component flow control type
+    auto &comp = DataPlant::CompData::getPlantComponent(*state, thisCoolingPLHP->loadSidePlantLoc);
+    comp.FlowCtrl = DataBranchAirLoopPlant::ControlType::SeriesActive;
+
+>>>>>>> nrel/develop
     // call with run flag ON, flow locked at nonzero both
     state->dataPlnt->PlantLoop(1).LoopSide(DataPlant::LoopSideLocation::Supply).FlowLock = DataPlant::FlowLock::Locked;
     state->dataLoopNodes->Node(thisCoolingPLHP->loadSideNodes.inlet).MassFlowRate = 1.0;

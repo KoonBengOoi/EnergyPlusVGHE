@@ -46,13 +46,24 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include "AirflowNetwork/Solver.hpp"
 
+=======
+// Local Headers
+#include "AirflowNetwork/Solver.hpp"
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/Base.hh>
 #include <EnergyPlus/BranchNodeConnections.hh>
 #include <EnergyPlus/CurveManager.hh>
@@ -139,23 +150,39 @@ namespace VariableSpeedCoils {
         if (CompIndex == 0) {
             DXCoilNum = Util::FindItemInList(CompName, state.dataVariableSpeedCoils->VarSpeedCoil);
             if (DXCoilNum == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("WaterToAirHPVSWEquationFit not found={}", CompName));
+=======
+                ShowFatalError(state, std::format("WaterToAirHPVSWEquationFit not found={}", CompName));
+>>>>>>> nrel/develop
             }
             CompIndex = DXCoilNum;
         } else {
             DXCoilNum = CompIndex;
             if (DXCoilNum > state.dataVariableSpeedCoils->NumVarSpeedCoils || DXCoilNum < 1) {
+<<<<<<< HEAD
                 ShowFatalError(
                     state,
                     EnergyPlus::format("SimVariableSpeedCoils: Invalid CompIndex passed={}, Number of Water to Air HPs={}, WaterToAir HP name={}",
                                        DXCoilNum,
                                        state.dataVariableSpeedCoils->NumVarSpeedCoils,
                                        CompName));
+=======
+                ShowFatalError(state,
+                               std::format("SimVariableSpeedCoils: Invalid CompIndex passed={}, Number of Water to Air HPs={}, WaterToAir HP name={}",
+                                           DXCoilNum,
+                                           state.dataVariableSpeedCoils->NumVarSpeedCoils,
+                                           CompName));
+>>>>>>> nrel/develop
             }
             if (!CompName.empty() && CompName != state.dataVariableSpeedCoils->VarSpeedCoil(DXCoilNum).Name) {
                 ShowFatalError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "SimVariableSpeedCoils: Invalid CompIndex passed={}, WaterToAir HP name={}, stored WaterToAir HP Name for that index={}",
                         DXCoilNum,
                         CompName,
@@ -172,22 +199,36 @@ namespace VariableSpeedCoils {
 
         auto &varSpeedCoil = state.dataVariableSpeedCoils->VarSpeedCoil(DXCoilNum);
 
+<<<<<<< HEAD
         if ((varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit) ||
             (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed)) {
+=======
+        if ((varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit) ||
+            (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed)) {
+>>>>>>> nrel/develop
             // Cooling mode
             InitVarSpeedCoil(state, DXCoilNum, SensLoad, LatentLoad, fanOp, OnOffAirFlowRatio, SpeedRatio, SpeedCal);
             CalcVarSpeedCoilCooling(
                 state, DXCoilNum, fanOp, SensLoad, LatentLoad, compressorOp, PartLoadFrac, OnOffAirFlowRatio, SpeedRatio, SpeedCal);
             UpdateVarSpeedCoil(state, DXCoilNum);
             varSpeedCoil.RunFracCool = varSpeedCoil.RunFrac;
+<<<<<<< HEAD
         } else if ((varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) ||
                    (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed)) {
+=======
+        } else if ((varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) ||
+                   (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed)) {
+>>>>>>> nrel/develop
             // Heating mode
             InitVarSpeedCoil(state, DXCoilNum, SensLoad, LatentLoad, fanOp, OnOffAirFlowRatio, SpeedRatio, SpeedCal);
             CalcVarSpeedCoilHeating(state, DXCoilNum, fanOp, SensLoad, compressorOp, PartLoadFrac, OnOffAirFlowRatio, SpeedRatio, SpeedCal);
             UpdateVarSpeedCoil(state, DXCoilNum);
             varSpeedCoil.RunFracHeat = varSpeedCoil.RunFrac;
+<<<<<<< HEAD
         } else if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        } else if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             // Heating mode
             InitVarSpeedCoil(state, DXCoilNum, SensLoad, LatentLoad, fanOp, OnOffAirFlowRatio, SpeedRatio, SpeedCal);
             CalcVarSpeedHPWH(state, DXCoilNum, PartLoadFrac, SpeedRatio, SpeedNum, fanOp);
@@ -199,10 +240,13 @@ namespace VariableSpeedCoils {
         // two additional output variables
         varSpeedCoil.SpeedNumReport = SpeedCal;
         varSpeedCoil.SpeedRatioReport = SpeedRatio;
+<<<<<<< HEAD
 
         if (varSpeedCoil.AirLoopNum > 0 && state.afn->distribution_simulated) {
             state.dataAirLoop->AirLoopAFNInfo(varSpeedCoil.AirLoopNum).AFNLoopDXCoilRTF = max(varSpeedCoil.RunFracCool, varSpeedCoil.RunFracHeat);
         }
+=======
+>>>>>>> nrel/develop
     }
 
     void GetVarSpeedCoilInput(EnergyPlusData &state)
@@ -277,8 +321,16 @@ namespace VariableSpeedCoils {
                 // Initialize DataHeatBalance heat reclaim variable name for use by heat reclaim coils
                 state.dataHeatBal->HeatReclaimVS_Coil(DXCoilNum).Name = varSpeedCoil.Name;
                 state.dataHeatBal->HeatReclaimVS_Coil(DXCoilNum).SourceType = CurrentModuleObject;
+<<<<<<< HEAD
                 varSpeedCoil.VSCoilType = HVAC::Coil_CoolingWaterToAirHPVSEquationFit;
                 varSpeedCoil.VarSpeedCoilType = HVAC::cAllCoilTypes(varSpeedCoil.VSCoilType);
+=======
+
+                varSpeedCoil.coilType = HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit;
+                varSpeedCoil.VarSpeedCoilType = HVAC::coilTypeNames[(int)varSpeedCoil.coilType];
+                varSpeedCoil.coilReportNum = ReportCoilSelection::getReportIndex(state, varSpeedCoil.Name, varSpeedCoil.coilType);
+
+>>>>>>> nrel/develop
                 std::string const availSchedName = s_ip->getAlphaFieldValue(fields, schemaProps, "availability_schedule_name");
                 if (availSchedName.empty()) {
                     varSpeedCoil.availSched = Sched::GetScheduleAlwaysOn(state);
@@ -349,9 +401,14 @@ namespace VariableSpeedCoils {
 
                 cFieldName = "Number of Speeds";
                 if (varSpeedCoil.NumOfSpeeds < 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...{} must be >= 1. entered number is {:.0T}", cFieldName, varSpeedCoil.NumOfSpeeds));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be >= 1. entered number is {}", cFieldName, varSpeedCoil.NumOfSpeeds));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -360,10 +417,16 @@ namespace VariableSpeedCoils {
                 }
                 cFieldName = "Nominal Speed Level";
                 if ((varSpeedCoil.NormSpedLevel > varSpeedCoil.NumOfSpeeds) || (varSpeedCoil.NormSpedLevel <= 0)) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...{} must be valid speed level entered number is {:.0T}", cFieldName, varSpeedCoil.NormSpedLevel));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state,
+                                      std::format("...{} must be valid speed level entered number is {}", cFieldName, varSpeedCoil.NormSpedLevel));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -379,15 +442,22 @@ namespace VariableSpeedCoils {
                 } else {
                     CurveVal = Curve::CurveValue(state, varSpeedCoil.PLFFPLR, 1.0);
                     if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state,
                                           EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                         ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                        ShowWarningError(state, std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                        ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                     }
                 }
 
                 for (int I = 1; I <= varSpeedCoil.NumOfSpeeds; ++I) {
                     std::string fieldName;
+<<<<<<< HEAD
                     fieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_total_cooling_capacity");
                     varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
                     fieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_sensible_heat_ratio");
@@ -406,6 +476,26 @@ namespace VariableSpeedCoils {
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_temperature_curve_name");
                     std::string cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Temperature Curve Name");
+=======
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_total_cooling_capacity");
+                    varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_sensible_heat_ratio");
+                    varSpeedCoil.MSRatedSHR(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_cooling_cop");
+                    varSpeedCoil.MSRatedCOP(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_air_flow_rate");
+                    varSpeedCoil.MSRatedAirVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_water_flow_rate");
+                    varSpeedCoil.MSRatedWaterVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName =
+                        std::format("speed_{}{}", std::to_string(I), "_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions");
+                    varSpeedCoil.MSWasteHeatFrac(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+
+                    std::string fieldValue =
+                        std::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_temperature_curve_name");
+                    std::string cFieldName_curve =
+                        std::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const coolCapFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (coolCapFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -426,20 +516,34 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapFTemp(I), RatedInletWetBulbTemp, RatedInletWaterTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue =
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_air_flow_fraction_curve_name");
                     cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_air_flow_fraction_curve_name");
+                    cFieldName_curve =
+                        std::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const coolCapFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (coolCapFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -460,20 +564,34 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue =
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_water_flow_fraction_curve_name");
                     cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Water Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_water_flow_fraction_curve_name");
+                    cFieldName_curve =
+                        std::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Water Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const coolCapWFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (coolCapWFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -494,18 +612,31 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapWaterFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
                     cFieldName_curve = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
+                    cFieldName_curve = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const coolEIRFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (coolEIRFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -526,19 +657,32 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRFTemp(I), RatedInletWetBulbTemp, RatedInletWaterTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
                     cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
+                    cFieldName_curve = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const coolEIRFFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (coolEIRFFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -559,20 +703,33 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue =
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_water_flow_fraction_curve_name");
                     cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Water Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_water_flow_fraction_curve_name");
+                    cFieldName_curve = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Water Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const coolEIRWFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (coolEIRWFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -593,19 +750,32 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
                     // Read waste heat modifier curve name
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_waste_heat_function_of_temperature_curve_name");
                     cFieldName_curve = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Waste Heat Function of Temperature Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_waste_heat_function_of_temperature_curve_name");
+                    cFieldName_curve = std::format("Speed_{}{}", std::to_string(I), " Waste Heat Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const wasteHFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (wasteHFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -626,12 +796,20 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSWasteHeat(I), RatedInletWaterTemp, RatedInletAirTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
@@ -720,8 +898,16 @@ namespace VariableSpeedCoils {
                 state.dataHeatBal->HeatReclaimVS_Coil(DXCoilNum).SourceType = CurrentModuleObject;
 
                 varSpeedCoil.CoolHeatType = "COOLING";
+<<<<<<< HEAD
                 varSpeedCoil.VSCoilType = HVAC::Coil_CoolingAirToAirVariableSpeed;
                 varSpeedCoil.VarSpeedCoilType = HVAC::cAllCoilTypes(varSpeedCoil.VSCoilType);
+=======
+
+                varSpeedCoil.coilType = HVAC::CoilType::CoolingDXVariableSpeed;
+                varSpeedCoil.VarSpeedCoilType = HVAC::coilTypeNames[(int)varSpeedCoil.coilType];
+                varSpeedCoil.coilReportNum = ReportCoilSelection::getReportIndex(state, varSpeedCoil.Name, varSpeedCoil.coilType);
+
+>>>>>>> nrel/develop
                 std::string const availSchedName = s_ip->getAlphaFieldValue(fields, schemaProps, "availability_schedule_name");
                 if (availSchedName.empty()) {
                     varSpeedCoil.availSched = Sched::GetScheduleAlwaysOn(state);
@@ -770,9 +956,14 @@ namespace VariableSpeedCoils {
 
                 cFieldName = "Number of Speeds";
                 if (varSpeedCoil.NumOfSpeeds < 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...{} must be >= 1. entered number is {:.0T}", cFieldName, varSpeedCoil.NumOfSpeeds));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be >= 1. entered number is {}", cFieldName, varSpeedCoil.NumOfSpeeds));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (varSpeedCoil.NormSpedLevel > varSpeedCoil.NumOfSpeeds) {
@@ -780,10 +971,16 @@ namespace VariableSpeedCoils {
                 }
                 cFieldName = "Nominal Speed Level";
                 if ((varSpeedCoil.NormSpedLevel > varSpeedCoil.NumOfSpeeds) || (varSpeedCoil.NormSpedLevel <= 0)) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...{} must be valid speed level entered number is {:.0T}", cFieldName, varSpeedCoil.NormSpedLevel));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state,
+                                      std::format("...{} must be valid speed level entered number is {}", cFieldName, varSpeedCoil.NormSpedLevel));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -799,10 +996,16 @@ namespace VariableSpeedCoils {
                 } else {
                     CurveVal = Curve::CurveValue(state, varSpeedCoil.PLFFPLR, 1.0);
                     if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state,
                                           EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                         ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                        ShowWarningError(state, std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                        ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                     }
                 }
 
@@ -823,12 +1026,20 @@ namespace VariableSpeedCoils {
                                                                            Node::ObjectIsNotParent);
                     // std::string cAlphaField10 = "Basin Heater Operating Schedule Name";
                     if (!OutAirNodeManager::CheckOutAirNodeNumber(state, varSpeedCoil.CondenserInletNodeNum)) {
+<<<<<<< HEAD
                         ShowWarningError(state,
                                          EnergyPlus::format("{}{}=\"{}\", may be invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state,
                                           EnergyPlus::format("{}=\"{}\", node does not appear in an OutdoorAir:NodeList or as an OutdoorAir:Node.",
                                                              cFieldName,
                                                              condenserAirInletNodeName));
+=======
+                        ShowWarningError(state, std::format("{}{}=\"{}\", may be invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state,
+                                          std::format("{}=\"{}\", node does not appear in an OutdoorAir:NodeList or as an OutdoorAir:Node.",
+                                                      cFieldName,
+                                                      condenserAirInletNodeName));
+>>>>>>> nrel/develop
                         ShowContinueError(
                             state,
                             "This node needs to be included in an air system or the coil model will not be valid, and the simulation continues");
@@ -843,8 +1054,13 @@ namespace VariableSpeedCoils {
                     varSpeedCoil.CondenserType = DataHeatBalance::RefrigCondenserType::Evap;
                     varSpeedCoil.ReportEvapCondVars = true;
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{}=\"{}\":", cFieldName, condenserType));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{}=\"{}\":", cFieldName, condenserType));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...must be AirCooled or EvaporativelyCooled.");
                     ErrorsFound = true;
                 }
@@ -859,9 +1075,15 @@ namespace VariableSpeedCoils {
                 }
                 if (varSpeedCoil.EvapCondPumpElecNomPower != DataSizing::AutoSize) {
                     if (varSpeedCoil.EvapCondPumpElecNomPower < 0.0) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state, EnergyPlus::format("...{} cannot be < 0.0.", cFieldName));
                         ShowContinueError(state, EnergyPlus::format("...entered value=[{:.2T}].", varSpeedCoil.EvapCondPumpElecNomPower));
+=======
+                        ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} cannot be < 0.0.", cFieldName));
+                        ShowContinueError(state, std::format("...entered value=[{:.2f}].", varSpeedCoil.EvapCondPumpElecNomPower));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -870,9 +1092,15 @@ namespace VariableSpeedCoils {
                 cFieldName = "Crankcase Heater Capacity"; // cNumericFields(11)
                 varSpeedCoil.CrankcaseHeaterCapacity = s_ip->getRealFieldValue(fields, schemaProps, "crankcase_heater_capacity"); // NumArray(11);
                 if (varSpeedCoil.CrankcaseHeaterCapacity < 0.0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{} cannot be < 0.0.", cFieldName));
                     ShowContinueError(state, EnergyPlus::format("...entered value=[{:.2T}].", varSpeedCoil.CrankcaseHeaterCapacity));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} cannot be < 0.0.", cFieldName));
+                    ShowContinueError(state, std::format("...entered value=[{:.2f}].", varSpeedCoil.CrankcaseHeaterCapacity));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -891,7 +1119,11 @@ namespace VariableSpeedCoils {
                     if (varSpeedCoil.CrankcaseHeaterCapacityCurveIndex == 0) { // can't find the curve
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "{} = {}:  {} not found = {}", CurrentModuleObject, varSpeedCoil.Name, cFieldName, crankcaseHeaterCapCurveName));
                         ErrorsFound = true;
                     } else {
@@ -942,9 +1174,15 @@ namespace VariableSpeedCoils {
                 cFieldName = "Basin Heater Capacity";                                                                           // cNumericFields(14)
                 varSpeedCoil.BasinHeaterPowerFTempDiff = s_ip->getRealFieldValue(fields, schemaProps, "basin_heater_capacity"); // NumArray(14);
                 if (varSpeedCoil.BasinHeaterPowerFTempDiff < 0.0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{} must be >= 0.0.", cFieldName));
                     ShowContinueError(state, EnergyPlus::format("...entered value=[{:.2T}].", varSpeedCoil.BasinHeaterPowerFTempDiff));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be >= 0.0.", cFieldName));
+                    ShowContinueError(state, std::format("...entered value=[{:.2f}].", varSpeedCoil.BasinHeaterPowerFTempDiff));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -953,10 +1191,16 @@ namespace VariableSpeedCoils {
                     s_ip->getRealFieldValue(fields, schemaProps, "basin_heater_setpoint_temperature"); // NumArray(15);
                 if (varSpeedCoil.BasinHeaterPowerFTempDiff > 0.0) {
                     if (varSpeedCoil.BasinHeaterSetPointTemp < 2.0) {
+<<<<<<< HEAD
                         ShowWarningError(state,
                                          EnergyPlus::format("{}{}=\"{}\", freeze possible", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state, EnergyPlus::format("...{} is < 2 {{C}}. Freezing could occur.", cFieldName));
                         ShowContinueError(state, EnergyPlus::format("...entered value=[{:.2T}].", varSpeedCoil.BasinHeaterSetPointTemp));
+=======
+                        ShowWarningError(state, std::format("{}{}=\"{}\", freeze possible", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} is < 2 {{C}}. Freezing could occur.", cFieldName));
+                        ShowContinueError(state, std::format("...entered value=[{:.2f}].", varSpeedCoil.BasinHeaterSetPointTemp));
+>>>>>>> nrel/develop
                     }
                 }
 
@@ -971,6 +1215,7 @@ namespace VariableSpeedCoils {
 
                 for (int I = 1; I <= varSpeedCoil.NumOfSpeeds; ++I) {
                     std::string fieldName;
+<<<<<<< HEAD
                     fieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_total_cooling_capacity");
                     varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
                     fieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_sensible_heat_ratio");
@@ -994,13 +1239,44 @@ namespace VariableSpeedCoils {
                         ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state, EnergyPlus::format("...{} cannot be < 0.0 or > 1.0.", FieldName));
                         ShowContinueError(state, EnergyPlus::format("...entered value=[{:.2T}].", varSpeedCoil.EvapCondEffect(I)));
+=======
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_total_cooling_capacity");
+                    varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_sensible_heat_ratio");
+                    varSpeedCoil.MSRatedSHR(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_cooling_cop");
+                    varSpeedCoil.MSRatedCOP(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_air_flow_rate");
+                    varSpeedCoil.MSRatedAirVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("2017_speed_{}{}", std::to_string(I), "_rated_evaporator_fan_power_per_volume_flow_rate");
+                    varSpeedCoil.MSRatedEvaporatorFanPowerPerVolumeFlowRate2017(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("2023_speed_{}{}", std::to_string(I), "_rated_evaporator_fan_power_per_volume_flow_rate");
+                    varSpeedCoil.MSRatedEvaporatorFanPowerPerVolumeFlowRate2023(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_condenser_air_flow_rate");
+                    varSpeedCoil.EvapCondAirFlow(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_pad_effectiveness_of_evap_precooling");
+                    varSpeedCoil.EvapCondEffect(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    if (varSpeedCoil.EvapCondEffect(I) < 0.0 || varSpeedCoil.EvapCondEffect(I) > 1.0) {
+                        std::string const FieldName =
+                            std::format("Speed_{}{}", std::to_string(I), " Reference Unit Rated Pad Effectiveness of Evap Precooling");
+                        ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} cannot be < 0.0 or > 1.0.", FieldName));
+                        ShowContinueError(state, std::format("...entered value=[{:.2f}].", varSpeedCoil.EvapCondEffect(I)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
                     std::string fieldValue =
+<<<<<<< HEAD
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_temperature_curve_name");
                     std::string cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Temperature Curve Name");
+=======
+                        std::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_temperature_curve_name");
+                    std::string cFieldName_curve =
+                        std::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const cCapFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (cCapFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -1021,20 +1297,34 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapFTemp(I), RatedInletWetBulbTemp, RatedAmbAirTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue =
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_air_flow_fraction_curve_name");
                     cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_total_cooling_capacity_function_of_air_flow_fraction_curve_name");
+                    cFieldName_curve =
+                        std::format("Speed_{}{}", std::to_string(I), " Total Cooling Capacity Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const cCapFFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (cCapFFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -1055,18 +1345,31 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
                     cFieldName_curve = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
+                    cFieldName_curve = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const cEIRFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (cEIRFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -1087,19 +1390,32 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRFTemp(I), RatedInletWetBulbTemp, RatedAmbAirTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
                     cFieldName_curve =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
+                    cFieldName_curve = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const cEIRFFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (cEIRFFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName_curve, "Required field is blank.");
@@ -1120,12 +1436,20 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(
+                                    state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName_curve));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
@@ -1206,8 +1530,16 @@ namespace VariableSpeedCoils {
                 // ErrorsFound will be set to True if problem was found, left untouched otherwise
                 GlobalNames::VerifyUniqueCoilName(state, CurrentModuleObject, varSpeedCoil.Name, ErrorsFound, CurrentModuleObject + " Name");
                 varSpeedCoil.CoolHeatType = "HEATING";
+<<<<<<< HEAD
                 varSpeedCoil.VSCoilType = HVAC::Coil_HeatingWaterToAirHPVSEquationFit;
                 varSpeedCoil.VarSpeedCoilType = HVAC::cAllCoilTypes(varSpeedCoil.VSCoilType);
+=======
+
+                varSpeedCoil.coilType = HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit;
+                varSpeedCoil.VarSpeedCoilType = HVAC::coilTypeNames[(int)varSpeedCoil.coilType];
+                varSpeedCoil.coilReportNum = ReportCoilSelection::getReportIndex(state, varSpeedCoil.Name, varSpeedCoil.coilType);
+
+>>>>>>> nrel/develop
                 varSpeedCoil.CondenserType = DataHeatBalance::RefrigCondenserType::Water;
                 std::string const availSchedName = s_ip->getAlphaFieldValue(fields, schemaProps, "availability_schedule_name");
                 if (availSchedName.empty()) {
@@ -1276,9 +1608,14 @@ namespace VariableSpeedCoils {
                 cFieldName = "Number of Speeds";
                 //       If (VarSpeedCoil(DXCoilNum)%NumOfSpeeds .LT. 2) Then
                 if (varSpeedCoil.NumOfSpeeds < 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...{} must be >= 1. entered number is {:.0T}", cFieldName, varSpeedCoil.NumOfSpeeds));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be >= 1. entered number is {}", cFieldName, varSpeedCoil.NumOfSpeeds));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -1287,10 +1624,16 @@ namespace VariableSpeedCoils {
                 }
                 cFieldName = "Nominal Speed Level";
                 if ((varSpeedCoil.NormSpedLevel > varSpeedCoil.NumOfSpeeds) || (varSpeedCoil.NormSpedLevel <= 0)) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...{} must be valid speed level entered number is {:.0T}", cFieldName, varSpeedCoil.NormSpedLevel));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state,
+                                      std::format("...{} must be valid speed level entered number is {}", cFieldName, varSpeedCoil.NormSpedLevel));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 // part load curve
@@ -1305,16 +1648,23 @@ namespace VariableSpeedCoils {
                 } else {
                     CurveVal = Curve::CurveValue(state, varSpeedCoil.PLFFPLR, 1.0);
                     if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state,
                                           EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                         ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                        ShowWarningError(state, std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                        ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                     }
                 }
 
                 for (int I = 1; I <= varSpeedCoil.NumOfSpeeds; ++I) {
                     std::string fieldName;
                     std::string fieldValue;
+<<<<<<< HEAD
                     fieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_heating_capacity");
                     varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
                     fieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_heating_cop");
@@ -1329,6 +1679,22 @@ namespace VariableSpeedCoils {
 
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_heating_capacity_function_of_temperature_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Heating Capacity Function of Temperature Curve Name");
+=======
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_heating_capacity");
+                    varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_heating_cop");
+                    varSpeedCoil.MSRatedCOP(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_air_flow_rate");
+                    varSpeedCoil.MSRatedAirVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_water_flow_rate");
+                    varSpeedCoil.MSRatedWaterVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName =
+                        std::format("speed_{}{}", std::to_string(I), "_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions");
+                    varSpeedCoil.MSWasteHeatFrac(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_heating_capacity_function_of_temperature_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Heating Capacity Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const heatCapFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (heatCapFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1349,19 +1715,32 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapFTemp(I), RatedInletAirTempHeat, RatedInletWaterTempHeat);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue =
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_heating_capacity_function_of_air_flow_fraction_curve_name");
                     cFieldName =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total Heating Capacity Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_total_heating_capacity_function_of_air_flow_fraction_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Total Heating Capacity Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const heatCapFFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (heatCapFFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1382,17 +1761,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_heating_capacity_function_of_water_flow_fraction_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Heating Capacity Function of Water Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_heating_capacity_function_of_water_flow_fraction_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Heating Capacity Function of Water Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const heatCapWFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (heatCapWFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1413,17 +1805,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapWaterFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const heatEIRFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (heatEIRFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1444,17 +1849,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRFTemp(I), RatedInletAirTempHeat, RatedInletWaterTempHeat);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const heatEIRFFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (heatEIRFFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1475,19 +1893,32 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     fieldValue =
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_water_flow_fraction_curve_name");
                     cFieldName =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Water Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_water_flow_fraction_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Water Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const heatEIRWFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (heatEIRWFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1508,18 +1939,31 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
                     // Read waste heat modifier curve name
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_waste_heat_function_of_temperature_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Waste Heat Function of Temperature Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_waste_heat_function_of_temperature_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Waste Heat Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const heatWHFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (heatWHFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1540,11 +1984,19 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSWasteHeat(I), RatedInletWaterTemp, RatedInletAirTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
@@ -1620,8 +2072,15 @@ namespace VariableSpeedCoils {
                 GlobalNames::VerifyUniqueCoilName(state, CurrentModuleObject, varSpeedCoil.Name, ErrorsFound, CurrentModuleObject + " Name");
 
                 varSpeedCoil.CoolHeatType = "HEATING";
+<<<<<<< HEAD
                 varSpeedCoil.VSCoilType = HVAC::Coil_HeatingAirToAirVariableSpeed;
                 varSpeedCoil.VarSpeedCoilType = HVAC::cAllCoilTypes(HVAC::Coil_HeatingAirToAirVariableSpeed);
+=======
+                varSpeedCoil.coilType = HVAC::CoilType::HeatingDXVariableSpeed;
+                varSpeedCoil.VarSpeedCoilType = HVAC::coilTypeNames[(int)HVAC::CoilType::HeatingDXVariableSpeed];
+                varSpeedCoil.coilReportNum = ReportCoilSelection::getReportIndex(state, varSpeedCoil.Name, varSpeedCoil.coilType);
+
+>>>>>>> nrel/develop
                 std::string const availSchedName = s_ip->getAlphaFieldValue(fields, schemaProps, "availability_schedule_name");
                 if (availSchedName.empty()) {
                     varSpeedCoil.availSched = Sched::GetScheduleAlwaysOn(state);
@@ -1669,9 +2128,14 @@ namespace VariableSpeedCoils {
                 Node::TestCompSet(state, CurrentModuleObject, varSpeedCoil.Name, airInletNodeName, airOutletNodeName, "Air Nodes");
                 cFieldName = "Number of Speeds";
                 if (varSpeedCoil.NumOfSpeeds < 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...{} must be >= 1. entered number is {:.0T}", cFieldName, varSpeedCoil.NumOfSpeeds));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be >= 1. entered number is {}", cFieldName, varSpeedCoil.NumOfSpeeds));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -1680,10 +2144,16 @@ namespace VariableSpeedCoils {
                 }
                 cFieldName = "Nominal Speed Level";
                 if ((varSpeedCoil.NormSpedLevel > varSpeedCoil.NumOfSpeeds) || (varSpeedCoil.NormSpedLevel <= 0)) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...{} must be valid speed level entered number is {:.0T}", cFieldName, varSpeedCoil.NormSpedLevel));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state,
+                                      std::format("...{} must be valid speed level entered number is {}", cFieldName, varSpeedCoil.NormSpedLevel));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -1699,10 +2169,16 @@ namespace VariableSpeedCoils {
                 } else {
                     CurveVal = Curve::CurveValue(state, varSpeedCoil.PLFFPLR, 1.0);
                     if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state,
                                           EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                         ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                        ShowWarningError(state, std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                        ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                     }
                 }
 
@@ -1720,7 +2196,11 @@ namespace VariableSpeedCoils {
                     if (varSpeedCoil.CrankcaseHeaterCapacityCurveIndex == 0) { // can't find the curve
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "{} = {}:  {} not found = {}", CurrentModuleObject, varSpeedCoil.Name, cFieldName, crankcaseHeaterCapCurveName));
                         ErrorsFound = true;
                     } else {
@@ -1741,9 +2221,15 @@ namespace VariableSpeedCoils {
                 if (varSpeedCoil.DefrostStrategy == StandardRatings::DefrostStrat::ReverseCycle) {
                     if (varSpeedCoil.DefrostEIRFT == 0) {
                         if (defrostEIRFTCurveName.empty()) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", missing", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                             ShowContinueError(state, EnergyPlus::format("...required {} is blank.", defrostEIRFTFieldName));
                             ShowContinueError(state, EnergyPlus::format("...field is required because {} is \"ReverseCycle\".", cFieldName));
+=======
+                            ShowSevereError(state, std::format("{}{}=\"{}\", missing", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                            ShowContinueError(state, std::format("...required {} is blank.", defrostEIRFTFieldName));
+                            ShowContinueError(state, std::format("...field is required because {} is \"ReverseCycle\".", cFieldName));
+>>>>>>> nrel/develop
                         } else {
                             ShowSevereInvalidBool(state, eoh, cFieldName, defrostEIRFTCurveName);
                         }
@@ -1787,9 +2273,15 @@ namespace VariableSpeedCoils {
                 cFieldName = "Crankcase Heater Capacity"; // cNumericFields(8)
                 varSpeedCoil.CrankcaseHeaterCapacity = s_ip->getRealFieldValue(fields, schemaProps, "crankcase_heater_capacity");
                 if (varSpeedCoil.CrankcaseHeaterCapacity < 0.0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{} cannot be < 0.0.", cFieldName));
                     ShowContinueError(state, EnergyPlus::format("...entered value=[{:.2T}].", varSpeedCoil.CrankcaseHeaterCapacity));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} cannot be < 0.0.", cFieldName));
+                    ShowContinueError(state, std::format("...entered value=[{:.2f}].", varSpeedCoil.CrankcaseHeaterCapacity));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 // Set crankcase heater cutout temperature
@@ -1800,8 +2292,13 @@ namespace VariableSpeedCoils {
                 cFieldName = "Defrost Time Period Fraction"; // cNumericFields(10)
                 varSpeedCoil.DefrostTime = s_ip->getRealFieldValue(fields, schemaProps, "defrost_time_period_fraction");
                 if (varSpeedCoil.DefrostTime == 0.0 && varSpeedCoil.DefrostControl == StandardRatings::HPdefrostControl::Timed) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\", ", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{} = 0.0 for defrost control = TIMED.", cFieldName));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\", ", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} = 0.0 for defrost control = TIMED.", cFieldName));
+>>>>>>> nrel/develop
                 }
 
                 // Set defrost capacity (for resistive defrost),
@@ -1814,13 +2311,19 @@ namespace VariableSpeedCoils {
                             : dCap.get<Real64>();
                 }
                 if (varSpeedCoil.DefrostCapacity == 0.0 && varSpeedCoil.DefrostStrategy == StandardRatings::DefrostStrat::Resistive) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\", ", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{} = 0.0 for defrost strategy = RESISTIVE.", cFieldName));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\", ", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} = 0.0 for defrost strategy = RESISTIVE.", cFieldName));
+>>>>>>> nrel/develop
                 }
 
                 for (int I = 1; I <= varSpeedCoil.NumOfSpeeds; ++I) {
                     std::string fieldValue;
                     std::string fieldName;
+<<<<<<< HEAD
                     fieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_heating_capacity");
                     varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
                     if (varSpeedCoil.MSRatedTotCap(I) < 1.e-10) {
@@ -1841,6 +2344,28 @@ namespace VariableSpeedCoils {
                     // Speed 1 Reference Unit Gross Rated Total Cooling Capacity
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_heating_capacity_function_of_temperature_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Heating Capacity Function of Temperature Curve Name");
+=======
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_heating_capacity");
+                    varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    if (varSpeedCoil.MSRatedTotCap(I) < 1.e-10) {
+                        cFieldName = std::format("Speed_{}{}", std::to_string(I), " Reference Unit Gross Rated Heating Capacity");
+                        ShowSevereError(state, std::format("{}{}=\"{}\", invalid value", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...too small {}=[{:.2f}].", cFieldName, varSpeedCoil.MSRatedTotCap(I)));
+                        ErrorsFound = true;
+                    }
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_gross_rated_heating_cop");
+                    varSpeedCoil.MSRatedCOP(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_air_flow_rate");
+                    varSpeedCoil.MSRatedAirVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("2017_speed_{}{}", std::to_string(I), "_rated_supply_air_fan_power_per_volume_flow_rate");
+                    varSpeedCoil.MSRatedEvaporatorFanPowerPerVolumeFlowRate2017(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+                    fieldName = std::format("2023_speed_{}{}", std::to_string(I), "_rated_supply_air_fan_power_per_volume_flow_rate");
+                    varSpeedCoil.MSRatedEvaporatorFanPowerPerVolumeFlowRate2023(I) = s_ip->getRealFieldValue(fields, schemaProps, fieldName);
+
+                    // Speed 1 Reference Unit Gross Rated Total Cooling Capacity
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_heating_capacity_function_of_temperature_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Heating Capacity Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const hCapFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (hCapFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1861,20 +2386,33 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapFTemp(I), RatedInletAirTempHeat, RatedAmbAirTempHeat);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
                     // Speed 1 Total  Heating Capacity Function of Air Flow Fraction Curve Name
+<<<<<<< HEAD
                     fieldValue =
                         EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_heating_capacity_function_of_air_flow_fraction_curve_name");
                     cFieldName =
                         EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total  Heating Capacity Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_total_heating_capacity_function_of_air_flow_fraction_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Total  Heating Capacity Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const hCapFFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (hCapFFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1895,18 +2433,31 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
                     // Speed 1 Energy Input Ratio Function of Temperature Curve Name
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_temperature_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Temperature Curve Name");
+>>>>>>> nrel/develop
                     std::string const hEIRFTCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (hEIRFTCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1927,18 +2478,31 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRFTemp(I), RatedInletAirTempHeat, RatedAmbAirTempHeat);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
                     // Speed 1 Energy Input Ratio Function of Air Flow Fraction Curve Name
+<<<<<<< HEAD
                     fieldValue = EnergyPlus::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+=======
+                    fieldValue = std::format("speed_{}{}", std::to_string(I), "_energy_input_ratio_function_of_air_flow_fraction_curve_name");
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Energy Input Ratio Function of Air Flow Fraction Curve Name");
+>>>>>>> nrel/develop
                     std::string const hEIRFFFCurveName = s_ip->getAlphaFieldValue(fields, schemaProps, fieldValue);
                     if (hEIRFFFCurveName.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -1959,11 +2523,19 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
@@ -2034,8 +2606,15 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.bIsDesuperheater = false;
                 varSpeedCoil.CondenserType = DataHeatBalance::RefrigCondenserType::WaterHeater;
                 varSpeedCoil.CoolHeatType = "WATERHEATING";
+<<<<<<< HEAD
                 varSpeedCoil.VSCoilType = HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed;
                 varSpeedCoil.VarSpeedCoilType = HVAC::cAllCoilTypes(HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed);
+=======
+                varSpeedCoil.coilType = HVAC::CoilType::WaterHeatingAWHPVariableSpeed;
+                varSpeedCoil.VarSpeedCoilType = HVAC::coilTypeNames[(int)HVAC::CoilType::WaterHeatingAWHPVariableSpeed];
+
+                varSpeedCoil.coilReportNum = ReportCoilSelection::getReportIndex(state, varSpeedCoil.Name, varSpeedCoil.coilType);
+>>>>>>> nrel/develop
 
                 ErrorObjectHeader eoh{routineName, CurrentModuleObject, varSpeedCoil.Name};
 
@@ -2053,9 +2632,14 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.NormSpedLevel = s_ip->getIntFieldValue(fields, schemaProps, "nominal_speed_level");
                 cFieldName = "Number of Speeds";
                 if (varSpeedCoil.NumOfSpeeds < 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...{} must be >= 1. entered number is {:.0T}", cFieldName, varSpeedCoil.NumOfSpeeds));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be >= 1. entered number is {}", cFieldName, varSpeedCoil.NumOfSpeeds));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (varSpeedCoil.NormSpedLevel > varSpeedCoil.NumOfSpeeds) {
@@ -2063,17 +2647,28 @@ namespace VariableSpeedCoils {
                 }
                 cFieldName = "Nominal Speed Level";
                 if ((varSpeedCoil.NormSpedLevel > varSpeedCoil.NumOfSpeeds) || (varSpeedCoil.NormSpedLevel <= 0)) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...{} must be valid speed level entered number is {:.0T}", cFieldName, varSpeedCoil.NormSpedLevel));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state,
+                                      std::format("...{} must be valid speed level entered number is {}", cFieldName, varSpeedCoil.NormSpedLevel));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 cFieldName = "Rated Water Heating Capacity";
                 varSpeedCoil.RatedCapWH = s_ip->getRealFieldValue(fields, schemaProps, "rated_water_heating_capacity"); // NumArray(3);
                 if (varSpeedCoil.RatedCapWH <= 0.0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{} must be > 0.0, entered value=[{:.2T}].", cFieldName, varSpeedCoil.RatedCapWH));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be > 0.0, entered value=[{:.2f}].", cFieldName, varSpeedCoil.RatedCapWH));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 varSpeedCoil.WHRatedInletDBTemp =
@@ -2087,9 +2682,15 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.RatedAirVolFlowRate = s_ip->getRealFieldValue(fields, schemaProps, "rated_evaporator_air_flow_rate"); // NumArray(7);
                 if (varSpeedCoil.RatedAirVolFlowRate != Constant::AutoCalculate) {
                     if (varSpeedCoil.RatedAirVolFlowRate <= 0.0) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(
                             state, EnergyPlus::format("...{} must be > 0.0.  entered value=[{:.3T}].", cFieldName, varSpeedCoil.RatedAirVolFlowRate));
+=======
+                        ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state,
+                                          std::format("...{} must be > 0.0.  entered value=[{:.3f}].", cFieldName, varSpeedCoil.RatedAirVolFlowRate));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -2098,10 +2699,16 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.RatedWaterVolFlowRate = s_ip->getRealFieldValue(fields, schemaProps, "rated_condenser_water_flow_rate"); // NumArray(8);
                 if (varSpeedCoil.RatedWaterVolFlowRate != Constant::AutoCalculate) {
                     if (varSpeedCoil.RatedWaterVolFlowRate <= 0.0) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(
                             state,
                             EnergyPlus::format("...{} must be > 0.0  entered value=[{:.3T}].", cFieldName, varSpeedCoil.RatedWaterVolFlowRate));
+=======
+                        ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(
+                            state, std::format("...{} must be > 0.0  entered value=[{:.3f}].", cFieldName, varSpeedCoil.RatedWaterVolFlowRate));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -2138,10 +2745,17 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.HPWHCondPumpFracToWater =
                     s_ip->getRealFieldValue(fields, schemaProps, "fraction_of_condenser_pump_heat_to_water"); // NumArray(9);
                 if (varSpeedCoil.HPWHCondPumpFracToWater <= 0.0 || varSpeedCoil.HPWHCondPumpFracToWater > 1.0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format(
                                           "...{} must be >= 0 and <= 1.  entered value=[{:.3T}].", cFieldName, varSpeedCoil.HPWHCondPumpFracToWater));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(
+                        state,
+                        std::format("...{} must be >= 0 and <= 1.  entered value=[{:.3f}].", cFieldName, varSpeedCoil.HPWHCondPumpFracToWater));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (!varSpeedCoil.CondPumpHeatInCapacity) {
@@ -2205,9 +2819,15 @@ namespace VariableSpeedCoils {
                 cFieldName = "Crankcase Heater Capacity";
                 varSpeedCoil.CrankcaseHeaterCapacity = s_ip->getRealFieldValue(fields, schemaProps, "crankcase_heater_capacity"); // NumArray(10);
                 if (varSpeedCoil.CrankcaseHeaterCapacity < 0.0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(
                         state, EnergyPlus::format("...{} must be >= 0.0  entered value=[{:.1T}].", cFieldName, varSpeedCoil.CrankcaseHeaterCapacity));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state,
+                                      std::format("...{} must be >= 0.0  entered value=[{:.1f}].", cFieldName, varSpeedCoil.CrankcaseHeaterCapacity));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -2215,10 +2835,16 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.MaxOATCrankcaseHeater =
                     s_ip->getRealFieldValue(fields, schemaProps, "maximum_ambient_temperature_for_crankcase_heater_operation"); // NumArray(11);
                 if (varSpeedCoil.MaxOATCrankcaseHeater < 0.0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...{} must be >= 0 {{C}}.  entered value=[{:.1T}].", cFieldName, varSpeedCoil.MaxOATCrankcaseHeater));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(
+                        state, std::format("...{} must be >= 0 {{C}}.  entered value=[{:.1f}].", cFieldName, varSpeedCoil.MaxOATCrankcaseHeater));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -2245,9 +2871,15 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.InletAirTemperatureType = static_cast<HVAC::OATType>(getEnumValue(HVAC::oatTypeNamesUC, Util::makeUPPER(fieldValue)));
                 if (varSpeedCoil.InletAirTemperatureType == HVAC::OATType::Invalid) {
                     //   wrong temperature type selection
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                     ShowContinueError(state, EnergyPlus::format("...{} must be DryBulbTemperature or WetBulbTemperature.", cFieldName));
                     ShowContinueError(state, EnergyPlus::format("...entered value=\"{}\".", fieldValue));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                    ShowContinueError(state, std::format("...{} must be DryBulbTemperature or WetBulbTemperature.", cFieldName));
+                    ShowContinueError(state, std::format("...entered value=\"{}\".", fieldValue));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -2272,15 +2904,22 @@ namespace VariableSpeedCoils {
                 } else {
                     CurveVal = Curve::CurveValue(state, varSpeedCoil.PLFFPLR, 1.0);
                     if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                         ShowContinueError(state,
                                           EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                         ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                        ShowWarningError(state, std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                        ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                     }
                 }
 
                 for (int I = 1; I <= varSpeedCoil.NumOfSpeeds; ++I) {
                     std::string jfieldName;
+<<<<<<< HEAD
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_rated_water_heating_capacity");
                     varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, jfieldName);
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_rated_water_heating_cop");
@@ -2296,6 +2935,23 @@ namespace VariableSpeedCoils {
 
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total WH Capacity Function of Temperature Curve Name");
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_wh_capacity_function_of_temperature_curve_name");
+=======
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_rated_water_heating_capacity");
+                    varSpeedCoil.MSRatedTotCap(I) = s_ip->getRealFieldValue(fields, schemaProps, jfieldName);
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_rated_water_heating_cop");
+                    varSpeedCoil.MSRatedCOP(I) = s_ip->getRealFieldValue(fields, schemaProps, jfieldName);
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_rated_sensible_heat_ratio");
+                    varSpeedCoil.MSRatedSHR(I) = s_ip->getRealFieldValue(fields, schemaProps, jfieldName);
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_air_flow_rate");
+                    varSpeedCoil.MSRatedAirVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, jfieldName);
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_rated_water_flow_rate");
+                    varSpeedCoil.MSRatedWaterVolFlowRate(I) = s_ip->getRealFieldValue(fields, schemaProps, jfieldName);
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_reference_unit_water_pump_input_power_at_rated_conditions");
+                    varSpeedCoil.MSWHPumpPower(I) = s_ip->getRealFieldValue(fields, schemaProps, jfieldName);
+
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Total WH Capacity Function of Temperature Curve Name");
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_total_wh_capacity_function_of_temperature_curve_name");
+>>>>>>> nrel/develop
                     fieldValue = s_ip->getAlphaFieldValue(fields, schemaProps, jfieldName);
                     if (fieldValue.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -2316,17 +2972,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapFTemp(I), WHInletAirTemp, WHInletWaterTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total WH Capacity Function of Air Flow Fraction Curve Name");
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_wh_capacity_function_of_air_flow_fraction_curve_name");
+=======
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Total WH Capacity Function of Air Flow Fraction Curve Name");
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_total_wh_capacity_function_of_air_flow_fraction_curve_name");
+>>>>>>> nrel/develop
                     fieldValue = s_ip->getAlphaFieldValue(fields, schemaProps, jfieldName);
                     if (fieldValue.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -2347,17 +3016,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " Total WH Capacity Function of Water Flow Fraction Curve Name");
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_total_wh_capacity_function_of_water_flow_fraction_curve_name");
+=======
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " Total WH Capacity Function of Water Flow Fraction Curve Name");
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_total_wh_capacity_function_of_water_flow_fraction_curve_name");
+>>>>>>> nrel/develop
                     fieldValue = s_ip->getAlphaFieldValue(fields, schemaProps, jfieldName);
                     if (fieldValue.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -2378,17 +3060,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSCCapWaterFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " COP Function of Temperature Curve Name");
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_cop_function_of_temperature_curve_name");
+=======
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " COP Function of Temperature Curve Name");
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_cop_function_of_temperature_curve_name");
+>>>>>>> nrel/develop
                     fieldValue = s_ip->getAlphaFieldValue(fields, schemaProps, jfieldName);
                     if (fieldValue.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -2409,17 +3104,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRFTemp(I), WHInletAirTemp, WHInletWaterTemp);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " COP Function of Air Flow Fraction Curve Name");
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_cop_function_of_air_flow_fraction_curve_name");
+=======
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " COP Function of Air Flow Fraction Curve Name");
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_cop_function_of_air_flow_fraction_curve_name");
+>>>>>>> nrel/develop
                     fieldValue = s_ip->getAlphaFieldValue(fields, schemaProps, jfieldName);
                     if (fieldValue.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -2440,17 +3148,30 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     cFieldName = EnergyPlus::format("Speed_{}{}", std::to_string(I), " COP Function of Water Flow Fraction Curve Name");
                     jfieldName = EnergyPlus::format("speed_{}{}", std::to_string(I), "_cop_function_of_water_flow_fraction_curve_name");
+=======
+                    cFieldName = std::format("Speed_{}{}", std::to_string(I), " COP Function of Water Flow Fraction Curve Name");
+                    jfieldName = std::format("speed_{}{}", std::to_string(I), "_cop_function_of_water_flow_fraction_curve_name");
+>>>>>>> nrel/develop
                     fieldValue = s_ip->getAlphaFieldValue(fields, schemaProps, jfieldName);
                     if (fieldValue.empty()) {
                         ShowWarningEmptyField(state, eoh, cFieldName, "Required field is blank.");
@@ -2471,11 +3192,19 @@ namespace VariableSpeedCoils {
                         if (!ErrorsFound) {
                             CurveVal = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(I), 1.0);
                             if (CurveVal > 1.10 || CurveVal < 0.90) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     state, EnergyPlus::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
                                 ShowContinueError(
                                     state, EnergyPlus::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
                                 ShowContinueError(state, EnergyPlus::format("...Curve output at rated conditions = {:.3T}", CurveVal));
+=======
+                                ShowWarningError(state,
+                                                 std::format("{}{}=\"{}\", curve values", RoutineName, CurrentModuleObject, varSpeedCoil.Name));
+                                ShowContinueError(state,
+                                                  std::format("...{} output is not equal to 1.0 (+ or - 10%) at rated conditions.", cFieldName));
+                                ShowContinueError(state, std::format("...Curve output at rated conditions = {:.3f}", CurveVal));
+>>>>>>> nrel/develop
                             }
                         }
                     }
@@ -2551,17 +3280,30 @@ namespace VariableSpeedCoils {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}Errors found getting input. Program terminates.", RoutineName));
+=======
+            ShowFatalError(state, std::format("{}Errors found getting input. Program terminates.", RoutineName));
+>>>>>>> nrel/develop
         }
 
         for (DXCoilNum = 1; DXCoilNum <= state.dataVariableSpeedCoils->NumVarSpeedCoils; ++DXCoilNum) {
             auto &varSpeedCoil = state.dataVariableSpeedCoils->VarSpeedCoil(DXCoilNum);
+<<<<<<< HEAD
             if ((varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) ||
                 (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed)) {
                 // Setup Report variables for the Heat Pump
 
                 // cooling and heating coils separately
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+            if ((varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) ||
+                (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed)) {
+                // Setup Report variables for the Heat Pump
+
+                // cooling and heating coils separately
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     // air source cooling coils
                     SetupOutputVariable(state,
                                         "Cooling Coil Air Mass Flow Rate",
@@ -2897,7 +3639,11 @@ namespace VariableSpeedCoils {
                 }
             } else {
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit) { // fix coil type
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit) { // fix coil type
+>>>>>>> nrel/develop
                     // cooling WAHP coil
                     // Setup Report variables for water source Heat Pump
                     SetupOutputVariable(state,
@@ -3028,7 +3774,11 @@ namespace VariableSpeedCoils {
                                         OutputProcessor::TimeStepType::System,
                                         OutputProcessor::StoreType::Average,
                                         varSpeedCoil.Name);
+<<<<<<< HEAD
                 } else if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) { // fix coil type
+=======
+                } else if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) { // fix coil type
+>>>>>>> nrel/develop
                     // heating WAHP coil
                     // Setup Report variables for water source Heat Pump
                     SetupOutputVariable(state,
@@ -3153,7 +3903,11 @@ namespace VariableSpeedCoils {
                                         OutputProcessor::TimeStepType::System,
                                         OutputProcessor::StoreType::Average,
                                         varSpeedCoil.Name);
+<<<<<<< HEAD
                 } else if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+                } else if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
                     // air source water heating coil
                     SetupOutputVariable(state,
                                         "Cooling Coil Water Heating Electricity Rate",
@@ -3317,9 +4071,15 @@ namespace VariableSpeedCoils {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state,
                            EnergyPlus::format(
                                "{}Errors found in getting {} input.  Preceding condition(s) causes termination.", RoutineName, CurrentModuleObject));
+=======
+            ShowFatalError(
+                state,
+                std::format("{}Errors found in getting {} input.  Preceding condition(s) causes termination.", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 
@@ -3383,12 +4143,20 @@ namespace VariableSpeedCoils {
                                                                 // member from DXcoils.cc is added to VarSpeedCoil object
 
         // variable-speed heat pump water heating, begin
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed && state.dataVariableSpeedCoils->MySizeFlag(DXCoilNum)) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed && state.dataVariableSpeedCoils->MySizeFlag(DXCoilNum)) {
+>>>>>>> nrel/develop
 
             ErrorsFound = false;
             SizeVarSpeedCoil(state, DXCoilNum, ErrorsFound);
             if (ErrorsFound) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("{}: Failed to size variable speed coil.", RoutineName));
+=======
+                ShowFatalError(state, std::format("{}: Failed to size variable speed coil.", RoutineName));
+>>>>>>> nrel/develop
             }
 
             //   get rated coil bypass factor excluding fan heat
@@ -3398,6 +4166,7 @@ namespace VariableSpeedCoils {
         // variable-speed heat pump water heating, end
 
         // water source
+<<<<<<< HEAD
         if ((varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit) ||
             (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit)) { // fix coil type
             if (state.dataVariableSpeedCoils->MyPlantScanFlag(DXCoilNum) && allocated(state.dataPlnt->PlantLoop)) {
@@ -3406,6 +4175,16 @@ namespace VariableSpeedCoils {
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit) {
                     CoilVSWAHPType = DataPlant::PlantEquipmentType::CoilVSWAHPCoolingEquationFit;
                 } else if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) {
+=======
+        if ((varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit) ||
+            (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit)) { // fix coil type
+            if (state.dataVariableSpeedCoils->MyPlantScanFlag(DXCoilNum) && allocated(state.dataPlnt->PlantLoop)) {
+                // switch from coil type numbers in DataHVACGlobals, to coil type numbers in plant.
+                DataPlant::PlantEquipmentType CoilVSWAHPType(DataPlant::PlantEquipmentType::Invalid);
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit) {
+                    CoilVSWAHPType = DataPlant::PlantEquipmentType::CoilVSWAHPCoolingEquationFit;
+                } else if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) {
+>>>>>>> nrel/develop
                     CoilVSWAHPType = DataPlant::PlantEquipmentType::CoilVSWAHPHeatingEquationFit;
                 }
                 ErrorsFound = false;
@@ -3421,7 +4200,11 @@ namespace VariableSpeedCoils {
 
         // Find the companion upstream coil (DX cooling coil) that is used with DX heating coils (HP AC units only)
         if (varSpeedCoil.FindCompanionUpStreamCoil) {
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 varSpeedCoil.CompanionUpstreamDXCoil = GetHPCoolingCoilIndex(state, varSpeedCoil.VarSpeedCoilType, varSpeedCoil.Name, DXCoilNum);
                 if (varSpeedCoil.CompanionUpstreamDXCoil > 0) {
                     state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionUpstreamDXCoil).ReportCoolingCoilCrankcasePower = false;
@@ -3441,7 +4224,11 @@ namespace VariableSpeedCoils {
                 int DXCoilNumTemp; // Counter for crankcase heater report variable DO loop
                 for (DXCoilNumTemp = 1; DXCoilNumTemp <= state.dataVariableSpeedCoils->NumVarSpeedCoils; ++DXCoilNumTemp) {
                     auto &dXCoil_withCrankCase = state.dataVariableSpeedCoils->VarSpeedCoil(DXCoilNumTemp);
+<<<<<<< HEAD
                     if (dXCoil_withCrankCase.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                    if (dXCoil_withCrankCase.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                         if (dXCoil_withCrankCase.ReportCoolingCoilCrankcasePower) {
                             SetupOutputVariable(state,
                                                 "Cooling Coil Crankcase Heater Electricity Rate",
@@ -3474,14 +4261,23 @@ namespace VariableSpeedCoils {
             ErrorsFound = false;
             SizeVarSpeedCoil(state, DXCoilNum, ErrorsFound);
             if (ErrorsFound) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("{}: Failed to size variable speed coil.", RoutineName));
+=======
+                ShowFatalError(state, std::format("{}: Failed to size variable speed coil.", RoutineName));
+>>>>>>> nrel/develop
             }
 
             state.dataVariableSpeedCoils->MySizeFlag(DXCoilNum) = false;
 
             // Multispeed Cooling
+<<<<<<< HEAD
             if ((varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit) ||
                 (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed)) {
+=======
+            if ((varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit) ||
+                (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed)) {
+>>>>>>> nrel/develop
                 for (int Mode = 1; Mode <= varSpeedCoil.NumOfSpeeds; ++Mode) {
                     if (varSpeedCoil.RatedCapCoolTotal <= 0.0) {
                         break;
@@ -3490,14 +4286,22 @@ namespace VariableSpeedCoils {
                     if (varSpeedCoil.MSRatedTotCap(Mode) <= 0.0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "Sizing: {} {} has zero rated total capacity at speed {}", varSpeedCoil.VarSpeedCoilType, varSpeedCoil.Name, Mode));
                         ErrorsFound = true;
                     }
                     if (varSpeedCoil.MSRatedAirVolFlowRate(Mode) <= 0.0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "Sizing: {} {} has zero rated air flow rate at speed {}", varSpeedCoil.VarSpeedCoilType, varSpeedCoil.Name, Mode));
                         ErrorsFound = true;
                     }
@@ -3535,7 +4339,11 @@ namespace VariableSpeedCoils {
                     state.dataLoopNodes->Node(varSpeedCoil.CondenserInletNodeNum).Press = DataEnvironment::StdPressureSeaLevel;
                     state.dataLoopNodes->Node(varSpeedCoil.CondenserInletNodeNum).OutAirWetBulb = ratedOutdoorAirWetBulb;
                 }
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit) { // need to set water info for WSHP
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit) { // need to set water info for WSHP
+>>>>>>> nrel/develop
                     varSpeedCoil.WaterMassFlowRate = varSpeedCoil.MSRatedWaterMassFlowRate(varSpeedCoil.NumOfSpeeds);
                     varSpeedCoil.InletWaterTemp = RatedInletWaterTemp; // 85 F cooling mode
                     Real64 CpSource =
@@ -3556,6 +4364,7 @@ namespace VariableSpeedCoils {
                 Real64 RatedOutletWetBulb(0.0);
                 RatedOutletWetBulb = Psychrometrics::PsyTwbFnTdbWPb(
                     state, varSpeedCoil.OutletAirDBTemp, varSpeedCoil.OutletAirHumRat, DataEnvironment::StdPressureSeaLevel, RoutineName);
+<<<<<<< HEAD
                 state.dataRptCoilSelection->coilSelectionReportObj->setRatedCoilConditions(state,
                                                                                            varSpeedCoil.Name,
                                                                                            varSpeedCoil.VarSpeedCoilType,
@@ -3572,6 +4381,23 @@ namespace VariableSpeedCoils {
                                                                                            ratedOutdoorAirWetBulb,
                                                                                            varSpeedCoil.MSRatedCBF(varSpeedCoil.NumOfSpeeds),
                                                                                            -999.0); // coil effectiveness not define for DX
+=======
+                ReportCoilSelection::setRatedCoilConditions(state,
+                                                            varSpeedCoil.coilReportNum,
+                                                            varSpeedCoil.QLoadTotal, // this is the report variable
+                                                            varSpeedCoil.QSensible,  // this is the report variable
+                                                            varSpeedCoil.AirMassFlowRate,
+                                                            varSpeedCoil.InletAirDBTemp,
+                                                            varSpeedCoil.InletAirHumRat,
+                                                            RatedInletWetBulbTemp,
+                                                            varSpeedCoil.OutletAirDBTemp,
+                                                            varSpeedCoil.OutletAirHumRat,
+                                                            RatedOutletWetBulb,
+                                                            RatedAmbAirTemp,
+                                                            ratedOutdoorAirWetBulb,
+                                                            varSpeedCoil.MSRatedCBF(varSpeedCoil.NumOfSpeeds),
+                                                            -999.0); // coil effectiveness not define for DX
+>>>>>>> nrel/develop
 
                 // now replace the outdoor air conditions set above for one time rating point calc
                 state.dataEnvrn->OutDryBulbTemp = holdOutDryBulbTemp;
@@ -3581,8 +4407,13 @@ namespace VariableSpeedCoils {
             }
 
             // Multispeed Heating
+<<<<<<< HEAD
             if ((varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) ||
                 (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed)) {
+=======
+            if ((varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) ||
+                (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed)) {
+>>>>>>> nrel/develop
                 RatedHeatPumpIndoorAirTemp = 21.11;  // 21.11C or 70F
                 RatedHeatPumpIndoorHumRat = 0.00881; // Humidity ratio corresponding to 70F dry bulb/60F wet bulb
                 for (int Mode = 1; Mode <= varSpeedCoil.NumOfSpeeds; ++Mode) {
@@ -3622,7 +4453,11 @@ namespace VariableSpeedCoils {
                     state.dataLoopNodes->Node(varSpeedCoil.CondenserInletNodeNum).OutAirWetBulb = RatedAmbAirWBHeat;
                 }
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) { // need to set water info for WSHP
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) { // need to set water info for WSHP
+>>>>>>> nrel/develop
                     varSpeedCoil.WaterMassFlowRate = varSpeedCoil.MSRatedWaterMassFlowRate(varSpeedCoil.NumOfSpeeds);
                     varSpeedCoil.InletWaterTemp = RatedInletWaterTempHeat; // 21.11C or 70F, heating mode
                     Real64 CpSource =
@@ -3642,6 +4477,7 @@ namespace VariableSpeedCoils {
                 Real64 RatedOutletWetBulb(0.0);
                 RatedOutletWetBulb = Psychrometrics::PsyTwbFnTdbWPb(
                     state, varSpeedCoil.OutletAirDBTemp, varSpeedCoil.OutletAirHumRat, DataEnvironment::StdPressureSeaLevel, RoutineName);
+<<<<<<< HEAD
                 state.dataRptCoilSelection->coilSelectionReportObj->setRatedCoilConditions(state,
                                                                                            varSpeedCoil.Name,
                                                                                            varSpeedCoil.VarSpeedCoilType,
@@ -3658,6 +4494,23 @@ namespace VariableSpeedCoils {
                                                                                            RatedAmbAirWBHeat,
                                                                                            varSpeedCoil.MSRatedCBF(varSpeedCoil.NumOfSpeeds),
                                                                                            -999.0); // coil effectiveness not define for DX
+=======
+                ReportCoilSelection::setRatedCoilConditions(state,
+                                                            varSpeedCoil.coilReportNum,
+                                                            varSpeedCoil.QLoadTotal, // this is the report variable
+                                                            varSpeedCoil.QSensible,  // this is the report variable
+                                                            varSpeedCoil.AirMassFlowRate,
+                                                            varSpeedCoil.InletAirDBTemp,
+                                                            varSpeedCoil.InletAirHumRat,
+                                                            RatedInletWetBulbTemp,
+                                                            varSpeedCoil.OutletAirDBTemp,
+                                                            varSpeedCoil.OutletAirHumRat,
+                                                            RatedOutletWetBulb,
+                                                            RatedAmbAirTempHeat,
+                                                            RatedAmbAirWBHeat,
+                                                            varSpeedCoil.MSRatedCBF(varSpeedCoil.NumOfSpeeds),
+                                                            -999.0); // coil effectiveness not define for DX
+>>>>>>> nrel/develop
 
                 // now replace the outdoor air conditions set above for one time rating point calc
                 state.dataEnvrn->OutDryBulbTemp = holdOutDryBulbTemp;
@@ -3668,12 +4521,17 @@ namespace VariableSpeedCoils {
 
             // store fan info for coil
             if (varSpeedCoil.SupplyFanIndex > 0) {
+<<<<<<< HEAD
                 state.dataRptCoilSelection->coilSelectionReportObj->setCoilSupplyFanInfo(state,
                                                                                          varSpeedCoil.Name,
                                                                                          varSpeedCoil.VarSpeedCoilType,
                                                                                          varSpeedCoil.SupplyFanName,
                                                                                          varSpeedCoil.supplyFanType,
                                                                                          varSpeedCoil.SupplyFanIndex);
+=======
+                ReportCoilSelection::setCoilSupplyFanInfo(
+                    state, varSpeedCoil.coilReportNum, varSpeedCoil.SupplyFanName, varSpeedCoil.supplyFanType, varSpeedCoil.SupplyFanIndex);
+>>>>>>> nrel/develop
             }
         }
 
@@ -3732,8 +4590,13 @@ namespace VariableSpeedCoils {
             varSpeedCoil.RunFrac = 0.0;
             varSpeedCoil.PartLoadRatio = 0.0;
 
+<<<<<<< HEAD
             if ((varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) ||
                 (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit)) {
+=======
+            if ((varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) ||
+                (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit)) {
+>>>>>>> nrel/develop
                 WaterInletNode = varSpeedCoil.WaterInletNodeNum;
 
                 rho = varSpeedCoil.plantLoc.loop->glycol->getDensity(state, Constant::CWInitConvTemp, RoutineNameSimpleWatertoAirHP);
@@ -3812,8 +4675,13 @@ namespace VariableSpeedCoils {
             varSpeedCoil.AirMassFlowRate = 0.0;
         }
 
+<<<<<<< HEAD
         if ((varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) ||
             (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit)) {
+=======
+        if ((varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) ||
+            (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit)) {
+>>>>>>> nrel/develop
             PlantUtilities::SetComponentFlowRate(
                 state, varSpeedCoil.WaterMassFlowRate, varSpeedCoil.WaterInletNodeNum, varSpeedCoil.WaterOutletNodeNum, varSpeedCoil.plantLoc);
 
@@ -3824,7 +4692,11 @@ namespace VariableSpeedCoils {
             varSpeedCoil.InletWaterEnthalpy = 0.0;
         }
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             varSpeedCoil.InletWaterTemp = state.dataLoopNodes->Node(WaterInletNode).Temp;
             varSpeedCoil.InletWaterEnthalpy = state.dataLoopNodes->Node(WaterInletNode).Enthalpy;
         };
@@ -3924,6 +4796,7 @@ namespace VariableSpeedCoils {
         bool RatedCapCoolTotalAutoSized;
         bool RatedCapCoolSensAutoSized;
         Real64 SystemCapacity;
+<<<<<<< HEAD
         Real64 rho;
         Real64 cp;
         int Mode;                     // speed level
@@ -3944,6 +4817,28 @@ namespace VariableSpeedCoils {
         bool SizingDesRunThisZone;    // true if a particular zone had a Sizing:Zone object and zone sizing was done
         Real64 HPInletAirHumRat;      // Rated inlet air humidity ratio for heat pump water heater [kgWater/kgDryAir]
         Real64 HPWHCoolCapacity;      // estimate cooling capacity in HPWH
+=======
+        Real64 rho = 0.0;
+        Real64 cp;
+        int Mode;                      // speed level
+        Real64 rhoW;                   // water density
+        Real64 SHR;                    // sensible heat transfer ratio
+        Real64 RatedAirMassFlowRate;   // rated air mass flow rate
+        Real64 CBFRated;               // bypass factor at the rated condition, considering difference in flow rates
+        Real64 RatedInletEnth;         // rated inlet air enthalpy
+        Real64 QLoadTotal1;            // placeholder for calculating SHR
+        Real64 QLoadTotal2;            // placeholder for calculating SHR
+        Real64 QLoadTotal;             // placeholder for calculating SHR
+        Real64 AirMassFlowRatio;       // air mass flow ratio
+        Real64 WaterMassFlowRatio;     // water mass flow rate
+        Real64 RatedSourceTempCool;    // rated source temperature, space cooling mode
+        std::string CurrentObjSubfix;  // Object subfix type for printing
+        bool HardSizeNoDesRun;         // Indicator to hardsize without sizing runs
+        bool SizingDesRunThisAirSys;   // true if a particular air system had a Sizing:System object and system sizing done
+        bool SizingDesRunThisZone;     // true if a particular zone had a Sizing:Zone object and zone sizing was done
+        Real64 HPInletAirHumRat = 0.0; // Rated inlet air humidity ratio for heat pump water heater [kgWater/kgDryAir]
+        Real64 HPWHCoolCapacity;       // estimate cooling capacity in HPWH
+>>>>>>> nrel/develop
 
         int UpperSpeed = varSpeedCoil.NumOfSpeeds;
         int NormSpeed = varSpeedCoil.NormSpedLevel;
@@ -3983,23 +4878,39 @@ namespace VariableSpeedCoils {
         Real64 DefrostCapacityDes = 0.0;
         Real64 DefrostCapacityUser = 0.0;
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
             varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) {
             CurrentObjSubfix = ":WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT";
         } else if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+            varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) {
+            CurrentObjSubfix = ":WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT";
+        } else if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             CurrentObjSubfix = ":WATERHEATING:AIRTOWATERHEATPUMP:VARIABLESPEED";
         } else {
             CurrentObjSubfix = ":DX:VARIABLESPEED";
         }
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             if (varSpeedCoil.RatedAirVolFlowRate == Constant::AutoCalculate) {
                 varSpeedCoil.RatedAirVolFlowRate =
                     varSpeedCoil.RatedCapWH * varSpeedCoil.MSRatedAirVolFlowRate(NormSpeed) / varSpeedCoil.MSRatedTotCap(NormSpeed); // 0.00005035;
                 varSpeedCoil.AirVolFlowAutoSized = true;
             }
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilAirFlow(
                 state, varSpeedCoil.Name, varSpeedCoil.VarSpeedCoilType, varSpeedCoil.RatedAirVolFlowRate, varSpeedCoil.AirVolFlowAutoSized);
+=======
+            ReportCoilSelection::setCoilAirFlow(
+                state, varSpeedCoil.coilReportNum, varSpeedCoil.RatedAirVolFlowRate, varSpeedCoil.AirVolFlowAutoSized);
+>>>>>>> nrel/develop
 
             if (varSpeedCoil.RatedWaterVolFlowRate == Constant::AutoCalculate) {
                 varSpeedCoil.RatedHPWHCondWaterFlow = varSpeedCoil.RatedCapWH * varSpeedCoil.MSRatedWaterVolFlowRate(NormSpeed) /
@@ -4007,6 +4918,7 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.RatedWaterVolFlowRate = varSpeedCoil.RatedHPWHCondWaterFlow;
                 varSpeedCoil.WaterVolFlowAutoSized = true;
             }
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilWaterFlowPltSizNum(state,
                                                                                           varSpeedCoil.Name,
                                                                                           varSpeedCoil.VarSpeedCoilType,
@@ -4014,6 +4926,14 @@ namespace VariableSpeedCoils {
                                                                                           varSpeedCoil.WaterVolFlowAutoSized,
                                                                                           -999,
                                                                                           varSpeedCoil.plantLoc.loopNum);
+=======
+            ReportCoilSelection::setCoilWaterFlowPltSizNum(state,
+                                                           varSpeedCoil.coilReportNum,
+                                                           varSpeedCoil.RatedWaterVolFlowRate,
+                                                           varSpeedCoil.WaterVolFlowAutoSized,
+                                                           -999,
+                                                           varSpeedCoil.plantLoc.loopNum);
+>>>>>>> nrel/develop
         }
 
         if (varSpeedCoil.RatedAirVolFlowRate == DataSizing::AutoSize) {
@@ -4025,13 +4945,21 @@ namespace VariableSpeedCoils {
                 HardSizeNoDesRunAirFlow = true;
                 if (varSpeedCoil.RatedAirVolFlowRate > 0.0) {
                     BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                 std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                  varSpeedCoil.Name,
                                                  "User-Specified Rated Air Flow Rate [m3/s]",
                                                  varSpeedCoil.RatedAirVolFlowRate);
                 }
             } else {
+<<<<<<< HEAD
                 CheckSysSizing(state, EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+=======
+                CheckSysSizing(state, std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+>>>>>>> nrel/develop
                 if (state.dataSize->CurOASysNum > 0 && state.dataAirLoop->OutsideAirSys(state.dataSize->CurOASysNum).AirLoopDOASNum > -1) {
                     auto const &thisAirloopDOAS =
                         state.dataAirLoopHVACDOAS->airloopDOAS[state.dataAirLoop->OutsideAirSys(state.dataSize->CurOASysNum).AirLoopDOASNum];
@@ -4051,13 +4979,21 @@ namespace VariableSpeedCoils {
                 HardSizeNoDesRunAirFlow = true;
                 if (varSpeedCoil.RatedAirVolFlowRate > 0.0) {
                     BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                 std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                  varSpeedCoil.Name,
                                                  "User-Specified Rated Air Flow Rate [m3/s]",
                                                  varSpeedCoil.RatedAirVolFlowRate);
                 }
             } else {
+<<<<<<< HEAD
                 CheckZoneSizing(state, EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+=======
+                CheckZoneSizing(state, std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+>>>>>>> nrel/develop
                 RatedAirVolFlowRateDes = max(state.dataSize->FinalZoneSizing(state.dataSize->CurZoneEqNum).DesCoolVolFlow,
                                              state.dataSize->FinalZoneSizing(state.dataSize->CurZoneEqNum).DesHeatVolFlow);
                 if (RatedAirVolFlowRateDes < HVAC::SmallAirVolFlow) {
@@ -4075,8 +5011,13 @@ namespace VariableSpeedCoils {
 
         // size rated total cooling capacity
         IsAutoSize = false;
+<<<<<<< HEAD
         if (varSpeedCoil.RatedCapCoolTotal == DataSizing::AutoSize && (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
                                                                        varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed)) {
+=======
+        if (varSpeedCoil.RatedCapCoolTotal == DataSizing::AutoSize && (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+                                                                       varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed)) {
+>>>>>>> nrel/develop
             RatedCapCoolTotalAutoSized = true;
         }
         if (SizingDesRunThisZone || SizingDesRunThisAirSys) {
@@ -4087,13 +5028,21 @@ namespace VariableSpeedCoils {
                 HardSizeNoDesRun = true;
                 if (varSpeedCoil.RatedCapCoolTotal > 0.0) {
                     BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                 std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                  varSpeedCoil.Name,
                                                  "User-Specified Rated Total Cooling Capacity [W]",
                                                  varSpeedCoil.RatedCapCoolTotal);
                 }
             } else {
+<<<<<<< HEAD
                 CheckSysSizing(state, EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+=======
+                CheckSysSizing(state, std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+>>>>>>> nrel/develop
                 if (state.dataSize->CurOASysNum > 0 && state.dataAirLoop->OutsideAirSys(state.dataSize->CurOASysNum).AirLoopDOASNum > -1) {
                     auto const &thisAirloopDOAS =
                         state.dataAirLoopHVACDOAS->airloopDOAS[state.dataAirLoop->OutsideAirSys(state.dataSize->CurOASysNum).AirLoopDOASNum];
@@ -4166,6 +5115,7 @@ namespace VariableSpeedCoils {
 
                         CoolCapAtPeak = (rhoair * VolFlowRate * (MixEnth - SupEnth)) + FanCoolLoad;
                         if (CoolCapAtPeak < 0) { // This conditional will also catch the initialization value, -999.0
+<<<<<<< HEAD
                             ShowWarningError(
                                 state,
                                 EnergyPlus::format(
@@ -4178,6 +5128,26 @@ namespace VariableSpeedCoils {
                             ShowContinueError(state, EnergyPlus::format("                        H_supply = {:.4R}", SupEnth));
                             ShowContinueError(state, EnergyPlus::format("                        W_mix = {:.4R}", MixHumRat));
                             ShowContinueError(state, EnergyPlus::format("                        W_supply = {:.4R}", SupHumRat));
+=======
+                            if (finalSysSizing.CoolDDNum > 0) {
+                                ShowWarningError(state,
+                                                 std::format("In calculating capacity for coil {} on design day {} when system cooling load is "
+                                                             "available, the air state would yield negative coil capacity sizing.",
+                                                             varSpeedCoil.Name,
+                                                             finalSysSizing.CoolDesDay));
+                            } else {
+                                ShowWarningError(state,
+                                                 std::format("In calculating capacity for coil {} when system cooling load is not available, the air "
+                                                             "state would yield negative coil capacity sizing.",
+                                                             varSpeedCoil.Name));
+                            }
+                            ShowContinueError(state, std::format("The air properties are: T_mix = {:.4f}", MixTemp));
+                            ShowContinueError(state, std::format("                        T_supply = {:.4f}", SupTemp));
+                            ShowContinueError(state, std::format("                        H_mix = {:.4f}", MixEnth));
+                            ShowContinueError(state, std::format("                        H_supply = {:.4f}", SupEnth));
+                            ShowContinueError(state, std::format("                        W_mix = {:.4f}", MixHumRat));
+                            ShowContinueError(state, std::format("                        W_supply = {:.4f}", SupHumRat));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "Cooling capacity is set to zero during sizing; simulation continues.");
                         }
                         if (state.dataSize->UnitarySysEqSizing(state.dataSize->CurSysNum).CoolingCapacity &&
@@ -4201,13 +5171,21 @@ namespace VariableSpeedCoils {
                 HardSizeNoDesRun = true;
                 if (varSpeedCoil.RatedCapCoolTotal > 0.0) {
                     BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                 std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                  varSpeedCoil.Name,
                                                  "User-Specified Rated Total Cooling Capacity [W]",
                                                  varSpeedCoil.RatedCapCoolTotal);
                 }
             } else {
+<<<<<<< HEAD
                 CheckZoneSizing(state, EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+=======
+                CheckZoneSizing(state, std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix), varSpeedCoil.Name);
+>>>>>>> nrel/develop
                 auto const &finalZoneSizing = state.dataSize->FinalZoneSizing(state.dataSize->CurZoneEqNum);
                 VolFlowRate = varSpeedCoil.RatedAirVolFlowRate;
                 if (VolFlowRate >= HVAC::SmallAirVolFlow) {
@@ -4284,7 +5262,11 @@ namespace VariableSpeedCoils {
             if (RatedCapCoolTotalAutoSized) {
                 varSpeedCoil.RatedCapCoolTotal = RatedCapCoolTotalDes;
                 BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                             std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                              varSpeedCoil.Name,
                                              "Design Size Rated Total Cooling Capacity [W]",
                                              varSpeedCoil.RatedCapCoolTotal);
@@ -4313,7 +5295,11 @@ namespace VariableSpeedCoils {
                 if (varSpeedCoil.RatedCapCoolTotal > 0.0 && RatedCapCoolTotalDes > 0.0) {
                     RatedCapCoolTotalUser = varSpeedCoil.RatedCapCoolTotal;
                     BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                 std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                  varSpeedCoil.Name,
                                                  "Design Size Rated Total Cooling Capacity [W]",
                                                  RatedCapCoolTotalDes,
@@ -4323,6 +5309,7 @@ namespace VariableSpeedCoils {
                         if ((std::abs(RatedCapCoolTotalDes - RatedCapCoolTotalUser) / RatedCapCoolTotalUser) >
                             state.dataSize->AutoVsHardSizingThreshold) {
                             ShowMessage(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
                                                            varSpeedCoil.CoolHeatType,
                                                            CurrentObjSubfix));
@@ -4332,6 +5319,15 @@ namespace VariableSpeedCoils {
                             ShowContinueError(
                                 state,
                                 EnergyPlus::format("differs from Design Size Rated Total Cooling Capacity of {:.2R} [W]", RatedCapCoolTotalDes));
+=======
+                                        std::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
+                                                    varSpeedCoil.CoolHeatType,
+                                                    CurrentObjSubfix));
+                            ShowContinueError(state, std::format("Coil Name = {}", varSpeedCoil.Name));
+                            ShowContinueError(state, std::format("User-Specified Rated Total Cooling Capacity of {:.2f} [W]", RatedCapCoolTotalUser));
+                            ShowContinueError(
+                                state, std::format("differs from Design Size Rated Total Cooling Capacity of {:.2f} [W]", RatedCapCoolTotalDes));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                             ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                         }
@@ -4339,6 +5335,7 @@ namespace VariableSpeedCoils {
                 }
             }
 
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntAirTemp(
                 state, varSpeedCoil.Name, varSpeedCoil.VarSpeedCoilType, MixTemp, state.dataSize->CurSysNum, state.dataSize->CurZoneEqNum);
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntAirHumRat(
@@ -4365,18 +5362,52 @@ namespace VariableSpeedCoils {
         // Set the global DX cooling coil capacity variable for use by other objects
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
             varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+            ReportCoilSelection::setCoilEntAirTemp(
+                state, varSpeedCoil.coilReportNum, MixTemp, state.dataSize->CurSysNum, state.dataSize->CurZoneEqNum);
+            ReportCoilSelection::setCoilEntAirHumRat(state, varSpeedCoil.coilReportNum, MixHumRat);
+            ReportCoilSelection::setCoilLvgAirTemp(state, varSpeedCoil.coilReportNum, SupTemp);
+            ReportCoilSelection::setCoilLvgAirHumRat(state, varSpeedCoil.coilReportNum, SupHumRat);
+            ReportCoilSelection::setCoilAirFlow(state, varSpeedCoil.coilReportNum, varSpeedCoil.RatedAirVolFlowRate, RatedAirFlowAutoSized);
+            ReportCoilSelection::setCoilCoolingCapacity(state,
+                                                        varSpeedCoil.coilReportNum,
+                                                        RatedCapCoolTotalDes,
+                                                        RatedCapCoolTotalAutoSized,
+                                                        state.dataSize->CurSysNum,
+                                                        state.dataSize->CurZoneEqNum,
+                                                        state.dataSize->CurOASysNum,
+                                                        0.0, // no fan load included in sizing
+                                                        TotCapTempModFac,
+                                                        -999.0,
+                                                        -999.0); // VS model doesn't limit, double check
+        }
+
+        // Set the global DX cooling coil capacity variable for use by other objects
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+            varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
             state.dataSize->DXCoolCap = varSpeedCoil.RatedCapCoolTotal;
         }
 
         // size rated heating capacity
+<<<<<<< HEAD
         if (varSpeedCoil.RatedCapHeat == DataSizing::AutoSize && (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit ||
                                                                   varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed)) {
+=======
+        if (varSpeedCoil.RatedCapHeat == DataSizing::AutoSize && (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit ||
+                                                                  varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed)) {
+>>>>>>> nrel/develop
             RatedCapHeatAutoSized = true;
         }
         //   simply set heating capacity equal to the cooling capacity
         // VarSpeedCoil(DXCoilNum)%RatedCapHeat = DXCoolCap
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit ||
             varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit ||
+            varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
             if (varSpeedCoil.CompanionCoolingCoilNum > 0) {
                 RatedCapHeatDes = state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionCoolingCoilNum).RatedCapCoolTotal;
                 varSpeedCoil.RatedCapCoolTotal = RatedCapHeatDes; // AVOID BEING ZERO
@@ -4397,12 +5428,20 @@ namespace VariableSpeedCoils {
             // END IF
             if (RatedCapHeatAutoSized) {
                 if (RatedCapHeatDes == DataSizing::AutoSize) {
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format(
                                          "COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("{}: Heating coil could not be autosized since cooling coil was not previously sized.", RoutineName));
+=======
+                    ShowWarningError(
+                        state,
+                        std::format("COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
+                    ShowContinueError(
+                        state, std::format("{}: Heating coil could not be autosized since cooling coil was not previously sized.", RoutineName));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "... Cooling coil must be upstream of heating coil.");
                     ShowContinueError(state, "... Manually sizing this heating coil will be required.");
                 }
@@ -4410,6 +5449,7 @@ namespace VariableSpeedCoils {
             if (RatedCapHeatDes < HVAC::SmallLoad) {
                 RatedCapHeatDes = 0.0;
             }
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilHeatingCapacity(state,
                                                                                        varSpeedCoil.Name,
                                                                                        varSpeedCoil.VarSpeedCoilType,
@@ -4422,11 +5462,28 @@ namespace VariableSpeedCoils {
                                                                                        1.0,
                                                                                        -999.0,
                                                                                        -999.0);
+=======
+            ReportCoilSelection::setCoilHeatingCapacity(state,
+                                                        varSpeedCoil.coilReportNum,
+                                                        RatedCapHeatDes,
+                                                        RatedCapHeatAutoSized,
+                                                        state.dataSize->CurSysNum,
+                                                        state.dataSize->CurZoneEqNum,
+                                                        state.dataSize->CurOASysNum,
+                                                        0.0,
+                                                        1.0,
+                                                        -999.0,
+                                                        -999.0);
+>>>>>>> nrel/develop
         }
         if (RatedCapHeatAutoSized) {
             varSpeedCoil.RatedCapHeat = RatedCapHeatDes;
             BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                         std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                          varSpeedCoil.Name,
                                          "Design Size Nominal Heating Capacity [W]",
                                          RatedCapHeatDes);
@@ -4446,7 +5503,11 @@ namespace VariableSpeedCoils {
             if (varSpeedCoil.RatedCapHeat > 0.0 && RatedCapHeatDes > 0.0) {
                 RatedCapHeatUser = varSpeedCoil.RatedCapHeat;
                 BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                             std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                              varSpeedCoil.Name,
                                              "Design Size Nominal Heating Capacity [W]",
                                              RatedCapHeatDes,
@@ -4455,6 +5516,7 @@ namespace VariableSpeedCoils {
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     if ((std::abs(RatedCapHeatDes - RatedCapHeatUser) / RatedCapHeatUser) > state.dataSize->AutoVsHardSizingThreshold) {
                         ShowMessage(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
                                                        varSpeedCoil.CoolHeatType,
                                                        CurrentObjSubfix));
@@ -4462,6 +5524,14 @@ namespace VariableSpeedCoils {
                         ShowContinueError(state, EnergyPlus::format("User-Specified Rated Total Heating Capacity of {:.2R} [W]", RatedCapHeatUser));
                         ShowContinueError(state,
                                           EnergyPlus::format("differs from Design Size Rated Total Heating Capacity of {:.2R} [W]", RatedCapHeatDes));
+=======
+                                    std::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
+                                                varSpeedCoil.CoolHeatType,
+                                                CurrentObjSubfix));
+                        ShowContinueError(state, std::format("Coil Name = {}", varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("User-Specified Rated Total Heating Capacity of {:.2f} [W]", RatedCapHeatUser));
+                        ShowContinueError(state, std::format("differs from Design Size Rated Total Heating Capacity of {:.2f} [W]", RatedCapHeatDes));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                         ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                     }
@@ -4481,7 +5551,11 @@ namespace VariableSpeedCoils {
             if (RatedAirFlowAutoSized) {
                 varSpeedCoil.RatedAirVolFlowRate = RatedAirVolFlowRateDes;
                 BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                             std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                              varSpeedCoil.Name,
                                              "Design Size Rated Air Flow Rate [m3/s]",
                                              RatedAirVolFlowRateDes);
@@ -4489,7 +5563,11 @@ namespace VariableSpeedCoils {
                 if (varSpeedCoil.RatedAirVolFlowRate > 0.0 && RatedAirVolFlowRateDes > 0.0) {
                     RatedAirVolFlowRateUser = varSpeedCoil.RatedAirVolFlowRate;
                     BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                 std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                  varSpeedCoil.Name,
                                                  "Design Size Rated Air Flow Rate [m3/s]",
                                                  RatedAirVolFlowRateDes,
@@ -4499,6 +5577,7 @@ namespace VariableSpeedCoils {
                         if ((std::abs(RatedAirVolFlowRateDes - RatedAirVolFlowRateUser) / RatedAirVolFlowRateUser) >
                             state.dataSize->AutoVsHardSizingThreshold) {
                             ShowMessage(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
                                                            varSpeedCoil.CoolHeatType,
                                                            CurrentObjSubfix));
@@ -4507,12 +5586,22 @@ namespace VariableSpeedCoils {
                                               EnergyPlus::format("User-Specified Rated Air Flow Rate of {:.5R} [m3/s]", RatedAirVolFlowRateUser));
                             ShowContinueError(
                                 state, EnergyPlus::format("differs from Design Size Rated Air Flow Rate of {:.5R} [m3/s]", RatedAirVolFlowRateDes));
+=======
+                                        std::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
+                                                    varSpeedCoil.CoolHeatType,
+                                                    CurrentObjSubfix));
+                            ShowContinueError(state, std::format("Coil Name = {}", varSpeedCoil.Name));
+                            ShowContinueError(state, std::format("User-Specified Rated Air Flow Rate of {:.5f} [m3/s]", RatedAirVolFlowRateUser));
+                            ShowContinueError(state,
+                                              std::format("differs from Design Size Rated Air Flow Rate of {:.5f} [m3/s]", RatedAirVolFlowRateDes));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                             ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                         }
                     }
                 }
             }
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilAirFlow(
                 state, varSpeedCoil.Name, varSpeedCoil.VarSpeedCoilType, RatedAirVolFlowRateDes, RatedAirFlowAutoSized);
         }
@@ -4520,6 +5609,14 @@ namespace VariableSpeedCoils {
         // Check that heat pump heating capacity is within 20% of cooling capacity. Check only for heating coil and report both.
         if ((varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit ||
              varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) &&
+=======
+            ReportCoilSelection::setCoilAirFlow(state, varSpeedCoil.coilReportNum, RatedAirVolFlowRateDes, RatedAirFlowAutoSized);
+        }
+
+        // Check that heat pump heating capacity is within 20% of cooling capacity. Check only for heating coil and report both.
+        if ((varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit ||
+             varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) &&
+>>>>>>> nrel/develop
             varSpeedCoil.CompanionCoolingCoilNum > 0) {
 
             if (state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionCoolingCoilNum).RatedCapCoolTotal > 0.0) {
@@ -4529,6 +5626,7 @@ namespace VariableSpeedCoils {
                         state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionCoolingCoilNum).RatedCapCoolTotal >
                     0.2) {
 
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format(
                                          "COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
@@ -4543,11 +5641,27 @@ namespace VariableSpeedCoils {
                         state,
                         EnergyPlus::format("...cooling capacity = {:.3T} W",
                                            state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionCoolingCoilNum).RatedCapCoolTotal));
+=======
+                    ShowWarningError(
+                        state,
+                        std::format("COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
+                    ShowContinueError(state,
+                                      std::format("...used with COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"",
+                                                  state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionCoolingCoilNum).CoolHeatType,
+                                                  state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionCoolingCoilNum).Name));
+                    ShowContinueError(state, "...heating capacity is disproportionate (> 20% different) to total cooling capacity");
+                    ShowContinueError(state, std::format("...heating capacity = {:.3f} W", varSpeedCoil.RatedCapHeat));
+                    ShowContinueError(
+                        state,
+                        std::format("...cooling capacity = {:.3f} W",
+                                    state.dataVariableSpeedCoils->VarSpeedCoil(varSpeedCoil.CompanionCoolingCoilNum).RatedCapCoolTotal));
+>>>>>>> nrel/develop
                 }
             }
         }
 
         // ASSIGN CAPACITY
+<<<<<<< HEAD
         switch (varSpeedCoil.VSCoilType) {
         case HVAC::Coil_CoolingWaterToAirHPVSEquationFit:
         case HVAC::Coil_CoolingAirToAirVariableSpeed: {
@@ -4563,6 +5677,25 @@ namespace VariableSpeedCoils {
         }
 
         if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        switch (varSpeedCoil.coilType) {
+        case HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit:
+        case HVAC::CoilType::CoolingDXVariableSpeed: {
+            varSpeedCoil.MSRatedTotCap(UpperSpeed) = varSpeedCoil.RatedCapCoolTotal / varSpeedCoil.MSRatedPercentTotCap(NormSpeed);
+        } break;
+        case HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit:
+        case HVAC::CoilType::HeatingDXVariableSpeed: {
+            varSpeedCoil.MSRatedTotCap(UpperSpeed) = varSpeedCoil.RatedCapHeat / varSpeedCoil.MSRatedPercentTotCap(NormSpeed);
+        } break;
+        case HVAC::CoilType::WaterHeatingAWHPVariableSpeed: {
+            varSpeedCoil.MSRatedTotCap(UpperSpeed) = varSpeedCoil.RatedCapWH / varSpeedCoil.MSRatedPercentTotCap(NormSpeed);
+        } break;
+        default: {
+        } break;
+        } // switch ()
+
+        if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             HPInletAirHumRat = Psychrometrics::PsyWFnTdbTwbPb(
                 state, varSpeedCoil.WHRatedInletDBTemp, varSpeedCoil.WHRatedInletWBTemp, state.dataEnvrn->StdBaroPress, RoutineName);
 
@@ -4577,6 +5710,7 @@ namespace VariableSpeedCoils {
             // HPWH, the mass flow rate will be updated by a revised entering air density
 
             if (varSpeedCoil.MSHPDesignSpecIndex > -1 && !state.dataUnitarySystems->designSpecMSHP.empty()) {
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
                     varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
                     if (state.dataUnitarySystems->designSpecMSHP[varSpeedCoil.MSHPDesignSpecIndex].numOfSpeedCooling != varSpeedCoil.NumOfSpeeds) {
@@ -4586,6 +5720,17 @@ namespace VariableSpeedCoils {
                                                           varSpeedCoil.CoolHeatType,
                                                           CurrentObjSubfix,
                                                           varSpeedCoil.Name));
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+                    varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+                    if (state.dataUnitarySystems->designSpecMSHP[varSpeedCoil.MSHPDesignSpecIndex].numOfSpeedCooling != varSpeedCoil.NumOfSpeeds) {
+                        ShowFatalError(state,
+                                       std::format("COIL:{} = {}{} number of speeds not equal to number of speed specified in "
+                                                   "UnitarySystemPerformance:Multispeed object.",
+                                                   varSpeedCoil.CoolHeatType,
+                                                   CurrentObjSubfix,
+                                                   varSpeedCoil.Name));
+>>>>>>> nrel/develop
                     } else {
                         for (Mode = varSpeedCoil.NumOfSpeeds; Mode >= 1; --Mode) {
                             varSpeedCoil.MSRatedAirVolFlowRate(Mode) =
@@ -4599,6 +5744,7 @@ namespace VariableSpeedCoils {
                                 varSpeedCoil.MSRatedTotCap(Mode) * varSpeedCoil.MSRatedEvapCondVolFlowPerRatedTotCap(Mode);
                         }
                     }
+<<<<<<< HEAD
                 } else if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit ||
                            varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
                     if (state.dataUnitarySystems->designSpecMSHP[varSpeedCoil.MSHPDesignSpecIndex].numOfSpeedHeating != varSpeedCoil.NumOfSpeeds) {
@@ -4608,6 +5754,17 @@ namespace VariableSpeedCoils {
                                                           varSpeedCoil.CoolHeatType,
                                                           CurrentObjSubfix,
                                                           varSpeedCoil.Name));
+=======
+                } else if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit ||
+                           varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+                    if (state.dataUnitarySystems->designSpecMSHP[varSpeedCoil.MSHPDesignSpecIndex].numOfSpeedHeating != varSpeedCoil.NumOfSpeeds) {
+                        ShowFatalError(state,
+                                       std::format("COIL:{}{} = \"{}\" number of speeds not equal to number of speed specified in "
+                                                   "UnitarySystemPerformance:Multispeed object.",
+                                                   varSpeedCoil.CoolHeatType,
+                                                   CurrentObjSubfix,
+                                                   varSpeedCoil.Name));
+>>>>>>> nrel/develop
                     } else {
                         for (Mode = varSpeedCoil.NumOfSpeeds; Mode >= 1; --Mode) {
                             varSpeedCoil.MSRatedAirVolFlowRate(Mode) =
@@ -4634,6 +5791,7 @@ namespace VariableSpeedCoils {
         }
 
         // size rated power
+<<<<<<< HEAD
         switch (varSpeedCoil.VSCoilType) {
         case HVAC::Coil_CoolingWaterToAirHPVSEquationFit:
         case HVAC::Coil_CoolingAirToAirVariableSpeed: {
@@ -4642,21 +5800,46 @@ namespace VariableSpeedCoils {
         } break;
         case HVAC::Coil_HeatingWaterToAirHPVSEquationFit:
         case HVAC::Coil_HeatingAirToAirVariableSpeed: {
+=======
+        switch (varSpeedCoil.coilType) {
+        case HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit:
+        case HVAC::CoilType::CoolingDXVariableSpeed: {
+            varSpeedCoil.RatedCOPCool = varSpeedCoil.MSRatedCOP(varSpeedCoil.NormSpedLevel);
+            varSpeedCoil.RatedPowerCool = varSpeedCoil.RatedCapCoolTotal / varSpeedCoil.RatedCOPCool;
+        } break;
+        case HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit:
+        case HVAC::CoilType::HeatingDXVariableSpeed: {
+>>>>>>> nrel/develop
             varSpeedCoil.RatedCOPHeat = varSpeedCoil.MSRatedCOP(varSpeedCoil.NormSpedLevel);
             varSpeedCoil.RatedPowerHeat = varSpeedCoil.RatedCapHeat / varSpeedCoil.RatedCOPHeat;
             varSpeedCoil.RatedCapCoolTotal = varSpeedCoil.RatedCapHeat;
         } break;
+<<<<<<< HEAD
         case HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed: {
+=======
+        case HVAC::CoilType::WaterHeatingAWHPVariableSpeed: {
+>>>>>>> nrel/develop
             varSpeedCoil.RatedCOPHeat = varSpeedCoil.MSRatedCOP(varSpeedCoil.NormSpedLevel);
             varSpeedCoil.RatedPowerHeat = varSpeedCoil.RatedCapWH / varSpeedCoil.RatedCOPHeat;
             varSpeedCoil.RatedCapCoolTotal = varSpeedCoil.RatedCapWH * (1.0 - 1.0 / varSpeedCoil.RatedCOPHeat);
         } break;
+<<<<<<< HEAD
         }
 
         // Size water volumetric flow rate
         if ((varSpeedCoil.RatedWaterVolFlowRate == DataSizing::AutoSize) &&
             (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
              varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit)) {
+=======
+        default: {
+        } break;
+        } // switch()
+
+        // Size water volumetric flow rate
+        if ((varSpeedCoil.RatedWaterVolFlowRate == DataSizing::AutoSize) &&
+            (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+             varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit)) {
+>>>>>>> nrel/develop
             RatedWaterFlowAutoSized = true;
         }
 
@@ -4665,7 +5848,11 @@ namespace VariableSpeedCoils {
         if (RatedWaterFlowAutoSized) {
             if (varSpeedCoil.CondenserType == DataHeatBalance::RefrigCondenserType::Water) {
                 PltSizNum = PlantUtilities::MyPlantSizingIndex(state,
+<<<<<<< HEAD
                                                                EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                               std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                                varSpeedCoil.Name,
                                                                varSpeedCoil.WaterInletNodeNum,
                                                                varSpeedCoil.WaterOutletNodeNum,
@@ -4677,6 +5864,7 @@ namespace VariableSpeedCoils {
                 rho = varSpeedCoil.plantLoc.loop->glycol->getDensity(state, state.dataSize->PlantSizData(PltSizNum).ExitTemp, RoutineNameAlt);
                 cp = varSpeedCoil.plantLoc.loop->glycol->getSpecificHeat(state, state.dataSize->PlantSizData(PltSizNum).ExitTemp, RoutineNameAlt);
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit ||
                     varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
 
@@ -4691,6 +5879,21 @@ namespace VariableSpeedCoils {
 
                 } else if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
                            varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit ||
+                    varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+
+                    RatedWaterVolFlowRateDes = varSpeedCoil.RatedCapHeat / (state.dataSize->PlantSizData(PltSizNum).DeltaT * cp * rho);
+
+                    ReportCoilSelection::setCoilLvgWaterTemp(
+                        state,
+                        varSpeedCoil.coilReportNum,
+                        state.dataSize->PlantSizData(PltSizNum).ExitTemp +
+                            state.dataSize->PlantSizData(PltSizNum).DeltaT); // TRACE 3D Plus coil selection report
+
+                } else if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+                           varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
 
                     //       use companion heating coil capacity to calculate volumetric flow rate
                     if (varSpeedCoil.CompanionCoolingCoilNum > 0) {
@@ -4701,14 +5904,21 @@ namespace VariableSpeedCoils {
 
                     RatedWaterVolFlowRateDes = SystemCapacity / (state.dataSize->PlantSizData(PltSizNum).DeltaT * cp * rho);
 
+<<<<<<< HEAD
                     state.dataRptCoilSelection->coilSelectionReportObj->setCoilLvgWaterTemp(
                         state,
                         varSpeedCoil.Name,
                         varSpeedCoil.VarSpeedCoilType,
+=======
+                    ReportCoilSelection::setCoilLvgWaterTemp(
+                        state,
+                        varSpeedCoil.coilReportNum,
+>>>>>>> nrel/develop
                         state.dataSize->PlantSizData(PltSizNum).ExitTemp -
                             state.dataSize->PlantSizData(PltSizNum).DeltaT); // TRACE 3D Plus coil selection report
                 }
 
+<<<<<<< HEAD
                 state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntWaterTemp(
                     state,
                     varSpeedCoil.Name,
@@ -4725,6 +5935,20 @@ namespace VariableSpeedCoils {
                 ShowContinueError(state, "Autosizing also requires physical connection to a plant or condenser loop.");
                 ShowContinueError(
                     state, EnergyPlus::format("Occurs in COIL:{}{}  Object = {}", varSpeedCoil.CoolHeatType, CurrentObjSubfix, varSpeedCoil.Name));
+=======
+                ReportCoilSelection::setCoilEntWaterTemp(state,
+                                                         varSpeedCoil.coilReportNum,
+                                                         state.dataSize->PlantSizData(PltSizNum).ExitTemp); // TRACE 3D Plus coil selection report
+
+                ReportCoilSelection::setCoilWaterDeltaT(state,
+                                                        varSpeedCoil.coilReportNum,
+                                                        state.dataSize->PlantSizData(PltSizNum).DeltaT); // TRACE 3D Plus coil selection report
+            } else {
+                ShowSevereError(state, "Autosizing of water flow requires a loop Sizing:Plant object");
+                ShowContinueError(state, "Autosizing also requires physical connection to a plant or condenser loop.");
+                ShowContinueError(state,
+                                  std::format("Occurs in COIL:{}{}  Object = {}", varSpeedCoil.CoolHeatType, CurrentObjSubfix, varSpeedCoil.Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -4735,6 +5959,7 @@ namespace VariableSpeedCoils {
             } else if (RatedCapHeatAutoSized) {
                 RatedWaterVolFlowRateDes = varSpeedCoil.RatedCapHeat * varSpeedCoil.MSRatedWaterVolFlowPerRatedTotCap(NormSpeed);
             }
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilWaterFlowNodeNums(state,
                                                                                          varSpeedCoil.Name,
                                                                                          varSpeedCoil.VarSpeedCoilType,
@@ -4746,6 +5971,18 @@ namespace VariableSpeedCoils {
             varSpeedCoil.RatedWaterVolFlowRate = RatedWaterVolFlowRateDes;
             BaseSizer::reportSizerOutput(state,
                                          EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+            ReportCoilSelection::setCoilWaterFlowNodeNums(state,
+                                                          varSpeedCoil.coilReportNum,
+                                                          RatedWaterVolFlowRateDes,
+                                                          RatedWaterFlowAutoSized,
+                                                          varSpeedCoil.WaterInletNodeNum,
+                                                          varSpeedCoil.WaterOutletNodeNum,
+                                                          varSpeedCoil.plantLoc.loopNum);
+            varSpeedCoil.RatedWaterVolFlowRate = RatedWaterVolFlowRateDes;
+            BaseSizer::reportSizerOutput(state,
+                                         std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                          varSpeedCoil.Name,
                                          "Design Size Rated Water Flow Rate [m3/s]",
                                          RatedWaterVolFlowRateDes);
@@ -4755,6 +5992,7 @@ namespace VariableSpeedCoils {
                 if (varSpeedCoil.MSRatedWaterVolFlowRate(Mode) > varSpeedCoil.MSRatedWaterVolFlowRate(Mode + 1) * 1.05) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "SizeDXCoil: {} {}, Speed {} Rated Air Flow Rate must be less than or equal to Speed {} Rated Air Flow Rate.",
                             varSpeedCoil.VarSpeedCoilType,
@@ -4765,6 +6003,17 @@ namespace VariableSpeedCoils {
                                       EnergyPlus::format("Instead, {:.2R} > {:.2R}",
                                                          varSpeedCoil.MSRatedAirVolFlowRate(Mode),
                                                          varSpeedCoil.MSRatedAirVolFlowRate(Mode + 1)));
+=======
+                        std::format("SizeDXCoil: {} {}, Speed {} Rated Air Flow Rate must be less than or equal to Speed {} Rated Air Flow Rate.",
+                                    varSpeedCoil.VarSpeedCoilType,
+                                    varSpeedCoil.Name,
+                                    Mode,
+                                    Mode + 1));
+                    ShowContinueError(state,
+                                      std::format("Instead, {:.2f} > {:.2f}",
+                                                  varSpeedCoil.MSRatedAirVolFlowRate(Mode),
+                                                  varSpeedCoil.MSRatedAirVolFlowRate(Mode + 1)));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "Preceding conditions cause termination.");
                 }
             }
@@ -4772,7 +6021,11 @@ namespace VariableSpeedCoils {
             if (varSpeedCoil.RatedWaterVolFlowRate > 0.0 && RatedWaterVolFlowRateDes > 0.0) {
                 RatedWaterVolFlowRateUser = varSpeedCoil.RatedWaterVolFlowRate;
                 BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                             std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                              varSpeedCoil.Name,
                                              "Design Size Rated Water Flow Rate [m3/s]",
                                              RatedWaterVolFlowRateDes,
@@ -4782,6 +6035,7 @@ namespace VariableSpeedCoils {
                     if ((std::abs(RatedWaterVolFlowRateDes - RatedWaterVolFlowRateUser) / RatedWaterVolFlowRateUser) >
                         state.dataSize->AutoVsHardSizingThreshold) {
                         ShowMessage(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
                                                        varSpeedCoil.CoolHeatType,
                                                        CurrentObjSubfix));
@@ -4790,6 +6044,15 @@ namespace VariableSpeedCoils {
                                           EnergyPlus::format("User-Specified Rated Water Flow Rate of {:.5R} [m3/s]", RatedWaterVolFlowRateUser));
                         ShowContinueError(
                             state, EnergyPlus::format("differs from Design Size Rated Water Flow Rate of {:.5R} [m3/s]", RatedWaterVolFlowRateDes));
+=======
+                                    std::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
+                                                varSpeedCoil.CoolHeatType,
+                                                CurrentObjSubfix));
+                        ShowContinueError(state, std::format("Coil Name = {}", varSpeedCoil.Name));
+                        ShowContinueError(state, std::format("User-Specified Rated Water Flow Rate of {:.5f} [m3/s]", RatedWaterVolFlowRateUser));
+                        ShowContinueError(state,
+                                          std::format("differs from Design Size Rated Water Flow Rate of {:.5f} [m3/s]", RatedWaterVolFlowRateDes));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                         ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                     }
@@ -4798,7 +6061,11 @@ namespace VariableSpeedCoils {
         }
 
         // Save component design water volumetric flow rate.
+<<<<<<< HEAD
         if (varSpeedCoil.RatedWaterVolFlowRate > 0.0 && varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        if (varSpeedCoil.RatedWaterVolFlowRate > 0.0 && varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             PlantUtilities::RegisterPlantCompDesignFlow(state, varSpeedCoil.WaterInletNodeNum, varSpeedCoil.RatedWaterVolFlowRate);
         }
         // Use 1/2 flow since both cooling and heating coil will save flow yet only 1 will operate at a time
@@ -4807,8 +6074,13 @@ namespace VariableSpeedCoils {
         }
 
         RatedSourceTempCool = GetVSCoilRatedSourceTemp(state, DXCoilNum);
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
             varSpeedCoil.VSCoilType == HVAC::Coil_HeatingWaterToAirHPVSEquationFit) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+            varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) {
+>>>>>>> nrel/develop
 
             if (PltSizNum > 0) {
                 rhoW = rho;
@@ -4821,7 +6093,11 @@ namespace VariableSpeedCoils {
                 varSpeedCoil.MSRatedWaterVolFlowRate(Mode) = varSpeedCoil.MSRatedTotCap(Mode) * varSpeedCoil.MSRatedWaterVolFlowPerRatedTotCap(Mode);
                 varSpeedCoil.MSRatedWaterMassFlowRate(Mode) = varSpeedCoil.MSRatedWaterVolFlowRate(Mode) * rhoW;
             }
+<<<<<<< HEAD
         } else if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        } else if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             rhoW = Psychrometrics::RhoH2O(RatedSourceTempCool);
             varSpeedCoil.RatedWaterMassFlowRate = varSpeedCoil.RatedWaterVolFlowRate * rhoW;
             for (Mode = varSpeedCoil.NumOfSpeeds; Mode >= 1; --Mode) {
@@ -4837,6 +6113,7 @@ namespace VariableSpeedCoils {
             if (varSpeedCoil.MSRatedAirVolFlowRate(Mode) > varSpeedCoil.MSRatedAirVolFlowRate(Mode + 1)) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("SizeDXCoil: {} {}, Speed {} Rated Air Flow Rate must be less than or equal to Speed {} Rated Air Flow Rate.",
                                        varSpeedCoil.VarSpeedCoilType,
                                        varSpeedCoil.Name,
@@ -4846,6 +6123,16 @@ namespace VariableSpeedCoils {
                                   EnergyPlus::format("Instead, {:.2R} > {:.2R}",
                                                      varSpeedCoil.MSRatedAirVolFlowRate(Mode),
                                                      varSpeedCoil.MSRatedAirVolFlowRate(Mode + 1)));
+=======
+                    std::format("SizeDXCoil: {} {}, Speed {} Rated Air Flow Rate must be less than or equal to Speed {} Rated Air Flow Rate.",
+                                varSpeedCoil.VarSpeedCoilType,
+                                varSpeedCoil.Name,
+                                Mode,
+                                Mode + 1));
+                ShowContinueError(
+                    state,
+                    std::format("Instead, {:.2f} > {:.2f}", varSpeedCoil.MSRatedAirVolFlowRate(Mode), varSpeedCoil.MSRatedAirVolFlowRate(Mode + 1)));
+>>>>>>> nrel/develop
                 ShowFatalError(state, "Preceding conditions cause termination.");
             }
         }
@@ -4855,6 +6142,7 @@ namespace VariableSpeedCoils {
             if (varSpeedCoil.MSRatedTotCap(Mode) > varSpeedCoil.MSRatedTotCap(Mode + 1)) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("SizeDXCoil: {} {}, Speed {} Rated Total Cooling Capacity must be less than or equal to Speed {} Rated Total "
                                        "Cooling Capacity.",
                                        varSpeedCoil.VarSpeedCoilType,
@@ -4863,13 +6151,28 @@ namespace VariableSpeedCoils {
                                        Mode + 1));
                 ShowContinueError(
                     state, EnergyPlus::format("Instead, {:.2R} > {:.2R}", varSpeedCoil.MSRatedTotCap(Mode), varSpeedCoil.MSRatedTotCap(Mode + 1)));
+=======
+                    std::format("SizeDXCoil: {} {}, Speed {} Rated Total Cooling Capacity must be less than or equal to Speed {} Rated Total "
+                                "Cooling Capacity.",
+                                varSpeedCoil.VarSpeedCoilType,
+                                varSpeedCoil.Name,
+                                Mode,
+                                Mode + 1));
+                ShowContinueError(state,
+                                  std::format("Instead, {:.2f} > {:.2f}", varSpeedCoil.MSRatedTotCap(Mode), varSpeedCoil.MSRatedTotCap(Mode + 1)));
+>>>>>>> nrel/develop
                 ShowFatalError(state, "Preceding conditions cause termination.");
             }
         }
 
         // convert SHR to rated Bypass factor and effective air side surface area
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
             varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+            varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
             for (Mode = 1; Mode <= varSpeedCoil.NumOfSpeeds; ++Mode) {
                 varSpeedCoil.MSRatedCBF(Mode) = DXCoils::CalcCBF(state,
                                                                  varSpeedCoil.VarSpeedCoilType,
@@ -4886,7 +6189,11 @@ namespace VariableSpeedCoils {
                     varSpeedCoil.MSEffectiveAo(Mode) = 0.0;
                 }
             }
+<<<<<<< HEAD
         } else if (varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+        } else if (varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             state.dataHVACGlobal->HPWHInletDBTemp = varSpeedCoil.WHRatedInletDBTemp;
             state.dataHVACGlobal->HPWHInletWBTemp = varSpeedCoil.WHRatedInletWBTemp;
 
@@ -4935,8 +6242,14 @@ namespace VariableSpeedCoils {
         // size rated sensible cooling capacity
         RatedCapCoolSensAutoSized = true; // always do that
 
+<<<<<<< HEAD
         if (varSpeedCoil.RatedAirVolFlowRate >= HVAC::SmallAirVolFlow && (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
                                                                           varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed)) {
+=======
+        if (varSpeedCoil.RatedAirVolFlowRate >= HVAC::SmallAirVolFlow &&
+            (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+             varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed)) {
+>>>>>>> nrel/develop
             RatedAirMassFlowRate =
                 varSpeedCoil.RatedAirVolFlowRate *
                 Psychrometrics::PsyRhoAirFnPbTdbW(state, state.dataEnvrn->StdBaroPress, RatedInletAirTemp, RatedInletAirHumRat, RoutineName);
@@ -4987,7 +6300,11 @@ namespace VariableSpeedCoils {
 
             RatedCapCoolSensDes = varSpeedCoil.RatedCapCoolTotal * SHR;
         } else if (varSpeedCoil.RatedAirVolFlowRate >= HVAC::SmallAirVolFlow &&
+<<<<<<< HEAD
                    varSpeedCoil.VSCoilType == HVAC::CoilDX_HeatPumpWaterHeaterVariableSpeed) {
+=======
+                   varSpeedCoil.coilType == HVAC::CoilType::WaterHeatingAWHPVariableSpeed) {
+>>>>>>> nrel/develop
             SHR = varSpeedCoil.MSRatedSHR(NormSpeed);
             RatedCapCoolSensDes = varSpeedCoil.RatedCapCoolTotal * SHR;
         } else {
@@ -4998,12 +6315,21 @@ namespace VariableSpeedCoils {
             RatedCapCoolSensDes = 0.0;
         }
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
             varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) { // always report for cooling mode
             if (RatedCapCoolTotalAutoSized) {
                 varSpeedCoil.RatedCapCoolSens = RatedCapCoolSensDes;
                 BaseSizer::reportSizerOutput(state,
                                              EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+            varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) { // always report for cooling mode
+            if (RatedCapCoolTotalAutoSized) {
+                varSpeedCoil.RatedCapCoolSens = RatedCapCoolSensDes;
+                BaseSizer::reportSizerOutput(state,
+                                             std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                              varSpeedCoil.Name,
                                              "Design Size Rated Sensible Cooling Capacity [W]",
                                              varSpeedCoil.RatedCapCoolSens);
@@ -5013,7 +6339,11 @@ namespace VariableSpeedCoils {
                 if (RatedCapCoolSensDes > 0.0) {
                     varSpeedCoil.RatedCapCoolSens = RatedCapCoolSensDes;
                     BaseSizer::reportSizerOutput(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+=======
+                                                 std::format("COIL:{}{}", varSpeedCoil.CoolHeatType, CurrentObjSubfix),
+>>>>>>> nrel/develop
                                                  varSpeedCoil.Name,
                                                  "Design Size Rated Sensible Cooling Capacity [W]",
                                                  RatedCapCoolSensDes); //, &
@@ -5045,7 +6375,11 @@ namespace VariableSpeedCoils {
 
         // START SIZING EVAP PRECOOLING PUMP POWER
         IsAutoSize = false;
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
             if (varSpeedCoil.EvapCondPumpElecNomPower == DataSizing::AutoSize) {
                 IsAutoSize = true;
             }
@@ -5072,6 +6406,7 @@ namespace VariableSpeedCoils {
                         if ((std::abs(EvapCondPumpElecNomPowerDes - EvapCondPumpElecNomPowerUser) / EvapCondPumpElecNomPowerUser) >
                             state.dataSize->AutoVsHardSizingThreshold) {
                             ShowMessage(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
                                                            varSpeedCoil.CoolHeatType,
                                                            CurrentObjSubfix));
@@ -5083,6 +6418,18 @@ namespace VariableSpeedCoils {
                                 state,
                                 EnergyPlus::format("differs from Design Size Evaporative Condenser Pump Rated Power Consumption of {:.2R} [W]",
                                                    EvapCondPumpElecNomPowerDes));
+=======
+                                        std::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
+                                                    varSpeedCoil.CoolHeatType,
+                                                    CurrentObjSubfix));
+                            ShowContinueError(state, std::format("Coil Name = {}", varSpeedCoil.Name));
+                            ShowContinueError(state,
+                                              std::format("User-Specified Evaporative Condenser Pump Rated Power Consumption of {:.2f} [W]",
+                                                          EvapCondPumpElecNomPowerUser));
+                            ShowContinueError(state,
+                                              std::format("differs from Design Size Evaporative Condenser Pump Rated Power Consumption of {:.2f} [W]",
+                                                          EvapCondPumpElecNomPowerDes));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                             ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                         }
@@ -5096,7 +6443,11 @@ namespace VariableSpeedCoils {
 
         // Resistive Defrost Heater Capacity = capacity at the first stage
         IsAutoSize = false;
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
             if (varSpeedCoil.DefrostCapacity == DataSizing::AutoSize) {
                 IsAutoSize = true;
             }
@@ -5122,6 +6473,7 @@ namespace VariableSpeedCoils {
                     if (state.dataGlobal->DisplayExtraWarnings) {
                         if ((std::abs(DefrostCapacityDes - DefrostCapacityUser) / DefrostCapacityUser) > state.dataSize->AutoVsHardSizingThreshold) {
                             ShowMessage(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
                                                            varSpeedCoil.CoolHeatType,
                                                            CurrentObjSubfix));
@@ -5131,6 +6483,16 @@ namespace VariableSpeedCoils {
                             ShowContinueError(
                                 state,
                                 EnergyPlus::format("differs from Design Size Resistive Defrost Heater Capacity of {:.2R} [W]", DefrostCapacityDes));
+=======
+                                        std::format("SizeVarSpeedCoil: Potential issue with equipment sizing for {} {}",
+                                                    varSpeedCoil.CoolHeatType,
+                                                    CurrentObjSubfix));
+                            ShowContinueError(state, std::format("Coil Name = {}", varSpeedCoil.Name));
+                            ShowContinueError(state,
+                                              std::format("User-Specified Resistive Defrost Heater Capacity of {:.2f} [W]", DefrostCapacityUser));
+                            ShowContinueError(
+                                state, std::format("differs from Design Size Resistive Defrost Heater Capacity of {:.2f} [W]", DefrostCapacityDes));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                             ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                         }
@@ -5144,16 +6506,25 @@ namespace VariableSpeedCoils {
         if (RatedCapCoolSensAutoSized && RatedCapCoolTotalAutoSized) {
             if (varSpeedCoil.RatedCapCoolSens > varSpeedCoil.RatedCapCoolTotal) {
                 ShowWarningError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
                 ShowContinueError(state, EnergyPlus::format("{}: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity", RoutineName));
                 ShowContinueError(state, "Each of these capacity inputs have been autosized.");
                 ShowContinueError(state, EnergyPlus::format("Rated Sensible Cooling Capacity = {:.2T} W", varSpeedCoil.RatedCapCoolSens));
                 ShowContinueError(state, EnergyPlus::format("Rated Total Cooling Capacity    = {:.2T} W", varSpeedCoil.RatedCapCoolTotal));
+=======
+                    state, std::format("COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
+                ShowContinueError(state, std::format("{}: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity", RoutineName));
+                ShowContinueError(state, "Each of these capacity inputs have been autosized.");
+                ShowContinueError(state, std::format("Rated Sensible Cooling Capacity = {:.2f} W", varSpeedCoil.RatedCapCoolSens));
+                ShowContinueError(state, std::format("Rated Total Cooling Capacity    = {:.2f} W", varSpeedCoil.RatedCapCoolTotal));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "See eio file for further details.");
                 ShowContinueError(state, "Check Total and Sensible Cooling Capacity Coefficients to ensure they are accurate.");
                 ShowContinueError(state, "Check Zone and System Sizing objects to verify sizing inputs.");
                 ShowContinueError(state, "Sizing statistics:");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("Entering Air Dry-Bulb Temperature = {:.3T} C", MixTemp));
                 ShowContinueError(state, EnergyPlus::format("Entering Air Wet-Bulb Temperature = {:.3T} C", MixWetBulb));
                 ShowContinueError(state, "Entering Condenser Water Temperature used = 24.4444 C");
@@ -5163,6 +6534,17 @@ namespace VariableSpeedCoils {
                 ShowContinueError(state, EnergyPlus::format("ratioTS  = {:.3T}", ((85.0 + 283.15) / 273.15)));
                 ShowContinueError(state, "Rated Sensible Cooling Capacity = Rated Total Cooling Capacity * Sensible Heat Ratio");
                 ShowContinueError(state, EnergyPlus::format("Total Cooling Capacity Modifier = {:.5T}", TotCapTempModFac));
+=======
+                ShowContinueError(state, std::format("Entering Air Dry-Bulb Temperature = {:.3f} C", MixTemp));
+                ShowContinueError(state, std::format("Entering Air Wet-Bulb Temperature = {:.3f} C", MixWetBulb));
+                ShowContinueError(state, "Entering Condenser Water Temperature used = 24.4444 C");
+                ShowContinueError(state, "Used design air and water flow rates (i.e., used 1 for ratioVL and ratioVS)");
+                ShowContinueError(state, std::format("ratioTDB = {:.3f}", ((MixTemp + 283.15) / 273.15)));
+                ShowContinueError(state, std::format("ratioTWB = {:.3f}", ((MixWetBulb + 283.15) / 273.15)));
+                ShowContinueError(state, std::format("ratioTS  = {:.3f}", ((85.0 + 283.15) / 273.15)));
+                ShowContinueError(state, "Rated Sensible Cooling Capacity = Rated Total Cooling Capacity * Sensible Heat Ratio");
+                ShowContinueError(state, std::format("Total Cooling Capacity Modifier = {:.5f}", TotCapTempModFac));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "...Rated Total Cooling Capacity = Total Design Load / Total Cooling Capacity Modifier");
                 ShowContinueError(state, "Carefully review the Load Side Total, Sensible, and Latent heat transfer rates");
                 ShowContinueError(state, "... to ensure they meet the expected manufacturers performance specifications.");
@@ -5170,21 +6552,37 @@ namespace VariableSpeedCoils {
         } else if (RatedCapCoolTotalAutoSized) {
             if (varSpeedCoil.RatedCapCoolSens > varSpeedCoil.RatedCapCoolTotal) {
                 ShowWarningError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
                 ShowContinueError(state, EnergyPlus::format("{}: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity", RoutineName));
                 ShowContinueError(state, "Only the rated total capacity input is autosized, consider autosizing both inputs.");
                 ShowContinueError(state, EnergyPlus::format("Rated Sensible Cooling Capacity = {:.2T} W", varSpeedCoil.RatedCapCoolSens));
                 ShowContinueError(state, EnergyPlus::format("Rated Total Cooling Capacity    = {:.2T} W", varSpeedCoil.RatedCapCoolTotal));
+=======
+                    state, std::format("COIL:{}:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT \"{}\"", varSpeedCoil.CoolHeatType, varSpeedCoil.Name));
+                ShowContinueError(state, std::format("{}: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity", RoutineName));
+                ShowContinueError(state, "Only the rated total capacity input is autosized, consider autosizing both inputs.");
+                ShowContinueError(state, std::format("Rated Sensible Cooling Capacity = {:.2f} W", varSpeedCoil.RatedCapCoolSens));
+                ShowContinueError(state, std::format("Rated Total Cooling Capacity    = {:.2f} W", varSpeedCoil.RatedCapCoolTotal));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "See eio file for further details.");
                 ShowContinueError(state, "Check Total and Sensible Cooling Capacity Coefficients to ensure they are accurate.");
                 ShowContinueError(state, "Check Zone and System Sizing objects to verify sizing inputs.");
                 ShowContinueError(state, "Sizing statistics for Total Cooling Capacity:");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("Entering Air Wet-Bulb Temperature = {:.3T} C", MixWetBulb));
                 ShowContinueError(state, "Entering Condenser Water Temperature used = 24.4444 C");
                 ShowContinueError(state, "Used design air and water flow rates (i.e., used 1 for ratioVL and ratioVS)");
                 ShowContinueError(state, EnergyPlus::format("ratioTWB = {:.3T}", ((MixWetBulb + 283.15) / 273.15)));
                 ShowContinueError(state, EnergyPlus::format("ratioTS  = {:.3T}", ((85.0 + 283.15) / 273.15)));
+=======
+                ShowContinueError(state, std::format("Entering Air Wet-Bulb Temperature = {:.3f} C", MixWetBulb));
+                ShowContinueError(state, "Entering Condenser Water Temperature used = 24.4444 C");
+                ShowContinueError(state, "Used design air and water flow rates (i.e., used 1 for ratioVL and ratioVS)");
+                ShowContinueError(state, std::format("ratioTWB = {:.3f}", ((MixWetBulb + 283.15) / 273.15)));
+                ShowContinueError(state, std::format("ratioTS  = {:.3f}", ((85.0 + 283.15) / 273.15)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Rated Sensible Cooling Capacity = Rated Total Cooling Capacity * Sensible Heat Ratio");
                 ShowContinueError(state, "Carefully review the Load Side Total, Sensible, and Latent heat transfer rates");
                 ShowContinueError(state, "... to ensure they meet the expected manufacturers performance specifications.");
@@ -5192,14 +6590,23 @@ namespace VariableSpeedCoils {
         }
 
         Array1D<DataHeatBalance::RefrigCondenserType> CondenserType;
+<<<<<<< HEAD
         switch (varSpeedCoil.VSCoilType) {
         case HVAC::Coil_CoolingAirToAirVariableSpeed:
+=======
+        switch (varSpeedCoil.coilType) {
+        case HVAC::CoilType::CoolingDXVariableSpeed:
+>>>>>>> nrel/develop
             CondenserType.push_back(varSpeedCoil.CondenserType);
             if (varSpeedCoil.RatedCapCoolTotal > 0.0) {
                 StandardRatings::CalcDXCoilStandardRating(state,
                                                           varSpeedCoil.Name,
+<<<<<<< HEAD
                                                           varSpeedCoil.VarSpeedCoilType,
                                                           varSpeedCoil.VSCoilType,
+=======
+                                                          varSpeedCoil.coilType,
+>>>>>>> nrel/develop
                                                           varSpeedCoil.NumOfSpeeds,
                                                           varSpeedCoil.MSRatedTotCap,
                                                           varSpeedCoil.MSRatedCOP,
@@ -5301,6 +6708,7 @@ namespace VariableSpeedCoils {
         Real64 MaxOutletEnth;            // max possible outlet enthalpy
 
         // ADDED VARIABLES FOR air source coil
+<<<<<<< HEAD
         Real64 CondInletTemp; // Condenser inlet temperature (C). Outdoor dry-bulb temp for air-cooled condenser.
         // Outdoor Wetbulb +(1 - effectiveness)*(outdoor drybulb - outdoor wetbulb) for evap condenser.
         Real64 CondInletHumRat; // Condenser inlet humidity ratio (kg/kg). Zero for air-cooled condenser.
@@ -5313,6 +6721,20 @@ namespace VariableSpeedCoils {
         Real64 SpecHumIn;          // inlet air specific humidity
         Real64 SpecHumOut;         // outlet air specific humidity
         Real64 rhoair(0);          // entering air density
+=======
+        Real64 CondInletTemp = 0.0; // Condenser inlet temperature (C). Outdoor dry-bulb temp for air-cooled condenser.
+        // Outdoor Wetbulb +(1 - effectiveness)*(outdoor drybulb - outdoor wetbulb) for evap condenser.
+        Real64 CondInletHumRat = 0.0; // Condenser inlet humidity ratio (kg/kg). Zero for air-cooled condenser.
+        // For evap condenser, its the humidity ratio of the air leaving the evap cooling pads.
+        Real64 CondAirMassFlow = 0.0; // Condenser air mass flow rate [kg/s]
+        Real64 RhoSourceAir;          // Density of air [kg/m3]
+        Real64 RhoEvapCondWater;      // Density of water used for evaporative condenser [kg/m3]
+        Real64 EvapCondEffectSped;    // condenser evaporative effectiveness at the speed level
+        Real64 RhoWater;              // condensed water density
+        Real64 SpecHumIn;             // inlet air specific humidity
+        Real64 SpecHumOut;            // outlet air specific humidity
+        Real64 rhoair(0);             // entering air density
+>>>>>>> nrel/develop
 
         if (state.dataVariableSpeedCoils->firstTime) {
             // Set indoor air conditions to the rated condition
@@ -5357,7 +6779,11 @@ namespace VariableSpeedCoils {
 
         state.dataVariableSpeedCoils->LoadSideMassFlowRate = varSpeedCoil.AirMassFlowRate;
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
             // Get condenser outdoor node info from DX COOLING Coil
             if (varSpeedCoil.CondenserInletNodeNum != 0) {
                 state.dataVariableSpeedCoils->OutdoorDryBulb_CalcVarSpeedCoilCooling =
@@ -5440,7 +6866,11 @@ namespace VariableSpeedCoils {
         // Check for flows, do not perform simulation if no flow in load side or source side.
         if (state.dataVariableSpeedCoils->SourceSideMassFlowRate <= 0.0 || state.dataVariableSpeedCoils->LoadSideMassFlowRate <= 0.0) {
 
+<<<<<<< HEAD
             if ((varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) &&
+=======
+            if ((varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) &&
+>>>>>>> nrel/develop
                 (varSpeedCoil.CondenserType == DataHeatBalance::RefrigCondenserType::Air) &&
                 (state.dataVariableSpeedCoils->LoadSideMassFlowRate > 0.0)) {
                 // ALLOW SIMULATION IF AIR-COOLED CONDENSER COIL
@@ -5458,7 +6888,11 @@ namespace VariableSpeedCoils {
             return;
         }
 
+<<<<<<< HEAD
         if ((varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) && (CondInletTemp < varSpeedCoil.MinOATCompressor)) {
+=======
+        if ((varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) && (CondInletTemp < varSpeedCoil.MinOATCompressor)) {
+>>>>>>> nrel/develop
             varSpeedCoil.SimFlag = false;
             return;
         }
@@ -5534,7 +6968,11 @@ namespace VariableSpeedCoils {
             if ((SpeedNum == 1) || (SpeedNum > MaxSpeed) || (SpeedRatio == 1.0)) {
                 AirMassFlowRatio = state.dataVariableSpeedCoils->LoadSideMassFlowRate / varSpeedCoil.DesignAirMassFlowRate;
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     WaterMassFlowRatio = 1.0;
                 } else {
                     WaterMassFlowRatio = state.dataVariableSpeedCoils->SourceSideMassFlowRate / varSpeedCoil.DesignWaterMassFlowRate;
@@ -5581,7 +7019,11 @@ namespace VariableSpeedCoils {
                                                   state.dataVariableSpeedCoils->SourceSideInletTemp);
                 EIRAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     EIRWaterFFModFac = 1.0;
                 } else {
                     EIRWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -5626,7 +7068,11 @@ namespace VariableSpeedCoils {
 
                 state.dataVariableSpeedCoils->Winput = state.dataVariableSpeedCoils->QLoadTotal * EIR;
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     QWasteHeat = 0.0;
                 } else {
                     QWasteHeat = state.dataVariableSpeedCoils->Winput * varSpeedCoil.MSWasteHeatFrac(SpeedCal);
@@ -5638,7 +7084,11 @@ namespace VariableSpeedCoils {
             } else {
                 AirMassFlowRatio = state.dataVariableSpeedCoils->LoadSideMassFlowRate / varSpeedCoil.DesignAirMassFlowRate;
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     WaterMassFlowRatio = 1.0;
                 } else {
                     WaterMassFlowRatio = state.dataVariableSpeedCoils->SourceSideMassFlowRate / varSpeedCoil.DesignWaterMassFlowRate;
@@ -5686,7 +7136,11 @@ namespace VariableSpeedCoils {
                                                   state.dataVariableSpeedCoils->SourceSideInletTemp);
                 EIRAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     EIRWaterFFModFac = 1.0;
                 } else {
                     EIRWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -5695,7 +7149,11 @@ namespace VariableSpeedCoils {
                 EIR = (1.0 / varSpeedCoil.MSRatedCOP(SpeedCal)) * EIRTempModFac * EIRAirFFModFac * EIRWaterFFModFac;
                 Winput1 = QLoadTotal1 * EIR;
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     QWasteHeat1 = 0.0;
                 } else {
                     QWasteHeat1 = Winput1 * varSpeedCoil.MSWasteHeatFrac(SpeedCal);
@@ -5712,7 +7170,11 @@ namespace VariableSpeedCoils {
                                                   state.dataVariableSpeedCoils->SourceSideInletTemp);
                 EIRAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     EIRWaterFFModFac = 1.0;
                 } else {
                     EIRWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -5721,7 +7183,11 @@ namespace VariableSpeedCoils {
                 EIR = (1.0 / varSpeedCoil.MSRatedCOP(SpeedCal)) * EIRTempModFac * EIRAirFFModFac * EIRWaterFFModFac;
                 Winput2 = QLoadTotal2 * EIR;
 
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
                     QWasteHeat2 = 0.0;
                 } else {
                     QWasteHeat2 = Winput2 * varSpeedCoil.MSWasteHeatFrac(SpeedCal);
@@ -5787,7 +7253,11 @@ namespace VariableSpeedCoils {
         varSpeedCoil.BasinHeaterPower = 0.0;
         varSpeedCoil.CrankcaseHeaterPower = 0.0;
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
             if (varSpeedCoil.CondenserType == DataHeatBalance::RefrigCondenserType::Evap) {
                 //******************
                 //             WATER CONSUMPTION IN m3 OF WATER FOR DIRECT
@@ -5897,7 +7367,11 @@ namespace VariableSpeedCoils {
         // Volume should be constant through a fan and air mass flow rate should vary based on inlet conditions.
         varSpeedCoil.AirVolFlowRate = varSpeedCoil.AirMassFlowRate / rhoair;
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+>>>>>>> nrel/develop
             varSpeedCoil.WaterMassFlowRate = 0.0;
             varSpeedCoil.OutletWaterTemp = 0.0;
             varSpeedCoil.OutletWaterEnthalpy = 0.0;
@@ -6551,7 +8025,11 @@ namespace VariableSpeedCoils {
         state.dataVariableSpeedCoils->LoadSideInletEnth = varSpeedCoil.InletAirEnthalpy;
         Real64 CpAir = Psychrometrics::PsyCpAirFnW(state.dataVariableSpeedCoils->LoadSideInletHumRat); // Specific heat of air [J/kg_C]
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
             // Get condenser outdoor node info from DX Heating Coil
             if (varSpeedCoil.CondenserInletNodeNum != 0) {
                 state.dataVariableSpeedCoils->OutdoorDryBulb = state.dataLoopNodes->Node(varSpeedCoil.CondenserInletNodeNum).Temp;
@@ -6595,7 +8073,11 @@ namespace VariableSpeedCoils {
         }
         varSpeedCoil.SimFlag = true;
 
+<<<<<<< HEAD
         if ((varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) &&
+=======
+        if ((varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) &&
+>>>>>>> nrel/develop
             (state.dataVariableSpeedCoils->OutdoorDryBulb < varSpeedCoil.MinOATCompressor)) {
             varSpeedCoil.SimFlag = false;
             return;
@@ -6637,7 +8119,11 @@ namespace VariableSpeedCoils {
         if ((SpeedNum == 1) || (SpeedNum > MaxSpeed) || (SpeedRatio == 1.0)) {
             AirMassFlowRatio = state.dataVariableSpeedCoils->LoadSideMassFlowRate / varSpeedCoil.DesignAirMassFlowRate;
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 WaterMassFlowRatio = 1.0;
             } else {
                 WaterMassFlowRatio = state.dataVariableSpeedCoils->SourceSideMassFlowRate / varSpeedCoil.DesignWaterMassFlowRate;
@@ -6649,7 +8135,11 @@ namespace VariableSpeedCoils {
                                                  state.dataVariableSpeedCoils->SourceSideInletTemp);
             TotCapAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 TotCapWaterFFModFac = 1.0;
             } else {
                 TotCapWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSCCapWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -6666,7 +8156,11 @@ namespace VariableSpeedCoils {
                                               state.dataVariableSpeedCoils->SourceSideInletTemp);
             EIRAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 EIRWaterFFModFac = 1.0;
             } else {
                 EIRWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -6675,7 +8169,11 @@ namespace VariableSpeedCoils {
             EIR = (1.0 / varSpeedCoil.MSRatedCOP(SpeedCal)) * EIRTempModFac * EIRAirFFModFac * EIRWaterFFModFac;
             state.dataVariableSpeedCoils->Winput = state.dataVariableSpeedCoils->QLoadTotal * EIR;
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 QWasteHeat = 0.0;
             } else {
                 QWasteHeat = state.dataVariableSpeedCoils->Winput * varSpeedCoil.MSWasteHeatFrac(SpeedCal);
@@ -6688,7 +8186,11 @@ namespace VariableSpeedCoils {
         } else {
             AirMassFlowRatio = state.dataVariableSpeedCoils->LoadSideMassFlowRate / varSpeedCoil.DesignAirMassFlowRate;
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 WaterMassFlowRatio = 1.0;
             } else {
                 WaterMassFlowRatio = state.dataVariableSpeedCoils->SourceSideMassFlowRate / varSpeedCoil.DesignWaterMassFlowRate;
@@ -6701,7 +8203,11 @@ namespace VariableSpeedCoils {
                                                  state.dataVariableSpeedCoils->SourceSideInletTemp);
             TotCapAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 TotCapWaterFFModFac = 1.0;
             } else {
                 TotCapWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSCCapWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -6715,7 +8221,11 @@ namespace VariableSpeedCoils {
                                               state.dataVariableSpeedCoils->SourceSideInletTemp);
             EIRAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 EIRWaterFFModFac = 1.0;
             } else {
                 EIRWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -6724,7 +8234,11 @@ namespace VariableSpeedCoils {
             EIR = (1.0 / varSpeedCoil.MSRatedCOP(SpeedCal)) * EIRTempModFac * EIRAirFFModFac * EIRWaterFFModFac;
             Winput1 = QLoadTotal1 * EIR;
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 QWasteHeat1 = 0.0;
             } else {
                 QWasteHeat1 = Winput1 * varSpeedCoil.MSWasteHeatFrac(SpeedCal);
@@ -6741,7 +8255,11 @@ namespace VariableSpeedCoils {
                                                  state.dataVariableSpeedCoils->SourceSideInletTemp);
             TotCapAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSCCapAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 TotCapWaterFFModFac = 1.0;
             } else {
                 TotCapWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSCCapWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -6755,7 +8273,11 @@ namespace VariableSpeedCoils {
                                               state.dataVariableSpeedCoils->SourceSideInletTemp);
             EIRAirFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRAirFFlow(SpeedCal), AirMassFlowRatio);
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 EIRWaterFFModFac = 1.0;
             } else {
                 EIRWaterFFModFac = Curve::CurveValue(state, varSpeedCoil.MSEIRWaterFFlow(SpeedCal), WaterMassFlowRatio);
@@ -6764,7 +8286,11 @@ namespace VariableSpeedCoils {
             EIR = (1.0 / varSpeedCoil.MSRatedCOP(SpeedCal)) * EIRTempModFac * EIRAirFFModFac * EIRWaterFFModFac;
             Winput2 = QLoadTotal2 * EIR;
 
+<<<<<<< HEAD
             if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+            if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
                 QWasteHeat2 = 0.0;
             } else {
                 QWasteHeat2 = Winput2 * varSpeedCoil.MSWasteHeatFrac(SpeedCal);
@@ -6783,7 +8309,11 @@ namespace VariableSpeedCoils {
 
         varSpeedCoil.CrankcaseHeaterPower = 0.0; // necessary to clear zero for water source coils
         varSpeedCoil.DefrostPower = 0.0;         // clear the defrost power
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
             // Calculating adjustment factors for defrost
             // Calculate delta w through outdoor coil by assuming a coil temp of 0.82*DBT-9.7(F) per DOE2.1E
             state.dataVariableSpeedCoils->OutdoorCoilT = 0.82 * state.dataVariableSpeedCoils->OutdoorDryBulb - 8.589;
@@ -6813,9 +8343,15 @@ namespace VariableSpeedCoils {
                                 varSpeedCoil.FrostHeatingInputPowerMultiplierEMSOverrideOn) {
                                 ShowWarningMessage(
                                     state,
+<<<<<<< HEAD
                                     EnergyPlus::format("The Frost Heating Capacity Multiplier actuator and the Frost Heating Input Power Multiplier "
                                                        "actuator must be both provided for DX heating coil {}",
                                                        varSpeedCoil.Name));
+=======
+                                    std::format("The Frost Heating Capacity Multiplier actuator and the Frost Heating Input Power Multiplier "
+                                                "actuator must be both provided for DX heating coil {}",
+                                                varSpeedCoil.Name));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "EMS actuators are ignored. Simulation is continuing.");
                             }
                         }
@@ -6831,9 +8367,15 @@ namespace VariableSpeedCoils {
                         if (varSpeedCoil.FrostHeatingCapacityMultiplierEMSOverrideOn || varSpeedCoil.FrostHeatingInputPowerMultiplierEMSOverrideOn) {
                             ShowWarningMessage(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("The Frost Heating Capacity Multiplier actuator and the Frost Heating Input Power Multiplier "
                                                    "actuator must be both provided for DX heating coil {}",
                                                    varSpeedCoil.Name));
+=======
+                                std::format("The Frost Heating Capacity Multiplier actuator and the Frost Heating Input Power Multiplier "
+                                            "actuator must be both provided for DX heating coil {}",
+                                            varSpeedCoil.Name));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "EMS actuators are ignored. Simulation is continuing.");
                         }
                     }
@@ -6947,7 +8489,11 @@ namespace VariableSpeedCoils {
                                                    RoutineName);
         varSpeedCoil.AirVolFlowRate = varSpeedCoil.AirMassFlowRate / rhoair;
 
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
             varSpeedCoil.WaterMassFlowRate = 0.0;
             varSpeedCoil.OutletWaterTemp = 0.0;
             varSpeedCoil.OutletWaterEnthalpy = 0.0;
@@ -6963,9 +8509,15 @@ namespace VariableSpeedCoils {
     }
 
     Real64 GetCoilCapacityVariableSpeed(EnergyPlusData &state,
+<<<<<<< HEAD
                                         std::string const &CoilType, // must match coil types in this module
                                         std::string const &CoilName, // must match coil names for the coil type
                                         bool &ErrorsFound            // set to true if problem
+=======
+                                        std::string_view const CoilType, // must match coil types in this module
+                                        std::string const &CoilName,     // must match coil names for the coil type
+                                        bool &ErrorsFound                // set to true if problem
+>>>>>>> nrel/develop
     )
     {
 
@@ -6979,7 +8531,11 @@ namespace VariableSpeedCoils {
         // as negative.
 
         // Return value
+<<<<<<< HEAD
         Real64 CoilCapacity; // returned capacity of matched coil
+=======
+        Real64 CoilCapacity = 0.0; // returned capacity of matched coil
+>>>>>>> nrel/develop
 
         // FUNCTION LOCAL VARIABLE DECLARATIONS:
         int WhichCoil;
@@ -7010,8 +8566,12 @@ namespace VariableSpeedCoils {
         }
 
         if (WhichCoil == 0) {
+<<<<<<< HEAD
             ShowSevereError(state,
                             EnergyPlus::format("GetCoilCapacityVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+=======
+            ShowSevereError(state, std::format("GetCoilCapacityVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             CoilCapacity = -1000.0;
         }
@@ -7020,9 +8580,15 @@ namespace VariableSpeedCoils {
     }
 
     int GetCoilIndexVariableSpeed(EnergyPlusData &state,
+<<<<<<< HEAD
                                   std::string const &CoilType, // must match coil types in this module
                                   std::string const &CoilName, // must match coil names for the coil type
                                   bool &ErrorsFound            // set to true if problem
+=======
+                                  std::string_view const CoilType, // must match coil types in this module
+                                  std::string const &CoilName,     // must match coil names for the coil type
+                                  bool &ErrorsFound                // set to true if problem
+>>>>>>> nrel/develop
     )
     {
 
@@ -7046,8 +8612,12 @@ namespace VariableSpeedCoils {
         IndexNum = Util::FindItemInList(CoilName, state.dataVariableSpeedCoils->VarSpeedCoil);
 
         if (IndexNum == 0) {
+<<<<<<< HEAD
             ShowSevereError(state,
                             EnergyPlus::format("GetCoilIndexVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+=======
+            ShowSevereError(state, std::format("GetCoilIndexVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -7070,7 +8640,11 @@ namespace VariableSpeedCoils {
         // coil type or name is given, ErrorsFound is returned as true and capacity is returned as negative.
 
         // Return value
+<<<<<<< HEAD
         Real64 CoilAirFlowRate; // returned air volume flow rate of matched coil
+=======
+        Real64 CoilAirFlowRate = 0.0; // returned air volume flow rate of matched coil
+>>>>>>> nrel/develop
 
         // FUNCTION LOCAL VARIABLE DECLARATIONS:
         int WhichCoil;
@@ -7102,8 +8676,13 @@ namespace VariableSpeedCoils {
         }
 
         if (WhichCoil == 0) {
+<<<<<<< HEAD
             ShowSevereError(
                 state, EnergyPlus::format("GetCoilAirFlowRateVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+=======
+            ShowSevereError(state,
+                            std::format("GetCoilAirFlowRateVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             CoilAirFlowRate = -1000.0;
         }
@@ -7127,7 +8706,11 @@ namespace VariableSpeedCoils {
         // coil type or name is given, ErrorsFound is returned as true and value is returned as zero.
 
         // Return value
+<<<<<<< HEAD
         int PLRNumber; // returned outlet node of matched coil
+=======
+        int PLRNumber = 0; // returned outlet node of matched coil
+>>>>>>> nrel/develop
 
         // FUNCTION LOCAL VARIABLE DECLARATIONS:
         int WhichCoil;
@@ -7144,7 +8727,11 @@ namespace VariableSpeedCoils {
         }
 
         if (WhichCoil == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetVSCoilPLFFPLR: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+=======
+            ShowSevereError(state, std::format("GetVSCoilPLFFPLR: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             PLRNumber = 0;
         }
@@ -7188,9 +8775,15 @@ namespace VariableSpeedCoils {
     }
 
     int GetCoilInletNodeVariableSpeed(EnergyPlusData &state,
+<<<<<<< HEAD
                                       std::string const &CoilType, // must match coil types in this module
                                       std::string const &CoilName, // must match coil names for the coil type
                                       bool &ErrorsFound            // set to true if problem
+=======
+                                      std::string_view const CoilType, // must match coil types in this module
+                                      std::string const &CoilName,     // must match coil names for the coil type
+                                      bool &ErrorsFound                // set to true if problem
+>>>>>>> nrel/develop
     )
     {
 
@@ -7203,7 +8796,11 @@ namespace VariableSpeedCoils {
         // coil type or name is given, ErrorsFound is returned as true and value is returned as zero.
 
         // Return value
+<<<<<<< HEAD
         int NodeNumber; // returned outlet node of matched coil
+=======
+        int NodeNumber = 0; // returned outlet node of matched coil
+>>>>>>> nrel/develop
 
         // FUNCTION LOCAL VARIABLE DECLARATIONS:
         int WhichCoil;
@@ -7220,8 +8817,12 @@ namespace VariableSpeedCoils {
         }
 
         if (WhichCoil == 0) {
+<<<<<<< HEAD
             ShowSevereError(state,
                             EnergyPlus::format("GetCoilInletNodeVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+=======
+            ShowSevereError(state, std::format("GetCoilInletNodeVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             NodeNumber = 0;
         }
@@ -7230,9 +8831,15 @@ namespace VariableSpeedCoils {
     }
 
     int GetCoilOutletNodeVariableSpeed(EnergyPlusData &state,
+<<<<<<< HEAD
                                        std::string const &CoilType, // must match coil types in this module
                                        std::string const &CoilName, // must match coil names for the coil type
                                        bool &ErrorsFound            // set to true if problem
+=======
+                                       std::string_view const CoilType, // must match coil types in this module
+                                       std::string const &CoilName,     // must match coil names for the coil type
+                                       bool &ErrorsFound                // set to true if problem
+>>>>>>> nrel/develop
     )
     {
 
@@ -7245,7 +8852,11 @@ namespace VariableSpeedCoils {
         // coil type or name is given, ErrorsFound is returned as true and value is returned as zero.
 
         // Return value
+<<<<<<< HEAD
         int NodeNumber; // returned outlet node of matched coil
+=======
+        int NodeNumber = 0; // returned outlet node of matched coil
+>>>>>>> nrel/develop
 
         // FUNCTION LOCAL VARIABLE DECLARATIONS:
         int WhichCoil;
@@ -7262,8 +8873,13 @@ namespace VariableSpeedCoils {
         }
 
         if (WhichCoil == 0) {
+<<<<<<< HEAD
             ShowSevereError(
                 state, EnergyPlus::format("GetCoilOutletNodeVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+=======
+            ShowSevereError(state,
+                            std::format("GetCoilOutletNodeVariableSpeed: Could not find CoilType=\"{}\" with Name=\"{}\"", CoilType, CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             NodeNumber = 0;
         }
@@ -7301,7 +8917,11 @@ namespace VariableSpeedCoils {
         if (WhichCoil != 0) {
             CondNode = state.dataVariableSpeedCoils->VarSpeedCoil(WhichCoil).CondenserInletNodeNum;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetCoilCondenserInletNode: Invalid VS DX Coil, Type= VS DX Cooling Name=\"{}\"", CoilName));
+=======
+            ShowSevereError(state, std::format("GetCoilCondenserInletNode: Invalid VS DX Coil, Type= VS DX Cooling Name=\"{}\"", CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             CondNode = 0;
         }
@@ -7356,7 +8976,12 @@ namespace VariableSpeedCoils {
         Node::ConnectionObjectType HeatingCoilTypeNum =
             static_cast<Node::ConnectionObjectType>(getEnumValue(Node::ConnectionObjectTypeNamesUC, Util::makeUPPER(HeatingCoilType)));
 
+<<<<<<< HEAD
         Node::ConnectionObjectType CompSetsParentType; // Parent object type which uses DX heating coil pass into this function
+=======
+        Node::ConnectionObjectType CompSetsParentType =
+            Node::ConnectionObjectType::Invalid; // Parent object type which uses DX heating coil pass into this function
+>>>>>>> nrel/develop
         std::string CompSetsParentName;
         for (WhichComp = 1; WhichComp <= state.dataBranchNodeConnections->NumCompSets; ++WhichComp) {
             if (HeatingCoilTypeNum != state.dataBranchNodeConnections->CompSets(WhichComp).ComponentObjectType ||
@@ -7384,9 +9009,15 @@ namespace VariableSpeedCoils {
             } else {
                 //     ErrorFound, Coil:Heating:DX:VariableSpeed is used in wrong type of parent object (should never get here)
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("Configuration error in {} \"{}\"",
                                                    Node::ConnectionObjectTypeNames[static_cast<int>(CompSetsParentType)],
                                                    CompSetsParentName));
+=======
+                                std::format("Configuration error in {} \"{}\"",
+                                            Node::ConnectionObjectTypeNames[static_cast<int>(CompSetsParentType)],
+                                            CompSetsParentName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "DX heating coil not allowed in this configuration.");
                 ShowFatalError(state, "Preceding condition(s) causes termination.");
             }
@@ -7401,6 +9032,7 @@ namespace VariableSpeedCoils {
                 if (thisDXCoolingCoil.CrankcaseHeaterCapacity != thisDXHeatingCoil.CrankcaseHeaterCapacity ||
                     thisDXCoolingCoil.MaxOATCrankcaseHeater != thisDXHeatingCoil.MaxOATCrankcaseHeater) {
                     ShowWarningError(state, "Crankcase heater capacity or max outdoor temp for crankcase heater operation specified in");
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("{} = {}", thisDXCoolingCoil.VarSpeedCoilType, thisDXCoolingCoil.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("is different than that specified in Coil:Heating:DX:SingleSpeed = {}.", HeatingCoilName));
@@ -7408,6 +9040,14 @@ namespace VariableSpeedCoils {
                                       EnergyPlus::format("Both of these DX coils are part of {}={}.",
                                                          Node::ConnectionObjectTypeNames[static_cast<int>(CompSetsParentType)],
                                                          CompSetsParentName));
+=======
+                    ShowContinueError(state, std::format("{} = {}", thisDXCoolingCoil.VarSpeedCoilType, thisDXCoolingCoil.Name));
+                    ShowContinueError(state, std::format("is different than that specified in Coil:Heating:DX:SingleSpeed = {}.", HeatingCoilName));
+                    ShowContinueError(state,
+                                      std::format("Both of these DX coils are part of {}={}.",
+                                                  Node::ConnectionObjectTypeNames[static_cast<int>(CompSetsParentType)],
+                                                  CompSetsParentName));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "The value specified in the DX heating coil will be used and the simulation continues...");
                 }
             }
@@ -7417,8 +9057,13 @@ namespace VariableSpeedCoils {
     }
 
     void SetCoilSystemHeatingDXFlag(EnergyPlusData &state,
+<<<<<<< HEAD
                                     std::string const &CoilType, // must match coil types in this module
                                     std::string const &CoilName  // must match coil names for the coil type
+=======
+                                    std::string_view const CoilType, // must match coil types in this module
+                                    std::string const &CoilName      // must match coil names for the coil type
+>>>>>>> nrel/develop
     )
     {
 
@@ -7447,7 +9092,11 @@ namespace VariableSpeedCoils {
         if (WhichCoil != 0) {
             state.dataVariableSpeedCoils->VarSpeedCoil(WhichCoil).FindCompanionUpStreamCoil = false;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("SetCoilSystemHeatingDXFlag: Could not find Coil, Type=\"{}\"Name=\"{}\"", CoilType, CoilName));
+=======
+            ShowSevereError(state, std::format("SetCoilSystemHeatingDXFlag: Could not find Coil, Type=\"{}\"Name=\"{}\"", CoilType, CoilName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -7478,7 +9127,11 @@ namespace VariableSpeedCoils {
         if (WhichCoil != 0) {
             Speeds = state.dataVariableSpeedCoils->VarSpeedCoil(WhichCoil).NumOfSpeeds;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("GetVSCoilNumOfSpeeds: Invalid VS DX Coil, Type= VS DX Coil Name=\"{}\"", CoilName));
+=======
+            ShowSevereError(state, std::format("GetVSCoilNumOfSpeeds: Invalid VS DX Coil, Type= VS DX Coil Name=\"{}\"", CoilName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             Speeds = 0;
         }
@@ -7489,6 +9142,7 @@ namespace VariableSpeedCoils {
     Real64 GetVSCoilRatedSourceTemp(EnergyPlusData &state, int const CoilIndex)
     {
         Real64 RatedSourceTemp = 0.0;
+<<<<<<< HEAD
         switch (state.dataVariableSpeedCoils->VarSpeedCoil(CoilIndex).VSCoilType) {
         case HVAC::Coil_CoolingWaterToAirHPVSEquationFit: {
             RatedSourceTemp = RatedInletWaterTemp;
@@ -7503,6 +9157,22 @@ namespace VariableSpeedCoils {
             RatedSourceTemp = RatedAmbAirTemp;
         } break;
         case HVAC::Coil_HeatingAirToAirVariableSpeed: {
+=======
+        switch (state.dataVariableSpeedCoils->VarSpeedCoil(CoilIndex).coilType) {
+        case HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit: {
+            RatedSourceTemp = RatedInletWaterTemp;
+        } break;
+        case HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit: {
+            RatedSourceTemp = RatedInletWaterTempHeat;
+        } break;
+        case HVAC::CoilType::WaterHeatingAWHPVariableSpeed: {
+            RatedSourceTemp = state.dataVariableSpeedCoils->VarSpeedCoil(CoilIndex).WHRatedInletWaterTemp;
+        } break;
+        case HVAC::CoilType::CoolingDXVariableSpeed: {
+            RatedSourceTemp = RatedAmbAirTemp;
+        } break;
+        case HVAC::CoilType::HeatingDXVariableSpeed: {
+>>>>>>> nrel/develop
             RatedSourceTemp = RatedAmbAirTempHeat;
         } break;
         default: {
@@ -7536,9 +9206,15 @@ namespace VariableSpeedCoils {
 
         if (WSHPNum <= 0 || WSHPNum > state.dataVariableSpeedCoils->NumVarSpeedCoils) {
             ShowSevereError(state,
+<<<<<<< HEAD
                             EnergyPlus::format("SetVarSpeedCoilData: called with VS WSHP Coil Number out of range={} should be >0 and <{}",
                                                WSHPNum,
                                                state.dataVariableSpeedCoils->NumVarSpeedCoils));
+=======
+                            std::format("SetVarSpeedCoilData: called with VS WSHP Coil Number out of range={} should be >0 and <{}",
+                                        WSHPNum,
+                                        state.dataVariableSpeedCoils->NumVarSpeedCoils));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             return;
         }
@@ -7644,6 +9320,7 @@ namespace VariableSpeedCoils {
 
         if (varSpeedCoil.reportCoilFinalSizes) {
             if (!state.dataGlobal->WarmupFlag && !state.dataGlobal->DoingHVACSizingSimulations && !state.dataGlobal->DoingSizing) {
+<<<<<<< HEAD
                 if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
                     varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) { // cooling coil
                     state.dataRptCoilSelection->coilSelectionReportObj->setCoilFinalSizes(state,
@@ -7662,10 +9339,29 @@ namespace VariableSpeedCoils {
                                                                                           varSpeedCoil.RatedCapHeat,
                                                                                           varSpeedCoil.RatedAirVolFlowRate,
                                                                                           varSpeedCoil.RatedWaterMassFlowRate);
+=======
+                if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+                    varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) { // cooling coil
+                    ReportCoilSelection::setCoilFinalSizes(state,
+                                                           varSpeedCoil.coilReportNum,
+                                                           varSpeedCoil.RatedCapCoolTotal,
+                                                           varSpeedCoil.RatedCapCoolSens,
+                                                           varSpeedCoil.RatedAirVolFlowRate,
+                                                           varSpeedCoil.RatedWaterMassFlowRate);
+                } else if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit ||
+                           varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) { // heating coil
+                    ReportCoilSelection::setCoilFinalSizes(state,
+                                                           varSpeedCoil.coilReportNum,
+                                                           varSpeedCoil.RatedCapHeat,
+                                                           varSpeedCoil.RatedCapHeat,
+                                                           varSpeedCoil.RatedAirVolFlowRate,
+                                                           varSpeedCoil.RatedWaterMassFlowRate);
+>>>>>>> nrel/develop
                 }
                 varSpeedCoil.reportCoilFinalSizes = false;
             }
         }
+<<<<<<< HEAD
         if (varSpeedCoil.VSCoilType == HVAC::Coil_CoolingWaterToAirHPVSEquationFit ||
             varSpeedCoil.VSCoilType == HVAC::Coil_CoolingAirToAirVariableSpeed) {
             //  Add power to global variable so power can be summed by parent object
@@ -7674,6 +9370,16 @@ namespace VariableSpeedCoils {
             //  Add power to global variable so power can be summed by parent object
             state.dataHVACGlobal->DXElecHeatingPower = varSpeedCoil.Power;
         } else if (varSpeedCoil.VSCoilType == HVAC::Coil_HeatingAirToAirVariableSpeed) {
+=======
+        if (varSpeedCoil.coilType == HVAC::CoilType::CoolingWAHPVariableSpeedEquationFit ||
+            varSpeedCoil.coilType == HVAC::CoilType::CoolingDXVariableSpeed) {
+            //  Add power to global variable so power can be summed by parent object
+            state.dataHVACGlobal->DXElecCoolingPower = varSpeedCoil.Power;
+        } else if (varSpeedCoil.coilType == HVAC::CoilType::HeatingWAHPVariableSpeedEquationFit) {
+            //  Add power to global variable so power can be summed by parent object
+            state.dataHVACGlobal->DXElecHeatingPower = varSpeedCoil.Power;
+        } else if (varSpeedCoil.coilType == HVAC::CoilType::HeatingDXVariableSpeed) {
+>>>>>>> nrel/develop
             //  Add power to global variable so power can be summed by parent object
             state.dataHVACGlobal->DXElecHeatingPower = varSpeedCoil.Power + varSpeedCoil.CrankcaseHeaterPower;
             state.dataHVACGlobal->DefrostElecPower = varSpeedCoil.DefrostPower;
@@ -7721,6 +9427,7 @@ namespace VariableSpeedCoils {
         // at the current operating conditions (sec)
         Real64 Gamma; // Initial moisture evaporation rate divided by steady-state AC latent capacity
         // at the current operating conditions
+<<<<<<< HEAD
         Real64 Twet_max; // Maximum allowed value for Twet
         Real64 Ton;      // Coil on time (sec)
         Real64 Toff;     // Coil off time (sec)
@@ -7732,6 +9439,19 @@ namespace VariableSpeedCoils {
         Real64 LHRmult;  // Latent Heat Ratio (LHR) multiplier. The effective latent heat ratio LHR = (1-SHRss)*LHRmult
 
         auto &varSpeedCoil = state.dataVariableSpeedCoils->VarSpeedCoil(DXCoilNum);
+=======
+        Real64 Twet_max;  // Maximum allowed value for Twet
+        Real64 Ton;       // Coil on time (sec)
+        Real64 Toff;      // Coil off time (sec)
+        Real64 Toffa;     // Actual coil off time (sec). Equations valid for Toff <= (2.0 * Twet/Gamma)
+        Real64 aa;        // Intermediate variable
+        Real64 To1;       // Intermediate variable (first guess at To). To = time to the start of moisture removal
+        Real64 To2 = 0.0; // Intermediate variable (second guess at To). To = time to the start of moisture removal
+        Real64 Error;     // Error for iteration (DO) loop
+        Real64 LHRmult;   // Latent Heat Ratio (LHR) multiplier. The effective latent heat ratio LHR = (1-SHRss)*LHRmult
+
+        const auto &varSpeedCoil = state.dataVariableSpeedCoils->VarSpeedCoil(DXCoilNum);
+>>>>>>> nrel/develop
         Real64 Twet_Rated = varSpeedCoil.Twet_Rated; // [s]
         Real64 Gamma_Rated = varSpeedCoil.Gamma_Rated;
         Real64 MaxONOFFCyclesperHour = varSpeedCoil.MaxONOFFCyclesperHour;           // [cycles/hr]
@@ -7869,9 +9589,15 @@ namespace VariableSpeedCoils {
         Real64 TotCapTempModFac2;      // Total capacity modifier (function of entering wetbulb, outside water inlet temp) at high speed
         Real64 TotCapAirFlowModFac2;   // Total capacity modifier (function of actual supply air flow vs nominal flow) at high speed
         Real64 TotCapWaterFlowModFac2; // Total capacity modifier (function of actual supply water flow vs nominal flow) at high speed
+<<<<<<< HEAD
         Real64 TotCapCalc;             // temporary calculated value of total capacity [W]
         Real64 TotCapCalc1;            // temporary calculated value of total capacity [W] at low speed
         Real64 TotCapCalc2;            // temporary calculated value of total capacity [W] at high speed
+=======
+        Real64 TotCapCalc = 0.0;       // temporary calculated value of total capacity [W]
+        Real64 TotCapCalc1 = 0.0;      // temporary calculated value of total capacity [W] at low speed
+        Real64 TotCapCalc2 = 0.0;      // temporary calculated value of total capacity [W] at high speed
+>>>>>>> nrel/develop
 
         int Counter = 0;                        // Error tolerance for dry evaporator iterations
         Real64 RF = 0.4;                        // Relaxation factor for dry evaporator iterations
@@ -7984,7 +9710,11 @@ namespace VariableSpeedCoils {
         if (WhichCoil != 0) {
             state.dataVariableSpeedCoils->VarSpeedCoil(WhichCoil).AirLoopNum = AirLoopNum;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("SetVarSpeedDXCoilAirLoopNumber: Could not find Coil \"Name=\"{}\"", CoilName));
+=======
+            ShowSevereError(state, std::format("SetVarSpeedDXCoilAirLoopNumber: Could not find Coil \"Name=\"{}\"", CoilName));
+>>>>>>> nrel/develop
         }
     }
 

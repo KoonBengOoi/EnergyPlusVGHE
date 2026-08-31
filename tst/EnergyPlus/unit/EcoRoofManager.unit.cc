@@ -252,7 +252,12 @@ TEST_F(EnergyPlusFixture, EcoRoofManager_initEcoRoofFirstTimeTest)
     state->dataSurface->Surface(surfNum).HeatTransferAlgorithm = DataSurfaces::HeatTransferModel::CTF;
 
     mat->LAI = 3.21;
+<<<<<<< HEAD
     mat->AbsorpSolar = 0.72;
+=======
+    mat->AbsorpSolarOut = 0.72;
+    mat->AbsorpSolarIn = 0.72;
+>>>>>>> nrel/develop
     thisEcoRoof->FirstEcoSurf = 0;
     thisEcoRoof->EcoRoofbeginFlag = true;
 
@@ -291,7 +296,12 @@ TEST_F(EnergyPlusFixture, EcoRoofManager_initEcoRoofTest)
     state->dataGlobal->WarmupFlag = true;
     thisEcoRoof->CalcEcoRoofMyEnvrnFlag = false;
     mat->InitMoisture = 23.0;
+<<<<<<< HEAD
     mat->AbsorpSolar = 0.72;
+=======
+    mat->AbsorpSolarOut = 0.72;
+    mat->AbsorpSolarIn = 0.72;
+>>>>>>> nrel/develop
     thisEcoRoof->Moisture = 0.0;
     thisEcoRoof->MeanRootMoisture = 0.0;
     thisEcoRoof->Alphag = 0.0;

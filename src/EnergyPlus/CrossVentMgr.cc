@@ -52,8 +52,15 @@
 // ObjexxFCL Headers
 #include <ObjexxFCL/Fmath.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include <AirflowNetwork/Solver.hpp>
+=======
+// Local Headers
+#include <AirflowNetwork/Solver.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/ConvectionCoefficients.hh>
 #include <EnergyPlus/CrossVentMgr.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
@@ -444,10 +451,17 @@ namespace RoomAir {
                 ShowSevereError(
                     state, "RoomAirModelCrossVent:EvolveParaUCSDCV: Illegal leakage component referenced in the cross ventilation room air model");
                 ShowContinueError(state,
+<<<<<<< HEAD
                                   EnergyPlus::format("Surface {} in zone {} uses leakage component {}",
                                                      state.afn->AirflowNetworkLinkageData(Ctd).Name,
                                                      state.dataHeatBal->Zone(ZoneNum).Name,
                                                      state.afn->AirflowNetworkLinkageData(Ctd).CompName));
+=======
+                                  std::format("Surface {} in zone {} uses leakage component {}",
+                                              state.afn->AirflowNetworkLinkageData(Ctd).Name,
+                                              state.dataHeatBal->Zone(ZoneNum).Name,
+                                              state.afn->AirflowNetworkLinkageData(Ctd).CompName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Only leakage component types AirflowNetwork:MultiZone:Component:DetailedOpening and ");
                 ShowContinueError(state, "AirflowNetwork:MultiZone:Surface:Crack can be used with the cross ventilation room air model");
                 ShowFatalError(state, "Previous severe error causes program termination");

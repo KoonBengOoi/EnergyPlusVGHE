@@ -27,12 +27,20 @@ jobs:
 
     steps:
     - name: Checkout EnergyPlus
+<<<<<<< HEAD
       uses: actions/checkout@v6
+=======
+      uses: actions/checkout@v7
+>>>>>>> nrel/develop
       with:
         ref: ${{ github.event.inputs.ref }}
 
     - name: Set up Python ${{ matrix.python-version }}
+<<<<<<< HEAD
       uses: actions/setup-python@v6
+=======
+      uses: actions/setup-python@v7
+>>>>>>> nrel/develop
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -47,7 +55,11 @@ jobs:
         path: ./dist
 
     - name: Deploy on Test PyPi
+<<<<<<< HEAD
       uses: pypa/gh-action-pypi-publish@v1.13.0
+=======
+      uses: pypa/gh-action-pypi-publish@v1.14.2
+>>>>>>> nrel/develop
       with:
         repository-url: https://test.pypi.org/legacy/
         user: __token__

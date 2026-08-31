@@ -108,6 +108,10 @@ struct DataZoneEnergyDemandsData;
 struct DataZoneEquipmentData;
 struct DaylightingDevicesData;
 struct DaylightingData;
+<<<<<<< HEAD
+=======
+struct ConstructionAssignmentsData;
+>>>>>>> nrel/develop
 struct DefineEquipData;
 struct DemandManagerData;
 struct DesiccantDehumidifiersData;
@@ -366,6 +370,10 @@ struct EnergyPlusData : BaseGlobalStruct
     std::unique_ptr<DataZoneEquipmentData> dataZoneEquip;
     std::unique_ptr<DaylightingDevicesData> dataDaylightingDevices;
     std::unique_ptr<DaylightingData> dataDayltg;
+<<<<<<< HEAD
+=======
+    std::unique_ptr<ConstructionAssignmentsData> dataConstructionAssignments;
+>>>>>>> nrel/develop
     std::unique_ptr<DefineEquipData> dataDefineEquipment;
     std::unique_ptr<DemandManagerData> dataDemandManager;
     std::unique_ptr<DesiccantDehumidifiersData> dataDesiccantDehumidifiers;

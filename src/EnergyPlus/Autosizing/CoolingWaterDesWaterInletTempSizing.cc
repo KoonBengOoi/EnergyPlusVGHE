@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/CoolingWaterDesWaterInletTempSizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 
@@ -66,6 +70,7 @@ Real64 CoolingWaterDesWaterInletTempSizer::size(EnergyPlusData &state, Real64 _o
         this->errorType = AutoSizingResultType::ErrorType1;
     }
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->isEpJSON) {
             this->sizingString = "design_inlet_water_temperature [C]";
         }
@@ -73,6 +78,13 @@ Real64 CoolingWaterDesWaterInletTempSizer::size(EnergyPlusData &state, Real64 _o
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntWaterTemp(state, this->compName, this->compType, this->autoSizedValue);
+=======
+        this->sizingString = "Design Inlet Water Temperature [C]";
+    }
+    this->selectSizerOutput(state, errorsFound);
+    if (this->isCoilReportObject) {
+        ReportCoilSelection::setCoilEntWaterTemp(state, this->coilReportNum, this->autoSizedValue);
+>>>>>>> nrel/develop
     }
     return this->autoSizedValue;
 }

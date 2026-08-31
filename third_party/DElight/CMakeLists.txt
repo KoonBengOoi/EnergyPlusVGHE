@@ -98,4 +98,8 @@ SET( delight_src
 )
 
 ADD_LIBRARY( DElight STATIC ${delight_src} )
+<<<<<<< HEAD
+=======
+target_include_directories(DElight PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+>>>>>>> nrel/develop
 

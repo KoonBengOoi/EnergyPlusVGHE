@@ -76,6 +76,7 @@ namespace FanCoilUnits {
     // coil type units supported in this module
     constexpr int FanCoilUnit_4Pipe(1);
 
+<<<<<<< HEAD
     enum class CCoil
     {
         Invalid = -1,
@@ -93,6 +94,8 @@ namespace FanCoilUnits {
         Num
     };
 
+=======
+>>>>>>> nrel/develop
     enum class CCM // capacity control method supported in this module
     {
         Invalid = -1,
@@ -146,8 +149,13 @@ namespace FanCoilUnits {
         // 'Coil:Cooling:Water' or
         // 'Coil:Cooling:Water:DetailedGeometry' or
         // 'CoilSystem:Cooling:Water:HeatExchangerAssisted'
+<<<<<<< HEAD
         CCoil CCoilType_Num = CCoil::Invalid; // Numeric equivalent for type of cooling coil
         std::string CCoilPlantName;           // name of cooling coil (child<=CoilSystem:Cooling:Water:HeatExchangerAssisted)
+=======
+        HVAC::CoilType coolCoilType = HVAC::CoilType::Invalid; // Numeric equivalent for type of cooling coil
+        std::string CCoilPlantName;                            // name of cooling coil (child<=CoilSystem:Cooling:Water:HeatExchangerAssisted)
+>>>>>>> nrel/develop
         DataPlant::PlantEquipmentType CCoilPlantType = DataPlant::PlantEquipmentType::Invalid;
         int ControlCompTypeNum = 0;
         int CompErrIndex = 0;
@@ -159,7 +167,11 @@ namespace FanCoilUnits {
         int HCoilName_Index = 0;
         std::string HCoilType; // type of heating coil:
         // 'Coil:Heating:Water' or
+<<<<<<< HEAD
         HCoil HCoilType_Num = HCoil::Invalid; // Numeric equivalent for type of cooling coil
+=======
+        HVAC::CoilType heatCoilType = HVAC::CoilType::Invalid; // Numeric equivalent for type of cooling coil
+>>>>>>> nrel/develop
         DataPlant::PlantEquipmentType HCoilPlantTypeOf = DataPlant::PlantEquipmentType::Invalid;
         Real64 MaxHotWaterVolFlow = 0.0;    // m3/s
         Real64 MinHotWaterVolFlow = 0.0;    // m3/s

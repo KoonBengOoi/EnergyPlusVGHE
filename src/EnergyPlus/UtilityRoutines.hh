@@ -51,14 +51,21 @@
 // C++ Headers
 #include <functional>
 #include <optional>
+<<<<<<< HEAD
+=======
+#include <span>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array1D.hh>
 #include <ObjexxFCL/Array1S.fwd.hh>
 #include <ObjexxFCL/string.functions.hh>
 
+<<<<<<< HEAD
 #include <GSL/span.h>
 
+=======
+>>>>>>> nrel/develop
 // EnergyPlus Headers
 #include <EnergyPlus/Data/BaseData.hh>
 #include <EnergyPlus/DataGlobals.hh>
@@ -369,6 +376,25 @@ void ShowWarningCustom(EnergyPlusData &state, ErrorObjectHeader const &eoh, std:
 void ShowWarningCustomField(
     EnergyPlusData &state, ErrorObjectHeader const &eoh, std::string_view fieldName, std::string_view fieldValue, std::string_view msg);
 
+<<<<<<< HEAD
+=======
+void ShowWarningBadMax(EnergyPlusData &state,
+                       ErrorObjectHeader const &eoh,
+                       std::string_view fieldName,
+                       Real64 fieldVal,
+                       Clusive cluMax,
+                       Real64 maxVal,
+                       std::string_view msg = "");
+
+void ShowWarningBadMin(EnergyPlusData &state,
+                       ErrorObjectHeader const &eoh,
+                       std::string_view fieldName,
+                       Real64 fieldVal,
+                       Clusive cluMax,
+                       Real64 minVal,
+                       std::string_view msg = "");
+
+>>>>>>> nrel/develop
 namespace Util {
 
     static constexpr std::array<std::string_view, 12> MonthNamesCC{
@@ -396,13 +422,21 @@ namespace Util {
     inline int FindIntInList(Array1_int &list, int item)
     {
         auto it = std::find(list.begin(), list.end(), item);
+<<<<<<< HEAD
         return (it == list.end()) ? -1 : (it - list.begin());
+=======
+        return (it == list.end()) ? -1 : static_cast<int>(it - list.begin());
+>>>>>>> nrel/develop
     }
 
     inline int FindIntInList(std::vector<int> &list, int item)
     {
         auto it = std::find(list.begin(), list.end(), item);
+<<<<<<< HEAD
         return (it == list.end()) ? -1 : (it - list.begin());
+=======
+        return (it == list.end()) ? -1 : static_cast<int>(it - list.begin());
+>>>>>>> nrel/develop
     }
 
     int FindItemInList(std::string_view const String, Array1S_string const ListOfItems, int NumItems);
@@ -457,8 +491,15 @@ namespace Util {
 
     template <typename Container, class = typename std::enable_if<!std::is_same<typename Container::value_type, std::string>::value>::type>
     // Container needs operator[i] and value_type
+<<<<<<< HEAD
     inline int
     FindItemInList(std::string_view const String, Container const &ListOfItems, std::string Container::value_type::*name_p, int const NumItems)
+=======
+    inline int FindItemInList(std::string_view const String,
+                              Container const &ListOfItems,
+                              const std::string Container::value_type::*const name_p,
+                              int const NumItems)
+>>>>>>> nrel/develop
     {
         for (typename Container::size_type i = 0, e = NumItems; i < e; ++i) {
             if (String == ListOfItems[i].*name_p) {
@@ -662,7 +703,11 @@ namespace Util {
 
 } // namespace Util
 
+<<<<<<< HEAD
 constexpr int getEnumValue(const gsl::span<const std::string_view> sList, const std::string_view s)
+=======
+constexpr int getEnumValue(const std::span<const std::string_view> sList, const std::string_view s)
+>>>>>>> nrel/develop
 {
     for (unsigned int i = 0; i < sList.size(); ++i) {
         if (sList[i] == s) {

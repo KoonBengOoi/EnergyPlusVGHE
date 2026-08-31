@@ -41,7 +41,11 @@
 ! ***GENERAL SIMULATION PARAMETERS***
 ! Number of Zones: 5
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   SimulationControl,
     YES,                     !- Do Zone Sizing Calculation
@@ -7949,6 +7953,13 @@
     SET SumReliefMCT = SumReliefMCT + (h_Relief_4 * mdotRelief_4 );  !- <none>
 
   EnergyManagementSystem:Program,
+<<<<<<< HEAD
+=======
+    InitializeRoofTemperature, !- Name
+    Set Troof = 0.0;           !- Program Line 1
+
+  EnergyManagementSystem:Program,
+>>>>>>> nrel/develop
     InitializeParameters,    !- Name
     Set CV_Height = 1.0,     !- Program Line 1
     Set CV_effWidth = 40.0,  !- Program Line 2
@@ -8066,10 +8077,15 @@
 
   EnergyManagementSystem:GlobalVariable,
     Troof,                   !- Erl Variable 1 Name
+<<<<<<< HEAD
     DeltaT,                  !- Erl Variable 2 Name
     ratioT,                  !- Erl Variable 3 Name
     CV_Height,               !- <none>
     CV_crossSectArea,        !- <none>
+=======
+    CV_Height,               !- Erl Variable 2 Name
+    CV_crossSectArea,        !- Erl Variable 3 Name
+>>>>>>> nrel/develop
     C_v,                     !- <none>
     rhoAir,                  !- <none>
     CpAir,                   !- <none>
@@ -8101,6 +8117,14 @@
     Set NatBouyMCT = NatBouyMC * Ta;  !- <none>
 
   EnergyManagementSystem:ProgramCallingManager,
+<<<<<<< HEAD
+=======
+    InitializeRoofTemperatureOnBeginNewEnvironment, !- Name
+    BeginNewEnvironment,          !- EnergyPlus Model Calling Point
+    InitializeRoofTemperature;    !- Program Name 1
+
+  EnergyManagementSystem:ProgramCallingManager,
+>>>>>>> nrel/develop
     Model Flat Roof Microclimate,  !- Name
     BeginTimestepBeforePredictor,  !- EnergyPlus Model Calling Point
     InitializeParameters,    !- Program Name 1

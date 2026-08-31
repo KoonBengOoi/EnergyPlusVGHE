@@ -45,6 +45,12 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+>>>>>>> nrel/develop
 // EnergyPlus Headers
 #include <EnergyPlus/Boilers.hh>
 #include <EnergyPlus/ChillerAbsorption.hh>
@@ -381,8 +387,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(4)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -391,8 +401,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(5)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -410,7 +424,11 @@ namespace FaultsManager {
                 if (EvapCoolerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -467,8 +485,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(4)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -477,8 +499,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(5)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -500,7 +526,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -509,12 +539,21 @@ namespace FaultsManager {
                         // The fault model is only applicable to the chillers with water based condensers
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
                                                "fault model will not be applied.",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(5),
                                                cAlphaArgs(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
+                                        "fault model will not be applied.",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(5),
+                                        cAlphaArgs(5)));
+>>>>>>> nrel/develop
 
                     } else {
                         // Link the chiller with the fault model
@@ -535,7 +574,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -544,12 +587,21 @@ namespace FaultsManager {
                         // The fault model is only applicable to the chillers with water based condensers
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
                                                "fault model will not be applied.",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(5),
                                                cAlphaArgs(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
+                                        "fault model will not be applied.",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(5),
+                                        cAlphaArgs(5)));
+>>>>>>> nrel/develop
 
                     } else {
                         // Link the chiller with the fault model
@@ -570,7 +622,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -579,12 +635,21 @@ namespace FaultsManager {
                         // The fault model is only applicable to the chillers with water based condensers
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
                                                "fault model will not be applied.",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(5),
                                                cAlphaArgs(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
+                                        "fault model will not be applied.",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(5),
+                                        cAlphaArgs(5)));
+>>>>>>> nrel/develop
 
                     } else {
                         // Link the chiller with the fault model
@@ -606,7 +671,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -615,12 +684,21 @@ namespace FaultsManager {
                         // The fault model is only applicable to the chillers with water based condensers
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
                                                "fault model will not be applied.",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(5),
                                                cAlphaArgs(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
+                                        "fault model will not be applied.",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(5),
+                                        cAlphaArgs(5)));
+>>>>>>> nrel/develop
 
                     } else {
                         // Link the chiller with the fault model
@@ -642,7 +720,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -651,12 +733,21 @@ namespace FaultsManager {
                         // The fault model is only applicable to the chillers with water based condensers
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
                                                "fault model will not be applied.",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(5),
                                                cAlphaArgs(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
+                                        "fault model will not be applied.",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(5),
+                                        cAlphaArgs(5)));
+>>>>>>> nrel/develop
 
                     } else {
                         // Link the fault model with the water cooled chiller
@@ -678,7 +769,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -686,12 +781,21 @@ namespace FaultsManager {
                         // The fault model is only applicable to the chillers with water based condensers
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
                                                "fault model will not be applied.",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(5),
                                                cAlphaArgs(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\". The specified chiller is not water cooled. The chiller fouling "
+                                        "fault model will not be applied.",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(5),
+                                        cAlphaArgs(5)));
+>>>>>>> nrel/develop
 
                     } else {
                         // Link the fault model with the water cooled chiller
@@ -751,8 +855,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(4)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -761,8 +869,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(5)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -779,7 +891,11 @@ namespace FaultsManager {
                 if (boiler_it == state.dataBoilers->Boiler.end()) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -836,8 +952,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(4)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -846,8 +966,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(5)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -867,7 +991,11 @@ namespace FaultsManager {
                 if (CoilNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -887,7 +1015,11 @@ namespace FaultsManager {
                 if (CoilNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -896,12 +1028,21 @@ namespace FaultsManager {
                         // The fault model is only applicable to the coils controlled on leaving air temperature
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\". The specified coil is not controlled on leaving air temperature. "
                                                "The coil SAT sensor fault model will not be applied.",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(5),
                                                cAlphaArgs(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\". The specified coil is not controlled on leaving air temperature. "
+                                        "The coil SAT sensor fault model will not be applied.",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(5),
+                                        cAlphaArgs(5)));
+>>>>>>> nrel/develop
                     } else {
                         // Link the fault model with the coil that is controlled on leaving air temperature
                         state.dataSteamCoils->SteamCoil(CoilNum).FaultyCoilSATFlag = true;
@@ -922,7 +1063,11 @@ namespace FaultsManager {
                 if (CoilNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 }
@@ -932,7 +1077,11 @@ namespace FaultsManager {
                 if (lAlphaFieldBlanks(6)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(6), cAlphaArgs(6)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 }
@@ -948,7 +1097,11 @@ namespace FaultsManager {
                 if (ControlNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(6), cAlphaArgs(6)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -960,6 +1113,7 @@ namespace FaultsManager {
                     if (state.dataHVACControllers->ControllerProps(ControlNum).SensedNode !=
                         state.dataWaterCoils->WaterCoil(CoilNum).AirOutletNodeNum) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\" does not match {} = \"{}",
                                                            cFaultCurrentObject,
                                                            cAlphaArgs(1),
@@ -967,6 +1121,15 @@ namespace FaultsManager {
                                                            cAlphaArgs(6),
                                                            cAlphaFieldNames(5),
                                                            cAlphaArgs(5)));
+=======
+                                        std::format("{} = \"{}\" invalid {} = \"{}\" does not match {} = \"{}",
+                                                    cFaultCurrentObject,
+                                                    cAlphaArgs(1),
+                                                    cAlphaFieldNames(6),
+                                                    cAlphaArgs(6),
+                                                    cAlphaFieldNames(5),
+                                                    cAlphaArgs(5)));
+>>>>>>> nrel/develop
                         state.dataFaultsMgr->ErrorsFound = true;
                     }
                 }
@@ -984,7 +1147,11 @@ namespace FaultsManager {
                 // int CoilSysNum = Util::FindItemInList(faultsCoilSATFouling.CoilName,
                 //                                                 state.dataHVACDXSys->DXCoolingSystem);
                 // if (CoilSysNum <= 0) {
+<<<<<<< HEAD
                 //    ShowSevereError(state, format("{}{} = \"{}\" invalid {} = \"{}{}\" not found.", //, cFaultCurrentObject, cAlphaArgs(1),
+=======
+                //    ShowSevereError(state, std::format("{}{} = \"{}\" invalid {} = \"{}{}\" not found.", //, cFaultCurrentObject, cAlphaArgs(1),
+>>>>>>> nrel/develop
                 //    cAlphaFieldNames(5), //, cAlphaArgs(5))); state.dataFaultsMgr->ErrorsFound = true;
                 //} else {
                 //    // Link the coil system with the fault model
@@ -1004,7 +1171,11 @@ namespace FaultsManager {
                 if (CoilSysNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1067,8 +1238,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(4)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -1077,8 +1252,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(5)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -1094,7 +1273,11 @@ namespace FaultsManager {
                 if (TowerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1107,12 +1290,21 @@ namespace FaultsManager {
                                           faultsTowerFouling.TowerType)) {
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\" not match the type of {}. Tower type in the fault model is updated. ",
                                                cFaultCurrentObject,
                                                cAlphaArgs(1),
                                                cAlphaFieldNames(4),
                                                cAlphaArgs(4),
                                                cAlphaFieldNames(5)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\" not match the type of {}. Tower type in the fault model is updated. ",
+                                        cFaultCurrentObject,
+                                        cAlphaArgs(1),
+                                        cAlphaFieldNames(4),
+                                        cAlphaArgs(4),
+                                        cAlphaFieldNames(5)));
+>>>>>>> nrel/develop
                         faultsTowerFouling.TowerType =
                             DataPlant::PlantEquipTypeNames[static_cast<int>(state.dataCondenserLoopTowers->towers(TowerNum).TowerType)];
                     }
@@ -1122,7 +1314,11 @@ namespace FaultsManager {
                     if (state.dataCondenserLoopTowers->towers(TowerNum).PerformanceInputMethod_Num != CondenserLoopTowers::PIM::UFactor) {
                         ShowWarningError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "{} = \"{}\" invalid {} = \"{}. Tower Performance Input Method is not UFactorTimesAreaAndDesignWaterFlowRate. The "
                                 "tower fouling fault model will not be applied to the tower. ",
                                 cFaultCurrentObject,
@@ -1181,8 +1377,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(4)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -1191,8 +1391,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(5)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -1208,7 +1412,11 @@ namespace FaultsManager {
                 if (TowerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1220,12 +1428,21 @@ namespace FaultsManager {
                     if (!Util::SameString(DataPlant::PlantEquipTypeNames[static_cast<int>(state.dataCondenserLoopTowers->towers(TowerNum).TowerType)],
                                           faultsCondSWTFouling.TowerType)) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{} = \"{}\" invalid {} = \"{}\" not match the type of {}. Tower type is updated. ",
                                                             cFaultCurrentObject,
                                                             cAlphaArgs(1),
                                                             cAlphaFieldNames(4),
                                                             cAlphaArgs(4),
                                                             cAlphaFieldNames(5)));
+=======
+                                         std::format("{} = \"{}\" invalid {} = \"{}\" not match the type of {}. Tower type is updated. ",
+                                                     cFaultCurrentObject,
+                                                     cAlphaArgs(1),
+                                                     cAlphaFieldNames(4),
+                                                     cAlphaArgs(4),
+                                                     cAlphaFieldNames(5)));
+>>>>>>> nrel/develop
                         faultsCondSWTFouling.TowerType =
                             DataPlant::PlantEquipTypeNames[static_cast<int>(state.dataCondenserLoopTowers->towers(TowerNum).TowerType)];
                     }
@@ -1279,8 +1496,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(4)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -1289,8 +1510,12 @@ namespace FaultsManager {
             if (lAlphaFieldBlanks(5)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+=======
+                    std::format("{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             }
 
@@ -1311,7 +1536,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1331,7 +1560,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1351,7 +1584,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1373,7 +1610,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1394,7 +1635,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1415,7 +1660,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1435,7 +1684,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1455,7 +1708,11 @@ namespace FaultsManager {
                 if (ChillerNum <= 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" not found.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1575,10 +1832,17 @@ namespace FaultsManager {
                 // Related Thermostat Offset Fault Name is required for Humidistat Offset Type: ThermostatOffsetDependent
                 if (lAlphaFieldBlanks(6)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{} = \"{}\": {} cannot be blank for Humidistat Offset Type = \"ThermostatOffsetDependent\".",
                                                        cFaultCurrentObject,
                                                        cAlphaArgs(1),
                                                        cAlphaFieldNames(6)));
+=======
+                                    std::format("{} = \"{}\": {} cannot be blank for Humidistat Offset Type = \"ThermostatOffsetDependent\".",
+                                                cFaultCurrentObject,
+                                                cAlphaArgs(1),
+                                                cAlphaFieldNames(6)));
+>>>>>>> nrel/develop
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
                     faultsHStat.FaultyThermostatName = cAlphaArgs(6);
@@ -1605,12 +1869,20 @@ namespace FaultsManager {
 
                 // Reference offset value is required for Humidistat Offset Type: ThermostatOffsetIndependent
                 if (lAlphaFieldBlanks(1)) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state,
                         EnergyPlus::format("{} = \"{}\": {} cannot be blank for Humidistat Offset Type = \"ThermostatOffsetIndependent\".",
                                            cFaultCurrentObject,
                                            cAlphaArgs(1),
                                            cNumericFieldNames(1)));
+=======
+                    ShowSevereError(state,
+                                    std::format("{} = \"{}\": {} cannot be blank for Humidistat Offset Type = \"ThermostatOffsetIndependent\".",
+                                                cFaultCurrentObject,
+                                                cAlphaArgs(1),
+                                                cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
                     faultsHStat.Offset = rNumericArgs(1);
@@ -1659,7 +1931,11 @@ namespace FaultsManager {
 
             // Reference offset value is required
             if (lAlphaFieldBlanks(1)) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{} = \"{}\" cannot be blank.", cFaultCurrentObject, cNumericFieldNames(1)));
+=======
+                ShowSevereError(state, std::format("{} = \"{}\" cannot be blank.", cFaultCurrentObject, cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                 state.dataFaultsMgr->ErrorsFound = true;
             } else {
                 faultsTStat.Offset = rNumericArgs(1);
@@ -1728,10 +2004,17 @@ namespace FaultsManager {
                 int CoilNum = Util::FindItemInList(faultsFoulCoil.FouledCoilName, state.dataWaterCoils->WaterCoil);
                 if (CoilNum <= 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{} = \"{}\". Referenced Coil named \"{}\" was not found.",
                                                        cFaultCurrentObject,
                                                        cAlphaArgs(1),
                                                        faultsFoulCoil.FouledCoilName));
+=======
+                                    std::format("{} = \"{}\". Referenced Coil named \"{}\" was not found.",
+                                                cFaultCurrentObject,
+                                                cAlphaArgs(1),
+                                                faultsFoulCoil.FouledCoilName));
+>>>>>>> nrel/develop
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
                     // Coil is found: check if the right type
@@ -1815,8 +2098,12 @@ namespace FaultsManager {
                     } else {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
                                 "{} = \"{}\" invalid {} = \"{}\".", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(2), cAlphaArgs(2)));
+=======
+                            std::format("{} = \"{}\" invalid {} = \"{}\".", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(2), cAlphaArgs(2)));
+>>>>>>> nrel/develop
                         ShowContinueError(
                             state, R"(Coil was found but it is not one of the supported types ("Coil:Cooling:Water" or "Coil:Heating:Water").)");
                         state.dataFaultsMgr->ErrorsFound = true;
@@ -1873,7 +2160,11 @@ namespace FaultsManager {
                 if (lAlphaFieldBlanks(4)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(4), cAlphaArgs(4)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 } else {
@@ -1891,7 +2182,11 @@ namespace FaultsManager {
                 if (lAlphaFieldBlanks(5)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{} = \"{}\" invalid {} = \"{}\" blank.", cFaultCurrentObject, cAlphaArgs(1), cAlphaFieldNames(5), cAlphaArgs(5)));
                     state.dataFaultsMgr->ErrorsFound = true;
                 }
@@ -1944,7 +2239,11 @@ namespace FaultsManager {
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         Real64 FaultFac(0.0); // fault modification factor
+<<<<<<< HEAD
         Real64 FoulingFactor(
+=======
+        Real64 foulingFactorLocal(
+>>>>>>> nrel/develop
             1.0); // Actual Nominal Fouling Factor, ratio between the nominal capacity or efficiency at fouling case and that at fault free case
 
         // Check fault availability schedules
@@ -1956,10 +2255,17 @@ namespace FaultsManager {
 
         // The more severe the fouling fault is (i.e., larger FaultFac), the less the FoulingFactor is
         if (FaultFac > 0.0) {
+<<<<<<< HEAD
             FoulingFactor = min(this->FoulingFactor / FaultFac, 1.0);
         }
 
         return FoulingFactor;
+=======
+            foulingFactorLocal = min(this->FoulingFactor / FaultFac, 1.0);
+        }
+
+        return foulingFactorLocal;
+>>>>>>> nrel/develop
     }
 
     Real64 FaultPropertiesTowerFouling::CalFaultyTowerFoulingFactor([[maybe_unused]] EnergyPlusData &state)

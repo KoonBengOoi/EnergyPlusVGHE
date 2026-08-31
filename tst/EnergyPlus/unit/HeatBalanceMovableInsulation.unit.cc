@@ -88,8 +88,15 @@ TEST_F(EnergyPlusFixture, HeatBalanceMovableInsulation_EvalOutsideMovableInsulat
     mat1->Resistance = 1.25;
     mat1->Roughness = Material::SurfaceRoughness::VeryRough;
     mat1->group = Material::Group::Regular;
+<<<<<<< HEAD
     mat1->AbsorpSolar = 0.75;
     mat1->AbsorpThermal = 0.75;
+=======
+    mat1->AbsorpSolarOut = 0.75;
+    mat1->AbsorpThermalOut = 0.75;
+    mat1->AbsorpSolarIn = 0.75;
+    mat1->AbsorpThermalIn = 0.75;
+>>>>>>> nrel/develop
     mat1->Trans = 0.25;
     mat1->ReflectSolBeamFront = 0.20;
     state->dataHeatBal->Zone.allocate(1);
@@ -115,8 +122,15 @@ TEST_F(EnergyPlusFixture, HeatBalanceMovableInsulation_EvalOutsideMovableInsulat
     mat2->Resistance = 1.25;
     mat2->Roughness = Material::SurfaceRoughness::VeryRough;
     mat2->group = Material::Group::Glass;
+<<<<<<< HEAD
     mat2->AbsorpSolar = 0.75;
     mat2->AbsorpThermal = 0.75;
+=======
+    mat2->AbsorpSolarOut = 0.75;
+    mat2->AbsorpThermalOut = 0.75;
+    mat2->AbsorpSolarIn = 0.75;
+    mat2->AbsorpThermalIn = 0.75;
+>>>>>>> nrel/develop
     mat2->Trans = 0.25;
     mat2->ReflectSolBeamFront = 0.20;
 
@@ -133,8 +147,15 @@ TEST_F(EnergyPlusFixture, HeatBalanceMovableInsulation_EvalOutsideMovableInsulat
     mat3->Resistance = 1.25;
     mat3->Roughness = Material::SurfaceRoughness::VeryRough;
     mat3->group = Material::Group::GlassEQL;
+<<<<<<< HEAD
     mat3->AbsorpSolar = 0.75;
     mat3->AbsorpThermal = 0.75;
+=======
+    mat3->AbsorpSolarOut = 0.75;
+    mat3->AbsorpThermalOut = 0.75;
+    mat3->AbsorpSolarIn = 0.75;
+    mat3->AbsorpThermalIn = 0.75;
+>>>>>>> nrel/develop
     mat3->Trans = 0.25;
     mat3->ReflectSolBeamFront = 0.20;
     HeatBalanceSurfaceManager::EvalOutsideMovableInsulation(*state);
@@ -163,8 +184,15 @@ TEST_F(EnergyPlusFixture, HeatBalanceMovableInsulation_EvalInsideMovableInsulati
     mat->Resistance = 1.25;
     mat->Roughness = Material::SurfaceRoughness::VeryRough;
     mat->group = Material::Group::Regular;
+<<<<<<< HEAD
     mat->AbsorpSolar = 0.75;
     mat->AbsorpThermal = 0.75;
+=======
+    mat->AbsorpSolarOut = 0.75;
+    mat->AbsorpThermalOut = 0.75;
+    mat->AbsorpSolarIn = 0.75;
+    mat->AbsorpThermalIn = 0.75;
+>>>>>>> nrel/develop
     mat->Trans = 0.25;
     mat->ReflectSolBeamFront = 0.20;
     state->dataHeatBal->Zone.allocate(1);

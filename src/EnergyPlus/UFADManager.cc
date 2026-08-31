@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array1D.hh>
@@ -255,8 +259,12 @@ namespace RoomAir {
             if (zoneU.WinWidth <= 0.0) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("For RoomAirSettings:UnderFloorAirDistributionExterior for Zone {} there are no exterior windows.",
                                        zoneU.ZoneName));
+=======
+                    std::format("For RoomAirSettings:UnderFloorAirDistributionExterior for Zone {} there are no exterior windows.", zoneU.ZoneName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "  The zone will be treated as a UFAD interior zone");
             }
         } // if (model == RoomAirModel::UFADExt)
@@ -285,11 +293,19 @@ namespace RoomAir {
             (zoneU.A_Kc != Constant::AutoCalculate || zoneU.B_Kc != Constant::AutoCalculate || zoneU.C_Kc != Constant::AutoCalculate ||
              zoneU.D_Kc != Constant::AutoCalculate || zoneU.E_Kc != Constant::AutoCalculate)) {
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("For {} for Zone {}, input for Coefficients A - E will be "
                                                 "ignored when Floor Diffuser Type = {}.",
                                                 cCMO,
                                                 zoneU.ZoneName,
                                                 diffuserNamesUC[(int)zoneU.DiffuserType]));
+=======
+                             std::format("For {} for Zone {}, input for Coefficients A - E will be "
+                                         "ignored when Floor Diffuser Type = {}.",
+                                         cCMO,
+                                         zoneU.ZoneName,
+                                         diffuserNamesUC[(int)zoneU.DiffuserType]));
+>>>>>>> nrel/develop
             ShowContinueError(state, "  To input these Coefficients, use Floor Diffuser Type = Custom.");
         }
 
@@ -320,10 +336,17 @@ namespace RoomAir {
         } else if (zoneU.A_Kc == Constant::AutoCalculate || zoneU.B_Kc == Constant::AutoCalculate || zoneU.C_Kc == Constant::AutoCalculate ||
                    zoneU.D_Kc == Constant::AutoCalculate || zoneU.E_Kc == Constant::AutoCalculate) {
             ShowFatalError(state,
+<<<<<<< HEAD
                            EnergyPlus::format("For {} for Zone {}, input for Coefficients A - E must be "
                                               "specified when Floor Diffuser Type = Custom.",
                                               cCMO,
                                               zoneU.ZoneName));
+=======
+                           std::format("For {} for Zone {}, input for Coefficients A - E must be "
+                                       "specified when Floor Diffuser Type = Custom.",
+                                       cCMO,
+                                       zoneU.ZoneName));
+>>>>>>> nrel/develop
         }
 
         if (zoneU.PowerPerPlume == Constant::AutoCalculate) {
@@ -458,9 +481,15 @@ namespace RoomAir {
 
             if (std::abs(ZInfSurf - ZSupSurf) < 1.e-10) {
                 ShowSevereError(state, "RoomAirModelUFAD:HcUCSDUF: Surface values will cause divide by zero.");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("Zone=\"{}\", Surface=\"{}\".", state.dataHeatBal->Zone(surf.Zone).Name, surf.Name));
                 ShowContinueError(state, EnergyPlus::format("ZInfSurf=[{:.4R}], LayH=[{:.4R}].", ZInfSurf, LayH));
                 ShowContinueError(state, EnergyPlus::format("ZSupSurf=[{:.4R}], LayH=[{:.4R}].", ZSupSurf, LayH));
+=======
+                ShowContinueError(state, std::format("Zone=\"{}\", Surface=\"{}\".", state.dataHeatBal->Zone(surf.Zone).Name, surf.Name));
+                ShowContinueError(state, std::format("ZInfSurf=[{:.4f}], LayH=[{:.4f}].", ZInfSurf, LayH));
+                ShowContinueError(state, std::format("ZSupSurf=[{:.4f}], LayH=[{:.4f}].", ZSupSurf, LayH));
+>>>>>>> nrel/develop
                 ShowFatalError(state, "...Previous condition causes termination.");
             }
 
@@ -785,7 +814,11 @@ namespace RoomAir {
         Real64 HeightFrac; // Fractional height of transition between occupied and upper subzones
         Real64 Gamma;      // dimensionless height parameter; higher gamma means interface height will be
         // higher, smaller gamma means interface height will be lower.
+<<<<<<< HEAD
         Real64 ZTAveraged;
+=======
+        Real64 ZTAveraged = 0.0;
+>>>>>>> nrel/develop
 
         // Exact solution or Euler method
         if (state.dataHeatBal->ZoneAirSolutionAlgo != DataHeatBalance::SolutionAlgo::ThirdOrder) {
@@ -1110,6 +1143,7 @@ namespace RoomAir {
         } else {
             if (HeightComfort < HeightOccupiedSubzoneAve) {
                 state.dataRoomAir->TCMF(ZoneNum) = state.dataRoomAir->ZTOC(ZoneNum);
+<<<<<<< HEAD
             } else if (HeightComfort >= HeightOccupiedSubzoneAve && HeightComfort < HeightUpSubzoneAve) {
                 state.dataRoomAir->TCMF(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightComfort) +
                                                     state.dataRoomAir->ZTMX(ZoneNum) * (HeightComfort - HeightOccupiedSubzoneAve)) /
@@ -1120,6 +1154,17 @@ namespace RoomAir {
                 ShowFatalError(
                     state,
                     EnergyPlus::format("UFAD comfort height is above ceiling or below floor in Zone: {}", state.dataHeatBal->Zone(ZoneNum).Name));
+=======
+            } else if (HeightComfort < HeightUpSubzoneAve) {
+                state.dataRoomAir->TCMF(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightComfort) +
+                                                    state.dataRoomAir->ZTMX(ZoneNum) * (HeightComfort - HeightOccupiedSubzoneAve)) /
+                                                   (HeightUpSubzoneAve - HeightOccupiedSubzoneAve);
+            } else if (HeightComfort <= CeilingHeight) {
+                state.dataRoomAir->TCMF(ZoneNum) = state.dataRoomAir->ZTMX(ZoneNum);
+            } else {
+                ShowFatalError(state,
+                               std::format("UFAD comfort height is above ceiling or below floor in Zone: {}", state.dataHeatBal->Zone(ZoneNum).Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1130,6 +1175,7 @@ namespace RoomAir {
         } else {
             if (HeightThermostat < HeightOccupiedSubzoneAve) {
                 state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = state.dataRoomAir->ZTOC(ZoneNum);
+<<<<<<< HEAD
             } else if (HeightThermostat >= HeightOccupiedSubzoneAve && HeightThermostat < HeightUpSubzoneAve) {
                 state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightThermostat) +
                                                                   state.dataRoomAir->ZTMX(ZoneNum) * (HeightThermostat - HeightOccupiedSubzoneAve)) /
@@ -1140,6 +1186,18 @@ namespace RoomAir {
                 ShowFatalError(state,
                                EnergyPlus::format("Underfloor air distribution thermostat height is above ceiling or below floor in Zone: {}",
                                                   state.dataHeatBal->Zone(ZoneNum).Name));
+=======
+            } else if (HeightThermostat < HeightUpSubzoneAve) {
+                state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightThermostat) +
+                                                                  state.dataRoomAir->ZTMX(ZoneNum) * (HeightThermostat - HeightOccupiedSubzoneAve)) /
+                                                                 (HeightUpSubzoneAve - HeightOccupiedSubzoneAve);
+            } else if (HeightThermostat <= CeilingHeight) {
+                state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = state.dataRoomAir->ZTMX(ZoneNum);
+            } else {
+                ShowFatalError(state,
+                               std::format("Underfloor air distribution thermostat height is above ceiling or below floor in Zone: {}",
+                                           state.dataHeatBal->Zone(ZoneNum).Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1210,7 +1268,11 @@ namespace RoomAir {
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
 
         Real64 PowerInPlumesPerMeter; // Power in Plumes per meter of window length [W/m]
+<<<<<<< HEAD
         Real64 ZTAveraged;
+=======
+        Real64 ZTAveraged = 0.0;
+>>>>>>> nrel/develop
 
         // Exact solution or Euler method
         if (state.dataHeatBal->ZoneAirSolutionAlgo != DataHeatBalance::SolutionAlgo::ThirdOrder) {
@@ -1572,6 +1634,7 @@ namespace RoomAir {
         } else {
             if (HeightComfort < HeightOccupiedSubzoneAve) {
                 state.dataRoomAir->TCMF(ZoneNum) = state.dataRoomAir->ZTOC(ZoneNum);
+<<<<<<< HEAD
             } else if (HeightComfort >= HeightOccupiedSubzoneAve && HeightComfort < HeightUpSubzoneAve) {
                 state.dataRoomAir->TCMF(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightComfort) +
                                                     state.dataRoomAir->ZTMX(ZoneNum) * (HeightComfort - HeightOccupiedSubzoneAve)) /
@@ -1582,6 +1645,17 @@ namespace RoomAir {
                 ShowFatalError(
                     state,
                     EnergyPlus::format("UFAD comfort height is above ceiling or below floor in Zone: {}", state.dataHeatBal->Zone(ZoneNum).Name));
+=======
+            } else if (HeightComfort < HeightUpSubzoneAve) {
+                state.dataRoomAir->TCMF(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightComfort) +
+                                                    state.dataRoomAir->ZTMX(ZoneNum) * (HeightComfort - HeightOccupiedSubzoneAve)) /
+                                                   (HeightUpSubzoneAve - HeightOccupiedSubzoneAve);
+            } else if (HeightComfort <= CeilingHeight) {
+                state.dataRoomAir->TCMF(ZoneNum) = state.dataRoomAir->ZTMX(ZoneNum);
+            } else {
+                ShowFatalError(state,
+                               std::format("UFAD comfort height is above ceiling or below floor in Zone: {}", state.dataHeatBal->Zone(ZoneNum).Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1592,6 +1666,7 @@ namespace RoomAir {
         } else {
             if (HeightThermostat < HeightOccupiedSubzoneAve) {
                 state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = state.dataRoomAir->ZTOC(ZoneNum);
+<<<<<<< HEAD
             } else if (HeightThermostat >= HeightOccupiedSubzoneAve && HeightThermostat < HeightUpSubzoneAve) {
                 state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightThermostat) +
                                                                   state.dataRoomAir->ZTMX(ZoneNum) * (HeightThermostat - HeightOccupiedSubzoneAve)) /
@@ -1602,6 +1677,18 @@ namespace RoomAir {
                 ShowFatalError(state,
                                EnergyPlus::format("Underfloor air distribution thermostat height is above ceiling or below floor in Zone: {}",
                                                   state.dataHeatBal->Zone(ZoneNum).Name));
+=======
+            } else if (HeightThermostat < HeightUpSubzoneAve) {
+                state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = (state.dataRoomAir->ZTOC(ZoneNum) * (HeightUpSubzoneAve - HeightThermostat) +
+                                                                  state.dataRoomAir->ZTMX(ZoneNum) * (HeightThermostat - HeightOccupiedSubzoneAve)) /
+                                                                 (HeightUpSubzoneAve - HeightOccupiedSubzoneAve);
+            } else if (HeightThermostat <= CeilingHeight) {
+                state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = state.dataRoomAir->ZTMX(ZoneNum);
+            } else {
+                ShowFatalError(state,
+                               std::format("Underfloor air distribution thermostat height is above ceiling or below floor in Zone: {}",
+                                           state.dataHeatBal->Zone(ZoneNum).Name));
+>>>>>>> nrel/develop
             }
         }
 

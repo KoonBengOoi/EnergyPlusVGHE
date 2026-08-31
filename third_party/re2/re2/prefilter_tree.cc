@@ -336,10 +336,17 @@ void PrefilterTree::PropagateMatch(const std::vector<int>& atom_ids,
       regexps->set(entry.regexps[i], 1);
     int c;
     // Pass trigger up to parents.
+<<<<<<< HEAD
     for (StdIntMap::iterator it = entry.parents->begin();
          it != entry.parents->end();
          ++it) {
       int j = it->first;
+=======
+    for (StdIntMap::iterator it2 = entry.parents->begin();
+         it2 != entry.parents->end();
+         ++it2) {
+      int j = it2->first;
+>>>>>>> nrel/develop
       const Entry& parent = entries_[j];
       // Delay until all the children have succeeded.
       if (parent.propagate_up_at_count > 1) {

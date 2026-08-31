@@ -54,13 +54,20 @@
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array1D.hh>
 #include <ObjexxFCL/Array2D.hh>
+<<<<<<< HEAD
 #include <ObjexxFCL/Array2S.hh>
+=======
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/Data/BaseData.hh>
 #include <EnergyPlus/DataGlobals.hh>
 #include <EnergyPlus/EnergyPlus.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/Psychrometrics.hh>
+=======
+#include <EnergyPlus/UtilityRoutines.hh>
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 
@@ -541,7 +548,11 @@ namespace Fluid {
     RefrigProps *GetRefrig(EnergyPlusData &state, std::string_view name);
     RefrigProps *GetSteam(EnergyPlusData &state);
 
+<<<<<<< HEAD
     int GetGlycolRawNum(EnergyPlusData &state, std::string_view name);
+=======
+    int GetGlycolRawNum(EnergyPlusData const &state, std::string_view name);
+>>>>>>> nrel/develop
     GlycolRawProps *GetGlycolRaw(EnergyPlusData &state, std::string_view name);
 
     int GetGlycolNum(EnergyPlusData &state, std::string_view name);

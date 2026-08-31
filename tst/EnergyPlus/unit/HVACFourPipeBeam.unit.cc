@@ -1722,7 +1722,10 @@ TEST_F(EnergyPlusFixture, Beam_sizeandSimulateOneZone)
 
     state->dataGlobal->BeginSimFlag = true;
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     HeatBalanceManager::SetPreConstructionInputParameters(*state); // establish array bounds for constructions early
     // OutputProcessor::TimeValue.allocate(2);
     OutputProcessor::SetupTimePointers(
@@ -3294,7 +3297,10 @@ TEST_F(EnergyPlusFixture, Beam_fatalWhenSysSizingOff)
 
     state->dataGlobal->BeginSimFlag = true;
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     HeatBalanceManager::SetPreConstructionInputParameters(*state); // establish array bounds for constructions early
     // OutputProcessor::TimeValue.allocate(2);
     OutputProcessor::SetupTimePointers(
@@ -4783,7 +4789,10 @@ TEST_F(EnergyPlusFixture, Beam_sizeandSimulateHighOA)
 
     state->dataGlobal->BeginSimFlag = true;
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     HeatBalanceManager::SetPreConstructionInputParameters(*state); // establish array bounds for constructions early
     // OutputProcessor::TimeValue.allocate(2);
     OutputProcessor::SetupTimePointers(

@@ -45,11 +45,20 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <array>
+
+>>>>>>> nrel/develop
 // EnergyPlus Headers
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
 #include <EnergyPlus/DataGlobals.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/DataIPShortCuts.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/GroundTemperatureModeling/SiteBuildingSurfaceGroundTemperatures.hh>
 #include <EnergyPlus/InputProcessing/InputProcessor.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
@@ -69,6 +78,10 @@ namespace GroundTemp {
         // Reads input and creates instance of Site:GroundTemperature:BuildingSurface object
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
+<<<<<<< HEAD
+=======
+        constexpr int numMonths = 12;
+>>>>>>> nrel/develop
         bool errorsFound = false;
 
         // New shared pointer for this model object
@@ -76,13 +89,21 @@ namespace GroundTemp {
 
         ModelType modelType = GroundTemp::ModelType::SiteBuildingSurface;
 
+<<<<<<< HEAD
         std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNamesUC[(int)modelType];
         const int numCurrObjects = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, cCurrentModuleObject);
+=======
+        std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNames[(int)modelType];
+        std::string const currentModuleObject(cCurrentModuleObject);
+        auto *inputProcessor = state.dataInputProcessing->inputProcessor.get();
+        const int numCurrObjects = inputProcessor->getNumObjectsFound(state, cCurrentModuleObject);
+>>>>>>> nrel/develop
 
         thisModel->modelType = modelType;
         thisModel->Name = objectName;
 
         if (numCurrObjects == 1) {
+<<<<<<< HEAD
 
             int NumNums;
             int NumAlphas;
@@ -102,6 +123,32 @@ namespace GroundTemp {
             for (int i = 1; i <= 12; ++i) {
                 thisModel->buildingSurfaceGroundTemps[i - 1] = state.dataIPShortCut->rNumericArgs(i);
                 if (thisModel->buildingSurfaceGroundTemps[i - 1] < 15.0 || thisModel->buildingSurfaceGroundTemps[i - 1] > 25.0) {
+=======
+            bool genErrorMessage = false;
+            auto const &groundTempsInstances = inputProcessor->epJSON.at(currentModuleObject);
+            auto const groundTempsInstance = groundTempsInstances.begin();
+            auto const &groundTempsFields = groundTempsInstance.value();
+            auto const &groundTempsSchemaProps = inputProcessor->getObjectSchemaProps(state, currentModuleObject);
+            inputProcessor->markObjectAsUsed(currentModuleObject, groundTempsInstance.key());
+            static constexpr std::array<std::string_view, numMonths> fieldNames = {"january_ground_temperature",
+                                                                                   "february_ground_temperature",
+                                                                                   "march_ground_temperature",
+                                                                                   "april_ground_temperature",
+                                                                                   "may_ground_temperature",
+                                                                                   "june_ground_temperature",
+                                                                                   "july_ground_temperature",
+                                                                                   "august_ground_temperature",
+                                                                                   "september_ground_temperature",
+                                                                                   "october_ground_temperature",
+                                                                                   "november_ground_temperature",
+                                                                                   "december_ground_temperature"};
+
+            // Assign the ground temps to the variable
+            for (int i = 0; i < numMonths; ++i) {
+                thisModel->buildingSurfaceGroundTemps[i] =
+                    inputProcessor->getRealFieldValue(groundTempsFields, groundTempsSchemaProps, std::string(fieldNames[i]));
+                if (thisModel->buildingSurfaceGroundTemps[i] < 15.0 || thisModel->buildingSurfaceGroundTemps[i] > 25.0) {
+>>>>>>> nrel/develop
                     genErrorMessage = true;
                 }
             }
@@ -109,12 +156,20 @@ namespace GroundTemp {
             state.dataEnvrn->GroundTempInputs[static_cast<int>(DataEnvironment::GroundTempType::BuildingSurface)] = true;
 
             if (genErrorMessage) {
+<<<<<<< HEAD
                 ShowWarningError(state, fmt::format("{}: Some values fall outside the range of 15-25C.", GroundTemp::modelTypeNames[(int)modelType]));
+=======
+                ShowWarningError(state, std::format("{}: Some values fall outside the range of 15-25C.", GroundTemp::modelTypeNames[(int)modelType]));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "These values may be inappropriate.  Please consult the Input Output Reference for more details.");
             }
 
         } else if (numCurrObjects > 1) {
+<<<<<<< HEAD
             ShowSevereError(state, fmt::format("{}: Too many objects entered. Only one allowed.", GroundTemp::modelTypeNames[(int)modelType]));
+=======
+            ShowSevereError(state, std::format("{}: Too many objects entered. Only one allowed.", GroundTemp::modelTypeNames[(int)modelType]));
+>>>>>>> nrel/develop
             errorsFound = true;
         } else {
             std::fill(thisModel->buildingSurfaceGroundTemps.begin(), thisModel->buildingSurfaceGroundTemps.end(), 18.0);
@@ -128,7 +183,11 @@ namespace GroundTemp {
             return thisModel;
         }
 
+<<<<<<< HEAD
         ShowFatalError(state, fmt::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+=======
+        ShowFatalError(state, std::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+>>>>>>> nrel/develop
         return nullptr;
     }
 

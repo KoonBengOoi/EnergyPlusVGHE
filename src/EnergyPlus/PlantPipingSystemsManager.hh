@@ -220,7 +220,10 @@ namespace PlantPipingSystemsManager {
         Real64 Temperature_PrevIteration = 0.0; // C
         Real64 Temperature_PrevTimeStep = 0.0;  // C
         Real64 Beta = 0.0;                      // K/W
+<<<<<<< HEAD
         BaseThermalPropertySet Properties;
+=======
+>>>>>>> nrel/develop
 
         // Default Constructor
         BaseCell() = default;
@@ -247,6 +250,10 @@ namespace PlantPipingSystemsManager {
         Real64 RadialCentroid = 0.0;
         Real64 InnerRadius = 0.0;
         Real64 OuterRadius = 0.0;
+<<<<<<< HEAD
+=======
+        BaseThermalPropertySet Properties;
+>>>>>>> nrel/develop
 
         // Default Constructor
         RadialCellInformation() = default;
@@ -463,6 +470,10 @@ namespace PlantPipingSystemsManager {
         CellType cellType = CellType::Invalid;
         std::map<Direction, NeighborInformation> NeighborInfo;
         CartesianPipeCellInformation PipeCellData;
+<<<<<<< HEAD
+=======
+        BaseThermalPropertySet Properties;
+>>>>>>> nrel/develop
 
         // Default Constructor
         CartesianCell() = default;
@@ -896,6 +907,7 @@ namespace PlantPipingSystemsManager {
                               bool PartitionsExist,
                               ObjexxFCL::Optional_int BasementWallXIndex = _,
                               ObjexxFCL::Optional_int BasementFloorYIndex = _,
+<<<<<<< HEAD
                               ObjexxFCL::Optional_int XIndex = _,
                               ObjexxFCL::Optional_int XWallIndex = _,
                               ObjexxFCL::Optional_int InsulationXIndex = _,
@@ -905,6 +917,17 @@ namespace PlantPipingSystemsManager {
                               ObjexxFCL::Optional_int ZIndex = _,
                               ObjexxFCL::Optional_int ZWallIndex = _,
                               ObjexxFCL::Optional_int InsulationZIndex = _);
+=======
+                              ObjexxFCL::Optional_int t_XIndex = _,
+                              ObjexxFCL::Optional_int t_XWallIndex = _,
+                              ObjexxFCL::Optional_int t_InsulationXIndex = _,
+                              ObjexxFCL::Optional_int t_YIndex = _,
+                              ObjexxFCL::Optional_int t_YFloorIndex = _,
+                              ObjexxFCL::Optional_int t_InsulationYIndex = _,
+                              ObjexxFCL::Optional_int t_ZIndex = _,
+                              ObjexxFCL::Optional_int t_ZWallIndex = _,
+                              ObjexxFCL::Optional_int t_InsulationZIndex = _);
+>>>>>>> nrel/develop
 
         void createCellArray(std::vector<Real64> const &XBoundaryPoints,
                              std::vector<Real64> const &YBoundaryPoints,

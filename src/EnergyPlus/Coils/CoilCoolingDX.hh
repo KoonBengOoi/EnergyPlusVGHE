@@ -115,6 +115,11 @@ struct CoilCoolingDX
 
     CoilCoolingDXInputSpecification original_input_specs;
     std::string name;
+<<<<<<< HEAD
+=======
+    HVAC::CoilType coilType = HVAC::CoilType::Invalid;
+    int coilReportNum = -1;
+>>>>>>> nrel/develop
     bool myOneTimeInitFlag = true;
     int evapInletNodeIndex = 0;
     int evapOutletNodeIndex = 0;
@@ -187,6 +192,10 @@ struct CoilCoolingDXData : BaseGlobalStruct
     std::vector<CoilCoolingDX> coilCoolingDXs;
     bool coilCoolingDXGetInputFlag = true;
     std::string const coilCoolingDXObjectName = "Coil:Cooling:DX";
+<<<<<<< HEAD
+=======
+    HVAC::CoilType coilType = HVAC::CoilType::CoolingDX;
+>>>>>>> nrel/develop
     bool stillNeedToReportStandardRatings = true; // standard ratings flag for all coils to report at the same time
 
     void init_constant_state([[maybe_unused]] EnergyPlusData &state) override

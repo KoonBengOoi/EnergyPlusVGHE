@@ -101,7 +101,11 @@
 ! Utility Tariffs:                None
 !
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     House with AirflowNetwork simulation,  !- Name

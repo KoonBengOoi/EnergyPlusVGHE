@@ -74,6 +74,11 @@ namespace OutputReportPredefined {
     int constexpr recKindSurface(1);
     int constexpr recKindSubsurface(2);
 
+<<<<<<< HEAD
+=======
+    inline std::string_view standard62RptSummaryName = "Standard62.1Summary";
+
+>>>>>>> nrel/develop
     // Types
 
     struct reportNameType
@@ -90,6 +95,7 @@ namespace OutputReportPredefined {
         }
     };
 
+<<<<<<< HEAD
     struct SubTableType
     {
         // Members
@@ -103,6 +109,8 @@ namespace OutputReportPredefined {
         }
     };
 
+=======
+>>>>>>> nrel/develop
     struct ColumnTagType
     {
         // Members
@@ -121,14 +129,39 @@ namespace OutputReportPredefined {
         std::string charEntry;
         std::string objectName;
         int indexColumn;
+<<<<<<< HEAD
         int subTableIndex;
+=======
+        int indexTable;
+>>>>>>> nrel/develop
         int uniqueObjName;
         Real64 origRealEntry;
         int significantDigits;
         bool origEntryIsReal;
 
         // Default Constructor
+<<<<<<< HEAD
         TableEntryType() : indexColumn(0), subTableIndex(0), uniqueObjName(0), origRealEntry(0.0), significantDigits(0), origEntryIsReal(false)
+=======
+        TableEntryType() : indexColumn(0), indexTable(0), uniqueObjName(0), origRealEntry(0.0), significantDigits(0), origEntryIsReal(false)
+        {
+        }
+    };
+
+    struct SubTableType
+    {
+        // Members
+        std::string name;
+        int indexReportName;
+        std::string footnote;
+
+        int numEntries;
+        int sizeEntries;
+
+        Array1D<TableEntryType> entries;
+        // Default Constructor
+        SubTableType() : indexReportName(0), numEntries(0), sizeEntries(0)
+>>>>>>> nrel/develop
         {
         }
     };
@@ -175,7 +208,11 @@ namespace OutputReportPredefined {
 
     std::string RetrievePreDefTableEntry(EnergyPlusData &state, int const columnIndex, std::string_view objName);
 
+<<<<<<< HEAD
     void incrementTableEntry(EnergyPlusData &state);
+=======
+    void incrementTableEntry(EnergyPlusData &state, int subTableNum);
+>>>>>>> nrel/develop
 
     void AddCompSizeTableEntry(
         EnergyPlusData &state, std::string_view FieldType, std::string_view FieldName, std::string_view FieldDescription, Real64 const FieldValue);
@@ -231,6 +268,19 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int pdchMechIPLVSI = 0;
     int pdchMechIPLVIP = 0;
 
+<<<<<<< HEAD
+=======
+    // ground loop heat exchanger report
+    int pdstGLHE = 0;
+    int pdchGLHEType = 0;
+    int pdchGLHETubeLength = 0;
+    int pdchGLHEVolFlow = 0;
+    int pdchGLHEbhDepth = 0;
+    int pdchGLHEbhDiam = 0;
+    int pdchGLHEbhLeng = 0;
+    int pdchGLHENumHolesTrenches = 0;
+
+>>>>>>> nrel/develop
     // Fan subtable
     int pdstFan = 0;
     int pdchFanType = 0;
@@ -587,6 +637,10 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int pdrEnvelope = 0;
     int pdstOpaque = 0;
     int pdchOpCons = 0;
+<<<<<<< HEAD
+=======
+    int pdchOpConsSource = 0;
+>>>>>>> nrel/develop
     int pdchOpZone = 0;
     int pdchOpSpace = 0;
     int pdchOpRefl = 0;
@@ -599,6 +653,10 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int pdchOpDir = 0;
     int pdstIntOpaque = 0;
     int pdchIntOpCons = 0;
+<<<<<<< HEAD
+=======
+    int pdchIntOpConsSource = 0;
+>>>>>>> nrel/develop
     int pdchIntOpZone = 0;
     int pdchIntOpSpace = 0;
     int pdchIntOpAdjSurf = 0;
@@ -612,6 +670,10 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int pdchIntOpDir = 0;
     int pdstFen = 0;
     int pdchFenCons = 0;
+<<<<<<< HEAD
+=======
+    int pdchFenConsSource = 0;
+>>>>>>> nrel/develop
     int pdchFenZone = 0;
     int pdchFenSpace = 0;
     int pdchFenFrameDivName = 0;
@@ -647,6 +709,10 @@ struct OutputReportPredefinedData : BaseGlobalStruct
 
     int pdstDoor = 0;
     int pdchDrCons = 0;
+<<<<<<< HEAD
+=======
+    int pdchDrConsSource = 0;
+>>>>>>> nrel/develop
     int pdchDrZone = 0;
     int pdchDrSpace = 0;
     int pdchDrUfactFilm = 0;
@@ -655,6 +721,10 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int pdchDrParent = 0;
     int pdstIntDoor = 0;
     int pdchIntDrCons = 0;
+<<<<<<< HEAD
+=======
+    int pdchIntDrConsSource = 0;
+>>>>>>> nrel/develop
     int pdchIntDrZone = 0;
     int pdchIntDrSpace = 0;
     int pdchIntDrUfactFilm = 0;
@@ -663,6 +733,10 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int pdchIntDrParent = 0;
     int pdstIntFen = 0;
     int pdchIntFenCons = 0;
+<<<<<<< HEAD
+=======
+    int pdchIntFenConsSource = 0;
+>>>>>>> nrel/develop
     int pdchIntFenZone = 0;
     int pdchIntFenSpace = 0;
     int pdchIntFenAreaOf1 = 0;
@@ -1549,6 +1623,15 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int pdchLeedSchStPt11pmWednesday = 0;
     int pdchLeedSchStPt11pmWedCnt = 0;
 
+<<<<<<< HEAD
+=======
+    int pdstLeedVentilation = 0;
+    Real64 pdchLeedVentMinFlowPerArea = 0;
+    Real64 pdchLeedVentMinFlowPerZone = 0;
+    Real64 pdchLeedVentMinVentPerArea = 0;
+    Real64 pdchLeedVentMinVentPerZone = 0;
+
+>>>>>>> nrel/develop
     int pdrThermalResilience = 0;
     int pdstHIHours = 0;
     int pdchHIHourSafe = 0;
@@ -1672,9 +1755,12 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     int sizeColumnTag = 0;
     int numColumnTag = 0;
 
+<<<<<<< HEAD
     int sizeTableEntry = 0;
     int numTableEntry = 0;
 
+=======
+>>>>>>> nrel/develop
     int sizeCompSizeTableEntry = 0;
     int numCompSizeTableEntry = 0;
 
@@ -1708,12 +1794,19 @@ struct OutputReportPredefinedData : BaseGlobalStruct
     Array1D<OutputReportPredefined::reportNameType> reportName;
     Array1D<OutputReportPredefined::SubTableType> subTable;
     Array1D<OutputReportPredefined::ColumnTagType> columnTag;
+<<<<<<< HEAD
     Array1D<OutputReportPredefined::TableEntryType> tableEntry;
+=======
+>>>>>>> nrel/develop
     Array1D<OutputReportPredefined::CompSizeTableEntryType> CompSizeTableEntry;
     Array1D<OutputReportPredefined::ShadowRelateType> ShadowRelate;
 
     void init_constant_state([[maybe_unused]] EnergyPlusData &state) override
     {
+<<<<<<< HEAD
+=======
+        OutputReportPredefined::SetPredefinedTables(state);
+>>>>>>> nrel/develop
     }
 
     void init_state([[maybe_unused]] EnergyPlusData &state) override

@@ -178,8 +178,12 @@ namespace PipeHeatTransfer {
         Real64 ZoneHeatGainRate; // Lagged energy summation for zone heat gain {W}
         PlantLocation plantLoc;
         bool CheckEquipName;
+<<<<<<< HEAD
         GroundTemp::BaseGroundTempsModel *groundTempModel;   // raw pointer, non-owning  pointer
 	//  std::shared_ptr<GroundTemp::BaseGroundTempsModel> groundTempModel;// declaration of pointer which returns a unique_ptr
+=======
+        GroundTemp::BaseGroundTempsModel *groundTempModel; // non-owning pointer
+>>>>>>> nrel/develop
 
         // Report data
         Real64 FluidInletTemp;          // inlet temperature [C]
@@ -238,9 +242,15 @@ namespace PipeHeatTransfer {
         Real64 OutsidePipeHeatTransCoef(EnergyPlusData &state);
 
         Real64 CalcPipeHeatTransCoef(EnergyPlusData &state,
+<<<<<<< HEAD
                                      Real64 Temperature,  // Temperature of water entering the surface, in C
                                      Real64 MassFlowRate, // Mass flow rate, in kg/s
                                      Real64 Diameter      // Pipe diameter, m
+=======
+                                     Real64 Temperature,    // Temperature of water entering the surface, in C
+                                     Real64 t_MassFlowRate, // Mass flow rate, in kg/s
+                                     Real64 Diameter        // Pipe diameter, m
+>>>>>>> nrel/develop
         );
 
         void ReportPipesHeatTransfer(EnergyPlusData &state); // Index for the surface under consideration
@@ -251,7 +261,11 @@ namespace PipeHeatTransfer {
                                       std::string const &PipeType,         // module object of pipe (error messages)
                                       std::string const &ConstructionName, // construction name of pipe (error messages)
                                       std::string_view FieldName,          // fieldname of pipe (error messages)
+<<<<<<< HEAD
                                       int ConstructionNum,                 // pointer into construction data
+=======
+                                      int t_ConstructionNum,               // pointer into construction data
+>>>>>>> nrel/develop
                                       bool &ErrorsFound                    // set to true if errors found here
         );
 

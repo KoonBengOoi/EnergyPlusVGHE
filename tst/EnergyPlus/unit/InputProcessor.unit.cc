@@ -4365,9 +4365,15 @@ TEST_F(InputProcessorFixture, reportIDFRecordsStats_extensible_fields)
         // 1 fields defaulted    , 0 Autosizable, 0 Autocalculatable
         "SurfaceProperty:SurroundingSurfaces,",
         "  SrdSurfs:Living:East,        !- Name",
+<<<<<<< HEAD
         "  0.3,                         !- Sky View Factor", // Has numeric default
         "  ,                            !- Sky Temperature Schedule Name",
         "  0.1,                         !- Ground View Factor", // Has numeric default
+=======
+        "  0.3,                         !- Sky View Factor", // Has autocalculate default
+        "  ,                            !- Sky Temperature Schedule Name",
+        "  0.1,                         !- Ground View Factor", // Has autocalculate default
+>>>>>>> nrel/develop
         "  ,                            !- Ground Temperature Schedule Name",
         "  SurroundingSurface1,         !- Surrounding Surface 1 Name",        // (begin extensible)
         "  0.6,                         !- Surrounding Surface 1 View Factor", // Has numeric default
@@ -4386,13 +4392,21 @@ TEST_F(InputProcessorFixture, reportIDFRecordsStats_extensible_fields)
     state->dataInputProcessing->inputProcessor->reportIDFRecordsStats(*state);
 
     // TOTAL:
+<<<<<<< HEAD
     // 16 fields with defaults, 0 Autosizable, 0 Autocalculatable
+=======
+    // 16 fields with defaults, 0 Autosizable, 2 Autocalculatable
+>>>>>>> nrel/develop
     // 2  fields defaulted    , 0 Autosized  , 0 Autocalculated
 
     EXPECT_EQ(5, state->dataOutput->iNumberOfRecords);             // Number of IDF Records (=Objects)
     EXPECT_EQ(16, state->dataOutput->iTotalFieldsWithDefaults);    // Total number of fields that could be defaulted
     EXPECT_EQ(0, state->dataOutput->iTotalAutoSizableFields);      // Total number of autosizeable fields
+<<<<<<< HEAD
     EXPECT_EQ(0, state->dataOutput->iTotalAutoCalculatableFields); // Total number of autocalculatable fields
+=======
+    EXPECT_EQ(2, state->dataOutput->iTotalAutoCalculatableFields); // Total number of autocalculatable fields
+>>>>>>> nrel/develop
     EXPECT_EQ(2, state->dataOutput->iNumberOfDefaultedFields);     // Number of defaulted fields in IDF
     EXPECT_EQ(0, state->dataOutput->iNumberOfAutoSizedFields);     // Number of autosized fields in IDF
     EXPECT_EQ(0, state->dataOutput->iNumberOfAutoCalcedFields);    // Number of autocalculated fields
@@ -4410,7 +4424,11 @@ TEST_F(InputProcessorFixture, epJSONgetObjectItem_minfields)
 
     std::string obj_name2 = "Material:NoMass";
     std::string name2 = "Standard insulation_01";
+<<<<<<< HEAD
     json mat1 = {{"name", name1}, {"roughness", "MediumRough"}, {"thermal_resistance", 2.0}, {"solar_absorptance", 0.5}};
+=======
+    json mat1 = {{"name", name2}, {"roughness", "MediumRough"}, {"thermal_resistance", 2.0}, {"solar_absorptance", 0.5}};
+>>>>>>> nrel/develop
     EXPECT_TRUE(mat1.is_object());
     root[obj_name2][name2] = mat1;
 

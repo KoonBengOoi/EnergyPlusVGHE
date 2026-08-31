@@ -58,6 +58,10 @@
 #include <EnergyPlus/DataLoopNode.hh>
 #include <EnergyPlus/HVACDXHeatPumpSystem.hh>
 #include <EnergyPlus/OutputReportPredefined.hh>
+<<<<<<< HEAD
+=======
+#include <EnergyPlus/ReportCoilSelection.hh>
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 
@@ -113,7 +117,13 @@ TEST_F(EnergyPlusFixture, ExerciseHVACDXHeatPumpSystem)
     state->dataDXCoils->DXCoil(1).availSched = Sched::GetScheduleAlwaysOn(*state);
     state->dataDXCoils->DXCoil(1).AirInNode = 1;
     state->dataDXCoils->DXCoil(1).AirOutNode = 2;
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(1).DXCoilType = "COIL:HEATING:DX:SINGLESPEED";
+=======
+    state->dataDXCoils->DXCoil(1).coilType = HVAC::CoilType::HeatingDXSingleSpeed;
+    state->dataDXCoils->DXCoil(1).coilReportNum =
+        ReportCoilSelection::getReportIndex(*state, state->dataDXCoils->DXCoil(1).Name, state->dataDXCoils->DXCoil(1).coilType);
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(1).RatedTotCap(1) = 1;
     state->dataDXCoils->DXCoil(1).RatedCOP(1) = 1;
     state->dataDXCoils->DXCoil(1).CCapFFlow(1) = 1;
@@ -135,13 +145,19 @@ TEST_F(EnergyPlusFixture, ExerciseHVACDXHeatPumpSystem)
     state->dataDXCoils->DXCoilNumericFields.allocate(1);
     state->dataDXCoils->DXCoilNumericFields(1).PerfMode.allocate(1);
     state->dataDXCoils->DXCoilNumericFields(1).PerfMode(1).FieldNames.allocate(4);
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(1).DXCoilType_Num = HVAC::CoilDX_HeatingEmpirical;
+=======
+>>>>>>> nrel/develop
 
     // manually add a curve
     [[maybe_unused]] auto *curve = Curve::AddCurve(*state, "Curve1");
 
     // setup some outputs
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
 
     int compIndex = 0;
     HVACDXHeatPumpSystem::SimDXHeatPumpSystem(*state, "HEATPUMP DX COIL 1", true, -1, compIndex, -1, 0.0);

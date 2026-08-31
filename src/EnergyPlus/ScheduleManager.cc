@@ -46,14 +46,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
 #include <limits>
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <map>
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/string.functions.hh>
 
 // EnergyPlus Headers
+<<<<<<< HEAD
 #include <EnergyPlus/CommandLineInterface.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
 #include <EnergyPlus/DataStringGlobals.hh>
@@ -61,7 +68,10 @@
 #include <EnergyPlus/EMSManager.hh>
 #include <EnergyPlus/FileSystem.hh>
 #include <EnergyPlus/General.hh>
+<<<<<<< HEAD
 // #include <EnergyPlus/GlobalNames.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/InputProcessing/CsvParser.hh>
 #include <EnergyPlus/InputProcessing/InputProcessor.hh>
 #include <EnergyPlus/OutputProcessor.hh>
@@ -92,7 +102,11 @@ namespace Sched {
     // Proposal for Schedule Manager in EnergyPlus (Rick Strand)
 
     // MODULE PARAMETER DEFINITIONS
+<<<<<<< HEAD
     int GetScheduleTypeNum(EnergyPlusData &state, std::string const &name)
+=======
+    int GetScheduleTypeNum(EnergyPlusData const &state, std::string const &name)
+>>>>>>> nrel/develop
     {
         auto const &s_sched = state.dataSched;
         for (int i = 0; i < (int)s_sched->scheduleTypes.size(); ++i) {
@@ -274,8 +288,13 @@ namespace Sched {
 
     DaySchedule *AddDaySchedule(EnergyPlusData &state, std::string const &name)
     {
+<<<<<<< HEAD
         auto &s_glob = state.dataGlobal;
         auto &s_sched = state.dataSched;
+=======
+        const auto &s_glob = state.dataGlobal;
+        const auto &s_sched = state.dataSched;
+>>>>>>> nrel/develop
 
         auto *daySched = new DaySchedule;
         daySched->Name = name;
@@ -309,6 +328,50 @@ namespace Sched {
         return weekSched;
     } // AddWeekSchedule()
 
+<<<<<<< HEAD
+=======
+    static WeekSchedule *AddInternalWeekSchedule(EnergyPlusData &state, std::string const &name)
+    {
+        auto const &s_sched = state.dataSched;
+
+        std::string const generatedNameBase = std::format("{}_generated", name);
+        std::string generatedName = generatedNameBase;
+        // Append an incrementing suffix when the generated base name is already in use.
+        for (int suffix = 2; s_sched->weekScheduleMap.find(Util::makeUPPER(generatedName)) != s_sched->weekScheduleMap.end(); ++suffix) {
+            generatedName = std::format("{}_{}", generatedNameBase, suffix);
+        }
+
+        auto *weekSched = new WeekSchedule;
+        weekSched->Name = generatedName;
+
+        // Fill the dayScheds with the Missing Day Schedule (Always Off)
+        for (int iDayType = 1; iDayType < (int)DayType::Num; ++iDayType) {
+            weekSched->dayScheds[iDayType] = s_sched->daySchedules[SchedNum_AlwaysOff];
+        }
+
+        weekSched->Num = (int)s_sched->weekSchedules.size();
+        s_sched->weekSchedules.push_back(weekSched);
+
+        // Internal week schedules are referenced directly by their parent schedule. Their unique
+        // report names are not added to weekScheduleMap because they are not user-facing objects.
+        return weekSched;
+    }
+
+    WeekRuleSchedule *AddWeekRuleSchedule(EnergyPlusData &state, std::string const &name)
+    {
+        auto const &s_sched = state.dataSched;
+
+        auto *weekRuleSched = new WeekRuleSchedule;
+        weekRuleSched->Name = name;
+
+        weekRuleSched->Num = (int)s_sched->weekRuleSchedules.size();
+        s_sched->weekRuleSchedules.push_back(weekRuleSched);
+        s_sched->weekRuleScheduleMap.insert_or_assign(Util::makeUPPER(weekRuleSched->Name), weekRuleSched->Num);
+
+        return weekRuleSched;
+    } // AddWeekRuleSchedule()
+
+>>>>>>> nrel/develop
     void InitConstantScheduleData(EnergyPlusData &state)
     {
         // Create ScheduleAlwaysOn and ScheduleAlwaysOff
@@ -368,7 +431,10 @@ namespace Sched {
         int StartPointer;
         int EndPointer;
         bool ErrorsFound(false);
+<<<<<<< HEAD
         bool NumErrorFlag;
+=======
+>>>>>>> nrel/develop
 
         std::array<Real64, Constant::iMinutesInDay> minuteVals;
         std::array<bool, Constant::iMinutesInDay> setMinuteVals;
@@ -465,6 +531,23 @@ namespace Sched {
             MaxNums = max(MaxNums, NumNumbers);
             MaxAlps = max(MaxAlps, NumAlphas);
         }
+<<<<<<< HEAD
+=======
+        CurrentModuleObject = "Schedule:Year:Rules";
+        int NumYearRulesSchedules = s_ip->getNumObjectsFound(state, CurrentModuleObject);
+        if (NumYearRulesSchedules > 0) {
+            s_ip->getObjectDefMaxArgs(state, CurrentModuleObject, Count, NumAlphas, NumNumbers);
+            MaxNums = max(MaxNums, NumNumbers);
+            MaxAlps = max(MaxAlps, NumAlphas);
+        }
+        CurrentModuleObject = "Schedule:Week:Rule";
+        int NumWeekRuleSchedules = s_ip->getNumObjectsFound(state, CurrentModuleObject);
+        if (NumWeekRuleSchedules > 0) {
+            s_ip->getObjectDefMaxArgs(state, CurrentModuleObject, Count, NumAlphas, NumNumbers);
+            MaxNums = max(MaxNums, NumNumbers);
+            MaxAlps = max(MaxAlps, NumAlphas);
+        }
+>>>>>>> nrel/develop
         CurrentModuleObject = "Schedule:Compact";
         int NumCptSchedules = s_ip->getNumObjectsFound(state, CurrentModuleObject);
         if (NumCptSchedules > 0) {
@@ -554,8 +637,12 @@ namespace Sched {
         NumAlphas = 0;
         NumNumbers = 0;
         if (NumCommaFileShading > 1) {
+<<<<<<< HEAD
             ShowWarningError(state,
                              EnergyPlus::format("{}: More than 1 occurrence of this object found, only first will be used.", CurrentModuleObject));
+=======
+            ShowWarningError(state, std::format("{}: More than 1 occurrence of this object found, only first will be used.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         std::map<fs::path, nlohmann::json>::iterator schedule_file_shading_result;
@@ -606,7 +693,11 @@ namespace Sched {
                                 ShowSevereError(state, error);
                             }
                         }
+<<<<<<< HEAD
                         ShowContinueError(state, fmt::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+=======
+                        ShowContinueError(state, std::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+>>>>>>> nrel/develop
                         ShowFatalError(state, "Program terminates due to previous condition.");
                     }
                     for (const auto &[warning, isContinued] : csvParser.warnings()) {
@@ -635,7 +726,11 @@ namespace Sched {
                         if (!csvParser.hasErrors()) {
                             isCSV = true;
                             ShowWarningMessage(state,
+<<<<<<< HEAD
                                                fmt::format("Extension of file {} is unrecognized, but parsed as CSV successfully",
+=======
+                                               std::format("Extension of file {} is unrecognized, but parsed as CSV successfully",
+>>>>>>> nrel/develop
                                                            state.files.TempFullFilePath.filePath));
                             schedule_file_shading_result = it.first;
                         }
@@ -650,7 +745,11 @@ namespace Sched {
                             s_sched->UniqueProcessedExternalFiles.emplace(state.files.TempFullFilePath.filePath, std::move(schedule_data));
                         schedule_file_shading_result = it.first;
                         ShowWarningMessage(state,
+<<<<<<< HEAD
                                            fmt::format("Extension of file {} is unrecognized, but parsed as JSON successfully",
+=======
+                                           std::format("Extension of file {} is unrecognized, but parsed as JSON successfully",
+>>>>>>> nrel/develop
                                                        state.files.TempFullFilePath.filePath));
                         isJSON = true;
                     } catch (...) {
@@ -659,7 +758,11 @@ namespace Sched {
                     }
                     if (!isCSV && !isJSON) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         fmt::format(R"({}: {}="{}", {}="{}" has an unknown file extension and cannot be read by this program.)",
+=======
+                                        std::format(R"({}: {}="{}", {}="{}" has an unknown file extension and cannot be read by this program.)",
+>>>>>>> nrel/develop
                                                     routineName,
                                                     CurrentModuleObject,
                                                     Alphas(1),
@@ -677,10 +780,17 @@ namespace Sched {
                 int NumCSVAllColumnsSchedules =
                     schedule_file_shading_result->second["header"].get<std::set<std::string>>().size() - 1; // -1 to account for timestamp column
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}: {}=\"{}\" Removing last column of the CSV since it has '()' for the surface name.",
                                                     routineName,
                                                     CurrentModuleObject,
                                                     Alphas(1)));
+=======
+                                 std::format("{}: {}=\"{}\" Removing last column of the CSV since it has '()' for the surface name.",
+                                             routineName,
+                                             CurrentModuleObject,
+                                             Alphas(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "This was a problem in E+ 22.2.0 and below, consider removing it from the file to suppress this warning.");
                 schedule_file_shading_result->second["header"].erase(NumCSVAllColumnsSchedules);
                 assert(schedule_file_shading_result->second["header"].size() == schedule_file_shading_result->second["values"].size());
@@ -688,6 +798,7 @@ namespace Sched {
 
             if (rowCnt != rowLimitCount) {
                 if (rowCnt < rowLimitCount) {
+<<<<<<< HEAD
                     ShowSevereError(state,
                                     EnergyPlus::format("{}: {}=\"{}\" {} data values read.", routineName, CurrentModuleObject, Alphas(1), rowCnt));
                 } else if (rowCnt > rowLimitCount) {
@@ -698,6 +809,15 @@ namespace Sched {
                     state,
                     EnergyPlus::format("Number of rows in the shading file must be a full year multiplied by the simulation TimeStep: {}.",
                                        rowLimitCount));
+=======
+                    ShowSevereError(state, std::format("{}: {}=\"{}\" {} data values read.", routineName, CurrentModuleObject, Alphas(1), rowCnt));
+                } else if (rowCnt > rowLimitCount) {
+                    ShowSevereError(state, std::format("{}: {}=\"{}\" too many data values read.", routineName, CurrentModuleObject, Alphas(1)));
+                }
+                ShowContinueError(
+                    state,
+                    std::format("Number of rows in the shading file must be a full year multiplied by the simulation TimeStep: {}.", rowLimitCount));
+>>>>>>> nrel/develop
                 ShowFatalError(state, "Program terminates due to previous condition.");
             }
 
@@ -707,7 +827,11 @@ namespace Sched {
             if (numerrors > 0) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}:{}=\"{}\" {} records had errors - these values are set to 0.", routineName, CurrentModuleObject, Alphas(1), numerrors));
             }
         }
@@ -784,12 +908,20 @@ namespace Sched {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("{} [{:.2R}] > {} [{:.2R}].", cNumericFields(1), schedType->minVal, cNumericFields(2), schedType->maxVal));
+=======
+                        std::format("{} [{:.2f}] > {} [{:.2f}].", cNumericFields(1), schedType->minVal, cNumericFields(2), schedType->maxVal));
+>>>>>>> nrel/develop
                 } else {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("{} [{:.0R}] > {} [{:.0R}].", cNumericFields(1), schedType->minVal, cNumericFields(2), schedType->maxVal));
+=======
+                        std::format("{} [{:.0f}] > {} [{:.0f}].", cNumericFields(1), schedType->minVal, cNumericFields(2), schedType->maxVal));
+>>>>>>> nrel/develop
                 }
                 ShowContinueError(state, "  Other warning/severes about schedule values may appear.");
             }
@@ -844,11 +976,19 @@ namespace Sched {
             }
 
             if (daySched->checkValsForLimitViolations(state)) {
+<<<<<<< HEAD
                 ShowWarningCustom(state, eoh, EnergyPlus::format("Values are outside of range for {}={}", cAlphaFields(2), Alphas(2)));
             }
 
             if (daySched->checkValsForBadIntegers(state)) {
                 ShowWarningCustom(state, eoh, EnergyPlus::format("One or more values are not integer in {}={}", cAlphaFields(2), Alphas(2)));
+=======
+                ShowWarningCustom(state, eoh, std::format("Values are outside of range for {}={}", cAlphaFields(2), Alphas(2)));
+            }
+
+            if (daySched->checkValsForBadIntegers(state)) {
+                ShowWarningCustom(state, eoh, std::format("One or more values are not integer in {}={}", cAlphaFields(2), Alphas(2)));
+>>>>>>> nrel/develop
             }
 
         } // for (Loop)
@@ -894,9 +1034,15 @@ namespace Sched {
             if (NumFields == 0) {
                 ShowSevereCustom(state,
                                  eoh,
+<<<<<<< HEAD
                                  EnergyPlus::format("Insufficient data entered for a full schedule day."
                                                     "Number of interval fields == [{}].",
                                                     NumFields));
+=======
+                                 std::format("Insufficient data entered for a full schedule day."
+                                             "Number of interval fields == [{}].",
+                                             NumFields));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -923,11 +1069,19 @@ namespace Sched {
             daySched->populateFromMinuteVals(state, minuteVals);
 
             if (daySched->checkValsForLimitViolations(state)) {
+<<<<<<< HEAD
                 ShowWarningCustom(state, eoh, EnergyPlus::format("Values are outside of range for {}={}", cAlphaFields(2), Alphas(2)));
             }
 
             if (daySched->checkValsForBadIntegers(state)) {
                 ShowWarningCustom(state, eoh, EnergyPlus::format("One or more values are not integer in {}={}", cAlphaFields(2), Alphas(2)));
+=======
+                ShowWarningCustom(state, eoh, std::format("Values are outside of range for {}={}", cAlphaFields(2), Alphas(2)));
+            }
+
+            if (daySched->checkValsForBadIntegers(state)) {
+                ShowWarningCustom(state, eoh, std::format("One or more values are not integer in {}={}", cAlphaFields(2), Alphas(2)));
+>>>>>>> nrel/develop
             }
         }
 
@@ -974,19 +1128,32 @@ namespace Sched {
             if (Numbers(1) <= 0.0) {
                 ShowSevereCustom(state,
                                  eoh,
+<<<<<<< HEAD
                                  EnergyPlus::format("Insufficient data entered for a full schedule day."
                                                     "...Minutes per Item field = [{}].",
                                                     Numbers(1)));
+=======
+                                 std::format("Insufficient data entered for a full schedule day."
+                                             "...Minutes per Item field = [{}].",
+                                             Numbers(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
             if (NumNumbers < 25) {
                 ShowSevereCustom(state,
                                  eoh,
+<<<<<<< HEAD
                                  EnergyPlus::format("Insufficient data entered for a full schedule day."
                                                     "...Minutes per Item field = [{}] and only [{}] to apply to list fields.",
                                                     Numbers(1),
                                                     NumNumbers - 1));
+=======
+                                 std::format("Insufficient data entered for a full schedule day."
+                                             "...Minutes per Item field = [{}] and only [{}] to apply to list fields.",
+                                             Numbers(1),
+                                             NumNumbers - 1));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
@@ -996,18 +1163,31 @@ namespace Sched {
             if ((NumNumbers - 1) != NumExpectedItems) {
                 ShowSevereCustom(state,
                                  eoh,
+<<<<<<< HEAD
                                  EnergyPlus::format("Number of Entered Items={} not equal number of expected items={}"
                                                     "based on {}={}",
                                                     NumNumbers - 1,
                                                     NumExpectedItems,
                                                     cNumericFields(1),
                                                     MinutesPerItem));
+=======
+                                 std::format("Number of Entered Items={} not equal number of expected items={}"
+                                             "based on {}={}",
+                                             NumNumbers - 1,
+                                             NumExpectedItems,
+                                             cNumericFields(1),
+                                             MinutesPerItem));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
 
             if (mod(Constant::iMinutesInHour, MinutesPerItem) != 0) {
+<<<<<<< HEAD
                 ShowSevereCustom(state, eoh, EnergyPlus::format("{}={} not evenly divisible into 60", cNumericFields(1), MinutesPerItem));
+=======
+                ShowSevereCustom(state, eoh, std::format("{}={} not evenly divisible into 60", cNumericFields(1), MinutesPerItem));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
@@ -1033,11 +1213,19 @@ namespace Sched {
             daySched->populateFromMinuteVals(state, minuteVals);
 
             if (daySched->checkValsForLimitViolations(state)) {
+<<<<<<< HEAD
                 ShowWarningCustom(state, eoh, EnergyPlus::format("Values are outside of range for {}={}", cAlphaFields(2), Alphas(2)));
             }
 
             if (daySched->checkValsForBadIntegers(state)) {
                 ShowWarningCustom(state, eoh, EnergyPlus::format("One or more values are not integer for {}={}", cAlphaFields(2), Alphas(2)));
+=======
+                ShowWarningCustom(state, eoh, std::format("Values are outside of range for {}={}", cAlphaFields(2), Alphas(2)));
+            }
+
+            if (daySched->checkValsForBadIntegers(state)) {
+                ShowWarningCustom(state, eoh, std::format("One or more values are not integer for {}={}", cAlphaFields(2), Alphas(2)));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1077,8 +1265,153 @@ namespace Sched {
             } // for (iDayType)
         }
 
+<<<<<<< HEAD
         //!! Get Week Schedules - compact
         Count = NumRegWeekSchedules;
+=======
+        //!! Get Rule Schedules
+
+        CurrentModuleObject = "Schedule:Week:Rule";
+        for (int Loop = 1; Loop <= NumWeekRuleSchedules; ++Loop) {
+            s_ip->getObjectItem(state,
+                                CurrentModuleObject,
+                                Loop,
+                                Alphas,
+                                NumAlphas,
+                                Numbers,
+                                NumNumbers,
+                                Status,
+                                lNumericBlanks,
+                                lAlphaBlanks,
+                                cAlphaFields,
+                                cNumericFields);
+
+            ErrorObjectHeader eoh{routineName, CurrentModuleObject, Alphas(1)};
+
+            if (s_sched->weekRuleScheduleMap.find(Alphas(1)) != s_sched->weekRuleScheduleMap.end()) {
+                ShowSevereDuplicateName(state, eoh);
+                ErrorsFound = true;
+                continue;
+            }
+
+            auto *weekRuleSched = AddWeekRuleSchedule(state, Alphas(1));
+            weekRuleSched->scheduleYearRulesName = Alphas(2);
+            weekRuleSched->rulePriorityOrder = Numbers(1);
+            auto *daySched = GetDaySchedule(state, Alphas(3));
+            if (daySched == nullptr) {
+                ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(3), Alphas(3));
+                ErrorsFound = true;
+                continue;
+            } else {
+                weekRuleSched->daySched = daySched;
+            }
+            if ((Alphas(4)) == "YES") {
+                weekRuleSched->applySunday = true;
+            }
+            if ((Alphas(5)) == "YES") {
+                weekRuleSched->applyMonday = true;
+            }
+            if ((Alphas(6)) == "YES") {
+                weekRuleSched->applyTuesday = true;
+            }
+            if ((Alphas(7)) == "YES") {
+                weekRuleSched->applyWednesday = true;
+            }
+            if ((Alphas(8)) == "YES") {
+                weekRuleSched->applyThursday = true;
+            }
+            if ((Alphas(9)) == "YES") {
+                weekRuleSched->applyFriday = true;
+            }
+            if ((Alphas(10)) == "YES") {
+                weekRuleSched->applySaturday = true;
+            }
+
+            if (NumNumbers < 2) {
+                int firstDay = General::OrdinalDay(1, 1, 1);
+                int lastDay = General::OrdinalDay(12, 31, 1);
+                for (int day = firstDay; day <= lastDay; ++day) {
+                    weekRuleSched->specificDays.push_back(day);
+                }
+                continue;
+            }
+
+            for (int idx = 2; idx <= NumNumbers; idx += 4) {
+                int startMonth = 1;
+                int startDay = 1;
+                int endMonth = 12;
+                int endDay = 31;
+                if (idx == 2) {
+                    if (!lNumericBlanks(idx)) {
+                        startMonth = int(Numbers(idx));
+                    }
+                    if (!lNumericBlanks(idx + 1)) {
+                        startDay = int(Numbers(idx + 1));
+                    }
+                    if (!lNumericBlanks(idx + 2)) {
+                        endMonth = int(Numbers(idx + 2));
+                    }
+                    if (!lNumericBlanks(idx + 3)) {
+                        endDay = int(Numbers(idx + 3));
+                    }
+                } else {
+                    if (lNumericBlanks(idx)) {
+                        ShowSevereEmptyField(state, eoh, cNumericFields(idx));
+                        ErrorsFound = true;
+                    } else {
+                        startMonth = int(Numbers(idx));
+                    }
+                    if (lNumericBlanks(idx + 1)) {
+                        ShowSevereEmptyField(state, eoh, cNumericFields(idx + 1));
+                        ErrorsFound = true;
+                    } else {
+                        startDay = int(Numbers(idx + 1));
+                    }
+                    if (lNumericBlanks(idx + 2)) {
+                        ShowSevereEmptyField(state, eoh, cNumericFields(idx + 2));
+                        ErrorsFound = true;
+                    } else {
+                        endMonth = int(Numbers(idx + 2));
+                    }
+                    if (lNumericBlanks(idx + 3)) {
+                        ShowSevereEmptyField(state, eoh, cNumericFields(idx + 3));
+                        ErrorsFound = true;
+                    } else {
+                        endDay = int(Numbers(idx + 3));
+                    }
+                }
+
+                bool invalidDate = false;
+                if (startDay < 1 || !Weather::validMonthDay(startMonth, startDay, 1)) {
+                    ShowSevereCustom(state, eoh, std::format("Invalid start date = {}/{}", startMonth, startDay));
+                    ErrorsFound = true;
+                    invalidDate = true;
+                }
+                if (endDay < 1 || !Weather::validMonthDay(endMonth, endDay, 1)) {
+                    ShowSevereCustom(state, eoh, std::format("Invalid end date = {}/{}", endMonth, endDay));
+                    ErrorsFound = true;
+                    invalidDate = true;
+                }
+                if (invalidDate) {
+                    continue;
+                }
+
+                int startPointer = General::OrdinalDay(startMonth, startDay, 1);
+                int endPointer = General::OrdinalDay(endMonth, endDay, 1);
+                int firstDay = General::OrdinalDay(1, 1, 1);
+                int lastDay = General::OrdinalDay(12, 31, 1);
+                for (int day = firstDay; day <= lastDay; ++day) {
+                    if (((startPointer <= day) && (day <= endPointer)) ||
+                        ((endPointer < startPointer) && ((startPointer <= day) || (day <= endPointer)))) {
+                        weekRuleSched->specificDays.push_back(day);
+                    }
+                }
+            }
+        }
+
+        //!! Get Week Schedules - compact
+
+>>>>>>> nrel/develop
         CurrentModuleObject = "Schedule:Week:Compact";
         for (int Loop = 1; Loop <= NumCptWeekSchedules; ++Loop) {
             s_ip->getObjectItem(state,
@@ -1110,14 +1443,22 @@ namespace Sched {
                 auto *daySched = GetDaySchedule(state, Alphas(idx + 1));
                 if (daySched == nullptr) {
                     ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(idx + 1), Alphas(idx + 1));
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("ref: {} \"{}\"", cAlphaFields(idx), Alphas(idx)));
+=======
+                    ShowContinueError(state, std::format("ref: {} \"{}\"", cAlphaFields(idx), Alphas(idx)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     std::fill(theseDays.begin(), theseDays.end(), false);
                     ErrorHere = false;
                     ProcessForDayTypes(state, Alphas(idx), theseDays, allDays, ErrorHere);
                     if (ErrorHere) {
+<<<<<<< HEAD
                         ShowContinueError(state, EnergyPlus::format("{}: {}=\"{}", routineName, CurrentModuleObject, Alphas(1)));
+=======
+                        ShowContinueError(state, std::format("{}: {}=\"{}", routineName, CurrentModuleObject, Alphas(1)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         for (int iDayType = 1; iDayType < (int)DayType::Num; ++iDayType) {
@@ -1134,13 +1475,20 @@ namespace Sched {
                 if (allDays[iDayType] == true) {
                     continue;
                 }
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}: {}=\"{}\", Missing some day assignments", routineName, CurrentModuleObject, Alphas(1)));
+=======
+                ShowSevereError(state, std::format("{}: {}=\"{}\", Missing some day assignments", routineName, CurrentModuleObject, Alphas(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 break;
             }
         }
+<<<<<<< HEAD
         NumRegWeekSchedules = Count;
+=======
+>>>>>>> nrel/develop
 
         //!! Get Schedules (all types)
 
@@ -1245,6 +1593,206 @@ namespace Sched {
             }
         }
 
+<<<<<<< HEAD
+=======
+        //!! Get Year Rules Schedules
+
+        CurrentModuleObject = "Schedule:Year:Rules";
+        for (int Loop = 1; Loop <= NumYearRulesSchedules; ++Loop) {
+            s_ip->getObjectItem(state,
+                                CurrentModuleObject,
+                                Loop,
+                                Alphas,
+                                NumAlphas,
+                                Numbers,
+                                NumNumbers,
+                                Status,
+                                lNumericBlanks,
+                                lAlphaBlanks,
+                                cAlphaFields,
+                                cNumericFields);
+
+            ErrorObjectHeader eoh{routineName, CurrentModuleObject, Alphas(1)};
+
+            if (s_sched->scheduleMap.find(Alphas(1)) != s_sched->scheduleMap.end()) {
+                ShowSevereDuplicateName(state, eoh);
+                ErrorsFound = true;
+                continue;
+            }
+
+            // Validate rule orders, checking for duplicates
+            std::vector<Sched::WeekRuleSchedule *> weekRuleSchedules;
+            for (Sched::WeekRuleSchedule *weekRuleSchedule : s_sched->weekRuleSchedules) {
+                if (weekRuleSchedule->scheduleYearRulesName == Alphas(1)) {
+                    weekRuleSchedules.push_back(weekRuleSchedule);
+                }
+            }
+            for (std::size_t i = 0; i < weekRuleSchedules.size(); ++i) {
+                for (std::size_t j = i + 1; j < weekRuleSchedules.size(); ++j) {
+                    if (weekRuleSchedules[i]->rulePriorityOrder == weekRuleSchedules[j]->rulePriorityOrder) {
+                        ErrorsFound = true;
+                        ShowSevereError(state,
+                                        std::format("{}: {} has week rules with duplicate Rule Priority Order = {}",
+                                                    routineName,
+                                                    Alphas(1),
+                                                    weekRuleSchedules[i]->rulePriorityOrder));
+                        ShowContinueError(state, "Priority must be unique within a Schedule:Year:Rules");
+                    }
+                }
+            }
+
+            auto *sched = AddScheduleDetailed(state, Alphas(1));
+            sched->type = SchedType::YearRules;
+
+            // Validate ScheduleType
+            if (lAlphaBlanks(2)) {
+                ShowWarningEmptyField(state, eoh, cAlphaFields(2));
+                ShowContinueError(state, "Schedule will not be validated.");
+            } else if ((sched->schedTypeNum = GetScheduleTypeNum(state, Alphas(2))) == SchedNum_Invalid) {
+                ShowWarningItemNotFound(state, eoh, cAlphaFields(2), Alphas(2));
+                ShowContinueError(state, "Schedule will not be validated.");
+            }
+
+            auto *defaultDaySched = GetDaySchedule(state, Alphas(3));
+            if (defaultDaySched == nullptr) {
+                ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(3), Alphas(3));
+                ErrorsFound = true;
+                continue;
+            }
+
+            auto *summerDesignDaySchedule = defaultDaySched;
+            if (!lAlphaBlanks(4)) {
+                summerDesignDaySchedule = GetDaySchedule(state, Alphas(4));
+                if (summerDesignDaySchedule == nullptr) {
+                    ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(4), Alphas(4));
+                    ErrorsFound = true;
+                    summerDesignDaySchedule = defaultDaySched;
+                }
+            }
+            auto *winterDesignDaySchedule = defaultDaySched;
+            if (!lAlphaBlanks(5)) {
+                winterDesignDaySchedule = GetDaySchedule(state, Alphas(5));
+                if (winterDesignDaySchedule == nullptr) {
+                    ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(5), Alphas(5));
+                    ErrorsFound = true;
+                    winterDesignDaySchedule = defaultDaySched;
+                }
+            }
+            auto *holidaySchedule = defaultDaySched;
+            if (!lAlphaBlanks(6)) {
+                holidaySchedule = GetDaySchedule(state, Alphas(6));
+                if (holidaySchedule == nullptr) {
+                    ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(6), Alphas(6));
+                    ErrorsFound = true;
+                    holidaySchedule = defaultDaySched;
+                }
+            }
+            auto *customDay1Schedule = defaultDaySched;
+            if (!lAlphaBlanks(7)) {
+                customDay1Schedule = GetDaySchedule(state, Alphas(7));
+                if (customDay1Schedule == nullptr) {
+                    ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(7), Alphas(7));
+                    ErrorsFound = true;
+                    customDay1Schedule = defaultDaySched;
+                }
+            }
+            auto *customDay2Schedule = defaultDaySched;
+            if (!lAlphaBlanks(8)) {
+                customDay2Schedule = GetDaySchedule(state, Alphas(8));
+                if (customDay2Schedule == nullptr) {
+                    ShowSevereItemNotFoundAudit(state, eoh, cAlphaFields(8), Alphas(8));
+                    ErrorsFound = true;
+                    customDay2Schedule = defaultDaySched;
+                }
+            }
+
+            int startPointer = General::OrdinalDay(1, 1, 1);
+            int endPointer = General::OrdinalDay(12, 31, 1);
+            WeekSchedule *previousWeekSched = nullptr;
+            for (int day = startPointer; day <= endPointer; ++day) {
+                std::vector<Sched::WeekRuleSchedule *> sortedWeekRuleSchedules = GetPrioritizedWeekRuleSchedules(state, Alphas(1), day);
+
+                // An uncovered leap day inherits Feb 28 after all other days are generated.
+                // Keep generating Feb 29 when a rule explicitly covers it.
+                if (day == General::OrdinalDay(2, 29, 1) && sortedWeekRuleSchedules.empty()) {
+                    continue;
+                }
+
+                std::array<DaySchedule *, (int)DayType::Num> dayScheds = {nullptr};
+
+                for (int iDayType = 1; iDayType < (int)DayType::Num; ++iDayType) {
+                    dayScheds[iDayType] = defaultDaySched;
+                }
+
+                dayScheds[(int)Sched::DayType::SummerDesignDay] = summerDesignDaySchedule;
+                dayScheds[(int)Sched::DayType::WinterDesignDay] = winterDesignDaySchedule;
+                dayScheds[(int)Sched::DayType::Holiday] = holidaySchedule;
+                dayScheds[(int)Sched::DayType::CustomDay1] = customDay1Schedule;
+                dayScheds[(int)Sched::DayType::CustomDay2] = customDay2Schedule;
+
+                for (Sched::WeekRuleSchedule *weekRuleSched : sortedWeekRuleSchedules) {
+                    if (weekRuleSched != nullptr) {
+
+                        if (weekRuleSched->applySunday) {
+                            dayScheds[(int)Sched::DayType::Sunday] = weekRuleSched->daySched;
+                        }
+                        if (weekRuleSched->applyMonday) {
+                            dayScheds[(int)Sched::DayType::Monday] = weekRuleSched->daySched;
+                        }
+                        if (weekRuleSched->applyTuesday) {
+                            dayScheds[(int)Sched::DayType::Tuesday] = weekRuleSched->daySched;
+                        }
+                        if (weekRuleSched->applyWednesday) {
+                            dayScheds[(int)Sched::DayType::Wednesday] = weekRuleSched->daySched;
+                        }
+                        if (weekRuleSched->applyThursday) {
+                            dayScheds[(int)Sched::DayType::Thursday] = weekRuleSched->daySched;
+                        }
+                        if (weekRuleSched->applyFriday) {
+                            dayScheds[(int)Sched::DayType::Friday] = weekRuleSched->daySched;
+                        }
+                        if (weekRuleSched->applySaturday) {
+                            dayScheds[(int)Sched::DayType::Saturday] = weekRuleSched->daySched;
+                        }
+                    }
+                }
+
+                // Adjacent days usually resolve to the same set of day schedules. Reuse the
+                // previous internal week schedule so reporting only contains actual transitions.
+                if (previousWeekSched != nullptr && previousWeekSched->dayScheds == dayScheds) {
+                    sched->weekScheds[day] = previousWeekSched;
+                    continue;
+                }
+
+                auto *weekSched = AddInternalWeekSchedule(state, std::format("{}_{}", Alphas(1), day));
+                weekSched->isUsed = true;
+                weekSched->dayScheds = dayScheds;
+                sched->weekScheds[day] = weekSched;
+                previousWeekSched = weekSched;
+            }
+
+            // Perform Error checks on this item
+            // Do special test for Feb 29.  Make equal to Feb 28.
+            if (sched->weekScheds[60] == nullptr) {
+                sched->weekScheds[60] = sched->weekScheds[59];
+            }
+
+            if (s_glob->AnyEnergyManagementSystemInModel) { // setup constant schedules as actuators
+                SetupEMSActuator(state, "Schedule:Year:Rules", sched->Name, "Schedule Value", "[ ]", sched->EMSActuatedOn, sched->EMSVal);
+            }
+        }
+
+        // Schedule:Week:Rule objects are read before Schedule:Year:Rules, so validate their parent references after all parents have been processed.
+        for (auto const *weekRuleSchedule : s_sched->weekRuleSchedules) {
+            auto const parent = s_sched->scheduleMap.find(weekRuleSchedule->scheduleYearRulesName);
+            if (parent == s_sched->scheduleMap.end() || s_sched->schedules[parent->second]->type != SchedType::YearRules) {
+                ErrorObjectHeader ruleEoh{routineName, "Schedule:Week:Rule", weekRuleSchedule->Name};
+                ShowSevereItemNotFoundAudit(state, ruleEoh, "Schedule Year Rules Name", weekRuleSchedule->scheduleYearRulesName);
+                ErrorsFound = true;
+            }
+        }
+
+>>>>>>> nrel/develop
         //!! Get Compact Schedules
         // SCHEDULE:COMPACT,
         //   \memo Irregular object.  Does not follow the usual definition for fields.  Fields A3... are:
@@ -1316,7 +1864,11 @@ namespace Sched {
             while (NumField < NumAlphas) {
                 //   Process "Through"
                 if (!has_prefix(Alphas(NumField), "THROUGH:") && !has_prefix(Alphas(NumField), "THROUGH")) {
+<<<<<<< HEAD
                     ShowSevereCustom(state, eoh, EnergyPlus::format("Expecting \"Through:\" date, instead found entry={}", Alphas(NumField)));
+=======
+                    ShowSevereCustom(state, eoh, std::format("Expecting \"Through:\" date, instead found entry={}", Alphas(NumField)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     goto Through_exit;
                 }
@@ -1329,7 +1881,11 @@ namespace Sched {
                 ErrorHere = false;
                 ProcessDateString(state, Alphas(NumField), EndMonth, EndDay, PWeekDay, PDateType, ErrorHere);
                 if (PDateType == Weather::DateType::NthDayInMonth || PDateType == Weather::DateType::LastDayInMonth) {
+<<<<<<< HEAD
                     ShowSevereCustom(state, eoh, EnergyPlus::format("Invalid \"Through:\" date, found entry={}", Alphas(NumField)));
+=======
+                    ShowSevereCustom(state, eoh, std::format("Invalid \"Through:\" date, found entry={}", Alphas(NumField)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     goto Through_exit;
                 }
@@ -1344,9 +1900,13 @@ namespace Sched {
                 if (EndPointer == 366) {
                     if (FullYearSet) {
                         ShowSevereCustom(
+<<<<<<< HEAD
                             state,
                             eoh,
                             EnergyPlus::format("New \"Through\" entry when \"full year\" already set \"Through\" field={}", CurrentThrough));
+=======
+                            state, eoh, std::format("New \"Through\" entry when \"full year\" already set \"Through\" field={}", CurrentThrough));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     FullYearSet = true;
@@ -1354,7 +1914,11 @@ namespace Sched {
 
                 ++WkCount;
 
+<<<<<<< HEAD
                 auto *weekSched = AddWeekSchedule(state, EnergyPlus::format("{}_wk_{}", Alphas(1), WkCount));
+=======
+                auto *weekSched = AddWeekSchedule(state, std::format("{}_wk_{}", Alphas(1), WkCount));
+>>>>>>> nrel/develop
                 weekSched->isUsed = true;
 
                 for (int iDay = StartPointer; iDay <= EndPointer; ++iDay) {
@@ -1373,14 +1937,22 @@ namespace Sched {
                     }
                     //   "For" must be next, adds to "# Day Schedules"
                     if (!has_prefix(Alphas(NumField), "FOR")) {
+<<<<<<< HEAD
                         ShowSevereCustom(state, eoh, EnergyPlus::format("Looking for \"For\" field, found={}", Alphas(NumField)));
+=======
+                        ShowSevereCustom(state, eoh, std::format("Looking for \"For\" field, found={}", Alphas(NumField)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                         goto Through_exit;
                     }
 
                     ++DyCount;
 
+<<<<<<< HEAD
                     auto *daySched = AddDaySchedule(state, EnergyPlus::format("{}_dy_{}", Alphas(1), DyCount));
+=======
+                    auto *daySched = AddDaySchedule(state, std::format("{}_dy_{}", Alphas(1), DyCount));
+>>>>>>> nrel/develop
 
                     daySched->schedTypeNum = sched->schedTypeNum;
                     daySched->isUsed = true;
@@ -1390,8 +1962,13 @@ namespace Sched {
                     LastFor = Alphas(NumField);
                     ProcessForDayTypes(state, Alphas(NumField), theseDays, allDays, ErrorHere);
                     if (ErrorHere) {
+<<<<<<< HEAD
                         ShowContinueError(state, EnergyPlus::format("ref {}=\"{}\"", CurrentModuleObject, Alphas(1)));
                         ShowContinueError(state, EnergyPlus::format("ref Through field={}", Alphas(ThruField)));
+=======
+                        ShowContinueError(state, std::format("ref {}=\"{}\"", CurrentModuleObject, Alphas(1)));
+                        ShowContinueError(state, std::format("ref Through field={}", Alphas(ThruField)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         for (int iDayType = 1; iDayType < (int)DayType::Num; ++iDayType) {
@@ -1437,13 +2014,21 @@ namespace Sched {
                                 ShowSevereCustom(
                                     state,
                                     eoh,
+<<<<<<< HEAD
                                     EnergyPlus::format("Until field=[{}] has illegal value field=[{}].", Alphas(NumField - 1), Alphas(NumField)));
+=======
+                                    std::format("Until field=[{}] has illegal value field=[{}].", Alphas(NumField - 1), Alphas(NumField)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                             ++NumField;
                             Alphas(UntilFld + xxcount) = Alphas(NumField); // In case next is "until"
                         } else {
+<<<<<<< HEAD
                             ShowSevereCustom(state, eoh, EnergyPlus::format("Looking for \"Until\" field, found={}", Alphas(NumField)));
+=======
+                            ShowSevereCustom(state, eoh, std::format("Looking for \"Until\" field, found={}", Alphas(NumField)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                             goto Through_exit;
                         }
@@ -1469,7 +2054,11 @@ namespace Sched {
                                               daySched->interpolation);
                         // Depending on value of "Interpolate" field, the value for each time step in each hour gets processed:
                         if (ErrorHere) {
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("ref {}=\"{}\"", CurrentModuleObject, Alphas(1)));
+=======
+                            ShowContinueError(state, std::format("ref {}=\"{}\"", CurrentModuleObject, Alphas(1)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
 
@@ -1483,15 +2072,24 @@ namespace Sched {
                         continue;
                     }
 
+<<<<<<< HEAD
                     ShowWarningCustom(state, eoh, EnergyPlus::format("has missing day types in Through={}", CurrentThrough));
                     ShowContinueError(state, EnergyPlus::format("Last \"For\" field={}", LastFor));
+=======
+                    ShowWarningCustom(state, eoh, std::format("has missing day types in Through={}", CurrentThrough));
+                    ShowContinueError(state, std::format("Last \"For\" field={}", LastFor));
+>>>>>>> nrel/develop
                     std::string errmsg = "Missing day types=,";
                     for (int kDayType = iDayType_Sun; kDayType < (int)DayType::Num; ++kDayType) {
                         if (allDays[kDayType]) {
                             continue;
                         }
                         errmsg.erase(errmsg.length() - 1);
+<<<<<<< HEAD
                         errmsg = EnergyPlus::format("{} \"{}\",-", errmsg, dayTypeNames[kDayType]);
+=======
+                        errmsg = std::format("{} \"{}\",-", errmsg, dayTypeNames[kDayType]);
+>>>>>>> nrel/develop
                     }
                     errmsg.erase(errmsg.length() - 2);
                     ShowContinueError(state, errmsg);
@@ -1613,11 +2211,18 @@ namespace Sched {
                 Numbers(3) = 8760.0;
             }
             if (Numbers(3) != 8760 && Numbers(3) != 8784) {
+<<<<<<< HEAD
                 ShowSevereCustom(state,
                                  eoh,
                                  EnergyPlus::format("{} must = 8760 or 8784 (for a leap year).  Value = {:.0T}, Schedule not processed.",
                                                     cNumericFields(3),
                                                     Numbers(3)));
+=======
+                ShowSevereCustom(
+                    state,
+                    eoh,
+                    std::format("{} must = 8760 or 8784 (for a leap year).  Value = {:.0f}, Schedule not processed.", cNumericFields(3), Numbers(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
@@ -1661,9 +2266,13 @@ namespace Sched {
                 // int NumExpectedItems = 1440 / MinutesPerItem;
                 if (mod(Constant::iMinutesInHour, minutesPerItem) != 0) {
                     ShowSevereCustom(
+<<<<<<< HEAD
                         state,
                         eoh,
                         EnergyPlus::format("Requested {} field value ({}) not evenly divisible into 60", cNumericFields(4), minutesPerItem));
+=======
+                        state, eoh, std::format("Requested {} field value ({}) not evenly divisible into 60", cNumericFields(4), minutesPerItem));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     continue;
                 }
@@ -1673,7 +2282,11 @@ namespace Sched {
             int rowLimitCnt = (Numbers(3) * Constant::rMinutesInHour) / minutesPerItem;
             int hrLimitCount = Constant::iMinutesInHour / minutesPerItem;
 
+<<<<<<< HEAD
             std::string contextString = EnergyPlus::format("{}=\"{}\", {}: ", CurrentModuleObject, Alphas(1), cAlphaFields(3));
+=======
+            std::string contextString = std::format("{}=\"{}\", {}: ", CurrentModuleObject, Alphas(1), cAlphaFields(3));
+>>>>>>> nrel/develop
 
             state.files.TempFullFilePath.filePath = CheckForActualFilePath(state, Alphas(3), contextString);
             // Setup file reading parameters
@@ -1696,7 +2309,11 @@ namespace Sched {
                                     ShowSevereCustom(state, eoh, error);
                                 }
                             }
+<<<<<<< HEAD
                             ShowContinueError(state, fmt::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+=======
+                            ShowContinueError(state, std::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+>>>>>>> nrel/develop
                             ShowFatalError(state, "Program terminates due to previous condition.");
                         }
                         for (const auto &[warning, isContinued] : csvParser.warnings()) {
@@ -1723,7 +2340,11 @@ namespace Sched {
                                 result = it.first;
                                 isCSV = true;
                                 ShowWarningMessage(state,
+<<<<<<< HEAD
                                                    fmt::format("Extension of file {} is unrecognized, but parsed as CSV successfully",
+=======
+                                                   std::format("Extension of file {} is unrecognized, but parsed as CSV successfully",
+>>>>>>> nrel/develop
                                                                state.files.TempFullFilePath.filePath));
                             }
                         } catch (...) {
@@ -1737,7 +2358,11 @@ namespace Sched {
                                                                                         FileSystem::readJSON(state.files.TempFullFilePath.filePath));
                                 result = it.first;
                                 ShowWarningMessage(state,
+<<<<<<< HEAD
                                                    fmt::format("Extension of file {} is unrecognized, but parsed as JSON successfully",
+=======
+                                                   std::format("Extension of file {} is unrecognized, but parsed as JSON successfully",
+>>>>>>> nrel/develop
                                                                state.files.TempFullFilePath.filePath));
                                 isJSON = true;
                             } catch (...) {
@@ -1747,11 +2372,18 @@ namespace Sched {
                             }
                         }
                         if (!isCSV && !isJSON) {
+<<<<<<< HEAD
                             ShowSevereCustom(state,
                                              eoh,
                                              EnergyPlus::format("{} = {} has an unknown file extension and cannot be read by this program.",
                                                                 cAlphaFields(3),
                                                                 Alphas(3)));
+=======
+                            ShowSevereCustom(
+                                state,
+                                eoh,
+                                std::format("{} = {} has an unknown file extension and cannot be read by this program.", cAlphaFields(3), Alphas(3)));
+>>>>>>> nrel/develop
                             ShowFatalError(state, "Program terminates due to previous condition.");
                         }
                     }
@@ -1762,8 +2394,13 @@ namespace Sched {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         EnergyPlus::format("Requested column number {}, but found only {} columns.", curcolCount, result->second["values"].size()));
                     ShowContinueError(state, fmt::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+=======
+                        std::format("Requested column number {}, but found only {} columns.", curcolCount, result->second["values"].size()));
+                    ShowContinueError(state, std::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "Program terminates due to previous condition.");
                 }
                 auto const &column_json = result->second["values"][curcolCount - 1];
@@ -1773,9 +2410,15 @@ namespace Sched {
                 try {
                     column_values = column_json.get<std::vector<Real64>>();
                 } catch (nlohmann::json::type_error &e) {
+<<<<<<< HEAD
                     ShowSevereCustom(state, eoh, EnergyPlus::format("Column number {} has non-numeric data.", curcolCount));
                     ShowContinueError(state, e.what());
                     ShowContinueError(state, fmt::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+=======
+                    ShowSevereCustom(state, eoh, std::format("Column number {} has non-numeric data.", curcolCount));
+                    ShowContinueError(state, e.what());
+                    ShowContinueError(state, std::format("Error Occurred in {}", state.files.TempFullFilePath.filePath));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "Program terminates due to previous condition.");
                 }
 
@@ -1784,18 +2427,31 @@ namespace Sched {
                 if (numerrors > 0) {
                     ShowWarningCustom(state,
                                       eoh,
+<<<<<<< HEAD
                                       EnergyPlus::format("{} records had errors - these values are set to 0."
                                                          "Use Output:Diagnostics,DisplayExtraWarnings; to see individual records in error.",
                                                          numerrors));
+=======
+                                      std::format("{} records had errors - these values are set to 0."
+                                                  "Use Output:Diagnostics,DisplayExtraWarnings; to see individual records in error.",
+                                                  numerrors));
+>>>>>>> nrel/develop
                 }
 
                 if (rowCnt < rowLimitCnt) {
                     ShowWarningCustom(state,
                                       eoh,
+<<<<<<< HEAD
                                       EnergyPlus::format("less than {} hourly values read from file."
                                                          "..Number read={}.",
                                                          numHourlyValues,
                                                          (rowCnt * Constant::iMinutesInHour) / minutesPerItem));
+=======
+                                      std::format("less than {} hourly values read from file."
+                                                  "..Number read={}.",
+                                                  numHourlyValues,
+                                                  (rowCnt * Constant::iMinutesInHour) / minutesPerItem));
+>>>>>>> nrel/develop
                 }
 
                 // process the data into the normal schedule data structures
@@ -1814,11 +2470,19 @@ namespace Sched {
                     // no matter what the day type that is used in a design day.
 
                     // define day schedule
+<<<<<<< HEAD
                     auto *daySched = AddDaySchedule(state, EnergyPlus::format("{}_dy_{}", Alphas(1), iDay));
                     daySched->schedTypeNum = sched->schedTypeNum;
 
                     // define week schedule
                     auto *weekSched = AddWeekSchedule(state, EnergyPlus::format("{}_wk_{}", Alphas(1), iDay));
+=======
+                    auto *daySched = AddDaySchedule(state, std::format("{}_dy_{}", Alphas(1), iDay));
+                    daySched->schedTypeNum = sched->schedTypeNum;
+
+                    // define week schedule
+                    auto *weekSched = AddWeekSchedule(state, std::format("{}_wk_{}", Alphas(1), iDay));
+>>>>>>> nrel/develop
 
                     // for all day types point the week schedule to the newly defined day schedule
                     for (int kDayType = 1; kDayType < (int)DayType::Num; ++kDayType) {
@@ -1890,9 +2554,15 @@ namespace Sched {
                     ShowSevereCustom(
                         state,
                         eoh,
+<<<<<<< HEAD
                         fmt::format(
                             "For header '{}', Requested column number {}, but found only {} columns.", header, column + 1, values_json.size()));
                     ShowContinueError(state, fmt::format("Error Occurred in {}", schedule_file_shading_result->first));
+=======
+                        std::format(
+                            "For header '{}', Requested column number {}, but found only {} columns.", header, column + 1, values_json.size()));
+                    ShowContinueError(state, std::format("Error Occurred in {}", schedule_file_shading_result->first));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "Program terminates due to previous condition.");
                 }
 
@@ -1900,6 +2570,7 @@ namespace Sched {
                 try {
                     column_values = values_json.at(column).get<std::vector<Real64>>();
                 } catch (nlohmann::json::type_error &e) {
+<<<<<<< HEAD
                     ShowSevereCustom(state, eoh, fmt::format("Column number {} has non-numeric data.", column + 1));
                     ShowContinueError(state, e.what());
                     ShowContinueError(state, fmt::format("Error Occurred in {}", schedule_file_shading_result->first));
@@ -1911,6 +2582,19 @@ namespace Sched {
 
                 if (s_sched->scheduleMap.find(curNameUC) != s_sched->scheduleMap.end()) {
                     ShowSevereError(state, EnergyPlus::format("Duplicate schedule name {}", curName));
+=======
+                    ShowSevereCustom(state, eoh, std::format("Column number {} has non-numeric data.", column + 1));
+                    ShowContinueError(state, e.what());
+                    ShowContinueError(state, std::format("Error Occurred in {}", schedule_file_shading_result->first));
+                    ShowFatalError(state, "Program terminates due to previous condition.");
+                }
+
+                std::string curName = std::format("{}_shading", header);
+                std::string curNameUC = Util::makeUPPER(curName);
+
+                if (s_sched->scheduleMap.find(curNameUC) != s_sched->scheduleMap.end()) {
+                    ShowSevereError(state, std::format("Duplicate schedule name {}", curName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     continue;
                 }
@@ -1928,11 +2612,19 @@ namespace Sched {
                     }
 
                     // day schedule
+<<<<<<< HEAD
                     auto *daySched = AddDaySchedule(state, EnergyPlus::format("{}_dy_{}", curName, iDay));
                     daySched->schedTypeNum = schedShading->schedTypeNum;
 
                     // define week schedule
                     auto *weekSched = AddWeekSchedule(state, EnergyPlus::format("{}_wk_{}", curName, iDay));
+=======
+                    auto *daySched = AddDaySchedule(state, std::format("{}_dy_{}", curName, iDay));
+                    daySched->schedTypeNum = schedShading->schedTypeNum;
+
+                    // define week schedule
+                    auto *weekSched = AddWeekSchedule(state, std::format("{}_wk_{}", curName, iDay));
+>>>>>>> nrel/develop
 
                     // for all day types point the week schedule to the newly defined day schedule
                     for (int kDayType = 1; kDayType < (int)DayType::Num; ++kDayType) {
@@ -2038,7 +2730,11 @@ namespace Sched {
 
             // TODO: I'm not sure this Jazz is necessary
             // Add day schedule
+<<<<<<< HEAD
             auto *daySched = AddDaySchedule(state, EnergyPlus::format("{}_xi_dy_", Alphas(1)));
+=======
+            auto *daySched = AddDaySchedule(state, std::format("{}_xi_dy_", Alphas(1)));
+>>>>>>> nrel/develop
             daySched->isUsed = true;
             daySched->schedTypeNum = sched->schedTypeNum;
 
@@ -2046,11 +2742,18 @@ namespace Sched {
             //   It will be overwritten during run time stepping after the warm up period
             if (NumNumbers < 1) {
                 ShowWarningCustom(state, eoh, "Initial value is not numeric or is missing. Fix idf file.");
+<<<<<<< HEAD
                 NumErrorFlag = true;
             }
             ExternalInterfaceSetSchedule(state, daySched->Num, Numbers(1));
 
             auto *weekSched = AddWeekSchedule(state, EnergyPlus::format("{}_xi_wk_", Alphas(1)));
+=======
+            }
+            ExternalInterfaceSetSchedule(state, daySched->Num, Numbers(1));
+
+            auto *weekSched = AddWeekSchedule(state, std::format("{}_xi_wk_", Alphas(1)));
+>>>>>>> nrel/develop
             weekSched->isUsed = true;
             for (int iDayType = 1; iDayType < (int)DayType::Num; ++iDayType) {
                 weekSched->dayScheds[iDayType] = daySched;
@@ -2084,9 +2787,15 @@ namespace Sched {
                 if (NumExternalInterfaceSchedules >= 1) {
                     ShowContinueError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} defined as an ExternalInterface:Schedule and ExternalInterface:FunctionalMockupUnitImport:To:Schedule."
                                            "This will cause the schedule to be overwritten by PtolemyServer and FunctionalMockUpUnitImport)",
                                            cAlphaFields(1)));
+=======
+                        std::format("{} defined as an ExternalInterface:Schedule and ExternalInterface:FunctionalMockupUnitImport:To:Schedule."
+                                    "This will cause the schedule to be overwritten by PtolemyServer and FunctionalMockUpUnitImport)",
+                                    cAlphaFields(1)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
                 continue;
@@ -2106,7 +2815,11 @@ namespace Sched {
 
             // TODO: I'm not sure this Jazz is necessary
             // Add day schedule
+<<<<<<< HEAD
             auto *daySched = AddDaySchedule(state, EnergyPlus::format("{}_xi_dy_", Alphas(1)));
+=======
+            auto *daySched = AddDaySchedule(state, std::format("{}_xi_dy_", Alphas(1)));
+>>>>>>> nrel/develop
             daySched->isUsed = true;
             daySched->schedTypeNum = sched->schedTypeNum;
 
@@ -2114,11 +2827,18 @@ namespace Sched {
             //   It will be overwritten during run time stepping after the warm up period
             if (NumNumbers < 1) {
                 ShowWarningCustom(state, eoh, "Initial value is not numeric or is missing. Fix idf file.");
+<<<<<<< HEAD
                 NumErrorFlag = true;
             }
             ExternalInterfaceSetSchedule(state, daySched->Num, Numbers(1));
 
             auto *weekSched = AddWeekSchedule(state, EnergyPlus::format("{}_xi_wk_", Alphas(1)));
+=======
+            }
+            ExternalInterfaceSetSchedule(state, daySched->Num, Numbers(1));
+
+            auto *weekSched = AddWeekSchedule(state, std::format("{}_xi_wk_", Alphas(1)));
+>>>>>>> nrel/develop
             weekSched->isUsed = true;
             for (int iDayType = 1; iDayType < (int)DayType::Num; ++iDayType) {
                 weekSched->dayScheds[iDayType] = daySched;
@@ -2152,9 +2872,15 @@ namespace Sched {
                 if (NumExternalInterfaceSchedules >= 1) {
                     ShowContinueError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} defined as an ExternalInterface:Schedule and ExternalInterface:FunctionalMockupUnitImport:To:Schedule."
                                            "This will cause the schedule to be overwritten by PtolemyServer and FunctionalMockUpUnitImport)",
                                            cAlphaFields(1)));
+=======
+                        std::format("{} defined as an ExternalInterface:Schedule and ExternalInterface:FunctionalMockupUnitImport:To:Schedule."
+                                    "This will cause the schedule to be overwritten by PtolemyServer and FunctionalMockUpUnitImport)",
+                                    cAlphaFields(1)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
                 continue;
@@ -2174,7 +2900,11 @@ namespace Sched {
 
             // TODO: I'm not sure this Jazz is necessary
             // Add day schedule
+<<<<<<< HEAD
             auto *daySched = AddDaySchedule(state, EnergyPlus::format("{}_xi_dy_", Alphas(1)));
+=======
+            auto *daySched = AddDaySchedule(state, std::format("{}_xi_dy_", Alphas(1)));
+>>>>>>> nrel/develop
             daySched->isUsed = true;
             daySched->schedTypeNum = sched->schedTypeNum;
 
@@ -2182,11 +2912,18 @@ namespace Sched {
             //   It will be overwritten during run time stepping after the warm up period
             if (NumNumbers < 1) {
                 ShowWarningCustom(state, eoh, "Initial value is not numeric or is missing. Fix idf file.");
+<<<<<<< HEAD
                 NumErrorFlag = true;
             }
             ExternalInterfaceSetSchedule(state, daySched->Num, Numbers(1));
 
             auto *weekSched = AddWeekSchedule(state, EnergyPlus::format("{}_xi_wk_", Alphas(1)));
+=======
+            }
+            ExternalInterfaceSetSchedule(state, daySched->Num, Numbers(1));
+
+            auto *weekSched = AddWeekSchedule(state, std::format("{}_xi_wk_", Alphas(1)));
+>>>>>>> nrel/develop
             weekSched->isUsed = true;
             for (int iDayType = 1; iDayType < (int)DayType::Num; ++iDayType) {
                 weekSched->dayScheds[iDayType] = daySched;
@@ -2215,7 +2952,11 @@ namespace Sched {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}: Preceding Errors cause termination.", routineName));
+=======
+            ShowFatalError(state, std::format("{}: Preceding Errors cause termination.", routineName));
+>>>>>>> nrel/develop
         }
 
         if (s_sched->scheduleTypes.size() + s_sched->daySchedules.size() + s_sched->weekSchedules.size() + s_sched->schedules.size() > 0) {
@@ -2246,8 +2987,13 @@ namespace Sched {
                 } else {
                     ShowWarningCustom(state,
                                       eoh,
+<<<<<<< HEAD
                                       EnergyPlus::format("Report level {} has already been processed. This report level will not be processed again.",
                                                          reportLevelNames[(int)reportLevel]));
+=======
+                                      std::format("Report level {} has already been processed. This report level will not be processed again.",
+                                                  reportLevelNames[(int)reportLevel]));
+>>>>>>> nrel/develop
                     continue;
                 }
             }
@@ -2276,16 +3022,27 @@ namespace Sched {
         for (auto const *schedType : state.dataSched->scheduleTypes) {
             if (schedType->isLimited) {
                 YesNoLimited = "Yes";
+<<<<<<< HEAD
                 minValStr = EnergyPlus::format("{:.2R}", schedType->minVal);
                 strip(minValStr);
                 maxValStr = EnergyPlus::format("{:.2R}", schedType->maxVal);
+=======
+                minValStr = std::format("{:.2f}", schedType->minVal);
+                strip(minValStr);
+                maxValStr = std::format("{:.2f}", schedType->maxVal);
+>>>>>>> nrel/develop
                 strip(maxValStr);
                 if (schedType->isReal) {
                     YesNoContinous = "Yes";
                 } else {
                     YesNoContinous = "No";
+<<<<<<< HEAD
                     minValStr = fmt::to_string((int)schedType->minVal);
                     maxValStr = fmt::to_string((int)schedType->maxVal);
+=======
+                    minValStr = std::to_string((int)schedType->minVal);
+                    maxValStr = std::to_string((int)schedType->maxVal);
+>>>>>>> nrel/develop
                 }
             } else {
                 YesNoLimited = "No";
@@ -2341,17 +3098,30 @@ namespace Sched {
         for (int hr = 0; hr < Constant::iHoursInDay; ++hr) {
             if (LevelOfDetail == ReportLevel::TimeStep) {
                 for (int ts = 0; ts < s_glob->TimeStepsInHour - 1; ++ts) {
+<<<<<<< HEAD
                     times.emplace_back(fmt::format("{}:{:02}", HrField[hr], ((ts + 1)) * s_glob->MinutesInTimeStep));
                 }
             }
             times.emplace_back(fmt::format("{}:00", HrField[hr + 1]));
+=======
+                    times.emplace_back(std::format("{}:{:02}", HrField[hr], ((ts + 1)) * s_glob->MinutesInTimeStep));
+                }
+            }
+            times.emplace_back(std::format("{}:00", HrField[hr + 1]));
+>>>>>>> nrel/develop
         }
         assert(static_cast<int>(times.size()) == NumTimesInDay);
 
         std::string_view const &reportLevelName = reportLevelNames[(int)LevelOfDetail];
+<<<<<<< HEAD
         std::string const dayScheduleTableName = EnergyPlus::format("DaySchedule - {}", reportLevelName);
         std::string const weekScheduleTableName = EnergyPlus::format("WeekSchedule - {}", reportLevelName); // TODO: "Schedule:Week:Daily" ?
         std::string const scheduleTableName = EnergyPlus::format("Schedule - {}", reportLevelName);         // TODO: "Detailed Schedule" maybe?
+=======
+        std::string const dayScheduleTableName = std::format("DaySchedule - {}", reportLevelName);
+        std::string const weekScheduleTableName = std::format("WeekSchedule - {}", reportLevelName); // TODO: "Schedule:Week:Daily" ?
+        std::string const scheduleTableName = std::format("Schedule - {}", reportLevelName);         // TODO: "Detailed Schedule" maybe?
+>>>>>>> nrel/develop
 
         // Schedule Types Header
         {
@@ -2393,12 +3163,20 @@ namespace Sched {
 
             if (LevelOfDetail == ReportLevel::Hourly) {
                 for (int hr = 0; hr < Constant::iHoursInDay; ++hr) {
+<<<<<<< HEAD
                     print(state.files.eio, ",{:.2R}", daySched->tsVals[(hr + 1) * s_glob->TimeStepsInHour - 1]);
+=======
+                    print(state.files.eio, ",{:.2f}", daySched->tsVals[(hr + 1) * s_glob->TimeStepsInHour - 1]);
+>>>>>>> nrel/develop
                 }
             } else if (LevelOfDetail == ReportLevel::TimeStep) {
                 for (int hr = 0; hr < Constant::iHoursInDay; ++hr) {
                     for (int ts = 0; ts < s_glob->TimeStepsInHour; ++ts) {
+<<<<<<< HEAD
                         print(state.files.eio, ",{:.2R}", daySched->tsVals[hr * s_glob->TimeStepsInHour + ts]);
+=======
+                        print(state.files.eio, ",{:.2f}", daySched->tsVals[hr * s_glob->TimeStepsInHour + ts]);
+>>>>>>> nrel/develop
                     }
                 }
             } else {
@@ -2436,7 +3214,11 @@ namespace Sched {
             int DayNum = 1;
             while (DayNum <= 366) {
                 auto *weekSched = schedDetailed->weekScheds[DayNum];
+<<<<<<< HEAD
                 while (schedDetailed->weekScheds[DayNum] == weekSched && DayNum <= 366) {
+=======
+                while (DayNum <= 366 && schedDetailed->weekScheds[DayNum] == weekSched) {
+>>>>>>> nrel/develop
                     if (DayNum == 366) {
                         General::InvOrdinalDay(DayNum, PMon, PDay, 1);
                         print(state.files.eio, ThruFmt, Months[PMon - 1], PDay, weekSched->Name);
@@ -2508,7 +3290,11 @@ namespace Sched {
 
         // Hourly Value
         if (hr > Constant::iHoursInDay) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("LookUpScheduleValue called with thisHour={}", hr));
+=======
+            ShowFatalError(state, std::format("LookUpScheduleValue called with thisHour={}", hr));
+>>>>>>> nrel/develop
         }
 
         int thisHr = hr + state.dataEnvrn->DSTIndicator * static_cast<int>(this->UseDaylightSaving);
@@ -2546,12 +3332,20 @@ namespace Sched {
         return this->tsVals.front();
     } // ScheduleConstant::getHrTsVal()
 
+<<<<<<< HEAD
     Sched::Schedule *GetScheduleAlwaysOn(EnergyPlusData &state)
+=======
+    Sched::Schedule *GetScheduleAlwaysOn(EnergyPlusData const &state)
+>>>>>>> nrel/develop
     {
         return state.dataSched->schedules[SchedNum_AlwaysOn];
     }
 
+<<<<<<< HEAD
     Sched::Schedule *GetScheduleAlwaysOff(EnergyPlusData &state)
+=======
+    Sched::Schedule *GetScheduleAlwaysOff(EnergyPlusData const &state)
+>>>>>>> nrel/develop
     {
         return state.dataSched->schedules[SchedNum_AlwaysOff];
     }
@@ -2637,6 +3431,38 @@ namespace Sched {
         return (weekSched == nullptr) ? -1 : weekSched->Num;
     }
 
+<<<<<<< HEAD
+=======
+    std::vector<Sched::WeekRuleSchedule *>
+    GetPrioritizedWeekRuleSchedules(EnergyPlusData &state, std::string const &scheduleYearRulesName, int const day)
+    {
+        auto const &s_sched = state.dataSched;
+
+        std::vector<int> ruleOrders;
+        std::vector<Sched::WeekRuleSchedule *> weekRuleSchedules;
+        for (Sched::WeekRuleSchedule *weekRuleSchedule : s_sched->weekRuleSchedules) {
+            if (weekRuleSchedule->scheduleYearRulesName == scheduleYearRulesName) {
+                const std::vector<int> &specDays = weekRuleSchedule->specificDays;
+                if (std::find(std::begin(specDays), std::end(specDays), day) != std::end(specDays)) {
+                    ruleOrders.push_back(weekRuleSchedule->rulePriorityOrder);
+                    weekRuleSchedules.push_back(weekRuleSchedule);
+                }
+            }
+        }
+
+        std::vector<int> ixs(ruleOrders.size());
+        std::iota(ixs.begin(), ixs.end(), 0);
+        std::sort(ixs.begin(), ixs.end(), [&](int i, int j) { return ruleOrders[i] > ruleOrders[j]; });
+
+        std::vector<Sched::WeekRuleSchedule *> sortedWeekRuleSchedules(ixs.size());
+        for (int i = 0; i < (int)ixs.size(); ++i) {
+            sortedWeekRuleSchedules[i] = weekRuleSchedules[ixs[i]];
+        }
+
+        return sortedWeekRuleSchedules; // return rules ordered lowest priority to highest priority for a specific day
+    } // GetPrioritizedWeekRuleSchedules()
+
+>>>>>>> nrel/develop
     Sched::DaySchedule *GetDaySchedule(EnergyPlusData &state, std::string const &name)
     {
         // FUNCTION INFORMATION:
@@ -2762,8 +3588,13 @@ namespace Sched {
         std::string::size_type sFld;
 
         int totalMinutes;
+<<<<<<< HEAD
         Real64 incrementPerMinute;
         Real64 curValue;
+=======
+        Real64 incrementPerMinute = 0.0;
+        Real64 curValue = 0.0;
+>>>>>>> nrel/develop
 
         std::fill(minuteVals.begin(), minuteVals.end(), 0.0);
         std::fill(setMinuteVals.begin(), setMinuteVals.end(), false);
@@ -2776,16 +3607,26 @@ namespace Sched {
         if (NumUntils != NumNumbers) {
             ShowSevereError(
                 state,
+<<<<<<< HEAD
                 EnergyPlus::format("ProcessScheduleInput: ProcessIntervalFields, number of Time fields does not match number of value fields, {}={}",
                                    ErrContext,
                                    DayScheduleName));
+=======
+                std::format("ProcessScheduleInput: ProcessIntervalFields, number of Time fields does not match number of value fields, {}={}",
+                            ErrContext,
+                            DayScheduleName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             return;
         }
 
         for (int Count = 1; Count <= NumUntils; ++Count) {
             std::string const &until = Untils(Count);
+<<<<<<< HEAD
             int Pos = index(until, "UNTIL");
+=======
+            std::string::size_type Pos = index(until, "UNTIL");
+>>>>>>> nrel/develop
             if (Pos == 0) {
                 if (until[5] == ':') {
                     sFld = 6;
@@ -2793,27 +3634,46 @@ namespace Sched {
                     sFld = 5;
                 }
                 DecodeHHMMField(state, until.substr(sFld), HHField, MMField, ErrorsFound, DayScheduleName, until, interpolation);
+<<<<<<< HEAD
             } else if (Pos == (int)std::string::npos) {
                 DecodeHHMMField(state, until, HHField, MMField, ErrorsFound, DayScheduleName, until, interpolation);
             } else { // Until found but wasn't first field
                 ShowSevereError(state,
                                 EnergyPlus::format("ProcessScheduleInput: ProcessIntervalFields, Invalid \"Until\" field encountered={}", until));
                 ShowContinueError(state, EnergyPlus::format("Occurred in Day Schedule={}", DayScheduleName));
+=======
+            } else if (Pos == std::string::npos) {
+                DecodeHHMMField(state, until, HHField, MMField, ErrorsFound, DayScheduleName, until, interpolation);
+            } else { // Until found but wasn't first field
+                ShowSevereError(state, std::format("ProcessScheduleInput: ProcessIntervalFields, Invalid \"Until\" field encountered={}", until));
+                ShowContinueError(state, std::format("Occurred in Day Schedule={}", DayScheduleName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
             // Field decoded
             if (HHField < 0 || HHField > Constant::iHoursInDay || MMField < 0 || MMField > Constant::iMinutesInHour) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("ProcessScheduleInput: ProcessIntervalFields, Invalid \"Until\" field encountered={}", until));
                 ShowContinueError(state, EnergyPlus::format("Occurred in Day Schedule={}", DayScheduleName));
+=======
+                ShowSevereError(state, std::format("ProcessScheduleInput: ProcessIntervalFields, Invalid \"Until\" field encountered={}", until));
+                ShowContinueError(state, std::format("Occurred in Day Schedule={}", DayScheduleName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
             if (HHField == Constant::iHoursInDay && MMField > 0 && MMField < Constant::iMinutesInHour) {
+<<<<<<< HEAD
                 ShowWarningError(
                     state, EnergyPlus::format("ProcessScheduleInput: ProcessIntervalFields, Invalid \"Until\" field encountered={}", Untils(Count)));
                 ShowContinueError(state, EnergyPlus::format("Occurred in Day Schedule={}", DayScheduleName));
+=======
+                ShowWarningError(state,
+                                 std::format("ProcessScheduleInput: ProcessIntervalFields, Invalid \"Until\" field encountered={}", Untils(Count)));
+                ShowContinueError(state, std::format("Occurred in Day Schedule={}", DayScheduleName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Terminating the field at 24:00");
                 MMField = 0;
             }
@@ -2847,6 +3707,7 @@ namespace Sched {
                 if (begHr == endHr + 1 && begMin == 0 && endMin == Constant::iMinutesInHour - 1) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ProcessScheduleInput: ProcessIntervalFields, Processing time fields, zero time interval detected, {}={}",
                                            ErrContext,
                                            DayScheduleName));
@@ -2856,17 +3717,36 @@ namespace Sched {
                         EnergyPlus::format("ProcessScheduleInput: ProcessIntervalFields, Processing time fields, overlapping times detected, {}={}",
                                            ErrContext,
                                            DayScheduleName));
+=======
+                        std::format("ProcessScheduleInput: ProcessIntervalFields, Processing time fields, zero time interval detected, {}={}",
+                                    ErrContext,
+                                    DayScheduleName));
+                } else {
+                    ShowSevereError(
+                        state,
+                        std::format("ProcessScheduleInput: ProcessIntervalFields, Processing time fields, overlapping times detected, {}={}",
+                                    ErrContext,
+                                    DayScheduleName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
             } else if (begHr == endHr) {
                 for (int iMin = begMin; iMin <= endMin; ++iMin) {
                     if (setMinuteVals[begHr * Constant::iMinutesInHour + iMin] == true) {
+<<<<<<< HEAD
                         ShowSevereError(state,
                                         EnergyPlus::format(
                                             "ProcessScheduleInput: ProcessIntervalFields, Processing time fields, overlapping times detected, {}={}",
                                             ErrContext,
                                             DayScheduleName));
+=======
+                        ShowSevereError(
+                            state,
+                            std::format("ProcessScheduleInput: ProcessIntervalFields, Processing time fields, overlapping times detected, {}={}",
+                                        ErrContext,
+                                        DayScheduleName));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                         goto UntilLoop_exit;
                     }
@@ -2950,11 +3830,18 @@ namespace Sched {
 
         for (int iMin = 0; iMin < Constant::iMinutesInDay; ++iMin) {
             if (setMinuteVals[iMin] == false) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state,
                     EnergyPlus::format("ProcessScheduleInput: ProcessIntervalFields, Processing time fields, incomplete day detected, {}={}",
                                        ErrContext,
                                        DayScheduleName));
+=======
+                ShowSevereError(state,
+                                std::format("ProcessScheduleInput: ProcessIntervalFields, Processing time fields, incomplete day detected, {}={}",
+                                            ErrContext,
+                                            DayScheduleName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -2986,11 +3873,18 @@ namespace Sched {
 
         auto const &s_glob = state.dataGlobal;
         if (Pos == std::string::npos) {
+<<<<<<< HEAD
             ShowSevereError(
                 state,
                 EnergyPlus::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (no : separator in hh:mm)={}",
                                    stripped(FullFieldValue)));
             ShowContinueError(state, EnergyPlus::format("Occurred in Day Schedule={}", DayScheduleName));
+=======
+            ShowSevereError(state,
+                            std::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (no : separator in hh:mm)={}",
+                                        stripped(FullFieldValue)));
+            ShowContinueError(state, std::format("Occurred in Day Schedule={}", DayScheduleName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             return;
         }
@@ -3004,6 +3898,7 @@ namespace Sched {
                 if (double(RetHH) != rRetHH && rRetHH >= 0.0) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (non-integer numeric in HH)={}",
                                            stripped(FullFieldValue)));
                     ShowContinueError(state, EnergyPlus::format("Other errors may result. Occurred in Day Schedule={}", DayScheduleName));
@@ -3016,6 +3911,18 @@ namespace Sched {
                     ShowContinueError(
                         state,
                         EnergyPlus::format("Field values must be integer and represent hours:minutes. Occurred in Day Schedule={}", DayScheduleName));
+=======
+                        std::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (non-integer numeric in HH)={}",
+                                    stripped(FullFieldValue)));
+                    ShowContinueError(state, std::format("Other errors may result. Occurred in Day Schedule={}", DayScheduleName));
+                    nonIntegral = true;
+                } else {
+                    ShowSevereError(state,
+                                    std::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (invalid numeric in HH)={}",
+                                                stripped(FullFieldValue)));
+                    ShowContinueError(
+                        state, std::format("Field values must be integer and represent hours:minutes. Occurred in Day Schedule={}", DayScheduleName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                     return;
                 }
@@ -3030,6 +3937,7 @@ namespace Sched {
             if (double(RetMM) != rRetMM && rRetMM >= 0.0) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (non-integer numeric in MM)={}",
                                        stripped(FullFieldValue)));
                 ShowContinueError(state, EnergyPlus::format("Other errors may result. Occurred in Day Schedule={}", DayScheduleName));
@@ -3042,24 +3950,47 @@ namespace Sched {
                 ShowContinueError(
                     state,
                     EnergyPlus::format("Field values must be integer and represent hours:minutes. Occurred in Day Schedule={}", DayScheduleName));
+=======
+                    std::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (non-integer numeric in MM)={}",
+                                stripped(FullFieldValue)));
+                ShowContinueError(state, std::format("Other errors may result. Occurred in Day Schedule={}", DayScheduleName));
+                nonIntegral = true;
+            } else {
+                ShowSevereError(state,
+                                std::format("ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field submitted (invalid numeric in MM)={}",
+                                            stripped(FullFieldValue)));
+                ShowContinueError(
+                    state, std::format("Field values must be integer and represent hours:minutes. Occurred in Day Schedule={}", DayScheduleName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 return;
             }
         }
 
         if (nonIntegral) {
+<<<<<<< HEAD
             std::string hHour; // these haven't been initialized?
             std::string mMinute;
             ShowContinueError(state, EnergyPlus::format("Until value to be used will be: {:2.2F}:{:2.2F}", hHour, mMinute));
+=======
+            ShowContinueError(state, std::format("Until value to be used will be: {:02}:{:02}", RetHH, RetMM));
+>>>>>>> nrel/develop
         }
         if (interpolation == Interpolation::No) {
             if (!isMinuteMultipleOfTimestep(RetMM, s_glob->MinutesInTimeStep)) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field value is not a multiple of the minutes for each timestep: {}",
                         stripped(FullFieldValue)));
                 ShowContinueError(state, EnergyPlus::format("Other errors may result. Occurred in Day Schedule={}", DayScheduleName));
+=======
+                    std::format(
+                        "ProcessScheduleInput: DecodeHHMMField, Invalid \"until\" field value is not a multiple of the minutes for each timestep: {}",
+                        stripped(FullFieldValue)));
+                ShowContinueError(state, std::format("Other errors may result. Occurred in Day Schedule={}", DayScheduleName));
+>>>>>>> nrel/develop
             }
         }
     }
@@ -3239,11 +4170,19 @@ namespace Sched {
         }
 
         if (DupAssignment) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("ProcessForDayTypes: Duplicate assignment attempted in \"for\" days field={}", ForDayField));
             ErrorsFound = true;
         }
         if (!OneValid) {
             ShowSevereError(state, EnergyPlus::format("ProcessForDayTypes: No valid day assignments found in \"for\" days field={}", ForDayField));
+=======
+            ShowSevereError(state, std::format("ProcessForDayTypes: Duplicate assignment attempted in \"for\" days field={}", ForDayField));
+            ErrorsFound = true;
+        }
+        if (!OneValid) {
+            ShowSevereError(state, std::format("ProcessForDayTypes: No valid day assignments found in \"for\" days field={}", ForDayField));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
     } // ProcessScheduleInput()
@@ -3304,6 +4243,27 @@ namespace Sched {
         this->isMinMaxSet = true;
     } // ScheduleWeek::setMinMaxVals()
 
+<<<<<<< HEAD
+=======
+    void WeekRuleSchedule::setMinMaxVals(EnergyPlusData &state)
+    {
+        assert(!this->isMinMaxSet);
+
+        auto *daySched1 = this->daySched;
+        if (daySched1 == nullptr) {
+            return;
+        }
+        if (!daySched1->isMinMaxSet) {
+            daySched1->setMinMaxVals(state);
+        }
+
+        this->minVal = daySched1->minVal;
+        this->maxVal = daySched1->maxVal;
+
+        this->isMinMaxSet = true;
+    } // WeekRuleSchedule::setMinMaxVals()
+
+>>>>>>> nrel/develop
     void ScheduleDetailed::setMinMaxVals(EnergyPlusData &state)
     {
         assert(!this->isMinMaxSet);
@@ -3668,14 +4628,22 @@ namespace Sched {
                 NeedOrphanMessage = false;
             }
             if (s_glob->DisplayUnusedSchedules) {
+<<<<<<< HEAD
                 ShowMessage(state, EnergyPlus::format("Schedule:Year or Schedule:Compact or Schedule:File or Schedule:Constant={}", sched->Name));
+=======
+                ShowMessage(state, std::format("Schedule:Year or Schedule:Compact or Schedule:File or Schedule:Constant={}", sched->Name));
+>>>>>>> nrel/develop
             } else {
                 ++NumCount;
             }
         }
 
         if (NumCount > 0) {
+<<<<<<< HEAD
             ShowMessage(state, EnergyPlus::format("There are {} unused schedules in input.", NumCount));
+=======
+            ShowMessage(state, std::format("There are {} unused schedules in input.", NumCount));
+>>>>>>> nrel/develop
             NeedUseMessage = true;
         }
 
@@ -3695,14 +4663,22 @@ namespace Sched {
                 NeedOrphanMessage = false;
             }
             if (s_glob->DisplayUnusedSchedules) {
+<<<<<<< HEAD
                 ShowMessage(state, EnergyPlus::format("Schedule:Week:Daily or Schedule:Week:Compact={}", weekSched->Name));
+=======
+                ShowMessage(state, std::format("Schedule:Week:Daily or Schedule:Week:Compact={}", weekSched->Name));
+>>>>>>> nrel/develop
             } else {
                 ++NumCount;
             }
         }
 
         if (NumCount > 0) {
+<<<<<<< HEAD
             ShowMessage(state, fmt::format("There are {} unused week schedules in input.", NumCount));
+=======
+            ShowMessage(state, std::format("There are {} unused week schedules in input.", NumCount));
+>>>>>>> nrel/develop
             NeedUseMessage = true;
         }
 
@@ -3723,14 +4699,22 @@ namespace Sched {
             }
 
             if (s_glob->DisplayUnusedSchedules) {
+<<<<<<< HEAD
                 ShowMessage(state, EnergyPlus::format("Schedule:Day:Hourly or Schedule:Day:Interval or Schedule:Day:List={}", daySched->Name));
+=======
+                ShowMessage(state, std::format("Schedule:Day:Hourly or Schedule:Day:Interval or Schedule:Day:List={}", daySched->Name));
+>>>>>>> nrel/develop
             } else {
                 ++NumCount;
             }
         }
 
         if (NumCount > 0) {
+<<<<<<< HEAD
             ShowMessage(state, EnergyPlus::format("There are {} unused day schedules in input.", NumCount));
+=======
+            ShowMessage(state, std::format("There are {} unused day schedules in input.", NumCount));
+>>>>>>> nrel/develop
             NeedUseMessage = true;
         }
 
@@ -3942,12 +4926,20 @@ namespace Sched {
                           Real64 minVal,
                           std::string_view msg)
     {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
         ShowContinueError(
             state,
             EnergyPlus::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMin == Clusive::In ? "<" : "<=", minVal));
         if (!msg.empty()) {
             ShowContinueError(state, EnergyPlus::format("{}", msg));
+=======
+        ShowSevereError(state, std::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
+        ShowContinueError(
+            state, std::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMin == Clusive::In ? "<" : "<=", minVal));
+        if (!msg.empty()) {
+            ShowContinueError(state, std::format("{}", msg));
+>>>>>>> nrel/develop
         }
     }
 
@@ -3959,12 +4951,20 @@ namespace Sched {
                           Real64 maxVal,
                           std::string_view msg)
     {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
         ShowContinueError(
             state,
             EnergyPlus::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMax == Clusive::In ? ">" : ">=", maxVal));
         if (!msg.empty()) {
             ShowContinueError(state, EnergyPlus::format("{}", msg));
+=======
+        ShowSevereError(state, std::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
+        ShowContinueError(
+            state, std::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMax == Clusive::In ? ">" : ">=", maxVal));
+        if (!msg.empty()) {
+            ShowContinueError(state, std::format("{}", msg));
+>>>>>>> nrel/develop
         }
     }
 
@@ -3978,6 +4978,7 @@ namespace Sched {
                              Real64 maxVal,
                              std::string_view msg)
     {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
         ShowContinueError(state,
                           EnergyPlus::format("{} = {}, schedule contains values that are {} {} and/or {} {}",
@@ -3989,6 +4990,19 @@ namespace Sched {
                                              maxVal));
         if (!msg.empty()) {
             ShowContinueError(state, EnergyPlus::format("{}", msg));
+=======
+        ShowSevereError(state, std::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
+        ShowContinueError(state,
+                          std::format("{} = {}, schedule contains values that are {} {} and/or {} {}",
+                                      fieldName,
+                                      fieldVal,
+                                      cluMin == Clusive::In ? "<" : "<=",
+                                      minVal,
+                                      cluMax == Clusive::In ? ">" : ">=",
+                                      maxVal));
+        if (!msg.empty()) {
+            ShowContinueError(state, std::format("{}", msg));
+>>>>>>> nrel/develop
         }
     }
 
@@ -4000,12 +5014,20 @@ namespace Sched {
                            Real64 minVal,
                            std::string_view msg)
     {
+<<<<<<< HEAD
         ShowWarningError(state, EnergyPlus::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
         ShowContinueError(
             state,
             EnergyPlus::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMin == Clusive::In ? "<" : "<=", minVal));
         if (!msg.empty()) {
             ShowContinueError(state, EnergyPlus::format("{}", msg));
+=======
+        ShowWarningError(state, std::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
+        ShowContinueError(
+            state, std::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMin == Clusive::In ? "<" : "<=", minVal));
+        if (!msg.empty()) {
+            ShowContinueError(state, std::format("{}", msg));
+>>>>>>> nrel/develop
         }
     }
 
@@ -4017,12 +5039,20 @@ namespace Sched {
                            Real64 maxVal,
                            std::string_view msg)
     {
+<<<<<<< HEAD
         ShowWarningError(state, EnergyPlus::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
         ShowContinueError(
             state,
             EnergyPlus::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMax == Clusive::In ? ">" : ">=", maxVal));
         if (!msg.empty()) {
             ShowContinueError(state, EnergyPlus::format("{}", msg));
+=======
+        ShowWarningError(state, std::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
+        ShowContinueError(
+            state, std::format("{} = {}, schedule contains values that are {} {}", fieldName, fieldVal, cluMax == Clusive::In ? ">" : ">=", maxVal));
+        if (!msg.empty()) {
+            ShowContinueError(state, std::format("{}", msg));
+>>>>>>> nrel/develop
         }
     }
 
@@ -4036,6 +5066,7 @@ namespace Sched {
                               Real64 maxVal,
                               std::string_view msg)
     {
+<<<<<<< HEAD
         ShowWarningError(state, EnergyPlus::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
         ShowContinueError(state,
                           EnergyPlus::format("{} = {}, schedule contains values that are {} {} and/or {} {}",
@@ -4047,6 +5078,19 @@ namespace Sched {
                                              maxVal));
         if (!msg.empty()) {
             ShowContinueError(state, EnergyPlus::format("{}", msg));
+=======
+        ShowWarningError(state, std::format("{}: {} = {}", eoh.routineName, eoh.objectType, eoh.objectName));
+        ShowContinueError(state,
+                          std::format("{} = {}, schedule contains values that are {} {} and/or {} {}",
+                                      fieldName,
+                                      fieldVal,
+                                      cluMin == Clusive::In ? "<" : "<=",
+                                      minVal,
+                                      cluMax == Clusive::In ? ">" : ">=",
+                                      maxVal));
+        if (!msg.empty()) {
+            ShowContinueError(state, std::format("{}", msg));
+>>>>>>> nrel/develop
         }
     }
 

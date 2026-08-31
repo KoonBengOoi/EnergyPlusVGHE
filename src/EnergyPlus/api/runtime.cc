@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataStringGlobals.hh>
 #include <EnergyPlus/PluginManager.hh>
@@ -52,7 +56,10 @@
 #include <EnergyPlus/api/EnergyPlusPgm.hh>
 #include <EnergyPlus/api/runtime.h>
 
+<<<<<<< HEAD
 // disabling "maybe unused" warnings for all the API functions so the IDE isn't lit up with messages
+=======
+>>>>>>> nrel/develop
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 

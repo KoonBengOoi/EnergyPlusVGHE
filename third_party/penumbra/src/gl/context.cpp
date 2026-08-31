@@ -52,7 +52,11 @@ thread_local static Courierr::Courierr *glfw_logger{nullptr};
 
 static void glfw_error_callback(int, const char *description) {
   if (glfw_logger) {
+<<<<<<< HEAD
     glfw_logger->info(fmt::format("GLFW message: {}", description));
+=======
+    glfw_logger->info(std::format("GLFW message: {}", description));
+>>>>>>> nrel/develop
   }
 }
 
@@ -111,7 +115,11 @@ Context::Context(GLint size_in, Courierr::Courierr *logger_in) : size(size_in), 
   GLint max_res = std::min(GL_MAX_RENDERBUFFER_SIZE_EXT, max_view_size[0]);
   if (size >= max_res) {
     logger->warning(
+<<<<<<< HEAD
         fmt::format("The selected resolution, {}, is larger than the maximum allowable by your "
+=======
+        std::format("The selected resolution, {}, is larger than the maximum allowable by your "
+>>>>>>> nrel/develop
                     "hardware, {}. The size will be reset to be equal to the maximum allowable.",
                     size, max_res));
     size = max_res;
@@ -638,7 +646,11 @@ void Context::initialize_off_screen_mode() {
       reason = "Reason unknown.";
     }
     }
+<<<<<<< HEAD
     throw PenumbraException(fmt::format("Unable to create framebuffer. {}", reason), *logger);
+=======
+    throw PenumbraException(std::format("Unable to create framebuffer. {}", reason), *logger);
+>>>>>>> nrel/develop
   }
 
   glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);

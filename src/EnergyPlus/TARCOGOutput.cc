@@ -325,6 +325,7 @@ void WriteInputArguments(EnergyPlusData &state,
     print(InArgumentsFile, Format_1068, hin);
 
     if (standard == TARCOGGassesParams::Stdrd::ISO15099) {
+<<<<<<< HEAD
         print(InArgumentsFile, Format_1070, standard);
     }
     if (standard == TARCOGGassesParams::Stdrd::EN673) {
@@ -336,16 +337,37 @@ void WriteInputArguments(EnergyPlusData &state,
 
     if (ThermalMod == TARCOGThermalModel::ISO15099) {
         print(InArgumentsFile, Format_10731, ThermalMod);
+=======
+        print(InArgumentsFile, Format_1070, static_cast<int>(standard));
+    }
+    if (standard == TARCOGGassesParams::Stdrd::EN673) {
+        print(InArgumentsFile, Format_1071, static_cast<int>(standard));
+    }
+    if (standard == TARCOGGassesParams::Stdrd::EN673Design) {
+        print(InArgumentsFile, Format_1072, static_cast<int>(standard));
+    }
+
+    if (ThermalMod == TARCOGThermalModel::ISO15099) {
+        print(InArgumentsFile, Format_10731, static_cast<int>(ThermalMod));
+>>>>>>> nrel/develop
         print(InArgumentsFile, Format_10740, SDScalar);
     }
 
     if (ThermalMod == TARCOGThermalModel::SCW) {
+<<<<<<< HEAD
         print(InArgumentsFile, Format_10732, ThermalMod);
+=======
+        print(InArgumentsFile, Format_10732, static_cast<int>(ThermalMod));
+>>>>>>> nrel/develop
         print(InArgumentsFile, Format_10740, SDScalar);
     }
 
     if (ThermalMod == TARCOGThermalModel::CSM) {
+<<<<<<< HEAD
         print(InArgumentsFile, Format_10733, ThermalMod);
+=======
+        print(InArgumentsFile, Format_10733, static_cast<int>(ThermalMod));
+>>>>>>> nrel/develop
         print(InArgumentsFile, Format_10740, SDScalar);
     }
 
@@ -364,6 +386,7 @@ void WriteInputArguments(EnergyPlusData &state,
     for (i = 1; i <= nlayer; ++i) {
         switch (LayerType(i)) {
         case TARCOGLayerType::DIFFSHADE: { // Diffuse Shade
+<<<<<<< HEAD
             print(InArgumentsFile, Format_10806, i, LayerType(i));
         } break;
         case TARCOGLayerType::WOVSHADE: { // Woven Shade
@@ -384,6 +407,28 @@ void WriteInputArguments(EnergyPlusData &state,
         } break;
         default: {
             print(InArgumentsFile, Format_10809, i, LayerType(i));
+=======
+            print(InArgumentsFile, Format_10806, i, static_cast<int>(LayerType(i)));
+        } break;
+        case TARCOGLayerType::WOVSHADE: { // Woven Shade
+            print(InArgumentsFile, Format_10805, i, static_cast<int>(LayerType(i)));
+        } break;
+        case TARCOGLayerType::VENETBLIND_HORIZ: { // Horizontal venetian blind
+            print(InArgumentsFile, Format_10804, i, static_cast<int>(LayerType(i)));
+        } break;
+        case TARCOGLayerType::VENETBLIND_VERT: { // Vertical venetian blind
+            print(InArgumentsFile, Format_10810, i, static_cast<int>(LayerType(i)));
+        } break;
+        case TARCOGLayerType::SPECULAR: { // Specular layer
+            if (nslice(i) <= 1) {
+                print(InArgumentsFile, Format_10802, i, static_cast<int>(LayerType(i))); // Monolithic glass
+            } else {
+                print(InArgumentsFile, Format_10803, i, static_cast<int>(LayerType(i))); // Laminated layer
+            }
+        } break;
+        default: {
+            print(InArgumentsFile, Format_10809, i, static_cast<int>(LayerType(i)));
+>>>>>>> nrel/develop
         } break;
         }
 
@@ -539,7 +584,11 @@ void WriteModifiedArguments(InputOutputFile &InArgumentsFile,
     for (i = 1; i <= nlayer; ++i) {
         if ((TARCOGLayerType)LayerType(i) == TARCOGLayerType::VENETBLIND_HORIZ ||
             (TARCOGLayerType)LayerType(i) == TARCOGLayerType::VENETBLIND_VERT) { // SD layer
+<<<<<<< HEAD
             print(InArgumentsFile, Format_1084, i, LayerType(i));
+=======
+            print(InArgumentsFile, Format_1084, i, static_cast<int>(LayerType(i)));
+>>>>>>> nrel/develop
             print(InArgumentsFile, Format_1090, thick(i));
             print(InArgumentsFile, Format_1091, scon(i));
         }
@@ -550,8 +599,11 @@ void WriteModifiedArguments(InputOutputFile &InArgumentsFile,
     for (i = 1; i <= nlayer + 1; ++i) { // loop through gaps:
         if ((i > 1) && (i <= nlayer)) {
             print(InArgumentsFile, Format_1111, i - 1);
+<<<<<<< HEAD
         }
         if ((i > 1) && (i <= nlayer)) {
+=======
+>>>>>>> nrel/develop
             print(InArgumentsFile, Format_1112, gap(i - 1));
         }
         if (i == 1) {
@@ -1112,7 +1164,20 @@ void WriteTARCOGInputFile(EnergyPlusData &state,
     print(files.WINCogFile, Format_200);
     print(files.WINCogFile, Format_113);
     print(files.WINCogFile, Format_210);
+<<<<<<< HEAD
     print(files.WINCogFile, Format_1010, nlayer, 2, standard, ThermalMod, CalcDeflection, SDScalar, VacuumPressure, VacuumMaxGapThickness);
+=======
+    print(files.WINCogFile,
+          Format_1010,
+          nlayer,
+          2,
+          static_cast<int>(standard),
+          static_cast<int>(ThermalMod),
+          static_cast<int>(CalcDeflection),
+          SDScalar,
+          VacuumPressure,
+          VacuumMaxGapThickness);
+>>>>>>> nrel/develop
 
     print(files.WINCogFile, Format_113);
     print(files.WINCogFile, Format_300);
@@ -1191,7 +1256,11 @@ void WriteTARCOGInputFile(EnergyPlusData &state,
               tir(2 * i - 1),
               YoungsMod(i),
               PoissonsRat(i),
+<<<<<<< HEAD
               LayerType(i),
+=======
+              static_cast<int>(LayerType(i)),
+>>>>>>> nrel/develop
               nslice(i));
 
         if (IsShadingLayer(LayerType(i))) {

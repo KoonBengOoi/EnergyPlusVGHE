@@ -45,6 +45,12 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+>>>>>>> nrel/develop
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 
@@ -160,22 +166,36 @@ namespace HybridModel {
                     // Scenario 1-1: To solve thermal mass
                     if (state.dataHybridModel->FlagHybridModel_TM) {
                         if (state.dataHybridModel->FlagHybridModel_AI) {
+<<<<<<< HEAD
                             ShowSevereError(
                                 state,
                                 EnergyPlus::format("Field \"{} and {}\" cannot be both set to YES.", cAlphaFieldNames(3), cAlphaFieldNames(4)));
+=======
+                            ShowSevereError(state,
+                                            std::format("Field \"{} and {}\" cannot be both set to YES.", cAlphaFieldNames(3), cAlphaFieldNames(4)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
 
                         if (state.dataHybridModel->FlagHybridModel_PC) {
+<<<<<<< HEAD
                             ShowSevereError(
                                 state,
                                 EnergyPlus::format("Field \"{} and {}\" cannot be both set to YES.", cAlphaFieldNames(3), cAlphaFieldNames(5)));
+=======
+                            ShowSevereError(state,
+                                            std::format("Field \"{} and {}\" cannot be both set to YES.", cAlphaFieldNames(3), cAlphaFieldNames(5)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
 
                         if (temperatureSched == nullptr) {
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format("Measured Zone Air Temperature Schedule is not defined for: {}", CurrentModuleObject));
+=======
+                            ShowSevereError(state, std::format("Measured Zone Air Temperature Schedule is not defined for: {}", CurrentModuleObject));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         } else {
                             hmZone.InternalThermalMassCalc_T = true;
@@ -186,12 +206,17 @@ namespace HybridModel {
                     if (state.dataHybridModel->FlagHybridModel_AI) {
                         if (state.dataHybridModel->FlagHybridModel_PC) {
                             ShowSevereError(
+<<<<<<< HEAD
                                 state,
                                 EnergyPlus::format("Field \"{}\" and \"{}\" cannot be both set to YES.", cAlphaFieldNames(4), cAlphaFieldNames(5)));
+=======
+                                state, std::format("Field \"{}\" and \"{}\" cannot be both set to YES.", cAlphaFieldNames(4), cAlphaFieldNames(5)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                         if (temperatureSched == nullptr && humidityRatioSched == nullptr && CO2ConcentrationSched == nullptr) {
                             // Show fatal error if no measurement schedule is provided
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format("No measured environmental parameter is provided for: {}", CurrentModuleObject));
                             ShowContinueError(
@@ -200,26 +225,48 @@ namespace HybridModel {
                                                    cAlphaFieldNames(6),
                                                    cAlphaFieldNames(7),
                                                    cAlphaFieldNames(8)));
+=======
+                            ShowSevereError(state, std::format("No measured environmental parameter is provided for: {}", CurrentModuleObject));
+                            ShowContinueError(state,
+                                              std::format("One of the field \"{}\", \"{}\", or {}\" must be provided for the HybridModel:Zone.",
+                                                          cAlphaFieldNames(6),
+                                                          cAlphaFieldNames(7),
+                                                          cAlphaFieldNames(8)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         } else {
                             if (temperatureSched != nullptr && !state.dataHybridModel->FlagHybridModel_TM) {
                                 // Temperature schedule is provided, ignore humidity ratio and CO2 concentration schedules.
                                 hmZone.InfiltrationCalc_T = true;
                                 if (humidityRatioSched != nullptr) {
+<<<<<<< HEAD
                                     ShowWarningError(state, EnergyPlus::format("Field \"{}\" is provided.", cAlphaFieldNames(6)));
                                     ShowContinueError(state, EnergyPlus::format("Field \"{}\" will not be used.", cAlphaFieldNames(7)));
                                 }
                                 if (CO2ConcentrationSched != nullptr) {
                                     ShowWarningError(state, EnergyPlus::format("Field \"{}\" is provided.", cAlphaFieldNames(6)));
                                     ShowContinueError(state, EnergyPlus::format("Field \"{}\" will not be used.", cAlphaFieldNames(8)));
+=======
+                                    ShowWarningError(state, std::format("Field \"{}\" is provided.", cAlphaFieldNames(6)));
+                                    ShowContinueError(state, std::format("Field \"{}\" will not be used.", cAlphaFieldNames(7)));
+                                }
+                                if (CO2ConcentrationSched != nullptr) {
+                                    ShowWarningError(state, std::format("Field \"{}\" is provided.", cAlphaFieldNames(6)));
+                                    ShowContinueError(state, std::format("Field \"{}\" will not be used.", cAlphaFieldNames(8)));
+>>>>>>> nrel/develop
                                 }
                             }
                             if (humidityRatioSched != nullptr && temperatureSched == nullptr) {
                                 // Humidity ratio schedule is provided, ignore CO2 concentration schedule.
                                 hmZone.InfiltrationCalc_H = true;
                                 if (CO2ConcentrationSched != nullptr) {
+<<<<<<< HEAD
                                     ShowWarningError(state, EnergyPlus::format("Field \"{}\" is provided.", cAlphaFieldNames(7)));
                                     ShowContinueError(state, EnergyPlus::format("Field \"{}\" will not be used.", cAlphaFieldNames(8)));
+=======
+                                    ShowWarningError(state, std::format("Field \"{}\" is provided.", cAlphaFieldNames(7)));
+                                    ShowContinueError(state, std::format("Field \"{}\" will not be used.", cAlphaFieldNames(8)));
+>>>>>>> nrel/develop
                                 }
                             }
                             if (CO2ConcentrationSched != nullptr && temperatureSched == nullptr && humidityRatioSched == nullptr) {
@@ -233,6 +280,7 @@ namespace HybridModel {
                     if (state.dataHybridModel->FlagHybridModel_PC) {
                         if (temperatureSched == nullptr && humidityRatioSched == nullptr && CO2ConcentrationSched == nullptr) {
                             // Show fatal error if no measurement schedule is provided
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format("No measured environmental parameter is provided for: {}", CurrentModuleObject));
                             ShowContinueError(
@@ -241,6 +289,14 @@ namespace HybridModel {
                                                    cAlphaFieldNames(6),
                                                    cAlphaFieldNames(7),
                                                    cAlphaFieldNames(8)));
+=======
+                            ShowSevereError(state, std::format("No measured environmental parameter is provided for: {}", CurrentModuleObject));
+                            ShowContinueError(state,
+                                              std::format("One of the field \"{}\", \"{}\", or {}\" must be provided for the HybridModel:Zone.",
+                                                          cAlphaFieldNames(6),
+                                                          cAlphaFieldNames(7),
+                                                          cAlphaFieldNames(8)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         } else {
                             if (temperatureSched != nullptr && !state.dataHybridModel->FlagHybridModel_TM) {
@@ -279,10 +335,17 @@ namespace HybridModel {
                             hmZone.IncludeSystemSupplyParameters = true;
                         } else {
                             ShowWarningError(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("Field \"{}\", {}, and \"{}\" will not be used in the inverse balance equation.",
                                                                 cAlphaFieldNames(13),
                                                                 cAlphaFieldNames(14),
                                                                 cAlphaFieldNames(15)));
+=======
+                                             std::format("Field \"{}\", {}, and \"{}\" will not be used in the inverse balance equation.",
+                                                         cAlphaFieldNames(13),
+                                                         cAlphaFieldNames(14),
+                                                         cAlphaFieldNames(15)));
+>>>>>>> nrel/develop
                         }
                     }
 
@@ -291,9 +354,15 @@ namespace HybridModel {
                             hmZone.IncludeSystemSupplyParameters = true;
                         } else {
                             ShowWarningError(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("Field \"{}\" and \"{}\" will not be used in the inverse balance equation.",
                                                                 cAlphaFieldNames(15),
                                                                 cAlphaFieldNames(14)));
+=======
+                                             std::format("Field \"{}\" and \"{}\" will not be used in the inverse balance equation.",
+                                                         cAlphaFieldNames(15),
+                                                         cAlphaFieldNames(14)));
+>>>>>>> nrel/develop
                         }
                     }
 
@@ -302,9 +371,15 @@ namespace HybridModel {
                             hmZone.IncludeSystemSupplyParameters = true;
                         } else {
                             ShowWarningError(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("Field \"{}\" and \"{}\" will not be used in the inverse balance equation.",
                                                                 cAlphaFieldNames(16),
                                                                 cAlphaFieldNames(14)));
+=======
+                                             std::format("Field \"{}\" and \"{}\" will not be used in the inverse balance equation.",
+                                                         cAlphaFieldNames(16),
+                                                         cAlphaFieldNames(14)));
+>>>>>>> nrel/develop
                         }
                     }
 
@@ -339,36 +414,58 @@ namespace HybridModel {
                         } else {
                             ShowWarningError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "Field \"{}\": default people activity level is not provided, default value of 130W/person will be used.",
                                     cAlphaFieldNames(9)));
+=======
+                                std::format("Field \"{}\": default people activity level is not provided, default value of 130W/person will be used.",
+                                            cAlphaFieldNames(9)));
+>>>>>>> nrel/develop
                         }
                         if (peopleSensibleFractionSched != nullptr) {
                             hmZone.peopleSensibleFracSched = peopleSensibleFractionSched;
                         } else {
                             ShowWarningError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "Field \"{}\": default people sensible heat rate is not provided, default value of 0.6 will be used.",
                                     cAlphaFieldNames(10)));
+=======
+                                std::format("Field \"{}\": default people sensible heat rate is not provided, default value of 0.6 will be used.",
+                                            cAlphaFieldNames(10)));
+>>>>>>> nrel/develop
                         }
                         if (peopleRadiantFractionSched != nullptr) {
                             hmZone.peopleRadiantFracSched = peopleRadiantFractionSched;
                         } else {
                             ShowWarningError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("Field \"{}\": default people radiant heat portion (of sensible heat) is not provided, default "
                                                    "value of 0.7 will be used.",
                                                    cAlphaFieldNames(11)));
+=======
+                                std::format("Field \"{}\": default people radiant heat portion (of sensible heat) is not provided, default "
+                                            "value of 0.7 will be used.",
+                                            cAlphaFieldNames(11)));
+>>>>>>> nrel/develop
                         }
                         if (peopleCO2GenRateSched != nullptr) {
                             hmZone.peopleCO2GenRateSched = peopleCO2GenRateSched;
                         } else {
                             ShowWarningError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("Field \"{}\": default people CO2 generation rate is not provided, default value of 0.0000000382 "
                                                    "kg/W will be used.",
                                                    cAlphaFieldNames(12)));
+=======
+                                std::format("Field \"{}\": default people CO2 generation rate is not provided, default value of 0.0000000382 "
+                                            "kg/W will be used.",
+                                            cAlphaFieldNames(12)));
+>>>>>>> nrel/develop
                         }
                     }
 
@@ -445,7 +542,11 @@ namespace HybridModel {
                 } else {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}=\"{}\" invalid {}=\"{}\" not found.", CurrentModuleObject, cAlphaArgs(1), cAlphaFieldNames(2), cAlphaArgs(2)));
                     ErrorsFound = true;
                 }
@@ -454,7 +555,11 @@ namespace HybridModel {
             // RoomAirModelType should be Mixing if Hybrid Modeling is performed for the zone
             if (state.dataHybridModel->FlagHybridModel) {
                 for (int ZonePtr = 1; ZonePtr <= state.dataGlobal->NumOfZones; ZonePtr++) {
+<<<<<<< HEAD
                     auto &hmZone = state.dataHybridModel->hybridModelZones(ZonePtr);
+=======
+                    const auto &hmZone = state.dataHybridModel->hybridModelZones(ZonePtr);
+>>>>>>> nrel/develop
                     if ((hmZone.InternalThermalMassCalc_T || hmZone.InfiltrationCalc_T) &&
                         (state.dataRoomAir->AirModel(ZonePtr).AirModel != RoomAir::RoomAirModel::Mixing)) {
                         state.dataRoomAir->AirModel(ZonePtr).AirModel = RoomAir::RoomAirModel::Mixing;

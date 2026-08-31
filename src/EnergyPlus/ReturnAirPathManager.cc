@@ -45,12 +45,25 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+>>>>>>> nrel/develop
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 #include <ObjexxFCL/Fmath.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include <AirflowNetwork/Solver.hpp>
+=======
+// Local Headers
+#include <AirflowNetwork/Solver.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataHVACGlobals.hh>
 #include <EnergyPlus/DataIPShortCuts.hh>
@@ -179,19 +192,31 @@ namespace ReturnAirPathManager {
                                           IsNotOK,
                                           "AirLoopHVAC:ReturnPath");
                         if (IsNotOK) {
+<<<<<<< HEAD
                             ShowContinueError(state,
                                               EnergyPlus::format("In AirLoopHVAC:ReturnPath ={}", state.dataZoneEquip->ReturnAirPath(PathNum).Name));
+=======
+                            ShowContinueError(state, std::format("In AirLoopHVAC:ReturnPath ={}", state.dataZoneEquip->ReturnAirPath(PathNum).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                         state.dataZoneEquip->ReturnAirPath(PathNum).ComponentTypeEnum(CompNum) = static_cast<DataZoneEquipment::AirLoopHVACZone>(
                             getEnumValue(DataZoneEquipment::AirLoopHVACTypeNamesCC, state.dataIPShortCut->cAlphaArgs(Counter)));
 
                     } else {
+<<<<<<< HEAD
                         ShowSevereError(state,
                                         EnergyPlus::format("Unhandled component type in AirLoopHVAC:ReturnPath of {}",
                                                            state.dataIPShortCut->cAlphaArgs(Counter)));
                         ShowContinueError(
                             state, EnergyPlus::format("Occurs in AirLoopHVAC:ReturnPath = {}", state.dataZoneEquip->ReturnAirPath(PathNum).Name));
+=======
+                        ShowSevereError(
+                            state,
+                            std::format("Unhandled component type in AirLoopHVAC:ReturnPath of {}", state.dataIPShortCut->cAlphaArgs(Counter)));
+                        ShowContinueError(state,
+                                          std::format("Occurs in AirLoopHVAC:ReturnPath = {}", state.dataZoneEquip->ReturnAirPath(PathNum).Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Must be \"AirLoopHVAC:ZoneMixer\" or \"AirLoopHVAC:ReturnPlenum\"");
                         ErrorsFound = true;
                     }
@@ -253,10 +278,17 @@ namespace ReturnAirPathManager {
 
             default:
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("Invalid AirLoopHVAC:ReturnPath Component={}",
                                                    state.dataZoneEquip->ReturnAirPath(ReturnAirPathNum).ComponentType(ComponentNum)));
                 ShowContinueError(
                     state, EnergyPlus::format("Occurs in AirLoopHVAC:ReturnPath ={}", state.dataZoneEquip->ReturnAirPath(ReturnAirPathNum).Name));
+=======
+                                std::format("Invalid AirLoopHVAC:ReturnPath Component={}",
+                                            state.dataZoneEquip->ReturnAirPath(ReturnAirPathNum).ComponentType(ComponentNum)));
+                ShowContinueError(state,
+                                  std::format("Occurs in AirLoopHVAC:ReturnPath ={}", state.dataZoneEquip->ReturnAirPath(ReturnAirPathNum).Name));
+>>>>>>> nrel/develop
                 ShowFatalError(state, "Preceding condition causes termination.");
                 break;
             }

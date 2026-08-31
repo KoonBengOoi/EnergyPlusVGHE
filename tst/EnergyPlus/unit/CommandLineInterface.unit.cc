@@ -56,8 +56,11 @@
 
 #include "Fixtures/EnergyPlusFixture.hh"
 
+<<<<<<< HEAD
 #include <fmt/format.h>
 
+=======
+>>>>>>> nrel/develop
 #include <algorithm>
 #include <array>
 #include <iterator>
@@ -163,11 +166,16 @@ public:
 
 #define FORMAT_EXPECT_EQ(v1, v2, ss) CompareX(#v1, #v2, v1, v2, (ss), __FILE__, __LINE__)
 
+<<<<<<< HEAD
     ::testing::AssertionResult testExpected(const ExpectedParams &expectedParams)
+=======
+    ::testing::AssertionResult testExpected(const ExpectedParams &t_expectedParams)
+>>>>>>> nrel/develop
     {
         std::stringstream ss;
         bool result = true;
 
+<<<<<<< HEAD
         result &= FORMAT_EXPECT_EQ(expectedParams.AnnualSimulation, state->dataGlobal->AnnualSimulation, ss);
         result &= FORMAT_EXPECT_EQ(expectedParams.DDOnlySimulation, state->dataGlobal->DDOnlySimulation, ss);
         result &= FORMAT_EXPECT_EQ(expectedParams.outDirPath, state->dataStrGlobals->outDirPath, ss);
@@ -191,6 +199,31 @@ public:
             tableSuffix = "Table";
         }
         fs::path const outputTblHtmFilePath = expectedParams.outDirPath / fmt::format("{}{}.htm", expectedParams.prefixOutName, tableSuffix);
+=======
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.AnnualSimulation, state->dataGlobal->AnnualSimulation, ss);
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.DDOnlySimulation, state->dataGlobal->DDOnlySimulation, ss);
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.outDirPath, state->dataStrGlobals->outDirPath, ss);
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.inputIddFilePath, state->dataStrGlobals->inputIddFilePath, ss);
+
+        // Can't capture runExpandObjects not runEPMacro
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.runReadVars, state->dataGlobal->runReadVars, ss);
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.outputEpJSONConversion, state->dataGlobal->outputEpJSONConversion, ss);
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.outputEpJSONConversionOnly, state->dataGlobal->outputEpJSONConversionOnly, ss);
+
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.numThread, state->dataGlobal->numThread, ss);
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.inputWeatherFilePath, state->files.inputWeatherFilePath.filePath, ss);
+        result &= FORMAT_EXPECT_EQ(t_expectedParams.inputFilePath, state->dataStrGlobals->inputFilePath, ss);
+
+        std::string tableSuffix;
+        if (t_expectedParams.suffixType == "L") {
+            tableSuffix = "tbl";
+        } else if (t_expectedParams.suffixType == "D") {
+            tableSuffix = "-table";
+        } else if (t_expectedParams.suffixType == "C") {
+            tableSuffix = "Table";
+        }
+        fs::path const outputTblHtmFilePath = t_expectedParams.outDirPath / std::format("{}{}.htm", t_expectedParams.prefixOutName, tableSuffix);
+>>>>>>> nrel/develop
         result &= FORMAT_EXPECT_EQ(outputTblHtmFilePath, state->dataStrGlobals->outputTblHtmFilePath, ss);
         if (!result) {
             return ::testing::AssertionFailure() << ss.str();
@@ -225,7 +258,11 @@ public:
         } else if (expectedParams.suffixType == "L") {
             tableSuffix = "Table";
         }
+<<<<<<< HEAD
         fs::path const outputTblHtmFilePath = expectedParams.outDirPath / fmt::format("{}{}.htm", expectedParams.prefixOutName, tableSuffix);
+=======
+        fs::path const outputTblHtmFilePath = expectedParams.outDirPath / std::format("{}{}.htm", expectedParams.prefixOutName, tableSuffix);
+>>>>>>> nrel/develop
 
         EXPECT_EQ(outputTblHtmFilePath, state->dataStrGlobals->outputTblHtmFilePath);
     }
@@ -271,7 +308,11 @@ TEST_F(CommandLineInterfaceFixture, IdfDoesNotExist)
     EXPECT_EQ(static_cast<int>(ReturnCodes::Failure), exitcode);
     compare_cout_stream("");
     compare_cerr_stream(delimited_string({
+<<<<<<< HEAD
         fmt::format("input_file: File does not exist: {}", expectedParams.inputFilePath.generic_string()),
+=======
+        std::format("input_file: File does not exist: {:g}", expectedParams.inputFilePath),
+>>>>>>> nrel/develop
         "Run with --help for more information.",
     }));
 }
@@ -408,11 +449,19 @@ TEST_F(CommandLineInterfaceFixture, numThread)
     const std::array<TestCase, 3> test_data{{
         {4, 4, ""},
         {0, 1, "Invalid value for -j arg. Defaulting to 1."},
+<<<<<<< HEAD
         {100, Nproc, fmt::format("Invalid value for -j arg. Value exceeds num available. Defaulting to num available. -j {}", Nproc)},
     }};
 
     for (auto [j, expectedCorrectedJ, error_message] : test_data) {
         SCOPED_TRACE(fmt::format("Passing j={}", j));
+=======
+        {100, Nproc, std::format("Invalid value for -j arg. Value exceeds num available. Defaulting to num available. -j {}", Nproc)},
+    }};
+
+    for (auto [j, expectedCorrectedJ, error_message] : test_data) {
+        SCOPED_TRACE(std::format("Passing j={}", j));
+>>>>>>> nrel/develop
         expectedParams.numThread = expectedCorrectedJ;
         for (const std::string flag : {"-j", "--jobs"}) {
             SCOPED_TRACE("Flag: '" + flag + "'");

@@ -45,7 +45,15 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 // EnergyPlus headers
+=======
+// Third Party Headers
+#include <WCEMultiLayerOptics.hpp>
+#include <WCETarcog.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Construction.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -56,12 +64,15 @@
 #include <EnergyPlus/Material.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
 #include <EnergyPlus/WindowManager.hh>
+<<<<<<< HEAD
 
 // Windows library headers
 #include <WCEMultiLayerOptics.hpp>
 #include <WCETarcog.hpp>
 
 // EnergyPlus headers
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/WindowManagerExteriorThermal.hh>
 
 namespace EnergyPlus {
@@ -592,8 +603,13 @@ namespace Window {
             auto const *matShade = dynamic_cast<Material::MaterialShade const *>(mat);
             assert(matShade != nullptr);
 
+<<<<<<< HEAD
             emissFront = matShade->AbsorpThermal;
             emissBack = matShade->AbsorpThermal;
+=======
+            emissFront = matShade->AbsorpThermalOut;
+            emissBack = matShade->AbsorpThermalIn;
+>>>>>>> nrel/develop
             transThermalFront = matShade->TransThermal;
             transThermalBack = matShade->TransThermal;
             thickness = matShade->Thickness;
@@ -614,8 +630,13 @@ namespace Window {
 
             // Simon: Existing code already takes into account geometry of Woven and scales down
             // emissivity for opening area.
+<<<<<<< HEAD
             emissFront = matScreen->AbsorpThermal;
             emissBack = matScreen->AbsorpThermal;
+=======
+            emissFront = matScreen->AbsorpThermalOut;
+            emissBack = matScreen->AbsorpThermalIn;
+>>>>>>> nrel/develop
             transThermalFront = matScreen->TransThermal;
             transThermalBack = matScreen->TransThermal;
             thickness = matScreen->Thickness;

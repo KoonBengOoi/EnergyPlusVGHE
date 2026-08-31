@@ -1,9 +1,17 @@
 
+<<<<<<< HEAD
 INCLUDE_DIRECTORIES( "${PROJECT_SOURCE_DIR}/third_party/Expat/lib")
 INCLUDE_DIRECTORIES( "${PROJECT_SOURCE_DIR}/third_party/")
 INCLUDE_DIRECTORIES( ${PROJECT_SOURCE_DIR}/third_party/zlib )
 
 SET(SRC
+=======
+include_directories("${PROJECT_SOURCE_DIR}/third_party/Expat/lib")
+include_directories("${PROJECT_SOURCE_DIR}/third_party/")
+include_directories("${PROJECT_SOURCE_DIR}/third_party/zlib")
+
+set(SRC
+>>>>>>> nrel/develop
   parser.h
   parser.c
   fmumini.c
@@ -18,6 +26,7 @@ SET(SRC
   fmiModelTypes.h
 )
 
+<<<<<<< HEAD
 #ADD_LIBRARY( parser SHARED ${SRC} )
 
 IF (UNIX)
@@ -29,17 +38,39 @@ ADD_EXECUTABLE( parser ${SRC} )
 TARGET_LINK_LIBRARIES( parser epexpat miniziplib )
 
 INSTALL( TARGETS parser
+=======
+#add_library(parser SHARED ${SRC})
+
+if(UNIX)
+  add_definitions("-fPIC")
+endif()
+
+add_executable(parser ${SRC})
+
+target_link_libraries(parser PRIVATE epexpat miniziplib)
+
+install(TARGETS parser
+>>>>>>> nrel/develop
   RUNTIME DESTINATION PreProcess/FMUParser
   LIBRARY DESTINATION ./
   ARCHIVE DESTINATION ./
 )
 
+<<<<<<< HEAD
 if( UNIX )
 set_target_properties(
   parser
   PROPERTIES
   INSTALL_NAME_DIR "@executable_path"
 )
+=======
+if(UNIX)
+  set_target_properties(
+    parser
+    PROPERTIES
+    INSTALL_NAME_DIR "@executable_path"
+  )
+>>>>>>> nrel/develop
 endif()
 
 if(BUILD_TESTING)

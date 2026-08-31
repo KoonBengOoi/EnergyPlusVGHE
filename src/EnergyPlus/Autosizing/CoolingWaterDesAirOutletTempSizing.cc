@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/CoolingWaterDesAirOutletTempSizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -96,17 +100,28 @@ Real64 CoolingWaterDesAirOutletTempSizer::size(EnergyPlusData &state, Real64 _or
                                   "\", Cooling Coil has leaving air temperature < entering water temperature.";
                 this->addErrorMessage(msg);
                 ShowWarningError(state, msg);
+<<<<<<< HEAD
                 msg = EnergyPlus::format("    Tair,out  =  {:.3R}", this->autoSizedValue);
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
                 msg = EnergyPlus::format("    Twater,in = {:.3R}", this->dataDesInletWaterTemp);
+=======
+                msg = std::format("    Tair,out  =  {:.3f}", this->autoSizedValue);
+                this->addErrorMessage(msg);
+                ShowContinueError(state, msg);
+                msg = std::format("    Twater,in = {:.3f}", this->dataDesInletWaterTemp);
+>>>>>>> nrel/develop
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
                 this->autoSizedValue = this->dataDesInletWaterTemp + 0.5;
                 msg = "....coil leaving air temperature will be reset to:";
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
+<<<<<<< HEAD
                 msg = EnergyPlus::format("    Tair,out = {:.3R}", this->autoSizedValue);
+=======
+                msg = std::format("    Tair,out = {:.3f}", this->autoSizedValue);
+>>>>>>> nrel/develop
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
             }
@@ -155,20 +170,31 @@ Real64 CoolingWaterDesAirOutletTempSizer::size(EnergyPlusData &state, Real64 _or
                                   "\", Cooling Coil has leaving air temperature < entering water temperature.";
                 this->addErrorMessage(msg);
                 ShowWarningError(state, msg);
+<<<<<<< HEAD
                 msg = EnergyPlus::format("    Tair,out  =  {:.3R}", this->autoSizedValue);
                 ShowContinueError(state, msg);
                 msg = EnergyPlus::format("    Twater,in = {:.3R}", this->dataDesInletWaterTemp);
+=======
+                msg = std::format("    Tair,out  =  {:.3f}", this->autoSizedValue);
+                ShowContinueError(state, msg);
+                msg = std::format("    Twater,in = {:.3f}", this->dataDesInletWaterTemp);
+>>>>>>> nrel/develop
                 ShowContinueError(state, msg);
                 this->autoSizedValue = this->dataDesInletWaterTemp + 0.5;
                 msg = "....coil leaving air temperature will be reset to:";
                 ShowContinueError(state, msg);
+<<<<<<< HEAD
                 msg = EnergyPlus::format("    Tair,out = {:.3R}", this->autoSizedValue);
+=======
+                msg = std::format("    Tair,out = {:.3f}", this->autoSizedValue);
+>>>>>>> nrel/develop
                 ShowContinueError(state, msg);
             }
         }
     }
     // override sizing string
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->isEpJSON) {
             this->sizingString = "design_outlet_air_temperature [C]";
         }
@@ -176,6 +202,13 @@ Real64 CoolingWaterDesAirOutletTempSizer::size(EnergyPlusData &state, Real64 _or
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilLvgAirTemp(state, this->compName, this->compType, this->autoSizedValue);
+=======
+        this->sizingString = "Design Outlet Air Temperature [C]";
+    }
+    this->selectSizerOutput(state, errorsFound);
+    if (this->isCoilReportObject) {
+        ReportCoilSelection::setCoilLvgAirTemp(state, this->coilReportNum, this->autoSizedValue);
+>>>>>>> nrel/develop
     }
     return this->autoSizedValue;
 }

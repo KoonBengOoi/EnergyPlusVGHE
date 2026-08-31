@@ -4,7 +4,11 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -1609,6 +1613,7 @@
     31;                      !- End Day 1
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
+<<<<<<< HEAD
                              !- Field 10
                              !- Field 12
                              !- Field 14
@@ -1617,6 +1622,8 @@
                              !- Field 20
                              !- Field 22
                              !- Field 24
+=======
+>>>>>>> nrel/develop
 
   Schedule:Compact,
     Office_Plug_SCH,         !- Name
@@ -1638,8 +1645,11 @@
     For: AllOtherDays,       !- Field 25
     Until: 24:00,0.2456865339; !- Field 26
 
+<<<<<<< HEAD
                              !- Field 27
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_LIGHT_OFFICE_SCH,   !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -1679,9 +1689,12 @@
     For: Sunday Holidays AllOtherDays, !- Field 23
     Until: 24:00,0.1;        !- Field 24
 
+<<<<<<< HEAD
                              !- Field 21
                              !- Field 35
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_OCC_SCH,            !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -2950,9 +2963,12 @@
     0,100.579094839222,0;  !- X,Y,Z ==> Vertex 4 {m}
 
 !-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
+=======
+>>>>>>> nrel/develop
 
   FenestrationSurface:Detailed,
     Office Front Wall Window 1,  !- Name
@@ -2969,11 +2985,14 @@
     7.31484326103434,0,0.914355407629293,  !- X,Y,Z ==> Vertex 3 {m}
     7.31484326103434,0,2.43929602151392;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Office Front Wall Window2,  !- Name
     Window,                  !- Surface Type
@@ -2989,11 +3008,14 @@
     22.2493149189795,0,0.914355407629293,  !- X,Y,Z ==> Vertex 3 {m}
     22.2493149189795,0,2.43929602151392;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Office Front Door,       !- Name
     Door,                    !- Surface Type
@@ -3009,11 +3031,14 @@
     12.953323682378,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     12.953323682378,0.000000000000,2.133495951135;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Office Left Wall Window1,!- Name
     Window,                  !- Surface Type
@@ -3029,11 +3054,14 @@
     0,5.38555335093654,0.914355407629293,  !- X,Y,Z ==> Vertex 3 {m}
     0,5.38555335093654,2.43929602151392;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Office Left Wall Window2,!- Name
     Window,                  !- Surface Type
@@ -3049,9 +3077,12 @@
     0,1.62450477422138,0.914355407629293,  !- X,Y,Z ==> Vertex 3 {m}
     0,1.62450477422138,2.43929602151392;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Office Left Wall Door,   !- Name
     Door,                    !- Surface Type
@@ -3067,11 +3098,14 @@
     0,4.11459933433182,0,  !- X,Y,Z ==> Vertex 3 {m}
     0,4.11459933433182,2.13349595113502;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Fine Storage Overhead Door1,  !- Name
     Door,                    !- Surface Type
@@ -3087,11 +3121,14 @@
     36.527540398794,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     36.527540398794,0.000000000000,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Fine Storage Overhead Door2,  !- Name
     Door,                    !- Surface Type
@@ -3107,11 +3144,14 @@
     45.717770381465,7.989548436712,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     45.717770381465,7.989548436712,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Fine Storage Overhead Door3,  !- Name
     Door,                    !- Surface Type
@@ -3127,11 +3167,14 @@
     45.717770381465,26.135355129652,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     45.717770381465,26.135355129652,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Fine Storage Overhead Door4,  !- Name
     Door,                    !- Surface Type
@@ -3147,11 +3190,14 @@
     0.000000000000,24.967699526834,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,24.967699526834,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door1,  !- Name
     Door,                    !- Surface Type
@@ -3167,11 +3213,14 @@
     0.000000000000,90.902137046898,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,90.902137046898,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door2,  !- Name
     Door,                    !- Surface Type
@@ -3187,11 +3236,14 @@
     0.000000000000,81.834779254575,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,81.834779254575,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door3,  !- Name
     Door,                    !- Surface Type
@@ -3207,11 +3259,14 @@
     0.000000000000,72.767421462251,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,72.767421462251,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door4,  !- Name
     Door,                    !- Surface Type
@@ -3227,11 +3282,14 @@
     0.000000000000,63.700063669927,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,63.700063669927,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door5,  !- Name
     Door,                    !- Surface Type
@@ -3247,11 +3305,14 @@
     0.000000000000,54.632705877603,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,54.632705877603,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door6,  !- Name
     Door,                    !- Surface Type
@@ -3267,11 +3328,14 @@
     0.000000000000,45.565348085279,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,45.565348085279,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door7,  !- Name
     Door,                    !- Surface Type
@@ -3287,11 +3351,14 @@
     0.000000000000,36.497990292956,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,36.497990292956,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door8,  !- Name
     Door,                    !- Surface Type
@@ -3307,11 +3374,14 @@
     45.717770381465,39.531328232711,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     45.717770381465,39.531328232711,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door9,  !- Name
     Door,                    !- Surface Type
@@ -3327,11 +3397,14 @@
     45.717770381465,57.712040532863,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     45.717770381465,57.712040532863,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door10,  !- Name
     Door,                    !- Surface Type
@@ -3347,11 +3420,14 @@
     45.717770381465,75.753339623423,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     45.717770381465,75.753339623423,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door11,  !- Name
     Door,                    !- Surface Type
@@ -3367,11 +3443,14 @@
     45.717770381465,92.326045659193,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     45.717770381465,92.326045659193,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door12,  !- Name
     Door,                    !- Surface Type
@@ -3387,11 +3466,14 @@
     37.391193775705,100.579094839222,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     37.391193775705,100.579094839222,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door13,  !- Name
     Door,                    !- Surface Type
@@ -3407,11 +3489,14 @@
     27.723558056466,100.579094839222,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     27.723558056466,100.579094839222,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door14,  !- Name
     Door,                    !- Surface Type
@@ -3427,11 +3512,14 @@
     13.639885731719,100.579094839222,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     13.639885731719,100.579094839222,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Overhead Door15,  !- Name
     Door,                    !- Surface Type
@@ -3447,11 +3535,14 @@
     4.274503431524,100.579094839222,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     4.274503431524,100.579094839222,2.438251358764;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Door1,      !- Name
     Door,                    !- Surface Type
@@ -3467,11 +3558,14 @@
     45.7177703814647,48.4608366043525,0,  !- X,Y,Z ==> Vertex 3 {m}
     45.7177703814647,48.4608366043525,2.13349595113502;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Door2,      !- Name
     Door,                    !- Surface Type
@@ -3487,11 +3581,14 @@
     45.7177703814647,65.9859819172473,0,  !- X,Y,Z ==> Vertex 3 {m}
     45.7177703814647,65.9859819172473,2.13349595113502;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Door3,      !- Name
     Door,                    !- Surface Type
@@ -3507,11 +3604,14 @@
     45.7177703814647,83.5111272301421,0,  !- X,Y,Z ==> Vertex 3 {m}
     45.7177703814647,83.5111272301421,2.13349595113502;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Door4,      !- Name
     Door,                    !- Surface Type
@@ -3527,11 +3627,14 @@
     22.437825726850,100.579094839222,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     22.437825726850,100.579094839222,2.133495951135;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Bulk Storage Door5,      !- Name
     Door,                    !- Surface Type
@@ -3547,10 +3650,13 @@
     0.000000000000,69.430702701966,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     0.000000000000,69.430702701966,2.133495951135;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Fine Storage Left Door,  !- Name
     Door,                    !- Surface Type
@@ -3566,10 +3672,13 @@
     0,20.2682115357827,0,  !- X,Y,Z ==> Vertex 3 {m}
     0,19.3538561281534,0;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Fine Storage Right Door, !- Name
     Door,                    !- Surface Type
@@ -3585,8 +3694,11 @@
     45.7177703814647,15.6964344976362,0,  !- X,Y,Z ==> Vertex 3 {m}
     45.7177703814647,15.6964344976362,2.13349595113502;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Skylight_r8c1,           !- Name
     Window,                  !- Surface Type

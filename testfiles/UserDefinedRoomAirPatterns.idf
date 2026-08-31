@@ -59,7 +59,11 @@
 !
 !   The model also contains an under floor zone and a suspended ceiling zone
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 

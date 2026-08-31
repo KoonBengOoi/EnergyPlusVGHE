@@ -47,6 +47,12 @@
 
 // EnergyPlus::SortAndStringUtilities Unit Tests
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <array>
+
+>>>>>>> nrel/develop
 // Google Test Headers
 #include <gtest/gtest.h>
 
@@ -67,6 +73,50 @@ namespace EnergyPlus {
 
 using namespace EnergyPlus::General;
 
+<<<<<<< HEAD
+=======
+TEST_F(EnergyPlusFixture, General_InvOrdinalDay)
+{
+    static constexpr std::array<int, 12> daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    for (int leapYear = 0; leapYear <= 1; ++leapYear) {
+        int ordinalDay = 0;
+        for (int expectedMonth = 1; expectedMonth <= 12; ++expectedMonth) {
+            int const numDays = daysInMonth[expectedMonth - 1] + ((expectedMonth == 2) ? leapYear : 0);
+            for (int expectedDay = 1; expectedDay <= numDays; ++expectedDay) {
+                ++ordinalDay;
+                int month = 0;
+                int day = 0;
+
+                General::InvOrdinalDay(ordinalDay, month, day, leapYear);
+
+                EXPECT_EQ(expectedMonth, month);
+                EXPECT_EQ(expectedDay, day);
+            }
+        }
+    }
+
+    int month = 12;
+    int day = 31;
+
+    General::InvOrdinalDay(-1, month, day, 0);
+    EXPECT_EQ(12, month);
+    EXPECT_EQ(31, day);
+
+    General::InvOrdinalDay(0, month, day, 0);
+    EXPECT_EQ(12, month);
+    EXPECT_EQ(31, day);
+
+    General::InvOrdinalDay(366, month, day, 0);
+    EXPECT_EQ(12, month);
+    EXPECT_EQ(31, day);
+
+    General::InvOrdinalDay(367, month, day, 1);
+    EXPECT_EQ(12, month);
+    EXPECT_EQ(31, day);
+}
+
+>>>>>>> nrel/develop
 TEST_F(EnergyPlusFixture, General_ParseTime)
 {
     int Hours;

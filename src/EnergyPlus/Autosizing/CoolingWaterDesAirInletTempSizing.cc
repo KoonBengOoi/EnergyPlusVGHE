@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/CoolingWaterDesAirInletTempSizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -125,15 +129,23 @@ Real64 CoolingWaterDesAirInletTempSizer::size(EnergyPlusData &state, Real64 _ori
     }
     // override sizing string
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->isEpJSON) {
             this->sizingString = "design_inlet_air_temperature [C]";
         }
+=======
+        this->sizingString = "Design Inlet Air Temperature [C]";
+>>>>>>> nrel/develop
     }
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
         if (this->curSysNum <= this->numPrimaryAirSys) {
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntAirTemp(
                 state, this->compName, this->compType, this->autoSizedValue, this->curSysNum, this->curZoneEqNum);
+=======
+            ReportCoilSelection::setCoilEntAirTemp(state, this->coilReportNum, this->autoSizedValue, this->curSysNum, this->curZoneEqNum);
+>>>>>>> nrel/develop
         }
     }
     return this->autoSizedValue;

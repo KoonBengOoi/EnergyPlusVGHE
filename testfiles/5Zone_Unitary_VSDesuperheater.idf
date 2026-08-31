@@ -97,7 +97,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Building,                !- Name
@@ -2812,6 +2816,10 @@
     0.0,                     !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
     0.0,                     !- Latent Capacity Time Constant {s}
     0.0,                     !- Nominal Time for Condensate Removal to Begin {s}
+<<<<<<< HEAD
+=======
+    ,                        !- Apply Part Load Fraction to Speeds Greater than 1
+>>>>>>> nrel/develop
     No,                      !- Apply Latent Degradation to Speeds Greater than 1
     AirCooled,               !- Condenser Type
     ,                        !- Nominal Evaporative Condenser Pump Power {W}

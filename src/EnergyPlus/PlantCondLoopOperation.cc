@@ -49,6 +49,10 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <vector>
 
 // ObjexxFCL Headers
@@ -232,9 +236,15 @@ void ManagePlantLoadDistribution(EnergyPlusData &state,
     }
     default: {
         // No controls specified.  This is a fatal error
+<<<<<<< HEAD
         ShowFatalError(state,
                        EnergyPlus::format("Invalid Operation Scheme Type Requested={}, in ManagePlantLoadDistribution",
                                           plantLoc.loop->OpScheme(CurSchemePtr).TypeOf));
+=======
+        ShowFatalError(
+            state,
+            std::format("Invalid Operation Scheme Type Requested={}, in ManagePlantLoadDistribution", plantLoc.loop->OpScheme(CurSchemePtr).TypeOf));
+>>>>>>> nrel/develop
     }
     }
 
@@ -438,12 +448,21 @@ void GetPlantOperationInput(EnergyPlusData &state, bool &GetInputOK)
                             state.dataPlnt->PlantLoop(LoopNum).OpScheme(Num).Type = OpScheme::Uncontrolled;
                         } else { // invalid op scheme type for plant loop
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}Invalid {}={}, entered in {}={}",
                                                                RoutineName,
                                                                state.dataIPShortCut->cAlphaFieldNames(Num * 3 - 1),
                                                                state.dataIPShortCut->cAlphaArgs(Num * 3 - 1),
                                                                CurrentModuleObject,
                                                                state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                            std::format("{}Invalid {}={}, entered in {}={}",
+                                                        RoutineName,
+                                                        state.dataIPShortCut->cAlphaFieldNames(Num * 3 - 1),
+                                                        state.dataIPShortCut->cAlphaArgs(Num * 3 - 1),
+                                                        CurrentModuleObject,
+                                                        state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -459,6 +478,7 @@ void GetPlantOperationInput(EnergyPlusData &state, bool &GetInputOK)
                 }
             } else {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{} = \"{}\", requires at least {}, {} and {} to be specified.",
                                                    CurrentModuleObject,
                                                    state.dataIPShortCut->cAlphaArgs(1),
@@ -470,14 +490,33 @@ void GetPlantOperationInput(EnergyPlusData &state, bool &GetInputOK)
         } else {
             ShowSevereError(state, EnergyPlus::format("{}{}={} is expecting", RoutineName, PlantLoopObject, state.dataPlnt->PlantLoop(LoopNum).Name));
             ShowContinueError(state, EnergyPlus::format("{}={}, but not found.", CurrentModuleObject, PlantOpSchemeName));
+=======
+                                std::format("{} = \"{}\", requires at least {}, {} and {} to be specified.",
+                                            CurrentModuleObject,
+                                            state.dataIPShortCut->cAlphaArgs(1),
+                                            state.dataIPShortCut->cAlphaFieldNames(2),
+                                            state.dataIPShortCut->cAlphaFieldNames(3),
+                                            state.dataIPShortCut->cAlphaFieldNames(4)));
+                ErrorsFound = true;
+            }
+        } else {
+            ShowSevereError(state, std::format("{}{}={} is expecting", RoutineName, PlantLoopObject, state.dataPlnt->PlantLoop(LoopNum).Name));
+            ShowContinueError(state, std::format("{}={}, but not found.", CurrentModuleObject, PlantOpSchemeName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
     }
 
     if (ErrorsFound) {
+<<<<<<< HEAD
         ShowFatalError(state,
                        EnergyPlus::format("{}Errors found in getting input for PlantEquipmentOperationSchemes or CondenserEquipmentOperationSchemes",
                                           RoutineName));
+=======
+        ShowFatalError(
+            state,
+            std::format("{}Errors found in getting input for PlantEquipmentOperationSchemes or CondenserEquipmentOperationSchemes", RoutineName));
+>>>>>>> nrel/develop
     }
 }
 
@@ -717,10 +756,17 @@ void GetOperationSchemeInput(EnergyPlusData &state)
                 } else { // invalid op scheme type for plant loop
                     // Seems like the alpha args below is incorrect....
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("Invalid operation scheme type = \"{}\", entered in {}={}",
                                                        state.dataIPShortCut->cAlphaArgs(Num * 3 - 1),
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                    std::format("Invalid operation scheme type = \"{}\", entered in {}={}",
+                                                state.dataIPShortCut->cAlphaArgs(Num * 3 - 1),
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -736,7 +782,11 @@ void GetOperationSchemeInput(EnergyPlusData &state)
 
     // Validate that component names/types in each list correspond to a valid component in input file
     if (ErrorsFound) {
+<<<<<<< HEAD
         ShowFatalError(state, EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+        ShowFatalError(state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
     }
 }
 
@@ -815,11 +865,19 @@ void FindRangeBasedOrUncontrolledInput(EnergyPlusData &state,
             }
             if (Num == NumSchemes) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                                    LoopOpSchemeObj,
                                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                                    CurrentModuleObject,
                                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                                std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                            LoopOpSchemeObj,
+                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                            CurrentModuleObject,
+                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 SchemeNameFound = false;
             }
@@ -827,7 +885,11 @@ void FindRangeBasedOrUncontrolledInput(EnergyPlusData &state,
         if (SchemeNameFound) {
             state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).NumEquipLists = (NumAlphas - 1);
             if (state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).NumEquipLists <= 0) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{} = \"{}\", specified without equipment list.", CurrentModuleObject, AlphArray(1)));
+=======
+                ShowSevereError(state, std::format("{} = \"{}\", specified without equipment list.", CurrentModuleObject, AlphArray(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 int ListNum;
@@ -852,11 +914,19 @@ void FindRangeBasedOrUncontrolledInput(EnergyPlusData &state,
                         if (state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(ListNum).RangeLowerLimit >
                             state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(ListNum).RangeUpperLimit) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{} = \"{}\", found a lower limit that is higher than an upper limit in {} = \"{}\".",
                                                                LoopOpSchemeObj,
                                                                state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                                                CurrentModuleObject,
                                                                state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                                            std::format("{} = \"{}\", found a lower limit that is higher than an upper limit in {} = \"{}\".",
+                                                        LoopOpSchemeObj,
+                                                        state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                                        CurrentModuleObject,
+                                                        state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
 
@@ -875,6 +945,7 @@ void FindRangeBasedOrUncontrolledInput(EnergyPlusData &state,
                             // Check if inner list has a lower limit that is between an outer's lower and upper limit
                             if (InnerListNumLowerLimit > OuterListNumLowerLimit && InnerListNumLowerLimit < OuterListNumUpperLimit) {
                                 ShowWarningError(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("{} = \"{}\", detected overlapping ranges in {} = \"{}\".",
                                                                     LoopOpSchemeObj,
                                                                     state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
@@ -887,12 +958,27 @@ void FindRangeBasedOrUncontrolledInput(EnergyPlusData &state,
                                                                      ListNum,
                                                                      OuterListNumLowerLimit,
                                                                      OuterListNumUpperLimit));
+=======
+                                                 std::format("{} = \"{}\", detected overlapping ranges in {} = \"{}\".",
+                                                             LoopOpSchemeObj,
+                                                             state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                                             CurrentModuleObject,
+                                                             state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+                                ShowContinueError(state,
+                                                  std::format("Range # {} Lower limit = {:.1f} lies within the Range # {} ({:.1f} to {:.1f}).",
+                                                              InnerListNum,
+                                                              InnerListNumLowerLimit,
+                                                              ListNum,
+                                                              OuterListNumLowerLimit,
+                                                              OuterListNumUpperLimit));
+>>>>>>> nrel/develop
                                 ShowContinueError(state,
                                                   "Check that input for load range limit values do not overlap, and the simulation continues...");
                             }
                             // Check if inner list has an upper limit that is between an outer's lower and upper limit
                             if (InnerListNumUpperLimit > OuterListNumLowerLimit && InnerListNumUpperLimit < OuterListNumUpperLimit) {
                                 ShowWarningError(state,
+<<<<<<< HEAD
                                                  EnergyPlus::format("{} = \"{}\", detected overlapping ranges in {} = \"{}\".",
                                                                     LoopOpSchemeObj,
                                                                     state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
@@ -905,6 +991,20 @@ void FindRangeBasedOrUncontrolledInput(EnergyPlusData &state,
                                                                      ListNum,
                                                                      OuterListNumLowerLimit,
                                                                      OuterListNumUpperLimit));
+=======
+                                                 std::format("{} = \"{}\", detected overlapping ranges in {} = \"{}\".",
+                                                             LoopOpSchemeObj,
+                                                             state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                                             CurrentModuleObject,
+                                                             state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+                                ShowContinueError(state,
+                                                  std::format("Range # {} Upper limit = {:.1f} lies within Range # {} ({:.1f} to {:.1f}).",
+                                                              InnerListNum,
+                                                              InnerListNumUpperLimit,
+                                                              ListNum,
+                                                              OuterListNumLowerLimit,
+                                                              OuterListNumUpperLimit));
+>>>>>>> nrel/develop
                                 ShowContinueError(state,
                                                   "Check that input for load range limit values do not overlap, and the simulation continues...");
                             }
@@ -915,11 +1015,19 @@ void FindRangeBasedOrUncontrolledInput(EnergyPlusData &state,
         }
     } else {
         ShowSevereError(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                            LoopOpSchemeObj,
                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                            CurrentModuleObject,
                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                        std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                    LoopOpSchemeObj,
+                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                    CurrentModuleObject,
+                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
         ErrorsFound = true;
     }
 
@@ -1004,11 +1112,19 @@ void FindDeltaTempRangeInput(EnergyPlusData &state,
             }
             if (Num == NumSchemes) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                                    LoopOpSchemeObj,
                                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                                    cmoStr,
                                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                                std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                            LoopOpSchemeObj,
+                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                            cmoStr,
+                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 SchemeNameFound = false;
             }
@@ -1016,7 +1132,11 @@ void FindDeltaTempRangeInput(EnergyPlusData &state,
         if (SchemeNameFound) {
             state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).NumEquipLists = (NumAlphas - 2);
             if (state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).NumEquipLists <= 0) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{} = \"{}\", specified without equipment list.", cmoStr, AlphArray(1)));
+=======
+                ShowSevereError(state, std::format("{} = \"{}\", specified without equipment list.", cmoStr, AlphArray(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList.allocate(
@@ -1040,11 +1160,19 @@ void FindDeltaTempRangeInput(EnergyPlusData &state,
                     if (state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(ListNum).RangeLowerLimit >
                         state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(ListNum).RangeUpperLimit) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{} = \"{}\", found a lower limit that is higher than an upper limit in {} = \"{}\".",
                                                            LoopOpSchemeObj,
                                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                                            cmoStr,
                                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                                        std::format("{} = \"{}\", found a lower limit that is higher than an upper limit in {} = \"{}\".",
+                                                    LoopOpSchemeObj,
+                                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                                    cmoStr,
+                                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     LoadEquipList(state, LoopNum, SchemeNum, ListNum, ErrorsFound);
@@ -1053,11 +1181,19 @@ void FindDeltaTempRangeInput(EnergyPlusData &state,
         }
     } else {
         ShowSevereError(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                            LoopOpSchemeObj,
                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                            cmoStr,
                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                        std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                    LoopOpSchemeObj,
+                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                    cmoStr,
+                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
         ErrorsFound = true;
     }
 
@@ -1139,21 +1275,36 @@ void LoadEquipList(EnergyPlusData &state,
                             bool firstblank = false;
                             if (state.dataIPShortCut->lAlphaFieldBlanks(MachineNum)) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("{}=\"{}\", invalid component specification.",
                                                                    CurrentModuleObject,
                                                                    state.dataIPShortCut->cAlphaArgs(1)));
                                 ShowContinueError(state, EnergyPlus::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum)));
+=======
+                                                std::format("{}=\"{}\", invalid component specification.",
+                                                            CurrentModuleObject,
+                                                            state.dataIPShortCut->cAlphaArgs(1)));
+                                ShowContinueError(state, std::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum)));
+>>>>>>> nrel/develop
                                 firstblank = true;
                                 ErrorsFound = true;
                             }
                             if (state.dataIPShortCut->lAlphaFieldBlanks(MachineNum + 1)) {
                                 if (!firstblank) {
                                     ShowSevereError(state,
+<<<<<<< HEAD
                                                     EnergyPlus::format("{}=\"{}\", invalid component specification.",
                                                                        CurrentModuleObject,
                                                                        state.dataIPShortCut->cAlphaArgs(1)));
                                 }
                                 ShowContinueError(state, EnergyPlus::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum + 1)));
+=======
+                                                    std::format("{}=\"{}\", invalid component specification.",
+                                                                CurrentModuleObject,
+                                                                state.dataIPShortCut->cAlphaArgs(1)));
+                                }
+                                ShowContinueError(state, std::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum + 1)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         } else {
@@ -1163,8 +1314,13 @@ void LoadEquipList(EnergyPlusData &state,
                                               IsNotOK,
                                               CurrentModuleObject);
                             if (IsNotOK) {
+<<<<<<< HEAD
                                 ShowContinueError(
                                     state, EnergyPlus::format("{}=\"{}\", Input Error.", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                ShowContinueError(state,
+                                                  std::format("{}=\"{}\", Input Error.", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -1197,21 +1353,36 @@ void LoadEquipList(EnergyPlusData &state,
                             bool firstblank = false;
                             if (state.dataIPShortCut->lAlphaFieldBlanks(MachineNum)) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("{}=\"{}\", invalid component specification.",
                                                                    CurrentModuleObject,
                                                                    state.dataIPShortCut->cAlphaArgs(1)));
                                 ShowContinueError(state, EnergyPlus::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum)));
+=======
+                                                std::format("{}=\"{}\", invalid component specification.",
+                                                            CurrentModuleObject,
+                                                            state.dataIPShortCut->cAlphaArgs(1)));
+                                ShowContinueError(state, std::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum)));
+>>>>>>> nrel/develop
                                 firstblank = true;
                                 ErrorsFound = true;
                             }
                             if (state.dataIPShortCut->lAlphaFieldBlanks(MachineNum + 1)) {
                                 if (!firstblank) {
                                     ShowSevereError(state,
+<<<<<<< HEAD
                                                     EnergyPlus::format("{}=\"{}\", invalid component specification.",
                                                                        CurrentModuleObject,
                                                                        state.dataIPShortCut->cAlphaArgs(1)));
                                 }
                                 ShowContinueError(state, EnergyPlus::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum + 1)));
+=======
+                                                    std::format("{}=\"{}\", invalid component specification.",
+                                                                CurrentModuleObject,
+                                                                state.dataIPShortCut->cAlphaArgs(1)));
+                                }
+                                ShowContinueError(state, std::format("{} is blank.", state.dataIPShortCut->cAlphaFieldNames(MachineNum + 1)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         } else {
@@ -1221,8 +1392,13 @@ void LoadEquipList(EnergyPlusData &state,
                                               IsNotOK,
                                               CurrentModuleObject);
                             if (IsNotOK) {
+<<<<<<< HEAD
                                 ShowContinueError(
                                     state, EnergyPlus::format("{}=\"{}\", Input Error.", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                ShowContinueError(state,
+                                                  std::format("{}=\"{}\", Input Error.", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -1308,10 +1484,17 @@ void LoadEquipList(EnergyPlusData &state,
                                     "HEATPUMP:AIRTOWATER:COOLING";
                             } else {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("Equipment type={} with Name={} not found on PlantLoop={}.",
                                                                    type_str,
                                                                    machineName,
                                                                    state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                std::format("Equipment type={} with Name={} not found on PlantLoop={}.",
+                                                            type_str,
+                                                            machineName,
+                                                            state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -1328,8 +1511,13 @@ void LoadEquipList(EnergyPlusData &state,
 
     if (!FoundIntendedList) {
         ShowSevereError(state,
+<<<<<<< HEAD
                         EnergyPlus::format("LoadEquipList: Failed to find PlantEquipmentList or CondenserEquipmentList object named = {}",
                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(ListNum).Name));
+=======
+                        std::format("LoadEquipList: Failed to find PlantEquipmentList or CondenserEquipmentList object named = {}",
+                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(ListNum).Name));
+>>>>>>> nrel/develop
         ErrorsFound = true;
     }
 }
@@ -1371,9 +1559,15 @@ void FindCompSPInput(EnergyPlusData &state,
     Real64 CompFlowRate(0.0);
     std::string LoopOpSchemeObj; // Used to identify the object name for loop equipment operation scheme
     bool SchemeNameFound;        // Set to FALSE if a match of OpScheme object and OpScheme name is not found
+<<<<<<< HEAD
     Real64 NonChargCHWTemp;
     Real64 OffPeakCHWTemp;
     CtrlType CompOpType; // 1=cooling, 2=dual(or other)
+=======
+    Real64 NonChargCHWTemp = 0.0;
+    Real64 OffPeakCHWTemp = 0.0;
+    CtrlType CompOpType = CtrlType::Invalid; // 1=cooling, 2=dual(or other)
+>>>>>>> nrel/develop
 
     SchemeNameFound = true;
 
@@ -1387,7 +1581,11 @@ void FindCompSPInput(EnergyPlusData &state,
     }
 
     if (NumSchemes > 0) {
+<<<<<<< HEAD
         int NumAlphas;
+=======
+        int NumAlphas = 0;
+>>>>>>> nrel/develop
         int NumNums;
         int IOStat;
         for (int Num = 1; Num <= NumSchemes; ++Num) {
@@ -1399,11 +1597,19 @@ void FindCompSPInput(EnergyPlusData &state,
             }
             if (Num == NumSchemes) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                                    LoopOpSchemeObj,
                                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                                    CurrentModuleObject,
                                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                                std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                            LoopOpSchemeObj,
+                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                            CurrentModuleObject,
+                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 SchemeNameFound = false;
             }
@@ -1439,8 +1645,13 @@ void FindCompSPInput(EnergyPlusData &state,
             if (state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).NumComps > 0) {
                 state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp.allocate(
                     state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).NumComps);
+<<<<<<< HEAD
                 int CompNumA;
                 int CompNumN;
+=======
+                int CompNumA = 0;
+                int CompNumN = 0;
+>>>>>>> nrel/develop
                 for (int CompNum = 1; CompNum <= state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).NumComps; ++CompNum) {
                     if (CurrentModuleObject == "PlantEquipmentOperation:ComponentSetPoint") {
                         CompNumA = CompNum * 5;
@@ -1494,7 +1705,11 @@ void FindCompSPInput(EnergyPlusData &state,
                         BaseSizer::reportSizerOutput(state,
                                                      CurrentModuleObject,
                                                      state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name,
+<<<<<<< HEAD
                                                      EnergyPlus::format("Design Water Flow Rate [m3/s] Equipment # {}", Num),
+=======
+                                                     std::format("Design Water Flow Rate [m3/s] Equipment # {}", Num),
+>>>>>>> nrel/develop
                                                      CompFlowRate);
                     }
 
@@ -1506,7 +1721,11 @@ void FindCompSPInput(EnergyPlusData &state,
                             if (CurrentModuleObject == "PlantEquipmentOperation:ThermalEnergyStorage") {
                                 ShowSevereError(
                                     state,
+<<<<<<< HEAD
                                     EnergyPlus::format(
+=======
+                                    std::format(
+>>>>>>> nrel/develop
                                         "Equipment Operation Mode cannot be HEATING for any equipment found in {} in thermal energy storage control",
                                         state.dataIPShortCut->cAlphaArgs(1)));
                                 ErrorsFound = true;
@@ -1520,9 +1739,15 @@ void FindCompSPInput(EnergyPlusData &state,
                     if ((state.dataIPShortCut->cAlphaArgs(CompNumA + 1) != "COOLING") &&
                         (state.dataIPShortCut->cAlphaArgs(CompNumA + 1) != "HEATING") && (state.dataIPShortCut->cAlphaArgs(CompNumA + 1) != "DUAL")) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("Equipment Operation Mode should be either HEATING or COOLING or DUAL mode, for {}={}",
                                                            CurrentModuleObject,
                                                            state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                        std::format("Equipment Operation Mode should be either HEATING or COOLING or DUAL mode, for {}={}",
+                                                    CurrentModuleObject,
+                                                    state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     }
 
                     if (CurrentModuleObject == "PlantEquipmentOperation:ThermalEnergyStorage") {
@@ -1533,6 +1758,7 @@ void FindCompSPInput(EnergyPlusData &state,
                             (state.dataIPShortCut->cAlphaArgs(CompNumA + 1) != "DUAL")) {
 
                             ShowWarningError(state,
+<<<<<<< HEAD
                                              EnergyPlus::format("Equipment Operation Mode was reset to 'DUAL' for Component '{}' in {}='{}'.",
                                                                 state.dataIPShortCut->cAlphaArgs(CompNumA - 2),
                                                                 CurrentModuleObject,
@@ -1540,6 +1766,15 @@ void FindCompSPInput(EnergyPlusData &state,
                             ShowContinueError(state,
                                               EnergyPlus::format("Equipment Operation Mode can only be 'DUAL' for {} objects.",
                                                                  state.dataIPShortCut->cAlphaArgs(CompNumA - 3)));
+=======
+                                             std::format("Equipment Operation Mode was reset to 'DUAL' for Component '{}' in {}='{}'.",
+                                                         state.dataIPShortCut->cAlphaArgs(CompNumA - 2),
+                                                         CurrentModuleObject,
+                                                         state.dataIPShortCut->cAlphaArgs(1)));
+                            ShowContinueError(state,
+                                              std::format("Equipment Operation Mode can only be 'DUAL' for {} objects.",
+                                                          state.dataIPShortCut->cAlphaArgs(CompNumA - 3)));
+>>>>>>> nrel/develop
 
                             state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).CtrlType = CtrlType::DualOp;
                         }
@@ -1580,6 +1815,7 @@ void FindCompSPInput(EnergyPlusData &state,
                                 .TempSetPoint == SensedNodeFlagValue) {
                             if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("Missing temperature setpoint for {} named {}",
                                                                    CurrentModuleObject,
                                                                    state.dataIPShortCut->cAlphaArgs(1)));
@@ -1592,6 +1828,19 @@ void FindCompSPInput(EnergyPlusData &state,
                                     ShowContinueError(state,
                                                       EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=SingleSetpoint",
                                                                          state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                std::format("Missing temperature setpoint for {} named {}",
+                                                            CurrentModuleObject,
+                                                            state.dataIPShortCut->cAlphaArgs(1)));
+                                ShowContinueError(
+                                    state,
+                                    std::format("A temperature setpoint is needed at the node named {}",
+                                                state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
+                                if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
+                                    ShowContinueError(state,
+                                                      std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=SingleSetpoint",
+                                                                  state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                 } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                            LoopType::Condenser) { // not applicable to Condenser loops
                                 }
@@ -1607,18 +1856,32 @@ void FindCompSPInput(EnergyPlusData &state,
                                     NodeEMSSetPointMissing);
                                 if (NodeEMSSetPointMissing) {
                                     ShowSevereError(state,
+<<<<<<< HEAD
                                                     EnergyPlus::format("Missing temperature setpoint for {} named {}",
                                                                        CurrentModuleObject,
                                                                        state.dataIPShortCut->cAlphaArgs(1)));
                                     ShowContinueError(
                                         state,
                                         EnergyPlus::format(
+=======
+                                                    std::format("Missing temperature setpoint for {} named {}",
+                                                                CurrentModuleObject,
+                                                                state.dataIPShortCut->cAlphaArgs(1)));
+                                    ShowContinueError(
+                                        state,
+                                        std::format(
+>>>>>>> nrel/develop
                                             "A temperature setpoint is needed at the node named {}",
                                             state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
                                     if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
                                         ShowContinueError(state,
+<<<<<<< HEAD
                                                           EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=SingleSetpoint",
                                                                              state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                          std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=SingleSetpoint",
+                                                                      state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                     } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                                LoopType::Condenser) { // not applicable to Condenser loops
                                     }
@@ -1637,6 +1900,7 @@ void FindCompSPInput(EnergyPlusData &state,
                                     .TempSetPointHi == SensedNodeFlagValue) {
                                 if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
                                     ShowSevereError(state,
+<<<<<<< HEAD
                                                     EnergyPlus::format("Missing temperature high setpoint for {} named {}",
                                                                        CurrentModuleObject,
                                                                        state.dataIPShortCut->cAlphaArgs(1)));
@@ -1650,6 +1914,20 @@ void FindCompSPInput(EnergyPlusData &state,
                                             state,
                                             EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
                                                                state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                    std::format("Missing temperature high setpoint for {} named {}",
+                                                                CurrentModuleObject,
+                                                                state.dataIPShortCut->cAlphaArgs(1)));
+                                    ShowContinueError(
+                                        state,
+                                        std::format(
+                                            "A temperature high setpoint is needed at the node named {}",
+                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
+                                    if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
+                                        ShowContinueError(state,
+                                                          std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
+                                                                      state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                     } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                                LoopType::Condenser) { // not applicable to Condenser loops
                                     }
@@ -1665,19 +1943,33 @@ void FindCompSPInput(EnergyPlusData &state,
                                         NodeEMSSetPointMissing);
                                     if (NodeEMSSetPointMissing) {
                                         ShowSevereError(state,
+<<<<<<< HEAD
                                                         EnergyPlus::format("Missing high temperature setpoint for {} named {}",
                                                                            CurrentModuleObject,
                                                                            state.dataIPShortCut->cAlphaArgs(1)));
                                         ShowContinueError(
                                             state,
                                             EnergyPlus::format(
+=======
+                                                        std::format("Missing high temperature setpoint for {} named {}",
+                                                                    CurrentModuleObject,
+                                                                    state.dataIPShortCut->cAlphaArgs(1)));
+                                        ShowContinueError(
+                                            state,
+                                            std::format(
+>>>>>>> nrel/develop
                                                 "A high temperature setpoint is needed at the node named {}",
                                                 state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
                                         if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
                                                                    state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
+                                                            state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                         } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                                    LoopType::Condenser) { // not applicable to Condenser loops
                                         }
@@ -1694,6 +1986,7 @@ void FindCompSPInput(EnergyPlusData &state,
                                     .TempSetPointLo == SensedNodeFlagValue) {
                                 if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
                                     ShowSevereError(state,
+<<<<<<< HEAD
                                                     EnergyPlus::format("Missing temperature low setpoint for {} named {}",
                                                                        CurrentModuleObject,
                                                                        state.dataIPShortCut->cAlphaArgs(1)));
@@ -1707,6 +2000,20 @@ void FindCompSPInput(EnergyPlusData &state,
                                             state,
                                             EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
                                                                state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                    std::format("Missing temperature low setpoint for {} named {}",
+                                                                CurrentModuleObject,
+                                                                state.dataIPShortCut->cAlphaArgs(1)));
+                                    ShowContinueError(
+                                        state,
+                                        std::format(
+                                            "A temperature low setpoint is needed at the node named {}",
+                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
+                                    if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
+                                        ShowContinueError(state,
+                                                          std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
+                                                                      state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                     } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                                LoopType::Condenser) { // not applicable to Condenser loops
                                     }
@@ -1727,19 +2034,33 @@ void FindCompSPInput(EnergyPlusData &state,
                                         NodeEMSSetPointMissing);
                                     if (NodeEMSSetPointMissing) {
                                         ShowSevereError(state,
+<<<<<<< HEAD
                                                         EnergyPlus::format("Missing low temperature setpoint for {} named {}",
                                                                            CurrentModuleObject,
                                                                            state.dataIPShortCut->cAlphaArgs(1)));
                                         ShowContinueError(
                                             state,
                                             EnergyPlus::format(
+=======
+                                                        std::format("Missing low temperature setpoint for {} named {}",
+                                                                    CurrentModuleObject,
+                                                                    state.dataIPShortCut->cAlphaArgs(1)));
+                                        ShowContinueError(
+                                            state,
+                                            std::format(
+>>>>>>> nrel/develop
                                                 "A low temperature setpoint is needed at the node named {}",
                                                 state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
                                         if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
                                                                    state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
+                                                            state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                         } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                                    LoopType::Condenser) { // not applicable to Condenser loops
                                         }
@@ -1758,6 +2079,7 @@ void FindCompSPInput(EnergyPlusData &state,
                                      .TempSetPointLo == SensedNodeFlagValue)) {
                                 if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
                                     ShowSevereError(state,
+<<<<<<< HEAD
                                                     EnergyPlus::format("Missing temperature dual setpoints for {} named {}",
                                                                        CurrentModuleObject,
                                                                        state.dataIPShortCut->cAlphaArgs(1)));
@@ -1771,6 +2093,20 @@ void FindCompSPInput(EnergyPlusData &state,
                                             state,
                                             EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
                                                                state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                    std::format("Missing temperature dual setpoints for {} named {}",
+                                                                CurrentModuleObject,
+                                                                state.dataIPShortCut->cAlphaArgs(1)));
+                                    ShowContinueError(
+                                        state,
+                                        std::format(
+                                            "A dual temperaturesetpoint is needed at the node named {}",
+                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
+                                    if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
+                                        ShowContinueError(state,
+                                                          std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
+                                                                      state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                     } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                                LoopType::Condenser) { // not applicable to Condenser loops
                                     }
@@ -1786,19 +2122,33 @@ void FindCompSPInput(EnergyPlusData &state,
                                         NodeEMSSetPointMissing);
                                     if (NodeEMSSetPointMissing) {
                                         ShowSevereError(state,
+<<<<<<< HEAD
                                                         EnergyPlus::format("Missing dual temperature setpoint for {} named {}",
                                                                            CurrentModuleObject,
                                                                            state.dataIPShortCut->cAlphaArgs(1)));
                                         ShowContinueError(
                                             state,
                                             EnergyPlus::format(
+=======
+                                                        std::format("Missing dual temperature setpoint for {} named {}",
+                                                                    CurrentModuleObject,
+                                                                    state.dataIPShortCut->cAlphaArgs(1)));
+                                        ShowContinueError(
+                                            state,
+                                            std::format(
+>>>>>>> nrel/develop
                                                 "A dual temperature setpoint is needed at the node named {}",
                                                 state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).EquipList(1).Comp(CompNum).SetPointNodeName));
                                         if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop == LoopType::Plant) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
                                                                    state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                                                std::format("PlantLoop=\"{}\", Plant Loop Demand Calculation Scheme=DualSetpointDeadband",
+                                                            state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
                                         } else if (state.dataPlnt->PlantLoop(LoopNum).TypeOfLoop ==
                                                    LoopType::Condenser) { // not applicable to Condenser loops
                                         }
@@ -1817,18 +2167,30 @@ void FindCompSPInput(EnergyPlusData &state,
                 }
             } else {
                 ShowSevereError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("{} = \"{}\", specified without any machines.", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                    state, std::format("{} = \"{}\", specified without any machines.", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
     } else {
         ShowSevereError(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                            LoopOpSchemeObj,
                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                            CurrentModuleObject,
                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                        std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                    LoopOpSchemeObj,
+                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                    CurrentModuleObject,
+                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
         ErrorsFound = true;
     }
 }
@@ -2005,10 +2367,17 @@ void GetChillerHeaterChangeoverOpSchemeInput(EnergyPlusData &state,
             if (!allocated(scheme.CoolingOnlyEquipList)) { // never found a match
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
                                        "=\"{}\", PlantEquipmentOperation:CoolingLoad name = \"{}\" was not found.",
                                        scheme.Name,
                                        coolingOnlyLoadOpName));
+=======
+                    std::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
+                                "=\"{}\", PlantEquipmentOperation:CoolingLoad name = \"{}\" was not found.",
+                                scheme.Name,
+                                coolingOnlyLoadOpName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2112,10 +2481,17 @@ void GetChillerHeaterChangeoverOpSchemeInput(EnergyPlusData &state,
             if (!allocated(scheme.HeatingOnlyEquipList)) { // never found a match
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
                                        "=\"{}\", PlantEquipmentOperation:HeatingLoad name = \"{}\" was not found.",
                                        scheme.Name,
                                        heatingOnlyLoadOpName));
+=======
+                    std::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
+                                "=\"{}\", PlantEquipmentOperation:HeatingLoad name = \"{}\" was not found.",
+                                scheme.Name,
+                                heatingOnlyLoadOpName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2228,10 +2604,17 @@ void GetChillerHeaterChangeoverOpSchemeInput(EnergyPlusData &state,
             if (scheme.PlantOps.SimulHeatCoolCoolingOpInput && !allocated(scheme.SimultHeatCoolCoolingEquipList)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
                                        "=\"{}\", PlantEquipmentOperation:CoolingLoad name = \"{}\" was not found.",
                                        scheme.Name,
                                        simulHeatCoolCoolingOpName));
+=======
+                    std::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
+                                "=\"{}\", PlantEquipmentOperation:CoolingLoad name = \"{}\" was not found.",
+                                scheme.Name,
+                                simulHeatCoolCoolingOpName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2343,10 +2726,17 @@ void GetChillerHeaterChangeoverOpSchemeInput(EnergyPlusData &state,
             if (scheme.PlantOps.SimultHeatCoolHeatingOpInput && !allocated(scheme.SimultHeatCoolHeatingEquipList)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
                                        "=\"{}\", PlantEquipmentOperation:HeatingLoad name = \"{}\" was not found.",
                                        scheme.Name,
                                        simultHeatCoolHeatingOpName));
+=======
+                    std::format("GetChillerHeaterChangeoverOpSchemeInput problem with PlantEquipmentOperation:ChillerHeaterChangeover name "
+                                "=\"{}\", PlantEquipmentOperation:HeatingLoad name = \"{}\" was not found.",
+                                scheme.Name,
+                                simultHeatCoolHeatingOpName));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2422,7 +2812,11 @@ void GetUserDefinedOpSchemeInput(EnergyPlusData &state,
     }
 
     if (NumSchemes > 0) {
+<<<<<<< HEAD
         int NumAlphas, NumNums, Num, IOStat;
+=======
+        int NumAlphas = 0, NumNums, Num, IOStat;
+>>>>>>> nrel/develop
 
         for (Num = 1; Num <= NumSchemes; ++Num) {
             state.dataInputProcessing->inputProcessor->getObjectItem(state,
@@ -2442,11 +2836,19 @@ void GetUserDefinedOpSchemeInput(EnergyPlusData &state,
             }
             if (Num == NumSchemes) { // did not find it
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                                    LoopOpSchemeObj,
                                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                                    CurrentModuleObject,
                                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                                std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                            LoopOpSchemeObj,
+                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                            CurrentModuleObject,
+                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 SchemeNameFound = false;
             }
@@ -2492,9 +2894,15 @@ void GetUserDefinedOpSchemeInput(EnergyPlusData &state,
                 state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).simPluginLocation =
                     state.dataPluginManager->pluginManager->getLocationOfUserDefinedPlugin(state, state.dataIPShortCut->cAlphaArgs(2));
                 if (state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).simPluginLocation == -1) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state, EnergyPlus::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
                     ShowContinueError(state, EnergyPlus::format("Entered in {}={}", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                    ShowSevereError(state,
+                                    std::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
+                    ShowContinueError(state, std::format("Entered in {}={}", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Not found as either an EMS Program Manager or a Python Plugin instance.");
                     ErrorsFound = true;
                 }
@@ -2507,10 +2915,16 @@ void GetUserDefinedOpSchemeInput(EnergyPlusData &state,
                     state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).initPluginLocation =
                         state.dataPluginManager->pluginManager->getLocationOfUserDefinedPlugin(state, state.dataIPShortCut->cAlphaArgs(3));
                     if (state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).initPluginLocation == -1) {
+<<<<<<< HEAD
                         ShowSevereError(
                             state,
                             EnergyPlus::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(3), state.dataIPShortCut->cAlphaArgs(3)));
                         ShowContinueError(state, EnergyPlus::format("Entered in {}={}", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                        ShowSevereError(state,
+                                        std::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(3), state.dataIPShortCut->cAlphaArgs(3)));
+                        ShowContinueError(state, std::format("Entered in {}={}", CurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Not found as either an EMS Program Manager or a Python Plugin instance.");
                         ErrorsFound = true;
                     }
@@ -2527,11 +2941,19 @@ void GetUserDefinedOpSchemeInput(EnergyPlusData &state,
 
     } else {
         ShowSevereError(state,
+<<<<<<< HEAD
                         EnergyPlus::format("{} = \"{}\", could not find {} = \"{}\".",
                                            LoopOpSchemeObj,
                                            state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
                                            CurrentModuleObject,
                                            state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+=======
+                        std::format("{} = \"{}\", could not find {} = \"{}\".",
+                                    LoopOpSchemeObj,
+                                    state.dataPlnt->PlantLoop(LoopNum).OperationScheme,
+                                    CurrentModuleObject,
+                                    state.dataPlnt->PlantLoop(LoopNum).OpScheme(SchemeNum).Name));
+>>>>>>> nrel/develop
         ErrorsFound = true;
     }
 }
@@ -2605,9 +3027,15 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
 
                         if (errFlag1) {
                             ShowSevereError(state, "InitLoadDistribution: Equipment specified for operation scheme not found on correct loop");
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("Operation Scheme name = {}", this_op_scheme.Name));
                             ShowContinueError(state, EnergyPlus::format("Loop name = {}", this_plant_loop.Name));
                             ShowContinueError(state, EnergyPlus::format("Component name = {}", this_equip.Name));
+=======
+                            ShowContinueError(state, std::format("Operation Scheme name = {}", this_op_scheme.Name));
+                            ShowContinueError(state, std::format("Loop name = {}", this_plant_loop.Name));
+                            ShowContinueError(state, std::format("Component name = {}", this_equip.Name));
+>>>>>>> nrel/develop
                             ShowFatalError(state, "InitLoadDistribution: Simulation terminated because of error in operation scheme.");
                         }
 
@@ -2618,6 +3046,7 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
 
                         if (ValidLoopEquipTypes[static_cast<int>(Type)] == LoopType::Plant && this_plant_loop.TypeOfLoop == LoopType::Condenser) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("InitLoadDistribution: CondenserLoop=\"{}\", Operation Scheme=\"{}\",",
                                                                this_plant_loop.Name,
                                                                this_plant_loop.OperationScheme));
@@ -2630,10 +3059,24 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
                                               EnergyPlus::format("Component {} not allowed as supply equipment on this type of loop.",
                                                                  PlantEquipTypeNames[static_cast<int>(Type)]));
                             ShowContinueError(state, EnergyPlus::format("Component name = {}", this_equip.Name));
+=======
+                                            std::format("InitLoadDistribution: CondenserLoop=\"{}\", Operation Scheme=\"{}\",",
+                                                        this_plant_loop.Name,
+                                                        this_plant_loop.OperationScheme));
+                            ShowContinueError(state,
+                                              std::format("Scheme type={}, Name=\"{}\" includes equipment that is not valid on a Condenser Loop",
+                                                          this_op_scheme.TypeOf,
+                                                          this_op_scheme.Name));
+                            ShowContinueError(state,
+                                              std::format("Component {} not allowed as supply equipment on this type of loop.",
+                                                          PlantEquipTypeNames[static_cast<int>(Type)]));
+                            ShowContinueError(state, std::format("Component name = {}", this_equip.Name));
+>>>>>>> nrel/develop
                             errFlag2 = true;
                         }
                         if (ValidLoopEquipTypes[static_cast<int>(Type)] == LoopType::Condenser && this_plant_loop.TypeOfLoop == LoopType::Plant) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("InitLoadDistribution: PlantLoop=\"{}\", Operation Scheme=\"{}\",",
                                                                this_plant_loop.Name,
                                                                this_plant_loop.OperationScheme));
@@ -2645,6 +3088,19 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
                                               EnergyPlus::format("Component {} not allowed as supply equipment on this type of loop.",
                                                                  PlantEquipTypeNames[static_cast<int>(Type)]));
                             ShowContinueError(state, EnergyPlus::format("Component name = {}", this_equip.Name));
+=======
+                                            std::format("InitLoadDistribution: PlantLoop=\"{}\", Operation Scheme=\"{}\",",
+                                                        this_plant_loop.Name,
+                                                        this_plant_loop.OperationScheme));
+                            ShowContinueError(state,
+                                              std::format("Scheme type={}, Name=\"{}\" includes equipment that is not valid on a Plant Loop",
+                                                          this_op_scheme.TypeOf,
+                                                          this_op_scheme.Name));
+                            ShowContinueError(state,
+                                              std::format("Component {} not allowed as supply equipment on this type of loop.",
+                                                          PlantEquipTypeNames[static_cast<int>(Type)]));
+                            ShowContinueError(state, std::format("Component name = {}", this_equip.Name));
+>>>>>>> nrel/develop
                             errFlag2 = true;
                         }
 
@@ -2663,11 +3119,18 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
                     if (found) {
                         this_op_scheme.ChillerHeaterSupervisoryOperation->OneTimeInitChillerHeaterChangeoverOpScheme(state);
                     } else {
+<<<<<<< HEAD
                         ShowSevereError(
                             state,
                             EnergyPlus::format("InitLoadDistribution: PlantLoop=\"{}\", Operation Scheme=\"{}\", was not found, check input",
                                                this_plant_loop.Name,
                                                this_op_scheme.Name));
+=======
+                        ShowSevereError(state,
+                                        std::format("InitLoadDistribution: PlantLoop=\"{}\", Operation Scheme=\"{}\", was not found, check input",
+                                                    this_plant_loop.Name,
+                                                    this_op_scheme.Name));
+>>>>>>> nrel/develop
                         ShowFatalError(state, "Program halted because ChillerHeaterSupervisory operation scheme not found.");
                     }
                 }
@@ -2755,11 +3218,18 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
                             for (int Index = 1; Index <= this_component.NumOpSchemes; ++Index) {
                                 int OpSchemePtr = this_component.OpScheme(Index).OpSchemePtr;
                                 if (OpSchemePtr == 0) {
+<<<<<<< HEAD
                                     ShowSevereError(
                                         state,
                                         EnergyPlus::format("InitLoadDistribution: no operation scheme index found for component on PlantLoop={}",
                                                            this_plant_loop.Name));
                                     ShowContinueError(state, EnergyPlus::format("Component name = {}", this_component.Name));
+=======
+                                    ShowSevereError(state,
+                                                    std::format("InitLoadDistribution: no operation scheme index found for component on PlantLoop={}",
+                                                                this_plant_loop.Name));
+                                    ShowContinueError(state, std::format("Component name = {}", this_component.Name));
+>>>>>>> nrel/develop
                                     errFlag2 = true;
                                 }
                                 DataPlant::OpScheme SchemeType{};
@@ -2875,8 +3345,11 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
                     for (int ListNum = 1, ListNum_end = this_op_scheme.NumEquipLists; ListNum <= ListNum_end; ++ListNum) {
                         auto &this_equip_list = this_op_scheme.EquipList(ListNum);
                         // The component loop loads the pointers from the OpScheme data structure
+<<<<<<< HEAD
                         // If the component happens to be active in more than schedule, the *LAST*
                         // schedule found will be activated
+=======
+>>>>>>> nrel/develop
                         for (int CompNum = 1; CompNum <= this_equip_list.NumComps; ++CompNum) {
 
                             // set up a reference to the component instance on the list data structure
@@ -2891,6 +3364,7 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
                             // then set up a reference to the component on the plant data structure
                             auto &this_loop_component = state.dataPlnt->PlantLoop(LoopPtr).LoopSide(LoopSidePtr).Branch(BranchPtr).Comp(CompPtr);
 
+<<<<<<< HEAD
                             if (this_loop_component.CurOpSchemeType != OpScheme::Pump) {
                                 this_loop_component.CurOpSchemeType = this_op_scheme.Type;
                             } else {
@@ -2905,6 +3379,24 @@ void InitLoadDistribution(EnergyPlusData &state, bool const FirstHVACIteration)
                             for (int CompOpNum = 1; CompOpNum <= this_loop_component.NumOpSchemes; ++CompOpNum) {
                                 if (this_loop_component.OpScheme(CompOpNum).OpSchemePtr == OpNum) {
                                     this_loop_component.CurCompLevelOpNum = CompOpNum;
+=======
+                            if (this_loop_component.CurCompLevelOpNum == 0) {
+                                if (this_loop_component.CurOpSchemeType != OpScheme::Pump) {
+                                    this_loop_component.CurOpSchemeType = this_op_scheme.Type;
+                                } else {
+                                    ShowSevereError(state,
+                                                    "Invalid [pump] component found on equipment list.  Pumps are not allowed on equipment lists.");
+                                    ShowContinueError(
+                                        state, std::format("Problem component name = {}", this_op_scheme.EquipList(ListNum).Comp(CompNum).Name));
+                                    ShowContinueError(state, "Remove pump component and place other plant equipment on the list to correct.");
+                                    errFlag2 = true;
+                                }
+
+                                for (int CompOpNum = 1; CompOpNum <= this_loop_component.NumOpSchemes; ++CompOpNum) {
+                                    if (this_loop_component.OpScheme(CompOpNum).OpSchemePtr == OpNum) {
+                                        this_loop_component.CurCompLevelOpNum = CompOpNum;
+                                    }
+>>>>>>> nrel/develop
                                 }
                             }
                         }
@@ -3299,8 +3791,13 @@ void DistributePlantLoad(EnergyPlusData &state,
                 PlantCapacity += this_component.MaxLoad;
 
                 if (this_component.MaxLoad < SmallLoad) {
+<<<<<<< HEAD
                     ShowWarningMessage(
                         state, EnergyPlus::format("Plant component {} has zero available capacity. Check component controls.", this_component.Name));
+=======
+                    ShowWarningMessage(state,
+                                       std::format("Plant component {} has zero available capacity. Check component controls.", this_component.Name));
+>>>>>>> nrel/develop
                     MinCompPLR = 0.0;
                 } else {
                     MinCompPLR = this_component.MinLoad / this_component.MaxLoad;
@@ -3339,8 +3836,12 @@ void DistributePlantLoad(EnergyPlusData &state,
             if (PlantCapacity > 0.0) {
                 PlantPLR = min(1.0, std::abs(RemLoopDemand) / PlantCapacity);
             } else {
+<<<<<<< HEAD
                 ShowWarningError(state,
                                  EnergyPlus::format("Zero available plant capacity for Plant Loop = {}", state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                ShowWarningError(state, std::format("Zero available plant capacity for Plant Loop = {}", state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
             }
 
             // Distribute load to each machine
@@ -3421,8 +3922,13 @@ void DistributePlantLoad(EnergyPlusData &state,
                 PlantCapacity += this_component.MaxLoad;
 
                 if (this_component.MaxLoad < SmallLoad) {
+<<<<<<< HEAD
                     ShowWarningMessage(
                         state, EnergyPlus::format("Plant component {} has zero available capacity. Check component controls.", this_component.Name));
+=======
+                    ShowWarningMessage(state,
+                                       std::format("Plant component {} has zero available capacity. Check component controls.", this_component.Name));
+>>>>>>> nrel/develop
                     MinCompPLR = 0.0;
                 } else {
                     MinCompPLR = this_component.MinLoad / this_component.MaxLoad;
@@ -3442,8 +3948,12 @@ void DistributePlantLoad(EnergyPlusData &state,
             if (PlantCapacity > 0.0) {
                 PlantPLR = min(1.0, std::abs(RemLoopDemand) / PlantCapacity);
             } else {
+<<<<<<< HEAD
                 ShowWarningError(state,
                                  EnergyPlus::format("Zero available plant capacity for Plant Loop = {}", state.dataPlnt->PlantLoop(LoopNum).Name));
+=======
+                ShowWarningError(state, std::format("Zero available plant capacity for Plant Loop = {}", state.dataPlnt->PlantLoop(LoopNum).Name));
+>>>>>>> nrel/develop
             }
 
             // Distribute load to each machine
@@ -4254,10 +4764,16 @@ void SetupPlantEMSActuators(EnergyPlusData &state)
                 }
                 for (int CompNum = 1; CompNum <= state.dataPlnt->PlantLoop(LoopNum).LoopSide(LoopSideNum).Branch(BranchNum).TotalComponents;
                      ++CompNum) {
+<<<<<<< HEAD
                     ActuatorName =
                         EnergyPlus::format("Plant Component {}",
                                            PlantEquipTypeNames[static_cast<int>(
                                                state.dataPlnt->PlantLoop(LoopNum).LoopSide(LoopSideNum).Branch(BranchNum).Comp(CompNum).Type)]);
+=======
+                    ActuatorName = std::format("Plant Component {}",
+                                               PlantEquipTypeNames[static_cast<int>(
+                                                   state.dataPlnt->PlantLoop(LoopNum).LoopSide(LoopSideNum).Branch(BranchNum).Comp(CompNum).Type)]);
+>>>>>>> nrel/develop
                     UniqueIDName = state.dataPlnt->PlantLoop(LoopNum).LoopSide(LoopSideNum).Branch(BranchNum).Comp(CompNum).Name;
                     ActuatorType = "On/Off Supervisory";
                     SetupEMSActuator(state,

@@ -73,7 +73,11 @@
 ! ExtWallConstruction=Steel-Framed
 ! Number of Zones: 130
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 
@@ -4777,7 +4781,11 @@
 
   Coil:Heating:WaterToAirHeatPump:EquationFit,
     Floor 1 Elevator Heat Pump Heat Coil,  !- Name
+<<<<<<< HEAD
     ,                                      !- Availability Schedule Name
+=======
+    ,                        !- Availability Schedule Name
+>>>>>>> nrel/develop
     Floor 1 Elevator Heat Pump Heat Coil Water Inlet Node,  !- Water Inlet Node Name
     Floor 1 Elevator Heat Pump Heat Coil Water Outlet Node,  !- Water Outlet Node Name
     Floor 1 Elevator Heat Pump Heat Coil Air Inlet Node,  !- Air Inlet Node Name
@@ -5886,7 +5894,11 @@
 
   Coil:Cooling:WaterToAirHeatPump:EquationFit,
     Floor 1 Food Storage Heat Pump Cool Coil,  !- Name
+<<<<<<< HEAD
     ,                                          !- Availability Schedule Name
+=======
+    ,                        !- Availability Schedule Name
+>>>>>>> nrel/develop
     Floor 1 Food Storage Heat Pump Cool Coil Water Inlet Node,  !- Water Inlet Node Name
     Floor 1 Food Storage Heat Pump Cool Coil Water Outlet Node,  !- Water Outlet Node Name
     Floor 1 Food Storage Heat Pump Cool Coil Air Inlet Node,  !- Air Inlet Node Name
@@ -26715,8 +26727,13 @@
   ZoneControl:Humidistat,
     Floor 2 Lab 1 Humidistat,!- Name
     Floor 2 Lab 1,           !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch,         !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch,         !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Floor 2 Lab 1 DualSPSched,  !- Name
@@ -32853,8 +32870,13 @@
   ZoneControl:Humidistat,
     Floor 2 Operating Humidistat,  !- Name
     Floor 2 Operating,       !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch,         !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch,         !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Floor 2 Operating DualSPSched,  !- Name
@@ -40679,8 +40701,13 @@
   ZoneControl:Humidistat,
     Floor 2 Triage Humidistat,  !- Name
     Floor 2 Triage,          !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch,         !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch,         !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Floor 2 Triage DualSPSched,  !- Name
@@ -43502,8 +43529,13 @@
   ZoneControl:Humidistat,
     Floor 3 ICU Humidistat,  !- Name
     Floor 3 ICU,             !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch,         !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch,         !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Floor 3 ICU DualSPSched, !- Name
@@ -51823,8 +51855,13 @@
   ZoneControl:Humidistat,
     Floor 3 Triage Humidistat,  !- Name
     Floor 3 Triage,          !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch,         !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch,         !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Floor 3 Triage DualSPSched,  !- Name

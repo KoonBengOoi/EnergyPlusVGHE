@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -119,10 +123,13 @@ namespace UnitVentilator {
         "NONE", "HEATINGANDCOOLING", "HEATING", "COOLING"};
     static constexpr std::array<std::string_view, static_cast<int>(OAControl::Num)> OAControlNamesUC = {
         "VARIABLEPERCENT", "FIXEDTEMPERATURE", "FIXEDAMOUNT"};
+<<<<<<< HEAD
     static constexpr std::array<std::string_view, static_cast<int>(HeatCoilType::Num)> HeatCoilTypeNamesUC = {
         "COIL:HEATING:ELECTRIC", "COIL:HEATING:FUEL", "COIL:HEATING:WATER", "COIL:HEATING:STEAM"};
     static constexpr std::array<std::string_view, static_cast<int>(CoolCoilType::Num)> CoolCoilTypeNamesUC = {
         "COIL:COOLING:WATER", "COIL:COOLING:WATER:DETAILEDGEOMETRY", "COILSYSTEM:COOLING:WATER:HEATEXCHANGERASSISTED"};
+=======
+>>>>>>> nrel/develop
 
     void SimUnitVentilator(EnergyPlusData &state,
                            std::string_view CompName,     // name of the fan coil unit
@@ -153,13 +160,18 @@ namespace UnitVentilator {
         if (CompIndex == 0) {
             UnitVentNum = Util::FindItemInList(CompName, state.dataUnitVentilators->UnitVent);
             if (UnitVentNum == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("SimUnitVentilator: Unit not found={}", CompName));
+=======
+                ShowFatalError(state, std::format("SimUnitVentilator: Unit not found={}", CompName));
+>>>>>>> nrel/develop
             }
             CompIndex = UnitVentNum;
         } else {
             UnitVentNum = CompIndex;
             if (UnitVentNum > state.dataUnitVentilators->NumOfUnitVents || UnitVentNum < 1) {
                 ShowFatalError(state,
+<<<<<<< HEAD
                                EnergyPlus::format("SimUnitVentilator:  Invalid CompIndex passed={}, Number of Units={}, Entered Unit name={}",
                                                   UnitVentNum,
                                                   state.dataUnitVentilators->NumOfUnitVents,
@@ -173,6 +185,20 @@ namespace UnitVentilator {
                                            UnitVentNum,
                                            CompName,
                                            state.dataUnitVentilators->UnitVent(UnitVentNum).Name));
+=======
+                               std::format("SimUnitVentilator:  Invalid CompIndex passed={}, Number of Units={}, Entered Unit name={}",
+                                           UnitVentNum,
+                                           state.dataUnitVentilators->NumOfUnitVents,
+                                           CompName));
+            }
+            if (state.dataUnitVentilators->CheckEquipName(UnitVentNum)) {
+                if (CompName != state.dataUnitVentilators->UnitVent(UnitVentNum).Name) {
+                    ShowFatalError(state,
+                                   std::format("SimUnitVentilator: Invalid CompIndex passed={}, Unit name={}, stored Unit Name for that index={}",
+                                               UnitVentNum,
+                                               CompName,
+                                               state.dataUnitVentilators->UnitVent(UnitVentNum).Name));
+>>>>>>> nrel/develop
                 }
                 state.dataUnitVentilators->CheckEquipName(UnitVentNum) = false;
             }
@@ -409,6 +435,7 @@ namespace UnitVentilator {
                 unitVent.fanAvailSched = fan->availSched; // Get the fan's availability schedule
                 FanVolFlow = fan->maxAirFlowRate;
                 if (FanVolFlow != DataSizing::AutoSize && unitVent.MaxAirVolFlow != DataSizing::AutoSize && FanVolFlow < unitVent.MaxAirVolFlow) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...air flow rate [{:.7T}] in fan object {} is less than the unit ventilator maximum "
@@ -416,16 +443,33 @@ namespace UnitVentilator {
                                                          FanVolFlow,
                                                          unitVent.FanName,
                                                          unitVent.MaxAirVolFlow));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+                    ShowContinueError(state,
+                                      std::format("...air flow rate [{:.7f}] in fan object {} is less than the unit ventilator maximum "
+                                                  "supply air flow rate [{:.7f}].",
+                                                  FanVolFlow,
+                                                  unitVent.FanName,
+                                                  unitVent.MaxAirVolFlow));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "...the fan flow rate must be greater than or equal to the unit ventilator maximum supply "
                                       "air flow rate.");
                     ErrorsFound = true;
                 } else if (FanVolFlow == DataSizing::AutoSize && unitVent.MaxAirVolFlow != DataSizing::AutoSize) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
                     ShowContinueError(state, "...the fan flow rate is autosized while the unit ventilator flow rate is not.");
                     ShowContinueError(state, "...this can lead to unexpected results where the fan flow rate is less than required.");
                 } else if (FanVolFlow != DataSizing::AutoSize && unitVent.MaxAirVolFlow == DataSizing::AutoSize) {
                     ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+                    ShowContinueError(state, "...the fan flow rate is autosized while the unit ventilator flow rate is not.");
+                    ShowContinueError(state, "...this can lead to unexpected results where the fan flow rate is less than required.");
+                } else if (FanVolFlow != DataSizing::AutoSize && unitVent.MaxAirVolFlow == DataSizing::AutoSize) {
+                    ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...the unit ventilator flow rate is autosized while the fan flow rate is not.");
                     ShowContinueError(state, "...this can lead to unexpected results where the fan flow rate is less than required.");
                 }
@@ -450,8 +494,12 @@ namespace UnitVentilator {
                 if (!lAlphaBlanks(8)) {
                     OutAirNodeManager::CheckAndAddAirNodeNumber(state, unitVent.OutsideAirNode, IsValid);
                     if (!IsValid) {
+<<<<<<< HEAD
                         ShowWarningError(state,
                                          EnergyPlus::format("{}{} Adding {}={}", RoutineName, CurrentModuleObject, cAlphaFields(8), Alphas(8)));
+=======
+                        ShowWarningError(state, std::format("{}{} Adding {}={}", RoutineName, CurrentModuleObject, cAlphaFields(8), Alphas(8)));
+>>>>>>> nrel/develop
                     }
                 }
 
@@ -478,6 +526,7 @@ namespace UnitVentilator {
                 unitVent.OutsideAirNode = unitVent.ATMixerPriNode;
                 unitVent.OAMixerOutNode = unitVent.ATMixerOutNode;
                 if (!lAlphaBlanks(8) || !lAlphaBlanks(9) || !lAlphaBlanks(10)) {
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format("{}{}=\"{}\" is connected to central DOA.", RoutineName, CurrentModuleObject, unitVent.Name));
                     if (!lAlphaBlanks(8)) {
@@ -491,6 +540,20 @@ namespace UnitVentilator {
                     if (!lAlphaBlanks(10)) {
                         ShowContinueError(
                             state, EnergyPlus::format("... input field {} should have been blank. Specified = {}", cAlphaFields(10), Alphas(10)));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\" is connected to central DOA.", RoutineName, CurrentModuleObject, unitVent.Name));
+                    if (!lAlphaBlanks(8)) {
+                        ShowContinueError(state,
+                                          std::format("... input field {} should have been blank. Specified = {}", cAlphaFields(8), Alphas(8)));
+                    }
+                    if (!lAlphaBlanks(9)) {
+                        ShowContinueError(state,
+                                          std::format("... input field {} should have been blank. Specified = {}", cAlphaFields(9), Alphas(9)));
+                    }
+                    if (!lAlphaBlanks(10)) {
+                        ShowContinueError(state,
+                                          std::format("... input field {} should have been blank. Specified = {}", cAlphaFields(10), Alphas(10)));
+>>>>>>> nrel/develop
                     }
                 }
             }
@@ -540,8 +603,13 @@ namespace UnitVentilator {
             if (!lAlphaBlanks(20)) {
                 unitVent.HVACSizingIndex = Util::FindItemInList(Alphas(20), state.dataSize->ZoneHVACSizing);
                 if (unitVent.HVACSizingIndex == 0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{} = {} not found.", cAlphaFields(20), Alphas(20)));
                     ShowContinueError(state, EnergyPlus::format("Occurs in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
+=======
+                    ShowSevereError(state, std::format("{} = {} not found.", cAlphaFields(20), Alphas(20)));
+                    ShowContinueError(state, std::format("Occurs in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -567,12 +635,19 @@ namespace UnitVentilator {
                     unitVent.HCoilPresent = true;
                     cHeatingCoilType = Alphas(15);
                     unitVent.HCoilTypeCh = cHeatingCoilType;
+<<<<<<< HEAD
                     unitVent.HCoilType = (HeatCoilType)getEnumValue(HeatCoilTypeNamesUC, cHeatingCoilType);
                     unitVent.HeatingCoilType = (DataPlant::PlantEquipmentType)getEnumValue(DataPlant::PlantEquipTypeNamesUC, cHeatingCoilType);
+=======
+                    unitVent.heatCoilType = static_cast<HVAC::CoilType>(getEnumValue(HVAC::coilTypeNamesUC, cHeatingCoilType));
+                    unitVent.HeatingCoilType =
+                        static_cast<DataPlant::PlantEquipmentType>(getEnumValue(DataPlant::PlantEquipTypeNamesUC, cHeatingCoilType));
+>>>>>>> nrel/develop
 
                     unitVent.HCoilName = Alphas(16);
                     ValidateComponent(state, cHeatingCoilType, unitVent.HCoilName, IsNotOK, CurrentModuleObject);
                     if (IsNotOK) {
+<<<<<<< HEAD
                         ShowContinueError(state, EnergyPlus::format("...specified in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
                         ErrorsFound = true;
                     } else {
@@ -580,6 +655,15 @@ namespace UnitVentilator {
                         if (unitVent.HCoilType == HeatCoilType::Water || unitVent.HCoilType == HeatCoilType::Steam) {
                             // mine the hot water or steam node from the coil object
                             if (unitVent.HCoilType == HeatCoilType::Water) {
+=======
+                        ShowContinueError(state, std::format("...specified in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
+                        ErrorsFound = true;
+                    } else {
+                        // The heating coil control node is necessary for a hot water coil, but not necessary for electric or gas.
+                        if (unitVent.heatCoilType == HVAC::CoilType::HeatingWater || unitVent.heatCoilType == HVAC::CoilType::HeatingSteam) {
+                            // mine the hot water or steam node from the coil object
+                            if (unitVent.heatCoilType == HVAC::CoilType::HeatingWater) {
+>>>>>>> nrel/develop
                                 unitVent.HCoil_Index = WaterCoils::GetCompIndex(state, WaterCoils::CoilModel::HeatingSimple, unitVent.HCoilName);
                                 unitVent.HotControlNode = state.dataWaterCoils->WaterCoil(unitVent.HCoil_Index).WaterInletNodeNum;
                                 unitVent.MaxVolHotWaterFlow = state.dataWaterCoils->WaterCoil(unitVent.HCoil_Index).MaxWaterVolFlowRate;
@@ -603,8 +687,13 @@ namespace UnitVentilator {
                         unitVent.HotControlOffset = 0.001;
                     }
                 } else { // heating coil is required for these options
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
                     ShowContinueError(state, EnergyPlus::format("a heating coil is required for {}=\"{}\".", cAlphaFields(13), Alphas(13)));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+                    ShowContinueError(state, std::format("a heating coil is required for {}=\"{}\".", cAlphaFields(13), Alphas(13)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } // IF (.NOT. lAlphaBlanks(15)) THEN - from the start of heating coil information
             } // is option both or heating only
@@ -616,12 +705,22 @@ namespace UnitVentilator {
 
                     cCoolingCoilType = Alphas(17);
                     unitVent.CCoilTypeCh = cCoolingCoilType;
+<<<<<<< HEAD
                     unitVent.CCoilType = (CoolCoilType)getEnumValue(CoolCoilTypeNamesUC, cCoolingCoilType);
                     unitVent.CoolingCoilType = (DataPlant::PlantEquipmentType)getEnumValue(DataPlant::PlantEquipTypeNamesUC, cCoolingCoilType);
                     unitVent.CCoilPlantName = Alphas(18);
 
                     if (cCoolingCoilType == "COILSYSTEM:COOLING:WATER:HEATEXCHANGERASSISTED") {
                         unitVent.CCoilType = CoolCoilType::HXAssisted;
+=======
+                    unitVent.coolCoilType = static_cast<HVAC::CoilType>(getEnumValue(HVAC::coilTypeNamesUC, cCoolingCoilType));
+                    unitVent.CoolingCoilType =
+                        static_cast<DataPlant::PlantEquipmentType>(getEnumValue(DataPlant::PlantEquipTypeNamesUC, cCoolingCoilType));
+                    unitVent.CCoilPlantName = Alphas(18);
+
+                    if (cCoolingCoilType == "COILSYSTEM:COOLING:WATER:HEATEXCHANGERASSISTED") {
+                        unitVent.coolCoilType = HVAC::CoilType::CoolingWaterHXAssisted;
+>>>>>>> nrel/develop
                         HVACHXAssistedCoolingCoil::GetHXCoilTypeAndName(
                             state, cCoolingCoilType, Alphas(18), ErrorsFound, unitVent.CCoilPlantType, unitVent.CCoilPlantName);
                         if (Util::SameString(unitVent.CCoilPlantType, "Coil:Cooling:Water")) {
@@ -629,10 +728,16 @@ namespace UnitVentilator {
                         } else if (Util::SameString(unitVent.CCoilPlantType, "Coil:Cooling:Water:DetailedGeometry")) {
                             unitVent.CoolingCoilType = DataPlant::PlantEquipmentType::CoilWaterDetailedFlatCooling;
                         } else {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
                             ShowContinueError(state, EnergyPlus::format("For: {}=\"{}\".", cAlphaFields(17), Alphas(17)));
                             ShowContinueError(state,
                                               EnergyPlus::format("Invalid Coil Type={}, Name={}", unitVent.CCoilPlantType, unitVent.CCoilPlantName));
+=======
+                            ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+                            ShowContinueError(state, std::format("For: {}=\"{}\".", cAlphaFields(17), Alphas(17)));
+                            ShowContinueError(state, std::format("Invalid Coil Type={}, Name={}", unitVent.CCoilPlantType, unitVent.CCoilPlantName));
+>>>>>>> nrel/develop
                             ShowContinueError(state,
                                               "must be \"Coil:Cooling:Water\", \"Coil:Cooling:Water:DetailedGeometry\" or, "
                                               "\"CoilSystem:Cooling:Water:HeatExchangerAssisted\".");
@@ -645,12 +750,21 @@ namespace UnitVentilator {
                         unitVent.CCoilName = Alphas(18);
                         ValidateComponent(state, cCoolingCoilType, unitVent.CCoilName, IsNotOK, CurrentModuleObject);
                         if (IsNotOK) {
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("...specified in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
                             ErrorsFound = true;
                         } else {
                             if (unitVent.CCoilType != CoolCoilType::HXAssisted) {
                                 WaterCoils::CoilModel coilModel = WaterCoils::CoilModel::CoolingSimple;
                                 if (unitVent.CCoilType == CoolCoilType::Detailed) {
+=======
+                            ShowContinueError(state, std::format("...specified in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
+                            ErrorsFound = true;
+                        } else {
+                            if (unitVent.coolCoilType != HVAC::CoilType::CoolingWaterHXAssisted) {
+                                WaterCoils::CoilModel coilModel = WaterCoils::CoilModel::CoolingSimple;
+                                if (unitVent.coolCoilType == HVAC::CoilType::CoolingWaterDetailed) {
+>>>>>>> nrel/develop
                                     coilModel = WaterCoils::CoilModel::CoolingDetailed;
                                 }
                                 unitVent.CCoil_Index = WaterCoils::GetCompIndex(state, coilModel, unitVent.CCoilName);
@@ -665,7 +779,11 @@ namespace UnitVentilator {
                             }
                             // Other error checks should trap before it gets to this point in the code, but including just in case.
                             if (errFlag) {
+<<<<<<< HEAD
                                 ShowContinueError(state, EnergyPlus::format("...specified in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
+=======
+                                ShowContinueError(state, std::format("...specified in {} = \"{}\".", CurrentModuleObject, unitVent.Name));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -678,8 +796,13 @@ namespace UnitVentilator {
                         unitVent.ColdControlOffset = 0.001;
                     }
                 } else { // Cooling Coil is required for this/these options
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
                     ShowContinueError(state, EnergyPlus::format("a cooling coil is required for {}=\"{}\".", cAlphaFields(13), Alphas(13)));
+=======
+                    ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+                    ShowContinueError(state, std::format("a cooling coil is required for {}=\"{}\".", cAlphaFields(13), Alphas(13)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } // IF (.NOT. lAlphaBlanks(17)) THEN - from the start of cooling coil information
             }
@@ -703,6 +826,7 @@ namespace UnitVentilator {
                     if (!InletNodeFound) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\". Unit ventilator air inlet node name must be the same either as a zone exhaust node name "
                                                "or an induce air node in ZoePlenum.",
                                                CurrentModuleObject,
@@ -712,6 +836,16 @@ namespace UnitVentilator {
                         ShowContinueError(
                             state,
                             EnergyPlus::format("..Unit ventilator unit air inlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirInNode)));
+=======
+                            std::format("{} = \"{}\". Unit ventilator air inlet node name must be the same either as a zone exhaust node name "
+                                        "or an induce air node in ZoePlenum.",
+                                        CurrentModuleObject,
+                                        unitVent.Name));
+                        ShowContinueError(state, "..Zone exhaust node name is specified in ZoneHVAC:EquipmentConnections object.");
+                        ShowContinueError(state, "..Induced Air Outlet Node name is specified in AirLoopHVAC:ReturnPlenum object.");
+                        ShowContinueError(
+                            state, std::format("..Unit ventilator unit air inlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirInNode)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -724,6 +858,7 @@ namespace UnitVentilator {
                     }
                 }
                 if (ZoneNodeNotFound) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state,
                         EnergyPlus::format("{} = \"{}\". Unit ventilator air outlet node name must be the same as a zone inlet node name.",
@@ -732,6 +867,15 @@ namespace UnitVentilator {
                     ShowContinueError(state, "..Zone inlet node name is specified in ZoneHVAC:EquipmentConnections object.");
                     ShowContinueError(
                         state, EnergyPlus::format("..Unit ventilator air outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirOutNode)));
+=======
+                    ShowSevereError(state,
+                                    std::format("{} = \"{}\". Unit ventilator air outlet node name must be the same as a zone inlet node name.",
+                                                CurrentModuleObject,
+                                                unitVent.Name));
+                    ShowContinueError(state, "..Zone inlet node name is specified in ZoneHVAC:EquipmentConnections object.");
+                    ShowContinueError(state,
+                                      std::format("..Unit ventilator air outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirOutNode)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else {
@@ -745,6 +889,7 @@ namespace UnitVentilator {
                         }
                     }
                     if (ZoneNodeNotFound) {
+<<<<<<< HEAD
                         ShowSevereError(
                             state,
                             EnergyPlus::format("{} = \"{}\". Unit ventilator air outlet node name must be the same as a zone inlet node name.",
@@ -754,6 +899,15 @@ namespace UnitVentilator {
                         ShowContinueError(
                             state,
                             EnergyPlus::format("..Unit ventilator air outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirOutNode)));
+=======
+                        ShowSevereError(state,
+                                        std::format("{} = \"{}\". Unit ventilator air outlet node name must be the same as a zone inlet node name.",
+                                                    CurrentModuleObject,
+                                                    unitVent.Name));
+                        ShowContinueError(state, "..Zone inlet node name is specified in ZoneHVAC:EquipmentConnections object.");
+                        ShowContinueError(
+                            state, std::format("..Unit ventilator air outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirOutNode)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
@@ -761,12 +915,21 @@ namespace UnitVentilator {
                     if (unitVent.AirInNode != unitVent.ATMixerOutNode) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("{} = \"{}\". unit ventilator air inlet node name must be the same as the mixer outlet node name.",
                                                CurrentModuleObject,
                                                unitVent.Name));
                         ShowContinueError(state, "..Air terminal mixer outlet node name is specified in AirTerminal:SingleDuct:Mixer object.");
                         ShowContinueError(
                             state, EnergyPlus::format("..Unit ventilator air inlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirInNode)));
+=======
+                            std::format("{} = \"{}\". unit ventilator air inlet node name must be the same as the mixer outlet node name.",
+                                        CurrentModuleObject,
+                                        unitVent.Name));
+                        ShowContinueError(state, "..Air terminal mixer outlet node name is specified in AirTerminal:SingleDuct:Mixer object.");
+                        ShowContinueError(state,
+                                          std::format("..Unit ventilator air inlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirInNode)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -775,14 +938,22 @@ namespace UnitVentilator {
                     if (unitVent.AirOutNode != unitVent.ATMixerSecNode) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "{} = \"{}\". unit ventilator air outlet node name must be the same as the mixer secondary air inlet node name.",
                                 CurrentModuleObject,
                                 unitVent.Name));
                         ShowContinueError(state, "..Air terminal mixer secondary node name is specified in AirTerminal:SingleDuct:Mixer object.");
                         ShowContinueError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("..Unit ventilator air outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirOutNode)));
+=======
+                            state, std::format("..Unit ventilator air outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirOutNode)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
@@ -796,6 +967,7 @@ namespace UnitVentilator {
                     }
                     if (ZoneNodeNotFound) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{} = \"{}\". Air mixer outlet node name must be the same as a zone inlet node name.",
                                                            CurrentModuleObject,
                                                            unitVent.Name));
@@ -803,6 +975,14 @@ namespace UnitVentilator {
                         ShowContinueError(
                             state,
                             EnergyPlus::format("..Air terminal mixer outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.ATMixerOutNode)));
+=======
+                                        std::format("{} = \"{}\". Air mixer outlet node name must be the same as a zone inlet node name.",
+                                                    CurrentModuleObject,
+                                                    unitVent.Name));
+                        ShowContinueError(state, "..Zone inlet node name is specified in ZoneHVAC:EquipmentConnections object.");
+                        ShowContinueError(
+                            state, std::format("..Air terminal mixer outlet node name = {}", state.dataLoopNodes->NodeID(unitVent.ATMixerOutNode)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         bool ExhastNodeNotFound = true;
@@ -824,7 +1004,11 @@ namespace UnitVentilator {
                                                                     state.dataZoneEquip->ZoneEquipConfig(unitVent.ZonePtr).ReturnNode);
                             }
                             if (!InletNodeFound) {
+<<<<<<< HEAD
                                 ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+=======
+                                ShowSevereError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, unitVent.Name));
+>>>>>>> nrel/develop
                                 ShowContinueError(
                                     state,
                                     "..UnitVentilator inlet node name must be the same as either a zone exhaust node name or an induced "
@@ -832,8 +1016,12 @@ namespace UnitVentilator {
                                 ShowContinueError(state, "..Zone exhaust node name is specified in ZoneHVAC:EquipmentConnections object.");
                                 ShowContinueError(state, "..Induced Air Outlet Node name is specified in AirLoopHVAC:ReturnPlenum object.");
                                 ShowContinueError(
+<<<<<<< HEAD
                                     state,
                                     EnergyPlus::format("..UnitVentilator inlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirInNode)));
+=======
+                                    state, std::format("..UnitVentilator inlet node name = {}", state.dataLoopNodes->NodeID(unitVent.AirInNode)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -895,14 +1083,21 @@ namespace UnitVentilator {
         lNumericBlanks.deallocate();
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}Errors found in input.", RoutineName));
+=======
+            ShowFatalError(state, std::format("{}Errors found in input.", RoutineName));
+>>>>>>> nrel/develop
         }
 
         // Setup Report variables for the Unit Ventilators, CurrentModuleObject='ZoneHVAC:UnitVentilator'
         for (int UnitVentNum = 1; UnitVentNum <= state.dataUnitVentilators->NumOfUnitVents; ++UnitVentNum) {
 
             auto &unitVent = state.dataUnitVentilators->UnitVent(UnitVentNum);
+<<<<<<< HEAD
             auto &coilReportObj = state.dataRptCoilSelection->coilSelectionReportObj;
+=======
+>>>>>>> nrel/develop
 
             SetupOutputVariable(state,
                                 "Zone Unit Ventilator Heating Rate",
@@ -979,12 +1174,27 @@ namespace UnitVentilator {
             }
 
             if (unitVent.HCoilPresent) {
+<<<<<<< HEAD
                 coilReportObj->setCoilSupplyFanInfo(
                     state, unitVent.HCoilName, unitVent.HCoilTypeCh, unitVent.FanName, unitVent.fanType, unitVent.Fan_Index);
             }
             if (unitVent.CCoilPresent) {
                 coilReportObj->setCoilSupplyFanInfo(
                     state, unitVent.CCoilName, unitVent.CCoilTypeCh, unitVent.FanName, unitVent.fanType, unitVent.Fan_Index);
+=======
+                ReportCoilSelection::setCoilSupplyFanInfo(state,
+                                                          ReportCoilSelection::getReportIndex(state, unitVent.HCoilName, unitVent.heatCoilType),
+                                                          unitVent.FanName,
+                                                          unitVent.fanType,
+                                                          unitVent.Fan_Index);
+            }
+            if (unitVent.CCoilPresent) {
+                ReportCoilSelection::setCoilSupplyFanInfo(state,
+                                                          ReportCoilSelection::getReportIndex(state, unitVent.CCoilName, unitVent.coolCoilType),
+                                                          unitVent.FanName,
+                                                          unitVent.fanType,
+                                                          unitVent.Fan_Index);
+>>>>>>> nrel/develop
             }
         }
     }
@@ -1045,7 +1255,11 @@ namespace UnitVentilator {
                 PlantUtilities::ScanPlantLoopsForObject(
                     state, unitVent.HCoilName, unitVent.HeatingCoilType, unitVent.HWplantLoc, errFlag, _, _, _, _, _);
                 if (errFlag) {
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Reference Unit=\"{}\", type=ZoneHVAC:UnitVentilator", unitVent.Name));
+=======
+                    ShowContinueError(state, std::format("Reference Unit=\"{}\", type=ZoneHVAC:UnitVentilator", unitVent.Name));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "InitUnitVentilator: Program terminated due to previous condition(s).");
                 }
 
@@ -1057,15 +1271,23 @@ namespace UnitVentilator {
                 PlantUtilities::ScanPlantLoopsForObject(
                     state, unitVent.CCoilPlantName, unitVent.CoolingCoilType, unitVent.CWPlantLoc, errFlag, _, _, _, _, _);
                 if (errFlag) {
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Reference Unit=\"{}\", type=ZoneHVAC:UnitVentilator", unitVent.Name));
+=======
+                    ShowContinueError(state, std::format("Reference Unit=\"{}\", type=ZoneHVAC:UnitVentilator", unitVent.Name));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "InitUnitVentilator: Program terminated due to previous condition(s).");
                 }
 
                 unitVent.ColdCoilOutNodeNum = DataPlant::CompData::getPlantComponent(state, unitVent.CWPlantLoc).NodeNumOut;
             } else {
                 if (unitVent.CCoilPresent) {
+<<<<<<< HEAD
                     ShowFatalError(state,
                                    EnergyPlus::format("InitUnitVentilator: Unit={}, invalid cooling coil type. Program terminated.", unitVent.Name));
+=======
+                    ShowFatalError(state, std::format("InitUnitVentilator: Unit={}, invalid cooling coil type. Program terminated.", unitVent.Name));
+>>>>>>> nrel/develop
                 }
             }
             state.dataUnitVentilators->MyPlantScanFlag(UnitVentNum) = false;
@@ -1079,10 +1301,17 @@ namespace UnitVentilator {
                 if (DataZoneEquipment::CheckZoneEquipmentList(state, "ZoneHVAC:UnitVentilator", state.dataUnitVentilators->UnitVent(Loop).Name)) {
                     continue;
                 }
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format(
                                     "InitUnitVentilator: Unit=[UNIT VENTILATOR,{}] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.",
                                     state.dataUnitVentilators->UnitVent(Loop).Name));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("InitUnitVentilator: Unit=[UNIT VENTILATOR,{}] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.",
+                                state.dataUnitVentilators->UnitVent(Loop).Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1111,9 +1340,14 @@ namespace UnitVentilator {
             if (unitVent.OutAirMassFlow > unitVent.MaxAirMassFlow) {
                 unitVent.OutAirMassFlow = unitVent.MaxAirMassFlow;
                 unitVent.MinOutAirMassFlow = unitVent.OutAirMassFlow * (unitVent.MinOutAirVolFlow / unitVent.OutAirVolFlow);
+<<<<<<< HEAD
                 ShowWarningError(
                     state,
                     EnergyPlus::format("Outdoor air mass flow rate higher than unit flow rate, reset to unit flow rate for {}", unitVent.Name));
+=======
+                ShowWarningError(state,
+                                 std::format("Outdoor air mass flow rate higher than unit flow rate, reset to unit flow rate for {}", unitVent.Name));
+>>>>>>> nrel/develop
             }
 
             // set the node max and min mass flow rates
@@ -1128,7 +1362,11 @@ namespace UnitVentilator {
 
             if (unitVent.HCoilPresent) { // Only initialize these if a heating coil is actually present
 
+<<<<<<< HEAD
                 if (unitVent.HCoilType == HeatCoilType::Water) {
+=======
+                if (unitVent.heatCoilType == HVAC::CoilType::HeatingWater) {
+>>>>>>> nrel/develop
 
                     Real64 rho = unitVent.HWplantLoc.loop->glycol->getDensity(state, Constant::HWInitConvTemp, RoutineName);
 
@@ -1138,7 +1376,11 @@ namespace UnitVentilator {
                     PlantUtilities::InitComponentNodes(
                         state, unitVent.MinHotWaterFlow, unitVent.MaxHotWaterFlow, unitVent.HotControlNode, unitVent.HotCoilOutNodeNum);
                 }
+<<<<<<< HEAD
                 if (unitVent.HCoilType == HeatCoilType::Steam) {
+=======
+                if (unitVent.heatCoilType == HVAC::CoilType::HeatingSteam) {
+>>>>>>> nrel/develop
                     Real64 TempSteamIn = 100.00;
                     Real64 SteamDensity = unitVent.HCoil_fluid->getSatDensity(state, TempSteamIn, 1.0, RoutineName);
                     unitVent.MaxHotSteamFlow = SteamDensity * unitVent.MaxVolHotSteamFlow;
@@ -1283,6 +1525,7 @@ namespace UnitVentilator {
         Real64 rho = 0.0;
         Real64 Cp = 0.0;
 
+<<<<<<< HEAD
         Real64 TempSize;  // autosized value of coil input field
         int SizingMethod; // Integer representation of sizing method name (e.g., CoolingAirflowSizing, HeatingAirflowSizing, CoolingCapacitySizing,
                           // HeatingCapacitySizing, etc.)
@@ -1290,6 +1533,15 @@ namespace UnitVentilator {
         int CapSizingMethod(0);    // capacity sizing methods (HeatingDesignCapacity, CapacityPerFloorArea, FractionOfAutosizedCoolingCapacity, and
                                    // FractionOfAutosizedHeatingCapacity )
         Real64 WaterCoilSizDeltaT; // water coil deltaT for design water flow rate autosizing
+=======
+        Real64 TempSize = 0.0; // autosized value of coil input field
+        int SizingMethod; // Integer representation of sizing method name (e.g., CoolingAirflowSizing, HeatingAirflowSizing, CoolingCapacitySizing,
+                          // HeatingCapacitySizing, etc.)
+        bool PrintFlag;   // TRUE when sizing information is reported in the eio file
+        int CapSizingMethod(0); // capacity sizing methods (HeatingDesignCapacity, CapacityPerFloorArea, FractionOfAutosizedCoolingCapacity, and
+                                // FractionOfAutosizedHeatingCapacity )
+        Real64 WaterCoilSizDeltaT = 0.0; // water coil deltaT for design water flow rate autosizing
+>>>>>>> nrel/develop
 
         int PltSizHeatNum = 0;
         bool ErrorsFound = false;
@@ -1375,8 +1627,12 @@ namespace UnitVentilator {
                         }
                         bool errorsFound = false;
                         CoolingAirFlowSizer sizingCoolingAirFlow;
+<<<<<<< HEAD
                         sizingCoolingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                              : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                        sizingCoolingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                         // sizingCoolingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                         sizingCoolingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                         CoolingAirVolFlowScalable = sizingCoolingAirFlow.size(state, TempSize, errorsFound);
@@ -1395,8 +1651,12 @@ namespace UnitVentilator {
                         TempSize = DataSizing::AutoSize;
                         bool errorsFound = false;
                         CoolingAirFlowSizer sizingCoolingAirFlow;
+<<<<<<< HEAD
                         sizingCoolingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                              : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                        sizingCoolingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                         // sizingCoolingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                         sizingCoolingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                         CoolingAirVolFlowScalable = sizingCoolingAirFlow.size(state, TempSize, errorsFound);
@@ -1441,8 +1701,12 @@ namespace UnitVentilator {
                         }
                         bool errorsFound = false;
                         HeatingAirFlowSizer sizingHeatingAirFlow;
+<<<<<<< HEAD
                         sizingHeatingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                              : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                        sizingHeatingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                         // sizingHeatingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                         sizingHeatingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                         HeatingAirVolFlowScalable = sizingHeatingAirFlow.size(state, TempSize, errorsFound);
@@ -1461,8 +1725,12 @@ namespace UnitVentilator {
                         TempSize = DataSizing::AutoSize;
                         errorsFound = false;
                         HeatingAirFlowSizer sizingHeatingAirFlow;
+<<<<<<< HEAD
                         sizingHeatingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                              : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                        sizingHeatingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                         // sizingHeatingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                         sizingHeatingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                         HeatingAirVolFlowScalable = sizingHeatingAirFlow.size(state, TempSize, errorsFound);
@@ -1509,8 +1777,12 @@ namespace UnitVentilator {
                                 }
                                 bool errorsFound = false;
                                 CoolingAirFlowSizer sizingCoolingAirFlow;
+<<<<<<< HEAD
                                 sizingCoolingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                                      : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                                sizingCoolingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                                 // sizingCoolingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                                 sizingCoolingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                                 CoolingAirVolFlowScalable = sizingCoolingAirFlow.size(state, TempSize, errorsFound);
@@ -1529,8 +1801,12 @@ namespace UnitVentilator {
                                 TempSize = DataSizing::AutoSize;
                                 bool errorsFound = false;
                                 CoolingAirFlowSizer sizingCoolingAirFlow;
+<<<<<<< HEAD
                                 sizingCoolingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                                      : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                                sizingCoolingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                                 // sizingCoolingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                                 sizingCoolingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                                 CoolingAirVolFlowScalable = sizingCoolingAirFlow.size(state, TempSize, errorsFound);
@@ -1573,8 +1849,12 @@ namespace UnitVentilator {
                                 }
                                 bool errorsFound = false;
                                 HeatingAirFlowSizer sizingHeatingAirFlow;
+<<<<<<< HEAD
                                 sizingHeatingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                                      : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                                sizingHeatingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                                 // sizingHeatingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                                 sizingHeatingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                                 HeatingAirVolFlowScalable = sizingHeatingAirFlow.size(state, TempSize, errorsFound);
@@ -1593,8 +1873,12 @@ namespace UnitVentilator {
                                 TempSize = DataSizing::AutoSize;
                                 errorsFound = false;
                                 HeatingAirFlowSizer sizingHeatingAirFlow;
+<<<<<<< HEAD
                                 sizingHeatingAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                                      : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                                sizingHeatingAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                                 // sizingHeatingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                                 sizingHeatingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                                 HeatingAirVolFlowScalable = sizingHeatingAirFlow.size(state, TempSize, errorsFound);
@@ -1615,8 +1899,12 @@ namespace UnitVentilator {
                         bool errorsFound = false;
                         SystemAirFlowSizer sizerSystemAirFlow;
                         // sizerSystemAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
+<<<<<<< HEAD
                         sizerSystemAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                            : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                        sizerSystemAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                         sizerSystemAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                         HeatingAirVolFlowScalable = sizerSystemAirFlow.size(state, TempSize, errorsFound);
                     }
@@ -1642,8 +1930,12 @@ namespace UnitVentilator {
                 bool errorsFound = false;
                 SystemAirFlowSizer sizerSystemAirFlow;
                 // sizerSystemAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
+<<<<<<< HEAD
                 sizerSystemAirFlow.overrideSizingString(state.dataGlobal->isEpJSON ? "maximum_supply_air_flow_rate [m3/s]"
                                                                                    : "Maximum Supply Air Flow Rate [m3/s]");
+=======
+                sizerSystemAirFlow.overrideSizingString("Maximum Supply Air Flow Rate [m3/s]");
+>>>>>>> nrel/develop
                 sizerSystemAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
                 unitVent.MaxAirVolFlow = sizerSystemAirFlow.size(state, TempSize, errorsFound);
             }
@@ -1690,6 +1982,7 @@ namespace UnitVentilator {
                         if (state.dataGlobal->DisplayExtraWarnings) {
                             if ((std::abs(OutAirVolFlowDes - OutAirVolFlowUser) / OutAirVolFlowUser) > state.dataSize->AutoVsHardSizingThreshold) {
                                 ShowMessage(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("SizeUnitVentilator: Potential issue with equipment sizing for {} {}",
                                                                state.dataUnitVentilators->cMO_UnitVentilator,
                                                                unitVent.Name));
@@ -1698,6 +1991,15 @@ namespace UnitVentilator {
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("differs from Design Size Maximum Outdoor Air Flow Rate of {:.5R} [m3/s]", OutAirVolFlowDes));
+=======
+                                            std::format("SizeUnitVentilator: Potential issue with equipment sizing for {} {}",
+                                                        state.dataUnitVentilators->cMO_UnitVentilator,
+                                                        unitVent.Name));
+                                ShowContinueError(state,
+                                                  std::format("User-Specified Maximum Outdoor Air Flow Rate of {:.5f} [m3/s]", OutAirVolFlowUser));
+                                ShowContinueError(
+                                    state, std::format("differs from Design Size Maximum Outdoor Air Flow Rate of {:.5f} [m3/s]", OutAirVolFlowDes));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                 ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                             }
@@ -1753,6 +2055,7 @@ namespace UnitVentilator {
                             if ((std::abs(MinOutAirVolFlowDes - MinOutAirVolFlowUser) / MinOutAirVolFlowUser) >
                                 state.dataSize->AutoVsHardSizingThreshold) {
                                 ShowMessage(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("SizeUnitVentilator: Potential issue with equipment sizing for {} = \"{}\".",
                                                                state.dataUnitVentilators->cMO_UnitVentilator,
                                                                unitVent.Name));
@@ -1761,6 +2064,16 @@ namespace UnitVentilator {
                                 ShowContinueError(state,
                                                   EnergyPlus::format("differs from Design Size Minimum Outdoor Air Flow Rate of {:.5R} [m3/s]",
                                                                      MinOutAirVolFlowDes));
+=======
+                                            std::format("SizeUnitVentilator: Potential issue with equipment sizing for {} = \"{}\".",
+                                                        state.dataUnitVentilators->cMO_UnitVentilator,
+                                                        unitVent.Name));
+                                ShowContinueError(state,
+                                                  std::format("User-Specified Minimum Outdoor Air Flow Rate of {:.5f} [m3/s]", MinOutAirVolFlowUser));
+                                ShowContinueError(
+                                    state,
+                                    std::format("differs from Design Size Minimum Outdoor Air Flow Rate of {:.5f} [m3/s]", MinOutAirVolFlowDes));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                 ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                             }
@@ -1774,7 +2087,11 @@ namespace UnitVentilator {
         if (unitVent.MaxVolHotWaterFlow == DataSizing::AutoSize) {
             IsAutoSize = true;
         }
+<<<<<<< HEAD
         if (unitVent.HCoilType == HeatCoilType::Water) {
+=======
+        if (unitVent.heatCoilType == HVAC::CoilType::HeatingWater) {
+>>>>>>> nrel/develop
             if (state.dataSize->CurZoneEqNum > 0) {
                 if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) { // Simulation continue
                     if (unitVent.MaxVolHotWaterFlow > 0.0) {
@@ -1803,8 +2120,13 @@ namespace UnitVentilator {
                                 DoWaterCoilSizing = false;
                                 // If there is no heating Plant Sizing object and autosizing was requested, issue fatal error message
                                 ShowSevereError(state, "Autosizing of water flow requires a heating loop Sizing:Plant object");
+<<<<<<< HEAD
                                 ShowContinueError(
                                     state, EnergyPlus::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
+=======
+                                ShowContinueError(state,
+                                                  std::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -1895,6 +2217,7 @@ namespace UnitVentilator {
                                 if ((std::abs(MaxVolHotWaterFlowDes - MaxVolHotWaterFlowUser) / MaxVolHotWaterFlowUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
                                     ShowMessage(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("SizeUnitVentilator: Potential issue with equipment sizing for {} {}",
                                                                    state.dataUnitVentilators->cMO_UnitVentilator,
                                                                    unitVent.Name));
@@ -1903,6 +2226,16 @@ namespace UnitVentilator {
                                     ShowContinueError(state,
                                                       EnergyPlus::format("differs from Design Size Maximum Hot Water Flow of {:.5R} [m3/s]",
                                                                          MaxVolHotWaterFlowDes));
+=======
+                                                std::format("SizeUnitVentilator: Potential issue with equipment sizing for {} {}",
+                                                            state.dataUnitVentilators->cMO_UnitVentilator,
+                                                            unitVent.Name));
+                                    ShowContinueError(state,
+                                                      std::format("User-Specified Maximum Hot Water Flow of {:.5f} [m3/s]", MaxVolHotWaterFlowUser));
+                                    ShowContinueError(
+                                        state,
+                                        std::format("differs from Design Size Maximum Hot Water Flow of {:.5f} [m3/s]", MaxVolHotWaterFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -1919,7 +2252,11 @@ namespace UnitVentilator {
         if (unitVent.MaxVolHotSteamFlow == DataSizing::AutoSize) {
             IsAutoSize = true;
         }
+<<<<<<< HEAD
         if (unitVent.HCoilType == HeatCoilType::Steam) {
+=======
+        if (unitVent.heatCoilType == HVAC::CoilType::HeatingSteam) {
+>>>>>>> nrel/develop
             if (state.dataSize->CurZoneEqNum > 0) {
                 if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) { // Simulation continue
                     if (unitVent.MaxVolHotSteamFlow > 0.0) {
@@ -2004,8 +2341,13 @@ namespace UnitVentilator {
                             }
                         } else {
                             ShowSevereError(state, "Autosizing of Steam flow requires a heating loop Sizing:Plant object");
+<<<<<<< HEAD
                             ShowContinueError(
                                 state, EnergyPlus::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
+=======
+                            ShowContinueError(state,
+                                              std::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                         unitVent.MaxVolHotSteamFlow = MaxVolHotSteamFlowDes;
@@ -2028,6 +2370,7 @@ namespace UnitVentilator {
                                 if ((std::abs(MaxVolHotSteamFlowDes - MaxVolHotSteamFlowUser) / MaxVolHotSteamFlowUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
                                     ShowMessage(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("SizeUnitVentilator: Potential issue with equipment sizing for {} = \"{}\"",
                                                                    state.dataUnitVentilators->cMO_UnitVentilator,
                                                                    unitVent.Name));
@@ -2036,6 +2379,15 @@ namespace UnitVentilator {
                                     ShowContinueError(
                                         state,
                                         EnergyPlus::format("differs from Design Size Maximum Steam Flow of {:.5R} [m3/s]", MaxVolHotSteamFlowDes));
+=======
+                                                std::format("SizeUnitVentilator: Potential issue with equipment sizing for {} = \"{}\"",
+                                                            state.dataUnitVentilators->cMO_UnitVentilator,
+                                                            unitVent.Name));
+                                    ShowContinueError(state,
+                                                      std::format("User-Specified Maximum Steam Flow of {:.5f} [m3/s]", MaxVolHotSteamFlowUser));
+                                    ShowContinueError(
+                                        state, std::format("differs from Design Size Maximum Steam Flow of {:.5f} [m3/s]", MaxVolHotSteamFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -2052,8 +2404,13 @@ namespace UnitVentilator {
         if (unitVent.MaxVolColdWaterFlow == DataSizing::AutoSize) {
             IsAutoSize = true;
         }
+<<<<<<< HEAD
         if (unitVent.CCoilType == CoolCoilType::Water || unitVent.CCoilType == CoolCoilType::Detailed ||
             unitVent.CCoilType == CoolCoilType::HXAssisted) {
+=======
+        if (unitVent.coolCoilType == HVAC::CoilType::CoolingWater || unitVent.coolCoilType == HVAC::CoilType::CoolingWaterDetailed ||
+            unitVent.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
 
             if (state.dataSize->CurZoneEqNum > 0) {
                 if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) { // Simulation continue
@@ -2067,7 +2424,11 @@ namespace UnitVentilator {
                 } else {
                     CheckZoneSizing(state, state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name);
 
+<<<<<<< HEAD
                     if (unitVent.CCoilType == CoolCoilType::HXAssisted) {
+=======
+                    if (unitVent.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
                         CoolingCoilName = HVACHXAssistedCoolingCoil::GetHXDXCoilName(state, unitVent.CCoilTypeCh, unitVent.CCoilName, ErrorsFound);
                         CoolingCoilType = HVACHXAssistedCoolingCoil::GetHXCoilType(state, unitVent.CCoilTypeCh, unitVent.CCoilName, ErrorsFound);
                     } else {
@@ -2089,8 +2450,13 @@ namespace UnitVentilator {
                                 DoWaterCoilSizing = false;
                                 // If there is no cooling Plant Sizing object and autosizing was requested, issue fatal error message
                                 ShowSevereError(state, "Autosizing of water coil requires a cooling loop Sizing:Plant object");
+<<<<<<< HEAD
                                 ShowContinueError(
                                     state, EnergyPlus::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
+=======
+                                ShowContinueError(state,
+                                                  std::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -2151,12 +2517,19 @@ namespace UnitVentilator {
                                 if (MaxVolColdWaterFlowDes < 0.0) {
                                     ShowWarningError(state, "Autosizing of water flow resulted in negative value.");
                                     ShowContinueError(
+<<<<<<< HEAD
                                         state,
                                         EnergyPlus::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
                                     ShowContinueError(state, "...Sizing information found during sizing simulation:");
                                     ShowContinueError(state, EnergyPlus::format("...Calculated coil design load = {:.3T} W", DesCoolingLoad));
                                     ShowContinueError(state,
                                                       EnergyPlus::format("...Calculated water flow rate  = {:.3T} m3/s", MaxVolColdWaterFlowDes));
+=======
+                                        state, std::format("Occurs in {} = \"{}\"", state.dataUnitVentilators->cMO_UnitVentilator, unitVent.Name));
+                                    ShowContinueError(state, "...Sizing information found during sizing simulation:");
+                                    ShowContinueError(state, std::format("...Calculated coil design load = {:.3f} W", DesCoolingLoad));
+                                    ShowContinueError(state, std::format("...Calculated water flow rate  = {:.3f} m3/s", MaxVolColdWaterFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state,
                                                       "...Water flow rate will be set to 0. Check sizing inputs for zone and plant, inputs for water "
                                                       "cooling coil object, and design day specifications.");
@@ -2187,6 +2560,7 @@ namespace UnitVentilator {
                                 if ((std::abs(MaxVolColdWaterFlowDes - MaxVolColdWaterFlowUser) / MaxVolColdWaterFlowUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
                                     ShowMessage(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("SizeUnitVentilator: Potential issue with equipment sizing for {} = \"{}\"",
                                                                    state.dataUnitVentilators->cMO_UnitVentilator,
                                                                    unitVent.Name));
@@ -2196,6 +2570,16 @@ namespace UnitVentilator {
                                     ShowContinueError(state,
                                                       EnergyPlus::format("differs from Design Size Maximum Cold Water Flow of {:.5R} [m3/s]",
                                                                          MaxVolColdWaterFlowDes));
+=======
+                                                std::format("SizeUnitVentilator: Potential issue with equipment sizing for {} = \"{}\"",
+                                                            state.dataUnitVentilators->cMO_UnitVentilator,
+                                                            unitVent.Name));
+                                    ShowContinueError(
+                                        state, std::format("User-Specified Maximum Cold Water Flow of {:.5f} [m3/s]", MaxVolColdWaterFlowUser));
+                                    ShowContinueError(
+                                        state,
+                                        std::format("differs from Design Size Maximum Cold Water Flow of {:.5f} [m3/s]", MaxVolColdWaterFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -2207,7 +2591,11 @@ namespace UnitVentilator {
         }
 
         // set the design air flow rates for the heating and cooling coils
+<<<<<<< HEAD
         if (unitVent.CCoilType == CoolCoilType::HXAssisted) {
+=======
+        if (unitVent.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
             CoolingCoilName = HVACHXAssistedCoolingCoil::GetHXDXCoilName(state, unitVent.CCoilTypeCh, unitVent.CCoilName, ErrorsFound);
             CoolingCoilType = HVACHXAssistedCoolingCoil::GetHXCoilType(state, unitVent.CCoilTypeCh, unitVent.CCoilName, ErrorsFound);
         } else {
@@ -2300,6 +2688,7 @@ namespace UnitVentilator {
         switch (unitVent.CoilOption) {
         case CoilsUsed::Both:
         case CoilsUsed::Heating: {
+<<<<<<< HEAD
             switch (unitVent.HCoilType) {
             case HeatCoilType::Water: {
                 WaterCoils::CheckWaterCoilSchedule(state, unitVent.HCoilName, unitVent.HCoilSchedValue, unitVent.HCoil_Index);
@@ -2312,6 +2701,20 @@ namespace UnitVentilator {
                     state, "Coil:Heating:Electric", unitVent.HCoilName, unitVent.HCoilSchedValue, unitVent.HCoil_Index);
             } break;
             case HeatCoilType::Gas: {
+=======
+            switch (unitVent.heatCoilType) {
+            case HVAC::CoilType::HeatingWater: {
+                WaterCoils::CheckWaterCoilSchedule(state, unitVent.HCoilName, unitVent.HCoilSchedValue, unitVent.HCoil_Index);
+            } break;
+            case HVAC::CoilType::HeatingSteam: {
+                SteamCoils::CheckSteamCoilSchedule(state, "Coil:Heating:Steam", unitVent.HCoilName, unitVent.HCoilSchedValue, unitVent.HCoil_Index);
+            } break;
+            case HVAC::CoilType::HeatingElectric: {
+                HeatingCoils::CheckHeatingCoilSchedule(
+                    state, "Coil:Heating:Electric", unitVent.HCoilName, unitVent.HCoilSchedValue, unitVent.HCoil_Index);
+            } break;
+            case HVAC::CoilType::HeatingGasOrOtherFuel: {
+>>>>>>> nrel/develop
                 HeatingCoils::CheckHeatingCoilSchedule(
                     state, "Coil:Heating:Fuel", unitVent.HCoilName, unitVent.HCoilSchedValue, unitVent.HCoil_Index);
             } break;
@@ -2326,6 +2729,7 @@ namespace UnitVentilator {
         switch (unitVent.CoilOption) {
         case CoilsUsed::Both:
         case CoilsUsed::Cooling: {
+<<<<<<< HEAD
             switch (unitVent.CCoilType) {
             case CoolCoilType::Water: {
                 WaterCoils::CheckWaterCoilSchedule(state, unitVent.CCoilName, unitVent.CCoilSchedValue, unitVent.CCoil_Index);
@@ -2334,6 +2738,16 @@ namespace UnitVentilator {
                 WaterCoils::CheckWaterCoilSchedule(state, unitVent.CCoilName, unitVent.CCoilSchedValue, unitVent.CCoil_Index);
             } break;
             case CoolCoilType::HXAssisted: {
+=======
+            switch (unitVent.coolCoilType) {
+            case HVAC::CoilType::CoolingWater: {
+                WaterCoils::CheckWaterCoilSchedule(state, unitVent.CCoilName, unitVent.CCoilSchedValue, unitVent.CCoil_Index);
+            } break;
+            case HVAC::CoilType::CoolingWaterDetailed: {
+                WaterCoils::CheckWaterCoilSchedule(state, unitVent.CCoilName, unitVent.CCoilSchedValue, unitVent.CCoil_Index);
+            } break;
+            case HVAC::CoilType::CoolingWaterHXAssisted: {
+>>>>>>> nrel/develop
                 HVACHXAssistedCoolingCoil::CheckHXAssistedCoolingCoilSchedule(
                     state, "CoilSystem:Cooling:Water:HeatExchangerAssisted", unitVent.CCoilName, unitVent.CCoilSchedValue, unitVent.CCoil_Index);
             } break;
@@ -2397,7 +2811,11 @@ namespace UnitVentilator {
                 MinWaterFlow = unitVent.MinHotWaterFlow;
                 // On the first HVAC iteration the system values are given to the controller, but after that
                 // the demand limits are in place and there needs to be feedback to the Zone Equipment
+<<<<<<< HEAD
                 if (!FirstHVACIteration && unitVent.HCoilType == HeatCoilType::Water) {
+=======
+                if (!FirstHVACIteration && unitVent.heatCoilType == HVAC::CoilType::HeatingWater) {
+>>>>>>> nrel/develop
                     MaxWaterFlow = state.dataLoopNodes->Node(ControlNode).MassFlowRateMaxAvail;
                     MinWaterFlow = state.dataLoopNodes->Node(ControlNode).MassFlowRateMinAvail;
                 }
@@ -2490,9 +2908,14 @@ namespace UnitVentilator {
                                 }
                             } else {
                                 // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                                 ShowFatalError(
                                     state,
                                     EnergyPlus::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+=======
+                                ShowFatalError(state,
+                                               std::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+>>>>>>> nrel/develop
                             }
                         } break;
                         default: {
@@ -2574,9 +2997,14 @@ namespace UnitVentilator {
                                 }
                             } else {
                                 // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                                 ShowFatalError(
                                     state,
                                     EnergyPlus::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+=======
+                                ShowFatalError(state,
+                                               std::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+>>>>>>> nrel/develop
                             }
                         } break;
                         default: {
@@ -2617,8 +3045,13 @@ namespace UnitVentilator {
                     } else { // Not a cycling operating mode
 
                         {
+<<<<<<< HEAD
                             switch (unitVent.HCoilType) {
                             case HeatCoilType::Water: {
+=======
+                            switch (unitVent.heatCoilType) {
+                            case HVAC::CoilType::HeatingWater: {
+>>>>>>> nrel/develop
                                 // control water flow to obtain output matching QZnReq
                                 ControlCompOutput(state,
                                                   unitVent.Name,
@@ -2639,9 +3072,15 @@ namespace UnitVentilator {
                                                   _,
                                                   unitVent.HWplantLoc);
                             } break;
+<<<<<<< HEAD
                             case HeatCoilType::Gas:
                             case HeatCoilType::Electric:
                             case HeatCoilType::Steam: {
+=======
+                            case HVAC::CoilType::HeatingGasOrOtherFuel:
+                            case HVAC::CoilType::HeatingElectric:
+                            case HVAC::CoilType::HeatingSteam: {
+>>>>>>> nrel/develop
                                 CalcUnitVentilatorComponents(state, UnitVentNum, FirstHVACIteration, QUnitOut);
                             } break;
                             default: {
@@ -2731,9 +3170,14 @@ namespace UnitVentilator {
                                 }
                             } else {
                                 // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                                 ShowFatalError(
                                     state,
                                     EnergyPlus::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+=======
+                                ShowFatalError(state,
+                                               std::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+>>>>>>> nrel/develop
                             }
                         } break;
                         default: {
@@ -2808,9 +3252,14 @@ namespace UnitVentilator {
                                 }
                             } else {
                                 // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                                 ShowFatalError(
                                     state,
                                     EnergyPlus::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+=======
+                                ShowFatalError(state,
+                                               std::format("ZoneHVAC:UnitVentilator simulation control: illogical condition for {}", unitVent.Name));
+>>>>>>> nrel/develop
                             }
                         } break;
                         default: {
@@ -2956,7 +3405,11 @@ namespace UnitVentilator {
             }
 
             if (unitVent.CCoilPresent) {
+<<<<<<< HEAD
                 if (unitVent.CCoilType == CoolCoilType::HXAssisted) {
+=======
+                if (unitVent.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
                     HVACHXAssistedCoolingCoil::SimHXAssistedCoolingCoil(
                         state, unitVent.CCoilName, FirstHVACIteration, HVAC::CompressorOp::On, 0.0, unitVent.CCoil_Index, HVAC::FanOp::Continuous);
                 } else {
@@ -2967,11 +3420,19 @@ namespace UnitVentilator {
             if (unitVent.HCoilPresent) {
 
                 {
+<<<<<<< HEAD
                     switch (unitVent.HCoilType) {
                     case HeatCoilType::Water: {
                         WaterCoils::SimulateWaterCoilComponents(state, unitVent.HCoilName, FirstHVACIteration, unitVent.HCoil_Index);
                     } break;
                     case HeatCoilType::Steam: {
+=======
+                    switch (unitVent.heatCoilType) {
+                    case HVAC::CoilType::HeatingWater: {
+                        WaterCoils::SimulateWaterCoilComponents(state, unitVent.HCoilName, FirstHVACIteration, unitVent.HCoil_Index);
+                    } break;
+                    case HVAC::CoilType::HeatingSteam: {
+>>>>>>> nrel/develop
                         if (!state.dataUnitVentilators->HCoilOn) {
                             QCoilReq = 0.0;
                         } else {
@@ -2988,8 +3449,13 @@ namespace UnitVentilator {
 
                         SteamCoils::SimulateSteamCoilComponents(state, unitVent.HCoilName, FirstHVACIteration, unitVent.HCoil_Index, QCoilReq);
                     } break;
+<<<<<<< HEAD
                     case HeatCoilType::Electric:
                     case HeatCoilType::Gas: {
+=======
+                    case HVAC::CoilType::HeatingElectric:
+                    case HVAC::CoilType::HeatingGasOrOtherFuel: {
+>>>>>>> nrel/develop
                         if (!state.dataUnitVentilators->HCoilOn) {
                             QCoilReq = 0.0;
                         } else {
@@ -3044,7 +3510,11 @@ namespace UnitVentilator {
                 CalcMdotCCoilCycFan(state, mdot, QCoilReq, state.dataUnitVentilators->QZnReq, UnitVentNum, PartLoadFrac);
                 PlantUtilities::SetComponentFlowRate(state, mdot, unitVent.ColdControlNode, unitVent.ColdCoilOutNodeNum, unitVent.CWPlantLoc);
 
+<<<<<<< HEAD
                 if (unitVent.CCoilType == CoolCoilType::HXAssisted) {
+=======
+                if (unitVent.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
                     HVACHXAssistedCoolingCoil::SimHXAssistedCoolingCoil(
                         state, unitVent.CCoilName, FirstHVACIteration, HVAC::CompressorOp::On, PartLoadFrac, unitVent.CCoil_Index, fanOp);
                 } else {
@@ -3056,8 +3526,13 @@ namespace UnitVentilator {
             if (unitVent.HCoilPresent) {
 
                 {
+<<<<<<< HEAD
                     switch (unitVent.HCoilType) {
                     case HeatCoilType::Water: {
+=======
+                    switch (unitVent.heatCoilType) {
+                    case HVAC::CoilType::HeatingWater: {
+>>>>>>> nrel/develop
                         if (!state.dataUnitVentilators->HCoilOn) {
                             QCoilReq = 0.0;
                             mdot = 0.0;
@@ -3077,7 +3552,11 @@ namespace UnitVentilator {
                         WaterCoils::SimulateWaterCoilComponents(
                             state, unitVent.HCoilName, FirstHVACIteration, unitVent.HCoil_Index, QCoilReq, fanOp, PartLoadFrac);
                     } break;
+<<<<<<< HEAD
                     case HeatCoilType::Steam: {
+=======
+                    case HVAC::CoilType::HeatingSteam: {
+>>>>>>> nrel/develop
                         if (!state.dataUnitVentilators->HCoilOn) {
                             QCoilReq = 0.0;
                             mdot = 0.0;
@@ -3097,8 +3576,13 @@ namespace UnitVentilator {
                         SteamCoils::SimulateSteamCoilComponents(
                             state, unitVent.HCoilName, FirstHVACIteration, unitVent.HCoil_Index, QCoilReq, _, fanOp, PartLoadFrac);
                     } break;
+<<<<<<< HEAD
                     case HeatCoilType::Electric:
                     case HeatCoilType::Gas: {
+=======
+                    case HVAC::CoilType::HeatingElectric:
+                    case HVAC::CoilType::HeatingGasOrOtherFuel: {
+>>>>>>> nrel/develop
                         if (!state.dataUnitVentilators->HCoilOn) {
                             QCoilReq = 0.0;
                         } else {

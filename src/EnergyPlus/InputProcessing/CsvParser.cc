@@ -45,12 +45,23 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <EnergyPlus/InputProcessing/CsvParser.hh>
 #include <cstddef>
 #include <fast_float/fast_float.h>
 #include <fmt/format.h>
 #include <milo/dtoa.h>
 #include <milo/itoa.h>
+=======
+// C++ Headers
+#include <format>
+
+// Third Party Headers
+#include <fast_float/fast_float.h>
+
+// EnergyPlus Headers
+#include <EnergyPlus/InputProcessing/CsvParser.hh>
+>>>>>>> nrel/develop
 
 using json = nlohmann::json;
 
@@ -115,7 +126,11 @@ void CsvParser::skip_rows(std::string_view csv, size_t &index)
 int CsvParser::find_number_columns(std::string_view csv, size_t &index)
 {
     Token token;
+<<<<<<< HEAD
     Token prev_token;
+=======
+    Token prev_token = Token::NONE;
+>>>>>>> nrel/develop
     int num_columns = 0;
 
     size_t save_index = index;
@@ -243,7 +258,11 @@ void CsvParser::parse_line(std::string_view csv, size_t &index, json &columns)
         if (token == Token::LINE_END || token == Token::FILE_END) {
             if (has_extra_columns) {
                 warnings_.emplace_back(
+<<<<<<< HEAD
                     fmt::format("CsvParser - Line {} - Expected {} columns, got {}. Ignored extra columns. Error in following line.",
+=======
+                    std::format("CsvParser - Line {} - Expected {} columns, got {}. Ignored extra columns. Error in following line.",
+>>>>>>> nrel/develop
                                 this_cur_line_num,
                                 num_columns,
                                 parsed_values),
@@ -269,7 +288,11 @@ void CsvParser::parse_line(std::string_view csv, size_t &index, json &columns)
                 // some external programs append an extra blank line in their exports.
                 if (!line.empty() || !last_line) {
                     success = false;
+<<<<<<< HEAD
                     errors_.emplace_back(fmt::format("CsvParser - Line {} - Expected {} columns, got {}. Error in following line.",
+=======
+                    errors_.emplace_back(std::format("CsvParser - Line {} - Expected {} columns, got {}. Error in following line.",
+>>>>>>> nrel/develop
                                                      this_cur_line_num,
                                                      num_columns,
                                                      parsed_values),
@@ -290,7 +313,11 @@ void CsvParser::parse_line(std::string_view csv, size_t &index, json &columns)
                 if (next_col < num_columns) {
                     // Push a nan for blank value
                     columns.at(next_col).push_back(json::value_t::null);
+<<<<<<< HEAD
                     warnings_.emplace_back(fmt::format("CsvParser - Line {} Column {} - Blank value found, setting to null. Error in following line.",
+=======
+                    warnings_.emplace_back(std::format("CsvParser - Line {} Column {} - Blank value found, setting to null. Error in following line.",
+>>>>>>> nrel/develop
                                                        this_cur_line_num,
                                                        next_col + 1),
                                            false);

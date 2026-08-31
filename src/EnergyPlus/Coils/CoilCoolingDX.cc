@@ -45,10 +45,20 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <memory>
 
 #include <ObjexxFCL/Array1D.hh> // needs to be in BranchNodeConnections.hh
 
+=======
+// C++ Headers
+#include <memory>
+
+// ObjexxFCL Headers
+#include <ObjexxFCL/Array1D.hh> // needs to be in BranchNodeConnections.hh
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/BranchNodeConnections.hh>
 #include <EnergyPlus/Coils/CoilCoolingDX.hh>
 #include <EnergyPlus/Coils/CoilCoolingDXAshrae205Performance.hh>
@@ -60,7 +70,10 @@
 #include <EnergyPlus/DataGlobals.hh>
 #include <EnergyPlus/DataHVACGlobals.hh>
 #include <EnergyPlus/DataHeatBalance.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/DataIPShortCuts.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/DataLoopNode.hh>
 #include <EnergyPlus/DataWater.hh>
 #include <EnergyPlus/Fans.hh>
@@ -92,8 +105,12 @@ std::shared_ptr<CoilCoolingDXPerformanceBase> CoilCoolingDX::makePerformanceSubc
         return std::make_shared<CoilCoolingDXCurveFitPerformance>(state, performance_object_name);
     }
 
+<<<<<<< HEAD
     ShowFatalError(state, EnergyPlus::format("Could not find Coil:Cooling:DX:Performance object with name: {}", performance_object_name));
     return nullptr;
+=======
+    ShowFatalError(state, std::format("Could not find Coil:Cooling:DX:Performance object with name: {}", performance_object_name));
+>>>>>>> nrel/develop
 }
 
 int CoilCoolingDX::factory(EnergyPlus::EnergyPlusData &state, std::string const &coilName)
@@ -116,6 +133,7 @@ int CoilCoolingDX::factory(EnergyPlus::EnergyPlusData &state, std::string const 
 
 void CoilCoolingDX::getInput(EnergyPlusData &state)
 {
+<<<<<<< HEAD
     int numCoolingCoilDXs = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, state.dataCoilCoolingDX->coilCoolingDXObjectName);
     if (numCoolingCoilDXs <= 0) {
         ShowFatalError(state, R"(No "Coil:Cooling:DX" objects in input file)");
@@ -145,6 +163,33 @@ void CoilCoolingDX::getInput(EnergyPlusData &state)
         input_specs.evaporative_condenser_supply_water_storage_tank_name = state.dataIPShortCut->cAlphaArgs(10);
         CoilCoolingDX thisCoil;
         thisCoil.instantiateFromInputSpec(state, input_specs);
+=======
+    auto *inputProcessor = state.dataInputProcessing->inputProcessor.get();
+    auto const coilInstances = inputProcessor->epJSON.find(state.dataCoilCoolingDX->coilCoolingDXObjectName);
+    if (coilInstances == inputProcessor->epJSON.end() || coilInstances->empty()) {
+        ShowFatalError(state, R"(No "Coil:Cooling:DX" objects in input file)");
+    }
+    auto const &coilSchemaProps = inputProcessor->getObjectSchemaProps(state, state.dataCoilCoolingDX->coilCoolingDXObjectName);
+
+    for (auto const &coilInstance : coilInstances.value().items()) {
+        auto const &coilFields = coilInstance.value();
+        CoilCoolingDXInputSpecification input_specs;
+        input_specs.name = Util::makeUPPER(coilInstance.key());
+        input_specs.evaporator_inlet_node_name = inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "evaporator_inlet_node_name");
+        input_specs.evaporator_outlet_node_name = inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "evaporator_outlet_node_name");
+        input_specs.availability_schedule_name = inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "availability_schedule_name");
+        input_specs.condenser_zone_name = inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "condenser_zone_name");
+        input_specs.condenser_inlet_node_name = inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "condenser_inlet_node_name");
+        input_specs.condenser_outlet_node_name = inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "condenser_outlet_node_name");
+        input_specs.performance_object_name = inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "performance_object_name");
+        input_specs.condensate_collection_water_storage_tank_name =
+            inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "condensate_collection_water_storage_tank_name");
+        input_specs.evaporative_condenser_supply_water_storage_tank_name =
+            inputProcessor->getAlphaFieldValue(coilFields, coilSchemaProps, "evaporative_condenser_supply_water_storage_tank_name");
+        CoilCoolingDX thisCoil;
+        thisCoil.instantiateFromInputSpec(state, input_specs);
+        inputProcessor->markObjectAsUsed(state.dataCoilCoolingDX->coilCoolingDXObjectName, coilInstance.key());
+>>>>>>> nrel/develop
         state.dataCoilCoolingDX->coilCoolingDXs.push_back(thisCoil);
     }
 }
@@ -153,11 +198,20 @@ void CoilCoolingDX::instantiateFromInputSpec(EnergyPlusData &state, const CoilCo
 {
     static constexpr std::string_view routineName = "CoilCoolingDX::instantiateFromInputSpec";
 
+<<<<<<< HEAD
     ErrorObjectHeader eoh{routineName, "CoilCoolingDX", input_data.name};
+=======
+    ErrorObjectHeader eoh{routineName, "Coil:Cooling:DX", input_data.name};
+>>>>>>> nrel/develop
 
     this->original_input_specs = input_data;
     bool errorsFound = false;
     this->name = input_data.name;
+<<<<<<< HEAD
+=======
+    this->coilType = HVAC::CoilType::CoolingDX;
+    this->coilReportNum = ReportCoilSelection::getReportIndex(state, this->name, this->coilType);
+>>>>>>> nrel/develop
 
     // initialize reclaim heat parameters
     this->reclaimHeat.Name = this->name;
@@ -323,14 +377,22 @@ void CoilCoolingDX::oneTimeInit(EnergyPlusData &state)
     if (this->performance->compressorFuelType != Constant::eFuel::Electricity) {
         std::string_view const sFuelType = Constant::eFuelNames[static_cast<int>(this->performance->compressorFuelType)];
         SetupOutputVariable(state,
+<<<<<<< HEAD
                             EnergyPlus::format("Cooling Coil {} Rate", sFuelType),
+=======
+                            std::format("Cooling Coil {} Rate", sFuelType),
+>>>>>>> nrel/develop
                             Constant::Units::W,
                             this->performance->compressorFuelRate,
                             OutputProcessor::TimeStepType::System,
                             OutputProcessor::StoreType::Average,
                             this->name);
         SetupOutputVariable(state,
+<<<<<<< HEAD
                             EnergyPlus::format("Cooling Coil {} Energy", sFuelType),
+=======
+                            std::format("Cooling Coil {} Energy", sFuelType),
+>>>>>>> nrel/develop
                             Constant::Units::J,
                             this->performance->compressorFuelConsumption,
                             OutputProcessor::TimeStepType::System,
@@ -790,11 +852,14 @@ void CoilCoolingDX::simulate(EnergyPlusData &state,
     // DataAirLoop::LoopDXCoilRTF = max(this->coolingCoilRuntimeFraction, DXCoil(DXCoilNum).HeatingCoilRuntimeFraction);
     state.dataAirLoop->LoopDXCoilRTF = this->coolingCoilRuntimeFraction;
     state.dataHVACGlobal->DXElecCoolingPower = this->elecCoolingPower;
+<<<<<<< HEAD
     if (this->airLoopNum > 0) {
         state.dataAirLoop->AirLoopAFNInfo(this->airLoopNum).AFNLoopDXCoilRTF = this->coolingCoilRuntimeFraction;
         // The original calculation is below, but no heating yet
         //        max(DXCoil(DXCoilNum).CoolingCoilRuntimeFraction, DXCoil(DXCoilNum).HeatingCoilRuntimeFraction);
     }
+=======
+>>>>>>> nrel/develop
 
     // report out to the coil sizing report if needed
     if (this->reportCoilFinalSizes) {
@@ -803,6 +868,7 @@ void CoilCoolingDX::simulate(EnergyPlusData &state,
             // report out final coil sizing info
             Real64 ratedSensCap(0.0);
             ratedSensCap = this->performance->ratedGrossTotalCap() * this->performance->grossRatedSHR(state);
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilFinalSizes(state,
                                                                                   this->name,
                                                                                   state.dataCoilCoolingDX->coilCoolingDXObjectName,
@@ -810,16 +876,32 @@ void CoilCoolingDX::simulate(EnergyPlusData &state,
                                                                                   ratedSensCap,
                                                                                   this->performance->ratedEvapAirFlowRate(state),
                                                                                   -999.0);
+=======
+            ReportCoilSelection::setCoilFinalSizes(state,
+                                                   this->coilReportNum,
+                                                   this->performance->ratedGrossTotalCap(),
+                                                   ratedSensCap,
+                                                   this->performance->ratedEvapAirFlowRate(state),
+                                                   -999.0);
+>>>>>>> nrel/develop
 
             // report out fan information
             // should work for all fan types
             if (this->supplyFanIndex > 0) {
+<<<<<<< HEAD
                 state.dataRptCoilSelection->coilSelectionReportObj->setCoilSupplyFanInfo(state,
                                                                                          this->name,
                                                                                          state.dataCoilCoolingDX->coilCoolingDXObjectName,
                                                                                          state.dataFans->fans(this->supplyFanIndex)->Name,
                                                                                          state.dataFans->fans(this->supplyFanIndex)->type,
                                                                                          this->supplyFanIndex);
+=======
+                ReportCoilSelection::setCoilSupplyFanInfo(state,
+                                                          this->coilReportNum,
+                                                          state.dataFans->fans(this->supplyFanIndex)->Name,
+                                                          state.dataFans->fans(this->supplyFanIndex)->type,
+                                                          this->supplyFanIndex);
+>>>>>>> nrel/develop
             }
 
             // report out coil rating conditions, just create a set of dummy nodes and run calculate on them
@@ -899,6 +981,7 @@ void CoilCoolingDX::simulate(EnergyPlusData &state,
 
             Real64 const ratedOutletWetBulb = Psychrometrics::PsyTwbFnTdbWPb(
                 state, dummyEvapOutlet.Temp, dummyEvapOutlet.HumRat, DataEnvironment::StdPressureSeaLevel, "Coil:Cooling:DX::simulate");
+<<<<<<< HEAD
             state.dataRptCoilSelection->coilSelectionReportObj->setRatedCoilConditions(state,
                                                                                        this->name,
                                                                                        state.dataCoilCoolingDX->coilCoolingDXObjectName,
@@ -915,6 +998,23 @@ void CoilCoolingDX::simulate(EnergyPlusData &state,
                                                                                        ratedOutdoorAirWetBulb,
                                                                                        this->performance->ratedCBF(state),
                                                                                        -999.0);
+=======
+            ReportCoilSelection::setRatedCoilConditions(state,
+                                                        this->coilReportNum,
+                                                        coolingRate,
+                                                        sensCoolingRate,
+                                                        ratedInletEvapMassFlowRate,
+                                                        RatedInletAirTemp,
+                                                        dummyInletAirHumRat,
+                                                        RatedInletWetBulbTemp,
+                                                        dummyEvapOutlet.Temp,
+                                                        dummyEvapOutlet.HumRat,
+                                                        ratedOutletWetBulb,
+                                                        RatedOutdoorAirTemp,
+                                                        ratedOutdoorAirWetBulb,
+                                                        this->performance->ratedCBF(state),
+                                                        -999.0);
+>>>>>>> nrel/develop
 
             this->reportCoilFinalSizes = false;
         }
@@ -954,6 +1054,7 @@ void PopulateCoolingCoilStandardRatingInformation(InputOutputFile &eio,
     // TODO: TOO BIG |Capacity from 135K (39565 W) to 250K Btu/hr (73268 W) - calculated as per AHRI Standard 365-2009 -
     // Ratings not yet supported in EnergyPlus
     // Define the format string based on the condition
+<<<<<<< HEAD
     std::string_view Format_991;
     if (!AHRI2023StandardRatings) {
         Format_991 = " DX Cooling Coil Standard Rating Information, {}, {}, {:.1f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.1f}\n";
@@ -962,6 +1063,11 @@ void PopulateCoolingCoilStandardRatingInformation(InputOutputFile &eio,
     }
     print(eio,
           Format_991,
+=======
+    print(eio,
+          " {}, {}, {}, {:.1f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.1f}\n",
+          AHRI2023StandardRatings ? "DX Cooling Coil AHRI 2023 Standard Rating Information" : "DX Cooling Coil Standard Rating Information",
+>>>>>>> nrel/develop
           "Coil:Cooling:DX",
           coilName,
           capacity,

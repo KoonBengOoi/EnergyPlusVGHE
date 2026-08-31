@@ -302,7 +302,11 @@ namespace TARCOGCommon {
         Real64 constexpr TINY(1.0e-20);
 
         int i;
+<<<<<<< HEAD
         int imax;
+=======
+        int imax = 0;
+>>>>>>> nrel/develop
         int j;
         int k;
         Real64 aamax;

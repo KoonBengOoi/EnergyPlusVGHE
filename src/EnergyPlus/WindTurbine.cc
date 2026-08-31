@@ -48,6 +48,10 @@
 // C++ Headers
 #include <cassert>
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -133,8 +137,12 @@ namespace WindTurbine {
         if (GeneratorIndex == 0) {
             WindTurbineNum = Util::FindItemInList(GeneratorName, state.dataWindTurbine->WindTurbineSys);
             if (WindTurbineNum == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state,
                                EnergyPlus::format("SimWindTurbine: Specified Generator not one of Valid Wind Turbine Generators {}", GeneratorName));
+=======
+                ShowFatalError(state, std::format("SimWindTurbine: Specified Generator not one of Valid Wind Turbine Generators {}", GeneratorName));
+>>>>>>> nrel/develop
             }
             GeneratorIndex = WindTurbineNum;
         } else {
@@ -143,6 +151,7 @@ namespace WindTurbine {
             if (WindTurbineNum > NumWindTurbines || WindTurbineNum < 1) {
                 ShowFatalError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("SimWindTurbine: Invalid GeneratorIndex passed={}, Number of Wind Turbine Generators={}, Generator name={}",
                                        WindTurbineNum,
                                        NumWindTurbines,
@@ -155,6 +164,20 @@ namespace WindTurbine {
                                    WindTurbineNum,
                                    GeneratorName,
                                    state.dataWindTurbine->WindTurbineSys(WindTurbineNum).Name));
+=======
+                    std::format("SimWindTurbine: Invalid GeneratorIndex passed={}, Number of Wind Turbine Generators={}, Generator name={}",
+                                WindTurbineNum,
+                                NumWindTurbines,
+                                GeneratorName));
+            }
+            if (GeneratorName != state.dataWindTurbine->WindTurbineSys(WindTurbineNum).Name) {
+                ShowFatalError(
+                    state,
+                    std::format("SimMWindTurbine: Invalid GeneratorIndex passed={}, Generator name={}, stored Generator Name for that index={}",
+                                WindTurbineNum,
+                                GeneratorName,
+                                state.dataWindTurbine->WindTurbineSys(WindTurbineNum).Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -273,11 +296,19 @@ namespace WindTurbine {
                     windTurbine.rotorType = RotorType::HorizontalAxis;
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\".",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cAlphaFields(3),
                                                        state.dataIPShortCut->cAlphaArgs(3)));
+=======
+                                    std::format("{}=\"{}\" invalid {}=\"{}\".",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cAlphaFields(3),
+                                                state.dataIPShortCut->cAlphaArgs(3)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -290,11 +321,19 @@ namespace WindTurbine {
                     windTurbine.controlType = ControlType::VariableSpeedVariablePitch;
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\".",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cAlphaFields(4),
                                                        state.dataIPShortCut->cAlphaArgs(4)));
+=======
+                                    std::format("{}=\"{}\" invalid {}=\"{}\".",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cAlphaFields(4),
+                                                state.dataIPShortCut->cAlphaArgs(4)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -303,6 +342,7 @@ namespace WindTurbine {
             if (windTurbine.RatedRotorSpeed <= 0.0) {
                 if (lNumericBlanks(1)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -314,6 +354,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(1),
                                                        rNumericArgs(1)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(1)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(1),
+                                                rNumericArgs(1)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -322,6 +375,7 @@ namespace WindTurbine {
             if (windTurbine.RotorDiameter <= 0.0) {
                 if (lNumericBlanks(2)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -333,6 +387,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(2),
                                                        rNumericArgs(2)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(2)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.1f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(2),
+                                                rNumericArgs(2)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -341,6 +408,7 @@ namespace WindTurbine {
             if (windTurbine.RotorHeight <= 0.0) {
                 if (lNumericBlanks(3)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -352,6 +420,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(3),
                                                        rNumericArgs(3)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(3)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.1f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(3),
+                                                rNumericArgs(3)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -359,11 +440,19 @@ namespace WindTurbine {
             windTurbine.NumOfBlade = state.dataIPShortCut->rNumericArgs(4); // Total number of blade
             if (windTurbine.NumOfBlade == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}=\"{}\" invalid {}=[{:.0R}] must be greater than zero.",
                                                    CurrentModuleObject,
                                                    state.dataIPShortCut->cAlphaArgs(1),
                                                    cNumericFields(4),
                                                    rNumericArgs(4)));
+=======
+                                std::format("{}=\"{}\" invalid {}=[{:.0f}] must be greater than zero.",
+                                            CurrentModuleObject,
+                                            state.dataIPShortCut->cAlphaArgs(1),
+                                            cNumericFields(4),
+                                            rNumericArgs(4)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -371,6 +460,7 @@ namespace WindTurbine {
             if (windTurbine.RatedPower == 0.0) {
                 if (lNumericBlanks(5)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -382,6 +472,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(5),
                                                        rNumericArgs(5)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(5)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(5),
+                                                rNumericArgs(5)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -390,6 +493,7 @@ namespace WindTurbine {
             if (windTurbine.RatedWindSpeed == 0.0) {
                 if (lNumericBlanks(6)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -401,6 +505,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(6),
                                                        rNumericArgs(6)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(6)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(6),
+                                                rNumericArgs(6)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -409,6 +526,7 @@ namespace WindTurbine {
             if (windTurbine.CutInSpeed == 0.0) {
                 if (lNumericBlanks(7)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -420,6 +538,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(7),
                                                        rNumericArgs(7)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(7)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(7),
+                                                rNumericArgs(7)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -428,6 +559,7 @@ namespace WindTurbine {
             if (windTurbine.CutOutSpeed == 0.0) {
                 if (lNumericBlanks(8)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -448,6 +580,28 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(8),
                                                        rNumericArgs(8)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(8)));
+                } else if (windTurbine.CutOutSpeed <= windTurbine.RatedWindSpeed) {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than {}=[{:.2f}].",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(8),
+                                                rNumericArgs(8),
+                                                cNumericFields(6),
+                                                rNumericArgs(6)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(8),
+                                                rNumericArgs(8)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -456,18 +610,28 @@ namespace WindTurbine {
             if (lNumericBlanks(9) || windTurbine.SysEfficiency == 0.0 || windTurbine.SysEfficiency > 1.0) {
                 windTurbine.SysEfficiency = SysEffDefault;
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}=\"{}\" invalid {}=[{:.2R}].",
                                                     CurrentModuleObject,
                                                     state.dataIPShortCut->cAlphaArgs(1),
                                                     cNumericFields(9),
                                                     state.dataIPShortCut->rNumericArgs(9)));
                 ShowContinueError(state, EnergyPlus::format("...The default value of {:.3R} was assumed. for {}", SysEffDefault, cNumericFields(9)));
+=======
+                                 std::format("{}=\"{}\" invalid {}=[{:.2f}].",
+                                             CurrentModuleObject,
+                                             state.dataIPShortCut->cAlphaArgs(1),
+                                             cNumericFields(9),
+                                             state.dataIPShortCut->rNumericArgs(9)));
+                ShowContinueError(state, std::format("...The default value of {:.3f} was assumed. for {}", SysEffDefault, cNumericFields(9)));
+>>>>>>> nrel/develop
             }
 
             windTurbine.MaxTipSpeedRatio = state.dataIPShortCut->rNumericArgs(10); // Maximum tip speed ratio
             if (windTurbine.MaxTipSpeedRatio == 0.0) {
                 if (lNumericBlanks(10)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -479,24 +643,47 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(10),
                                                        rNumericArgs(10)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(10)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(10),
+                                                rNumericArgs(10)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
             if (windTurbine.SysEfficiency > MaxTSR) {
                 windTurbine.SysEfficiency = MaxTSR;
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}=\"{}\" invalid {}=[{:.2R}].",
                                                     CurrentModuleObject,
                                                     state.dataIPShortCut->cAlphaArgs(1),
                                                     cNumericFields(10),
                                                     state.dataIPShortCut->rNumericArgs(10)));
                 ShowContinueError(state, EnergyPlus::format("...The default value of {:.1R} was assumed. for {}", MaxTSR, cNumericFields(10)));
+=======
+                                 std::format("{}=\"{}\" invalid {}=[{:.2f}].",
+                                             CurrentModuleObject,
+                                             state.dataIPShortCut->cAlphaArgs(1),
+                                             cNumericFields(10),
+                                             state.dataIPShortCut->rNumericArgs(10)));
+                ShowContinueError(state, std::format("...The default value of {:.1f} was assumed. for {}", MaxTSR, cNumericFields(10)));
+>>>>>>> nrel/develop
             }
 
             windTurbine.MaxPowerCoeff = state.dataIPShortCut->rNumericArgs(11); // Maximum power coefficient
             if (windTurbine.rotorType == RotorType::HorizontalAxis && windTurbine.MaxPowerCoeff == 0.0) {
                 if (lNumericBlanks(11)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -508,24 +695,47 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(11),
                                                        rNumericArgs(11)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(11)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(11),
+                                                rNumericArgs(11)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
             if (windTurbine.MaxPowerCoeff > MaxPowerCoeff) {
                 windTurbine.MaxPowerCoeff = DefaultPC;
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}=\"{}\" invalid {}=[{:.2R}].",
                                                     CurrentModuleObject,
                                                     state.dataIPShortCut->cAlphaArgs(1),
                                                     cNumericFields(11),
                                                     state.dataIPShortCut->rNumericArgs(11)));
                 ShowContinueError(state, EnergyPlus::format("...The default value of {:.2R} will be used. for {}", DefaultPC, cNumericFields(11)));
+=======
+                                 std::format("{}=\"{}\" invalid {}=[{:.2f}].",
+                                             CurrentModuleObject,
+                                             state.dataIPShortCut->cAlphaArgs(1),
+                                             cNumericFields(11),
+                                             state.dataIPShortCut->rNumericArgs(11)));
+                ShowContinueError(state, std::format("...The default value of {:.2f} will be used. for {}", DefaultPC, cNumericFields(11)));
+>>>>>>> nrel/develop
             }
 
             windTurbine.LocalAnnualAvgWS = state.dataIPShortCut->rNumericArgs(12); // Local wind speed annually averaged
             if (windTurbine.LocalAnnualAvgWS == 0.0) {
                 if (lNumericBlanks(12)) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\" invalid {} is necessary for accurate prediction but input is blank.",
                                                         CurrentModuleObject,
                                                         state.dataIPShortCut->cAlphaArgs(1),
@@ -537,6 +747,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(12),
                                                        rNumericArgs(12)));
+=======
+                                     std::format("{}=\"{}\" invalid {} is necessary for accurate prediction but input is blank.",
+                                                 CurrentModuleObject,
+                                                 state.dataIPShortCut->cAlphaArgs(1),
+                                                 cNumericFields(12)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(12),
+                                                rNumericArgs(12)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -549,6 +772,7 @@ namespace WindTurbine {
                     windTurbine.HeightForLocalWS = DefaultH;
                     if (lNumericBlanks(13)) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{}\" invalid {} is necessary for accurate prediction but input is blank.",
                                                             CurrentModuleObject,
                                                             state.dataIPShortCut->cAlphaArgs(1),
@@ -562,6 +786,20 @@ namespace WindTurbine {
                                                            state.dataIPShortCut->cAlphaArgs(1),
                                                            cNumericFields(13),
                                                            rNumericArgs(13)));
+=======
+                                         std::format("{}=\"{}\" invalid {} is necessary for accurate prediction but input is blank.",
+                                                     CurrentModuleObject,
+                                                     state.dataIPShortCut->cAlphaArgs(1),
+                                                     cNumericFields(13)));
+                        ShowContinueError(state, std::format("...The default value of {:.2f} will be used. for {}", DefaultH, cNumericFields(13)));
+                    } else {
+                        ShowSevereError(state,
+                                        std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                    CurrentModuleObject,
+                                                    state.dataIPShortCut->cAlphaArgs(1),
+                                                    cNumericFields(13),
+                                                    rNumericArgs(13)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -571,6 +809,7 @@ namespace WindTurbine {
             if (windTurbine.rotorType == RotorType::VerticalAxis && windTurbine.ChordArea == 0.0) {
                 if (lNumericBlanks(14)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -582,6 +821,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(14),
                                                        rNumericArgs(14)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(14)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(14),
+                                                rNumericArgs(14)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -590,6 +842,7 @@ namespace WindTurbine {
             if (windTurbine.rotorType == RotorType::VerticalAxis && windTurbine.DragCoeff == 0.0) {
                 if (lNumericBlanks(15)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -601,6 +854,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(15),
                                                        rNumericArgs(15)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(15)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(15),
+                                                rNumericArgs(15)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -609,6 +875,7 @@ namespace WindTurbine {
             if (windTurbine.rotorType == RotorType::VerticalAxis && windTurbine.LiftCoeff == 0.0) {
                 if (lNumericBlanks(16)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}=\"{}\" invalid {} is required but input is blank.",
                                                        CurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(1),
@@ -620,6 +887,19 @@ namespace WindTurbine {
                                                        state.dataIPShortCut->cAlphaArgs(1),
                                                        cNumericFields(16),
                                                        rNumericArgs(16)));
+=======
+                                    std::format("{}=\"{}\" invalid {} is required but input is blank.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(16)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format("{}=\"{}\" invalid {}=[{:.2f}] must be greater than zero.",
+                                                CurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(1),
+                                                cNumericFields(16),
+                                                rNumericArgs(16)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -658,7 +938,11 @@ namespace WindTurbine {
         lNumericBlanks.deallocate();
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{} errors occurred in input.  Program terminates.", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("{} errors occurred in input.  Program terminates.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         for (WindTurbineNum = 1; WindTurbineNum <= NumWindTurbines; ++WindTurbineNum) {
@@ -811,9 +1095,15 @@ namespace WindTurbine {
                                     if (!warningShown) {
                                         ShowWarningError(
                                             state,
+<<<<<<< HEAD
                                             EnergyPlus::format("InitWindTurbine: read from {} file shows <365 days in weather file. Annual average "
                                                                "wind speed used will be inaccurate.",
                                                                state.files.inStatFilePath.filePath));
+=======
+                                            std::format("InitWindTurbine: read from {} file shows <365 days in weather file. Annual average "
+                                                        "wind speed used will be inaccurate.",
+                                                        state.files.inStatFilePath.filePath.string()));
+>>>>>>> nrel/develop
                                         lineIn.data.erase(0, lnPtr + 1);
                                         warningShown = true;
                                     }
@@ -822,9 +1112,15 @@ namespace WindTurbine {
                                 if (!warningShown) {
                                     ShowWarningError(
                                         state,
+<<<<<<< HEAD
                                         EnergyPlus::format("InitWindTurbine: read from {} file shows <365 days in weather file. Annual average wind "
                                                            "speed used will be inaccurate.",
                                                            state.files.inStatFilePath.filePath));
+=======
+                                        std::format("InitWindTurbine: read from {} file shows <365 days in weather file. Annual average wind "
+                                                    "speed used will be inaccurate.",
+                                                    state.files.inStatFilePath.filePath.string()));
+>>>>>>> nrel/develop
                                     lineIn.data.erase(0, lnPtr + 1);
                                     warningShown = true;
                                 }

@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/CoolingWaterDesAirInletHumRatSizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 
@@ -101,6 +105,7 @@ Real64 CoolingWaterDesAirInletHumRatSizer::size(EnergyPlusData &state, Real64 _o
         }
     }
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->isEpJSON) {
             this->sizingString = "design_inlet_air_humidity_ratio [kgWater/kgDryAir]";
         }
@@ -108,6 +113,13 @@ Real64 CoolingWaterDesAirInletHumRatSizer::size(EnergyPlusData &state, Real64 _o
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntAirHumRat(state, this->compName, this->compType, this->autoSizedValue);
+=======
+        this->sizingString = "Design Inlet Air Humidity Ratio [kgWater/kgDryAir]";
+    }
+    this->selectSizerOutput(state, errorsFound);
+    if (this->isCoilReportObject) {
+        ReportCoilSelection::setCoilEntAirHumRat(state, this->coilReportNum, this->autoSizedValue);
+>>>>>>> nrel/develop
     }
     return this->autoSizedValue;
 }

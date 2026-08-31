@@ -46,11 +46,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <utility>
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/environment.hh>
+<<<<<<< HEAD
 #include <ObjexxFCL/string.functions.hh>
+=======
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/Data/EnergyPlusData.hh>
@@ -193,10 +200,17 @@ namespace DataSystemVariables {
         }
 
         // If we get here, we didn't find the file
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("{}\"{}\" not found.", contextString, originalInputFilePath));
         ShowContinueError(state, "  Paths searched:");
         for (auto &path : pathsChecked) {
             ShowContinueError(state, EnergyPlus::format("    {}: \"{}\"", path.second, path.first));
+=======
+        ShowSevereError(state, std::format("{}\"{}\" not found.", contextString, originalInputFilePath));
+        ShowContinueError(state, "  Paths searched:");
+        for (auto &path : pathsChecked) {
+            ShowContinueError(state, std::format("    {}: \"{}\"", path.second, path.first));
+>>>>>>> nrel/develop
         }
 
         return foundFilePath;

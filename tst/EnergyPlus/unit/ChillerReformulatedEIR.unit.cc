@@ -343,7 +343,10 @@ TEST_F(EnergyPlusFixture, ChillerElectricReformulatedEIR_OutputReport)
 
     EXPECT_TRUE(process_idf(idf_objects, false));
     state->init_state(*state);
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
 
     state->dataPlnt->PlantLoop.allocate(state->dataPlnt->TotNumLoops);
     state->dataPlnt->PlantLoop.allocate(state->dataPlnt->TotNumLoops);

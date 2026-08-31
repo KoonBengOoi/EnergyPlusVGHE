@@ -236,7 +236,11 @@ class RegularGridInterpolatorImplementation {
     {
         if (axis_index > number_of_grid_axes - 1) {
             throw BtwxtException(
+<<<<<<< HEAD
                 fmt::format("Unable to {} for axis (index={}). Number of grid axes = {}.",
+=======
+                std::format("Unable to {} for axis (index={}). Number of grid axes = {}.",
+>>>>>>> nrel/develop
                             action_description,
                             axis_index,
                             number_of_grid_axes),

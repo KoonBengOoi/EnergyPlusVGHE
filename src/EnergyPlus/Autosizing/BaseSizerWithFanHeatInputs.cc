@@ -45,11 +45,21 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <string>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/Base.hh>
 #include <EnergyPlus/Autosizing/BaseSizerWithFanHeatInputs.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/Fans.hh>
+<<<<<<< HEAD
 #include <string>
+=======
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 
@@ -93,6 +103,7 @@ Real64 BaseSizerWithFanHeatInputs::calcFanDesHeatGain(Real64 const &airVolFlow)
 
 void BaseSizerWithFanHeatInputs::getFanInputsForDesHeatGain(EnergyPlusData &state,
                                                             int fanIndex,
+<<<<<<< HEAD
                                                             Real64 &deltaP,
                                                             Real64 &motEff,
                                                             Real64 &totEff,
@@ -100,6 +111,15 @@ void BaseSizerWithFanHeatInputs::getFanInputsForDesHeatGain(EnergyPlusData &stat
                                                             Real64 &fanShaftPow,
                                                             Real64 &motInPower,
                                                             bool &fanCompModel)
+=======
+                                                            Real64 &deltaP_out,
+                                                            Real64 &motEff_out,
+                                                            Real64 &totEff_out,
+                                                            Real64 &motInAirFrac_out,
+                                                            Real64 &fanShaftPow_out,
+                                                            Real64 &motInPower_out,
+                                                            bool &fanCompModel_out)
+>>>>>>> nrel/develop
 {
     // if fan unknown or air flow sizing (recursive call to size fan) then return
     if (fanIndex <= 0 || this->isFanReportObject) {
@@ -107,7 +127,12 @@ void BaseSizerWithFanHeatInputs::getFanInputsForDesHeatGain(EnergyPlusData &stat
     }
 
     // This should work for all fan types now
+<<<<<<< HEAD
     state.dataFans->fans(fanIndex)->getInputsForDesignHeatGain(state, deltaP, motEff, totEff, motInAirFrac, fanShaftPow, motInPower, fanCompModel);
+=======
+    state.dataFans->fans(fanIndex)->getInputsForDesignHeatGain(
+        state, deltaP_out, motEff_out, totEff_out, motInAirFrac_out, fanShaftPow_out, motInPower_out, fanCompModel_out);
+>>>>>>> nrel/develop
 }
 
 void BaseSizerWithFanHeatInputs::setDataDesAccountForFanHeat(EnergyPlusData &state, bool flag)

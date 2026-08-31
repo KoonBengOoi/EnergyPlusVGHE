@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <string>
 
 // ObjexxFCL Headers
@@ -734,12 +738,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
 
             if (RefrigCase(CaseNum).ActualZoneNum == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", invalid  {} not valid: {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cAlphaFieldNames(3),
                                                    Alphas(3)));
+=======
+                                std::format("{}{}=\"{}\", invalid  {} not valid: {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cAlphaFieldNames(3),
+                                            Alphas(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 state.dataRefrigCase->RefrigPresentInZone(RefrigCase(CaseNum).ActualZoneNum) = true;
@@ -750,22 +763,38 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).RatedAmbientTemp = Numbers(1);
             if (Numbers(1) <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than 0 C",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(1)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than 0 C",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             RefrigCase(CaseNum).RatedAmbientRH = Numbers(2);
             if (Numbers(2) <= 0.0 || Numbers(2) >= 100.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than 0% and less than 100%",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(2)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than 0% and less than 100%",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             RefrigCase(CaseNum).RatedAmbientDewPoint = Psychrometrics::PsyTdpFnWPb(
@@ -777,11 +806,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).RateTotCapPerLength = Numbers(3);
             if (Numbers(3) <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than 0 W/m",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(3)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than 0 W/m",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -789,7 +826,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (Numbers(4) < 0.0 || Numbers(4) > 1.0) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}{}=\"{}\", {} must be >= 0 and <= 1", RoutineName, CurrentModuleObject, RefrigCase(CaseNum).Name, cNumericFieldNames(4)));
                 ErrorsFound = true;
             }
@@ -797,34 +838,59 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).RatedRTF = Numbers(5);
             if (Numbers(5) <= 0.0 || Numbers(5) > 1.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be > 0 and <= to 1",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(5)));
+=======
+                                std::format("{}{}=\"{}\", {} must be > 0 and <= to 1",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(5)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             RefrigCase(CaseNum).Length = Numbers(6);
             if (Numbers(6) <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than 0 m",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(6)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than 0 m",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(6)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             RefrigCase(CaseNum).Temperature = Numbers(7);
             if (RefrigCase(CaseNum).Temperature >= RefrigCase(CaseNum).RatedAmbientTemp) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be below {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(7),
                                                    cNumericFieldNames(1)));
+=======
+                                std::format("{}{}=\"{}\", {} must be below {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(7),
+                                            cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -853,11 +919,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 RefrigCase(CaseNum).STDFanPower = Numbers(NumNum);
                 if (Numbers(NumNum) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cNumericFieldNames(NumNum)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else { // blank use default of 75 W/m
@@ -869,11 +943,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 RefrigCase(CaseNum).OperatingFanPower = Numbers(NumNum);
                 if (Numbers(NumNum) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cNumericFieldNames(NumNum)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else { // if blank set = to std fan power
@@ -885,11 +967,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 RefrigCase(CaseNum).RatedLightingPower = Numbers(NumNum);
                 if (Numbers(NumNum) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cNumericFieldNames(NumNum)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else { // blank input - use default of 90 W/m
@@ -901,11 +991,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 RefrigCase(CaseNum).LightingPower = Numbers(NumNum);
                 if (Numbers(NumNum) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cNumericFieldNames(NumNum)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else { // blank input so set lighting power equal to rated/std lighting power
@@ -930,11 +1028,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //   check lighting fraction to case input
             if (RefrigCase(CaseNum).LightingFractionToCase < 0.0 || RefrigCase(CaseNum).LightingFractionToCase > 1.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} has a value outside the valid range",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} has a value outside the valid range",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "  Minimum should be >= 0.0 and Maximum should be <= 1.0");
                 ErrorsFound = true;
             }
@@ -943,11 +1049,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).AntiSweatPower = Numbers(NumNum);
             if (Numbers(NumNum) < 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -955,11 +1069,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).MinimumASPower = Numbers(NumNum);
             if (Numbers(NumNum) < 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -975,12 +1097,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (RefrigCase(CaseNum).Temperature >= RefrigCase(CaseNum).RatedAmbientDewPoint &&
                 RefrigCase(CaseNum).AntiSweatControlType == ASHtrCtrlType::DewPoint) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be below the Rated Ambient Dew Point when {} is Dew Point Method",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(7),
                                                    cAlphaFieldNames(7)));
+=======
+                                std::format("{}{}=\"{}\", {} must be below the Rated Ambient Dew Point when {} is Dew Point Method",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(7),
+                                            cAlphaFieldNames(7)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -992,6 +1123,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (RefrigCase(CaseNum).HumAtZeroAS >= RefrigCase(CaseNum).RatedAmbientRH &&
                 RefrigCase(CaseNum).AntiSweatControlType == ASHtrCtrlType::Linear) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be less than {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
@@ -999,6 +1131,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                    cNumericFieldNames(NumNum),
                                                    cNumericFieldNames(2)));
                 ShowContinueError(state, EnergyPlus::format(" for Linear {}.", cAlphaFieldNames(7)));
+=======
+                                std::format("{}{}=\"{}\", {} must be less than {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum),
+                                            cNumericFieldNames(2)));
+                ShowContinueError(state, std::format(" for Linear {}.", cAlphaFieldNames(7)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1006,16 +1147,25 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).Height = Numbers(NumNum);
             if (Numbers(NumNum) < 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 m",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than or equal to 0 m",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             if (RefrigCase(CaseNum).Height <= 0.0 && RefrigCase(CaseNum).AntiSweatControlType == ASHtrCtrlType::HeatBalance) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than 0 when {} is Heat Balance Method.",
                                                    RoutineName,
                                                    CurrentModuleObject,
@@ -1023,6 +1173,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                    cNumericFieldNames(NumNum),
                                                    cAlphaFieldNames(7)));
                 ShowContinueError(state, EnergyPlus::format("..given {} was: {:.3R}", cNumericFieldNames(NumNum), RefrigCase(CaseNum).Height));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than 0 when {} is Heat Balance Method.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum),
+                                            cAlphaFieldNames(7)));
+                ShowContinueError(state, std::format("..given {} was: {:.3f}", cNumericFieldNames(NumNum), RefrigCase(CaseNum).Height));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1042,6 +1201,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (RefrigCase(CaseNum).Rcase == 0.0) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}=\"{}\" A case thermal resistance of 0 was calculated for anti-sweat heater performance using the",
                                            CurrentModuleObject,
                                            RefrigCase(CaseNum).Name));
@@ -1050,6 +1210,16 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         EnergyPlus::format(" Heat Balance Method control type. Anti-sweat heater performance cannot be calculated and {} will be "
                                            "set to None and simulation continues.",
                                            cAlphaFieldNames(7)));
+=======
+                        std::format("{}=\"{}\" A case thermal resistance of 0 was calculated for anti-sweat heater performance using the",
+                                    CurrentModuleObject,
+                                    RefrigCase(CaseNum).Name));
+                    ShowContinueError(
+                        state,
+                        std::format(" Heat Balance Method control type. Anti-sweat heater performance cannot be calculated and {} will be "
+                                    "set to None and simulation continues.",
+                                    cAlphaFieldNames(7)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, " See Engineering Documentation for anti-sweat heater control of refrigerated cases.");
                 }
             }
@@ -1058,11 +1228,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).ASHeaterFractionToCase = Numbers(NumNum);
             if (Numbers(NumNum) < 0.0 || Numbers(NumNum) > 1.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be >= 0 and <= 1",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} must be >= 0 and <= 1",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1085,22 +1263,38 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 RefrigCase(CaseNum).DefrostPower = Numbers(NumNum);
                 if (Numbers(NumNum) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cNumericFieldNames(NumNum)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be greater than or equal to 0 W/m",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 //   disregard defrost power for Off-Cycle or None defrost types
                 if ((DefType == RefCaseDefrostType::OffCycle || DefType == RefCaseDefrostType::None) && (RefrigCase(CaseNum).DefrostPower > 0.0)) {
                     RefrigCase(CaseNum).DefrostPower = 0.0;
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\", {} for {} None or Off-Cycle will be set to 0 and simulation continues.",
                                                         CurrentModuleObject,
                                                         RefrigCase(CaseNum).Name,
                                                         cNumericFieldNames(NumNum),
                                                         cAlphaFieldNames(8)));
+=======
+                                     std::format("{}=\"{}\", {} for {} None or Off-Cycle will be set to 0 and simulation continues.",
+                                                 CurrentModuleObject,
+                                                 RefrigCase(CaseNum).Name,
+                                                 cNumericFieldNames(NumNum),
+                                                 cAlphaFieldNames(8)));
+>>>>>>> nrel/develop
                 }
             } else {
                 RefrigCase(CaseNum).DefrostPower = 0.0;
@@ -1111,6 +1305,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                  DefType == RefCaseDefrostType::ElectricTerm) &&
                 RefrigCase(CaseNum).DefrostPower <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than 0 W/m for {} {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
@@ -1118,6 +1313,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                    cNumericFieldNames(NumNum),
                                                    cAlphaFieldNames(8),
                                                    Alphas(8)));
+=======
+                                std::format("{}{}=\"{}\", {} must be greater than 0 W/m for {} {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum),
+                                            cAlphaFieldNames(8),
+                                            Alphas(8)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1202,11 +1406,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (RefrigCase(CaseNum).defrostType != RefCaseDefrostType::ElectricTerm &&
                     RefrigCase(CaseNum).defrostType != RefCaseDefrostType::HotFluidTerm) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\", invalid  {} is only applicable to Defrost Temperature Termination types.",
                                                         CurrentModuleObject,
                                                         RefrigCase(CaseNum).Name,
                                                         cAlphaFieldNames(12)));
                     ShowContinueError(state, EnergyPlus::format("{} will be disregarded and simulation continues.", cAlphaFieldNames(12)));
+=======
+                                     std::format("{}=\"{}\", invalid  {} is only applicable to Defrost Temperature Termination types.",
+                                                 CurrentModuleObject,
+                                                 RefrigCase(CaseNum).Name,
+                                                 cAlphaFieldNames(12)));
+                    ShowContinueError(state, std::format("{} will be disregarded and simulation continues.", cAlphaFieldNames(12)));
+>>>>>>> nrel/develop
                 }
             }
 
@@ -1214,11 +1426,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigCase(CaseNum).RAFrac = Numbers(NumNum);
             if (Numbers(NumNum) < 0.0 || Numbers(NumNum) > 1.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} must be >= 0 or <= 1 ",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} must be >= 0 or <= 1 ",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1237,24 +1457,42 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (RefrigCase(CaseNum).ActualZoneNum >= 0) {
                 if (RefrigCase(CaseNum).ZoneNodeNum == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", System Node Number not found for {} = {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cAlphaFieldNames(3),
                                                        Alphas(3)));
+=======
+                                    std::format("{}{}=\"{}\", System Node Number not found for {} = {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cAlphaFieldNames(3),
+                                                Alphas(3)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "..Refrigerated cases must reference a controlled Zone (appear in a ZoneHVAC:EquipmentConnections object).");
                     ErrorsFound = true;
                 }
                 if ((RefrigCase(CaseNum).RAFrac > 0.0) && (RefrigCase(CaseNum).ZoneRANode == 0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", Under Case HVAC Return Air Node number not found for {} = {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cAlphaFieldNames(3),
                                                        Alphas(3)));
+=======
+                                    std::format("{}{}=\"{}\", Under Case HVAC Return Air Node number not found for {} = {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cAlphaFieldNames(3),
+                                                Alphas(3)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "..Refrigerated cases must reference a controlled Zone (appear in a ZoneHVAC:EquipmentConnections object) "
                                       "with at least one return air node.");
@@ -1270,11 +1508,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //   Make sure RA node exists for display cases with under case HVAC returns
             if (RefrigCase(CaseNum).ZoneRANode == 0 && RefrigCase(CaseNum).RAFrac > 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} not applicable to zones without return air systems.",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigCase(CaseNum).Name,
                                                    cNumericFieldNames(19)));
+=======
+                                std::format("{}{}=\"{}\", {} not applicable to zones without return air systems.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigCase(CaseNum).Name,
+                                            cNumericFieldNames(19)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1307,7 +1553,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (DesignSensibleCap < CaseHeatGain) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}{}=\"{}\", the sum of lighting, fan, and anti-sweat heater energy is greater than refrigerated case sensible capacity",
                         RoutineName,
                         CurrentModuleObject,
@@ -1337,12 +1587,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 RefrigCase(CaseNum).EvapTempDesign = Numbers(NumNum);
                 if (RefrigCase(CaseNum).EvapTempDesign >= RefrigCase(CaseNum).Temperature) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be below {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cNumericFieldNames(NumNum),
                                                        cNumericFieldNames(7)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be below {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cNumericFieldNames(NumNum),
+                                                cNumericFieldNames(7)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else {
@@ -1356,11 +1615,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 RefrigCase(CaseNum).DesignRefrigInventory = RefrigCase(CaseNum).RefrigInventory * RefrigCase(CaseNum).Length;
                 if (RefrigCase(CaseNum).RefrigInventory < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be a positive number.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigCase(CaseNum).Name,
                                                        cNumericFieldNames(NumNum)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be a positive number.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigCase(CaseNum).Name,
+                                                cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else {
@@ -1406,7 +1673,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (Numbers(1) <= 0.0) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}{}=\"{}\", {} must be greater than 0 W", RoutineName, CurrentModuleObject, WalkIn(WalkInID).Name, cNumericFieldNames(1)));
                 ErrorsFound = true;
             }
@@ -1447,11 +1718,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 WalkIn(WalkInID).CoilFanPower = Numbers(5);
             } else {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}{}=\"{}\", {} was not input or was less than 0 and default of 375.0 W will be used ",
                                                     RoutineName,
                                                     CurrentModuleObject,
                                                     WalkIn(WalkInID).Name,
                                                     cNumericFieldNames(5)));
+=======
+                                 std::format("{}{}=\"{}\", {} was not input or was less than 0 and default of 375.0 W will be used ",
+                                             RoutineName,
+                                             CurrentModuleObject,
+                                             WalkIn(WalkInID).Name,
+                                             cNumericFieldNames(5)));
+>>>>>>> nrel/develop
                 WalkIn(WalkInID).CoilFanPower = 375.0; // default value = 1/2 hp
             }
 
@@ -1461,11 +1740,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 WalkIn(WalkInID).CircFanPower = Numbers(6);
                 if (Numbers(7) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be greater than >= 0 W",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        WalkIn(WalkInID).Name,
                                                        cNumericFieldNames(6)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be greater than >= 0 W",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                WalkIn(WalkInID).Name,
+                                                cNumericFieldNames(6)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -1540,6 +1827,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else { // have electric or hot gas/brine defrost
                 if ((lNumericBlanks(8)) || (Numbers(8) <= 0.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be input and greater than or equal to 0 W for {} {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
@@ -1547,6 +1835,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                        cNumericFieldNames(8),
                                                        cAlphaFieldNames(5),
                                                        Alphas(5)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be input and greater than or equal to 0 W for {} {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                WalkIn(WalkInID).Name,
+                                                cNumericFieldNames(8),
+                                                cAlphaFieldNames(5),
+                                                Alphas(5)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     WalkIn(WalkInID).DefrostCapacity = Numbers(8);
@@ -1563,11 +1860,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (!lNumericBlanks(9)) {
                     if ((Numbers(9) > 1.0) || (Numbers(9) < 0.0)) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}{}=\"{}\", {} must be between 0 and 1, default values will be used.",
                                                             RoutineName,
                                                             CurrentModuleObject,
                                                             WalkIn(WalkInID).Name,
                                                             cNumericFieldNames(9)));
+=======
+                                         std::format("{}{}=\"{}\", {} must be between 0 and 1, default values will be used.",
+                                                     RoutineName,
+                                                     CurrentModuleObject,
+                                                     WalkIn(WalkInID).Name,
+                                                     cNumericFieldNames(9)));
+>>>>>>> nrel/develop
                     } else {
                         WalkIn(WalkInID).DefEnergyFraction = Numbers(9);
                     } // number out of range
@@ -1592,8 +1897,12 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{}{}=\"{}\", {} must be input", RoutineName, CurrentModuleObject, WalkIn(WalkInID).Name, cNumericFieldNames(11)));
+=======
+                    std::format("{}{}=\"{}\", {} must be input", RoutineName, CurrentModuleObject, WalkIn(WalkInID).Name, cNumericFieldNames(11)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1604,8 +1913,12 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (Numbers(12) <= 0.0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "{}{}=\"{}\", {} must be > 0.", RoutineName, CurrentModuleObject, WalkIn(WalkInID).Name, cNumericFieldNames(12)));
+=======
+                        std::format("{}{}=\"{}\", {} must be > 0.", RoutineName, CurrentModuleObject, WalkIn(WalkInID).Name, cNumericFieldNames(12)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -1725,12 +2038,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     WalkIn(WalkInID).SurfaceArea(ZoneID) = Numbers(NStart);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be input for Zone: {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        WalkIn(WalkInID).Name,
                                                        cNumericFieldNames(NStart),
                                                        WalkIn(WalkInID).ZoneName(ZoneID)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be input for Zone: {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                WalkIn(WalkInID).Name,
+                                                cNumericFieldNames(NStart),
+                                                WalkIn(WalkInID).ZoneName(ZoneID)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -1740,12 +2062,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     WalkIn(WalkInID).UValue(ZoneID) = Numbers(NStart + 1);
                     if (Numbers(NStart + 1) <= 0.0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format(R"({}{}="{}", Zone="{}", {} must be > 0.)",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WalkIn(WalkInID).Name,
                                                            WalkIn(WalkInID).ZoneName(ZoneID),
                                                            cNumericFieldNames(NStart + 1)));
+=======
+                                        std::format(R"({}{}="{}", Zone="{}", {} must be > 0.)",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WalkIn(WalkInID).Name,
+                                                    WalkIn(WalkInID).ZoneName(ZoneID),
+                                                    cNumericFieldNames(NStart + 1)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -1888,11 +2219,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).UnitLoadFactorSens = Numbers(NumNum);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W/C",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W/C",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -1909,22 +2248,38 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         } else {
                             if (Numbers(NumNum) <= 0.0 || Numbers(NumNum) >= 100.0) {
                                 ShowSevereError(state,
+<<<<<<< HEAD
                                                 EnergyPlus::format("{}{}=\"{}\", {} must be greater than 0% and less than 100%",
                                                                    RoutineName,
                                                                    CurrentModuleObject,
                                                                    WarehouseCoil(CoilID).Name,
                                                                    cNumericFieldNames(NumNum)));
+=======
+                                                std::format("{}{}=\"{}\", {} must be greater than 0% and less than 100%",
+                                                            RoutineName,
+                                                            CurrentModuleObject,
+                                                            WarehouseCoil(CoilID).Name,
+                                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                             WarehouseCoil(CoilID).RatedRH = Numbers(NumNum) / 100.0;
                         }
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -1937,11 +2292,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 1;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -1955,11 +2318,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 1;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -1972,11 +2343,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 2;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -1990,11 +2369,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 2;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -2007,11 +2394,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 3;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -2025,11 +2420,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 3;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -2042,11 +2445,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 4;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -2060,11 +2471,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 4;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -2077,11 +2496,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 5;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -2095,11 +2522,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         WarehouseCoil(CoilID).SCIndex = 5;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            WarehouseCoil(CoilID).Name,
                                                            cNumericFieldNames(NumNum)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be input and be greater than 0 W",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    WarehouseCoil(CoilID).Name,
+                                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } break;
@@ -2116,7 +2551,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}{}=\"{}\", {} must be input", RoutineName, CurrentModuleObject, WarehouseCoil(CoilID).Name, cNumericFieldNames(NumNum)));
                 ErrorsFound = true;
             }
@@ -2128,7 +2567,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}{}=\"{}\", {} must be input", RoutineName, CurrentModuleObject, WarehouseCoil(CoilID).Name, cNumericFieldNames(NumNum)));
                 ErrorsFound = true;
             }
@@ -2141,11 +2584,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else {
                 WarehouseCoil(CoilID).MaxTemperatureDif = 1.3 * WarehouseCoil(CoilID).RatedTemperatureDif;
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}{}=\"{}\", {} not entered, default 1.3 times rated temperature difference will be used.",
                                                     RoutineName,
                                                     CurrentModuleObject,
                                                     WarehouseCoil(CoilID).Name,
                                                     cNumericFieldNames(NumNum)));
+=======
+                                 std::format("{}{}=\"{}\", {} not entered, default 1.3 times rated temperature difference will be used.",
+                                             RoutineName,
+                                             CurrentModuleObject,
+                                             WarehouseCoil(CoilID).Name,
+                                             cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
             }
 
             // Correction factor from manufacturer's rating for coil material, default 1.0
@@ -2187,18 +2638,31 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 WarehouseCoil(CoilID).SHRCorrType = SHRCorrectionType::TabularRH_DT1_TRoom;
                 if (!(Util::SameString(Alphas(AlphaNum), "TabularRHxDT1xTRoom"))) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format(R"({}{}="{}", invalid {}="{}".)",
                                                         RoutineName,
                                                         CurrentModuleObject,
                                                         WarehouseCoil(CoilID).Name,
                                                         cAlphaFieldNames(AlphaNum),
                                                         Alphas(AlphaNum)));
+=======
+                                     std::format(R"({}{}="{}", invalid {}="{}".)",
+                                                 RoutineName,
+                                                 CurrentModuleObject,
+                                                 WarehouseCoil(CoilID).Name,
+                                                 cAlphaFieldNames(AlphaNum),
+                                                 Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "The \"CapacityTotalSpecificConditions\" Capacity Rating Type has been specified for this air chiller.  "
                                       "This rating type requires ");
                     ShowContinueError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             R"(the "TabularRHxDT1xTRoom" correction curve.  Verify that a valid "TabularRHxDT1xTRoom" curve is specified in "{}".)",
                             cAlphaFieldNames(AlphaNum + 1)));
                 }
@@ -2220,20 +2684,36 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (WarehouseCoil(CoilID).SHRCorrection60 > 1.67) {
                     WarehouseCoil(CoilID).SHRCorrection60 = 1.67;
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}{}=\"{}\", {} must be between 1 and 1.67, 1.67 will be used.",
                                                         RoutineName,
                                                         CurrentModuleObject,
                                                         WarehouseCoil(CoilID).Name,
                                                         cNumericFieldNames(NumNum)));
+=======
+                                     std::format("{}{}=\"{}\", {} must be between 1 and 1.67, 1.67 will be used.",
+                                                 RoutineName,
+                                                 CurrentModuleObject,
+                                                 WarehouseCoil(CoilID).Name,
+                                                 cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 }
                 if (WarehouseCoil(CoilID).SHRCorrection60 < 1.0) {
                     WarehouseCoil(CoilID).SHRCorrection60 = 1.0;
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}{}=\"{}\", {} must be between 1 and 1.67, 1.00 will be used.",
                                                         RoutineName,
                                                         CurrentModuleObject,
                                                         WarehouseCoil(CoilID).Name,
                                                         cNumericFieldNames(NumNum)));
+=======
+                                     std::format("{}{}=\"{}\", {} must be between 1 and 1.67, 1.00 will be used.",
+                                                 RoutineName,
+                                                 CurrentModuleObject,
+                                                 WarehouseCoil(CoilID).Name,
+                                                 cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 }
             } break;
             case SHRCorrectionType::European: {
@@ -2261,6 +2741,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 WarehouseCoil(CoilID).SHRCorrectionCurvePtr = Curve::GetCurveIndex(state, Alphas(AlphaNum)); // convert curve name to number
                 if (lAlphaBlanks(AlphaNum)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", invalid  {} is blank, required.",
                                                        RoutineName,
                                                        CurrentModuleObject,
@@ -2271,6 +2752,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     ShowSevereError(state,
                                     EnergyPlus::format("{}{}=\"{}\", invalid  ", RoutineName, CurrentModuleObject, WarehouseCoil(CoilID).Name));
                     ShowContinueError(state, EnergyPlus::format("...invalid curve {}=\"{}\".", cAlphaFieldNames(AlphaNum), Alphas(AlphaNum)));
+=======
+                                    std::format("{}{}=\"{}\", invalid  {} is blank, required.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                WarehouseCoil(CoilID).Name,
+                                                cAlphaFieldNames(AlphaNum)));
+                    ErrorsFound = true;
+                } else if (WarehouseCoil(CoilID).SHRCorrectionCurvePtr == 0) {
+                    ShowSevereError(state, std::format("{}{}=\"{}\", invalid  ", RoutineName, CurrentModuleObject, WarehouseCoil(CoilID).Name));
+                    ShowContinueError(state, std::format("...invalid curve {}=\"{}\".", cAlphaFieldNames(AlphaNum), Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 ErrorsFound |= Curve::CheckCurveDims(state,
@@ -2324,11 +2816,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 WarehouseCoil(CoilID).RatedFanPower = Numbers(NumNum);
             } else {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} was not input or was less than 0 ",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    WarehouseCoil(CoilID).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} was not input or was less than 0 ",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            WarehouseCoil(CoilID).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } // coil fan power
 
@@ -2337,11 +2837,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 WarehouseCoil(CoilID).RatedAirVolumeFlow = Numbers(NumNum);
             } else {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} is required and was not input or was less than 0  ",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    WarehouseCoil(CoilID).Name,
                                                    cNumericFieldNames(NumNum)));
+=======
+                                std::format("{}{}=\"{}\", {} is required and was not input or was less than 0  ",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            WarehouseCoil(CoilID).Name,
+                                            cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
             } // air volume flow
 
             ++NumNum;                                       // N13
@@ -2402,6 +2910,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else { // have electric or hot gas/brine defrost
                 if ((lNumericBlanks(NumNum)) || (Numbers(NumNum) <= 0.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be input and greater than or equal to 0 W for {} {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
@@ -2409,6 +2918,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                        cNumericFieldNames(NumNum),
                                                        cAlphaFieldNames(AlphaNum),
                                                        Alphas(AlphaNum)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be input and greater than or equal to 0 W for {} {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                WarehouseCoil(CoilID).Name,
+                                                cNumericFieldNames(NumNum),
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     WarehouseCoil(CoilID).DefrostCapacity = Numbers(NumNum);
@@ -2427,11 +2945,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (!lNumericBlanks(NumNum)) {
                     if ((Numbers(NumNum) > 1.0) || (Numbers(NumNum) < 0.0)) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}{}=\"{}\", {} must be between 0 and 1, default values will be used.",
                                                             RoutineName,
                                                             CurrentModuleObject,
                                                             WarehouseCoil(CoilID).Name,
                                                             cNumericFieldNames(NumNum)));
+=======
+                                         std::format("{}{}=\"{}\", {} must be between 0 and 1, default values will be used.",
+                                                     RoutineName,
+                                                     CurrentModuleObject,
+                                                     WarehouseCoil(CoilID).Name,
+                                                     cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     } else {
                         WarehouseCoil(CoilID).DefEnergyFraction = Numbers(NumNum);
                     } // number out of range
@@ -2500,23 +3026,41 @@ void GetRefrigerationInput(EnergyPlusData &state)
 
             if (AirChillerSet(SetID).ZoneNum == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", invalid  {} not valid: {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    AirChillerSet(SetID).Name,
                                                    cAlphaFieldNames(AlphaNum),
                                                    Alphas(AlphaNum)));
+=======
+                                std::format("{}{}=\"{}\", invalid  {} not valid: {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            AirChillerSet(SetID).Name,
+                                            cAlphaFieldNames(AlphaNum),
+                                            Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             AirChillerSet(SetID).ZoneNodeNum = DataZoneEquipment::GetSystemNodeNumberForZone(state, AirChillerSet(SetID).ZoneNum);
             if (AirChillerSet(SetID).ZoneNodeNum == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\" System Node Number not found for {} = {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    AirChillerSet(SetID).Name,
                                                    cAlphaFieldNames(AlphaNum),
                                                    Alphas(AlphaNum)));
+=======
+                                std::format("{}{}=\"{}\" System Node Number not found for {} = {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            AirChillerSet(SetID).Name,
+                                            cAlphaFieldNames(AlphaNum),
+                                            Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                 ShowContinueError(state,
                                   ".. Refrigeration chillers must reference a controlled Zone (appear in a ZoneHVAC:EquipmentConnections object.");
                 ErrorsFound = true;
@@ -2527,12 +3071,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (!lAlphaBlanks(AlphaNum)) {
                 ShowMessage(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("{}{}=\"{}\" {} is not used. This is not an error.  Energy is exchanged directly with the zone independent of "
                                        "any air system. ",
                                        RoutineName,
                                        CurrentModuleObject,
                                        AirChillerSet(SetID).Name,
                                        cAlphaFieldNames(AlphaNum)));
+=======
+                    std::format("{}{}=\"{}\" {} is not used. This is not an error.  Energy is exchanged directly with the zone independent of "
+                                "any air system. ",
+                                RoutineName,
+                                CurrentModuleObject,
+                                AirChillerSet(SetID).Name,
+                                cAlphaFieldNames(AlphaNum)));
+>>>>>>> nrel/develop
                 // Node identification reserved for future use.  Currently exchange energy directly with zone outside any air system
                 // AirChillerSet(SetID)%NodeNumInlet = &
                 //       Node::GetOnlySingleNode(state, Alphas(AlphaNum),ErrorsFound,TRIM(CurrentModuleObject), &
@@ -2543,12 +3096,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (!lAlphaBlanks(AlphaNum)) {
                 ShowMessage(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("{}{}=\"{}\" {} is not used. This is not an error.  Energy is exchanged directly with the zone independent of "
                                        "any air system. ",
                                        RoutineName,
                                        CurrentModuleObject,
                                        AirChillerSet(SetID).Name,
                                        cAlphaFieldNames(AlphaNum)));
+=======
+                    std::format("{}{}=\"{}\" {} is not used. This is not an error.  Energy is exchanged directly with the zone independent of "
+                                "any air system. ",
+                                RoutineName,
+                                CurrentModuleObject,
+                                AirChillerSet(SetID).Name,
+                                cAlphaFieldNames(AlphaNum)));
+>>>>>>> nrel/develop
                 // Node identification reserved for future use.  Currently exchange energy directly with zone outside any air system
                 // AirChillerSet(SetID)%NodeNumOutlet = &
                 //         Node::GetOnlySingleNode(state, Alphas(AlphaNum),ErrorsFound,TRIM(CurrentModuleObject), &
@@ -2569,12 +3131,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     int CoilNum = Util::FindItemInList(Alphas(AlphaListNum), WarehouseCoil);
                     if (CoilNum == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", has an invalid {} defined as {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            AirChillerSet(SetID).Name,
                                                            cAlphaFieldNames(AlphaListNum),
                                                            Alphas(AlphaListNum)));
+=======
+                                        std::format("{}{}=\"{}\", has an invalid {} defined as {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    AirChillerSet(SetID).Name,
+                                                    cAlphaFieldNames(AlphaListNum),
+                                                    Alphas(AlphaListNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } // == 0
                     AirChillerSet(SetID).CoilNum(ChillerIndex) = CoilNum;
@@ -2641,6 +3212,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     }
                     if ((LoadWalkInNum == 0) && (LoadCaseNum == 0) && (LoadCoilNum == 0)) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", has an invalid value of {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -2654,6 +3226,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                            CurrentModuleObject,
                                                            cAlphaFieldNames(AlphaListNum),
                                                            Alphas(AlphaListNum)));
+=======
+                                        std::format("{}{}=\"{}\", has an invalid value of {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    cAlphaFieldNames(AlphaListNum),
+                                                    Alphas(AlphaListNum)));
+                        ErrorsFound = true;
+                    } else if ((LoadWalkInNum != 0) && (LoadCaseNum != 0) && (LoadCoilNum != 0)) {
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\", {} Case and WalkIns and Refrigerated Coils cannot have the same name.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    cAlphaFieldNames(AlphaListNum),
+                                                    Alphas(AlphaListNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else if (LoadWalkInNum != 0) {
                         ++NumWalkInsOnList;
@@ -2670,7 +3257,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (LoadCount == 0) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}{}, \"{}\" : degenerate list All entries were blank.", RoutineName, CurrentModuleObject, CaseAndWalkInList(ListNum).Name));
                 ErrorsFound = true;
             } // loadcount == 0
@@ -2722,11 +3313,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
 
             if (RefrigRack(RackNum).RatedCOP <= 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\" {} must be greater than 0.0",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigRack(RackNum).Name,
                                                    cNumericFieldNames(1)));
+=======
+                                std::format("{}{}=\"{}\" {} must be greater than 0.0",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigRack(RackNum).Name,
+                                            cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2747,23 +3346,40 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigRack(RackNum).CondenserFanPower = Numbers(2);
             if (Numbers(2) < 0.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\" {} must be greater than or equal to 0 Watts.",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigRack(RackNum).Name,
                                                    cNumericFieldNames(2)));
+=======
+                                std::format("{}{}=\"{}\" {} must be greater than or equal to 0 Watts.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigRack(RackNum).Name,
+                                            cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             RefrigRack(RackNum).TotCondFTempPtr = Curve::GetCurveIndex(state, Alphas(4)); // convert curve name to number
             if ((!lAlphaBlanks(4)) && RefrigRack(RackNum).TotCondFTempPtr == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", invalid  {} not found:{}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigRack(RackNum).Name,
                                                    cAlphaFieldNames(4),
                                                    Alphas(4)));
+=======
+                                std::format("{}{}=\"{}\", invalid  {} not found:{}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigRack(RackNum).Name,
+                                            cAlphaFieldNames(4),
+                                            Alphas(4)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2787,6 +3403,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                        RefrigRack(RackNum).CondenserType == DataHeatBalance::RefrigCondenserType::Water) {
                 if (RefrigRack(RackNum).HeatRejectionLocation == HeatRejLocation::Zone) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\" {}=\"{}\" not available with {} = Zone.",
                                                         CurrentModuleObject,
                                                         RefrigRack(RackNum).Name,
@@ -2794,6 +3411,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                         Alphas(5),
                                                         cAlphaFieldNames(2)));
                     ShowContinueError(state, EnergyPlus::format("{} reset to Air Cooled and simulation continues.", cAlphaFieldNames(5)));
+=======
+                                     std::format("{}=\"{}\" {}=\"{}\" not available with {} = Zone.",
+                                                 CurrentModuleObject,
+                                                 RefrigRack(RackNum).Name,
+                                                 cAlphaFieldNames(5),
+                                                 Alphas(5),
+                                                 cAlphaFieldNames(2)));
+                    ShowContinueError(state, std::format("{} reset to Air Cooled and simulation continues.", cAlphaFieldNames(5)));
+>>>>>>> nrel/develop
                     RefrigRack(RackNum).CondenserType = DataHeatBalance::RefrigCondenserType::Air;
                 }
             } else if (RefrigRack(RackNum).CondenserType == DataHeatBalance::RefrigCondenserType::Cascade ||
@@ -2849,12 +3475,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 // Check constant flow for max violation, if applicable
                 if (RefrigRack(RackNum).FlowType == CndsrFlowType::Constant && RefrigRack(RackNum).VolFlowRate > Numbers(4)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} > {}.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigRack(RackNum).Name,
                                                        cNumericFieldNames(3),
                                                        cNumericFieldNames(4)));
+=======
+                                    std::format("{}{}=\"{}\" {} > {}.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigRack(RackNum).Name,
+                                                cNumericFieldNames(3),
+                                                cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Revise flow rates.");
                     ErrorsFound = true;
                 }
@@ -2878,11 +3513,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             RefrigRack(RackNum).EvapEffect = Numbers(7);
             if (RefrigRack(RackNum).EvapEffect < 0.0 || RefrigRack(RackNum).EvapEffect > 1.0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\" {} cannot be less than zero or greater than 1.0.",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigRack(RackNum).Name,
                                                    cNumericFieldNames(7)));
+=======
+                                std::format("{}{}=\"{}\" {} cannot be less than zero or greater than 1.0.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigRack(RackNum).Name,
+                                            cNumericFieldNames(7)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2890,11 +3533,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (RefrigRack(RackNum).CondenserType == DataHeatBalance::RefrigCondenserType::Evap && RefrigRack(RackNum).CondenserAirFlowRate <= 0.0 &&
                 RefrigRack(RackNum).CondenserAirFlowRate != Constant::AutoCalculate) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} cannot be less than or equal to zero.",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigRack(RackNum).Name,
                                                    cNumericFieldNames(8)));
+=======
+                                std::format("{}{}=\"{}\", {} cannot be less than or equal to zero.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigRack(RackNum).Name,
+                                            cNumericFieldNames(8)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2903,8 +3554,12 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (RefrigRack(RackNum).CondenserType == DataHeatBalance::RefrigCondenserType::Evap && Numbers(9) < 0.0) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "{}{}=\"{}\", {} must be >= 0", RoutineName, CurrentModuleObject, RefrigRack(RackNum).Name, cNumericFieldNames(9)));
+=======
+                    std::format("{}{}=\"{}\", {} must be >= 0", RoutineName, CurrentModuleObject, RefrigRack(RackNum).Name, cNumericFieldNames(9)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2912,21 +3567,36 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (RefrigRack(RackNum).CondenserType == DataHeatBalance::RefrigCondenserType::Evap &&
                 RefrigRack(RackNum).BasinHeaterSetPointTemp < 2.0) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}=\"{}\", {} is less than 2 deg C. Freezing could occur.",
                                                     CurrentModuleObject,
                                                     RefrigRack(RackNum).Name,
                                                     cNumericFieldNames(10)));
+=======
+                                 std::format("{}=\"{}\", {} is less than 2 deg C. Freezing could occur.",
+                                             CurrentModuleObject,
+                                             RefrigRack(RackNum).Name,
+                                             cNumericFieldNames(10)));
+>>>>>>> nrel/develop
             }
 
             RefrigRack(RackNum).EvapPumpPower = Numbers(11);
             if (RefrigRack(RackNum).CondenserType == DataHeatBalance::RefrigCondenserType::Evap && RefrigRack(RackNum).EvapPumpPower < 0.0 &&
                 RefrigRack(RackNum).EvapPumpPower != Constant::AutoCalculate) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", {} cannot be less than zero.",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigRack(RackNum).Name,
                                                    cNumericFieldNames(11)));
+=======
+                                std::format("{}{}=\"{}\", {} cannot be less than zero.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigRack(RackNum).Name,
+                                            cNumericFieldNames(11)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -2960,12 +3630,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                                                 Node::ObjectIsParent);
                 if (!OutAirNodeManager::CheckOutAirNodeNumber(state, RefrigRack(RackNum).OutsideAirNodeNum)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} not found: {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        RefrigRack(RackNum).Name,
                                                        cAlphaFieldNames(12),
                                                        Alphas(12)));
+=======
+                                    std::format("{}{}=\"{}\", {} not found: {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                RefrigRack(RackNum).Name,
+                                                cAlphaFieldNames(12),
+                                                Alphas(12)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...does not appear in an OutdoorAir:NodeList or as an OutdoorAir:Node.");
                     ErrorsFound = true;
                 }
@@ -2989,11 +3668,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (lAlphaBlanks(AlphaNum)) {
                 // No cases or walkins or coils specified, ie, rack has no load
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\" : has no loads, must have at least one of: {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    RefrigRack(RackNum).Name,
                                                    cAlphaFieldNames(14)));
+=======
+                                std::format("{}{}=\"{}\" : has no loads, must have at least one of: {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            RefrigRack(RackNum).Name,
+                                            cAlphaFieldNames(14)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else { // (.NOT. lAlphaBlanks(AlphaNum))
                 // Entry for Alphas(AlphaNum) can be either a Case, WalkIn, Coil, or CaseAndWalkInList name
@@ -3031,6 +3718,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     ErrorsFound = true;
                     if (NumNameMatches == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" : has an invalid {}: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -3045,6 +3733,22 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                            RefrigRack(RackNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format("{}{}=\"{}\" : has an invalid {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    RefrigRack(RackNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+                    } else if (NumNameMatches > 1) {
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\" : has a non-unique name that could be either a {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    RefrigRack(RackNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     } // num matches = 0 or > 1
                 } else if (CaseAndWalkInListNum != 0) { // Name points to a CaseAndWalkInList
                     NumCoils = CaseAndWalkInList(CaseAndWalkInListNum).NumCoils;
@@ -3106,6 +3810,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         if (RefrigCase(RefrigRack(RackNum).CaseNum(caseIndex)).ActualZoneNum == ZoneNum) {
                             continue;
                         }
+<<<<<<< HEAD
                         ShowSevereError(
                             state,
                             EnergyPlus::format(R"({}{}="{}" : All cases attached to a rack must be in the same zone when {} equals "Zone".)",
@@ -3113,6 +3818,14 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                CurrentModuleObject,
                                                RefrigRack(RackNum).Name,
                                                cAlphaFieldNames(2)));
+=======
+                        ShowSevereError(state,
+                                        std::format(R"({}{}="{}" : All cases attached to a rack must be in the same zone when {} equals "Zone".)",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    RefrigRack(RackNum).Name,
+                                                    cAlphaFieldNames(2)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                         break;
                     }
@@ -3146,12 +3859,20 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     if (lAlphaBlanks(15)) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
                                 "{}{}=\"{}{} must be input if walkins or AirChillers connected to rack and heat rejection location = zone.",
                                 RoutineName,
                                 CurrentModuleObject,
                                 RefrigRack(RackNum).Name,
                                 cAlphaFieldNames(15)));
+=======
+                            std::format("{}{}=\"{}{} must be input if walkins or AirChillers connected to rack and heat rejection location = zone.",
+                                        RoutineName,
+                                        CurrentModuleObject,
+                                        RefrigRack(RackNum).Name,
+                                        cAlphaFieldNames(15)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else { // alpha (15) not blank
                         RefrigRack(RackNum).HeatRejectionZoneNum = Util::FindItemInList(Alphas(15), state.dataHeatBal->Zone);
@@ -3159,12 +3880,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                             DataZoneEquipment::GetSystemNodeNumberForZone(state, RefrigRack(RackNum).HeatRejectionZoneNum);
                         if (RefrigRack(RackNum).HeatRejectionZoneNum == 0) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}{}=\"{}\", invalid  {} not valid: {}",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                RefrigRack(RackNum).Name,
                                                                cAlphaFieldNames(15),
                                                                Alphas(15)));
+=======
+                                            std::format("{}{}=\"{}\", invalid  {} not valid: {}",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        RefrigRack(RackNum).Name,
+                                                        cAlphaFieldNames(15),
+                                                        Alphas(15)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         } else {
                             state.dataRefrigCase->RefrigPresentInZone(RefrigRack(RackNum).HeatRejectionZoneNum) = true;
@@ -3240,12 +3970,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 Condenser(CondNum).CapCurvePtr = Curve::GetCurveIndex(state, Alphas(2)); // convert curve name to number
                 if (Condenser(CondNum).CapCurvePtr == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", invalid  {} not found:{}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cAlphaFieldNames(2),
                                                        Alphas(2)));
+=======
+                                    std::format("{}{}=\"{}\", invalid  {} not found:{}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cAlphaFieldNames(2),
+                                                Alphas(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3275,6 +4014,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         (DelTempMax - DelTempMin) / ((Capmax - Capmin)); // * ( 1.0 - 7.17e-5 * Elevation ) ) //Mar 2011 bug fix
                     Condenser(CondNum).MinCondLoad = Capmax - DelTempMax / Condenser(CondNum).TempSlope;
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(
                         state,
                         EnergyPlus::format("{}{}=\"{}\" Condenser capacity curve per ARI 460 must be input and must be greater than 0 Watts at "
@@ -3282,6 +4022,14 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            RoutineName,
                                            CurrentModuleObject,
                                            Condenser(CondNum).Name));
+=======
+                    ShowSevereError(state,
+                                    std::format("{}{}=\"{}\" Condenser capacity curve per ARI 460 must be input and must be greater than 0 Watts at "
+                                                "16.7C temperature difference.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3304,11 +4052,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if ((lNumericBlanks(2)) || (Numbers(2) < 0.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be input greater than or equal to 0 Watts.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(2)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be input greater than or equal to 0 Watts.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3344,12 +4100,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         if (!OutAirNodeManager::CheckOutAirNodeNumber(state, Condenser(CondNum).InletAirNodeNum)) {
                             // not outside and not a zone
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}{}=\"{}\", {} not found: {}",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                Condenser(CondNum).Name,
                                                                cAlphaFieldNames(4),
                                                                Alphas(4)));
+=======
+                                            std::format("{}{}=\"{}\", {} not found: {}",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        Condenser(CondNum).Name,
+                                                        cAlphaFieldNames(4),
+                                                        Alphas(4)));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "...does not appear in an OutdoorAir:NodeList or as an OutdoorAir:Node or as a Zone.");
                             ErrorsFound = true;
                         } // checkoutairnodenumber
@@ -3417,11 +4182,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Condenser(CondNum).RatedCapacity = Numbers(1);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} per ARI 490 must be input and must be greater than 0 Watts.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(1)));
+=======
+                                    std::format("{}{}=\"{}\" {} per ARI 490 must be input and must be greater than 0 Watts.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 // Calculate capacity elevation derate factor per ARI 490 barometric pressure correction factor
@@ -3444,11 +4217,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 Condenser(CondNum).RatedFanPower = Numbers(3);
                 if (Numbers(3) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be greater than or equal to 0 Watts.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(3)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be greater than or equal to 0 Watts.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3472,10 +4253,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).EvapCoeff1 = Numbers(NumNum);
                     } else {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
                                                             CurrentModuleObject,
                                                             Condenser(CondNum).Name,
                                                             cNumericFieldNames(NumNum)));
+=======
+                                         std::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
+                                                     CurrentModuleObject,
+                                                     Condenser(CondNum).Name,
+                                                     cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     }
                 }
                 NumNum = 6; // EvapCoeff2 can't be equal to 0 because used in a denominator
@@ -3484,10 +4272,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).EvapCoeff2 = Numbers(NumNum);
                     } else {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{}\", {} is less than or equal to 0 and was not used. Default was used.",
                                                             CurrentModuleObject,
                                                             Condenser(CondNum).Name,
                                                             cNumericFieldNames(NumNum)));
+=======
+                                         std::format("{}=\"{}\", {} is less than or equal to 0 and was not used. Default was used.",
+                                                     CurrentModuleObject,
+                                                     Condenser(CondNum).Name,
+                                                     cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     }
                 }
                 NumNum = 7;
@@ -3496,10 +4291,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).EvapCoeff3 = Numbers(NumNum);
                     } else {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
                                                             CurrentModuleObject,
                                                             Condenser(CondNum).Name,
                                                             cNumericFieldNames(NumNum)));
+=======
+                                         std::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
+                                                     CurrentModuleObject,
+                                                     Condenser(CondNum).Name,
+                                                     cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     }
                 }
                 NumNum = 8;
@@ -3508,10 +4310,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).EvapCoeff4 = Numbers(NumNum);
                     } else {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{}\", {} is less than -20 and was not used. Default was used.",
                                                             CurrentModuleObject,
                                                             Condenser(CondNum).Name,
                                                             cNumericFieldNames(NumNum)));
+=======
+                                         std::format("{}=\"{}\", {} is less than -20 and was not used. Default was used.",
+                                                     CurrentModuleObject,
+                                                     Condenser(CondNum).Name,
+                                                     cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     }
                 }
                 NumNum = 9;
@@ -3520,10 +4329,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).MinCapFacEvap = Numbers(NumNum);
                     } else {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
                                                             CurrentModuleObject,
                                                             Condenser(CondNum).Name,
                                                             cNumericFieldNames(NumNum)));
+=======
+                                         std::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
+                                                     CurrentModuleObject,
+                                                     Condenser(CondNum).Name,
+                                                     cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     }
                 }
                 NumNum = 10;
@@ -3532,10 +4348,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).MaxCapFacEvap = Numbers(NumNum);
                     } else {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
                                                             CurrentModuleObject,
                                                             Condenser(CondNum).Name,
                                                             cNumericFieldNames(NumNum)));
+=======
+                                         std::format("{}=\"{}\", {} is less than 0 and was not used. Default was used.",
+                                                     CurrentModuleObject,
+                                                     Condenser(CondNum).Name,
+                                                     cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                     }
                 }
 
@@ -3554,12 +4377,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                                                  Node::ObjectIsParent);
                     if (!OutAirNodeManager::CheckOutAirNodeNumber(state, Condenser(CondNum).InletAirNodeNum)) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} not found: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Condenser(CondNum).Name,
                                                            cAlphaFieldNames(3),
                                                            Alphas(3)));
+=======
+                                        std::format("{}{}=\"{}\", {} not found: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Condenser(CondNum).Name,
+                                                    cAlphaFieldNames(3),
+                                                    Alphas(3)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "...does not appear in an OutdoorAir:NodeList or as an OutdoorAir:Node.");
                         ErrorsFound = true;
                     }
@@ -3576,7 +4408,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (Numbers(NumNum) < 0.0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}{}=\"{}\", {} must be >= 0", RoutineName, CurrentModuleObject, Condenser(CondNum).Name, cNumericFieldNames(NumNum)));
                     ErrorsFound = true;
                 }
@@ -3588,10 +4424,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if (Condenser(CondNum).BasinHeaterSetPointTemp < 2.0) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\", {} is less than 2 deg C. Freezing could occur.",
                                                         CurrentModuleObject,
                                                         Condenser(CondNum).Name,
                                                         cNumericFieldNames(NumNum)));
+=======
+                                     std::format("{}=\"{}\", {} is less than 2 deg C. Freezing could occur.",
+                                                 CurrentModuleObject,
+                                                 Condenser(CondNum).Name,
+                                                 cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 }
 
                 NumNum = 14;
@@ -3686,11 +4529,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Condenser(CondNum).RatedCapacity = Numbers(1);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} per ARI 450 must be input and must be greater than 0 Watts.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(1)));
+=======
+                                    std::format("{}{}=\"{}\" {} per ARI 450 must be input and must be greater than 0 Watts.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3698,11 +4549,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Condenser(CondNum).RatedTCondense = Numbers(2);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} per ARI 450 must be input and must be greater than 0 C.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(2)));
+=======
+                                    std::format("{}{}=\"{}\" {} per ARI 450 must be input and must be greater than 0 C.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3711,11 +4570,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).RatedSubcool = Numbers(3);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} must be greater than or equal to zero.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Condenser(CondNum).Name,
                                                            cNumericFieldNames(3)));
+=======
+                                        std::format("{}{}=\"{}\" {} must be greater than or equal to zero.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Condenser(CondNum).Name,
+                                                    cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } else {
@@ -3727,11 +4594,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Condenser(CondNum).RatedApproachT = Condenser(CondNum).RatedTCondense - Numbers(4);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be input and greater than zero.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(4)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be input and greater than zero.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3779,11 +4654,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).VolFlowRate = Numbers(5);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} must be greater than zero.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Condenser(CondNum).Name,
                                                            cNumericFieldNames(5)));
+=======
+                                        std::format("{}{}=\"{}\" {} must be greater than zero.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Condenser(CondNum).Name,
+                                                    cNumericFieldNames(5)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Revise flow rates.");
                         ErrorsFound = true;
                     }
@@ -3796,22 +4679,39 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     // Check constant flow for max violation, if applicable
                     if (Condenser(CondNum).FlowType == CndsrFlowType::Constant && Condenser(CondNum).VolFlowRate > Numbers(6)) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} > {} .",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Condenser(CondNum).Name,
                                                            cNumericFieldNames(5),
                                                            cNumericFieldNames(6)));
+=======
+                                        std::format("{}{}=\"{}\" {} > {} .",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Condenser(CondNum).Name,
+                                                    cNumericFieldNames(5),
+                                                    cNumericFieldNames(6)));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Revise flow rates.");
                         ErrorsFound = true;
                     } // Error check on max flow rate
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be greater than zero.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(6)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be greater than zero.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(6)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3882,7 +4782,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 } else {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}{}=\"{}\" {} must be input.", RoutineName, CurrentModuleObject, Condenser(CondNum).Name, cNumericFieldNames(1)));
                     ErrorsFound = true;
                 }
@@ -3892,11 +4796,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Condenser(CondNum).RatedApproachT = Numbers(2);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} must be greater than or equal to zero.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Condenser(CondNum).Name,
                                                            cNumericFieldNames(2)));
+=======
+                                        std::format("{}{}=\"{}\" {} must be greater than or equal to zero.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Condenser(CondNum).Name,
+                                                    cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } else {
@@ -3907,11 +4819,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Condenser(CondNum).RatedCapacity = Numbers(3);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be in put and must be greater than or equal to zero.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name,
                                                        cNumericFieldNames(3)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be in put and must be greater than or equal to zero.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name,
+                                                cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -3993,7 +4913,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 } else {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}{}=\"{}\" Gas Cooler capacity curve must be input and must be greater than 0 Watts at 3C temperature difference.",
                             RoutineName,
                             CurrentModuleObject,
@@ -4017,11 +4941,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if (Numbers(1) < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be input greater than or equal to 0 Watts.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        GasCooler(GCNum).Name,
                                                        cNumericFieldNames(1)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be input greater than or equal to 0 Watts.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                GasCooler(GCNum).Name,
+                                                cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -4032,11 +4964,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if ((GasCooler(GCNum).FanMinAirFlowRatio < 0.0) || (GasCooler(GCNum).FanMinAirFlowRatio > 1.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be a value between zero and one.  The default value (0.2) will be used.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        GasCooler(GCNum).Name,
                                                        cNumericFieldNames(2)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be a value between zero and one.  The default value (0.2) will be used.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                GasCooler(GCNum).Name,
+                                                cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                     GasCooler(GCNum).FanMinAirFlowRatio = 0.2;
                 }
 
@@ -4046,6 +4986,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     GasCooler(GCNum).TransitionTemperature = Numbers(3);
                 }
                 if (GasCooler(GCNum).TransitionTemperature < 2.5e1) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format("{}{}=\"{}\" {} is low (less than 25C).  Consider raising the transition temperature to operate for "
@@ -4054,11 +4995,24 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            CurrentModuleObject,
                                            GasCooler(GCNum).Name,
                                            cNumericFieldNames(3)));
+=======
+                    ShowWarningError(state,
+                                     std::format("{}{}=\"{}\" {} is low (less than 25C).  Consider raising the transition temperature to operate for "
+                                                 "longer periods of time in the subcritical region.",
+                                                 RoutineName,
+                                                 CurrentModuleObject,
+                                                 GasCooler(GCNum).Name,
+                                                 cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                 }
                 if (GasCooler(GCNum).TransitionTemperature > 30.978) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}{}=\"{}\" {} is greater than the critical temperature of carbon dioxide.  The default value (27C) will be used.",
                             RoutineName,
                             CurrentModuleObject,
@@ -4074,11 +5028,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if (GasCooler(GCNum).GasCoolerApproachT < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be greater than 0C.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        GasCooler(GCNum).Name,
                                                        cNumericFieldNames(4)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be greater than 0C.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                GasCooler(GCNum).Name,
+                                                cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -4089,11 +5051,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if (GasCooler(GCNum).SubcriticalTempDiff < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be greater than 0C.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        GasCooler(GCNum).Name,
                                                        cNumericFieldNames(5)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be greater than 0C.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                GasCooler(GCNum).Name,
+                                                cNumericFieldNames(5)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -4104,11 +5074,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if (GasCooler(GCNum).MinCondTemp > 30.9) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be less than the critical temperature of carbon dioxide (31C).",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        GasCooler(GCNum).Name,
                                                        cNumericFieldNames(6)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be less than the critical temperature of carbon dioxide (31C).",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                GasCooler(GCNum).Name,
+                                                cNumericFieldNames(6)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -4202,11 +5180,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (lAlphaBlanks(AlphaNum)) {
                     // No cases or walkins specified, ie, secondary has no load
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", has no loads, must have at least one of: {}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Secondary(SecondaryNum).Name,
                                                        cAlphaFieldNames(AlphaNum)));
+=======
+                                    std::format("{}{}=\"{}\", has no loads, must have at least one of: {}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Secondary(SecondaryNum).Name,
+                                                cAlphaFieldNames(AlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else { // (.NOT. lAlphaBlanks(AlphaNum))
 
@@ -4245,6 +5231,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         ErrorsFound = true;
                         if (NumNameMatches == 0) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}{}=\"{}\", has an invalid {}: {}",
                                                                RoutineName,
                                                                CurrentModuleObject,
@@ -4259,6 +5246,22 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                                Secondary(SecondaryNum).Name,
                                                                cAlphaFieldNames(AlphaNum),
                                                                Alphas(AlphaNum)));
+=======
+                                            std::format("{}{}=\"{}\", has an invalid {}: {}",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        Secondary(SecondaryNum).Name,
+                                                        cAlphaFieldNames(AlphaNum),
+                                                        Alphas(AlphaNum)));
+                        } else if (NumNameMatches > 1) {
+                            ShowSevereError(state,
+                                            std::format("{}{}=\"{}\", has a non-unique name that could be either a {}: {}",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        Secondary(SecondaryNum).Name,
+                                                        cAlphaFieldNames(AlphaNum),
+                                                        Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                         } // num matches = 0 or > 1
                     } else if (CaseAndWalkInListNum != 0) { // Name points to a CaseAndWalkInList
                         NumCoils = CaseAndWalkInList(CaseAndWalkInListNum).NumCoils;
@@ -4386,11 +5389,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Secondary(SecondaryNum).TEvapDesign = Numbers(3);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be specified.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Secondary(SecondaryNum).Name,
                                                        cNumericFieldNames(3)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be specified.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Secondary(SecondaryNum).Name,
+                                                cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } // blank on N3
 
@@ -4398,11 +5409,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Secondary(SecondaryNum).TApproachDifRated = Numbers(4);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\" {} must be specified.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Secondary(SecondaryNum).Name,
                                                        cNumericFieldNames(4)));
+=======
+                                    std::format("{}{}=\"{}\" {} must be specified.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Secondary(SecondaryNum).Name,
+                                                cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } // blank on N4
 
@@ -4410,10 +5429,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 //   Ensure that required input data is not missing prior to performing the following once-only calculations
                 if (ErrorsFound) {
                     ShowFatalError(state,
+<<<<<<< HEAD
                                    EnergyPlus::format("{}{}=\"{}\", Program terminated due to previous condition(s).",
                                                       RoutineName,
                                                       CurrentModuleObject,
                                                       Secondary(SecondaryNum).Name));
+=======
+                                   std::format("{}{}=\"{}\", Program terminated due to previous condition(s).",
+                                               RoutineName,
+                                               CurrentModuleObject,
+                                               Secondary(SecondaryNum).Name));
+>>>>>>> nrel/develop
                 } // ErrorsFound
 
                 Real64 CpBrineRated = 0.0;
@@ -4427,12 +5453,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Secondary(SecondaryNum).TRangeDifRated = Numbers(5);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", {} must be specified.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Secondary(SecondaryNum).Name,
                                                            cNumericFieldNames(5)));
                         ShowContinueError(state, EnergyPlus::format("...when {}=\"FluidAlwaysLiquid\".", cAlphaFieldNames(3)));
+=======
+                                        std::format("{}{}=\"{}\", {} must be specified.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Secondary(SecondaryNum).Name,
+                                                    cNumericFieldNames(5)));
+                        ShowContinueError(state, std::format("...when {}=\"FluidAlwaysLiquid\".", cAlphaFieldNames(3)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } // blank on N5
 
@@ -4458,6 +5493,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Real64 NominalSecondaryCapacity = FlowMassRated * CpBrineRated * Secondary(SecondaryNum).TRangeDifRated;
                         Real64 TestDelta = (NominalSecondaryCapacity - Secondary(SecondaryNum).CoolingLoadRated) / NominalSecondaryCapacity;
                         if (std::abs(TestDelta) > 0.2) {
+<<<<<<< HEAD
                             ShowWarningError(
                                 state,
                                 EnergyPlus::format("{}=\"{} You may wish to check the system definition. Based upon the design flow rate and "
@@ -4467,6 +5503,16 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                    Secondary(SecondaryNum).Name,
                                                    NominalSecondaryCapacity,
                                                    Secondary(SecondaryNum).CoolingLoadRated));
+=======
+                            ShowWarningError(state,
+                                             std::format("{}=\"{} You may wish to check the system definition. Based upon the design flow rate and "
+                                                         "range temperature difference,  The nominal secondary loop heat exchanger capacity is, "
+                                                         "{:.0f} but the specified design capacity is,  {:.0f}",
+                                                         CurrentModuleObject,
+                                                         Secondary(SecondaryNum).Name,
+                                                         NominalSecondaryCapacity,
+                                                         Secondary(SecondaryNum).CoolingLoadRated));
+>>>>>>> nrel/develop
                         }
                     } else if (!lNumericBlanks(1)) {
                         Secondary(SecondaryNum).CoolingLoadRated = Numbers(1);
@@ -4480,12 +5526,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Secondary(SecondaryNum).CoolingLoadRated = FlowMassRated * CpBrineRated * Secondary(SecondaryNum).TRangeDifRated;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format(R"({}{}="{}", Either "{}" OR "{}" must be input.)",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Secondary(SecondaryNum).Name,
                                                            cNumericFieldNames(1),
                                                            cNumericFieldNames(2)));
+=======
+                                        std::format(R"({}{}="{}", Either "{}" OR "{}" must be input.)",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Secondary(SecondaryNum).Name,
+                                                    cNumericFieldNames(1),
+                                                    cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } // Capacity Input via either or both options
 
@@ -4496,12 +5551,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                             (FlowMassRated * CpBrineRated * (TBrineInRated - Secondary(SecondaryNum).TEvapDesign));
                         Secondary(SecondaryNum).TBrineInRated = TBrineInRated;
                         if (Secondary(SecondaryNum).HeatExchangeEta > 0.99) {
+<<<<<<< HEAD
                             ShowWarningError(state,
                                              EnergyPlus::format(
                                                  "{}=\"{} You may wish to check the system definition.  The heat exchanger effectiveness is, {:.2R}",
                                                  CurrentModuleObject,
                                                  Secondary(SecondaryNum).Name,
                                                  Secondary(SecondaryNum).HeatExchangeEta));
+=======
+                            ShowWarningError(
+                                state,
+                                std::format("{}=\"{} You may wish to check the system definition.  The heat exchanger effectiveness is, {:.2f}",
+                                            CurrentModuleObject,
+                                            Secondary(SecondaryNum).Name,
+                                            Secondary(SecondaryNum).HeatExchangeEta));
+>>>>>>> nrel/develop
                             Secondary(SecondaryNum).HeatExchangeEta = 0.99;
                         }
                     } else {
@@ -4545,6 +5609,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         if (std::abs(DiffCircRates) > 0.3) {
                             ShowWarningError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}=\"{} {} Produces a circulating rate of {:.2R} ;  A circulating rate of {:.2R} would need "
                                                    "a {} of {:.2R} m3/s",
                                                    CurrentModuleObject,
@@ -4554,6 +5619,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                    Secondary(SecondaryNum).CircRate,
                                                    cNumericFieldNames(7),
                                                    CalcTotFlowVol));
+=======
+                                std::format("{}=\"{} {} Produces a circulating rate of {:.2f} ;  A circulating rate of {:.2f} would need "
+                                            "a {} of {:.2f} m3/s",
+                                            CurrentModuleObject,
+                                            Secondary(SecondaryNum).Name,
+                                            cNumericFieldNames(7),
+                                            CalcCircRate,
+                                            Secondary(SecondaryNum).CircRate,
+                                            cNumericFieldNames(7),
+                                            CalcTotFlowVol));
+>>>>>>> nrel/develop
                         } // warning check on pump flow rate vs circ rate input
                     } // blank pump flow rate
                     SecondaryFlowVolRated = PumpTotRatedFlowVol;
@@ -4579,6 +5655,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                  PumpTotRatedFlowVol * PumpTotRatedHead / (PumpImpellerEfficiency * PumpMotorEfficiency)) /
                                                 Secondary(SecondaryNum).PumpTotRatedPower;
                     if (std::abs(ErrSecondPumpPower) > 0.35) {
+<<<<<<< HEAD
                         ShowWarningError(state,
                                          EnergyPlus::format(
                                              "{}=\"{} Input value for {} not consistent with input value for {}. {} will be used",
@@ -4587,6 +5664,16 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                              cNumericFieldNames(9),
                                              cNumericFieldNames(8),
                                              cNumericFieldNames(8))); // generous diff allowed because comparing to my assumed impeller and motor effs
+=======
+                        ShowWarningError(
+                            state,
+                            std::format("{}=\"{} Input value for {} not consistent with input value for {}. {} will be used",
+                                        CurrentModuleObject,
+                                        Secondary(SecondaryNum).Name,
+                                        cNumericFieldNames(9),
+                                        cNumericFieldNames(8),
+                                        cNumericFieldNames(8))); // generous diff allowed because comparing to my assumed impeller and motor effs
+>>>>>>> nrel/develop
                     }
                 } else if (!lNumericBlanks(8)) {
                     Secondary(SecondaryNum).PumpTotRatedPower = Numbers(8);
@@ -4596,12 +5683,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         PumpTotRatedFlowVol * PumpTotRatedHead / (PumpImpellerEfficiency * PumpMotorEfficiency);
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format(R"({}{}="{}", Either "{}" OR "{}" must be input.)",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Secondary(SecondaryNum).Name,
                                                        cNumericFieldNames(8),
                                                        cNumericFieldNames(9)));
+=======
+                                    std::format(R"({}{}="{}", Either "{}" OR "{}" must be input.)",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Secondary(SecondaryNum).Name,
+                                                cNumericFieldNames(8),
+                                                cNumericFieldNames(9)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } // Either or pump power Input variations (head or power)
 
@@ -4618,6 +5714,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 //  Print warning if Pump Control = Constant and Variable Speed Curve is specified.
                 if ((Secondary(SecondaryNum).PumpControlType == SecPumpCtrl::Constant) && (!lAlphaBlanks(AlphaNum + 1))) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format(R"({}{}="{}", A {} is specified even though {} is "CONSTANT".)",
                                                         RoutineName,
                                                         CurrentModuleObject,
@@ -4627,6 +5724,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     ShowContinueError(state,
                                       EnergyPlus::format("The secondary loop pump(s) will be modeled as constant speed and the {} will be ignored.",
                                                          cAlphaFieldNames(AlphaNum + 1)));
+=======
+                                     std::format(R"({}{}="{}", A {} is specified even though {} is "CONSTANT".)",
+                                                 RoutineName,
+                                                 CurrentModuleObject,
+                                                 Secondary(SecondaryNum).Name,
+                                                 cAlphaFieldNames(AlphaNum + 1),
+                                                 cAlphaFieldNames(AlphaNum)));
+                    ShowContinueError(state,
+                                      std::format("The secondary loop pump(s) will be modeled as constant speed and the {} will be ignored.",
+                                                  cAlphaFieldNames(AlphaNum + 1)));
+>>>>>>> nrel/develop
                 }
 
                 if (Secondary(SecondaryNum).PumpControlType == SecPumpCtrl::Constant) {
@@ -4658,12 +5766,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Secondary(SecondaryNum).PumpPowerToHeat = Numbers(NumNum);
                     } else {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}{}=\"{}\" {} must be between 0.5 and 1.0. Default value of : {:.3R} will be used",
                                                             RoutineName,
                                                             CurrentModuleObject,
                                                             Secondary(SecondaryNum).Name,
                                                             cNumericFieldNames(NumNum),
                                                             PumpMotorEfficiency));
+=======
+                                         std::format("{}{}=\"{}\" {} must be between 0.5 and 1.0. Default value of : {:.3f} will be used",
+                                                     RoutineName,
+                                                     CurrentModuleObject,
+                                                     Secondary(SecondaryNum).Name,
+                                                     cNumericFieldNames(NumNum),
+                                                     PumpMotorEfficiency));
+>>>>>>> nrel/develop
                     } // range of pump moter heat to fluid
                 } // blank input for pumppowertoheat
 
@@ -4683,12 +5800,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
 
                     if (Secondary(SecondaryNum).DistPipeZoneNum == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", invalid  {} not valid: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Secondary(SecondaryNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format("{}{}=\"{}\", invalid  {} not valid: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Secondary(SecondaryNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         state.dataRefrigCase->RefrigPresentInZone(Secondary(SecondaryNum).DistPipeZoneNum) = true;
@@ -4697,6 +5823,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     if (Secondary(SecondaryNum).DistPipeZoneNodeNum == 0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
                                 "{}{}=\"{}\" System Node Number not found for {} = {} even though {} is greater than zero. Distribution "
                                 "piping heat gain cannot be calculated unless a controlled Zone (appear in a ZoneHVAC:EquipmentConnections "
@@ -4707,11 +5834,23 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                 cAlphaFieldNames(AlphaNum),
                                 Alphas(AlphaNum),
                                 cNumericFieldNames(NumNum)));
+=======
+                            std::format("{}{}=\"{}\" System Node Number not found for {} = {} even though {} is greater than zero. Distribution "
+                                        "piping heat gain cannot be calculated unless a controlled Zone (appear in a ZoneHVAC:EquipmentConnections "
+                                        "object.) is defined to determine the environmental temperature surrounding the piping.",
+                                        RoutineName,
+                                        CurrentModuleObject,
+                                        Secondary(SecondaryNum).Name,
+                                        cAlphaFieldNames(AlphaNum),
+                                        Alphas(AlphaNum),
+                                        cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } else if (!lNumericBlanks(NumNum) && lAlphaBlanks(AlphaNum)) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}{}=\"{}\", {} not found even though {} is greater than zero. Distribution piping heat gain will not be "
                                            "calculated unless a Zone is defined to determine the environmental temperature surrounding the piping.",
                                            RoutineName,
@@ -4729,6 +5868,24 @@ void GetRefrigerationInput(EnergyPlusData &state)
                             Secondary(SecondaryNum).Name,
                             cAlphaFieldNames(AlphaNum),
                             cNumericFieldNames(NumNum)));
+=======
+                        std::format("{}{}=\"{}\", {} not found even though {} is greater than zero. Distribution piping heat gain will not be "
+                                    "calculated unless a Zone is defined to determine the environmental temperature surrounding the piping.",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    Secondary(SecondaryNum).Name,
+                                    cAlphaFieldNames(AlphaNum),
+                                    cNumericFieldNames(NumNum)));
+                } else if (lNumericBlanks(NumNum) && !lAlphaBlanks(AlphaNum)) {
+                    ShowWarningError(
+                        state,
+                        std::format("{}{}=\"{}\", {} will not be used and distribution piping heat gain will not be calculated because {} was blank.",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    Secondary(SecondaryNum).Name,
+                                    cAlphaFieldNames(AlphaNum),
+                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 } // distribution piping
 
                 // Separator/receiver heat gain - optional
@@ -4747,12 +5904,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
 
                     if (Secondary(SecondaryNum).ReceiverZoneNum == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", invalid  {} not valid: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Secondary(SecondaryNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format("{}{}=\"{}\", invalid  {} not valid: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Secondary(SecondaryNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         state.dataRefrigCase->RefrigPresentInZone(Secondary(SecondaryNum).ReceiverZoneNum) = true;
@@ -4760,7 +5926,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     if (Secondary(SecondaryNum).ReceiverZoneNodeNum == 0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
+=======
+                            std::format(
+>>>>>>> nrel/develop
                                 "{}{}=\"{}\" System Node Number not found for {} = {} even though {} is greater than zero. Receiver heat gain "
                                 "cannot be calculated unless a controlled Zone (appear in a ZoneHVAC:EquipmentConnections object.) is defined "
                                 "to determine the environmental temperature surrounding the Receiver.",
@@ -4775,6 +5945,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 } else if (!lNumericBlanks(NumNum) && lAlphaBlanks(AlphaNum)) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "{}{}=\"{}\", {} not found even though {} is greater than zero. Receiver heat gain will not be calculated unless "
                             "a Zone is defined to determine the environmental temperature surrounding the Receiver.",
@@ -4792,6 +5963,24 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            Secondary(SecondaryNum).Name,
                                            cAlphaFieldNames(AlphaNum),
                                            cNumericFieldNames(NumNum)));
+=======
+                        std::format("{}{}=\"{}\", {} not found even though {} is greater than zero. Receiver heat gain will not be calculated unless "
+                                    "a Zone is defined to determine the environmental temperature surrounding the Receiver.",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    Secondary(SecondaryNum).Name,
+                                    cAlphaFieldNames(AlphaNum),
+                                    cNumericFieldNames(NumNum)));
+                } else if (lNumericBlanks(NumNum) && !lAlphaBlanks(AlphaNum)) {
+                    ShowWarningError(
+                        state,
+                        std::format("{}{}=\"{}\", {} will not be used and Receiver heat gain will not be calculated because {} was blank.",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    Secondary(SecondaryNum).Name,
+                                    cAlphaFieldNames(AlphaNum),
+                                    cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 } // Receiver
 
                 NumNum = 14;
@@ -4801,6 +5990,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if (Secondary(SecondaryNum).ChillerRefInventory < 0.0) {
                     Secondary(SecondaryNum).ChillerRefInventory = 0.0;
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format("{}{}=\"{}\", The value specified for {} is less than zero. The default value of zero will be used.",
@@ -4808,6 +5998,14 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            CurrentModuleObject,
                                            Secondary(SecondaryNum).Name,
                                            cNumericFieldNames(NumNum)));
+=======
+                    ShowWarningError(state,
+                                     std::format("{}{}=\"{}\", The value specified for {} is less than zero. The default value of zero will be used.",
+                                                 RoutineName,
+                                                 CurrentModuleObject,
+                                                 Secondary(SecondaryNum).Name,
+                                                 cNumericFieldNames(NumNum)));
+>>>>>>> nrel/develop
                 }
 
                 AlphaNum = 9;
@@ -4825,6 +6023,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (Secondary(SecondaryNum).FluidType == SecFluidType::AlwaysLiquid) {
                     if (TBrineOutRated > (Secondary(SecondaryNum).TMinNeeded + 0.5)) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}=\"{} The design brine temperature to the refrigeration loads: {:.1R} ;",
                                                             CurrentModuleObject,
                                                             Secondary(SecondaryNum).Name,
@@ -4833,6 +6032,16 @@ void GetRefrigerationInput(EnergyPlusData &state)
                             state,
                             EnergyPlus::format(" is greater than the design inlet temperature for at least one of the cases or walkins: {:.1R}",
                                                Secondary(SecondaryNum).TMinNeeded));
+=======
+                                         std::format("{}=\"{} The design brine temperature to the refrigeration loads: {:.1f} ;",
+                                                     CurrentModuleObject,
+                                                     Secondary(SecondaryNum).Name,
+                                                     TBrineOutRated));
+                        ShowContinueError(
+                            state,
+                            std::format(" is greater than the design inlet temperature for at least one of the cases or walkins: {:.1f}",
+                                        Secondary(SecondaryNum).TMinNeeded));
+>>>>>>> nrel/develop
                         ShowContinueError(
                             state, " Compare your Approach and Evaporating Temperature to the design inlet temperatures needed for the loads.");
                         // ErrorsFound = .TRUE.
@@ -4843,6 +6052,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Real64 DeltaCap1 =
                         std::abs((Secondary(SecondaryNum).CoolingLoadRated - CapacityAtMaxVolFlow) / Secondary(SecondaryNum).CoolingLoadRated);
                     if (DeltaCap1 > (0.3)) { // diff between chiller rating and capacity at max flow > 30%
+<<<<<<< HEAD
                         ShowWarningError(
                             state,
                             EnergyPlus::format("{}=\"{}\" You may wish to check the system sizing.  The nominal secondary loop heat exchanger "
@@ -4851,6 +6061,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                Secondary(SecondaryNum).Name,
                                                Secondary(SecondaryNum).CoolingLoadRated,
                                                CapacityAtMaxVolFlow));
+=======
+                        ShowWarningError(state,
+                                         std::format("{}=\"{}\" You may wish to check the system sizing.  The nominal secondary loop heat exchanger "
+                                                     "capacity is {:.0f} But the capacity based upon the maximum flow rate is {:.0f}",
+                                                     CurrentModuleObject,
+                                                     Secondary(SecondaryNum).Name,
+                                                     Secondary(SecondaryNum).CoolingLoadRated,
+                                                     CapacityAtMaxVolFlow));
+>>>>>>> nrel/develop
                     } // DeltaCap1 > .3
                 } else {                         // Fluid type phase change                !^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                     if (lNumericBlanks(1)) {     // Chiller/evaporator capacity was not specified
@@ -4879,6 +6098,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (DeltaCap2 > (0.3)) { // diff between chiller rating and sum of nominal loads > 30%
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             "{}=\"{}\" You may wish to check the system sizing. Total nominal refrigerating load is {:.0R} (Including cases, "
                             "walk-ins, and pump heat).  The nominal secondary loop heat exchanger capacity is {:.0R}",
@@ -4897,6 +6117,24 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            Secondary(SecondaryNum).Name,
                                            SecondaryFlowVolRated,
                                            PumpTotRatedFlowVol));
+=======
+                        std::format("{}=\"{}\" You may wish to check the system sizing. Total nominal refrigerating load is {:.0f} (Including cases, "
+                                    "walk-ins, and pump heat).  The nominal secondary loop heat exchanger capacity is {:.0f}",
+                                    CurrentModuleObject,
+                                    Secondary(SecondaryNum).Name,
+                                    NominalSecondaryRefLoad,
+                                    Secondary(SecondaryNum).CoolingLoadRated));
+                }
+                // compare rated xt xchanger brine flow to the total rated pump flow
+                if (SecondaryFlowVolRated > (1.1 * PumpTotRatedFlowVol)) {
+                    ShowWarningError(state,
+                                     std::format("{}=\"{}\" You may wish to check the pump sizing. Total nominal brine flow is {:.0f} m3/s, but the "
+                                                 "total nominal pump flow rate is:  {:.0f} m3/s. ",
+                                                 CurrentModuleObject,
+                                                 Secondary(SecondaryNum).Name,
+                                                 SecondaryFlowVolRated,
+                                                 PumpTotRatedFlowVol));
+>>>>>>> nrel/develop
                 }
 
             } // Secondary Loops
@@ -4939,12 +6177,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
             // Get superheat rating type (Either N1 or N2 Must be input)
             if (((!lNumericBlanks(1)) && (!lNumericBlanks(2))) || (lNumericBlanks(1) && lNumericBlanks(2))) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\"One, and Only One of {} or {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    Compressor(CompNum).Name,
                                                    cNumericFieldNames(1),
                                                    cNumericFieldNames(2)));
+=======
+                                std::format("{}{}=\"{}\"One, and Only One of {} or {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            Compressor(CompNum).Name,
+                                            cNumericFieldNames(1),
+                                            cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Must Be Entered. Check input value choices.");
                 ErrorsFound = true;
             } else if (!lNumericBlanks(1)) {
@@ -4958,12 +6205,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
             // Get subcool rating type (Either N3 or N4 Must be input)
             if (((!lNumericBlanks(3)) && (!lNumericBlanks(4))) || (lNumericBlanks(3) && lNumericBlanks(4))) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\" One, and Only One of {} or {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    Compressor(CompNum).Name,
                                                    cNumericFieldNames(3),
                                                    cNumericFieldNames(4)));
+=======
+                                std::format("{}{}=\"{}\" One, and Only One of {} or {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            Compressor(CompNum).Name,
+                                            cNumericFieldNames(3),
+                                            cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Must Be Entered. Check input value choices.");
                 ErrorsFound = true;
             } else if (!lNumericBlanks(3)) {
@@ -5057,11 +6313,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     }
                     if (Subcooler(SubcoolerNum).LiqSuctDesignDelT < 0.0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} cannot be less than zero.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Subcooler(SubcoolerNum).Name,
                                                            cNumericFieldNames(1)));
+=======
+                                        std::format("{}{}=\"{}\" {} cannot be less than zero.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Subcooler(SubcoolerNum).Name,
+                                                    cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
@@ -5069,11 +6333,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Subcooler(SubcoolerNum).LiqSuctDesignTliqIn = Numbers(2);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} must be specified.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Subcooler(SubcoolerNum).Name,
                                                            cNumericFieldNames(2)));
+=======
+                                        std::format("{}{}=\"{}\" {} must be specified.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Subcooler(SubcoolerNum).Name,
+                                                    cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
@@ -5081,21 +6353,38 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Subcooler(SubcoolerNum).LiqSuctDesignTvapIn = Numbers(3);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} must be specified.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Subcooler(SubcoolerNum).Name,
                                                            cNumericFieldNames(3)));
+=======
+                                        std::format("{}{}=\"{}\" {} must be specified.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Subcooler(SubcoolerNum).Name,
+                                                    cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     if (Subcooler(SubcoolerNum).LiqSuctDesignTvapIn > Subcooler(SubcoolerNum).LiqSuctDesignTliqIn) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} cannot be greater than {}.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Subcooler(SubcoolerNum).Name,
                                                            cNumericFieldNames(3),
                                                            cNumericFieldNames(2)));
+=======
+                                        std::format("{}{}=\"{}\" {} cannot be greater than {}.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Subcooler(SubcoolerNum).Name,
+                                                    cNumericFieldNames(3),
+                                                    cNumericFieldNames(2)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } // error check
                 } break;
@@ -5107,11 +6396,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         Subcooler(SubcoolerNum).MechControlTliqOut = Numbers(4);
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" {} must be specified.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            Subcooler(SubcoolerNum).Name,
                                                            cNumericFieldNames(4)));
+=======
+                                        std::format("{}{}=\"{}\" {} must be specified.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    Subcooler(SubcoolerNum).Name,
+                                                    cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } // error check
                 } break;
@@ -5166,6 +6463,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     }
                     if ((LoadCascadeNum == 0) && (LoadSecondaryNum == 0)) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\" : has an invalid value of {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -5189,6 +6487,30 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                    CurrentModuleObject,
                                                    System(RefrigSysNum).Name,
                                                    Alphas(AlphaListNum)));
+=======
+                                        std::format("{}{}=\"{}\" : has an invalid value of {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    cAlphaFieldNames(AlphaListNum),
+                                                    Alphas(AlphaListNum)));
+                        ErrorsFound = true;
+                    } else if ((LoadCascadeNum != 0) && (LoadSecondaryNum != 0)) {
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\" : has a non-unique name : {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    cAlphaFieldNames(AlphaListNum),
+                                                    Alphas(AlphaListNum)));
+                        ErrorsFound = true;
+                    } else if (LoadCascadeNum != 0) {
+                        if (Condenser(LoadCascadeNum).CondenserType != DataHeatBalance::RefrigCondenserType::Cascade) {
+                            ShowSevereError(state,
+                                            std::format("{}{}=\"{}\" : has a condenser listed as a transfer load that is not a cascade condenser: {}",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        System(RefrigSysNum).Name,
+                                                        Alphas(AlphaListNum)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         } else {
                             ++NumCascadeLoadsOnList;
@@ -5234,12 +6556,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     CompressorLists(ListNum).CompItemNum(CompIndex) = Util::FindItemInList(Alphas(AlphaListNum), Compressor);
                     if (CompressorLists(ListNum).CompItemNum(CompIndex) == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", has an invalid {} defined as {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            CompressorLists(ListNum).Name,
                                                            cAlphaFieldNames(AlphaListNum),
                                                            Alphas(AlphaListNum)));
+=======
+                                        std::format("{}{}=\"{}\", has an invalid {} defined as {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    CompressorLists(ListNum).Name,
+                                                    cAlphaFieldNames(AlphaListNum),
+                                                    Alphas(AlphaListNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -5273,12 +6604,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if (lAlphaBlanks(2) && lAlphaBlanks(3)) {
                 // No cases, walkins, cascade loads, or secondary loops specified, ie, System has no load
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", has no loads, must have at least one of: {} or {} objects attached.",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    System(RefrigSysNum).Name,
                                                    cAlphaFieldNames(2),
                                                    cAlphaFieldNames(3)));
+=======
+                                std::format("{}{}=\"{}\", has no loads, must have at least one of: {} or {} objects attached.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            System(RefrigSysNum).Name,
+                                            cAlphaFieldNames(2),
+                                            cAlphaFieldNames(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             NumCases = 0;
@@ -5337,6 +6677,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     ErrorsFound = true;
                     if (NumNameMatches == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", has an invalid {}: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -5351,6 +6692,22 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                            System(RefrigSysNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format("{}{}=\"{}\", has an invalid {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+                    } else if (NumNameMatches > 1) {
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\",  has a non-unique name that could be either a {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     } // num matches = 0 or > 1
                 } else if (CaseAndWalkInListNum != 0) { // Name points to a CaseAndWalkInList
                     NumCases = CaseAndWalkInList(CaseAndWalkInListNum).NumCases;
@@ -5451,10 +6808,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     if (WalkIn(WalkInID).DefrostCapacity <= -98.0) {
                         // - 99 used as a flag for blank input error message for detailed systems
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}Refrigeration:WalkIn=\"{}\", Defrost capacity must be greater than or equal to 0 W for "
                                                            "electric and hotfluid defrost types",
                                                            RoutineName,
                                                            WalkIn(WalkInID).Name));
+=======
+                                        std::format("{}Refrigeration:WalkIn=\"{}\", Defrost capacity must be greater than or equal to 0 W for "
+                                                    "electric and hotfluid defrost types",
+                                                    RoutineName,
+                                                    WalkIn(WalkInID).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     // Find design evaporating temperature for system by getting min design evap for ALL loads
@@ -5504,6 +6868,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     ErrorsFound = true;
                     if (NumNameMatches == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", has an invalid {}: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -5518,6 +6883,22 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                            System(RefrigSysNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format("{}{}=\"{}\", has an invalid {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+                    } else if (NumNameMatches > 1) {
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\", has a non-unique name that could be either a {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     } // num matches = 0 or > 1
                 } else if (TransferLoadListNum != 0) { // Name points to a transferLoad list
                     NumSecondary = TransferLoadList(TransferLoadListNum).NumSecondarys;
@@ -5561,6 +6942,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         } else if (Secondary(SecondaryID).CoilFlag != System(RefrigSysNum).CoilFlag) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
                                     "step than case or walkin loads. Compare loads on system served by secondary loop \"{}",
@@ -5568,6 +6950,14 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                     CurrentModuleObject,
                                     System(RefrigSysNum).Name,
                                     Secondary(SecondaryID).Name));
+=======
+                                std::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
+                                            "step than case or walkin loads. Compare loads on system served by secondary loop \"{}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            System(RefrigSysNum).Name,
+                                            Secondary(SecondaryID).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         } // check for consistency of loads (coils calc on sys time step, all others on zone time step)
                         // mark all Secondarys on system as used by this system (checking for unused or non-unique Secondarys)
@@ -5595,12 +6985,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         int CondID = System(RefrigSysNum).CascadeLoadNum(cascadeLoadIndex);
                         if (Condenser(CondID).CondenserType != DataHeatBalance::RefrigCondenserType::Cascade) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}{}=\"{}\", has a  {}: {} cascade load that is not a cascade condenser.",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                System(RefrigSysNum).Name,
                                                                cAlphaFieldNames(AlphaNum),
                                                                Alphas(AlphaNum)));
+=======
+                                            std::format("{}{}=\"{}\", has a  {}: {} cascade load that is not a cascade condenser.",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        System(RefrigSysNum).Name,
+                                                        cAlphaFieldNames(AlphaNum),
+                                                        Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                         // For a cascade condenser, need to identify the system absorbing the heat
@@ -5630,17 +7029,26 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if ((System(RefrigSysNum).NumCases > 0) || (System(RefrigSysNum).NumWalkIns > 0)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
                                            "step than case or walkin loads.",
                                            RoutineName,
                                            CurrentModuleObject,
                                            System(RefrigSysNum).Name));
+=======
+                        std::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
+                                    "step than case or walkin loads.",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    System(RefrigSysNum).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else {                                     // no coils on secondary or no secondary
                 if (System(RefrigSysNum).NumCoils > 0) { //(note, coilflag set to .FALSE. for all systems as default above
                     System(RefrigSysNum).CoilFlag = true;
                     if ((System(RefrigSysNum).NumCases > 0) || (System(RefrigSysNum).NumWalkIns > 0)) {
+<<<<<<< HEAD
                         ShowSevereError(
                             state,
                             EnergyPlus::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different "
@@ -5648,6 +7056,14 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                RoutineName,
                                                CurrentModuleObject,
                                                System(RefrigSysNum).Name));
+=======
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different "
+                                                    "time step than case or walkin loads.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } // NumCoils > 0
@@ -5667,12 +7083,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
             int CondNum = Util::FindItemInList(Alphas(AlphaNum), Condenser);
             if (CondNum == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\", has an invalid {} defined as {}",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    System(RefrigSysNum).Name,
                                                    cAlphaFieldNames(AlphaNum),
                                                    Alphas(AlphaNum)));
+=======
+                                std::format("{}{}=\"{}\", has an invalid {} defined as {}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            System(RefrigSysNum).Name,
+                                            cAlphaFieldNames(AlphaNum),
+                                            Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 System(RefrigSysNum).CondenserNum(NumCondensers) = CondNum;
@@ -5696,12 +7121,20 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     Condenser(CondNum).RatedAirFlowRate = AirVolRateEvapCond * Condenser(CondNum).RatedCapacity;
                 }
                 if (Condenser(CondNum).RatedAirFlowRate <= 0.0) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state,
                         EnergyPlus::format("{}{}=\"{}\", Evaporative Condenser Air Volume Flow Rate cannot be less than or equal to zero.",
                                            RoutineName,
                                            CurrentModuleObject,
                                            Condenser(CondNum).Name));
+=======
+                    ShowSevereError(state,
+                                    std::format("{}{}=\"{}\", Evaporative Condenser Air Volume Flow Rate cannot be less than or equal to zero.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (Condenser(CondNum).EvapPumpPower == Constant::AutoCalculate) {
@@ -5709,10 +7142,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if (Condenser(CondNum).EvapPumpPower < 0.0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", Design Evaporative Condenser Water Pump Power cannot be less than zero.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        Condenser(CondNum).Name));
+=======
+                                    std::format("{}{}=\"{}\", Design Evaporative Condenser Water Pump Power cannot be less than zero.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                Condenser(CondNum).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -5723,8 +7163,12 @@ void GetRefrigerationInput(EnergyPlusData &state)
             int NumCompressorsSys = 0;
             if (lAlphaBlanks(AlphaNum)) {
                 // blank input where must have compressor or compressor list input.
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}{} {}\" : must be input.", RoutineName, CurrentModuleObject, cAlphaFieldNames(AlphaNum)));
+=======
+                ShowSevereError(state, std::format("{}{} {}\" : must be input.", RoutineName, CurrentModuleObject, cAlphaFieldNames(AlphaNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else { //     Entry for Alphas(AlphaNum) can be either a compressor name or a compressorlist name
                 int ListNum;
@@ -5741,6 +7185,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
                 if ((ListNum == 0) && (CompNum == 0)) { // name doesn't match either a compressor or a compressor list
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{} {}, has an invalid or undefined value=\"{}\".",
                                                        RoutineName,
                                                        CurrentModuleObject,
@@ -5754,6 +7199,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                        CurrentModuleObject,
                                                        cAlphaFieldNames(AlphaNum),
                                                        Alphas(AlphaNum)));
+=======
+                                    std::format("{}{} {}, has an invalid or undefined value=\"{}\".",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum)));
+                    ErrorsFound = true;
+                } else if ((ListNum != 0) && (CompNum != 0)) { // have compressor list and compressor with same name
+                    ShowSevereError(state,
+                                    std::format("{}{} {}, has a non-unique name used for both Compressor and CompressorList name: \"{}\".",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else if (ListNum != 0) {
                     NumCompressorsSys = CompressorLists(ListNum).NumCompressors;
@@ -5787,18 +7247,30 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         "{}{}=\"{}\", {} must be defined.", RoutineName, CurrentModuleObject, System(RefrigSysNum).Name, cNumericFieldNames(1)));
                 ErrorsFound = true;
             }
             if ((Condenser(CondNum).CondenserType == DataHeatBalance::RefrigCondenserType::Cascade) &&
                 (System(RefrigSysNum).TCondenseMin > Condenser(CondNum).RatedTCondense)) {
+<<<<<<< HEAD
                 ShowWarningError(
                     state,
                     EnergyPlus::format("{}=\"{}\", The system specified minimum condensing temperature is greater than the rated condensing "
                                        "temperature for the cascade condenser. ",
                                        CurrentModuleObject,
                                        System(RefrigSysNum).Name));
+=======
+                ShowWarningError(state,
+                                 std::format("{}=\"{}\", The system specified minimum condensing temperature is greater than the rated condensing "
+                                             "temperature for the cascade condenser. ",
+                                             CurrentModuleObject,
+                                             System(RefrigSysNum).Name));
+>>>>>>> nrel/develop
             }
 
             AlphaNum = 6;
@@ -5822,10 +7294,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
             } else if (System(RefrigSysNum).CompSuctControl == CompressorSuctionPressureCtrl::FloatSuctionTemperature &&
                        System(RefrigSysNum).CoilFlag) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}=\"{}\", The system specified a FloatSuctionTemperature, but that is not available with air "
                                                     "chiller loads so ConstantSuctionTemperature will be used. ",
                                                     CurrentModuleObject,
                                                     System(RefrigSysNum).Name));
+=======
+                                 std::format("{}=\"{}\", The system specified a FloatSuctionTemperature, but that is not available with air "
+                                             "chiller loads so ConstantSuctionTemperature will be used. ",
+                                             CurrentModuleObject,
+                                             System(RefrigSysNum).Name));
+>>>>>>> nrel/develop
             }
 
             // Count subcoolers on system and allocate
@@ -5848,12 +7327,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         state.dataInputProcessing->inputProcessor->getObjectItemNum(state, "Refrigeration:Subcooler", Alphas(AlphaNum));
                     if (System(RefrigSysNum).SubcoolerNum(NumSubcooler) <= 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format(R"({}{}="{}", has an invalid {} defined as "{}".)",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            System(RefrigSysNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format(R"({}{}="{}", has an invalid {} defined as "{}".)",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         Subcooler(System(RefrigSysNum).SubcoolerNum(NumSubcooler)).CoilFlag = System(RefrigSysNum).CoilFlag;
@@ -5865,12 +7353,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         state.dataInputProcessing->inputProcessor->getObjectItemNum(state, "Refrigeration:Subcooler", Alphas(AlphaNum + 1));
                     if (System(RefrigSysNum).SubcoolerNum(NumSubcooler) <= 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format(R"({}{}="{}", has an invalid {} defined as "{}".)",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            System(RefrigSysNum).Name,
                                                            cAlphaFieldNames(AlphaNum + 1),
                                                            Alphas(AlphaNum + 1)));
+=======
+                                        std::format(R"({}{}="{}", has an invalid {} defined as "{}".)",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum + 1),
+                                                    Alphas(AlphaNum + 1)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         Subcooler(System(RefrigSysNum).SubcoolerNum(NumSubcooler)).CoilFlag = System(RefrigSysNum).CoilFlag;
@@ -5894,7 +7391,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (System(RefrigSysNum).SuctionPipeZoneNodeNum == 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}{}=\"{}\", System Node Number not found for {} = {} even though {} is greater than zero. Suction piping heat gain "
                             "cannot be calculated unless a Zone is defined to determine the environmental temperature surrounding the piping.",
                             RoutineName,
@@ -5908,6 +7409,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     state.dataRefrigCase->RefrigPresentInZone(System(RefrigSysNum).SuctionPipeActualZoneNum) = true;
                 }
             } else if (!lNumericBlanks(2) && lAlphaBlanks(AlphaNum)) {
+<<<<<<< HEAD
                 ShowWarningError(
                     state,
                     EnergyPlus::format("{}{}=\"{}\" {} not found even though {} is greater than zero. Suction piping heat gain will not be "
@@ -5926,6 +7428,25 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                        System(RefrigSysNum).Name,
                                        cAlphaFieldNames(AlphaNum),
                                        cNumericFieldNames(2)));
+=======
+                ShowWarningError(state,
+                                 std::format("{}{}=\"{}\" {} not found even though {} is greater than zero. Suction piping heat gain will not be "
+                                             "calculated unless a Zone is defined to determine the environmental temperature surrounding the piping.",
+                                             RoutineName,
+                                             CurrentModuleObject,
+                                             System(RefrigSysNum).Name,
+                                             cAlphaFieldNames(AlphaNum),
+                                             cNumericFieldNames(2)));
+            } else if (lNumericBlanks(2) && !lAlphaBlanks(AlphaNum)) {
+                ShowWarningError(
+                    state,
+                    std::format("{}{}=\"{}\" {} will not be used and suction piping heat gain will not be calculated because {} was blank.",
+                                RoutineName,
+                                CurrentModuleObject,
+                                System(RefrigSysNum).Name,
+                                cAlphaFieldNames(AlphaNum),
+                                cNumericFieldNames(2)));
+>>>>>>> nrel/develop
             } // suction piping heat gains
 
             AlphaNum = 11;
@@ -5938,12 +7459,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 System(RefrigSysNum).NumStages = Numbers(3);
                 if (System(RefrigSysNum).NumStages < 1 || System(RefrigSysNum).NumStages > 2) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {}{}",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        System(RefrigSysNum).Name,
                                                        cNumericFieldNames(3),
                                                        R"( has an invalid value.  Only \"1\" or \"2\" compressor stages are allowed.)"));
+=======
+                                    std::format("{}{}=\"{}\", {}{}",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                System(RefrigSysNum).Name,
+                                                cNumericFieldNames(3),
+                                                R"( has an invalid value.  Only \"1\" or \"2\" compressor stages are allowed.)"));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } else {
@@ -5964,16 +7494,26 @@ void GetRefrigerationInput(EnergyPlusData &state)
 
             if (System(RefrigSysNum).NumStages == 1 && (System(RefrigSysNum).intercoolerType == IntercoolerType::Flash ||
                                                         System(RefrigSysNum).intercoolerType == IntercoolerType::ShellAndCoil)) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format(
                                     "{}{}=\"{}\", A single-stage compression system", RoutineName, CurrentModuleObject, System(RefrigSysNum).Name));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}{}=\"{}\", A single-stage compression system", RoutineName, CurrentModuleObject, System(RefrigSysNum).Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "has been specified with an intercooler.  Verify that the number of compressor stages");
                 ShowContinueError(state, "and the intercooler type are consistent.");
                 ErrorsFound = true;
             } else if (System(RefrigSysNum).NumStages == 2 && System(RefrigSysNum).intercoolerType == IntercoolerType::None) {
                 ShowSevereError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("{}{}=\"{}\", A two-stage compression system", RoutineName, CurrentModuleObject, System(RefrigSysNum).Name));
+=======
+                    state, std::format("{}{}=\"{}\", A two-stage compression system", RoutineName, CurrentModuleObject, System(RefrigSysNum).Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "has been specified without an intercooler.  Verify that the number of compressor stages");
                 ShowContinueError(state, "and the intercooler type are consistent.");
                 ErrorsFound = true;
@@ -5984,12 +7524,20 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 System(RefrigSysNum).IntercoolerEffectiveness = Numbers(4);
                 if (System(RefrigSysNum).IntercoolerEffectiveness < 0.0 || System(RefrigSysNum).IntercoolerEffectiveness > 1.0) {
                     ShowWarningError(
+<<<<<<< HEAD
                         state,
                         EnergyPlus::format("{}{}=\"{}\", The specified value for the", RoutineName, CurrentModuleObject, System(RefrigSysNum).Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("{} = {:.2R} is invalid.  This value must be",
                                                          cNumericFieldNames(4),
                                                          System(RefrigSysNum).IntercoolerEffectiveness));
+=======
+                        state, std::format("{}{}=\"{}\", The specified value for the", RoutineName, CurrentModuleObject, System(RefrigSysNum).Name));
+                    ShowContinueError(state,
+                                      std::format("{} = {:.2f} is invalid.  This value must be",
+                                                  cNumericFieldNames(4),
+                                                  System(RefrigSysNum).IntercoolerEffectiveness));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "between 0.0 and 1.0.  The default value of 0.8 will be used.");
                     System(RefrigSysNum).IntercoolerEffectiveness = 0.8;
                 }
@@ -6004,17 +7552,26 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (lAlphaBlanks(AlphaNum)) {
                     // blank input where must have high-stage compressor or compressor list input.
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}=\"{}\", {} must be input for two-stage compression systems.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        System(RefrigSysNum).Name,
                                                        cAlphaFieldNames(AlphaNum)));
+=======
+                                    std::format("{}{}=\"{}\", {} must be input for two-stage compression systems.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                System(RefrigSysNum).Name,
+                                                cAlphaFieldNames(AlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else { //     Entry for Alphas(AlphaNum) can be either a compressor name or a compressorlist name
                     int ListNum = Util::FindItemInList(Alphas(AlphaNum), CompressorLists);
                     int CompNum = Util::FindItemInList(Alphas(AlphaNum), Compressor);
                     if ((ListNum == 0) && (CompNum == 0)) { // name doesn't match either a compressor or a compressor list
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format(R"({}{}="{}", {} has an invalid or undefined value="{}".)",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -6031,6 +7588,23 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                System(RefrigSysNum).Name,
                                                cAlphaFieldNames(AlphaNum),
                                                Alphas(AlphaNum)));
+=======
+                                        std::format(R"({}{}="{}", {} has an invalid or undefined value="{}".)",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+                        ErrorsFound = true;
+                    } else if ((ListNum != 0) && (CompNum != 0)) { // have compressor list and compressor with same name
+                        ShowSevereError(state,
+                                        std::format(R"({}{}="{}", {} has a non-unique name used for both Compressor and CompressorList name: "{}".)",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else if (ListNum != 0) {
                         NumHiStageCompressorsSys = CompressorLists(ListNum).NumCompressors;
@@ -6081,9 +7655,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     } // NumStages
                 } else { //  Transcritical compressor attached to subcritical refrigeration cycle
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}{}. A transcritical compressor is attached to a subcritical refrigeration system.",
                                                        RoutineName,
                                                        CurrentModuleObject));
+=======
+                                    std::format("{}{}. A transcritical compressor is attached to a subcritical refrigeration system.",
+                                                RoutineName,
+                                                CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "Check input to ensure that subcritical compressors are connected only to subcritical systems and "
                                       "transcritical compressors are connected only to transcritical systems.");
@@ -6106,9 +7686,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         ++Compressor(CompNum).NumSysAttach;
                     } else { //  Transcritical compressor attached to subcritical refrigeration cycle
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}. A transcritical compressor is attached to a subcritical refrigeration system.",
                                                            RoutineName,
                                                            CurrentModuleObject));
+=======
+                                        std::format("{}{}. A transcritical compressor is attached to a subcritical refrigeration system.",
+                                                    RoutineName,
+                                                    CurrentModuleObject));
+>>>>>>> nrel/develop
                         ShowContinueError(state,
                                           "Check input to ensure that subcritical compressors are connected only to subcritical systems and "
                                           "transcritical compressors are connected only to transcritical systems.");
@@ -6125,6 +7711,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
             }
             if (System(RefrigSysNum).NumStages == 1) { // Single-stage system
                 if ((NominalTotalCompCap < (0.7 * NominalTotalCoolingCap)) || (NominalCondCap < (1.3 * NominalTotalCoolingCap))) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format("{}=\"{}\", You may wish to check the system sizing. Total nominal cooling capacity is {:.0R}W. "
@@ -6146,6 +7733,27 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            NominalTotalCoolingCap,
                                            NominalCondCap,
                                            NominalTotalCompCap));
+=======
+                    ShowWarningError(state,
+                                     std::format("{}=\"{}\", You may wish to check the system sizing. Total nominal cooling capacity is {:.0f}W. "
+                                                 "Condenser capacity is {:.0f}W. Nominal compressor capacity is {:.0f}W.",
+                                                 CurrentModuleObject,
+                                                 System(RefrigSysNum).Name,
+                                                 NominalTotalCoolingCap,
+                                                 NominalCondCap,
+                                                 NominalTotalCompCap));
+                }
+            } else if (System(RefrigSysNum).NumStages == 2) { // Two-stage system
+                if ((NominalTotalHiStageCompCap < (0.7 * NominalTotalCoolingCap)) || (NominalCondCap < (1.3 * NominalTotalCoolingCap))) {
+                    ShowWarningError(state,
+                                     std::format("{}=\"{}\", You may wish to check the system sizing. Total nominal cooling capacity is {:.0f}W. "
+                                                 "Condenser capacity is {:.0f}W. Nominal compressor capacity is {:.0f}W.",
+                                                 CurrentModuleObject,
+                                                 System(RefrigSysNum).Name,
+                                                 NominalTotalCoolingCap,
+                                                 NominalCondCap,
+                                                 NominalTotalCompCap));
+>>>>>>> nrel/develop
                 }
             } // NumStages
 
@@ -6183,6 +7791,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     }
                     if (!Condenser(CondID).CoilFlag) {
                         // would mean system already serving coil loads and this condenser cooling system with case-type loads
+<<<<<<< HEAD
                         ShowSevereError(
                             state,
                             EnergyPlus::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different "
@@ -6191,6 +7800,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                CurrentModuleObject,
                                                System(RefrigSysNum).Name,
                                                Condenser(CondID).Name));
+=======
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different "
+                                                    "time step than case or walkin loads. Compare loads on system served by cascade condenser \"{}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    System(RefrigSysNum).Name,
+                                                    Condenser(CondID).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } // CondID
@@ -6223,6 +7841,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         if (System(RefrigSysNum).CoilFlag != Condenser(CondID).CoilFlag) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
                                     "step than case or walkin loads. Compare loads on system served by cascade condenser \"{}",
@@ -6230,6 +7849,14 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                     CurrentModuleObject,
                                     System(RefrigSysNum).Name,
                                     Condenser(CondID).Name));
+=======
+                                std::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
+                                            "step than case or walkin loads. Compare loads on system served by cascade condenser \"{}",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            System(RefrigSysNum).Name,
+                                            Condenser(CondID).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     } // numcascadeloadschecked > 1
@@ -6250,22 +7877,39 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 state.dataInputProcessing->inputProcessor->getObjectItemNum(state, "Refrigeration:System", Subcooler(SubcoolerNum).MechSourceSys);
             if (Subcooler(SubcoolerNum).MechSourceSysID == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format(R"({}{}="{}", Mechanical Subcooler has an invalid Source Refrigeration:System="{}".)",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    Subcooler(SubcoolerNum).Name,
                                                    Subcooler(SubcoolerNum).MechSourceSys));
+=======
+                                std::format(R"({}{}="{}", Mechanical Subcooler has an invalid Source Refrigeration:System="{}".)",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            Subcooler(SubcoolerNum).Name,
+                                            Subcooler(SubcoolerNum).MechSourceSys));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 if (System(Subcooler(SubcoolerNum).MechSourceSysID).CoilFlag != Subcooler(SubcoolerNum).CoilFlag) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
                                            "step than case or walkin loads. Compare loads on system served by mechanical subcooler \"{}",
                                            RoutineName,
                                            CurrentModuleObject,
                                            System(RefrigSysNum).Name,
                                            Subcooler(SubcoolerNum).Name));
+=======
+                        std::format("{}{}=\"{}\", Serves an inconsistent mixture of loads. Coil-type loads are served on a different time "
+                                    "step than case or walkin loads. Compare loads on system served by mechanical subcooler \"{}",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    System(RefrigSysNum).Name,
+                                    Subcooler(SubcoolerNum).Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } // error check
@@ -6387,6 +8031,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     ErrorsFound = true;
                     if (NumNameMatches == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", has an invalid {}: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -6401,6 +8046,22 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                            TransSystem(TransRefrigSysNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format("{}{}=\"{}\", has an invalid {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    TransSystem(TransRefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+                    } else if (NumNameMatches > 1) {
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\",  has a non-unique name that could be either a {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    TransSystem(TransRefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     } // num matches = 0 or > 1
                 } else if (CaseAndWalkInListNum != 0) { // Name points to a CaseAndWalkInList
                     NumCasesMT = CaseAndWalkInList(CaseAndWalkInListNum).NumCases;
@@ -6470,10 +8131,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     if (WalkIn(WalkInID).DefrostCapacity <= -98.0) {
                         // - 99 used as a flag for blank input error message for detailed systems
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}Refrigeration:WalkIn=\"{}\", Defrost capacity must be greater than or equal to 0 W for "
                                                            "electric and hotfluid defrost types",
                                                            RoutineName,
                                                            WalkIn(WalkInID).Name));
+=======
+                                        std::format("{}Refrigeration:WalkIn=\"{}\", Defrost capacity must be greater than or equal to 0 W for "
+                                                    "electric and hotfluid defrost types",
+                                                    RoutineName,
+                                                    WalkIn(WalkInID).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     // Find design evaporating temperature for system by getting min design evap for ALL loads
@@ -6520,6 +8188,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     ErrorsFound = true;
                     if (NumNameMatches == 0) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}{}=\"{}\", has an invalid {}: {}",
                                                            RoutineName,
                                                            CurrentModuleObject,
@@ -6534,6 +8203,22 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                            TransSystem(TransRefrigSysNum).Name,
                                                            cAlphaFieldNames(AlphaNum),
                                                            Alphas(AlphaNum)));
+=======
+                                        std::format("{}{}=\"{}\", has an invalid {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    TransSystem(TransRefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+                    } else if (NumNameMatches > 1) {
+                        ShowSevereError(state,
+                                        std::format("{}{}=\"{}\",  has a non-unique name that could be either a {}: {}",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    TransSystem(TransRefrigSysNum).Name,
+                                                    cAlphaFieldNames(AlphaNum),
+                                                    Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     } // num matches = 0 or > 1
                 } else if (CaseAndWalkInListNum != 0) { // Name points to a CaseAndWalkInList
                     NumCasesLT = CaseAndWalkInList(CaseAndWalkInListNum).NumCases;
@@ -6603,10 +8288,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                     if (WalkIn(WalkInID).DefrostCapacity <= -98.0) {
                         // - 99 used as a flag for blank input error message for detailed systems
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}Refrigeration:WalkIn=\"{}\", Defrost capacity must be greater than or equal to 0 W for "
                                                            "electric and hotfluid defrost types",
                                                            RoutineName,
                                                            WalkIn(WalkInID).Name));
+=======
+                                        std::format("{}Refrigeration:WalkIn=\"{}\", Defrost capacity must be greater than or equal to 0 W for "
+                                                    "electric and hotfluid defrost types",
+                                                    RoutineName,
+                                                    WalkIn(WalkInID).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     // Find design evaporating temperature for system by getting min design evap for ALL loads
@@ -6636,12 +8328,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
 
             if (GCNum == 0) { //  Invalid Gas Cooler attached to Transcritical Refrigeration System
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format(R"({}{}="{}", has an invalid {} defined as "{}".)",
                                                    RoutineName,
                                                    CurrentModuleObject,
                                                    TransSystem(TransRefrigSysNum).Name,
                                                    cAlphaFieldNames(AlphaNum),
                                                    Alphas(AlphaNum)));
+=======
+                                std::format(R"({}{}="{}", has an invalid {} defined as "{}".)",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            TransSystem(TransRefrigSysNum).Name,
+                                            cAlphaFieldNames(AlphaNum),
+                                            Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else if (GCNum != 0) { //  Gas Cooler attached to Transcritical Refrigeration System
                 TransSystem(TransRefrigSysNum).GasCoolerNum(NumGasCoolers) = GCNum;
@@ -6661,14 +8362,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             int NumCompressorsSys = 0;
             if (lAlphaBlanks(AlphaNum)) {
                 // blank input where must have compressor or compressor list input.
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}{} {}\" : must be input.", RoutineName, CurrentModuleObject, cAlphaFieldNames(AlphaNum)));
+=======
+                ShowSevereError(state, std::format("{}{} {}\" : must be input.", RoutineName, CurrentModuleObject, cAlphaFieldNames(AlphaNum)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else { //     Entry for Alphas(AlphaNum) can be either a compressor name or a compressorlist name
                 int ListNum = Util::FindItemInList(Alphas(AlphaNum), CompressorLists);
                 int CompNum = Util::FindItemInList(Alphas(AlphaNum), Compressor);
                 if ((ListNum == 0) && (CompNum == 0)) { // name doesn't match either a compressor or a compressor list
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format(R"({}{}, "{}", has an invalid or undefined value="{}".)",
                                                        RoutineName,
                                                        CurrentModuleObject,
@@ -6682,6 +8388,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                        CurrentModuleObject,
                                                        cAlphaFieldNames(AlphaNum),
                                                        Alphas(AlphaNum)));
+=======
+                                    std::format(R"({}{}, "{}", has an invalid or undefined value="{}".)",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum)));
+                    ErrorsFound = true;
+                } else if ((ListNum != 0) && (CompNum != 0)) { // have compressor list and compressor with same name
+                    ShowSevereError(state,
+                                    std::format("{}{} {}, has a non-unique name used for both Compressor and CompressorList name: \"{}\".",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else if (ListNum != 0) {
                     NumCompressorsSys = CompressorLists(ListNum).NumCompressors;
@@ -6715,12 +8436,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         NominalTotalCompCapHP += Compressor(CompNum).NomCap;
                         ++Compressor(CompNum).NumSysAttach;
                     } else { //  Subcritical compressor attached to transcritical system - show error
+<<<<<<< HEAD
                         ShowSevereError(state,
                                         EnergyPlus::format(
                                             "{}{}, No transcritical CO2 compressors are attached to the transcritical refrigeration system, \"{}\".",
                                             RoutineName,
                                             CurrentModuleObject,
                                             TransSystem(TransRefrigSysNum).Name));
+=======
+                        ShowSevereError(
+                            state,
+                            std::format("{}{}, No transcritical CO2 compressors are attached to the transcritical refrigeration system, \"{}\".",
+                                        RoutineName,
+                                        CurrentModuleObject,
+                                        TransSystem(TransRefrigSysNum).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -6733,6 +8463,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if ((lAlphaBlanks(AlphaNum)) && (TransSystem(TransRefrigSysNum).transSysType == TransSysType::TwoStage)) {
                 // TwoStage system type is specified but low pressure compressor input is blank
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}, The transcritical refrigeration system, \"{}\", is specified to be \"TwoStage\", "
                                                    "however, the \"{}\" is not given.",
                                                    RoutineName,
@@ -6750,12 +8481,31 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                        CurrentModuleObject,
                                        TransSystem(TransRefrigSysNum).Name,
                                        cAlphaFieldNames(AlphaNum)));
+=======
+                                std::format("{}{}, The transcritical refrigeration system, \"{}\", is specified to be \"TwoStage\", "
+                                            "however, the \"{}\" is not given.",
+                                            RoutineName,
+                                            CurrentModuleObject,
+                                            TransSystem(TransRefrigSysNum).Name,
+                                            cAlphaFieldNames(AlphaNum)));
+                ErrorsFound = true;
+            } else if ((!(lAlphaBlanks(AlphaNum))) && (TransSystem(TransRefrigSysNum).transSysType == TransSysType::SingleStage)) {
+                // SingleStage system type with low pressure compressors specified. Ignore low pressure compressors
+                ShowWarningError(state,
+                                 std::format("{}{}, The transcritical refrigeration system, \"{}\", is specified to be \"SingleStage\", "
+                                             "however, a \"{}\" was found.  The low pressure compressors will be ignored and will not simulated.",
+                                             RoutineName,
+                                             CurrentModuleObject,
+                                             TransSystem(TransRefrigSysNum).Name,
+                                             cAlphaFieldNames(AlphaNum)));
+>>>>>>> nrel/develop
             } else if ((!(lAlphaBlanks(AlphaNum))) && (TransSystem(TransRefrigSysNum).transSysType == TransSysType::TwoStage)) {
                 // TwoStage system with low pressure compressors specified
                 int ListNum = Util::FindItemInList(Alphas(AlphaNum), CompressorLists);
                 int CompNum = Util::FindItemInList(Alphas(AlphaNum), Compressor);
                 if ((ListNum == 0) && (CompNum == 0)) { // name doesn't match either a compressor or a compressor list
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format(R"({}{}, "{}", has an invalid or undefined value="{}".)",
                                                        RoutineName,
                                                        CurrentModuleObject,
@@ -6769,6 +8519,21 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                                        CurrentModuleObject,
                                                        cAlphaFieldNames(AlphaNum),
                                                        Alphas(AlphaNum)));
+=======
+                                    std::format(R"({}{}, "{}", has an invalid or undefined value="{}".)",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum)));
+                    ErrorsFound = true;
+                } else if ((ListNum != 0) && (CompNum != 0)) { // have compressor list and compressor with same name
+                    ShowSevereError(state,
+                                    std::format("{}{} {}, has a non-unique name used for both Compressor and CompressorList name: \"{}\".",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else if (ListNum != 0) {
                     NumCompressorsSys = CompressorLists(ListNum).NumCompressors;
@@ -6812,6 +8577,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
             TransSystem(TransRefrigSysNum).TReceiver =
                 TransSystem(TransRefrigSysNum).refrig->getSatTemperature(state, TransSystem(TransRefrigSysNum).PReceiver, routineName);
             if (TransSystem(TransRefrigSysNum).TReceiver > GasCooler(TransSystem(TransRefrigSysNum).GasCoolerNum(NumGasCoolers)).MinCondTemp) {
+<<<<<<< HEAD
                 ShowWarningError(
                     state,
                     EnergyPlus::format("{}{}=\"{}: The receiver temperature ({:.2R}C) is greater than the minimum condensing temperature "
@@ -6821,6 +8587,16 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                        TransSystem(TransRefrigSysNum).Name,
                                        TransSystem(TransRefrigSysNum).TReceiver,
                                        GasCooler(TransSystem(TransRefrigSysNum).GasCoolerNum(NumGasCoolers)).MinCondTemp));
+=======
+                ShowWarningError(state,
+                                 std::format("{}{}=\"{}: The receiver temperature ({:.2f}C) is greater than the minimum condensing temperature "
+                                             "specified for subcritical operation ({:.2f}C).",
+                                             RoutineName,
+                                             CurrentModuleObject,
+                                             TransSystem(TransRefrigSysNum).Name,
+                                             TransSystem(TransRefrigSysNum).TReceiver,
+                                             GasCooler(TransSystem(TransRefrigSysNum).GasCoolerNum(NumGasCoolers)).MinCondTemp));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "  The minimum condensing temperature will be set at 5C greater than the receiver temperature.");
                 GasCooler(TransSystem(TransRefrigSysNum).GasCoolerNum(NumGasCoolers)).MinCondTemp = TransSystem(TransRefrigSysNum).TReceiver + 5.0;
             }
@@ -6828,6 +8604,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (TransSystem(TransRefrigSysNum).TReceiver <= TransSystem(TransRefrigSysNum).TEvapDesignLT) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}{}=\"{}: The receiver temperature ({:.2R}C) is less than the design evaporator temperature for the "
                                            "low temperature loads ({:.2R}C).",
                                            RoutineName,
@@ -6835,6 +8612,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            TransSystem(TransRefrigSysNum).Name,
                                            TransSystem(TransRefrigSysNum).TReceiver,
                                            TransSystem(TransRefrigSysNum).TEvapDesignLT));
+=======
+                        std::format("{}{}=\"{}: The receiver temperature ({:.2f}C) is less than the design evaporator temperature for the "
+                                    "low temperature loads ({:.2f}C).",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    TransSystem(TransRefrigSysNum).Name,
+                                    TransSystem(TransRefrigSysNum).TReceiver,
+                                    TransSystem(TransRefrigSysNum).TEvapDesignLT));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "  Ensure that the receiver temperature is sufficiently greater than the design evaporator temperature for "
                                       "the low temperature loads.");
@@ -6847,6 +8633,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 if (TransSystem(TransRefrigSysNum).TReceiver <= TransSystem(TransRefrigSysNum).TEvapDesignMT) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}{}=\"{}: The receiver temperature ({:.2R}C) is less than the design evaporator temperature for the "
                                            "medium temperature loads ({:.2R}C).",
                                            RoutineName,
@@ -6854,6 +8641,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            TransSystem(TransRefrigSysNum).Name,
                                            TransSystem(TransRefrigSysNum).TReceiver,
                                            TransSystem(TransRefrigSysNum).TEvapDesignMT));
+=======
+                        std::format("{}{}=\"{}: The receiver temperature ({:.2f}C) is less than the design evaporator temperature for the "
+                                    "medium temperature loads ({:.2f}C).",
+                                    RoutineName,
+                                    CurrentModuleObject,
+                                    TransSystem(TransRefrigSysNum).Name,
+                                    TransSystem(TransRefrigSysNum).TReceiver,
+                                    TransSystem(TransRefrigSysNum).TEvapDesignMT));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "  Ensure that the receiver temperature is sufficiently greater than the design evaporator temperature for "
                                       "the medium temperature loads.");
@@ -6873,11 +8669,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
             if ((TransSystem(TransRefrigSysNum).SCEffectiveness < 0) || (TransSystem(TransRefrigSysNum).SCEffectiveness > 1)) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("{}{}=\"{}: The value for subcooler effectiveness is invalid.  The subcooler effectiveness must be a value "
                                        "greater than or equal to zero and less than or equal to one.",
                                        RoutineName,
                                        CurrentModuleObject,
                                        TransSystem(TransRefrigSysNum).Name));
+=======
+                    std::format("{}{}=\"{}: The value for subcooler effectiveness is invalid.  The subcooler effectiveness must be a value "
+                                "greater than or equal to zero and less than or equal to one.",
+                                RoutineName,
+                                CurrentModuleObject,
+                                TransSystem(TransRefrigSysNum).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -6895,6 +8699,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 TransSystem(TransRefrigSysNum).SuctionPipeZoneNodeNumMT =
                     DataZoneEquipment::GetSystemNodeNumberForZone(state, TransSystem(TransRefrigSysNum).SuctionPipeActualZoneNumMT);
                 if (TransSystem(TransRefrigSysNum).SuctionPipeZoneNodeNumMT == 0) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state,
                         EnergyPlus::format(R"({}{}="{}", System Node Number not found for {} = "{}" even though {} is greater than zero.)",
@@ -6904,6 +8709,16 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            cAlphaFieldNames(AlphaNum),
                                            Alphas(AlphaNum),
                                            cNumericFieldNames(3)));
+=======
+                    ShowSevereError(state,
+                                    std::format(R"({}{}="{}", System Node Number not found for {} = "{}" even though {} is greater than zero.)",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                TransSystem(TransRefrigSysNum).Name,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum),
+                                                cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "  The medium temperature suction piping heat gain cannot be calculated unless a Zone is defined to "
                                       "determine the environmental temperature surrounding the piping.");
@@ -6913,24 +8728,42 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
             } else if (!lNumericBlanks(3) && lAlphaBlanks(AlphaNum)) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}{}=\"{}\" {} not found even though {} is greater than zero.",
                                                     RoutineName,
                                                     CurrentModuleObject,
                                                     TransSystem(TransRefrigSysNum).Name,
                                                     cAlphaFieldNames(AlphaNum),
                                                     cNumericFieldNames(3)));
+=======
+                                 std::format("{}{}=\"{}\" {} not found even though {} is greater than zero.",
+                                             RoutineName,
+                                             CurrentModuleObject,
+                                             TransSystem(TransRefrigSysNum).Name,
+                                             cAlphaFieldNames(AlphaNum),
+                                             cNumericFieldNames(3)));
+>>>>>>> nrel/develop
                 ShowContinueError(state,
                                   "  The medium temperature suction piping heat gain will not be calculated unless a Zone is defined to "
                                   "determine the environmental temperature surrounding the piping.");
             } else if (lNumericBlanks(3) && !lAlphaBlanks(AlphaNum)) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("{}{}=\"{}\" {} will not be used and suction piping heat gain will not be calculated because {} was blank.",
                                        RoutineName,
                                        CurrentModuleObject,
                                        TransSystem(TransRefrigSysNum).Name,
                                        cAlphaFieldNames(AlphaNum),
                                        cNumericFieldNames(3)));
+=======
+                    std::format("{}{}=\"{}\" {} will not be used and suction piping heat gain will not be calculated because {} was blank.",
+                                RoutineName,
+                                CurrentModuleObject,
+                                TransSystem(TransRefrigSysNum).Name,
+                                cAlphaFieldNames(AlphaNum),
+                                cNumericFieldNames(3)));
+>>>>>>> nrel/develop
             } // Medium temperature suction piping heat gains
 
             AlphaNum = 10; // Low temperature suction piping
@@ -6941,6 +8774,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 TransSystem(TransRefrigSysNum).SuctionPipeZoneNodeNumLT =
                     DataZoneEquipment::GetSystemNodeNumberForZone(state, TransSystem(TransRefrigSysNum).SuctionPipeActualZoneNumLT);
                 if (TransSystem(TransRefrigSysNum).SuctionPipeZoneNodeNumLT == 0) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state,
                         EnergyPlus::format(R"({}{}="{}", System Node Number not found for {} = "{}" even though {} is greater than zero.)",
@@ -6950,6 +8784,16 @@ void GetRefrigerationInput(EnergyPlusData &state)
                                            cAlphaFieldNames(AlphaNum),
                                            Alphas(AlphaNum),
                                            cNumericFieldNames(4)));
+=======
+                    ShowSevereError(state,
+                                    std::format(R"({}{}="{}", System Node Number not found for {} = "{}" even though {} is greater than zero.)",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                TransSystem(TransRefrigSysNum).Name,
+                                                cAlphaFieldNames(AlphaNum),
+                                                Alphas(AlphaNum),
+                                                cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "  The low temperature suction piping heat gain cannot be calculated unless a Zone is defined to "
                                       "determine the environmental temperature surrounding the piping.");
@@ -6959,24 +8803,42 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 }
             } else if (!lNumericBlanks(4) && lAlphaBlanks(AlphaNum)) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}{}=\"{}\" {} not found even though {} is greater than zero.",
                                                     RoutineName,
                                                     CurrentModuleObject,
                                                     TransSystem(TransRefrigSysNum).Name,
                                                     cAlphaFieldNames(AlphaNum),
                                                     cNumericFieldNames(4)));
+=======
+                                 std::format("{}{}=\"{}\" {} not found even though {} is greater than zero.",
+                                             RoutineName,
+                                             CurrentModuleObject,
+                                             TransSystem(TransRefrigSysNum).Name,
+                                             cAlphaFieldNames(AlphaNum),
+                                             cNumericFieldNames(4)));
+>>>>>>> nrel/develop
                 ShowContinueError(state,
                                   "  The low temperature suction piping heat gain will not be calculated unless a Zone is defined to determine "
                                   "the environmental temperature surrounding the piping.");
             } else if (lNumericBlanks(4) && !lAlphaBlanks(AlphaNum)) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("{}{}=\"{}\" {} will not be used and suction piping heat gain will not be calculated because {} was blank.",
                                        RoutineName,
                                        CurrentModuleObject,
                                        TransSystem(TransRefrigSysNum).Name,
                                        cAlphaFieldNames(AlphaNum),
                                        cNumericFieldNames(4)));
+=======
+                    std::format("{}{}=\"{}\" {} will not be used and suction piping heat gain will not be calculated because {} was blank.",
+                                RoutineName,
+                                CurrentModuleObject,
+                                TransSystem(TransRefrigSysNum).Name,
+                                cAlphaFieldNames(AlphaNum),
+                                cNumericFieldNames(4)));
+>>>>>>> nrel/develop
             } // Low temperature suction piping heat gains
 
             AlphaNum = 11;
@@ -6989,6 +8851,7 @@ void GetRefrigerationInput(EnergyPlusData &state)
             Real64 NominalCondCap = GasCooler(TransSystem(TransRefrigSysNum).GasCoolerNum(1)).RatedCapacity;
             Real64 NominalTotalCompCap = NominalTotalCompCapHP + NominalTotalCompCapLP;
             if ((NominalTotalCompCap < (0.7 * NominalTotalCoolingCap)) || (NominalCondCap < (1.3 * NominalTotalCoolingCap))) {
+<<<<<<< HEAD
                 ShowWarningError(state,
                                  EnergyPlus::format("{}=\"{}\", You may wish to check the system sizing.",
                                                     CurrentModuleObject,
@@ -7000,6 +8863,17 @@ void GetRefrigerationInput(EnergyPlusData &state)
                         NominalTotalCoolingCap,
                         NominalCondCap,
                         NominalTotalCompCap));
+=======
+                ShowWarningError(
+                    state,
+                    std::format("{}=\"{}\", You may wish to check the system sizing.", CurrentModuleObject, TransSystem(TransRefrigSysNum).Name));
+                ShowContinueError(
+                    state,
+                    std::format("Total nominal cooling capacity is {:.0f}W. Condenser capacity is {:.0f}W. Nominal compressor capacity is {:.0f}W.",
+                                NominalTotalCoolingCap,
+                                NominalCondCap,
+                                NominalTotalCompCap));
+>>>>>>> nrel/develop
             }
 
         } // Transcritical refrigeration systems
@@ -7028,11 +8902,19 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 TempRAFraction -= RefrigCase(CaseNum).RAFrac;
             } // NumSimulationCases
             if (TempRAFraction > 1.0) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format(
                                     "{}: Refrigeration:Case, Refrigerated case return air fraction for all cases in zone=\"{}\" is greater than 1.0.",
                                     RoutineName,
                                     CaseRAFraction(ZoneIndex).ZoneName));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}: Refrigeration:Case, Refrigerated case return air fraction for all cases in zone=\"{}\" is greater than 1.0.",
+                                RoutineName,
+                                CaseRAFraction(ZoneIndex).ZoneName));
+>>>>>>> nrel/develop
                 // check in comment, can't use "currentModuleObject" because not in get input subroutine where that is known
                 ErrorsFound = true;
             }
@@ -7051,14 +8933,24 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 ++state.dataRefrigCase->NumUnusedRefrigCases;
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     //  individual case names listed if DataGlobals::DisplayExtraWarnings option selected
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: Refrigeration:Case=\"{}\" unused. ", RoutineName, RefrigCase(CaseNum).Name));
+=======
+                    ShowWarningError(state, std::format("{}: Refrigeration:Case=\"{}\" unused. ", RoutineName, RefrigCase(CaseNum).Name));
+>>>>>>> nrel/develop
                 } // display extra warnings - give a list of unused cases
             } // unused case
             if (RefrigCase(CaseNum).NumSysAttach > 1) {
                 ErrorsFound = true;
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format(
                                     "{}: Refrigeration:Case=\"{}\", Same refrigerated case name referenced ", RoutineName, RefrigCase(CaseNum).Name));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}: Refrigeration:Case=\"{}\", Same refrigerated case name referenced ", RoutineName, RefrigCase(CaseNum).Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, " by more than one refrigeration system and/or compressor rack.");
             } // if looking for same case attached to multiple systems/racks
         } // NumSimulationCases
@@ -7067,8 +8959,13 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //  write to error file,
             //  summary number of unused cases given if DataGlobals::DisplayExtraWarnings option not selected
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("Refrigeration:Case -> {} unused refrigerated case(s) found during input processing.",
                                                 state.dataRefrigCase->NumUnusedRefrigCases));
+=======
+                             std::format("Refrigeration:Case -> {} unused refrigerated case(s) found during input processing.",
+                                         state.dataRefrigCase->NumUnusedRefrigCases));
+>>>>>>> nrel/develop
             ShowContinueError(state, "  These refrigerated cases are in the input file but are not connected to a ");
             ShowContinueError(state, "  Refrigeration:CompressorRack, Refrigeration:System, or Refrigeration:SecondarySystem object.");
             ShowContinueError(state, "  These unused refrigeration cases will not be simulated.");
@@ -7088,16 +8985,26 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 ++state.dataRefrigCase->NumUnusedCompressors;
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     //  individual compressor names listed if DataGlobals::DisplayExtraWarnings option selected
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format("{}: Refrigeration:Compressor=\"{}\" unused. ", RoutineName, Compressor(CompNum).Name));
+=======
+                    ShowWarningError(state, std::format("{}: Refrigeration:Compressor=\"{}\" unused. ", RoutineName, Compressor(CompNum).Name));
+>>>>>>> nrel/develop
                 } // display extra warnings - give a list of unused compressors
             } // unused compressor
             if (Compressor(CompNum).NumSysAttach > 1) {
                 ErrorsFound = true;
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}: Refrigeration:Compressor=\"{}\", Same refrigeration compressor name referenced",
                                                    RoutineName,
                                                    Compressor(CompNum).Name));
+=======
+                                std::format("{}: Refrigeration:Compressor=\"{}\", Same refrigeration compressor name referenced",
+                                            RoutineName,
+                                            Compressor(CompNum).Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, " by more than one refrigeration system.");
             } // looking for same compressor attached to multiple systems/racks
         } // NumSimulationCompressors
@@ -7106,8 +9013,13 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //  write to error file,
             //  summary number of unused compressors given if DataGlobals::DisplayExtraWarnings option not selected
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("Refrigeration:Compressor -> {} unused refrigeration compressor(s) found during input processing.",
                                                 state.dataRefrigCase->NumUnusedCompressors));
+=======
+                             std::format("Refrigeration:Compressor -> {} unused refrigeration compressor(s) found during input processing.",
+                                         state.dataRefrigCase->NumUnusedCompressors));
+>>>>>>> nrel/develop
             ShowContinueError(state,
                               "  Those refrigeration compressors are in the input file but are not connected to a Refrigeration:System object.");
             ShowContinueError(state, "   These unused refrigeration compressors will not be simulated.");
@@ -7127,15 +9039,25 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 ++NumUnusedWalkIns;
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     //  individual walkin names listed if DataGlobals::DisplayExtraWarnings option selected
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: Refrigeration:WalkIn=\"{}\" unused. ", RoutineName, WalkIn(WalkInNum).Name));
+=======
+                    ShowWarningError(state, std::format("{}: Refrigeration:WalkIn=\"{}\" unused. ", RoutineName, WalkIn(WalkInNum).Name));
+>>>>>>> nrel/develop
                 } // display extra warnings - give a list of unused WalkIns
             } // unused walkin
             if (WalkIn(WalkInNum).NumSysAttach > 1) {
                 ErrorsFound = true;
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}: Refrigeration:WalkIn=\"{}\", Same Refrigeration WalkIn name referenced",
                                                    RoutineName,
                                                    WalkIn(WalkInNum).Name));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}: Refrigeration:WalkIn=\"{}\", Same Refrigeration WalkIn name referenced", RoutineName, WalkIn(WalkInNum).Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, " by more than one refrigeration system and/or compressor rack.");
             } // if looking for same walk in attached to multiple systems/racks
         } // NumSimulationWalkIns
@@ -7144,9 +9066,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //  write to error file,
             //  summary number of unused walkins given if DataGlobals::DisplayExtraWarnings option not selected
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("{}Refrigeration:WalkIn -> {} unused refrigeration WalkIns found during input processing.",
                                                 RoutineName,
                                                 NumUnusedWalkIns));
+=======
+                             std::format("{}Refrigeration:WalkIn -> {} unused refrigeration WalkIns found during input processing.",
+                                         RoutineName,
+                                         NumUnusedWalkIns));
+>>>>>>> nrel/develop
             ShowContinueError(state, "   Those refrigeration WalkIns are in the input file but are not connected to a ");
             ShowContinueError(state, "   Refrigeration:CompressorRack, Refrigeration:System or Refrigeration:SecondarySystem object.");
             ShowContinueError(state, "   These unused refrigeration WalkIns will not be simulated.");
@@ -7166,16 +9094,26 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 ++NumUnusedWalkIns;
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     //  individual walkin names listed if DataGlobals::DisplayExtraWarnings option selected
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format("{}: Refrigeration:AirChiller=\"{}\" unused. ", RoutineName, WarehouseCoil(CoilNum).Name));
+=======
+                    ShowWarningError(state, std::format("{}: Refrigeration:AirChiller=\"{}\" unused. ", RoutineName, WarehouseCoil(CoilNum).Name));
+>>>>>>> nrel/develop
                 } // display extra warnings - give a list of unused chillers
             } // unused chiller
             if (WarehouseCoil(CoilNum).NumSysAttach > 1) {
                 ErrorsFound = true;
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}: Refrigeration:AirChiller=\"{}\", Same Refrigeration Air Chiller name referenced",
                                                    RoutineName,
                                                    WarehouseCoil(CoilNum).Name));
+=======
+                                std::format("{}: Refrigeration:AirChiller=\"{}\", Same Refrigeration Air Chiller name referenced",
+                                            RoutineName,
+                                            WarehouseCoil(CoilNum).Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, " by more than one refrigeration system and/or compressor rack.");
             } // if looking for same walk in attached to multiple systems/racks
         } // NumSimulationRefrigAirchillers
@@ -7184,9 +9122,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //  write to error file,
             //  summary number of unused air chillers given if DataGlobals::DisplayExtraWarnings option not selected
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("{}Refrigeration:AirChiller -> {} unused refrigeration air chillers found during input processing.",
                                                 RoutineName,
                                                 state.dataRefrigCase->NumUnusedCoils));
+=======
+                             std::format("{}Refrigeration:AirChiller -> {} unused refrigeration air chillers found during input processing.",
+                                         RoutineName,
+                                         state.dataRefrigCase->NumUnusedCoils));
+>>>>>>> nrel/develop
             ShowContinueError(state, "   Those refrigeration air chillers are in the input file but are not connected to a ");
             ShowContinueError(state, "   Refrigeration:CompressorRack, Refrigeration:System or Refrigeration:SecondarySystem object.");
             ShowContinueError(state, "   These unused refrigeration air chillers will not be simulated.");
@@ -7206,16 +9150,26 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 ++state.dataRefrigCase->NumUnusedSecondarys;
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     //  individual secondary names listed if DataGlobals::DisplayExtraWarnings option selected
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format("{}: Refrigeration:Secondary=\"{}\" unused. ", RoutineName, Secondary(SecondaryNum).Name));
+=======
+                    ShowWarningError(state, std::format("{}: Refrigeration:Secondary=\"{}\" unused. ", RoutineName, Secondary(SecondaryNum).Name));
+>>>>>>> nrel/develop
                 } // display extra warnings - give a list of unused Secondaries
             } // unused secondary
             if (Secondary(SecondaryNum).NumSysAttach > 1) {
                 ErrorsFound = true;
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}: Refrigeration:Secondary=\"{}\", Same Refrigeration Secondary name referenced",
                                                    RoutineName,
                                                    Secondary(SecondaryNum).Name));
+=======
+                                std::format("{}: Refrigeration:Secondary=\"{}\", Same Refrigeration Secondary name referenced",
+                                            RoutineName,
+                                            Secondary(SecondaryNum).Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "   by more than one refrigeration system");
             } // looking for same secondary loop attached to multiple systems/racks
         } // NumSimulationSecondarys
@@ -7224,9 +9178,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //  write to error file,
             //  summary number of unused secondaries given if DataGlobals::DisplayExtraWarnings option not selected
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("{}Refrigeration:Secondary -> {} unused refrigeration Secondary Loops found during input processing.",
                                                 RoutineName,
                                                 state.dataRefrigCase->NumUnusedSecondarys));
+=======
+                             std::format("{}Refrigeration:Secondary -> {} unused refrigeration Secondary Loops found during input processing.",
+                                         RoutineName,
+                                         state.dataRefrigCase->NumUnusedSecondarys));
+>>>>>>> nrel/develop
             ShowContinueError(state, "  Those refrigeration Secondary Loops are in the input file but are not connected to a refrigeration system.");
             ShowContinueError(state, "   These unused refrigeration secondaries will not be simulated.");
             ShowContinueError(state, "   Use Output:Diagnostics,DisplayUnusedObjects; to see them. ");
@@ -7247,7 +9207,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 ++state.dataRefrigCase->NumUnusedCondensers;
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     //  individual condenser names listed if DataGlobals::DisplayExtraWarnings option selected
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: Refrigeration:Condenser=\"{}\" unused. ", RoutineName, Condenser(CondNum).Name));
+=======
+                    ShowWarningError(state, std::format("{}: Refrigeration:Condenser=\"{}\" unused. ", RoutineName, Condenser(CondNum).Name));
+>>>>>>> nrel/develop
                 } // display extra warnings - give a list of unused condensers
             } // unused condenser
             if (Condenser(CondNum).NumSysAttach > 1) {
@@ -7259,9 +9223,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //  write to error file,
             //  summary number of unused condensers given if DataGlobals::DisplayExtraWarnings option not selected
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("{}Refrigeration condenser -> {} unused refrigeration condensers found during input processing.",
                                                 RoutineName,
                                                 state.dataRefrigCase->NumUnusedCondensers));
+=======
+                             std::format("{}Refrigeration condenser -> {} unused refrigeration condensers found during input processing.",
+                                         RoutineName,
+                                         state.dataRefrigCase->NumUnusedCondensers));
+>>>>>>> nrel/develop
             ShowContinueError(state, "  Those refrigeration condensers are in the input file but are not connected to a refrigeration system.");
             ShowContinueError(state, "   These unused refrigeration condensers will not be simulated.");
             ShowContinueError(state, "   Use Output:Diagnostics,DisplayUnusedObjects; to see them. ");
@@ -7280,7 +9250,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
                 ++state.dataRefrigCase->NumUnusedGasCoolers;
                 if (state.dataGlobal->DisplayExtraWarnings) {
                     //  individual gas cooler names listed if DataGlobals::DisplayExtraWarnings option selected
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: Refrigeration:GasCooler=\"{}\" unused. ", RoutineName, GasCooler(GCNum).Name));
+=======
+                    ShowWarningError(state, std::format("{}: Refrigeration:GasCooler=\"{}\" unused. ", RoutineName, GasCooler(GCNum).Name));
+>>>>>>> nrel/develop
                 } // display extra warnings - give a list of unused gas coolers
             } // unused gas cooler
             if (GasCooler(GCNum).NumSysAttach > 1) {
@@ -7292,9 +9266,15 @@ void GetRefrigerationInput(EnergyPlusData &state)
             //  write to error file,
             //  summary number of unused gas coolers given if DataGlobals::DisplayExtraWarnings option not selected
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("{}Refrigeration gas cooler -> {} unused refrigeration gas cooler(s) found during input processing.",
                                                 RoutineName,
                                                 state.dataRefrigCase->NumUnusedGasCoolers));
+=======
+                             std::format("{}Refrigeration gas cooler -> {} unused refrigeration gas cooler(s) found during input processing.",
+                                         RoutineName,
+                                         state.dataRefrigCase->NumUnusedGasCoolers));
+>>>>>>> nrel/develop
             ShowContinueError(state, "  These refrigeration gas coolers are in the input file but are not connected to a refrigeration system.");
             ShowContinueError(state, "  These unused refrigeration gas coolers will not be simulated.");
             ShowContinueError(state, "  Use Output:Diagnostics,DisplayUnusedObjects; to see them. ");
@@ -7305,7 +9285,11 @@ void GetRefrigerationInput(EnergyPlusData &state)
     ReportRefrigerationComponents(state);
 
     if (ErrorsFound) {
+<<<<<<< HEAD
         ShowFatalError(state, EnergyPlus::format("{} Previous errors cause program termination", RoutineName));
+=======
+        ShowFatalError(state, std::format("{} Previous errors cause program termination", RoutineName));
+>>>>>>> nrel/develop
     }
 }
 
@@ -7809,49 +9793,77 @@ void SetupReportInput(EnergyPlusData &state)
             auto &coil = WarehouseCoil(coilNum);
             if (coil.NumSysAttach == 1) { // ensure no unuseds reported
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Total Cooling Rate",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Total Cooling Rate",
+>>>>>>> nrel/develop
                                     Constant::Units::W,
                                     coil.TotalCoolingLoad,
                                     OutputProcessor::TimeStepType::System,
                                     OutputProcessor::StoreType::Average,
                                     coil.Name);
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Total Cooling Energy",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Total Cooling Energy",
+>>>>>>> nrel/develop
                                     Constant::Units::J,
                                     coil.TotalCoolingEnergy,
                                     OutputProcessor::TimeStepType::System,
                                     OutputProcessor::StoreType::Sum,
                                     coil.Name);
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Sensible Cooling Rate",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Sensible Cooling Rate",
+>>>>>>> nrel/develop
                                     Constant::Units::W,
                                     coil.SensCoolingEnergyRate,
                                     OutputProcessor::TimeStepType::System,
                                     OutputProcessor::StoreType::Average,
                                     coil.Name);
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Sensible Cooling Energy",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Sensible Cooling Energy",
+>>>>>>> nrel/develop
                                     Constant::Units::J,
                                     coil.SensCoolingEnergy,
                                     OutputProcessor::TimeStepType::System,
                                     OutputProcessor::StoreType::Sum,
                                     coil.Name);
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Latent Cooling Rate",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Latent Cooling Rate",
+>>>>>>> nrel/develop
                                     Constant::Units::W,
                                     coil.LatCreditRate,
                                     OutputProcessor::TimeStepType::System,
                                     OutputProcessor::StoreType::Average,
                                     coil.Name);
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Latent Cooling Energy",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Latent Cooling Energy",
+>>>>>>> nrel/develop
                                     Constant::Units::J,
                                     coil.LatCreditEnergy,
                                     OutputProcessor::TimeStepType::System,
                                     OutputProcessor::StoreType::Sum,
                                     coil.Name);
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Water Removed Mass Flow Rate",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Water Removed Mass Flow Rate",
+>>>>>>> nrel/develop
                                     Constant::Units::kg_s,
                                     coil.LatKgPerS_ToZone,
                                     OutputProcessor::TimeStepType::System,
@@ -7908,14 +9920,22 @@ void SetupReportInput(EnergyPlusData &state)
                                     OutputProcessor::EndUseCat::Refrigeration,
                                     "General");
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Sensible Heat Ratio",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Sensible Heat Ratio",
+>>>>>>> nrel/develop
                                     Constant::Units::None,
                                     coil.SensHeatRatio,
                                     OutputProcessor::TimeStepType::System,
                                     OutputProcessor::StoreType::Average,
                                     coil.Name);
                 SetupOutputVariable(state,
+<<<<<<< HEAD
                                     "Refrigeration Zone Air Chiller Frost Accumulation Mass",
+=======
+                                    "Refrigeration Zone Air Chiller Coil Frost Accumulation Mass",
+>>>>>>> nrel/develop
                                     Constant::Units::kg,
                                     coil.KgFrost,
                                     OutputProcessor::TimeStepType::System,
@@ -7967,14 +9987,22 @@ void SetupReportInput(EnergyPlusData &state)
                 // Report only for Warehouse coils using electric defrost
                 if (coil.defrostType == DefrostType::Elec) {
                     SetupOutputVariable(state,
+<<<<<<< HEAD
                                         "Refrigeration Zone Air Chiller Defrost Electricity Rate",
+=======
+                                        "Refrigeration Zone Air Chiller Coil Defrost Electricity Rate",
+>>>>>>> nrel/develop
                                         Constant::Units::W,
                                         coil.ElecDefrostPower,
                                         OutputProcessor::TimeStepType::System,
                                         OutputProcessor::StoreType::Average,
                                         coil.Name);
                     SetupOutputVariable(state,
+<<<<<<< HEAD
                                         "Refrigeration Zone Air Chiller Defrost Electricity Energy",
+=======
+                                        "Refrigeration Zone Air Chiller Coil Defrost Electricity Energy",
+>>>>>>> nrel/develop
                                         Constant::Units::J,
                                         coil.ElecDefrostConsumption,
                                         OutputProcessor::TimeStepType::System,
@@ -10680,11 +12708,19 @@ void RefrigRackData::CalcRackSystem(EnergyPlusData &state)
     //  Florida Solar Energy Center, FSEC-CR-910-96, Final Report, Oct. 1996
 
     Real64 COPFTempOutput;                // Curve value for COPFTemp curve object
+<<<<<<< HEAD
     Real64 OutWbTemp;                     // Outdoor wet bulb temp at condenser air inlet node [C]
     Real64 OutDbTemp;                     // Outdoor dry bulb temp at condenser air inlet node [C]
     Real64 EffectTemp;                    // Effective outdoor temp when using evap condenser cooling [C]
     Real64 HumRatIn;                      // Humidity ratio of inlet air to condenser [kg/kg]
     Real64 BPress;                        // Barometric pressure at condenser air inlet node [Pa]
+=======
+    Real64 OutWbTemp = 0.0;               // Outdoor wet bulb temp at condenser air inlet node [C]
+    Real64 OutDbTemp = 0.0;               // Outdoor dry bulb temp at condenser air inlet node [C]
+    Real64 EffectTemp = 0.0;              // Effective outdoor temp when using evap condenser cooling [C]
+    Real64 HumRatIn = 0.0;                // Humidity ratio of inlet air to condenser [kg/kg]
+    Real64 BPress = 0.0;                  // Barometric pressure at condenser air inlet node [Pa]
+>>>>>>> nrel/develop
     Real64 TotalHeatRejectedToZone = 0.0; // Total compressor and condenser fan heat rejected to zone (based on CaseRAFactor)
     Real64 CondenserFrac = 0.0;           // Fraction of condenser power as a function of outdoor temperature
     bool EvapAvail = true;                // Control for evap condenser availability
@@ -10720,7 +12756,11 @@ void RefrigRackData::CalcRackSystem(EnergyPlusData &state)
     }
 
     if (this->NumCoils > 0) {
+<<<<<<< HEAD
         auto &WarehouseCoil = state.dataRefrigCase->WarehouseCoil;
+=======
+        const auto &WarehouseCoil = state.dataRefrigCase->WarehouseCoil;
+>>>>>>> nrel/develop
         for (int CoilIndex = 1; CoilIndex <= this->NumCoils; ++CoilIndex) {
             int CoilID = this->CoilNum(CoilIndex);
             // already CALLed CalculateCoil(CoilID) in CoilSet specified order
@@ -10819,7 +12859,11 @@ void RefrigRackData::CalcRackSystem(EnergyPlusData &state)
             EffectTemp = state.dataLoopNodes->Node(this->InletNode).Temp + 5.0; // includes approach temp
             if (this->InletTemp < this->InletTempMin) {
                 if (this->LowTempWarnIndex == 0) {
+<<<<<<< HEAD
                     ShowWarningMessage(state, EnergyPlus::format("Refrigeration:CompressorRack: {}", this->Name));
+=======
+                    ShowWarningMessage(state, std::format("Refrigeration:CompressorRack: {}", this->Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "Water-cooled condenser inlet temp lower than minimum allowed temp. Check returning water temperature "
                                       "and/or minimum temperature setpoints.");
@@ -10842,7 +12886,11 @@ void RefrigRackData::CalcRackSystem(EnergyPlusData &state)
         state.dataRefrigCase->TotalCondenserHeat = state.dataRefrigCase->TotalCompressorPower + state.dataRefrigCase->TotalRackDeliveredCapacity;
     } else {
         if (this->ShowCOPWarning) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Refrigeration:CompressorRack: {}", this->Name));
+=======
+            ShowWarningError(state, std::format("Refrigeration:CompressorRack: {}", this->Name));
+>>>>>>> nrel/develop
             ShowContinueError(state, " The calculated COP has a value of zero or is negative. Refer to Engineering Documentation for");
             ShowContinueError(state, " further explanation of Compressor Rack COP as a Function of Temperature Curve.");
             this->ShowCOPWarning = false;
@@ -10887,8 +12935,12 @@ void RefrigRackData::CalcRackSystem(EnergyPlusData &state)
                 if (this->EvapFreezeWarnIndex == 0) {
                     ShowWarningMessage(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("Refrigeration Compressor Rack {} - Evap cooling of condenser underway with no basin heater power",
                                            this->Name));
+=======
+                        std::format("Refrigeration Compressor Rack {} - Evap cooling of condenser underway with no basin heater power", this->Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "and condenser inlet air dry-bulb temp at or below the basin heater setpoint temperature.");
                     ShowContinueErrorTimeStamp(state, "Continuing simulation.");
                 } // EvapFreezeWarnIndex == 0
@@ -11410,7 +13462,11 @@ void RefrigCaseData::CalculateCase(EnergyPlusData &state) // Absolute pointer to
     if (this->StoredEnergy > MyLargeNumber) {
         this->StoredEnergy = MyLargeNumber;
         if (this->ShowStoreEnergyWarning) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Refrigeration:Case: {}", this->Name));
+=======
+            ShowWarningError(state, std::format("Refrigeration:Case: {}", this->Name));
+>>>>>>> nrel/develop
             if (this->StockingEnergy >= this->DefrostEnergy) {
                 if (this->StockingEnergy >= this->WarmEnvEnergy) {
                     ShowContinueError(state, " This case has insufficient capacity to meet excess energy associated with stocking.");
@@ -11443,7 +13499,11 @@ void RefrigCaseData::CalculateCase(EnergyPlusData &state) // Absolute pointer to
     if (this->KgFrost > MyLargeNumber) {
         this->KgFrost = MyLargeNumber;
         if (this->ShowFrostWarning) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Refrigeration:Case: {}", this->Name));
+=======
+            ShowWarningError(state, std::format("Refrigeration:Case: {}", this->Name));
+>>>>>>> nrel/develop
             ShowContinueError(state, " This case has insufficient defrost capacity to remove the excess frost accumulation.");
             ShowContinueError(state, " Refer to documentation for further explanation of product stocking requirements and");
             ShowContinueError(state, " recommendations regarding Total Cooling Capacity, Sensible Heat Ratio, and Latent Heat Ratio.");
@@ -11466,9 +13526,13 @@ PlantComponent *RefrigCondenserData::factory(EnergyPlusData &state, std::string 
         }
     }
     // If we didn't find it, fatal
+<<<<<<< HEAD
     ShowFatalError(state, EnergyPlus::format("LocalRefrigCondenserFactory: Error getting inputs for object named: {}", objectName)); // LCOV_EXCL_LINE
     // Shut up the compiler
     return nullptr; // LCOV_EXCL_LINE
+=======
+    ShowFatalError(state, std::format("LocalRefrigCondenserFactory: Error getting inputs for object named: {}", objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
 }
 
 void RefrigCondenserData::onInitLoopEquip(EnergyPlusData &state, [[maybe_unused]] const PlantLocation &calledFromLocation)
@@ -11535,10 +13599,16 @@ void RefrigCondenserData::simulate(EnergyPlusData &state,
         if (this->OutletTemp == this->InletTemp) {
 
             if (this->HighInletWarnIndex == 0) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}, \"{}\" : has inlet water temp equal to desired outlet temp. Excessive flow resulting. ",
                                                    ErrIntro,
                                                    this->Name));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}, \"{}\" : has inlet water temp equal to desired outlet temp. Excessive flow resulting. ", ErrIntro, this->Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "cooling water is not cold enough to reach desired outlet temperature");
             }
             ShowRecurringWarningErrorAtEnd(state,
@@ -11552,7 +13622,11 @@ void RefrigCondenserData::simulate(EnergyPlusData &state,
             // Check for maximum flow in the component
             if (this->MassFlowRate > this->MassFlowRateMax) {
                 if (this->HighFlowWarnIndex == 0) {
+<<<<<<< HEAD
                     ShowWarningMessage(state, EnergyPlus::format("{}{}", TypeName, this->Name));
+=======
+                    ShowWarningMessage(state, std::format("{}{}", TypeName, this->Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Requested condenser water mass flow rate greater than maximum allowed value. ");
                     ShowContinueError(state, "Flow reset to maximum value.");
                 } // HighFlowWarnIndex
@@ -11593,7 +13667,11 @@ void RefrigCondenserData::simulate(EnergyPlusData &state,
     // Check outlet water temp for max value
     if (this->OutletTemp > this->OutletTempMax) {
         if (this->HighTempWarnIndex == 0) {
+<<<<<<< HEAD
             ShowWarningMessage(state, EnergyPlus::format("{}{}", TypeName, this->Name));
+=======
+            ShowWarningMessage(state, std::format("{}{}", TypeName, this->Name));
+>>>>>>> nrel/develop
             ShowContinueError(state,
                               "Water-cooled condenser outlet temp higher than maximum allowed temp. Check flow rates and/or temperature setpoints.");
         }
@@ -11618,9 +13696,13 @@ PlantComponent *RefrigRackData::factory(EnergyPlusData &state, std::string const
         }
     }
     // If we didn't find it, fatal
+<<<<<<< HEAD
     ShowFatalError(state, EnergyPlus::format("LocalRefrigRackFactory: Error getting inputs for object named: {}", objectName)); // LCOV_EXCL_LINE
     // Shut up the compiler
     return nullptr; // LCOV_EXCL_LINE
+=======
+    ShowFatalError(state, std::format("LocalRefrigRackFactory: Error getting inputs for object named: {}", objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
 }
 
 void RefrigRackData::onInitLoopEquip(EnergyPlusData &state, [[maybe_unused]] const PlantLocation &calledFromLocation)
@@ -11687,10 +13769,16 @@ void RefrigRackData::simulate(EnergyPlusData &state,
         if (this->OutletTemp == this->InletTemp) {
 
             if (this->HighInletWarnIndex == 0) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}, \"{}\" : has inlet water temp equal to desired outlet temp. Excessive flow resulting. ",
                                                    ErrIntro,
                                                    this->Name));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("{}, \"{}\" : has inlet water temp equal to desired outlet temp. Excessive flow resulting. ", ErrIntro, this->Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "cooling water is not cold enough to reach desired outlet temperature");
             }
             ShowRecurringWarningErrorAtEnd(state,
@@ -11704,7 +13792,11 @@ void RefrigRackData::simulate(EnergyPlusData &state,
             // Check for maximum flow in the component
             if (this->MassFlowRate > this->MassFlowRateMax) {
                 if (this->HighFlowWarnIndex == 0) {
+<<<<<<< HEAD
                     ShowWarningMessage(state, EnergyPlus::format("{}{}", TypeName, this->Name));
+=======
+                    ShowWarningMessage(state, std::format("{}{}", TypeName, this->Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Requested condenser water mass flow rate greater than maximum allowed value. ");
                     ShowContinueError(state, "Flow reset to maximum value.");
                 } // HighFlowWarnIndex
@@ -11745,7 +13837,11 @@ void RefrigRackData::simulate(EnergyPlusData &state,
     // Check outlet water temp for max value
     if (this->OutletTemp > this->OutletTempMax) {
         if (this->HighTempWarnIndex == 0) {
+<<<<<<< HEAD
             ShowWarningMessage(state, EnergyPlus::format("{}{}", TypeName, this->Name));
+=======
+            ShowWarningMessage(state, std::format("{}{}", TypeName, this->Name));
+>>>>>>> nrel/develop
             ShowContinueError(state,
                               "Water-cooled condenser outlet temp higher than maximum allowed temp. Check flow rates and/or temperature setpoints.");
         }
@@ -11856,9 +13952,14 @@ void SimulateDetailedRefrigerationSystems(EnergyPlusData &state)
     // however, be repeated when the last chiller set is called from ZoneEquipmentManager
     // that's why important where init goes, don't want to zero out data should keep
     if (state.dataRefrigCase->UseSysTimeStep) {
+<<<<<<< HEAD
         auto &AirChillerSet = state.dataRefrigCase->AirChillerSet;
         for (int CoilSetIndex = 1; CoilSetIndex <= state.dataRefrigCase->NumRefrigChillerSets; ++CoilSetIndex) {
             AirChillerSet(CoilSetIndex).CalculateAirChillerSets(state);
+=======
+        for (int CoilSetIndex = 1; CoilSetIndex <= state.dataRefrigCase->NumRefrigChillerSets; ++CoilSetIndex) {
+            state.dataRefrigCase->AirChillerSet(CoilSetIndex).CalculateAirChillerSets(state);
+>>>>>>> nrel/develop
         }
     }
 
@@ -12016,9 +14117,15 @@ void SimulateDetailedRefrigerationSystems(EnergyPlusData &state)
                         // subcooler should not drive Tevap for supplying system,
                         //    but check to see if T controlled can be met or if Tevap is at a higher temperature
                         if (Subcooler(SubcoolID).MechControlTliqOut < thisSys.TEvapNeeded) {
+<<<<<<< HEAD
                             ShowWarningError(state, EnergyPlus::format("Refrigeration:System: {}", thisSys.Name));
                             ShowContinueError(state, " Evaporating temperature greater than the controlled ");
                             ShowContinueError(state, EnergyPlus::format(" liquid outlet temperature for SUBCOOLER:{}", Subcooler(SubcoolID).Name));
+=======
+                            ShowWarningError(state, std::format("Refrigeration:System: {}", thisSys.Name));
+                            ShowContinueError(state, " Evaporating temperature greater than the controlled ");
+                            ShowContinueError(state, std::format(" liquid outlet temperature for SUBCOOLER:{}", Subcooler(SubcoolID).Name));
+>>>>>>> nrel/develop
                         }
                     } // SubcoolId
 
@@ -12118,7 +14225,11 @@ void SimulateDetailedRefrigerationSystems(EnergyPlusData &state)
                                 thisSys.TEvapNeeded = thisSys.TEvapDesign;
                             } else { // calculate floating T evap
                                 thisSys.TEvapNeeded = thisSys.TEvapDesign;
+<<<<<<< HEAD
                                 ShowWarningError(state, EnergyPlus::format("Refrigeration:System: {}", thisSys.Name));
+=======
+                                ShowWarningError(state, std::format("Refrigeration:System: {}", thisSys.Name));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, " Floating evaporator temperature model not yet available for warehouse coil systems. ");
                             } // floating or constant evap temperature
                             // increment TotalCoolingLoad for Compressors/condenser on each system
@@ -12171,7 +14282,11 @@ void SimulateDetailedRefrigerationSystems(EnergyPlusData &state)
                 if (thisSys.UnmetEnergy > MyLargeNumber) {
                     thisSys.UnmetEnergy = MyLargeNumber;
                     if (state.dataRefrigCase->ShowUnmetEnergyWarning(SysNum)) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("Refrigeration:System: {}", thisSys.Name));
+=======
+                        ShowWarningError(state, std::format("Refrigeration:System: {}", thisSys.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, " The specified compressors for this system are unable to meet ");
                         ShowContinueError(state, " the sum of the refrigerated case loads and subcooler loads (if any) for this system.");
                         state.dataRefrigCase->ShowUnmetEnergyWarning(SysNum) = false;
@@ -12180,7 +14295,11 @@ void SimulateDetailedRefrigerationSystems(EnergyPlusData &state)
                 if (thisSys.UnmetHiStageEnergy > MyLargeNumber) {
                     thisSys.UnmetHiStageEnergy = MyLargeNumber;
                     if (state.dataRefrigCase->ShowHiStageUnmetEnergyWarning(SysNum)) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("Refrigeration:System: {}", thisSys.Name));
+=======
+                        ShowWarningError(state, std::format("Refrigeration:System: {}", thisSys.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, " The specified high-stage compressors for this system are unable to meet ");
                         ShowContinueError(state, " the sum of the refrigerated case loads, subcooler loads (if any) and ");
                         ShowContinueError(state, " low-stage compressor loads for this system.");
@@ -12424,7 +14543,11 @@ void SimulateDetailedTransRefrigSystems(EnergyPlusData &state)
             if (sys.UnmetEnergy > MyLargeNumber) {
                 sys.UnmetEnergy = MyLargeNumber;
                 if (state.dataRefrigCase->ShowUnmetEnergyWarningTrans(SysNum)) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("Refrigeration:TranscriticalSystem: {}", sys.Name));
+=======
+                    ShowWarningError(state, std::format("Refrigeration:TranscriticalSystem: {}", sys.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, " The specified compressors for this system are unable to meet ");
                     ShowContinueError(state, " the sum of the refrigerated case loads and subcooler loads (if any) for this system.");
                     state.dataRefrigCase->ShowUnmetEnergyWarningTrans(SysNum) = false;
@@ -12516,7 +14639,11 @@ void RefrigSystemData::CalcDetailedSystem(EnergyPlusData &state, int const SysNu
         }
         // Previously did error check on calculated Tcondense, but not sensitive enough
         if ((this->RefMassFlowtoLoads == 0.0) || (MassFlowCompsStart == 0.0)) { //.OR. (MassFlowCasesStart == 0.0)
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Refrigeration:System: {} showing zero refrigeration flow.", this->Name));
+=======
+            ShowWarningError(state, std::format("Refrigeration:System: {} showing zero refrigeration flow.", this->Name));
+>>>>>>> nrel/develop
         } else {
             ErrorMassFlowComps = std::abs(MassFlowCompsStart - this->RefMassFlowComps) / MassFlowCompsStart;
             if (this->NumStages == 2) { // Two-stage systems
@@ -12558,10 +14685,17 @@ void TransRefrigSystemData::CalcDetailedTransSystem(EnergyPlusData &state, int c
 
     Real64 constexpr ErrorTol(0.001); // Iterative solution tolerance
 
+<<<<<<< HEAD
     int NumIter(0);            // Iteration counter
     bool NotBalanced(true);    // Flag to indicate convergence, based on system balance
     Real64 MassFlowStart(0.5); // Initial refrigerant mass flow through receiver bypass
     Real64 ErrorMassFlow;      // Error in calculated refrigerant mass flow through receiver bypass
+=======
+    int NumIter(0);             // Iteration counter
+    bool NotBalanced(true);     // Flag to indicate convergence, based on system balance
+    Real64 MassFlowStart(0.5);  // Initial refrigerant mass flow through receiver bypass
+    Real64 ErrorMassFlow = 0.0; // Error in calculated refrigerant mass flow through receiver bypass
+>>>>>>> nrel/develop
 
     while (NotBalanced) {
         ++NumIter;
@@ -12574,10 +14708,16 @@ void TransRefrigSystemData::CalcDetailedTransSystem(EnergyPlusData &state, int c
             continue;
         }
         if ((this->RefMassFlowReceiverBypass == 0.0) || (MassFlowStart == 0.0)) {
+<<<<<<< HEAD
             ShowSevereError(
                 state,
                 EnergyPlus::format("Refrigeration:TranscriticalSystem: {} showing zero refrigerant flow through receiver bypass.", this->Name));
             ShowContinueError(state, EnergyPlus::format("Receiver Bypass Flow = {:.6R}", this->RefMassFlowReceiverBypass));
+=======
+            ShowSevereError(state,
+                            std::format("Refrigeration:TranscriticalSystem: {} showing zero refrigerant flow through receiver bypass.", this->Name));
+            ShowContinueError(state, std::format("Receiver Bypass Flow = {:.6f}", this->RefMassFlowReceiverBypass));
+>>>>>>> nrel/develop
             ShowContinueError(state, "Check input file to ensure that refrigeration loads on this system are not zero.");
         } else {
             ErrorMassFlow = std::abs(MassFlowStart - this->RefMassFlowReceiverBypass) / MassFlowStart;
@@ -12770,7 +14910,11 @@ void RefrigSystemData::CalculateCondensers(EnergyPlusData &state, int const SysN
             this->TCondense = this->TCondenseMin;
             // condenser.LowTempWarn += 1;
             if (condenser.LowTempWarnIndex == 0) {
+<<<<<<< HEAD
                 ShowWarningMessage(state, EnergyPlus::format("Refrigeration:Condenser:WaterCooled {}", condenser.Name));
+=======
+                ShowWarningMessage(state, std::format("Refrigeration:Condenser:WaterCooled {}", condenser.Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state,
                                   "Water-cooled condenser inlet temp lower than minimum allowed temp. Check returning water temperature and/or "
                                   "minimum temperature setpoints relative to minimum allowed condensing temperature.");
@@ -12953,10 +15097,16 @@ void RefrigSystemData::CalculateCondensers(EnergyPlusData &state, int const SysN
                 if (state.dataRefrigCase->TotalBasinHeatPower == 0.0) {
                     // condenser.EvapFreezeWarn = condenser.EvapFreezeWarn + 1;
                     if (condenser.EvapFreezeWarnIndex == 0) {
+<<<<<<< HEAD
                         ShowWarningMessage(
                             state,
                             EnergyPlus::format("Refrigeration Condenser {} - Evap cooling of condenser underway with no basin heater power",
                                                condenser.Name));
+=======
+                        ShowWarningMessage(state,
+                                           std::format("Refrigeration Condenser {} - Evap cooling of condenser underway with no basin heater power",
+                                                       condenser.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "and condenser inlet air dry-bulb temp at or below the basin heater setpoint temperature.");
                         ShowContinueErrorTimeStamp(state, "Continuing simulation.");
                     }
@@ -13536,6 +15686,15 @@ void RefrigSystemData::CalculateCompressors(EnergyPlusData &state)
     this->TotHiStageCompCoolingEnergy = this->TotHiStageCompCapacity * localTimeStepSec;
 }
 
+<<<<<<< HEAD
+=======
+Real64 CalcTransMTActualEnthalpyChange(Real64 const hCompInHP, Real64 const hGasCoolerOut, Real64 const delHSubcoolerDis)
+{
+    // Use post-subcooler discharge enthalpy at gas-cooler outlet
+    return hCompInHP - (hGasCoolerOut + delHSubcoolerDis);
+}
+
+>>>>>>> nrel/develop
 void TransRefrigSystemData::CalculateTransCompressors(EnergyPlusData &state)
 {
 
@@ -13588,11 +15747,19 @@ void TransRefrigSystemData::CalculateTransCompressors(EnergyPlusData &state)
     Real64 DensityActualMT;             // Density of superheated gas at HP compressor inlet, m3/kg
     Real64 DensityRatedHP;              // Density of high pressure compressor inlet gas at rated superheat, m3/kg
     Real64 DensityRatedLP;              // Density of low pressure compressor inlet gas at rated superheat, m3/kg
+<<<<<<< HEAD
     Real64 HCaseInRatedLT;              // Enthalpy entering low temperature cases at rated subcooling, J/kg
     Real64 HCaseInRatedMT;              // Enthalpy entering medium temperature cases at rated subcooling, J/kg
     Real64 HCompInRatedHP(0.0);         // Enthalpy entering high pressure compressor at rated superheat, J/kg
     Real64 HCompInRatedLP;              // Enthalpy entering low pressure compressor at rated superheat, J/kg
     Real64 HGCOutlet;                   // Enthalpy at gas cooler outlet, J/kg
+=======
+    Real64 HCaseInRatedLT = 0.0;        // Enthalpy entering low temperature cases at rated subcooling, J/kg
+    Real64 HCaseInRatedMT = 0.0;        // Enthalpy entering medium temperature cases at rated subcooling, J/kg
+    Real64 HCompInRatedHP(0.0);         // Enthalpy entering high pressure compressor at rated superheat, J/kg
+    Real64 HCompInRatedLP = 0.0;        // Enthalpy entering low pressure compressor at rated superheat, J/kg
+    Real64 HGCOutlet = 0.0;             // Enthalpy at gas cooler outlet, J/kg
+>>>>>>> nrel/develop
     Real64 HIdeal;                      // Ideal enthalpy at subcooler (for 100% effectiveness)
     Real64 HsatLiqforTevapNeededMT;     // Enthalpy of saturated liquid at MT evaporator, J/kg
     Real64 HsatVaporforTevapneededMT;   // Enthalpy of saturated vapor at MT evaporator (transcritical cycle), J/kg
@@ -13607,10 +15774,17 @@ void TransRefrigSystemData::CalculateTransCompressors(EnergyPlusData &state)
     Real64 PGCOutlet;                   // Gas cooler outlet pressure, Pa
     Real64 QualityReceiver(0.0);        // Refrigerant quality in the receiver
     Real64 SubcoolEffect;               // Heat exchanger effectiveness of the subcooler
+<<<<<<< HEAD
     Real64 TempInRatedHP;               // Temperature entering high pressure compressor at rated superheat, C
     Real64 TempInRatedLP;               // Temperature entering low pressure compressor at rated superheat, C
     Real64 TsatforPdisLT;               // Low temperature saturated discharge temperature (transcritical cycle), C
     Real64 TsatforPdisMT;               // Medium temperature saturated discharge temperature (transcritical cycle), C
+=======
+    Real64 TempInRatedHP = 0.0;         // Temperature entering high pressure compressor at rated superheat, C
+    Real64 TempInRatedLP = 0.0;         // Temperature entering low pressure compressor at rated superheat, C
+    Real64 TsatforPdisLT;               // Low temperature saturated discharge temperature (transcritical cycle), C
+    Real64 TsatforPdisMT = 0.0;         // Medium temperature saturated discharge temperature (transcritical cycle), C
+>>>>>>> nrel/develop
     Real64 TsatforPsucLT;               // Low temperature saturated suction temperature (transcritical cycle), C
     Real64 TsatforPsucMT;               // Medium temperature saturated suction temperature (transcritical cycle), C
     Real64 TSubcoolerColdIn;            // Suction gas temperature at the inlet of the subcooler, C
@@ -13838,7 +16012,12 @@ void TransRefrigSystemData::CalculateTransCompressors(EnergyPlusData &state)
     //  to constitute the "load".  The actual and rated conditions at the exit of the gas cooler and the inlet of the
     //  HP compressors are used for capacity correction calculations.
     DensityActualMT = this->refrig->getSupHeatDensity(state, this->TCompInHP, PSuctionMT, RoutineName);
+<<<<<<< HEAD
     TotalEnthalpyChangeActualMT = this->HCompInHP - GasCooler(this->GasCoolerNum(1)).HGasCoolerOut;
+=======
+    TotalEnthalpyChangeActualMT =
+        CalcTransMTActualEnthalpyChange(this->HCompInHP, GasCooler(this->GasCoolerNum(1)).HGasCoolerOut, this->DelHSubcoolerDis);
+>>>>>>> nrel/develop
 
     // Dispatch HP compressors
     // Before dispatching HP compressors, zero sum of compressor outputs and zero each compressor
@@ -14247,7 +16426,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 break;
             }
             print(state.files.eio,
+<<<<<<< HEAD
                   " Refrigeration Compressor Rack,{},{},{},{},{},{:.3R}\n",
+=======
+                  " Refrigeration Compressor Rack,{},{},{},{},{},{:.3f}\n",
+>>>>>>> nrel/develop
                   RefrigRack(RackNum).Name,
                   RefrigRack(RackNum).NumCases,
                   RefrigRack(RackNum).NumWalkIns,
@@ -14258,7 +16441,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 int CaseID = RefrigRack(RackNum).CaseNum(CaseNum);
                 if (RefrigCase(CaseID).ZoneNodeNum > 0) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Refrigeration Case,{},{},{},{},{},{:.1R},{:.2R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                          "   Refrigeration Case,{},{},{},{},{},{:.1f},{:.2f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                           CaseID,
                           RefrigCase(CaseID).Name,
                           RefrigCase(CaseID).ZoneName,
@@ -14278,7 +16465,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int WalkInNum = 1; WalkInNum <= RefrigRack(RackNum).NumWalkIns; ++WalkInNum) {
                 int WalkInID = RefrigRack(RackNum).WalkInNum(WalkInNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration Walk In Cooler,  {},{},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{}\n",
+=======
+                      "   Refrigeration Walk In Cooler,  {},{},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{}\n",
+>>>>>>> nrel/develop
                       WalkInID,
                       WalkIn(WalkInID).Name,
                       WalkIn(WalkInID).DesignRatedCap,
@@ -14292,7 +16483,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                       WalkIn(WalkInID).NumZones);
                 for (int ZoneID = 1; ZoneID <= WalkIn(WalkInID).NumZones; ++ZoneID) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "      Walk-In Surfaces Facing Zone, {},{:.1R},{:.4R},{:.2R},{:.2R},{:.4R},{:.2R},{:.2R},{:.4R}\n",
+=======
+                          "      Walk-In Surfaces Facing Zone, {},{:.1f},{:.4f},{:.2f},{:.2f},{:.4f},{:.2f},{:.2f},{:.4f}\n",
+>>>>>>> nrel/develop
                           WalkIn(WalkInID).ZoneName(ZoneID),
                           WalkIn(WalkInID).SurfaceArea(ZoneID),
                           WalkIn(WalkInID).UValue(ZoneID),
@@ -14319,7 +16514,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
         auto &Subcooler = state.dataRefrigCase->Subcooler;
         for (int SystemNum = 1; SystemNum <= state.dataRefrigCase->NumRefrigSystems; ++SystemNum) {
             print(state.files.eio,
+<<<<<<< HEAD
                   " Detailed Refrigeration System,{},{},{},{},{},{},{},{},{},{},{},{:.2R},{},{:.1R}\n",
+=======
+                  " Detailed Refrigeration System,{},{},{},{},{},{},{},{},{},{},{},{:.2f},{},{:.1f}\n",
+>>>>>>> nrel/develop
                   System(SystemNum).Name,
                   System(SystemNum).RefrigerantName,
                   System(SystemNum).NumCases,
@@ -14330,7 +16529,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                   System(SystemNum).NumMechSCServed,
                   System(SystemNum).NumCompressors + System(SystemNum).NumHiStageCompressors,
                   System(SystemNum).NumStages,
+<<<<<<< HEAD
                   System(SystemNum).intercoolerType,
+=======
+                  static_cast<int>(System(SystemNum).intercoolerType),
+>>>>>>> nrel/develop
                   System(SystemNum).IntercoolerEffectiveness,
                   System(SystemNum).NumSubcoolers,
                   System(SystemNum).TCondenseMin);
@@ -14339,7 +16542,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 int CaseID = System(SystemNum).CaseNum(CaseNum);
                 if (RefrigCase(CaseID).ZoneNodeNum > 0) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Refrigeration Case,{},{},{},{},{},{:.1R},{:.2R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                          "   Refrigeration Case,{},{},{},{},{},{:.1f},{:.2f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                           CaseID,
                           RefrigCase(CaseID).Name,
                           RefrigCase(CaseID).ZoneName,
@@ -14358,7 +16565,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int WalkInNum = 1; WalkInNum <= System(SystemNum).NumWalkIns; ++WalkInNum) {
                 int WalkInID = System(SystemNum).WalkInNum(WalkInNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration Walk In Cooler,{},{},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{}\n",
+=======
+                      "   Refrigeration Walk In Cooler,{},{},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{}\n",
+>>>>>>> nrel/develop
                       WalkInID,
                       WalkIn(WalkInID).Name,
                       WalkIn(WalkInID).DesignRatedCap,
@@ -14371,7 +16582,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                       WalkIn(WalkInID).NumZones);
                 for (int ZoneID = 1; ZoneID <= WalkIn(WalkInID).NumZones; ++ZoneID) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "      Walk-In Surfaces Facing Zone, {},{:.1R},{:.4R},{:.2R},{:.2R},{:.4R},{:.2R},{:.2R},{:.4R}\n",
+=======
+                          "      Walk-In Surfaces Facing Zone, {},{:.1f},{:.4f},{:.2f},{:.2f},{:.4f},{:.2f},{:.2f},{:.4f}\n",
+>>>>>>> nrel/develop
                           WalkIn(WalkInID).ZoneName(ZoneID),
                           WalkIn(WalkInID).SurfaceArea(ZoneID),
                           WalkIn(WalkInID).UValue(ZoneID),
@@ -14413,14 +16628,22 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             if (System(SystemNum).NumStages == 1) { // Single-stage compression system
                 for (int CompressorNum = 1; CompressorNum <= System(SystemNum).NumCompressors; ++CompressorNum) {
                     int CompID = System(SystemNum).CompressorNum(CompressorNum);
+<<<<<<< HEAD
                     print(state.files.eio, "   Refrigeration Compressor,{},{},{:.0R}\n", CompID, Compressor(CompID).Name, Compressor(CompID).NomCap);
+=======
+                    print(state.files.eio, "   Refrigeration Compressor,{},{},{:.0f}\n", CompID, Compressor(CompID).Name, Compressor(CompID).NomCap);
+>>>>>>> nrel/develop
                 } // NumCompressors
             } else if (System(SystemNum).NumStages == 2) { // Two-stage compression system
                 // Low-stage compressors
                 for (int CompressorNum = 1; CompressorNum <= System(SystemNum).NumCompressors; ++CompressorNum) {
                     int CompID = System(SystemNum).CompressorNum(CompressorNum);
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Refrigeration Low-Stage Compressor,{},{},{:.0R}\n",
+=======
+                          "   Refrigeration Low-Stage Compressor,{},{},{:.0f}\n",
+>>>>>>> nrel/develop
                           CompID,
                           Compressor(CompID).Name,
                           Compressor(CompID).NomCap);
@@ -14429,7 +16652,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 for (int CompressorNum = 1; CompressorNum <= System(SystemNum).NumHiStageCompressors; ++CompressorNum) {
                     int CompID = System(SystemNum).HiStageCompressorNum(CompressorNum);
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Refrigeration High-Stage Compressor,{},{},{:.0R}\n",
+=======
+                          "   Refrigeration High-Stage Compressor,{},{},{:.0f}\n",
+>>>>>>> nrel/develop
                           CompID,
                           Compressor(CompID).Name,
                           Compressor(CompID).NomCap);
@@ -14440,7 +16667,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             switch (Condenser(CondID).CondenserType) {
             case DataHeatBalance::RefrigCondenserType::Air: {
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration Condenser:Air-Cooled,{},{},{:.1R},{:.1R},{:.1R}\n",
+=======
+                      "   Refrigeration Condenser:Air-Cooled,{},{},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                       CondID,
                       Condenser(CondID).Name,
                       Condenser(CondID).RatedTCondense,
@@ -14449,7 +16680,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             } break;
             case DataHeatBalance::RefrigCondenserType::Evap: {
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration Condenser:Evaporative-Cooled,{},{},{:.1R},{:.1R}\n",
+=======
+                      "   Refrigeration Condenser:Evaporative-Cooled,{},{},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                       CondID,
                       Condenser(CondID).Name,
                       Condenser(CondID).RatedCapacity,
@@ -14457,7 +16692,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             } break;
             case DataHeatBalance::RefrigCondenserType::Water: {
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration Condenser:Water-Cooled,{},{},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                      "   Refrigeration Condenser:Water-Cooled,{},{},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                       CondID,
                       Condenser(CondID).Name,
                       Condenser(CondID).RatedTCondense,
@@ -14478,7 +16717,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                     break;
                 } // cascade temperature control
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration Condenser:Cascade,{},{},{},{:.1R},{:.1R},{:.1R}\n",
+=======
+                      "   Refrigeration Condenser:Cascade,{},{},{},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                       CondID,
                       Condenser(CondID).Name,
                       ChrOut,
@@ -14495,7 +16738,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 switch (Subcooler(SubcoolerID).subcoolerType) {
                 case SubcoolerType::LiquidSuction: {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Refrigeration Liquid Suction Subcooler,{},{},{:.1R},{:.1R},{:.1R}\n",
+=======
+                          "   Refrigeration Liquid Suction Subcooler,{},{},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                           SubcoolerID,
                           Subcooler(SubcoolerID).Name,
                           Subcooler(SubcoolerID).LiqSuctDesignDelT,
@@ -14504,7 +16751,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 } break;
                 case SubcoolerType::Mechanical: {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Refrigeration Mechanical Subcooler,{},{},{},{:.1R}\n",
+=======
+                          "   Refrigeration Mechanical Subcooler,{},{},{},{:.1f}\n",
+>>>>>>> nrel/develop
                           SubcoolerID,
                           Subcooler(SubcoolerID).Name,
                           Subcooler(SubcoolerID).MechSourceSys,
@@ -14524,7 +16775,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
         auto &GasCooler = state.dataRefrigCase->GasCooler;
         for (int TransSystemNum = 1; TransSystemNum <= state.dataRefrigCase->NumTransRefrigSystems; ++TransSystemNum) {
             print(state.files.eio,
+<<<<<<< HEAD
                   " Detailed Transcritical Refrigeration System,{},{},{},{},{},{},{},{},{:.1R}\n",
+=======
+                  " Detailed Transcritical Refrigeration System,{},{},{},{},{},{},{},{},{:.1f}\n",
+>>>>>>> nrel/develop
                   TransSystem(TransSystemNum).Name,
                   TransSystem(TransSystemNum).RefrigerantName,
                   TransSystem(TransSystemNum).NumCasesMT,
@@ -14539,7 +16794,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 int CaseID = TransSystem(TransSystemNum).CaseNumMT(CaseNum);
                 if (RefrigCase(CaseID).ZoneNodeNum > 0) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Medium Temperature Refrigeration Case,{},{},{},{},{},{:.1R},{:.2R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                          "   Medium Temperature Refrigeration Case,{},{},{},{},{},{:.1f},{:.2f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                           CaseID,
                           RefrigCase(CaseID).Name,
                           RefrigCase(CaseID).ZoneName,
@@ -14559,7 +16818,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 int CaseID = TransSystem(TransSystemNum).CaseNumLT(CaseNum);
                 if (RefrigCase(CaseID).ZoneNodeNum > 0) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "   Low Temperature Refrigeration Case,{},{},{},{},{},{:.1R},{:.2R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                          "   Low Temperature Refrigeration Case,{},{},{},{},{},{:.1f},{:.2f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                           CaseID,
                           RefrigCase(CaseID).Name,
                           RefrigCase(CaseID).ZoneName,
@@ -14578,7 +16841,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int WalkInNum = 1; WalkInNum <= TransSystem(TransSystemNum).NumWalkInsMT; ++WalkInNum) {
                 int WalkInID = TransSystem(TransSystemNum).WalkInNumMT(WalkInNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Medium Temperature Refrigeration Walk In Cooler,{},{},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{}\n",
+=======
+                      "   Medium Temperature Refrigeration Walk In Cooler,{},{},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{}\n",
+>>>>>>> nrel/develop
                       WalkInID,
                       WalkIn(WalkInID).Name,
                       WalkIn(WalkInID).DesignRatedCap,
@@ -14591,7 +16858,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                       WalkIn(WalkInID).NumZones);
                 for (int ZoneID = 1; ZoneID <= WalkIn(WalkInID).NumZones; ++ZoneID) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "      Walk-In Surfaces Facing Zone,{},{:.1R},{:.4R},{:.2R},{:.2R},{:.4R},{:.2R},{:.2R},{:.4R}\n",
+=======
+                          "      Walk-In Surfaces Facing Zone,{},{:.1f},{:.4f},{:.2f},{:.2f},{:.4f},{:.2f},{:.2f},{:.4f}\n",
+>>>>>>> nrel/develop
                           WalkIn(WalkInID).ZoneName(ZoneID),
                           WalkIn(WalkInID).SurfaceArea(ZoneID),
                           WalkIn(WalkInID).UValue(ZoneID),
@@ -14606,7 +16877,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int WalkInNum = 1; WalkInNum <= TransSystem(TransSystemNum).NumWalkInsLT; ++WalkInNum) {
                 int WalkInID = TransSystem(TransSystemNum).WalkInNumLT(WalkInNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Low Temperature Refrigeration Walk In Cooler,{},{},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{}\n",
+=======
+                      "   Low Temperature Refrigeration Walk In Cooler,{},{},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{}\n",
+>>>>>>> nrel/develop
                       WalkInID,
                       WalkIn(WalkInID).Name,
                       WalkIn(WalkInID).DesignRatedCap,
@@ -14619,7 +16894,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                       WalkIn(WalkInID).NumZones);
                 for (int ZoneID = 1; ZoneID <= WalkIn(WalkInID).NumZones; ++ZoneID) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "      Walk-In Surfaces Facing Zone,{},{:.1R},{:.4R},{:.2R},{:.2R},{:.4R},{:.2R},{:.2R},{:.4R}\n",
+=======
+                          "      Walk-In Surfaces Facing Zone,{},{:.1f},{:.4f},{:.2f},{:.2f},{:.4f},{:.2f},{:.2f},{:.4f}\n",
+>>>>>>> nrel/develop
                           WalkIn(WalkInID).ZoneName(ZoneID),
                           WalkIn(WalkInID).SurfaceArea(ZoneID),
                           WalkIn(WalkInID).UValue(ZoneID),
@@ -14635,7 +16914,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int CompressorNum = 1; CompressorNum <= TransSystem(TransSystemNum).NumCompressorsHP; ++CompressorNum) {
                 int CompID = TransSystem(TransSystemNum).CompressorNumHP(CompressorNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   High Pressure Refrigeration Compressor,{},{},{:.0R}\n",
+=======
+                      "   High Pressure Refrigeration Compressor,{},{},{:.0f}\n",
+>>>>>>> nrel/develop
                       CompID,
                       Compressor(CompID).Name,
                       Compressor(CompID).NomCap);
@@ -14643,7 +16926,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int CompressorNum = 1; CompressorNum <= TransSystem(TransSystemNum).NumCompressorsLP; ++CompressorNum) {
                 int CompID = TransSystem(TransSystemNum).CompressorNumLP(CompressorNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Low Pressure Refrigeration Compressor,{},{},{:.0R}\n",
+=======
+                      "   Low Pressure Refrigeration Compressor,{},{},{:.0f}\n",
+>>>>>>> nrel/develop
                       CompID,
                       Compressor(CompID).Name,
                       Compressor(CompID).NomCap);
@@ -14652,7 +16939,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             if (TransSystem(TransSystemNum).NumGasCoolers >= 1) {
                 int GasCoolerID = TransSystem(TransSystemNum).GasCoolerNum(1);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration GasCooler:Air-Cooled,{},{},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                      "   Refrigeration GasCooler:Air-Cooled,{},{},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                       GasCoolerID,
                       GasCooler(GasCoolerID).Name,
                       GasCooler(GasCoolerID).RatedOutletP,
@@ -14671,7 +16962,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             switch (Secondary(SecondaryID).FluidType) {
             case SecFluidType::AlwaysLiquid: {
                 print(state.files.eio,
+<<<<<<< HEAD
                       "Secondary Refrigeration System: Fluid Always Liquid,{},{},{},{},{},{:.1R},{:.2R},{:.2R},{:.3R},{:.3R}\n",
+=======
+                      "Secondary Refrigeration System: Fluid Always Liquid,{},{},{},{},{},{:.1f},{:.2f},{:.2f},{:.3f},{:.3f}\n",
+>>>>>>> nrel/develop
                       SecondaryID,
                       Secondary(SecondaryID).Name,
                       Secondary(SecondaryID).NumCases,
@@ -14685,7 +16980,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             } break;
             case SecFluidType::PhaseChange: {
                 print(state.files.eio,
+<<<<<<< HEAD
                       "Secondary Refrigeration System: Liquid Overfeed,{},{},{},{},{},{:.1R},{:.2R},{:.2R},{:.3R},{:.3R}\n",
+=======
+                      "Secondary Refrigeration System: Liquid Overfeed,{},{},{},{},{},{:.1f},{:.2f},{:.2f},{:.3f},{:.3f}\n",
+>>>>>>> nrel/develop
                       SecondaryID,
                       Secondary(SecondaryID).Name,
                       Secondary(SecondaryID).NumCases,
@@ -14704,7 +17003,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                 int CaseID = Secondary(SecondaryID).CaseNum(CaseNum);
                 if (RefrigCase(CaseID).ZoneNodeNum > 0) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "  Refrigeration Case,{},{},{},{},{},{:.1R},{:.2R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                          "  Refrigeration Case,{},{},{},{},{},{:.1f},{:.2f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                           CaseID,
                           RefrigCase(CaseID).Name,
                           RefrigCase(CaseID).ZoneName,
@@ -14724,7 +17027,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int WalkInNum = 1; WalkInNum <= Secondary(SecondaryID).NumWalkIns; ++WalkInNum) {
                 int WalkInID = Secondary(SecondaryID).WalkInNum(WalkInNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "  Walk In,{},{},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                      "  Walk In,{},{},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                       WalkInID,
                       WalkIn(WalkInID).Name,
                       WalkIn(WalkInID).DesignRatedCap,
@@ -14736,7 +17043,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
                       WalkIn(WalkInID).DefrostCapacity);
                 for (int ZoneID = 1; ZoneID <= WalkIn(WalkInID).NumZones; ++ZoneID) {
                     print(state.files.eio,
+<<<<<<< HEAD
                           "    Walk In Surfaces Facing Zone,{},{:.1R},{:.4R},{:.2R},{:.2R},{:.4R},{:.2R},{:.2R},{:.4R}\n",
+=======
+                          "    Walk In Surfaces Facing Zone,{},{:.1f},{:.4f},{:.2f},{:.2f},{:.4f},{:.2f},{:.2f},{:.4f}\n",
+>>>>>>> nrel/develop
                           WalkIn(WalkInID).ZoneName(ZoneID),
                           WalkIn(WalkInID).SurfaceArea(ZoneID),
                           WalkIn(WalkInID).UValue(ZoneID),
@@ -14770,7 +17081,11 @@ void ReportRefrigerationComponents(EnergyPlusData &state)
             for (int CoilNum = 1; CoilNum <= AirChillerSet(ChillerSetNum).NumCoils; ++CoilNum) {
                 int CoilID = AirChillerSet(ChillerSetNum).CoilNum(CoilNum);
                 print(state.files.eio,
+<<<<<<< HEAD
                       "   Refrigeration Air Chiller,{},{},{},{},{},{:.1R},{:.2R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R},{:.1R}\n",
+=======
+                      "   Refrigeration Air Chiller,{},{},{},{},{},{:.1f},{:.2f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f},{:.1f}\n",
+>>>>>>> nrel/develop
                       CoilID,
                       WarehouseCoil(CoilID).Name,
                       WarehouseCoil(CoilID).ZoneName,
@@ -15185,6 +17500,7 @@ void WalkInData::CalculateWalkIn(EnergyPlusData &state) // Absolute pointer to  
     if (this->StoredEnergy > MyLargeNumber) {
         this->StoredEnergy = MyLargeNumber;
         if (this->ShowUnmetWIEnergyWarning) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Refrigeration:WalkIn: {}", this->Name));
             ShowContinueError(state, " This walk-in cooler has insufficient capacity to meet the loads");
             ShowContinueError(state,
@@ -15192,6 +17508,15 @@ void WalkInData::CalculateWalkIn(EnergyPlusData &state) // Absolute pointer to  
                                                  state.dataEnvrn->EnvironmentName,
                                                  state.dataEnvrn->CurMnDy,
                                                  General::CreateSysTimeIntervalString(state)));
+=======
+            ShowWarningError(state, std::format("Refrigeration:WalkIn: {}", this->Name));
+            ShowContinueError(state, " This walk-in cooler has insufficient capacity to meet the loads");
+            ShowContinueError(state,
+                              std::format("... Occurrence info = {}, {} {}",
+                                          state.dataEnvrn->EnvironmentName,
+                                          state.dataEnvrn->CurMnDy,
+                                          General::CreateSysTimeIntervalString(state)));
+>>>>>>> nrel/develop
             ShowContinueError(state, " Refer to documentation for further explanation of Total Cooling Capacity.");
             this->ShowUnmetWIEnergyWarning = false;
         } // ShowStoreEnergyWarning
@@ -15199,6 +17524,7 @@ void WalkInData::CalculateWalkIn(EnergyPlusData &state) // Absolute pointer to  
     if (this->KgFrost > MyLargeNumber) {
         this->KgFrost = MyLargeNumber;
         if (this->ShowWIFrostWarning) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Refrigeration:WalkIn: {}", this->Name));
             ShowContinueError(state, " This walkin cooler has insufficient defrost capacity to remove the excess frost accumulation.");
             ShowContinueError(state, " Check the defrost schedule or defrost capacity. ");
@@ -15207,6 +17533,16 @@ void WalkInData::CalculateWalkIn(EnergyPlusData &state) // Absolute pointer to  
                                                  state.dataEnvrn->EnvironmentName,
                                                  state.dataEnvrn->CurMnDy,
                                                  General::CreateSysTimeIntervalString(state)));
+=======
+            ShowWarningError(state, std::format("Refrigeration:WalkIn: {}", this->Name));
+            ShowContinueError(state, " This walkin cooler has insufficient defrost capacity to remove the excess frost accumulation.");
+            ShowContinueError(state, " Check the defrost schedule or defrost capacity. ");
+            ShowContinueError(state,
+                              std::format("... Occurrence info = {}, {} {}",
+                                          state.dataEnvrn->EnvironmentName,
+                                          state.dataEnvrn->CurMnDy,
+                                          General::CreateSysTimeIntervalString(state)));
+>>>>>>> nrel/develop
             this->ShowWIFrostWarning = false;
         }
     }
@@ -15241,6 +17577,7 @@ void SecondaryLoopData::CalculateSecondary(EnergyPlusData &state, int const Seco
 
     Real64 constexpr ErrorTol(0.001); // Iterative solution tolerance
 
+<<<<<<< HEAD
     bool AtPartLoad;          // Whether or not need to iterate on pump power
     bool DeRate;              // If true, need to derate aircoils because don't carry over unmet energy
     Real64 CpBrine;           // Specific heat (W/kg)
@@ -15256,12 +17593,32 @@ void SecondaryLoopData::CalculateSecondary(EnergyPlusData &state, int const Seco
     Real64 StoredEnergyRate;  // Used to meet loads unmet in previous time step (related to defrost cycles
     //     on cases/walk-ins served)(W)
     Real64 TBrineIn;                  // Brine temperature going to heat exchanger, C
+=======
+    bool AtPartLoad;           // Whether or not need to iterate on pump power
+    Real64 CpBrine = 0.0;      // Specific heat (W/kg)
+    Real64 DensityBrine = 0.0; // Density (kg/m3)
+    Real64 DiffTemp;           // (C)
+    Real64 distPipeHeatGain;   // Optional (W)
+    Real64 Error;              // Used in iterative soln for pumps needed to meet load (that has to include pump energy)
+    Real64 FlowVolNeeded;      // Flow rate needed to meet load (m3/s)
+    Real64 PartLdFrac;         // Used to ratio pump power
+    Real64 PartPumpFrac;       // Used to see if part pumps dispatched meets part pump load
+    Real64 PrevTotalLoad;      // Used in pump energy convergence test
+    Real64 RefrigerationLoad;  // Load for cases and walk-ins served by loop, does not include pump energy (W)
+    Real64 StoredEnergyRate;   // Used to meet loads unmet in previous time step (related to defrost cycles
+    //     on cases/walk-ins served)(W)
+    Real64 TBrineIn = 0.0;            // Brine temperature going to heat exchanger, C
+>>>>>>> nrel/develop
     Real64 TotalHotDefrostCondCredit; // Used to credit condenser when heat reclaim used for hot gas/brine defrost (W)
     Real64 TotalPumpPower;            // Total Pumping power for loop, W
     Real64 TotalLoad;                 // Total Cooling Load on secondary loop, W
     Real64 TPipesReceiver(0.0);       // Temperature used for contents of pipes and/or receiver in calculating shell losses (C)
     Real64 VarFrac;                   // Pump power fraction for variable speed pump, dimensionless
+<<<<<<< HEAD
     Real64 VolFlowRate;               // Used in dispatching pumps to meet load (m3/s)
+=======
+    Real64 VolFlowRate = 0.0;         // Used in dispatching pumps to meet load (m3/s)
+>>>>>>> nrel/develop
 
     Real64 localTimeStep = (state.dataRefrigCase->UseSysTimeStep) ? state.dataHVACGlobal->TimeStepSys : state.dataGlobal->TimeStepZone;
     Real64 localTimeStepSec = localTimeStep * Constant::rSecsInHour;
@@ -15315,6 +17672,7 @@ void SecondaryLoopData::CalculateSecondary(EnergyPlusData &state, int const Seco
 
     // Sum up all the case and walk-in loads served by the secondary loop
     if (this->NumCases > 0) {
+<<<<<<< HEAD
         auto &RefrigCase = state.dataRefrigCase->RefrigCase;
         for (int caseNum = 1; caseNum <= this->NumCases; ++caseNum) {
             int CaseID = this->CaseNum(caseNum);
@@ -15332,11 +17690,32 @@ void SecondaryLoopData::CalculateSecondary(EnergyPlusData &state, int const Seco
             // increment TotalCoolingLoad for  each system
             RefrigerationLoad += WalkIn(WalkInID).TotalCoolingLoad;
             TotalHotDefrostCondCredit += WalkIn(WalkInID).HotDefrostCondCredit;
+=======
+        for (int caseNum = 1; caseNum <= this->NumCases; ++caseNum) {
+            int CaseID = this->CaseNum(caseNum);
+            state.dataRefrigCase->RefrigCase(CaseID).CalculateCase(state);
+            // increment TotalCoolingLoad Hot gas/brine defrost credits for each secondary loop
+            RefrigerationLoad += state.dataRefrigCase->RefrigCase(CaseID).TotalCoolingLoad;
+            TotalHotDefrostCondCredit += state.dataRefrigCase->RefrigCase(CaseID).HotDefrostCondCredit;
+        } // CaseNum
+    } // NumCases > 0
+    if (this->NumWalkIns > 0) {
+        for (int WalkInIndex = 1; WalkInIndex <= this->NumWalkIns; ++WalkInIndex) {
+            int WalkInID = this->WalkInNum(WalkInIndex);
+            state.dataRefrigCase->WalkIn(WalkInID).CalculateWalkIn(state);
+            // increment TotalCoolingLoad for  each system
+            RefrigerationLoad += state.dataRefrigCase->WalkIn(WalkInID).TotalCoolingLoad;
+            TotalHotDefrostCondCredit += state.dataRefrigCase->WalkIn(WalkInID).HotDefrostCondCredit;
+>>>>>>> nrel/develop
         } // NumWalkIns systems
     } // Secondary(SecondaryNum)%NumWalkIns > 0
 
     if (this->NumCoils > 0) {
+<<<<<<< HEAD
         auto &WarehouseCoil = state.dataRefrigCase->WarehouseCoil;
+=======
+        const auto &WarehouseCoil = state.dataRefrigCase->WarehouseCoil;
+>>>>>>> nrel/develop
         for (int CoilIndex = 1; CoilIndex <= this->NumCoils; ++CoilIndex) {
             int CoilID = this->CoilNum(CoilIndex);
             // already CALL CalculateCoil(CoilID) for each coil, dispatched in coilset order for each zone
@@ -15457,17 +17836,25 @@ void SecondaryLoopData::CalculateSecondary(EnergyPlusData &state, int const Seco
         if (this->UnmetEnergy > MyLargeNumber) {
             this->UnmetEnergy = MyLargeNumber;
             if (state.dataRefrigCase->ShowUnmetSecondEnergyWarning(SecondaryNum)) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("Secondary Refrigeration Loop: {}", this->Name));
+=======
+                ShowWarningError(state, std::format("Secondary Refrigeration Loop: {}", this->Name));
+>>>>>>> nrel/develop
                 ShowContinueError(state, " This secondary system has insufficient capacity to meet the refrigeration loads.");
                 state.dataRefrigCase->ShowUnmetSecondEnergyWarning(SecondaryNum) = false;
             }
         } //>my large number
 
     } else { // air coils on secondary loop, no "unmet" energy accounting, just reduce amount of cooling provided to zone by coils
+<<<<<<< HEAD
         DeRate = false;
         if (TotalLoad > this->MaxLoad) {
             DeRate = true;
         }
+=======
+        bool DeRate = (TotalLoad > this->MaxLoad); // If true, need to derate aircoils because don't carry over unmet energy
+>>>>>>> nrel/develop
         FinalRateCoils(
             state, DeRate, SourceType::SecondarySystem, SecondaryNum, TotalLoad, this->MaxLoad); // assign case credits for coils on this loop
         // Bug TotalCoolingLoad not set but used below
@@ -15625,13 +18012,18 @@ void SimAirChillerSet(EnergyPlusData &state,
     if (AirChillerSetPtr == 0) {
         ChillerSetID = Util::FindItemInList(AirChillerSetName, AirChillerSet);
         if (ChillerSetID == 0) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("SimAirChillerSet: Unit not found={}", AirChillerSetName));
+=======
+            ShowFatalError(state, std::format("SimAirChillerSet: Unit not found={}", AirChillerSetName));
+>>>>>>> nrel/develop
         } // chillersetid ==0 because not in list
         AirChillerSetPtr = ChillerSetID;
     } else { // airchllersetpointer passed in call to subroutine not ==0
         ChillerSetID = AirChillerSetPtr;
         if (ChillerSetID > state.dataRefrigCase->NumRefrigChillerSets || ChillerSetID < 1) {
             ShowFatalError(state,
+<<<<<<< HEAD
                            EnergyPlus::format("SimAirChillerSet:  Invalid AirChillerSetPtr passed={}, Number of Units={}, Entered Unit name={}",
                                               ChillerSetID,
                                               state.dataRefrigCase->NumRefrigChillerSets,
@@ -15645,6 +18037,20 @@ void SimAirChillerSet(EnergyPlusData &state,
                                        ChillerSetID,
                                        AirChillerSetName,
                                        AirChillerSet(ChillerSetID).Name));
+=======
+                           std::format("SimAirChillerSet:  Invalid AirChillerSetPtr passed={}, Number of Units={}, Entered Unit name={}",
+                                       ChillerSetID,
+                                       state.dataRefrigCase->NumRefrigChillerSets,
+                                       AirChillerSetName));
+        } // ChillerSetID makes no sense
+        if (state.dataRefrigCase->CheckChillerSetName(ChillerSetID)) {
+            if (AirChillerSetName != AirChillerSet(ChillerSetID).Name) {
+                ShowFatalError(state,
+                               std::format("SimAirChillerSet:  Invalid AirChillerSetPtr passed={}, Unit name={}, stored Unit Name for that index={}",
+                                           ChillerSetID,
+                                           AirChillerSetName,
+                                           AirChillerSet(ChillerSetID).Name));
+>>>>>>> nrel/develop
             } // name not equal correct name
             state.dataRefrigCase->CheckChillerSetName(ChillerSetID) = false;
         } // CheckChillerSetName logical test
@@ -15962,7 +18368,11 @@ void WarehouseCoilData::CalculateCoil(EnergyPlusData &state, Real64 const QZnReq
                 Real64 ExitTemperatureEstimate =
                     CoilInletTemp - (SensibleCapacityMax / (DryAirMassFlowMax * CoilInletDryAirCp)); // Estimated Air temperature leaving the coil (C)
                 if (ExitTemperatureEstimate <= TEvap) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}Refrigeration:AirCoil: {}", TrackMessage, this->Name));
+=======
+                    ShowWarningError(state, std::format("{}Refrigeration:AirCoil: {}", TrackMessage, this->Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, " The estimated air outlet temperature is less than the evaporating temperature.");
                 }
                 Real64 ExitEnthalpyEstimate = Psychrometrics::PsyHFnTdbRhPb(state,
@@ -16254,7 +18664,11 @@ void WarehouseCoilData::CalculateCoil(EnergyPlusData &state, Real64 const QZnReq
     if (this->KgFrost > MyLargeNumber) {
         this->KgFrost = MyLargeNumber;
         if (this->ShowCoilFrostWarning) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("Refrigeration:AirCoil: {}", this->Name));
+=======
+            ShowWarningError(state, std::format("Refrigeration:AirCoil: {}", this->Name));
+>>>>>>> nrel/develop
             ShowContinueError(state, " This refrigerated air coil has insufficient defrost capacity to remove the excess frost accumulation.");
             ShowContinueError(state, " Check the defrost schedule or defrost capacity. ");
             ShowContinueErrorTimeStamp(state, "... Occurrence info");
@@ -16313,10 +18727,16 @@ void FigureRefrigerationZoneGains(EnergyPlusData &state)
         }
 
         if (state.dataRefrigCase->NumSimulationWalkIns > 0) {
+<<<<<<< HEAD
             auto &WalkIn = state.dataRefrigCase->WalkIn;
             for (int loop = 1; loop <= state.dataRefrigCase->NumSimulationWalkIns; ++loop) {
                 WalkIn(loop).SensZoneCreditRate = 0.0;
                 WalkIn(loop).LatZoneCreditRate = 0.0;
+=======
+            for (int loop = 1; loop <= state.dataRefrigCase->NumSimulationWalkIns; ++loop) {
+                state.dataRefrigCase->WalkIn(loop).SensZoneCreditRate = 0.0;
+                state.dataRefrigCase->WalkIn(loop).LatZoneCreditRate = 0.0;
+>>>>>>> nrel/develop
             }
         }
         if (state.dataRefrigCase->NumSimulationCases > 0) {
@@ -16352,7 +18772,11 @@ void ZeroHVACValues(EnergyPlusData &state)
     if (state.dataRefrigCase->HaveRefrigRacks) {
         // HaveRefrigRacks is TRUE when NumRefrigeratedRAcks > 0
         // RefrigRack ALLOCATED to NumRefrigeratedRacks
+<<<<<<< HEAD
         auto &RefrigRack = state.dataRefrigCase->RefrigRack;
+=======
+        const auto &RefrigRack = state.dataRefrigCase->RefrigRack;
+>>>>>>> nrel/develop
         for (int RackNum = 1; RackNum <= state.dataRefrigCase->NumRefrigeratedRacks; ++RackNum) {
             if (RefrigRack(RackNum).CondenserType == DataHeatBalance::RefrigCondenserType::Water) {
                 Real64 MassFlowRate = 0.0;
@@ -16371,7 +18795,11 @@ void ZeroHVACValues(EnergyPlusData &state)
 
     if (state.dataRefrigCase->NumRefrigCondensers > 0) {
         // Condenser ALLOCATED to DataHeatBalance::NumRefrigCondensers
+<<<<<<< HEAD
         auto &Condenser = state.dataRefrigCase->Condenser;
+=======
+        const auto &Condenser = state.dataRefrigCase->Condenser;
+>>>>>>> nrel/develop
         for (int CondID = 1; CondID <= state.dataRefrigCase->NumRefrigCondensers; ++CondID) {
             if (Condenser(CondID).CondenserType == DataHeatBalance::RefrigCondenserType::Water) {
                 Real64 MassFlowRate = 0.0;

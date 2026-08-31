@@ -88,6 +88,20 @@ namespace DataZoneControls {
     constexpr std::array<std::string_view, (int)TempCtrl::Num> tempCtrlNames = {"None", "Constant", "Scheduled"};
     constexpr std::array<std::string_view, (int)TempCtrl::Num> tempCtrlNamesUC = {"NONE", "CONSTANT", "SCHEDULED"};
 
+<<<<<<< HEAD
+=======
+    enum class HumidityCtrlVarType
+    {
+        Invalid = -1,
+        DewPoint,
+        RelativeHumidity,
+        Num
+    };
+
+    static constexpr std::array<std::string_view, (int)HumidityCtrlVarType::Num> humidityCtrlVarTypeNames = {"Dewpoint", "RelativeHumidity"};
+    static constexpr std::array<std::string_view, (int)HumidityCtrlVarType::Num> humidityCtrlVarTypeNamesUC = {"DEWPOINT", "RELATIVEHUMIDITY"};
+
+>>>>>>> nrel/develop
     struct TempSetptType
     {
         std::string Name;
@@ -159,6 +173,7 @@ namespace DataZoneControls {
         std::string ControlName; // Name of this humidity controller
         std::string ZoneName;    // Name of the zone
         int ActualZoneNum;
+<<<<<<< HEAD
         Sched::Schedule *humidifyingSched = nullptr;   // humidifying schedule
         Sched::Schedule *dehumidifyingSched = nullptr; // dehumidifying schedule
         int ErrorIndex;                                // Error index when LowRH setpoint > HighRH setpoint
@@ -166,6 +181,16 @@ namespace DataZoneControls {
         Real64 EMSOverrideHumidifySetPointValue;       // value EMS is directing to use for humidifying setpoint
         bool EMSOverrideDehumidifySetPointOn;          // EMS is calling to override dehumidifying setpoint
         Real64 EMSOverrideDehumidifySetPointValue;     // value EMS is directing to use for dehumidifying setpoint
+=======
+        Sched::Schedule *humidifyingSched = nullptr;                                             // humidifying schedule
+        Sched::Schedule *dehumidifyingSched = nullptr;                                           // dehumidifying schedule
+        HumidityCtrlVarType humidityControlVariableType = HumidityCtrlVarType::RelativeHumidity; // Control variable type
+        int ErrorIndex;                                                                          // Error index when LowRH setpoint > HighRH setpoint
+        bool EMSOverrideHumidifySetPointOn;                                                      // EMS is calling to override humidifying setpoint
+        Real64 EMSOverrideHumidifySetPointValue;   // value EMS is directing to use for humidifying setpoint
+        bool EMSOverrideDehumidifySetPointOn;      // EMS is calling to override dehumidifying setpoint
+        Real64 EMSOverrideDehumidifySetPointValue; // value EMS is directing to use for dehumidifying setpoint
+>>>>>>> nrel/develop
 
         // Default Constructor
         ZoneHumidityControls()

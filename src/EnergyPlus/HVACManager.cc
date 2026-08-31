@@ -47,15 +47,26 @@
 
 // C++ Headers
 #include <algorithm>
+<<<<<<< HEAD
 
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <string>
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 #include <ObjexxFCL/Fmath.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include <AirflowNetwork/Solver.hpp>
+=======
+// Local Headers
+#include <AirflowNetwork/Solver.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Coils/CoilCoolingDX.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataAirLoop.hh>
@@ -485,12 +496,20 @@ void ManageHVAC(EnergyPlusData &state)
                 state.dataEnvrn->PrintEnvrnStampWarmupPrinted = false;
             }
             if (state.dataEnvrn->PrintEnvrnStampWarmup) {
+<<<<<<< HEAD
                 if (state.dataReportFlag->PrintEndDataDictionary && state.dataGlobal->DoOutputReporting && !state.dataHVACMgr->PrintedWarmup) {
+=======
+                if (state.dataReportFlag->PrintEndDataDictionary && !state.dataHVACMgr->PrintedWarmup) {
+>>>>>>> nrel/develop
                     print(state.files.eso, "{}\n", EndOfHeaderString);
                     print(state.files.mtr, "{}\n", EndOfHeaderString);
                     state.dataReportFlag->PrintEndDataDictionary = false;
                 }
+<<<<<<< HEAD
                 if (state.dataGlobal->DoOutputReporting && !state.dataHVACMgr->PrintedWarmup) {
+=======
+                if (!state.dataHVACMgr->PrintedWarmup) {
+>>>>>>> nrel/develop
 
                     print(state.files.eso,
                           EnvironmentStampFormatStr,
@@ -992,11 +1011,19 @@ void SimHVAC(EnergyPlusData &state)
         if (state.dataHVACMgr->ErrCount < 15) {
             state.dataHVACMgr->ErrEnvironmentName = state.dataEnvrn->EnvironmentName;
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("SimHVAC: Maximum iterations ({}) exceeded for all HVAC loops, at {}, {} {}",
                                                 state.dataConvergeParams->MaxIter,
                                                 state.dataEnvrn->EnvironmentName,
                                                 state.dataEnvrn->CurMnDy,
                                                 General::CreateSysTimeIntervalString(state)));
+=======
+                             std::format("SimHVAC: Maximum iterations ({}) exceeded for all HVAC loops, at {}, {} {}",
+                                         state.dataConvergeParams->MaxIter,
+                                         state.dataEnvrn->EnvironmentName,
+                                         state.dataEnvrn->CurMnDy,
+                                         General::CreateSysTimeIntervalString(state)));
+>>>>>>> nrel/develop
             if (state.dataHVACGlobal->SimAirLoopsFlag) {
                 ShowContinueError(state, "The solution for one or more of the Air Loop HVAC systems did not appear to converge");
             }
@@ -1094,11 +1121,18 @@ void SimHVAC(EnergyPlusData &state)
                                     FoundOscillationByDuplicate = true;
                                     ShowContinueError(
                                         state,
+<<<<<<< HEAD
                                         EnergyPlus::format(
                                             "Node named {} shows oscillating humidity ratio across iterations with a repeated value of {:.6R}",
                                             state.dataLoopNodes->NodeID(
                                                 state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                             humRatInletNode[0]));
+=======
+                                        std::format("Node named {} shows oscillating humidity ratio across iterations with a repeated value of {:#G}",
+                                                    state.dataLoopNodes->NodeID(
+                                                        state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                    humRatInletNode[0]));
+>>>>>>> nrel/develop
                                     break;
                                 }
                             }
@@ -1124,12 +1158,20 @@ void SimHVAC(EnergyPlusData &state)
                                         if (MonotonicDecreaseFound) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(
                                                     "Node named {} shows monotonically decreasing humidity ratio with a trend "
                                                     "rate across iterations of {:.6R} [ kg-water/kg-dryair/iteration]",
                                                     state.dataLoopNodes->NodeID(
                                                         state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                                     SlopeHumRat));
+=======
+                                                std::format("Node named {} shows monotonically decreasing humidity ratio with a trend "
+                                                            "rate across iterations of {:#G} [kg-water/kg-dryair/iteration]",
+                                                            state.dataLoopNodes->NodeID(
+                                                                state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                            SlopeHumRat));
+>>>>>>> nrel/develop
                                         }
                                     } else { // check for monotonic increase
                                         MonotonicIncreaseFound = true;
@@ -1142,12 +1184,20 @@ void SimHVAC(EnergyPlusData &state)
                                         if (MonotonicIncreaseFound) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(
                                                     "Node named {} shows monotonically increasing humidity ratio with a trend "
                                                     "rate across iterations of {:.6R} [ kg-water/kg-dryair/iteration]",
                                                     state.dataLoopNodes->NodeID(
                                                         state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                                     SlopeHumRat));
+=======
+                                                std::format("Node named {} shows monotonically increasing humidity ratio with a trend "
+                                                            "rate across iterations of {:#G} [kg-water/kg-dryair/iteration]",
+                                                            state.dataLoopNodes->NodeID(
+                                                                state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                            SlopeHumRat));
+>>>>>>> nrel/develop
                                         }
                                     }
                                 } // significant slope in iterates
@@ -1157,11 +1207,19 @@ void SimHVAC(EnergyPlusData &state)
                         if (MonotonicDecreaseFound || MonotonicIncreaseFound || FoundOscillationByDuplicate) {
                             std::string HistoryTrace;
                             for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+<<<<<<< HEAD
                                 HistoryTrace += EnergyPlus::format("{:.6R},", humRatInletNode[StackDepth]);
                             }
                             ShowContinueError(
                                 state,
                                 EnergyPlus::format(
+=======
+                                HistoryTrace += std::format("{:#G},", humRatInletNode[StackDepth]);
+                            }
+                            ShowContinueError(
+                                state,
+                                std::format(
+>>>>>>> nrel/develop
                                     "Node named {} humidity ratio [kg-water/kg-dryair] iteration history trace (most recent first): {}",
                                     state.dataLoopNodes->NodeID(state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                     HistoryTrace));
@@ -1184,11 +1242,18 @@ void SimHVAC(EnergyPlusData &state)
                                     FoundOscillationByDuplicate = true;
                                     ShowContinueError(
                                         state,
+<<<<<<< HEAD
                                         EnergyPlus::format(
                                             "Node named {} shows oscillating mass flow rate across iterations with a repeated value of {:.6R}",
                                             state.dataLoopNodes->NodeID(
                                                 state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                             mdotInletNode[0]));
+=======
+                                        std::format("Node named {} shows oscillating mass flow rate across iterations with a repeated value of {:#G}",
+                                                    state.dataLoopNodes->NodeID(
+                                                        state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                    mdotInletNode[0]));
+>>>>>>> nrel/develop
                                     break;
                                 }
                             }
@@ -1213,12 +1278,20 @@ void SimHVAC(EnergyPlusData &state)
                                         if (MonotonicDecreaseFound) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(
                                                     "Node named {} shows monotonically decreasing mass flow rate with a trend "
                                                     "rate across iterations of {:.6R} [kg/s/iteration]",
                                                     state.dataLoopNodes->NodeID(
                                                         state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                                     SlopeMdot));
+=======
+                                                std::format("Node named {} shows monotonically decreasing mass flow rate with a trend "
+                                                            "rate across iterations of {:#G} [kg/s/iteration]",
+                                                            state.dataLoopNodes->NodeID(
+                                                                state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                            SlopeMdot));
+>>>>>>> nrel/develop
                                         }
                                     } else { // check for monotonic increase
                                         MonotonicIncreaseFound = true;
@@ -1231,12 +1304,20 @@ void SimHVAC(EnergyPlusData &state)
                                         if (MonotonicIncreaseFound) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(
                                                     "Node named {} shows monotonically increasing mass flow rate with a trend "
                                                     "rate across iterations of {:.6R} [kg/s/iteration]",
                                                     state.dataLoopNodes->NodeID(
                                                         state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                                     SlopeMdot));
+=======
+                                                std::format("Node named {} shows monotonically increasing mass flow rate with a trend "
+                                                            "rate across iterations of {:#G} [kg/s/iteration]",
+                                                            state.dataLoopNodes->NodeID(
+                                                                state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                            SlopeMdot));
+>>>>>>> nrel/develop
                                         }
                                     }
                                 } // significant slope in iterates
@@ -1246,6 +1327,7 @@ void SimHVAC(EnergyPlusData &state)
                         if (MonotonicDecreaseFound || MonotonicIncreaseFound || FoundOscillationByDuplicate) {
                             std::string HistoryTrace;
                             for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+<<<<<<< HEAD
                                 HistoryTrace += EnergyPlus::format("{:.6R},", mdotInletNode[StackDepth]);
                             }
                             ShowContinueError(
@@ -1254,6 +1336,15 @@ void SimHVAC(EnergyPlusData &state)
                                     "Node named {} mass flow rate [kg/s] iteration history trace (most recent first): {}",
                                     state.dataLoopNodes->NodeID(state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                     HistoryTrace));
+=======
+                                HistoryTrace += std::format("{:#G},", mdotInletNode[StackDepth]);
+                            }
+                            ShowContinueError(state,
+                                              std::format("Node named {} mass flow rate [kg/s] iteration history trace (most recent first): {}",
+                                                          state.dataLoopNodes->NodeID(
+                                                              state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                          HistoryTrace));
+>>>>>>> nrel/develop
                         } // need to report trace
                         // end mass flow rate
 
@@ -1273,11 +1364,18 @@ void SimHVAC(EnergyPlusData &state)
                                     FoundOscillationByDuplicate = true;
                                     ShowContinueError(
                                         state,
+<<<<<<< HEAD
                                         EnergyPlus::format(
                                             "Node named {} shows oscillating temperatures across iterations with a repeated value of {:.6R}",
                                             state.dataLoopNodes->NodeID(
                                                 state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                             inletTemp[0]));
+=======
+                                        std::format("Node named {} shows oscillating temperatures across iterations with a repeated value of {:#G}",
+                                                    state.dataLoopNodes->NodeID(
+                                                        state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                    inletTemp[0]));
+>>>>>>> nrel/develop
                                     break;
                                 }
                             }
@@ -1303,12 +1401,20 @@ void SimHVAC(EnergyPlusData &state)
                                         if (MonotonicDecreaseFound) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(
                                                     "Node named {} shows monotonically decreasing temperature with a trend rate "
                                                     "across iterations of {:.4R} [C/iteration]",
                                                     state.dataLoopNodes->NodeID(
                                                         state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                                     SlopeTemps));
+=======
+                                                std::format("Node named {} shows monotonically decreasing temperature with a trend rate "
+                                                            "across iterations of {:.4f} [C/iteration]",
+                                                            state.dataLoopNodes->NodeID(
+                                                                state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                            SlopeTemps));
+>>>>>>> nrel/develop
                                         }
                                     } else { // check for monotonic increase
                                         MonotonicIncreaseFound = true;
@@ -1321,12 +1427,20 @@ void SimHVAC(EnergyPlusData &state)
                                         if (MonotonicIncreaseFound) {
                                             ShowContinueError(
                                                 state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(
                                                     "Node named {} shows monotonically increasing temperatures with a trend "
                                                     "rate across iterations of {:.4R} [C/iteration]",
                                                     state.dataLoopNodes->NodeID(
                                                         state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                                     SlopeTemps));
+=======
+                                                std::format("Node named {} shows monotonically increasing temperatures with a trend "
+                                                            "rate across iterations of {:.4f} [C/iteration]",
+                                                            state.dataLoopNodes->NodeID(
+                                                                state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                            SlopeTemps));
+>>>>>>> nrel/develop
                                         }
                                     }
                                 } // significant slope in iterates
@@ -1336,6 +1450,7 @@ void SimHVAC(EnergyPlusData &state)
                         if (MonotonicDecreaseFound || MonotonicIncreaseFound || FoundOscillationByDuplicate) {
                             std::string HistoryTrace;
                             for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+<<<<<<< HEAD
                                 HistoryTrace += EnergyPlus::format("{:.6R},", inletTemp[StackDepth]);
                             }
                             ShowContinueError(
@@ -1344,6 +1459,15 @@ void SimHVAC(EnergyPlusData &state)
                                     "Node named {} temperature [C] iteration history trace (most recent first): {}",
                                     state.dataLoopNodes->NodeID(state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
                                     HistoryTrace));
+=======
+                                HistoryTrace += std::format("{:#G},", inletTemp[StackDepth]);
+                            }
+                            ShowContinueError(state,
+                                              std::format("Node named {} temperature [C] iteration history trace (most recent first): {}",
+                                                          state.dataLoopNodes->NodeID(
+                                                              state.dataConvergeParams->ZoneInletConvergence(ZoneNum).InletNode(NodeIndex).NodeNum),
+                                                          HistoryTrace));
+>>>>>>> nrel/develop
                         } // need to report trace
                           // end Temperature checks
 
@@ -1356,6 +1480,7 @@ void SimHVAC(EnergyPlusData &state)
                     bool MonotonicDecreaseFound;
 
                     if (state.dataConvergeParams->PlantConvergence(LoopNum).PlantMassFlowNotConverged) {
+<<<<<<< HEAD
                         ShowContinueError(state,
                                           EnergyPlus::format("Plant System Named = {} did not converge for mass flow rate",
                                                              state.dataPlnt->PlantLoop(LoopNum).Name));
@@ -1376,6 +1501,26 @@ void SimHVAC(EnergyPlusData &state)
                         ShowContinueError(
                             state,
                             EnergyPlus::format("Supply-to-Demand interface mass flow rate check value iteration history trace: {}", HistoryTrace));
+=======
+                        ShowContinueError(
+                            state,
+                            std::format("Plant System Named = {} did not converge for mass flow rate", state.dataPlnt->PlantLoop(LoopNum).Name));
+                        ShowContinueError(state, "Check values should be zero. Most Recent values listed first.");
+                        std::string HistoryTrace;
+                        for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+                            HistoryTrace += std::format(
+                                "{:.5f},", state.dataConvergeParams->PlantConvergence(LoopNum).PlantFlowDemandToSupplyTolValue[StackDepth]);
+                        }
+                        ShowContinueError(
+                            state, std::format("Demand-to-Supply interface mass flow rate check value iteration history trace: {}", HistoryTrace));
+                        HistoryTrace = "";
+                        for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+                            HistoryTrace += std::format(
+                                "{:.5f},", state.dataConvergeParams->PlantConvergence(LoopNum).PlantFlowSupplyToDemandTolValue[StackDepth]);
+                        }
+                        ShowContinueError(
+                            state, std::format("Supply-to-Demand interface mass flow rate check value iteration history trace: {}", HistoryTrace));
+>>>>>>> nrel/develop
 
                         // now work with history logs for mass flow to detect issues
                         for (DataPlant::LoopSideLocation ThisLoopSide : DataPlant::LoopSideKeys) {
@@ -1396,10 +1541,16 @@ void SimHVAC(EnergyPlusData &state)
                                         FoundOscillationByDuplicate = true;
                                         ShowContinueError(
                                             state,
+<<<<<<< HEAD
                                             EnergyPlus::format(
                                                 "Node named {} shows oscillating flow rates across iterations with a repeated value of {:.7R}",
                                                 state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                 mdotHistInletNode(1)));
+=======
+                                            std::format("Node named {} shows oscillating flow rates across iterations with a repeated value of {:#G}",
+                                                        state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
+                                                        mdotHistInletNode(1)));
+>>>>>>> nrel/develop
                                         break;
                                     }
                                 }
@@ -1423,12 +1574,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicDecreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically decreasing mass flow rate with a trend "
                                                                    "rate across iterations of {:.7R} [kg/s/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                                    SlopeMdot));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically decreasing mass flow rate with a trend "
+                                                                          "rate across iterations of {:#G} [kg/s/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
+                                                                          SlopeMdot));
+>>>>>>> nrel/develop
                                         }
                                     } else { // check for monotonic increase
                                         MonotonicIncreaseFound = true;
@@ -1439,12 +1598,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicIncreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically increasing mass flow rate with a trend "
                                                                    "rate across iterations of {:.7R} [kg/s/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                                    SlopeMdot));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically increasing mass flow rate with a trend "
+                                                                          "rate across iterations of {:#G} [kg/s/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
+                                                                          SlopeMdot));
+>>>>>>> nrel/develop
                                         }
                                     }
                                 } // significant slope found
@@ -1453,6 +1620,7 @@ void SimHVAC(EnergyPlusData &state)
                             if (MonotonicDecreaseFound || MonotonicIncreaseFound || FoundOscillationByDuplicate) {
                                 HistoryTrace = "";
                                 for (int StackDepth = 1; StackDepth <= DataPlant::NumConvergenceHistoryTerms; ++StackDepth) {
+<<<<<<< HEAD
                                     HistoryTrace += EnergyPlus::format("{:.7R},", mdotHistInletNode(StackDepth));
                                 }
                                 ShowContinueError(
@@ -1460,6 +1628,14 @@ void SimHVAC(EnergyPlusData &state)
                                     EnergyPlus::format("Node named {} mass flow rate [kg/s] iteration history trace (most recent first): {}",
                                                        state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                        HistoryTrace));
+=======
+                                    HistoryTrace += std::format("{:#G},", mdotHistInletNode(StackDepth));
+                                }
+                                ShowContinueError(state,
+                                                  std::format("Node named {} mass flow rate [kg/s] iteration history trace (most recent first): {}",
+                                                              state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
+                                                              HistoryTrace));
+>>>>>>> nrel/develop
                             } // need to report trace
                             // end of inlet node
 
@@ -1476,10 +1652,16 @@ void SimHVAC(EnergyPlusData &state)
                                         FoundOscillationByDuplicate = true;
                                         ShowContinueError(
                                             state,
+<<<<<<< HEAD
                                             EnergyPlus::format(
                                                 "Node named {} shows oscillating flow rates across iterations with a repeated value of {:.7R}",
                                                 state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                 mdotHistOutletNode(1)));
+=======
+                                            std::format("Node named {} shows oscillating flow rates across iterations with a repeated value of {:#G}",
+                                                        state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
+                                                        mdotHistOutletNode(1)));
+>>>>>>> nrel/develop
                                         break;
                                     }
                                 }
@@ -1503,12 +1685,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicDecreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically decreasing mass flow rate with a trend "
                                                                    "rate across iterations of {:.7R} [kg/s/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                                    SlopeMdot));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically decreasing mass flow rate with a trend "
+                                                                          "rate across iterations of {:#G} [kg/s/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
+                                                                          SlopeMdot));
+>>>>>>> nrel/develop
                                         }
                                     } else { // check for monotonic increase
                                         MonotonicIncreaseFound = true;
@@ -1519,12 +1709,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicIncreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically increasing mass flow rate with a trend "
                                                                    "rate across iterations of {:.7R} [kg/s/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                                    SlopeMdot));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically increasing mass flow rate with a trend "
+                                                                          "rate across iterations of {:#G} [kg/s/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
+                                                                          SlopeMdot));
+>>>>>>> nrel/develop
                                         }
                                     }
                                 } // significant slope found
@@ -1533,6 +1731,7 @@ void SimHVAC(EnergyPlusData &state)
                             if (MonotonicDecreaseFound || MonotonicIncreaseFound || FoundOscillationByDuplicate) {
                                 HistoryTrace = "";
                                 for (int StackDepth = 1; StackDepth <= DataPlant::NumConvergenceHistoryTerms; ++StackDepth) {
+<<<<<<< HEAD
                                     HistoryTrace += EnergyPlus::format("{:.7R},", mdotHistOutletNode(StackDepth));
                                 }
                                 ShowContinueError(
@@ -1540,6 +1739,14 @@ void SimHVAC(EnergyPlusData &state)
                                     EnergyPlus::format("Node named {} mass flow rate [kg/s] iteration history trace (most recent first): {}",
                                                        state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                        HistoryTrace));
+=======
+                                    HistoryTrace += std::format("{:#G},", mdotHistOutletNode(StackDepth));
+                                }
+                                ShowContinueError(state,
+                                                  std::format("Node named {} mass flow rate [kg/s] iteration history trace (most recent first): {}",
+                                                              state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
+                                                              HistoryTrace));
+>>>>>>> nrel/develop
                             } // need to report trace
                               // end of Outlet node
 
@@ -1549,6 +1756,7 @@ void SimHVAC(EnergyPlusData &state)
 
                     if (state.dataConvergeParams->PlantConvergence(LoopNum).PlantTempNotConverged) {
                         ShowContinueError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("Plant System Named = {} did not converge for temperature", state.dataPlnt->PlantLoop(LoopNum).Name));
                         ShowContinueError(state, "Check values should be zero. Most Recent values listed first.");
@@ -1568,6 +1776,24 @@ void SimHVAC(EnergyPlusData &state)
                         ShowContinueError(
                             state,
                             EnergyPlus::format("Supply-to-Demand interface temperature check value iteration history trace: {}", HistoryTrace));
+=======
+                            state, std::format("Plant System Named = {} did not converge for temperature", state.dataPlnt->PlantLoop(LoopNum).Name));
+                        ShowContinueError(state, "Check values should be zero. Most Recent values listed first.");
+                        std::string HistoryTrace;
+                        for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+                            HistoryTrace += std::format(
+                                "{:.5f},", state.dataConvergeParams->PlantConvergence(LoopNum).PlantTempDemandToSupplyTolValue[StackDepth]);
+                        }
+                        ShowContinueError(
+                            state, std::format("Demand-to-Supply interface temperature check value iteration history trace: {}", HistoryTrace));
+                        HistoryTrace = "";
+                        for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+                            HistoryTrace += std::format(
+                                "{:.5f},", state.dataConvergeParams->PlantConvergence(LoopNum).PlantTempSupplyToDemandTolValue[StackDepth]);
+                        }
+                        ShowContinueError(
+                            state, std::format("Supply-to-Demand interface temperature check value iteration history trace: {}", HistoryTrace));
+>>>>>>> nrel/develop
 
                         // now work with history logs for mass flow to detect issues
                         for (DataPlant::LoopSideLocation ThisLoopSide : DataPlant::LoopSideKeys) {
@@ -1588,8 +1814,13 @@ void SimHVAC(EnergyPlusData &state)
                                         FoundOscillationByDuplicate = true;
                                         ShowContinueError(
                                             state,
+<<<<<<< HEAD
                                             EnergyPlus::format(
                                                 "Node named {} shows oscillating temperatures across iterations with a repeated value of {:.5R}",
+=======
+                                            std::format(
+                                                "Node named {} shows oscillating temperatures across iterations with a repeated value of {:#G}",
+>>>>>>> nrel/develop
                                                 state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                 tempHistInletNode(1)));
                                         break;
@@ -1615,12 +1846,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicDecreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically decreasing temperatures with a trend "
                                                                    "rate across iterations of {:.5R} [C/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                                    SlopeTemps));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically decreasing temperatures with a trend "
+                                                                          "rate across iterations of {:#G} [C/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
+                                                                          SlopeTemps));
+>>>>>>> nrel/develop
                                         }
                                     } else { // check for monotonic increase
                                         MonotonicIncreaseFound = true;
@@ -1631,12 +1870,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicIncreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically increasing temperatures with a trend "
                                                                    "rate across iterations of {:.5R} [C/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                                    SlopeTemps));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically increasing temperatures with a trend "
+                                                                          "rate across iterations of {:#G} [C/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
+                                                                          SlopeTemps));
+>>>>>>> nrel/develop
                                         }
                                     }
                                 } // significant slope found
@@ -1645,12 +1892,21 @@ void SimHVAC(EnergyPlusData &state)
                             if (MonotonicDecreaseFound || MonotonicIncreaseFound || FoundOscillationByDuplicate) {
                                 HistoryTrace = "";
                                 for (int StackDepth = 1; StackDepth <= DataPlant::NumConvergenceHistoryTerms; ++StackDepth) {
+<<<<<<< HEAD
                                     HistoryTrace += EnergyPlus::format("{:.5R},", tempHistInletNode(StackDepth));
                                 }
                                 ShowContinueError(state,
                                                   EnergyPlus::format("Node named {} temperature [C] iteration history trace (most recent first): {}",
                                                                      state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
                                                                      HistoryTrace));
+=======
+                                    HistoryTrace += std::format("{:#G},", tempHistInletNode(StackDepth));
+                                }
+                                ShowContinueError(state,
+                                                  std::format("Node named {} temperature [C] iteration history trace (most recent first): {}",
+                                                              state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameIn,
+                                                              HistoryTrace));
+>>>>>>> nrel/develop
                             } // need to report trace
                             // end of inlet node
 
@@ -1667,8 +1923,13 @@ void SimHVAC(EnergyPlusData &state)
                                         FoundOscillationByDuplicate = true;
                                         ShowContinueError(
                                             state,
+<<<<<<< HEAD
                                             EnergyPlus::format(
                                                 "Node named {} shows oscillating temperatures across iterations with a repeated value of {:.5R}",
+=======
+                                            std::format(
+                                                "Node named {} shows oscillating temperatures across iterations with a repeated value of {:#G}",
+>>>>>>> nrel/develop
                                                 state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                 tempHistOutletNode(1)));
                                         break;
@@ -1696,12 +1957,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicDecreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically decreasing temperatures with a trend "
                                                                    "rate across iterations of {:.5R} [C/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                                    SlopeTemps));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically decreasing temperatures with a trend "
+                                                                          "rate across iterations of {:#G} [C/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
+                                                                          SlopeTemps));
+>>>>>>> nrel/develop
                                         }
                                     } else { // check for monotonic increase
                                         MonotonicIncreaseFound = true;
@@ -1714,12 +1983,20 @@ void SimHVAC(EnergyPlusData &state)
                                             }
                                         }
                                         if (MonotonicIncreaseFound) {
+<<<<<<< HEAD
                                             ShowContinueError(
                                                 state,
                                                 EnergyPlus::format("Node named {} shows monotonically increasing temperatures with a trend "
                                                                    "rate across iterations of {:.5R} [C/iteration]",
                                                                    state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                                    SlopeTemps));
+=======
+                                            ShowContinueError(state,
+                                                              std::format("Node named {} shows monotonically increasing temperatures with a trend "
+                                                                          "rate across iterations of {:#G} [C/iteration]",
+                                                                          state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
+                                                                          SlopeTemps));
+>>>>>>> nrel/develop
                                         }
                                     }
                                 } // significant slope found
@@ -1728,12 +2005,21 @@ void SimHVAC(EnergyPlusData &state)
                             if (MonotonicDecreaseFound || MonotonicIncreaseFound || FoundOscillationByDuplicate) {
                                 HistoryTrace = "";
                                 for (int StackDepth = 1; StackDepth <= DataPlant::NumConvergenceHistoryTerms; ++StackDepth) {
+<<<<<<< HEAD
                                     HistoryTrace += EnergyPlus::format("{:.5R},", tempHistOutletNode(StackDepth));
                                 }
                                 ShowContinueError(state,
                                                   EnergyPlus::format("Node named {} temperature [C] iteration history trace (most recent first): {}",
                                                                      state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
                                                                      HistoryTrace));
+=======
+                                    HistoryTrace += std::format("{:#G},", tempHistOutletNode(StackDepth));
+                                }
+                                ShowContinueError(state,
+                                                  std::format("Node named {} temperature [C] iteration history trace (most recent first): {}",
+                                                              state.dataPlnt->PlantLoop(LoopNum).LoopSide(ThisLoopSide).NodeNameOut,
+                                                              HistoryTrace));
+>>>>>>> nrel/develop
                             } // need to report trace
                               // end of Outlet node
 
@@ -1744,6 +2030,7 @@ void SimHVAC(EnergyPlusData &state)
             }
         } else {
             if (state.dataEnvrn->EnvironmentName == state.dataHVACMgr->ErrEnvironmentName) {
+<<<<<<< HEAD
                 ShowRecurringWarningErrorAtEnd(state,
                                                EnergyPlus::format("SimHVAC: Exceeding Maximum iterations for all HVAC loops, during {} continues",
                                                                   state.dataEnvrn->EnvironmentName),
@@ -1755,6 +2042,19 @@ void SimHVAC(EnergyPlusData &state)
                                                EnergyPlus::format("SimHVAC: Exceeding Maximum iterations for all HVAC loops, during {} continues",
                                                                   state.dataEnvrn->EnvironmentName),
                                                state.dataHVACMgr->MaxErrCount);
+=======
+                ShowRecurringWarningErrorAtEnd(
+                    state,
+                    std::format("SimHVAC: Exceeding Maximum iterations for all HVAC loops, during {} continues", state.dataEnvrn->EnvironmentName),
+                    state.dataHVACMgr->MaxErrCount);
+            } else {
+                state.dataHVACMgr->MaxErrCount = 0;
+                state.dataHVACMgr->ErrEnvironmentName = state.dataEnvrn->EnvironmentName;
+                ShowRecurringWarningErrorAtEnd(
+                    state,
+                    std::format("SimHVAC: Exceeding Maximum iterations for all HVAC loops, during {} continues", state.dataEnvrn->EnvironmentName),
+                    state.dataHVACMgr->MaxErrCount);
+>>>>>>> nrel/develop
             }
         }
     }
@@ -2951,8 +3251,12 @@ void SetHeatToReturnAirFlag(EnergyPlusData &state)
                 auto const &thisZone = state.dataHeatBal->Zone(ControlledZoneNum);
                 if (thisZone.RefrigCaseRA) {
                     ShowWarningError(
+<<<<<<< HEAD
                         state,
                         EnergyPlus::format("For zone={} return air cooling by refrigerated cases will be applied to the zone air.", thisZone.Name));
+=======
+                        state, std::format("For zone={} return air cooling by refrigerated cases will be applied to the zone air.", thisZone.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "  This zone has no return air or is served by an on/off HVAC system.");
                 }
                 for (int LightNum = 1; LightNum <= state.dataHeatBal->TotLights; ++LightNum) {
@@ -2960,9 +3264,14 @@ void SetHeatToReturnAirFlag(EnergyPlusData &state)
                         continue;
                     }
                     if (state.dataHeatBal->Lights(LightNum).FractionReturnAir > 0.0) {
+<<<<<<< HEAD
                         ShowWarningError(
                             state,
                             EnergyPlus::format("For zone={} return air heat gain from lights will be applied to the zone air.", thisZone.Name));
+=======
+                        ShowWarningError(state,
+                                         std::format("For zone={} return air heat gain from lights will be applied to the zone air.", thisZone.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "  This zone has no return air or is served by an on/off HVAC system.");
                         break;
                     }
@@ -2971,10 +3280,16 @@ void SetHeatToReturnAirFlag(EnergyPlusData &state)
                     auto const &thisSpace = state.dataHeatBal->space(spaceNum);
                     for (int SurfNum = thisSpace.HTSurfaceFirst; SurfNum <= thisSpace.HTSurfaceLast; ++SurfNum) {
                         if (state.dataSurface->SurfWinAirflowDestination(SurfNum) == DataSurfaces::WindowAirFlowDestination::Return) {
+<<<<<<< HEAD
                             ShowWarningError(
                                 state,
                                 EnergyPlus::format("For zone={} return air heat gain from air flow windows will be applied to the zone air.",
                                                    thisZone.Name));
+=======
+                            ShowWarningError(state,
+                                             std::format("For zone={} return air heat gain from air flow windows will be applied to the zone air.",
+                                                         thisZone.Name));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "  This zone has no return air or is served by an on/off HVAC system.");
                         }
                     }
@@ -3056,6 +3371,7 @@ void CheckAirLoopFlowBalance(EnergyPlusData &state)
                 Real64 unbalancedExhaustDelta = thisAirLoopFlow.SupFlow - thisAirLoopFlow.OAFlow - thisAirLoopFlow.SysRetFlow;
                 if (unbalancedExhaustDelta > HVAC::SmallMassFlow) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("CheckAirLoopFlowBalance: AirLoopHVAC {} is unbalanced. Supply is > return plus outdoor air.",
                                                        state.dataAirSystemsData->PrimaryAirSystems(AirLoopNum).Name));
                     ShowContinueErrorTimeStamp(state, "");
@@ -3065,6 +3381,17 @@ void CheckAirLoopFlowBalance(EnergyPlusData &state)
                                                          thisAirLoopFlow.SysRetFlow / state.dataEnvrn->StdRhoAir,
                                                          thisAirLoopFlow.OAFlow / state.dataEnvrn->StdRhoAir));
                     ShowContinueError(state, EnergyPlus::format("  Imbalance={:.6R}", unbalancedExhaustDelta / state.dataEnvrn->StdRhoAir));
+=======
+                                    std::format("CheckAirLoopFlowBalance: AirLoopHVAC {} is unbalanced. Supply is > return plus outdoor air.",
+                                                state.dataAirSystemsData->PrimaryAirSystems(AirLoopNum).Name));
+                    ShowContinueErrorTimeStamp(state, "");
+                    ShowContinueError(state,
+                                      std::format("  Flows [m3/s at standard density]: Supply={:.5f}  Return={:.5f}  Outdoor Air={:.5f}",
+                                                  thisAirLoopFlow.SupFlow / state.dataEnvrn->StdRhoAir,
+                                                  thisAirLoopFlow.SysRetFlow / state.dataEnvrn->StdRhoAir,
+                                                  thisAirLoopFlow.OAFlow / state.dataEnvrn->StdRhoAir));
+                    ShowContinueError(state, std::format("  Imbalance={:.5f}", unbalancedExhaustDelta / state.dataEnvrn->StdRhoAir));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "  This error will only be reported once per system.");
                     thisAirLoopFlow.FlowError = true;
                 }
@@ -3084,6 +3411,7 @@ void ConvergenceErrors(EnergyPlusData &state,
 
     std::string_view const CaseName = ConvErrorCallString[(int)callType];
 
+<<<<<<< HEAD
     auto &arrayRef = HVACNotConverged;
     if (std::any_of(std::begin(arrayRef), std::end(arrayRef), [](bool i) { return i; })) {
 
@@ -3103,14 +3431,40 @@ void ConvergenceErrors(EnergyPlusData &state,
         }
         ShowContinueError(state,
                           EnergyPlus::format("Supply-to-demand interface deck 1 {} check value iteration history trace: {}", CaseName, HistoryTrace));
+=======
+    const auto &arrayRef = HVACNotConverged;
+    if (std::any_of(std::begin(arrayRef), std::end(arrayRef), [](bool i) { return i; })) {
+
+        ShowContinueError(
+            state,
+            std::format("Air System Named = {} did not converge for {}", state.dataAirLoop->AirToZoneNodeInfo(AirSysNum).AirLoopName, CaseName));
+        ShowContinueError(state, "Check values should be zero. Most Recent values listed first.");
+        std::string HistoryTrace;
+        for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+            HistoryTrace += std::format("{:.5f},", DemandToSupply[StackDepth]);
+        }
+        ShowContinueError(state, std::format("Demand-to-Supply interface {} check value iteration history trace: {}", CaseName, HistoryTrace));
+        HistoryTrace = "";
+        for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+            HistoryTrace += std::format("{:.5f},", SupplyDeck1ToDemand[StackDepth]);
+        }
+        ShowContinueError(state, std::format("Supply-to-demand interface deck 1 {} check value iteration history trace: {}", CaseName, HistoryTrace));
+>>>>>>> nrel/develop
 
         if (state.dataAirLoop->AirToZoneNodeInfo(AirSysNum).NumSupplyNodes >= 2) {
             HistoryTrace = "";
             for (int StackDepth = 0; StackDepth < DataConvergParams::ConvergLogStackDepth; ++StackDepth) {
+<<<<<<< HEAD
                 HistoryTrace += EnergyPlus::format("{:.6R},", SupplyDeck2ToDemand[StackDepth]);
             }
             ShowContinueError(
                 state, EnergyPlus::format("Supply-to-demand interface deck 2 {} check value iteration history trace: {}", CaseName, HistoryTrace));
+=======
+                HistoryTrace += std::format("{:.5f},", SupplyDeck2ToDemand[StackDepth]);
+            }
+            ShowContinueError(state,
+                              std::format("Supply-to-demand interface deck 2 {} check value iteration history trace: {}", CaseName, HistoryTrace));
+>>>>>>> nrel/develop
         }
     } // energy not converged
 }

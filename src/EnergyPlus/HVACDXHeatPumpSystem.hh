@@ -74,8 +74,12 @@ namespace HVACDXHeatPumpSystem {
         std::string DXHeatPumpSystemType; // Type of DXHeatingSystem
         std::string Name;                 // Name of the DXHeatingSystem
         Sched::Schedule *availSched = nullptr;
+<<<<<<< HEAD
         std::string HeatPumpCoilType;
         int HeatPumpCoilType_Num;
+=======
+        HVAC::CoilType coilType = HVAC::CoilType::Invalid;
+>>>>>>> nrel/develop
         std::string HeatPumpCoilName;
         int HeatPumpCoilIndex;
         int DXHeatPumpCoilInletNodeNum;
@@ -103,10 +107,16 @@ namespace HVACDXHeatPumpSystem {
 
         // Default Constructor
         DXHeatPumpSystemStruct()
+<<<<<<< HEAD
             : HeatPumpCoilType_Num(0), HeatPumpCoilIndex(0), DXHeatPumpCoilInletNodeNum(0), DXHeatPumpCoilOutletNodeNum(0), DXSystemControlNodeNum(0),
               DesiredOutletTemp(0.0), PartLoadFrac(0.0), SpeedRatio(0.0), CycRatio(0.0), DXCoilSensPLRIter(0), DXCoilSensPLRIterIndex(0),
               DXCoilSensPLRFail(0), DXCoilSensPLRFailIndex(0), OAUnitSetTemp(0.0), SpeedNum(0), FaultyCoilSATFlag(false), FaultyCoilSATIndex(0),
               FaultyCoilSATOffset(0.0)
+=======
+            : HeatPumpCoilIndex(0), DXHeatPumpCoilInletNodeNum(0), DXHeatPumpCoilOutletNodeNum(0), DXSystemControlNodeNum(0), DesiredOutletTemp(0.0),
+              PartLoadFrac(0.0), SpeedRatio(0.0), CycRatio(0.0), DXCoilSensPLRIter(0), DXCoilSensPLRIterIndex(0), DXCoilSensPLRFail(0),
+              DXCoilSensPLRFailIndex(0), OAUnitSetTemp(0.0), SpeedNum(0), FaultyCoilSATFlag(false), FaultyCoilSATIndex(0), FaultyCoilSATOffset(0.0)
+>>>>>>> nrel/develop
         {
         }
     };

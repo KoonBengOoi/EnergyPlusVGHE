@@ -45,6 +45,13 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/CoolingSHRSizing.hh>
 #include <EnergyPlus/DXCoils.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
@@ -135,6 +142,7 @@ void CoolingSHRSizer::updateSizingString(EnergyPlusData &state)
         return;
     }
     // override sizingString to match existing text
+<<<<<<< HEAD
     if (this->coilType_Num == HVAC::CoilDX_CoolingTwoSpeed) {
         if (this->dataDXSpeedNum == 1) { // mode 1 is high speed in DXCoils loop
             if (this->isEpJSON) {
@@ -171,6 +179,22 @@ void CoolingSHRSizer::updateSizingString(EnergyPlusData &state)
         if (this->isEpJSON) {
             this->sizingString = "gross_rated_sensible_heat_ratio";
         }
+=======
+    if (this->coilType == HVAC::CoilType::CoolingDXTwoSpeed) {
+        if (this->dataDXSpeedNum == 1) { // mode 1 is high speed in DXCoils loop
+            this->sizingString = "High Speed Rated Sensible Heat Ratio";
+        } else if (this->dataDXSpeedNum == 2) {
+            this->sizingString = "Low Speed Gross Rated Sensible Heat Ratio";
+        }
+    } else if (this->coilType == HVAC::CoilType::CoolingDXMultiSpeed) {
+        this->sizingString = std::format("Speed {} Rated Sensible Heat Ratio", state.dataSize->DataDXSpeedNum);
+    } else if (this->coilType == HVAC::CoilType::CoolingVRFFluidTCtrl) {
+        this->sizingString = "Rated Sensible Heat Ratio";
+    } else if (this->coilType == HVAC::CoilType::CoolingDXCurveFit) {
+        this->sizingString = "Gross Sensible Heat Ratio";
+    } else {
+        this->sizingString = "Gross Rated Sensible Heat Ratio";
+>>>>>>> nrel/develop
     }
 }
 

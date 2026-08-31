@@ -4,7 +4,10 @@
 #include <memory>
 #include <vector>
 
+<<<<<<< HEAD
 #include <WCECommon.hpp>
+=======
+>>>>>>> nrel/develop
 #include "HeatFlowBalance.hpp"
 #include "IGU.hpp"
 
@@ -33,7 +36,10 @@ namespace Tarcog
             void estimateNewState(const std::vector<double> & t_Solution);
 
             CIGU & m_IGU;
+<<<<<<< HEAD
             FenestrationCommon::CLinearSolver m_LinearSolver;
+=======
+>>>>>>> nrel/develop
             CHeatFlowBalance m_QBalance;
             std::vector<double> m_IGUState;
             double m_Tolerance;

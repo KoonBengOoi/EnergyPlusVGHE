@@ -45,10 +45,18 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// Local Headers
+>>>>>>> nrel/develop
 #include "AirflowNetwork/Elements.hpp"
 #include "AirflowNetwork/Properties.hpp"
 #include "AirflowNetwork/Solver.hpp"
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include "../../Data/EnergyPlusData.hh"
 #include "../../DataAirLoop.hh"
 #include "../../DataEnvironment.hh"
@@ -443,7 +451,11 @@ namespace AirflowNetwork {
         return 1;
     }
 
+<<<<<<< HEAD
     int SurfaceCrack::calculate(EnergyPlusData &state,
+=======
+    int SurfaceCrack::calculate([[maybe_unused]] EnergyPlusData &state,
+>>>>>>> nrel/develop
                                 Real64 const pdrop,       // Total pressure drop across a component (P1 - P2) [Pa]
                                 const Real64 multiplier,  // Element multiplier
                                 const Real64 control,     // Element control signal
@@ -782,7 +794,11 @@ namespace AirflowNetwork {
     int DetailedFan::calculate(EnergyPlusData &state,
                                bool const LFLAG,                         // Initialization flag. If = true, use laminar relationship
                                Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
+<<<<<<< HEAD
                                int const i,                              // Linkage number
+=======
+                               [[maybe_unused]] int const i,             // Linkage number
+>>>>>>> nrel/develop
                                [[maybe_unused]] const Real64 multiplier, // Element multiplier
                                const Real64 control,                     // Element control signal
                                const AirState &propN,                    // Node 1 properties
@@ -1069,7 +1085,11 @@ namespace AirflowNetwork {
     int Damper::calculate([[maybe_unused]] EnergyPlusData &state,
                           bool const LFLAG,                         // Initialization flag. If = true, use laminar relationship
                           Real64 const PDROP,                       // Total pressure drop across a component (P1 - P2) [Pa]
+<<<<<<< HEAD
                           int const i,                              // Linkage number
+=======
+                          [[maybe_unused]] int const i,             // Linkage number
+>>>>>>> nrel/develop
                           [[maybe_unused]] const Real64 multiplier, // Element multiplier
                           [[maybe_unused]] const Real64 control,    // Element control signal
                           const AirState &propN,                    // Node 1 properties
@@ -2231,7 +2251,11 @@ namespace AirflowNetwork {
             if (PDROP >= 0.0) {
                 // Flow in positive direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propN.density * area * area);
                     A1 = (propN.viscosity * LamDynCoef * ld) / (2.0 * propN.density * area * hydraulicDiameter);
                     A0 = -PDROP;
@@ -2267,7 +2291,11 @@ namespace AirflowNetwork {
             } else {
                 // Flow in negative direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propM.density * area * area);
                     A1 = (propM.viscosity * LamDynCoef * ld) / (2.0 * propM.density * area * hydraulicDiameter);
                     A0 = PDROP;
@@ -2377,7 +2405,11 @@ namespace AirflowNetwork {
         if (PDROP >= 0.0) {
             // Flow in positive direction.
             // Laminar flow coefficient !=0
+<<<<<<< HEAD
             if (LamFriCoef >= 0.001) {
+=======
+            if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                 A2 = LamFriCoef / (2.0 * propN.density * area * area);
                 A1 = (propN.viscosity * LamDynCoef * ld) / (2.0 * propN.density * area * hydraulicDiameter);
                 A0 = -PDROP;
@@ -2413,7 +2445,11 @@ namespace AirflowNetwork {
         } else {
             // Flow in negative direction.
             // Laminar flow coefficient !=0
+<<<<<<< HEAD
             if (LamFriCoef >= 0.001) {
+=======
+            if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                 A2 = LamFriCoef / (2.0 * propM.density * area * area);
                 A1 = (propM.viscosity * LamDynCoef * ld) / (2.0 * propM.density * area * hydraulicDiameter);
                 A0 = PDROP;
@@ -2533,7 +2569,11 @@ namespace AirflowNetwork {
             if (PDROP >= 0.0) {
                 // Flow in positive direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propN.density * area * area);
                     A1 = (propN.viscosity * LamDynCoef * ld) / (2.0 * propN.density * area * hydraulicDiameter);
                     A0 = -PDROP;
@@ -2569,7 +2609,11 @@ namespace AirflowNetwork {
             } else {
                 // Flow in negative direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propM.density * area * area);
                     A1 = (propM.viscosity * LamDynCoef * ld) / (2.0 * propM.density * area * hydraulicDiameter);
                     A0 = PDROP;
@@ -2694,7 +2738,11 @@ namespace AirflowNetwork {
             if (PDROP >= 0.0) {
                 // Flow in positive direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propN.density * area * area);
                     A1 = (propN.viscosity * LamDynCoef * ld) / (2.0 * propN.density * area * hydraulicDiameter);
                     A0 = -PDROP;
@@ -2727,7 +2775,11 @@ namespace AirflowNetwork {
             } else {
                 // Flow in negative direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propM.density * area * area);
                     A1 = (propM.viscosity * LamDynCoef * ld) / (2.0 * propM.density * area * hydraulicDiameter);
                     A0 = PDROP;
@@ -2829,7 +2881,11 @@ namespace AirflowNetwork {
         if (PDROP >= 0.0) {
             // Flow in positive direction.
             // Laminar flow coefficient !=0
+<<<<<<< HEAD
             if (LamFriCoef >= 0.001) {
+=======
+            if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                 A2 = LamFriCoef / (2.0 * propN.density * area * area);
                 A1 = (propN.viscosity * LamDynCoef * ld) / (2.0 * propN.density * area * hydraulicDiameter);
                 A0 = -PDROP;
@@ -2862,7 +2918,11 @@ namespace AirflowNetwork {
         } else {
             // Flow in negative direction.
             // Laminar flow coefficient !=0
+<<<<<<< HEAD
             if (LamFriCoef >= 0.001) {
+=======
+            if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                 A2 = LamFriCoef / (2.0 * propM.density * area * area);
                 A1 = (propM.viscosity * LamDynCoef * ld) / (2.0 * propM.density * area * hydraulicDiameter);
                 A0 = PDROP;
@@ -3695,7 +3755,11 @@ namespace AirflowNetwork {
             if (PDROP >= 0.0) {
                 // Flow in positive direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propN.density * area * area);
                     A1 = (propN.viscosity * LamDynCoef * ld) / (2.0 * propN.density * area * Diameter);
                     A0 = -PDROP;
@@ -3728,7 +3792,11 @@ namespace AirflowNetwork {
             } else {
                 // Flow in negative direction.
                 // Laminar flow coefficient !=0
+<<<<<<< HEAD
                 if (LamFriCoef >= 0.001) {
+=======
+                if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
                     A2 = LamFriCoef / (2.0 * propM.density * area * area);
                     A1 = (propM.viscosity * LamDynCoef * ld) / (2.0 * propM.density * area * Diameter);
                     A0 = PDROP;

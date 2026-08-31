@@ -106,7 +106,10 @@ namespace ChillerElectricASHRAE205 {
         Real64 AmbientTemp{0};
         Real64 AmbientZoneGain{0};       // Internal gain to zone from losses (W)
         Real64 AmbientZoneGainEnergy{0}; // Internal gain to zone from losses (J)
+<<<<<<< HEAD
         std::string EndUseSubcategory;   // identifier use for the end use subcategory
+=======
+>>>>>>> nrel/develop
 
         // Default Constructor
         ASHRAE205ChillerSpecs() = default;

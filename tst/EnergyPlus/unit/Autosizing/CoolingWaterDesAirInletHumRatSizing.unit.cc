@@ -83,7 +83,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     has_eio_output(true);
 
     // Test #1 - Zone Equipment, no autosizing, TU type not set
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_FALSE(sizer.wasAutoSized);
@@ -96,7 +100,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
 
     // Test #2 - Zone Equipment, no autosizing, TU type not set
     printFlag = true;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_FALSE(sizer.wasAutoSized);
@@ -105,7 +113,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
 
     eiooutput = std::string("! <Component Sizing Information>, Component Type, Component Name, Input Field Description, Value\n"
                             " Component Sizing Information, Coil:Cooling:Water, MyWaterCoil, User-Specified Design Inlet Air Humidity Ratio "
+<<<<<<< HEAD
                             "[kgWater/kgDryAir], 9.00000E-003\n");
+=======
+                            "[kgWater/kgDryAir], 9.000E-03\n");
+>>>>>>> nrel/develop
 
     EXPECT_TRUE(compare_eio_stream(eiooutput, true));
 
@@ -135,14 +147,22 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     // start with an auto-sized value as the user input
     inputValue = DataSizing::AutoSize;
     // do sizing
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
     EXPECT_NEAR(0.008, sizedValue, 0.0001);
 
     eiooutput = std::string(" Component Sizing Information, Coil:Cooling:Water, MyWaterCoil, Design Size Design Inlet Air Humidity Ratio "
+<<<<<<< HEAD
                             "[kgWater/kgDryAir], 8.00000E-003\n");
+=======
+                            "[kgWater/kgDryAir], 8.000E-03\n");
+>>>>>>> nrel/develop
 
     EXPECT_TRUE(compare_eio_stream(eiooutput, true));
 
@@ -153,7 +173,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     inputValue = DataSizing::AutoSize;
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -168,7 +192,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     inputValue = DataSizing::AutoSize;
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -183,7 +211,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     inputValue = DataSizing::AutoSize;
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -197,7 +229,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     inputValue = DataSizing::AutoSize;
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -214,7 +250,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     inputValue = DataSizing::AutoSize;
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -243,7 +283,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     // do sizing
     sizer.wasAutoSized = false;
     printFlag = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_FALSE(sizer.wasAutoSized);
@@ -265,7 +309,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     // do sizing
     sizer.wasAutoSized = false;
     printFlag = true;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -274,7 +322,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
 
     // <Component Sizing Information> header already reported above (and flag set false). Only coil sizing information reported here.
     eiooutput = std::string(" Component Sizing Information, Coil:Cooling:Water, MyWaterCoil, Design Size Design Inlet Air Humidity Ratio "
+<<<<<<< HEAD
                             "[kgWater/kgDryAir], 1.05000E-002\n");
+=======
+                            "[kgWater/kgDryAir], 1.050E-02\n");
+>>>>>>> nrel/develop
 
     EXPECT_TRUE(compare_eio_stream(eiooutput, true));
 
@@ -289,7 +341,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     // do sizing
     sizer.wasAutoSized = false;
     printFlag = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -304,7 +360,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
 
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -322,7 +382,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
 
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -341,7 +405,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
 
     // do sizing
     sizer.wasAutoSized = false;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType);
     EXPECT_TRUE(sizer.wasAutoSized);
@@ -358,7 +426,11 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
     // do sizing
     sizer.wasAutoSized = false;
     printFlag = true;
+<<<<<<< HEAD
     sizer.initializeWithinEP(*this->state, HVAC::cAllCoilTypes(HVAC::Coil_CoolingWater), "MyWaterCoil", printFlag, routineName);
+=======
+    sizer.initializeWithinEP(*this->state, HVAC::coilTypeNames[(int)HVAC::CoilType::CoolingWater], "MyWaterCoil", printFlag, routineName);
+>>>>>>> nrel/develop
     sizedValue = sizer.size(*this->state, inputValue, errorsFound);
     EXPECT_ENUM_EQ(AutoSizingResultType::NoError, sizer.errorType); // cumulative of previous calls
     EXPECT_FALSE(sizer.wasAutoSized);
@@ -369,9 +441,15 @@ TEST_F(AutoSizingFixture, CoolingWaterDesAirInletHumRatSizingGauntlet)
 
     // <Component Sizing Information> header already reported above (and flag set false). Only coil sizing information reported here.
     eiooutput = std::string(" Component Sizing Information, Coil:Cooling:Water, MyWaterCoil, Design Size Design Inlet Air Humidity Ratio "
+<<<<<<< HEAD
                             "[kgWater/kgDryAir], 3.60000E-003\n"
                             " Component Sizing Information, Coil:Cooling:Water, MyWaterCoil, User-Specified Design Inlet Air Humidity Ratio "
                             "[kgWater/kgDryAir], 6.65000E-003\n");
+=======
+                            "[kgWater/kgDryAir], 3.600E-03\n"
+                            " Component Sizing Information, Coil:Cooling:Water, MyWaterCoil, User-Specified Design Inlet Air Humidity Ratio "
+                            "[kgWater/kgDryAir], 6.650E-03\n");
+>>>>>>> nrel/develop
     EXPECT_TRUE(compare_eio_stream(eiooutput, true));
 }
 

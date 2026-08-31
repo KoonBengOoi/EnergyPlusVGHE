@@ -53,8 +53,15 @@
 #include <ObjexxFCL/Fmath.hh>
 #include <ObjexxFCL/member.functions.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include <AirflowNetwork/Solver.hpp>
+=======
+// Local Headers
+#include <AirflowNetwork/Solver.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/ConvectionCoefficients.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -530,16 +537,28 @@ namespace RoomAir {
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         Real64 HeightFrac;               // Fractional height of transition between occupied and mixed subzones
+<<<<<<< HEAD
         Real64 GainsFrac;                // Fraction of lower subzone internal gains that mix as opposed to forming plumes
+=======
+        Real64 GainsFrac = 0.0;          // Fraction of lower subzone internal gains that mix as opposed to forming plumes
+>>>>>>> nrel/develop
         Real64 ConvGains;                // Total convective gains in the room
         Real64 ConvGainsOccupiedSubzone; // Total convective gains released in occupied subzone
         Real64 ConvGainsMixedSubzone;    // Total convective gains released in mixed subzone
         Real64 MCp_Total;                // Total capacity rate into the zone - assumed to enter at low level
+<<<<<<< HEAD
         Real64 ZTAveraged;
         Real64 TempDiffCritRep; // Minimum temperature difference between mixed and occupied subzones for reporting
         bool MIXFLAG;
         Real64 MinFlow;
         Real64 NumPLPP; // Number of plumes per person
+=======
+        Real64 ZTAveraged = 0.0;
+        Real64 TempDiffCritRep = 0.0; // Minimum temperature difference between mixed and occupied subzones for reporting
+        bool MIXFLAG;
+        Real64 MinFlow;
+        Real64 NumPLPP = 0.0; // Number of plumes per person
+>>>>>>> nrel/develop
         Real64 MTGAUX;
         int ZoneEquipConfigNum;
         Real64 PowerInPlumes;
@@ -557,8 +576,13 @@ namespace RoomAir {
         Real64 HeightMixedSubzoneAve;    // Height of center of mixed air subzone
         Real64 HeightOccupiedSubzoneAve; // Height of center of occupied air subzone
         Real64 HeightFloorSubzoneAve;    // Height of center of floor air subzone
+<<<<<<< HEAD
         Real64 HeightThermostat;         // Height of center of thermostat/temperature control sensor
         Real64 HeightComfort;            // Height at which air temperature value is used to calculate comfort
+=======
+        Real64 HeightThermostat = 0.0;   // Height of center of thermostat/temperature control sensor
+        Real64 HeightComfort = 0.0;      // Height at which air temperature value is used to calculate comfort
+>>>>>>> nrel/develop
         Real64 CeilingHeight;
         Real64 ZoneMult; // total zone multiplier
         int FlagApertures;
@@ -973,7 +997,11 @@ namespace RoomAir {
             state.dataRoomAir->TCMF(ZoneNum) = ZTAveraged;
         } else {
             if (HeightComfort >= 0.0 && HeightComfort < HeightFloorSubzoneAve) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("Displacement ventilation comfort height is in floor subzone in Zone: {}", zone.Name));
+=======
+                ShowWarningError(state, std::format("Displacement ventilation comfort height is in floor subzone in Zone: {}", zone.Name));
+>>>>>>> nrel/develop
                 state.dataRoomAir->TCMF(ZoneNum) = state.dataRoomAir->ZTFloor(ZoneNum);
             } else if (HeightComfort >= HeightFloorSubzoneAve && HeightComfort < HeightOccupiedSubzoneAve) {
                 state.dataRoomAir->TCMF(ZoneNum) = (state.dataRoomAir->ZTFloor(ZoneNum) * (HeightOccupiedSubzoneAve - HeightComfort) +
@@ -989,8 +1017,12 @@ namespace RoomAir {
             } else if (HeightComfort >= HeightMixedSubzoneAve && HeightComfort <= CeilingHeight) {
                 state.dataRoomAir->TCMF(ZoneNum) = state.dataRoomAir->ZTMX(ZoneNum);
             } else {
+<<<<<<< HEAD
                 ShowFatalError(state,
                                EnergyPlus::format("Displacement ventilation comfort height is above ceiling or below floor in Zone: {}", zone.Name));
+=======
+                ShowFatalError(state, std::format("Displacement ventilation comfort height is above ceiling or below floor in Zone: {}", zone.Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1000,7 +1032,11 @@ namespace RoomAir {
             state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = ZTAveraged;
         } else {
             if (HeightThermostat >= 0.0 && HeightThermostat < HeightFloorSubzoneAve) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("Displacement thermostat is in floor subzone in Zone: {}", zone.Name));
+=======
+                ShowWarningError(state, std::format("Displacement thermostat is in floor subzone in Zone: {}", zone.Name));
+>>>>>>> nrel/develop
                 state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = state.dataRoomAir->ZTFloor(ZoneNum);
             } else if (HeightThermostat >= HeightFloorSubzoneAve && HeightThermostat < HeightOccupiedSubzoneAve) {
                 state.dataHeatBalFanSys->TempTstatAir(ZoneNum) =
@@ -1017,8 +1053,13 @@ namespace RoomAir {
             } else if (HeightThermostat >= HeightMixedSubzoneAve && HeightThermostat <= CeilingHeight) {
                 state.dataHeatBalFanSys->TempTstatAir(ZoneNum) = state.dataRoomAir->ZTMX(ZoneNum);
             } else {
+<<<<<<< HEAD
                 ShowFatalError(
                     state, EnergyPlus::format("Displacement ventilation thermostat height is above ceiling or below floor in Zone: {}", zone.Name));
+=======
+                ShowFatalError(state,
+                               std::format("Displacement ventilation thermostat height is above ceiling or below floor in Zone: {}", zone.Name));
+>>>>>>> nrel/develop
             }
         }
 

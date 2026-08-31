@@ -51,6 +51,10 @@
 // EnergyPlus Headers
 #include <EnergyPlus/DataGlobals.hh>
 #include <EnergyPlus/EnergyPlus.hh>
+<<<<<<< HEAD
+=======
+#include <EnergyPlus/Formatters.hh>
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 
@@ -69,7 +73,10 @@ namespace GroundTemp {
         SiteDeep,
         SiteFCFactorMethod,
         Xing,
+<<<<<<< HEAD
         GradientSegments,
+=======
+>>>>>>> nrel/develop
         Num
     };
 
@@ -79,8 +86,12 @@ namespace GroundTemp {
                                                                                     "SITE:GROUNDTEMPERATURE:SHALLOW",
                                                                                     "SITE:GROUNDTEMPERATURE:DEEP",
                                                                                     "SITE:GROUNDTEMPERATURE:FCFACTORMETHOD",
+<<<<<<< HEAD
                                                                                     "SITE:GROUNDTEMPERATURE:UNDISTURBED:XING",
                                                                                     "SITE:GROUNDTEMPERATURE:UNDISTURBED:GRADIENTSEGMENTS"};
+=======
+                                                                                    "SITE:GROUNDTEMPERATURE:UNDISTURBED:XING"};
+>>>>>>> nrel/develop
 
     constexpr std::array<std::string_view, (int)ModelType::Num> modelTypeNames = {"Site:GroundTemperature:Undisturbed:KusudaAchenbach",
                                                                                   "Site:GroundTemperature:Undisturbed:FiniteDifference",
@@ -88,8 +99,12 @@ namespace GroundTemp {
                                                                                   "Site:GroundTemperature:Shallow",
                                                                                   "Site:GroundTemperature:Deep",
                                                                                   "Site:GroundTemperature:FCfactorMethod",
+<<<<<<< HEAD
                                                                                   "Site:GroundTemperature:Undisturbed:Xing",
                                                                                   "Site:GroundTemperature:Undisturbed:GradientSegments"};
+=======
+                                                                                  "Site:GroundTemperature:Undisturbed:Xing"};
+>>>>>>> nrel/develop
 
     // Base class
     class BaseGroundTempsModel
@@ -116,6 +131,7 @@ namespace GroundTemp {
     protected:
         static void write_ground_temps(InputOutputFile &os, const std::string &name, const Array1D<Real64> &data)
         {
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(
                 os,
                 "! "
@@ -126,6 +142,19 @@ namespace GroundTemp {
         }
     };
 
+=======
+            print(os,
+                  "! "
+                  "<Site:GroundTemperature:{}>,Jan{{C}},Feb{{C}},Mar{{C}},Apr{{C}},May{{C}},Jun{{C}},Jul{{C}},Aug{{C}},Sep{{C}},Oct{{"
+                  "C}},Nov{{C}},Dec{{C}}\n",
+                  name);
+            print(os, " Site:GroundTemperature:{}, {}\n", name, std::format("{:6.2F}", EnergyPlus::join(data, ", ")));
+        }
+    };
+
+    BaseGroundTempsModel *GetGroundTempModelAndInit(EnergyPlusData &state, ModelType modelType, std::string const &name);
+
+>>>>>>> nrel/develop
 } // namespace GroundTemp
 
 struct GroundTemperatureManagerData final : BaseGlobalStruct

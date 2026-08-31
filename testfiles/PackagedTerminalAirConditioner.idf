@@ -127,7 +127,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -1527,16 +1531,26 @@
     Zone1PTACDXCoolCoil,     !- Cooling Coil Name
     BlowThrough,             !- Fan Placement
     ConstantFanSch,          !- Supply Air Fan Operating Mode Schedule Name
+<<<<<<< HEAD
     Zone1PTAC Availability Manager List; !- Availability Manager List Name
+=======
+    Zone1PTAC Availability Manager List;  !- Availability Manager List Name
+>>>>>>> nrel/develop
 
   Schedule:Compact,
     Zone1FanSched,           !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
+<<<<<<< HEAD
     Until: 7:00, 0.0,        !- Field 3
     Until: 18:00, 1.0,       !- Field 4
     Until: 24:00,0.0;        !- Field 5
+=======
+    Until: 7:00,0.0,         !- Field 3
+    Until: 18:00,1.0,        !- Field 5
+    Until: 24:00,0.0;        !- Field 7
+>>>>>>> nrel/develop
 
   AvailabilityManagerAssignmentList,
     Zone1PTAC Availability Manager List,  !- Name
@@ -2375,9 +2389,15 @@
 
   Output:Variable,Zone3PTACAirInletNode,System Node Humidity Ratio,Hourly;
 
+<<<<<<< HEAD
   Output:Variable,,Availability Manager Optimum Start Control Status,Hourly;
 
   Output:Variable,,Availability Manager Optimum Start Time Before Occupancy,Hourly;
+=======
+  Output:Variable,*,Availability Manager Optimum Start Control Status,Hourly;
+
+  Output:Variable,*,Availability Manager Optimum Start Time Before Occupancy,Hourly;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:METER:METERFILEONLY ===========
 

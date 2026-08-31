@@ -45,9 +45,19 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <cassert>
 
 // EnergyPlus headers
+=======
+// C++ Headers
+#include <cassert>
+
+// Third Party Headers
+#include <WCEMultiLayerOptics.hpp>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Construction.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -56,9 +66,13 @@
 #include <EnergyPlus/Material.hh>
 #include <EnergyPlus/WindowManager.hh>
 
+<<<<<<< HEAD
 // Windows library headers
 #include <WCEMultiLayerOptics.hpp>
 
+=======
+// Local Headers
+>>>>>>> nrel/develop
 #include "WindowManagerExteriorData.hh"
 #include "WindowManagerExteriorOptical.hh"
 
@@ -245,7 +259,11 @@ namespace Window {
                 Real64 EpsGlIR = s_mat->materials(constrSh.LayerPoint(TotLay - 1))->AbsorpThermalBack;
                 Real64 RhoGlIR = 1 - EpsGlIR;
                 Real64 TauShIR = matShade->TransThermal;
+<<<<<<< HEAD
                 Real64 EpsShIR = matShade->AbsorpThermal;
+=======
+                Real64 EpsShIR = matShade->AbsorpThermalIn;
+>>>>>>> nrel/develop
                 Real64 RhoShIR = max(0.0, 1.0 - TauShIR - EpsShIR);
                 surfShade.effShadeEmi = EpsShIR * (1.0 + RhoGlIR * TauShIR / (1.0 - RhoGlIR * RhoShIR));
                 surfShade.effGlassEmi = EpsGlIR * TauShIR / (1.0 - RhoGlIR * RhoShIR);

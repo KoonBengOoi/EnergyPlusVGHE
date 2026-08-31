@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 cmake_minimum_required(VERSION 3.19...4.0.3)  # policy_max is set, so that will impliclty invoke cmake_policy(VERSION <min>[...<max>])
+=======
+cmake_minimum_required(VERSION 3.25...4.0.3)  # policy_max is set, so that will impliclty invoke cmake_policy(VERSION <min>[...<max>])
+>>>>>>> nrel/develop
 
 # Use ccache if available, has to be before "project()"
 find_program(CCACHE_PROGRAM NAMES ccache sccache)
@@ -13,12 +17,22 @@ endif()
 
 project(EnergyPlus)
 
+<<<<<<< HEAD
 # Raise an error if attempting to compile on macOS older than 10.15 - it does not work
 if (APPLE)
   if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     message(FATAL_ERROR "CMAKE_OSX_DEPLOYMENT_TARGET not set. Please set CMAKE_OSX_DEPLOYMENT_TARGET to 10.15 or greater and try again.")
   elseif (CMAKE_OSX_DEPLOYMENT_TARGET VERSION_LESS "10.15")
     message(FATAL_ERROR "The minimum required version for macOS is 10.15, however CMAKE_OSX_DEPLOYMENT_TARGET is set to ${CMAKE_OSX_DEPLOYMENT_TARGET}.")
+=======
+# Raise an error if attempting to compile on macOS older than 13.3 - it does not work
+# 10.15 minimum for std::filesystem, 13.3 minimum for std::format with floating-point (to_chars)
+if (APPLE)
+  if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+    message(FATAL_ERROR "CMAKE_OSX_DEPLOYMENT_TARGET not set. Please set CMAKE_OSX_DEPLOYMENT_TARGET to 13.3 or greater and try again.")
+  elseif (CMAKE_OSX_DEPLOYMENT_TARGET VERSION_LESS "13.3")
+    message(FATAL_ERROR "The minimum required version for macOS is 13.3, however CMAKE_OSX_DEPLOYMENT_TARGET is set to ${CMAKE_OSX_DEPLOYMENT_TARGET}.")
+>>>>>>> nrel/develop
   endif()
 endif()
 
@@ -28,6 +42,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 # Project-wide default C++ language level (individual third-party targets may lower/raise as needed)
+<<<<<<< HEAD
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -53,6 +68,43 @@ if(ENABLE_PCH)
     "${PROJECT_SOURCE_DIR}/third_party/ObjexxFCL/src/ObjexxFCL/Array1D.hh"
     "${PROJECT_SOURCE_DIR}/third_party/nlohmann/json.hpp"
     )
+=======
+set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ standard to build EnergyPlus with (Official: 20)")
+set_property(CACHE CMAKE_CXX_STANDARD PROPERTY STRINGS 20 23 26)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# We don't use C++20 modules: disable CMake's dependency scanning to avoid a separate
+# "Scanning ... for CXX dependencies" step (and compiler invocation) for every TU
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+add_library(project_options INTERFACE)
+target_compile_features(project_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD})
+
+option(ENABLE_PCH "Enable Precompiled Headers" ON)
+# List of headers to precompile: each project will build its own PCH, which is a good idea if any #define's change
+set(EP_CXX_PCH_HEADERS
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/src/EnergyPlus/DataGlobalConstants.hh>"
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/src/EnergyPlus/DataGlobals.hh>"
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/src/EnergyPlus/Data/EnergyPlusData.hh>"
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/third_party/ObjexxFCL/src/ObjexxFCL/Array.functions.hh>"
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/third_party/ObjexxFCL/src/ObjexxFCL/Array1D.hh>"
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/third_party/nlohmann/nlohmann/json.hpp>"
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/src/EnergyPlus/Formatters.hh>")
+set(EP_TEST_CXX_PCH_HEADERS
+    ${EP_CXX_PCH_HEADERS}
+    "$<$<COMPILE_LANGUAGE:CXX>:<gtest/gtest.h>>"
+    "$<$<COMPILE_LANGUAGE:CXX>:${PROJECT_SOURCE_DIR}/tst/EnergyPlus/unit/Fixtures/EnergyPlusFixture.hh>")
+
+if(ENABLE_PCH AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  # Without this, Clang embeds a timestamp in the generated .pch, so its content hash differs
+  # on every build even when sources/headers are unchanged. ccache hashes that .pch content for
+  # both the direct-mode manifest and the preprocessor-mode result key, so every TU using
+  # -include-pch becomes a guaranteed cache miss. See ccache manual, "Precompiled Headers".
+  target_compile_options(project_options INTERFACE "$<$<COMPILE_LANGUAGE:CXX>:SHELL:-Xclang -fno-pch-timestamp>")
+>>>>>>> nrel/develop
 endif()
 
 option(ENABLE_UNITY "Enable Unity Build" OFF)
@@ -61,7 +113,16 @@ add_library(project_fp_options INTERFACE)
 
 add_library(project_warnings INTERFACE)
 
+<<<<<<< HEAD
 add_library(turn_off_warnings INTERFACE)
+=======
+# Useful for checking once in a while if a third-party library is generating scary warnings, but too noisy for normal development
+option(ENABLE_WARNINGS_IN_THIRD_PARTY "Enable warnings in third-party libraries" OFF)
+mark_as_advanced(ENABLE_WARNINGS_IN_THIRD_PARTY)
+
+add_library(turn_off_warnings INTERFACE)
+add_library(warnings_as_not_error INTERFACE) # -Wno-error
+>>>>>>> nrel/develop
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads)
@@ -101,10 +162,19 @@ option(USE_GLYCOL_CACHING "Use glycol cashing routines" ON)
 option(USE_PSYCH_STATS "Compute psychrometric stats" OFF)
 option(USE_PSYCH_ERRORS "Report psychrometric errors " ON)
 
+<<<<<<< HEAD
+=======
+if(APPLE AND CMAKE_GENERATOR STREQUAL "Xcode" AND OPENGL_FOUND)
+  set(OPENGL_FOUND FALSE)
+  message(STATUS "Disabling OpenGL for Xcode-generated builds to avoid Cocoa window creation during build/test execution")
+endif()
+
+>>>>>>> nrel/develop
 mark_as_advanced(BUILD_OBJEXXFCL_TESTING)
 
 #######################################################################
 
+<<<<<<< HEAD
 # TODO: remove at next release
 # Temporary workaround to default the correct DOCUMENTATION_BUILD value if BUILD_DOCS existed in the cache or is passed via the command line
 # This warning will be triggered only once if it's from the Cache since I'm unsetting it
@@ -129,6 +199,9 @@ endif()
 set(DocumentationBuildValues
     "DoNotBuild;BuildWithAll;BuildOnlyWithPackage"
     CACHE INTERNAL "List of possible values for the LaTeX-pdf documentation")
+=======
+set(DocumentationBuildValues "DoNotBuild;BuildWithAll;BuildOnlyWithPackage")
+>>>>>>> nrel/develop
 set(DOCUMENTATION_BUILD
     "DoNotBuild"
     CACHE STRING "Build LaTeX-pdf documentation")
@@ -138,6 +211,7 @@ if(NOT DOCUMENTATION_BUILD IN_LIST DocumentationBuildValues)
   message(FATAL_ERROR "DOCUMENTATION_BUILD must be one of ${DocumentationBuildValues}")
 endif()
 
+<<<<<<< HEAD
 # Local only variables for ease of use in if blocks
 set(BUILD_DOCS OFF)
 set(BUILD_DOCS_ONLY_WITH_PACKAGE OFF)
@@ -149,6 +223,8 @@ elseif(DOCUMENTATION_BUILD STREQUAL "BuildOnlyWithPackage")
   set(BUILD_DOCS ON)
   set(BUILD_DOCS_ONLY_WITH_PACKAGE ON)
 endif()
+=======
+>>>>>>> nrel/develop
 #######################################################################
 
 option(LINK_WITH_PYTHON "Link with Python Library for Python Plugin Builds" OFF)
@@ -164,7 +240,11 @@ if(APPLE AND BUILD_PACKAGE)
   # Otherwise, the register_install_codesign_target isn't added until you reconfigure cmake...
   include(cmake/CodeSigning.cmake)
 
+<<<<<<< HEAD
   # Defines CPACK_CODESIGNING_DEVELOPPER_ID_APPLICATION and CPACK_CODESIGNING_NOTARY_PROFILE_NAME
+=======
+  # Defines CPACK_CODESIGNING_DEVELOPER_ID_APPLICATION and CPACK_CODESIGNING_NOTARY_PROFILE_NAME
+>>>>>>> nrel/develop
   setup_macos_codesigning_variables()
 endif()
 
@@ -288,6 +368,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/Products")
 include(cmake/ProjectMacros.cmake)
 include(cmake/CompilerFlags.cmake)
 
+<<<<<<< HEAD
 add_subdirectory(third_party)
 
 target_include_directories(project_options INTERFACE ${PROJECT_SOURCE_DIR}/src)
@@ -327,6 +408,11 @@ if(OPENGL_FOUND)
       OFF
       CACHE BOOL "")
 endif()
+=======
+add_subdirectory(third_party SYSTEM)
+
+target_include_directories(project_options INTERFACE ${PROJECT_SOURCE_DIR}/src)
+>>>>>>> nrel/develop
 
 # E+ required libraries
 add_subdirectory(idd)
@@ -434,10 +520,15 @@ if(BUILD_PACKAGE)
   include(${PROJECT_SOURCE_DIR}/cmake/Install.cmake)
 endif()
 
+<<<<<<< HEAD
 if(BUILD_DOCS)
   set(DOCS_TESTING
       ${BUILD_TESTING}
       CACHE INTERNAL "" FORCE)
+=======
+if(NOT DOCUMENTATION_BUILD STREQUAL "DoNotBuild")
+  set(DOCS_TESTING ${BUILD_TESTING})
+>>>>>>> nrel/develop
   add_subdirectory(doc)
 endif()
 

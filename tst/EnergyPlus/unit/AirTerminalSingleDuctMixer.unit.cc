@@ -599,8 +599,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimPTAC_ATMInletSide)
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -952,8 +955,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimPTAC_ATMSupplySide)
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -1391,8 +1397,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimPTHP_ATMInletSide)
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -1829,8 +1838,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimPTHP_ATMSupplySide)
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -2532,8 +2544,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimVRF_ATMInletSide)
 
     state->dataGlobal->TimeStep = 1;
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -3216,8 +3231,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimVRF_ATMSupplySide)
     state->dataEnvrn->OutEnthalpy = Psychrometrics::PsyHFnTdbW(state->dataEnvrn->OutDryBulbTemp, state->dataEnvrn->OutHumRat);
     state->dataEnvrn->StdRhoAir = 1.20;
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -4981,8 +4999,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimVRFfluidCntrl_ATMInletSi
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -6761,8 +6782,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimVRFfluidCntrl_ATMSupplyS
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -7014,8 +7038,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimUnitVent_ATMInletSide)
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -7260,8 +7287,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimUnitVent_ATMSupplySide)
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -7711,7 +7741,10 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimFCU_ATMInletSideTest)
     state->dataEnvrn->OutBaroPress = 101325.0;
     state->dataEnvrn->StdRhoAir = Psychrometrics::PsyRhoAirFnPbTdbW(*state, state->dataEnvrn->OutBaroPress, 20.0, 0.0);
     state->dataWaterCoils->GetWaterCoilsInputFlag = true;
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 
@@ -7937,7 +7970,11 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_SimFCU_ATMInletSideTest)
 
     // check mass flow rates
     EXPECT_NEAR(PrimaryAirMassFlowRate, 0.2, 0.000001);
+<<<<<<< HEAD
     // Tolerance here wwas 0.000001, why?  Why is tolerance of less
+=======
+    // Tolerance here was 0.000001, why?  Why is tolerance of less
+>>>>>>> nrel/develop
     // than 1/10th or even 1/100th of a percent needed on anything?
     EXPECT_NEAR(SecondaryAirMassFlowRate, 0.350865, 0.001);
     EXPECT_NEAR(state->dataLoopNodes->Node(thisFanCoil.AirInNode).MassFlowRate, thisFan->inletAirMassFlowRate, 0.000001);
@@ -8135,7 +8172,10 @@ TEST_F(EnergyPlusFixture, AirTerminalSingleDuctMixer_FCU_NightCycleTest)
     state->dataGlobal->MinutesInTimeStep = 60;
     state->init_state(*state);
 
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     GetZoneData(*state, ErrorsFound);
     ASSERT_FALSE(ErrorsFound);
 

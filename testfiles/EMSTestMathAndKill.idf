@@ -44,7 +44,11 @@
 ! RoofConstruction=Attic and Other
 ! ExtWallConstruction=Mass
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,6;
 

@@ -46,12 +46,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
+=======
+#include <array>
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
 #include <EnergyPlus/DataGlobals.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/DataIPShortCuts.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/GroundTemperatureModeling/SiteShallowGroundTemperatures.hh>
 #include <EnergyPlus/InputProcessing/InputProcessor.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
@@ -72,6 +79,10 @@ namespace GroundTemp {
         // Reads input and creates instance of Site:GroundDomain:Shallow object
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
+<<<<<<< HEAD
+=======
+        constexpr int numMonths = 12;
+>>>>>>> nrel/develop
         bool errorsFound = false;
 
         // New shared pointer for this model object
@@ -79,13 +90,21 @@ namespace GroundTemp {
 
         ModelType modelType = ModelType::SiteShallow;
 
+<<<<<<< HEAD
         std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNamesUC[(int)modelType];
         const int numCurrObjects = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, cCurrentModuleObject);
+=======
+        std::string_view const cCurrentModuleObject = GroundTemp::modelTypeNames[(int)modelType];
+        std::string const currentModuleObject(cCurrentModuleObject);
+        auto *inputProcessor = state.dataInputProcessing->inputProcessor.get();
+        const int numCurrObjects = inputProcessor->getNumObjectsFound(state, cCurrentModuleObject);
+>>>>>>> nrel/develop
 
         thisModel->modelType = modelType;
         thisModel->Name = objectName;
 
         if (numCurrObjects == 1) {
+<<<<<<< HEAD
 
             int NumNums;
             int NumAlphas;
@@ -103,12 +122,40 @@ namespace GroundTemp {
             // Assign the ground temps to the variable
             for (int i = 1; i <= 12; ++i) {
                 thisModel->surfaceGroundTemps[i - 1] = state.dataIPShortCut->rNumericArgs(i);
+=======
+            auto const &groundTempsInstances = inputProcessor->epJSON.at(currentModuleObject);
+            auto const groundTempsInstance = groundTempsInstances.begin();
+            auto const &groundTempsFields = groundTempsInstance.value();
+            auto const &groundTempsSchemaProps = inputProcessor->getObjectSchemaProps(state, currentModuleObject);
+            inputProcessor->markObjectAsUsed(currentModuleObject, groundTempsInstance.key());
+            static constexpr std::array<std::string_view, numMonths> fieldNames = {"january_surface_ground_temperature",
+                                                                                   "february_surface_ground_temperature",
+                                                                                   "march_surface_ground_temperature",
+                                                                                   "april_surface_ground_temperature",
+                                                                                   "may_surface_ground_temperature",
+                                                                                   "june_surface_ground_temperature",
+                                                                                   "july_surface_ground_temperature",
+                                                                                   "august_surface_ground_temperature",
+                                                                                   "september_surface_ground_temperature",
+                                                                                   "october_surface_ground_temperature",
+                                                                                   "november_surface_ground_temperature",
+                                                                                   "december_surface_ground_temperature"};
+
+            // Assign the ground temps to the variable
+            for (int i = 0; i < numMonths; ++i) {
+                thisModel->surfaceGroundTemps[i] =
+                    inputProcessor->getRealFieldValue(groundTempsFields, groundTempsSchemaProps, std::string(fieldNames[i]));
+>>>>>>> nrel/develop
             }
 
             state.dataEnvrn->GroundTempInputs[static_cast<int>(DataEnvironment::GroundTempType::Shallow)] = true;
 
         } else if (numCurrObjects > 1) {
+<<<<<<< HEAD
             ShowSevereError(state, fmt::format("{}: Too many objects entered. Only one allowed.", GroundTemp::modelTypeNames[(int)modelType]));
+=======
+            ShowSevereError(state, std::format("{}: Too many objects entered. Only one allowed.", GroundTemp::modelTypeNames[(int)modelType]));
+>>>>>>> nrel/develop
             errorsFound = true;
         } else {
             std::fill(thisModel->surfaceGroundTemps.begin(), thisModel->surfaceGroundTemps.end(), 13.0);
@@ -122,7 +169,11 @@ namespace GroundTemp {
             return thisModel;
         }
 
+<<<<<<< HEAD
         ShowFatalError(state, fmt::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+=======
+        ShowFatalError(state, std::format("{}--Errors getting input for ground temperature model", GroundTemp::modelTypeNames[(int)modelType]));
+>>>>>>> nrel/develop
         return nullptr;
     }
 

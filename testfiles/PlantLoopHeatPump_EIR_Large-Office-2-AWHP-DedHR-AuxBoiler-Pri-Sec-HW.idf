@@ -44,7 +44,11 @@
 ! Chillers:                       HeatPump:PlantLoop:EIR:Cooling, HeatPump:PlantLoop:EIR:Heating
 ! Number of Zones: 19
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   SimulationControl,
     YES,                     !- Do Zone Sizing Calculation
@@ -7729,8 +7733,13 @@
   ZoneControl:Humidistat,
     Core_bottom Humidistat,  !- Name
     Core_bottom,             !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Core_mid Thermostat,     !- Name
@@ -7742,8 +7751,13 @@
   ZoneControl:Humidistat,
     Core_mid Humidistat,     !- Name
     Core_mid,                !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Core_top Thermostat,     !- Name
@@ -7755,8 +7769,13 @@
   ZoneControl:Humidistat,
     Core_top Humidistat,     !- Name
     Core_top,                !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_bot_ZN_1 Thermostat,  !- Name
@@ -7768,8 +7787,13 @@
   ZoneControl:Humidistat,
     Perimeter_bot_ZN_1 Humidistat,  !- Name
     Perimeter_bot_ZN_1,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_bot_ZN_2 Thermostat,  !- Name
@@ -7781,8 +7805,13 @@
   ZoneControl:Humidistat,
     Perimeter_bot_ZN_2 Humidistat,  !- Name
     Perimeter_bot_ZN_2,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_bot_ZN_3 Thermostat,  !- Name
@@ -7794,8 +7823,13 @@
   ZoneControl:Humidistat,
     Perimeter_bot_ZN_3 Humidistat,  !- Name
     Perimeter_bot_ZN_3,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_bot_ZN_4 Thermostat,  !- Name
@@ -7807,8 +7841,13 @@
   ZoneControl:Humidistat,
     Perimeter_bot_ZN_4 Humidistat,  !- Name
     Perimeter_bot_ZN_4,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_mid_ZN_1 Thermostat,  !- Name
@@ -7820,8 +7859,13 @@
   ZoneControl:Humidistat,
     Perimeter_mid_ZN_1 Humidistat,  !- Name
     Perimeter_mid_ZN_1,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_mid_ZN_2 Thermostat,  !- Name
@@ -7833,8 +7877,13 @@
   ZoneControl:Humidistat,
     Perimeter_mid_ZN_2 Humidistat,  !- Name
     Perimeter_mid_ZN_2,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_mid_ZN_3 Thermostat,  !- Name
@@ -7846,8 +7895,13 @@
   ZoneControl:Humidistat,
     Perimeter_mid_ZN_3 Humidistat,  !- Name
     Perimeter_mid_ZN_3,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_mid_ZN_4 Thermostat,  !- Name
@@ -7859,8 +7913,13 @@
   ZoneControl:Humidistat,
     Perimeter_mid_ZN_4 Humidistat,  !- Name
     Perimeter_mid_ZN_4,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_top_ZN_1 Thermostat,  !- Name
@@ -7872,8 +7931,13 @@
   ZoneControl:Humidistat,
     Perimeter_top_ZN_1 Humidistat,  !- Name
     Perimeter_top_ZN_1,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_top_ZN_2 Thermostat,  !- Name
@@ -7885,8 +7949,13 @@
   ZoneControl:Humidistat,
     Perimeter_top_ZN_2 Humidistat,  !- Name
     Perimeter_top_ZN_2,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_top_ZN_3 Thermostat,  !- Name
@@ -7898,8 +7967,13 @@
   ZoneControl:Humidistat,
     Perimeter_top_ZN_3 Humidistat,  !- Name
     Perimeter_top_ZN_3,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     Perimeter_top_ZN_4 Thermostat,  !- Name
@@ -7911,8 +7985,13 @@
   ZoneControl:Humidistat,
     Perimeter_top_ZN_4 Humidistat,  !- Name
     Perimeter_top_ZN_4,      !- Zone Name
+<<<<<<< HEAD
     Min Rel Hum Set Sched,   !- Humidifying Relative Humidity Setpoint Schedule Name
     Max Rel Hum Set Sched;   !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    Min Rel Hum Set Sched,   !- Humidifying Setpoint Schedule Name
+    Max Rel Hum Set Sched;   !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Basement DualSPSched,    !- Name

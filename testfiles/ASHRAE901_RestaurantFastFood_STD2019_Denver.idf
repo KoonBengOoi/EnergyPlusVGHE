@@ -4,7 +4,11 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -291,6 +295,7 @@
     Number;                  !- Name
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
+<<<<<<< HEAD
                              !- Field 4
                              !- Field 12
                              !- Field 14
@@ -305,6 +310,8 @@
                              !- Field 52
                              !- Field 54
                              !- Field 56
+=======
+>>>>>>> nrel/develop
 
   Schedule:Compact,
     BLDG_LIGHT_DINING_SCH,   !- Name
@@ -342,8 +349,11 @@
     Until: 23:00,0.466190245,!- Field 55
     Until: 24:00,0.279714147;!- Field 57
 
+<<<<<<< HEAD
                              !- Field 58
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_LIGHT_KITCHEN_SCH,  !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -415,6 +425,7 @@
     Until: 23:00,0.5,        !- Field 53
     Until: 24:00,0.3;        !- Field 55
 
+<<<<<<< HEAD
                              !- Field 4
                              !- Field 8
                              !- Field 12
@@ -476,6 +487,8 @@
                              !- Field 150
                              !- A154
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     BLDG_EQUIP_SCH,          !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -560,8 +573,11 @@
     Until: 23:00,0.0899024355, !- <none>
     Until: 24:00,0.0299674785; !- <none>
 
+<<<<<<< HEAD
                              !- A156
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     FF_GAS_EQUIP_SCH,        !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -1520,12 +1536,15 @@
     Until: 06:00,0.5,        !- Field 3
     Until: 24:00,1;          !- Field 5
 
+<<<<<<< HEAD
                              !- Field 4
                              !- Field 8
                              !- Field 11
                              !- Field 15
                              !- Field 18
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     Kitchen Exhaust Fan Balanced Exhaust Fraction Schedule,  !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -1543,7 +1562,10 @@
     Until: 05:00,1.0,        !- Field 19
     Until: 24:00,0.26715046324248; !- Field 21
 
+<<<<<<< HEAD
                              !- Field 22
+=======
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
 
   Schedule:Constant,SZ_system_OA_Max_Frac_SCH,Fraction,0.75;
@@ -2422,10 +2444,13 @@
     0.000,0.2540,1.0671,  !- X,Y,Z ==> Vertex 3 {m}
     0.000,0.2540,1.9817;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   FenestrationSurface:Detailed,
     Kitchen_Wall_East_Door,  !- Name
     Door,                    !- Surface Type
@@ -2441,7 +2466,10 @@
     15.242800000000,11.063090892281,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
     15.242800000000,11.063090892281,2.133600000000;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
+=======
+>>>>>>> nrel/develop
 !-   ===========  ALL OBJECTS IN CLASS: INTERNALMASS ===========
 
   InternalMass,

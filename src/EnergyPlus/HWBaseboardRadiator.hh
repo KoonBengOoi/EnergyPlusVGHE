@@ -129,7 +129,11 @@ namespace HWBaseboardRadiator {
         Real64 LastQBBRadSrc = 0.0;      // Need to keep the last value in case we are still iterating
     };
 
+<<<<<<< HEAD
     struct HWBaseboardDesignData : HWBaseboardParams
+=======
+    struct HWBaseboardDesignData
+>>>>>>> nrel/develop
     {
         // Members
         std::string designName;

@@ -221,6 +221,7 @@ namespace HVAC {
     enum class CoilType
     {
         Invalid = -1,
+<<<<<<< HEAD
         DXCoolingSingleSpeed,
         DXHeatingEmpirical,
         DXCoolingTwoSpeed,
@@ -230,6 +231,17 @@ namespace HVAC {
         DXHeatPumpWaterHeaterWrapped,
         DXMultiSpeedCooling,
         DXMultiSpeedHeating,
+=======
+        CoolingDXSingleSpeed,
+        HeatingDXSingleSpeed,
+        CoolingDXTwoSpeed,
+        CoolingDXHXAssisted,
+        CoolingDXTwoStageWHumControl,
+        WaterHeatingDXPumped,
+        WaterHeatingDXWrapped,
+        CoolingDXMultiSpeed,
+        HeatingDXMultiSpeed,
+>>>>>>> nrel/develop
         HeatingGasOrOtherFuel,
         HeatingGasMultiStage,
         HeatingElectric,
@@ -239,6 +251,7 @@ namespace HVAC {
         CoolingWaterDetailed,
         HeatingWater,
         HeatingSteam,
+<<<<<<< HEAD
         WaterCoolingHXAssisted,
         CoolingWaterToAirHP,
         HeatingWaterToAirHP,
@@ -338,6 +351,43 @@ namespace HVAC {
     int constexpr CoilDX_Cooling(35);
     //    int constexpr CoilDX_SubcoolReheat(36);
     int constexpr CoilDX_CurveFit_Speed(37);
+=======
+        CoolingWaterHXAssisted,
+        CoolingWAHP,
+        HeatingWAHP,
+        CoolingWAHPSimple,
+        HeatingWAHPSimple,
+        CoolingVRF,
+        HeatingVRF,
+        UserDefined,
+        CoolingDXPackagedThermalStorage,
+        CoolingWAHPVariableSpeedEquationFit,
+        HeatingWAHPVariableSpeedEquationFit,
+        CoolingDXVariableSpeed,
+        HeatingDXVariableSpeed,
+        WaterHeatingAWHPVariableSpeed,
+        CoolingVRFFluidTCtrl,
+        HeatingVRFFluidTCtrl,
+        CoolingDX,
+        DXSubcoolReheat,
+        CoolingDXCurveFit,
+#ifdef GET_OUT
+        // Leaving these out for now
+        IHPAirSource,
+        CoolingSystemDX,
+        HeatingSystemDX,
+#endif // GET_OUT
+        Num
+    };
+
+    extern const std::array<std::string_view, (int)CoilType::Num> coilTypeNames;
+    extern const std::array<std::string_view, (int)CoilType::Num> coilTypeNamesUC;
+
+    extern const std::array<bool, (int)CoilType::Num> coilTypeIsHeating;
+    extern const std::array<bool, (int)CoilType::Num> coilTypeIsCooling;
+
+    extern const std::array<bool, (int)CoilType::Num> coilTypeIsHeatPump;
+>>>>>>> nrel/develop
 
     enum class CoilMode
     {
@@ -348,6 +398,55 @@ namespace HVAC {
         Num
     };
 
+<<<<<<< HEAD
+=======
+    enum class HeatReclaimType // reclaim heat object types
+    {
+        Invalid = -1,
+        RefrigeratedCaseCompressorRack,
+        RefrigeratedCaseCondenserAirCooled,
+        RefrigeratedCaseCondenserEvaporativeCooled,
+        RefrigeratedCaseCondenserWaterCooled,
+        CoilCoolDXSingleSpeed,
+        CoilCoolDXTwoSpeed,
+        CoilCoolDXMultiSpeed,
+        CoilCoolDXMultiMode,
+        CoilCoolDXVariableSpeed,
+        CoilCoolDX,
+        CoilCoolWAHPEquationFit,
+        CoilCoolWAHPVariableSpeedEquationFit,
+        Num
+    };
+
+    constexpr std::array<std::string_view, (int)HeatReclaimType::Num> heatReclaimTypeNames = {
+        "Refrigeration:CompressorRack",
+        "Refrigeration:Condenser:AirCooled",
+        "Refrigeration:Condenser:EvaporativeCooled",
+        "Refrigeration:Condenser:WaterCooled",
+        "Coil:Cooling:DX:SingleSpeed",
+        "Coil:Cooling:DX:TwoSpeed",
+        "Coil:Cooling:DX:MultiSpeed",
+        "Coil:Cooling:DX:TwoStageWithHumidityControlMode",
+        "Coil:Cooling:DX:VariableSpeed",
+        "Coil:Cooling:DX",
+        "Coil:Cooling:WaterToAirHeatPump:EquationFit",
+        "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"};
+
+    constexpr std::array<std::string_view, (int)HeatReclaimType::Num> heatReclaimTypeNamesUC = {
+        "REFRIGERATION:COMPRESSORRACK",
+        "REFRIGERATION:CONDENSER:AIRCOOLED",
+        "REFRIGERATION:CONDENSER:EVAPORATIVECOOLED",
+        "REFRIGERATION:CONDENSER:WATERCOOLED",
+        "COIL:COOLING:DX:SINGLESPEED",
+        "COIL:COOLING:DX:TWOSPEED",
+        "COIL:COOLING:DX:MULTISPEED",
+        "COIL:COOLING:DX:TWOSTAGEWITHHUMIDITYCONTROLMODE",
+        "COIL:COOLING:DX:VARIABLESPEED",
+        "COIL:COOLING:DX",
+        "COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT",
+        "COIL:COOLING:WATERTOAIRHEATPUMP:VARIABLESPEEDEQUATIONFIT"};
+
+>>>>>>> nrel/develop
     enum class WaterFlow
     {
         Invalid = -1,
@@ -435,10 +534,13 @@ namespace HVAC {
 
     int constexpr MaxSpeedLevels = 10;
 
+<<<<<<< HEAD
     extern Array1D_string const cAllCoilTypes;
     extern Array1D_string const cCoolingCoilTypes;
     extern Array1D_string const cHeatingCoilTypes;
 
+=======
+>>>>>>> nrel/develop
     struct ComponentSetPtData
     {
         // Members

@@ -79,6 +79,7 @@ namespace EnergyPlus {
 //    state->dataInputProcessing->inputProcessor = InputProcessor::factory();
 //}
 
+<<<<<<< HEAD
 void EnergyPlusFixture::openOutputFiles(EnergyPlusData &state)
 {
     state.files.eio.open_as_stringstream();
@@ -92,6 +93,21 @@ void EnergyPlusFixture::openOutputFiles(EnergyPlusData &state)
     state.files.zsz.open_as_stringstream();
     state.files.spsz.open_as_stringstream();
     state.files.ssz.open_as_stringstream();
+=======
+void EnergyPlusFixture::openOutputFiles()
+{
+    this->state->files.eio.open_as_stringstream();
+    this->state->files.mtr.open_as_stringstream();
+    this->state->files.eso.open_as_stringstream();
+    this->state->files.audit.open_as_stringstream();
+    this->state->files.bnd.open_as_stringstream();
+    this->state->files.debug.open_as_stringstream();
+    this->state->files.mtd.open_as_stringstream();
+    this->state->files.edd.open_as_stringstream();
+    this->state->files.zsz.open_as_stringstream();
+    this->state->files.spsz.open_as_stringstream();
+    this->state->files.ssz.open_as_stringstream();
+>>>>>>> nrel/develop
 }
 
 void EnergyPlusFixture::SetUp()
@@ -104,7 +120,11 @@ void EnergyPlusFixture::SetUp()
 
     show_message();
 
+<<<<<<< HEAD
     openOutputFiles(*state);
+=======
+    openOutputFiles();
+>>>>>>> nrel/develop
 
     this->err_stream = new std::ostringstream;
 
@@ -119,7 +139,10 @@ void EnergyPlusFixture::SetUp()
     state->dataUtilityRoutines->outputErrorHeader = false;
 
     state->init_constant_state(*state);
+<<<<<<< HEAD
     createCoilSelectionReportObj(*state); // So random
+=======
+>>>>>>> nrel/develop
     state->dataEnvrn->StdRhoAir = 1.2;
 }
 
@@ -193,6 +216,14 @@ bool EnergyPlusFixture::compare_eio_stream(std::string const &expected_string, b
 
 bool EnergyPlusFixture::compare_eio_stream_substring(std::string const &search_string, bool reset_stream)
 {
+<<<<<<< HEAD
+=======
+    if (search_string.empty()) {
+        ADD_FAILURE() << "compare_eio_stream_substring cannot search for an empty string; use compare_eso_stream or has_eso_output instead.";
+        return false;
+    }
+
+>>>>>>> nrel/develop
     auto const stream_str = state->files.eio.get_output();
     bool const found = stream_str.find(search_string) != std::string::npos;
     EXPECT_TRUE(found);
@@ -226,6 +257,14 @@ bool EnergyPlusFixture::compare_err_stream(std::string const &expected_string, b
 
 bool EnergyPlusFixture::compare_err_stream_substring(std::string const &search_string, bool reset_stream, bool call_expect)
 {
+<<<<<<< HEAD
+=======
+    if (search_string.empty()) {
+        ADD_FAILURE() << "compare_err_stream_substring cannot search for an empty string; use compare_err_stream or has_err_output instead.";
+        return false;
+    }
+
+>>>>>>> nrel/develop
     auto const stream_str = this->err_stream->str();
     bool const found = stream_str.find(search_string) != std::string::npos;
     if (call_expect) {
@@ -249,6 +288,14 @@ bool EnergyPlusFixture::compare_cout_stream(std::string const &expected_string, 
 }
 bool EnergyPlusFixture::compare_cout_stream_substring(std::string const &search_string, bool reset_stream)
 {
+<<<<<<< HEAD
+=======
+    if (search_string.empty()) {
+        ADD_FAILURE() << "compare_cout_stream_substring cannot search for an empty string; use compare_cout_stream or has_cout_output instead.";
+        return false;
+    }
+
+>>>>>>> nrel/develop
     auto const stream_str = this->m_cout_buffer->str();
     bool const found = stream_str.find(search_string) != std::string::npos;
     if (reset_stream) {
@@ -359,9 +406,36 @@ bool EnergyPlusFixture::match_err_stream(std::string const &expected_match, bool
 
 bool EnergyPlusFixture::process_idf(std::string_view const idf_snippet, bool use_assertions)
 {
+<<<<<<< HEAD
     bool success = true;
     auto &inputProcessor = state->dataInputProcessing->inputProcessor;
     inputProcessor->epJSON = inputProcessor->idf_parser->decode(idf_snippet, inputProcessor->schema(), success);
+=======
+    auto &inputProcessor = state->dataInputProcessing->inputProcessor;
+
+    state->dataGlobal->isEpJSON = false;
+    bool success = true;
+    inputProcessor->epJSON = inputProcessor->idf_parser->decode(idf_snippet, inputProcessor->schema(), success);
+    bool const successful_processing = success && common_process_json(false);
+    if (!successful_processing && use_assertions) {
+        EXPECT_TRUE(compare_err_stream(""));
+    }
+    return successful_processing;
+}
+
+bool EnergyPlusFixture::process_json(nlohmann::json const &epJSON, bool use_assertions)
+{
+    auto &inputProcessor = state->dataInputProcessing->inputProcessor;
+
+    state->dataGlobal->isEpJSON = true;
+    inputProcessor->epJSON = epJSON;
+    return common_process_json(use_assertions);
+}
+
+bool EnergyPlusFixture::common_process_json(bool use_assertions)
+{
+    auto &inputProcessor = state->dataInputProcessing->inputProcessor;
+>>>>>>> nrel/develop
 
     // Add common objects that will trigger a warning if not present
     if (inputProcessor->epJSON.find("Timestep") == inputProcessor->epJSON.end()) {
@@ -423,7 +497,11 @@ bool EnergyPlusFixture::process_idf(std::string_view const idf_snippet, bool use
 
     // inputProcessor->state->printErrors();
 
+<<<<<<< HEAD
     bool successful_processing = success && is_valid && !hasErrors;
+=======
+    bool successful_processing = is_valid && !hasErrors;
+>>>>>>> nrel/develop
 
     if (!successful_processing && use_assertions) {
         EXPECT_TRUE(compare_err_stream(""));

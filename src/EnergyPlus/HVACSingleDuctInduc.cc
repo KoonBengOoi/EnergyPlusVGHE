@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -127,26 +131,44 @@ namespace HVACSingleDuctInduc {
         if (CompIndex == 0) {
             IUNum = Util::FindItemInList(CompName, state.dataHVACSingleDuctInduc->IndUnit);
             if (IUNum == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("SimIndUnit: Induction Unit not found={}", CompName));
+=======
+                ShowFatalError(state, std::format("SimIndUnit: Induction Unit not found={}", CompName));
+>>>>>>> nrel/develop
             }
             CompIndex = IUNum;
         } else {
             IUNum = CompIndex;
             if (IUNum > state.dataHVACSingleDuctInduc->NumIndUnits || IUNum < 1) {
                 ShowFatalError(state,
+<<<<<<< HEAD
                                EnergyPlus::format("SimIndUnit: Invalid CompIndex passed={}, Number of Induction Units={}, System name={}",
                                                   CompIndex,
                                                   state.dataHVACSingleDuctInduc->NumIndUnits,
                                                   CompName));
+=======
+                               std::format("SimIndUnit: Invalid CompIndex passed={}, Number of Induction Units={}, System name={}",
+                                           CompIndex,
+                                           state.dataHVACSingleDuctInduc->NumIndUnits,
+                                           CompName));
+>>>>>>> nrel/develop
             }
             if (state.dataHVACSingleDuctInduc->CheckEquipName(IUNum)) {
                 if (CompName != state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name) {
                     ShowFatalError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("SimIndUnit: Invalid CompIndex passed={}, Induction Unit name={}, stored Induction Unit for that index={}",
                                            CompIndex,
                                            CompName,
                                            state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name));
+=======
+                        std::format("SimIndUnit: Invalid CompIndex passed={}, Induction Unit name={}, stored Induction Unit for that index={}",
+                                    CompIndex,
+                                    CompName,
+                                    state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name));
+>>>>>>> nrel/develop
                 }
                 state.dataHVACSingleDuctInduc->CheckEquipName(IUNum) = false;
             }
@@ -166,8 +188,13 @@ namespace HVACSingleDuctInduc {
             SimFourPipeIndUnit(state, IUNum, ZoneNum, ZoneNodeNum, FirstHVACIteration);
         } break;
         default: {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Illegal Induction Unit Type used={}", indUnit.UnitType));
             ShowContinueError(state, EnergyPlus::format("Occurs in Induction Unit={}", indUnit.Name));
+=======
+            ShowSevereError(state, std::format("Illegal Induction Unit Type used={}", indUnit.UnitType));
+            ShowContinueError(state, std::format("Occurs in Induction Unit={}", indUnit.Name));
+>>>>>>> nrel/develop
             ShowFatalError(state, "Preceding condition causes termination.");
         } break;
         }
@@ -250,6 +277,7 @@ namespace HVACSingleDuctInduc {
 
             int IUNum = IUIndex;
 
+<<<<<<< HEAD
             state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name = Alphas(1);
             state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType = CurrentModuleObject;
             state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType_Num = SingleDuct_CV::FourPipeInduc;
@@ -350,10 +378,104 @@ namespace HVACSingleDuctInduc {
             if (errFlag) {
                 ShowContinueError(
                     state, EnergyPlus::format("...specified in {} = {}", CurrentModuleObject, state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name));
+=======
+            auto &indUnit = state.dataHVACSingleDuctInduc->IndUnit(IUNum);
+            indUnit.Name = Alphas(1);
+            indUnit.UnitType = CurrentModuleObject;
+            indUnit.UnitType_Num = SingleDuct_CV::FourPipeInduc;
+
+            if (lAlphaBlanks(2)) {
+                indUnit.availSched = Sched::GetScheduleAlwaysOn(state);
+            } else if ((indUnit.availSched = Sched::GetSchedule(state, Alphas(2))) == nullptr) {
+                ShowSevereItemNotFound(state, eoh, cAlphaFields(2), Alphas(2));
+                ErrorsFound = true;
+            }
+            indUnit.MaxTotAirVolFlow = Numbers(1);
+            indUnit.InducRatio = Numbers(2);
+            if (lNumericBlanks(2)) {
+                indUnit.InducRatio = 2.5;
+            }
+
+            indUnit.PriAirInNode = GetOnlySingleNode(state,
+                                                     Alphas(3),
+                                                     ErrorsFound,
+                                                     Node::ConnectionObjectType::AirTerminalSingleDuctConstantVolumeFourPipeInduction,
+                                                     Alphas(1),
+                                                     Node::FluidType::Air,
+                                                     Node::ConnectionType::Inlet,
+                                                     Node::CompFluidStream::Primary,
+                                                     Node::ObjectIsParent,
+                                                     cAlphaFields(3));
+            indUnit.SecAirInNode = GetOnlySingleNode(state,
+                                                     Alphas(4),
+                                                     ErrorsFound,
+                                                     Node::ConnectionObjectType::AirTerminalSingleDuctConstantVolumeFourPipeInduction,
+                                                     Alphas(1),
+                                                     Node::FluidType::Air,
+                                                     Node::ConnectionType::Inlet,
+                                                     Node::CompFluidStream::Primary,
+                                                     Node::ObjectIsParent,
+                                                     cAlphaFields(4));
+            indUnit.OutAirNode = GetOnlySingleNode(state,
+                                                   Alphas(5),
+                                                   ErrorsFound,
+                                                   Node::ConnectionObjectType::AirTerminalSingleDuctConstantVolumeFourPipeInduction,
+                                                   Alphas(1),
+                                                   Node::FluidType::Air,
+                                                   Node::ConnectionType::Outlet,
+                                                   Node::CompFluidStream::Primary,
+                                                   Node::ObjectIsParent,
+                                                   cAlphaFields(5));
+
+            indUnit.HCoilType = Alphas(6); // type (key) of heating coil
+            if (Util::SameString(indUnit.HCoilType, "Coil:Heating:Water")) {
+                indUnit.HeatingCoilType = DataPlant::PlantEquipmentType::CoilWaterSimpleHeating;
+            }
+
+            indUnit.HCoil = Alphas(7); // name of heating coil object
+            bool IsNotOK = false;
+            indUnit.HWControlNode = WaterCoils::GetCoilWaterInletNode(state, indUnit.HCoilType, indUnit.HCoil, IsNotOK);
+            if (IsNotOK) {
+                ShowContinueError(state, std::format("In {} = {}", CurrentModuleObject, indUnit.Name));
+                ShowContinueError(state, "..Only Coil:Heating:Water is allowed.");
+                ErrorsFound = true;
+            }
+            indUnit.MaxVolHotWaterFlow = Numbers(3);
+            indUnit.MinVolHotWaterFlow = Numbers(4);
+            indUnit.HotControlOffset = Numbers(5);
+
+            indUnit.CCoilType = Alphas(8); // type (key) of cooling coil
+
+            if (Util::SameString(indUnit.CCoilType, "Coil:Cooling:Water")) {
+                indUnit.CoolingCoilType = DataPlant::PlantEquipmentType::CoilWaterCooling;
+            } else if (Util::SameString(indUnit.CCoilType, "Coil:Cooling:Water:DetailedGeometry")) {
+                indUnit.CoolingCoilType = DataPlant::PlantEquipmentType::CoilWaterDetailedFlatCooling;
+            }
+
+            indUnit.CCoil = Alphas(9); // name of cooling coil object
+            IsNotOK = false;
+            indUnit.CWControlNode = WaterCoils::GetCoilWaterInletNode(state, indUnit.CCoilType, indUnit.CCoil, IsNotOK);
+            if (IsNotOK) {
+                ShowContinueError(state, std::format("In {} = {}", CurrentModuleObject, indUnit.Name));
+                ShowContinueError(state, "..Only Coil:Cooling:Water or Coil:Cooling:Water:DetailedGeometry is allowed.");
+                ErrorsFound = true;
+            }
+            indUnit.MaxVolColdWaterFlow = Numbers(6);
+            indUnit.MinVolColdWaterFlow = Numbers(7);
+            indUnit.ColdControlOffset = Numbers(8);
+
+            // Get the Zone Mixer name and check that it is OK
+            bool errFlag = false;
+            indUnit.MixerName = Alphas(10);
+            MixerComponent::GetZoneMixerIndex(state, indUnit.MixerName, indUnit.Mixer_Num, errFlag, CurrentModuleObject);
+            if (errFlag) {
+                ShowContinueError(state, std::format("...specified in {} = {}", CurrentModuleObject, indUnit.Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             // Add heating coil to component sets array
+<<<<<<< HEAD
             Node::SetUpCompSets(state,
                                 state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                                 state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name,
@@ -393,6 +515,30 @@ namespace HVACSingleDuctInduc {
                 ShowContinueError(state,
                                   EnergyPlus::format("...should have outlet node={}",
                                                      state.dataLoopNodes->NodeID(state.dataHVACSingleDuctInduc->IndUnit(IUNum).OutAirNode)));
+=======
+            Node::SetUpCompSets(state, indUnit.UnitType, indUnit.Name, indUnit.HCoilType, indUnit.HCoil, Alphas(4), "UNDEFINED");
+            // Add cooling coil to component sets array
+            Node::SetUpCompSets(state, indUnit.UnitType, indUnit.Name, indUnit.CCoilType, indUnit.CCoil, "UNDEFINED", "UNDEFINED");
+
+            // Register component set data
+            Node::TestCompSet(state,
+                              indUnit.UnitType,
+                              indUnit.Name,
+                              state.dataLoopNodes->NodeID(indUnit.PriAirInNode),
+                              state.dataLoopNodes->NodeID(indUnit.OutAirNode),
+                              "Air Nodes");
+
+            for (int ADUNum = 1; ADUNum <= (int)state.dataDefineEquipment->AirDistUnit.size(); ++ADUNum) {
+                if (indUnit.OutAirNode == state.dataDefineEquipment->AirDistUnit(ADUNum).OutletNodeNum) {
+                    indUnit.ADUNum = ADUNum;
+                }
+            }
+            // one assumes if there isn't one assigned, it's an error?
+            if (indUnit.ADUNum == 0) {
+                ShowSevereError(state,
+                                std::format("{}No matching Air Distribution Unit, for Unit = [{},{}].", RoutineName, indUnit.UnitType, indUnit.Name));
+                ShowContinueError(state, std::format("...should have outlet node={}", state.dataLoopNodes->NodeID(indUnit.OutAirNode)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 // Fill the Zone Equipment data with the supply air inlet node number of this unit.
@@ -404,6 +550,7 @@ namespace HVACSingleDuctInduc {
                         continue;
                     }
                     for (int SupAirIn = 1; SupAirIn <= zoneEquipConfig.NumInletNodes; ++SupAirIn) {
+<<<<<<< HEAD
                         if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).OutAirNode == zoneEquipConfig.InletNode(SupAirIn)) {
                             if (zoneEquipConfig.AirDistUnitCool(SupAirIn).OutNode > 0) {
                                 ShowSevereError(state, "Error in connecting a terminal unit to a zone");
@@ -426,17 +573,41 @@ namespace HVACSingleDuctInduc {
                                 state.dataHVACSingleDuctInduc->IndUnit(IUNum).CtrlZoneNum = CtrlZone;
                             }
                             state.dataHVACSingleDuctInduc->IndUnit(IUNum).CtrlZoneInNodeIndex = SupAirIn;
+=======
+                        if (indUnit.OutAirNode == zoneEquipConfig.InletNode(SupAirIn)) {
+                            if (zoneEquipConfig.AirDistUnitCool(SupAirIn).OutNode > 0) {
+                                ShowSevereError(state, "Error in connecting a terminal unit to a zone");
+                                ShowContinueError(
+                                    state, std::format("{} already connects to another zone", state.dataLoopNodes->NodeID(indUnit.OutAirNode)));
+                                ShowContinueError(state, std::format("Occurs for terminal unit {} = {}", indUnit.UnitType, indUnit.Name));
+                                ShowContinueError(state, "Check terminal unit node names for errors");
+                                ErrorsFound = true;
+                            } else {
+                                zoneEquipConfig.AirDistUnitCool(SupAirIn).InNode = indUnit.PriAirInNode;
+                                zoneEquipConfig.AirDistUnitCool(SupAirIn).OutNode = indUnit.OutAirNode;
+                                state.dataDefineEquipment->AirDistUnit(indUnit.ADUNum).TermUnitSizingNum =
+                                    zoneEquipConfig.AirDistUnitCool(SupAirIn).TermUnitSizingIndex;
+                                state.dataDefineEquipment->AirDistUnit(indUnit.ADUNum).ZoneEqNum = CtrlZone;
+                                indUnit.CtrlZoneNum = CtrlZone;
+                            }
+                            indUnit.CtrlZoneInNodeIndex = SupAirIn;
+>>>>>>> nrel/develop
                             AirNodeFound = true;
                             break;
                         }
                     }
                 }
                 if (!AirNodeFound) {
+<<<<<<< HEAD
                     ShowSevereError(state,
                                     EnergyPlus::format("The outlet air node from the {} = {}",
                                                        CurrentModuleObject,
                                                        state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name));
                     ShowContinueError(state, EnergyPlus::format("did not have a matching Zone Equipment Inlet Node, Node ={}", Alphas(3)));
+=======
+                    ShowSevereError(state, std::format("The outlet air node from the {} = {}", CurrentModuleObject, indUnit.Name));
+                    ShowContinueError(state, std::format("did not have a matching Zone Equipment Inlet Node, Node ={}", Alphas(3)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -444,10 +615,17 @@ namespace HVACSingleDuctInduc {
             SetupOutputVariable(state,
                                 "Zone Air Terminal Outdoor Air Volume Flow Rate",
                                 Constant::Units::m3_s,
+<<<<<<< HEAD
                                 state.dataHVACSingleDuctInduc->IndUnit(IUNum).OutdoorAirFlowRate,
                                 OutputProcessor::TimeStepType::System,
                                 OutputProcessor::StoreType::Average,
                                 state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name);
+=======
+                                indUnit.OutdoorAirFlowRate,
+                                OutputProcessor::TimeStepType::System,
+                                OutputProcessor::StoreType::Average,
+                                indUnit.Name);
+>>>>>>> nrel/develop
         }
 
         Alphas.deallocate();
@@ -457,7 +635,11 @@ namespace HVACSingleDuctInduc {
         lAlphaBlanks.deallocate();
         lNumericBlanks.deallocate();
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}Errors found in getting input. Preceding conditions cause termination.", RoutineName));
+=======
+            ShowFatalError(state, std::format("{}Errors found in getting input. Preceding conditions cause termination.", RoutineName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -503,6 +685,7 @@ namespace HVACSingleDuctInduc {
             state.dataHVACSingleDuctInduc->MyOneTimeFlag = false;
         }
 
+<<<<<<< HEAD
         if (state.dataHVACSingleDuctInduc->MyPlantScanFlag(IUNum) && allocated(state.dataPlnt->PlantLoop)) {
             bool errFlag = false;
             if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).HeatingCoilType == DataPlant::PlantEquipmentType::CoilWaterSimpleHeating) {
@@ -543,6 +726,26 @@ namespace HVACSingleDuctInduc {
                                   EnergyPlus::format("Reference Unit=\"{}\", type={}",
                                                      state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name,
                                                      state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType));
+=======
+        auto &indUnit = state.dataHVACSingleDuctInduc->IndUnit(IUNum);
+
+        if (state.dataHVACSingleDuctInduc->MyPlantScanFlag(IUNum) && allocated(state.dataPlnt->PlantLoop)) {
+            bool errFlag = false;
+            if (indUnit.HeatingCoilType == DataPlant::PlantEquipmentType::CoilWaterSimpleHeating) {
+                errFlag = false;
+                PlantUtilities::ScanPlantLoopsForObject(state, indUnit.HCoil, indUnit.HeatingCoilType, indUnit.HWPlantLoc, errFlag, _, _, _, _, _);
+            }
+            if (errFlag) {
+                ShowContinueError(state, std::format("Reference Unit=\"{}\", type={}", indUnit.Name, indUnit.UnitType));
+            }
+            if (indUnit.CoolingCoilType == DataPlant::PlantEquipmentType::CoilWaterCooling ||
+                indUnit.CoolingCoilType == DataPlant::PlantEquipmentType::CoilWaterDetailedFlatCooling) {
+                errFlag = false;
+                PlantUtilities::ScanPlantLoopsForObject(state, indUnit.CCoil, indUnit.CoolingCoilType, indUnit.CWPlantLoc, errFlag, _, _, _, _, _);
+            }
+            if (errFlag) {
+                ShowContinueError(state, std::format("Reference Unit=\"{}\", type={}", indUnit.Name, indUnit.UnitType));
+>>>>>>> nrel/develop
                 ShowFatalError(state, "InitIndUnit: Program terminated for previous conditions.");
             }
             state.dataHVACSingleDuctInduc->MyPlantScanFlag(IUNum) = false;
@@ -553,6 +756,7 @@ namespace HVACSingleDuctInduc {
         if (state.dataHVACSingleDuctInduc->MyAirDistInitFlag(IUNum)) {
             // save the induction ratio in the term unit sizing array for use in the system sizing calculation
             if (state.dataSize->CurTermUnitSizingNum > 0) {
+<<<<<<< HEAD
                 state.dataSize->TermUnitSizing(state.dataSize->CurTermUnitSizingNum).InducRat =
                     state.dataHVACSingleDuctInduc->IndUnit(IUNum).InducRatio;
             }
@@ -564,6 +768,14 @@ namespace HVACSingleDuctInduc {
                             .InletNodeAirLoopNum(state.dataHVACSingleDuctInduc->IndUnit(IUNum).CtrlZoneInNodeIndex);
                     state.dataDefineEquipment->AirDistUnit(state.dataHVACSingleDuctInduc->IndUnit(IUNum).ADUNum).AirLoopNum =
                         state.dataHVACSingleDuctInduc->IndUnit(IUNum).AirLoopNum;
+=======
+                state.dataSize->TermUnitSizing(state.dataSize->CurTermUnitSizingNum).InducRat = indUnit.InducRatio;
+            }
+            if (indUnit.AirLoopNum == 0) {
+                if ((indUnit.CtrlZoneNum > 0) && (indUnit.CtrlZoneInNodeIndex > 0)) {
+                    indUnit.AirLoopNum = state.dataZoneEquip->ZoneEquipConfig(indUnit.CtrlZoneNum).InletNodeAirLoopNum(indUnit.CtrlZoneInNodeIndex);
+                    state.dataDefineEquipment->AirDistUnit(indUnit.ADUNum).AirLoopNum = indUnit.AirLoopNum;
+>>>>>>> nrel/develop
                 }
             } else {
                 state.dataHVACSingleDuctInduc->MyAirDistInitFlag(IUNum) = false;
@@ -583,12 +795,21 @@ namespace HVACSingleDuctInduc {
                     continue;
                 }
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("InitIndUnit: ADU=[Air Distribution Unit,{}] is not on any ZoneHVAC:EquipmentList.",
                                                    state.dataDefineEquipment->AirDistUnit(state.dataHVACSingleDuctInduc->IndUnit(Loop).ADUNum).Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("...Unit=[{},{}] will not be simulated.",
                                                      state.dataHVACSingleDuctInduc->IndUnit(Loop).UnitType,
                                                      state.dataHVACSingleDuctInduc->IndUnit(Loop).Name));
+=======
+                                std::format("InitIndUnit: ADU=[Air Distribution Unit,{}] is not on any ZoneHVAC:EquipmentList.",
+                                            state.dataDefineEquipment->AirDistUnit(state.dataHVACSingleDuctInduc->IndUnit(Loop).ADUNum).Name));
+                ShowContinueError(state,
+                                  std::format("...Unit=[{},{}] will not be simulated.",
+                                              state.dataHVACSingleDuctInduc->IndUnit(Loop).UnitType,
+                                              state.dataHVACSingleDuctInduc->IndUnit(Loop).Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -601,6 +822,7 @@ namespace HVACSingleDuctInduc {
         // Do the Begin Environment initializations
         if (state.dataGlobal->BeginEnvrnFlag && state.dataHVACSingleDuctInduc->MyEnvrnFlag(IUNum)) {
             RhoAir = state.dataEnvrn->StdRhoAir;
+<<<<<<< HEAD
             PriNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).PriAirInNode;
             SecNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).SecAirInNode;
             int OutletNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).OutAirNode;
@@ -651,6 +873,43 @@ namespace HVACSingleDuctInduc {
                                                    state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxColdWaterFlow,
                                                    ColdConNode,
                                                    CWOutletNode);
+=======
+            PriNode = indUnit.PriAirInNode;
+            SecNode = indUnit.SecAirInNode;
+            int OutletNode = indUnit.OutAirNode;
+            IndRat = indUnit.InducRatio;
+            // set the mass flow rates from the input volume flow rates
+            if (Util::SameString(indUnit.UnitType, "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction")) {
+                indUnit.MaxTotAirMassFlow = RhoAir * indUnit.MaxTotAirVolFlow;
+                indUnit.MaxPriAirMassFlow = indUnit.MaxTotAirMassFlow / (1.0 + IndRat);
+                indUnit.MaxSecAirMassFlow = IndRat * indUnit.MaxTotAirMassFlow / (1.0 + IndRat);
+                state.dataLoopNodes->Node(PriNode).MassFlowRateMax = indUnit.MaxPriAirMassFlow;
+                state.dataLoopNodes->Node(PriNode).MassFlowRateMin = indUnit.MaxPriAirMassFlow;
+                state.dataLoopNodes->Node(SecNode).MassFlowRateMax = indUnit.MaxSecAirMassFlow;
+                state.dataLoopNodes->Node(SecNode).MassFlowRateMin = indUnit.MaxSecAirMassFlow;
+                state.dataLoopNodes->Node(OutletNode).MassFlowRateMax = indUnit.MaxTotAirMassFlow;
+            }
+
+            int HotConNode = indUnit.HWControlNode;
+            if (HotConNode > 0 && !state.dataHVACSingleDuctInduc->MyPlantScanFlag(IUNum)) {
+
+                rho = indUnit.HWPlantLoc.loop->glycol->getDensity(state, Constant::HWInitConvTemp, RoutineName);
+                indUnit.MaxHotWaterFlow = rho * indUnit.MaxVolHotWaterFlow;
+                indUnit.MinHotWaterFlow = rho * indUnit.MinVolHotWaterFlow;
+                // get component outlet node from plant structure
+                int HWOutletNode = DataPlant::CompData::getPlantComponent(state, indUnit.HWPlantLoc).NodeNumOut;
+                PlantUtilities::InitComponentNodes(state, indUnit.MinHotWaterFlow, indUnit.MaxHotWaterFlow, HotConNode, HWOutletNode);
+            }
+
+            int ColdConNode = indUnit.CWControlNode;
+            if (ColdConNode > 0) {
+                rho = indUnit.CWPlantLoc.loop->glycol->getDensity(state, Constant::CWInitConvTemp, RoutineName);
+                indUnit.MaxColdWaterFlow = rho * indUnit.MaxVolColdWaterFlow;
+                indUnit.MinColdWaterFlow = rho * indUnit.MinVolColdWaterFlow;
+
+                int CWOutletNode = DataPlant::CompData::getPlantComponent(state, indUnit.CWPlantLoc).NodeNumOut;
+                PlantUtilities::InitComponentNodes(state, indUnit.MinColdWaterFlow, indUnit.MaxColdWaterFlow, ColdConNode, CWOutletNode);
+>>>>>>> nrel/develop
             }
 
             state.dataHVACSingleDuctInduc->MyEnvrnFlag(IUNum) = false;
@@ -660,24 +919,37 @@ namespace HVACSingleDuctInduc {
             state.dataHVACSingleDuctInduc->MyEnvrnFlag(IUNum) = true;
         }
 
+<<<<<<< HEAD
         PriNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).PriAirInNode;
         SecNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).SecAirInNode;
+=======
+        PriNode = indUnit.PriAirInNode;
+        SecNode = indUnit.SecAirInNode;
+>>>>>>> nrel/develop
 
         // Do the start of HVAC time step initializations
         if (FirstHVACIteration) {
             // check for upstream zero flow. If nonzero and schedule ON, set primary flow to max
+<<<<<<< HEAD
             if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).availSched->getCurrentVal() > 0.0 &&
                 state.dataLoopNodes->Node(PriNode).MassFlowRate > 0.0) {
                 if (Util::SameString(state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                                      "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction")) {
                     state.dataLoopNodes->Node(PriNode).MassFlowRate = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxPriAirMassFlow;
                     state.dataLoopNodes->Node(SecNode).MassFlowRate = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxSecAirMassFlow;
+=======
+            if (indUnit.availSched->getCurrentVal() > 0.0 && state.dataLoopNodes->Node(PriNode).MassFlowRate > 0.0) {
+                if (Util::SameString(indUnit.UnitType, "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction")) {
+                    state.dataLoopNodes->Node(PriNode).MassFlowRate = indUnit.MaxPriAirMassFlow;
+                    state.dataLoopNodes->Node(SecNode).MassFlowRate = indUnit.MaxSecAirMassFlow;
+>>>>>>> nrel/develop
                 }
             } else {
                 state.dataLoopNodes->Node(PriNode).MassFlowRate = 0.0;
                 state.dataLoopNodes->Node(SecNode).MassFlowRate = 0.0;
             }
             // reset the max and min avail flows
+<<<<<<< HEAD
             if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).availSched->getCurrentVal() > 0.0 &&
                 state.dataLoopNodes->Node(PriNode).MassFlowRateMaxAvail > 0.0) {
                 if (Util::SameString(state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
@@ -686,6 +958,14 @@ namespace HVACSingleDuctInduc {
                     state.dataLoopNodes->Node(PriNode).MassFlowRateMinAvail = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxPriAirMassFlow;
                     state.dataLoopNodes->Node(SecNode).MassFlowRateMaxAvail = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxSecAirMassFlow;
                     state.dataLoopNodes->Node(SecNode).MassFlowRateMinAvail = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxSecAirMassFlow;
+=======
+            if (indUnit.availSched->getCurrentVal() > 0.0 && state.dataLoopNodes->Node(PriNode).MassFlowRateMaxAvail > 0.0) {
+                if (Util::SameString(indUnit.UnitType, "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction")) {
+                    state.dataLoopNodes->Node(PriNode).MassFlowRateMaxAvail = indUnit.MaxPriAirMassFlow;
+                    state.dataLoopNodes->Node(PriNode).MassFlowRateMinAvail = indUnit.MaxPriAirMassFlow;
+                    state.dataLoopNodes->Node(SecNode).MassFlowRateMaxAvail = indUnit.MaxSecAirMassFlow;
+                    state.dataLoopNodes->Node(SecNode).MassFlowRateMinAvail = indUnit.MaxSecAirMassFlow;
+>>>>>>> nrel/develop
                 }
             } else {
                 state.dataLoopNodes->Node(PriNode).MassFlowRateMaxAvail = 0.0;
@@ -732,12 +1012,19 @@ namespace HVACSingleDuctInduc {
         Real64 MaxVolColdWaterFlowDes = 0.0;  // Design size maximum cold water flow for reporting
         Real64 MaxVolColdWaterFlowUser = 0.0; // User hard-sized maximum cold water flow for reporting
 
+<<<<<<< HEAD
         if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxTotAirVolFlow == DataSizing::AutoSize) {
+=======
+        auto &indUnit = state.dataHVACSingleDuctInduc->IndUnit(IUNum);
+
+        if (indUnit.MaxTotAirVolFlow == DataSizing::AutoSize) {
+>>>>>>> nrel/develop
             IsAutoSize = true;
         }
 
         if (state.dataSize->CurZoneEqNum > 0) {
             if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) { // simulation continue
+<<<<<<< HEAD
                 if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxTotAirVolFlow > 0.0) {
                     BaseSizer::reportSizerOutput(state,
                                                  state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
@@ -747,6 +1034,14 @@ namespace HVACSingleDuctInduc {
                 }
             } else {
                 CheckZoneSizing(state, state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType, state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name);
+=======
+                if (indUnit.MaxTotAirVolFlow > 0.0) {
+                    BaseSizer::reportSizerOutput(
+                        state, indUnit.UnitType, indUnit.Name, "User-Specified Maximum Total Air Flow Rate [m3/s]", indUnit.MaxTotAirVolFlow);
+                }
+            } else {
+                CheckZoneSizing(state, indUnit.UnitType, indUnit.Name);
+>>>>>>> nrel/develop
                 if (state.dataSize->CurTermUnitSizingNum > 0) {
                     MaxTotAirVolFlowDes = max(state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesCoolVolFlow,
                                               state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesHeatVolFlow);
@@ -757,6 +1052,7 @@ namespace HVACSingleDuctInduc {
                     MaxTotAirVolFlowDes = 0.0;
                 }
                 if (IsAutoSize) {
+<<<<<<< HEAD
                     state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxTotAirVolFlow = MaxTotAirVolFlowDes;
                     BaseSizer::reportSizerOutput(state,
                                                  state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
@@ -769,6 +1065,17 @@ namespace HVACSingleDuctInduc {
                         BaseSizer::reportSizerOutput(state,
                                                      state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                                                      state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name,
+=======
+                    indUnit.MaxTotAirVolFlow = MaxTotAirVolFlowDes;
+                    BaseSizer::reportSizerOutput(
+                        state, indUnit.UnitType, indUnit.Name, "Design Size Maximum Total Air Flow Rate [m3/s]", MaxTotAirVolFlowDes);
+                } else {
+                    if (indUnit.MaxTotAirVolFlow > 0.0 && MaxTotAirVolFlowDes > 0.0) {
+                        MaxTotAirVolFlowUser = indUnit.MaxTotAirVolFlow;
+                        BaseSizer::reportSizerOutput(state,
+                                                     indUnit.UnitType,
+                                                     indUnit.Name,
+>>>>>>> nrel/develop
                                                      "Design Size Maximum Total Air Flow Rate [m3/s]",
                                                      MaxTotAirVolFlowDes,
                                                      "User-Specified Maximum Total Air Flow Rate [m3/s]",
@@ -777,6 +1084,7 @@ namespace HVACSingleDuctInduc {
                             if ((std::abs(MaxTotAirVolFlowDes - MaxTotAirVolFlowUser) / MaxTotAirVolFlowUser) >
                                 state.dataSize->AutoVsHardSizingThreshold) {
                                 ShowMessage(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("SizeHVACSingleDuctInduction: Potential issue with equipment sizing for {} = \"{}\".",
                                                                state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                                                                state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name));
@@ -785,6 +1093,15 @@ namespace HVACSingleDuctInduc {
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("differs from Design Size Maximum Total Air Flow Rate of {:.5R} [m3/s]", MaxTotAirVolFlowDes));
+=======
+                                            std::format("SizeHVACSingleDuctInduction: Potential issue with equipment sizing for {} = \"{}\".",
+                                                        indUnit.UnitType,
+                                                        indUnit.Name));
+                                ShowContinueError(state,
+                                                  std::format("User-Specified Maximum Total Air Flow Rate of {:#G} [m3/s]", MaxTotAirVolFlowUser));
+                                ShowContinueError(
+                                    state, std::format("differs from Design Size Maximum Total Air Flow Rate of {:#G} [m3/s]", MaxTotAirVolFlowDes));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                 ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                             }
@@ -795,11 +1112,16 @@ namespace HVACSingleDuctInduc {
         }
 
         IsAutoSize = false;
+<<<<<<< HEAD
         if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxVolHotWaterFlow == DataSizing::AutoSize) {
+=======
+        if (indUnit.MaxVolHotWaterFlow == DataSizing::AutoSize) {
+>>>>>>> nrel/develop
             IsAutoSize = true;
         }
         if ((state.dataSize->CurZoneEqNum > 0) && (state.dataSize->CurTermUnitSizingNum > 0)) {
             if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) { // simulation continue
+<<<<<<< HEAD
                 if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxVolHotWaterFlow > 0.0) {
                     BaseSizer::reportSizerOutput(state,
                                                  state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
@@ -823,12 +1145,32 @@ namespace HVACSingleDuctInduc {
                                                                                CoilWaterInletNode,
                                                                                CoilWaterOutletNode,
                                                                                ErrorsFound);
+=======
+                if (indUnit.MaxVolHotWaterFlow > 0.0) {
+                    BaseSizer::reportSizerOutput(
+                        state, indUnit.UnitType, indUnit.Name, "User-Specified Maximum Hot Water Flow Rate [m3/s]", indUnit.MaxVolHotWaterFlow);
+                }
+            } else {
+                CheckZoneSizing(state, indUnit.UnitType, indUnit.Name);
+
+                if (Util::SameString(indUnit.HCoilType, "Coil:Heating:Water")) {
+
+                    int CoilWaterInletNode = WaterCoils::GetCoilWaterInletNode(state, "Coil:Heating:Water", indUnit.HCoil, ErrorsFound);
+                    int CoilWaterOutletNode = WaterCoils::GetCoilWaterOutletNode(state, "Coil:Heating:Water", indUnit.HCoil, ErrorsFound);
+                    if (IsAutoSize) {
+                        int PltSizHeatNum = PlantUtilities::MyPlantSizingIndex(
+                            state, "Coil:Heating:Water", indUnit.HCoil, CoilWaterInletNode, CoilWaterOutletNode, ErrorsFound);
+>>>>>>> nrel/develop
                         if (PltSizHeatNum > 0) {
 
                             if (state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesHeatMassFlow >=
                                 HVAC::SmallAirVolFlow) {
+<<<<<<< HEAD
                                 DesPriVolFlow = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxTotAirVolFlow /
                                                 (1.0 + state.dataHVACSingleDuctInduc->IndUnit(IUNum).InducRatio);
+=======
+                                DesPriVolFlow = indUnit.MaxTotAirVolFlow / (1.0 + indUnit.InducRatio);
+>>>>>>> nrel/develop
                                 CpAir = Psychrometrics::PsyCpAirFnW(
                                     state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).HeatDesHumRat);
                                 // the design heating coil load is the zone load minus whatever the central system does. Note that
@@ -844,12 +1186,19 @@ namespace HVACSingleDuctInduc {
                                                   (state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).ZoneSizThermSetPtLo -
                                                    state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesHeatCoilInTempTU);
                                 }
+<<<<<<< HEAD
                                 state.dataHVACSingleDuctInduc->IndUnit(IUNum).DesHeatingLoad = DesCoilLoad;
                                 Cp = state.dataHVACSingleDuctInduc->IndUnit(IUNum).HWPlantLoc.loop->glycol->getSpecificHeat(
                                     state, Constant::HWInitConvTemp, RoutineName);
 
                                 rho = state.dataHVACSingleDuctInduc->IndUnit(IUNum).HWPlantLoc.loop->glycol->getDensity(
                                     state, Constant::HWInitConvTemp, RoutineName);
+=======
+                                indUnit.DesHeatingLoad = DesCoilLoad;
+                                Cp = indUnit.HWPlantLoc.loop->glycol->getSpecificHeat(state, Constant::HWInitConvTemp, RoutineName);
+
+                                rho = indUnit.HWPlantLoc.loop->glycol->getDensity(state, Constant::HWInitConvTemp, RoutineName);
+>>>>>>> nrel/develop
 
                                 MaxVolHotWaterFlowDes = DesCoilLoad / (state.dataSize->PlantSizData(PltSizHeatNum).DeltaT * Cp * rho);
                                 MaxVolHotWaterFlowDes = max(MaxVolHotWaterFlowDes, 0.0);
@@ -858,6 +1207,7 @@ namespace HVACSingleDuctInduc {
                             }
                         } else {
                             ShowSevereError(state, "Autosizing of water flow requires a heating loop Sizing:Plant object");
+<<<<<<< HEAD
                             ShowContinueError(state,
                                               EnergyPlus::format("Occurs in{} Object={}",
                                                                  state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
@@ -874,10 +1224,23 @@ namespace HVACSingleDuctInduc {
                             state,
                             state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                             state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name,
+=======
+                            ShowContinueError(state, std::format("Occurs in {} Object={}", indUnit.UnitType, indUnit.Name));
+                            ErrorsFound = true;
+                        }
+                        indUnit.MaxVolHotWaterFlow = MaxVolHotWaterFlowDes;
+                        BaseSizer::reportSizerOutput(
+                            state, indUnit.UnitType, indUnit.Name, "Design Size Maximum Hot Water Flow Rate [m3/s]", MaxVolHotWaterFlowDes);
+                        BaseSizer::reportSizerOutput(
+                            state,
+                            indUnit.UnitType,
+                            indUnit.Name,
+>>>>>>> nrel/develop
                             "Design Size Inlet Air Temperature [C]",
                             state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesHeatCoilInTempTU);
                         BaseSizer::reportSizerOutput(
                             state,
+<<<<<<< HEAD
                             state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                             state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name,
                             "Design Size Inlet Air Humidity Ratio [kgWater/kgDryAir]",
@@ -888,6 +1251,18 @@ namespace HVACSingleDuctInduc {
                             BaseSizer::reportSizerOutput(state,
                                                          state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                                                          state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name,
+=======
+                            indUnit.UnitType,
+                            indUnit.Name,
+                            "Design Size Inlet Air Humidity Ratio [kgWater/kgDryAir]",
+                            state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesHeatCoilInHumRatTU);
+                    } else {
+                        if (indUnit.MaxVolHotWaterFlow > 0.0 && MaxVolHotWaterFlowDes > 0.0) {
+                            MaxVolHotWaterFlowUser = indUnit.MaxVolHotWaterFlow;
+                            BaseSizer::reportSizerOutput(state,
+                                                         indUnit.UnitType,
+                                                         indUnit.Name,
+>>>>>>> nrel/develop
                                                          "Design Size Maximum Hot Water Flow Rate [m3/s]",
                                                          MaxVolHotWaterFlowDes,
                                                          "User-Specified Maximum Hot Water Flow Rate [m3/s]",
@@ -895,6 +1270,7 @@ namespace HVACSingleDuctInduc {
                             if (state.dataGlobal->DisplayExtraWarnings) {
                                 if ((std::abs(MaxVolHotWaterFlowDes - MaxVolHotWaterFlowUser) / MaxVolHotWaterFlowUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                     ShowMessage(
                                         state,
                                         EnergyPlus::format("SizeHVACSingleDuctInduction: Potential issue with equipment sizing for {} = \"{}\".",
@@ -906,6 +1282,17 @@ namespace HVACSingleDuctInduc {
                                     ShowContinueError(state,
                                                       EnergyPlus::format("differs from Design Size Maximum Hot Water Flow Rate of {:.5R} [m3/s]",
                                                                          MaxVolHotWaterFlowDes));
+=======
+                                    ShowMessage(state,
+                                                std::format("SizeHVACSingleDuctInduction: Potential issue with equipment sizing for {} = \"{}\".",
+                                                            indUnit.UnitType,
+                                                            indUnit.Name));
+                                    ShowContinueError(
+                                        state, std::format("User-Specified Maximum Hot Water Flow Rate of {:#G} [m3/s]", MaxVolHotWaterFlowUser));
+                                    ShowContinueError(
+                                        state,
+                                        std::format("differs from Design Size Maximum Hot Water Flow Rate of {:#G} [m3/s]", MaxVolHotWaterFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -913,17 +1300,26 @@ namespace HVACSingleDuctInduc {
                         }
                     }
                 } else {
+<<<<<<< HEAD
                     state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxVolHotWaterFlow = 0.0;
+=======
+                    indUnit.MaxVolHotWaterFlow = 0.0;
+>>>>>>> nrel/develop
                 }
             }
         }
 
         IsAutoSize = false;
+<<<<<<< HEAD
         if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxVolColdWaterFlow == DataSizing::AutoSize) {
+=======
+        if (indUnit.MaxVolColdWaterFlow == DataSizing::AutoSize) {
+>>>>>>> nrel/develop
             IsAutoSize = true;
         }
         if ((state.dataSize->CurZoneEqNum > 0) && (state.dataSize->CurTermUnitSizingNum > 0)) {
             if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) { // simulation continue
+<<<<<<< HEAD
                 if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxVolColdWaterFlow > 0.0) {
                     BaseSizer::reportSizerOutput(state,
                                                  state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
@@ -952,12 +1348,33 @@ namespace HVACSingleDuctInduc {
                                                                                CoilWaterInletNode,
                                                                                CoilWaterOutletNode,
                                                                                ErrorsFound);
+=======
+                if (indUnit.MaxVolColdWaterFlow > 0.0) {
+                    BaseSizer::reportSizerOutput(
+                        state, indUnit.UnitType, indUnit.Name, "User-Specified Maximum Cold Water Flow Rate [m3/s]", indUnit.MaxVolColdWaterFlow);
+                }
+            } else {
+                CheckZoneSizing(state, indUnit.UnitType, indUnit.Name);
+
+                if (Util::SameString(indUnit.CCoilType, "Coil:Cooling:Water") ||
+                    Util::SameString(indUnit.CCoilType, "Coil:Cooling:Water:DetailedGeometry")) {
+
+                    int CoilWaterInletNode = WaterCoils::GetCoilWaterInletNode(state, indUnit.CCoilType, indUnit.CCoil, ErrorsFound);
+                    int CoilWaterOutletNode = WaterCoils::GetCoilWaterOutletNode(state, indUnit.CCoilType, indUnit.CCoil, ErrorsFound);
+                    if (IsAutoSize) {
+                        int PltSizCoolNum = PlantUtilities::MyPlantSizingIndex(
+                            state, indUnit.CCoilType, indUnit.CCoil, CoilWaterInletNode, CoilWaterOutletNode, ErrorsFound);
+>>>>>>> nrel/develop
                         if (PltSizCoolNum > 0) {
 
                             if (state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesCoolMassFlow >=
                                 HVAC::SmallAirVolFlow) {
+<<<<<<< HEAD
                                 DesPriVolFlow = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxTotAirVolFlow /
                                                 (1.0 + state.dataHVACSingleDuctInduc->IndUnit(IUNum).InducRatio);
+=======
+                                DesPriVolFlow = indUnit.MaxTotAirVolFlow / (1.0 + indUnit.InducRatio);
+>>>>>>> nrel/develop
                                 CpAir = Psychrometrics::PsyCpAirFnW(
                                     state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).CoolDesHumRat);
                                 // the design cooling coil load is the zone load minus whatever the central system does. Note that
@@ -973,10 +1390,17 @@ namespace HVACSingleDuctInduc {
                                                   (state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).DesCoolCoilInTempTU -
                                                    state.dataSize->TermUnitFinalZoneSizing(state.dataSize->CurTermUnitSizingNum).ZoneSizThermSetPtHi);
                                 }
+<<<<<<< HEAD
                                 state.dataHVACSingleDuctInduc->IndUnit(IUNum).DesCoolingLoad = DesCoilLoad;
                                 Cp = state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWPlantLoc.loop->glycol->getSpecificHeat(state, 5.0, RoutineName);
 
                                 rho = state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWPlantLoc.loop->glycol->getDensity(state, 5.0, RoutineName);
+=======
+                                indUnit.DesCoolingLoad = DesCoilLoad;
+                                Cp = indUnit.CWPlantLoc.loop->glycol->getSpecificHeat(state, 5.0, RoutineName);
+
+                                rho = indUnit.CWPlantLoc.loop->glycol->getDensity(state, 5.0, RoutineName);
+>>>>>>> nrel/develop
 
                                 MaxVolColdWaterFlowDes = DesCoilLoad / (state.dataSize->PlantSizData(PltSizCoolNum).DeltaT * Cp * rho);
                                 MaxVolColdWaterFlowDes = max(MaxVolColdWaterFlowDes, 0.0);
@@ -985,6 +1409,7 @@ namespace HVACSingleDuctInduc {
                             }
                         } else {
                             ShowSevereError(state, "Autosizing of water flow requires a cooling loop Sizing:Plant object");
+<<<<<<< HEAD
                             ShowContinueError(state,
                                               EnergyPlus::format("Occurs in{} Object={}",
                                                                  state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
@@ -1003,6 +1428,20 @@ namespace HVACSingleDuctInduc {
                             BaseSizer::reportSizerOutput(state,
                                                          state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType,
                                                          state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name,
+=======
+                            ShowContinueError(state, std::format("Occurs in {} Object={}", indUnit.UnitType, indUnit.Name));
+                            ErrorsFound = true;
+                        }
+                        indUnit.MaxVolColdWaterFlow = MaxVolColdWaterFlowDes;
+                        BaseSizer::reportSizerOutput(
+                            state, indUnit.UnitType, indUnit.Name, "Design Size Maximum Cold Water Flow Rate [m3/s]", MaxVolColdWaterFlowDes);
+                    } else {
+                        if (indUnit.MaxVolColdWaterFlow > 0.0 && MaxVolColdWaterFlowDes > 0.0) {
+                            MaxVolColdWaterFlowUser = indUnit.MaxVolColdWaterFlow;
+                            BaseSizer::reportSizerOutput(state,
+                                                         indUnit.UnitType,
+                                                         indUnit.Name,
+>>>>>>> nrel/develop
                                                          "Design Size Maximum Cold Water Flow Rate [m3/s]",
                                                          MaxVolColdWaterFlowDes,
                                                          "User-Specified Maximum Cold Water Flow Rate [m3/s]",
@@ -1010,6 +1449,7 @@ namespace HVACSingleDuctInduc {
                             if (state.dataGlobal->DisplayExtraWarnings) {
                                 if ((std::abs(MaxVolColdWaterFlowDes - MaxVolColdWaterFlowUser) / MaxVolColdWaterFlowUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                     ShowMessage(
                                         state,
                                         EnergyPlus::format("SizeHVACSingleDuctInduction: Potential issue with equipment sizing for {} = \"{}\".",
@@ -1021,6 +1461,17 @@ namespace HVACSingleDuctInduc {
                                     ShowContinueError(state,
                                                       EnergyPlus::format("differs from Design Size Maximum Cold Water Flow Rate of {:.5R} [m3/s]",
                                                                          MaxVolColdWaterFlowDes));
+=======
+                                    ShowMessage(state,
+                                                std::format("SizeHVACSingleDuctInduction: Potential issue with equipment sizing for {} = \"{}\".",
+                                                            indUnit.UnitType,
+                                                            indUnit.Name));
+                                    ShowContinueError(
+                                        state, std::format("User-Specified Maximum Cold Water Flow Rate of {:#G} [m3/s]", MaxVolColdWaterFlowUser));
+                                    ShowContinueError(
+                                        state,
+                                        std::format("differs from Design Size Maximum Cold Water Flow Rate of {:#G} [m3/s]", MaxVolColdWaterFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -1028,7 +1479,11 @@ namespace HVACSingleDuctInduc {
                         }
                     }
                 } else {
+<<<<<<< HEAD
                     state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxVolColdWaterFlow = 0.0;
+=======
+                    indUnit.MaxVolColdWaterFlow = 0.0;
+>>>>>>> nrel/develop
                 }
             }
         }
@@ -1037,6 +1492,7 @@ namespace HVACSingleDuctInduc {
             auto &termUnitSizing = state.dataSize->TermUnitSizing(state.dataSize->CurTermUnitSizingNum);
 
             // note we save the induced air flow for use by the hw and cw coil sizing routines
+<<<<<<< HEAD
             termUnitSizing.AirVolFlow = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxTotAirVolFlow *
                                         state.dataHVACSingleDuctInduc->IndUnit(IUNum).InducRatio /
                                         (1.0 + state.dataHVACSingleDuctInduc->IndUnit(IUNum).InducRatio);
@@ -1061,6 +1517,22 @@ namespace HVACSingleDuctInduc {
                                            state.dataHVACSingleDuctInduc->IndUnit(IUNum).CCoil,
                                            termUnitSizing.AirVolFlow,
                                            ErrorsFound);
+=======
+            termUnitSizing.AirVolFlow = indUnit.MaxTotAirVolFlow * indUnit.InducRatio / (1.0 + indUnit.InducRatio);
+            // save the max hot and cold water flows for use in coil sizing
+            termUnitSizing.MaxHWVolFlow = indUnit.MaxVolHotWaterFlow;
+            termUnitSizing.MaxCWVolFlow = indUnit.MaxVolColdWaterFlow;
+            // save the design load used for reporting
+            termUnitSizing.DesCoolingLoad = indUnit.DesCoolingLoad;
+            termUnitSizing.DesHeatingLoad = indUnit.DesHeatingLoad;
+            // save the induction ratio for use in subsequent sizing calcs
+            termUnitSizing.InducRat = indUnit.InducRatio;
+            if (Util::SameString(indUnit.HCoilType, "Coil:Heating:Water")) {
+                WaterCoils::SetCoilDesFlow(state, indUnit.HCoilType, indUnit.HCoil, termUnitSizing.AirVolFlow, ErrorsFound);
+            }
+            if (Util::SameString(indUnit.CCoilType, "Coil:Cooling:Water:DetailedGeometry")) {
+                WaterCoils::SetCoilDesFlow(state, indUnit.CCoilType, indUnit.CCoil, termUnitSizing.AirVolFlow, ErrorsFound);
+>>>>>>> nrel/develop
             }
         }
     }
@@ -1092,6 +1564,11 @@ namespace HVACSingleDuctInduc {
         // SUBROUTINE PARAMETER DEFINITIONS:
         int constexpr SolveMaxIter(50);
 
+<<<<<<< HEAD
+=======
+        auto &indUnit = state.dataHVACSingleDuctInduc->IndUnit(IUNum);
+
+>>>>>>> nrel/develop
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         Real64 HWFlow;   // hot water flow [kg/s]
         Real64 CWFlow;   // cold water flow [kg/s]
@@ -1100,6 +1577,7 @@ namespace HVACSingleDuctInduc {
 
         bool UnitOn = true;
         Real64 PowerMet = 0.0;
+<<<<<<< HEAD
         Real64 InducRat = state.dataHVACSingleDuctInduc->IndUnit(IUNum).InducRatio;
         int PriNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).PriAirInNode;
         int SecNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).SecAirInNode;
@@ -1108,6 +1586,16 @@ namespace HVACSingleDuctInduc {
         int HWOutletNode = DataPlant::CompData::getPlantComponent(state, state.dataHVACSingleDuctInduc->IndUnit(IUNum).HWPlantLoc).NodeNumOut;
         int ColdControlNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWControlNode;
         int CWOutletNode = DataPlant::CompData::getPlantComponent(state, state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWPlantLoc).NodeNumOut;
+=======
+        Real64 InducRat = indUnit.InducRatio;
+        int PriNode = indUnit.PriAirInNode;
+        int SecNode = indUnit.SecAirInNode;
+        int OutletNode = indUnit.OutAirNode;
+        int HotControlNode = indUnit.HWControlNode;
+        int HWOutletNode = DataPlant::CompData::getPlantComponent(state, indUnit.HWPlantLoc).NodeNumOut;
+        int ColdControlNode = indUnit.CWControlNode;
+        int CWOutletNode = DataPlant::CompData::getPlantComponent(state, indUnit.CWPlantLoc).NodeNumOut;
+>>>>>>> nrel/develop
         Real64 PriAirMassFlow = state.dataLoopNodes->Node(PriNode).MassFlowRateMaxAvail;
         Real64 SecAirMassFlow = InducRat * PriAirMassFlow;
         Real64 QToHeatSetPt = state.dataZoneEnergyDemand->ZoneSysEnergyDemand(ZoneNum).RemainingOutputReqToHeatSP;
@@ -1115,6 +1603,7 @@ namespace HVACSingleDuctInduc {
         // On the first HVAC iteration the system values are given to the controller, but after that
         // the demand limits are in place and there needs to be feedback to the Zone Equipment
 
+<<<<<<< HEAD
         Real64 MaxHotWaterFlow = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxHotWaterFlow;
         PlantUtilities::SetComponentFlowRate(
             state, MaxHotWaterFlow, HotControlNode, HWOutletNode, state.dataHVACSingleDuctInduc->IndUnit(IUNum).HWPlantLoc);
@@ -1132,6 +1621,21 @@ namespace HVACSingleDuctInduc {
             state, MinColdWaterFlow, ColdControlNode, CWOutletNode, state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWPlantLoc);
 
         if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).availSched->getCurrentVal() <= 0.0) {
+=======
+        Real64 MaxHotWaterFlow = indUnit.MaxHotWaterFlow;
+        PlantUtilities::SetComponentFlowRate(state, MaxHotWaterFlow, HotControlNode, HWOutletNode, indUnit.HWPlantLoc);
+
+        Real64 MinHotWaterFlow = indUnit.MinHotWaterFlow;
+        PlantUtilities::SetComponentFlowRate(state, MinHotWaterFlow, HotControlNode, HWOutletNode, indUnit.HWPlantLoc);
+
+        Real64 MaxColdWaterFlow = indUnit.MaxColdWaterFlow;
+        PlantUtilities::SetComponentFlowRate(state, MaxColdWaterFlow, ColdControlNode, CWOutletNode, indUnit.CWPlantLoc);
+
+        Real64 MinColdWaterFlow = indUnit.MinColdWaterFlow;
+        PlantUtilities::SetComponentFlowRate(state, MinColdWaterFlow, ColdControlNode, CWOutletNode, indUnit.CWPlantLoc);
+
+        if (indUnit.availSched->getCurrentVal() <= 0.0) {
+>>>>>>> nrel/develop
             UnitOn = false;
         }
         if (PriAirMassFlow <= HVAC::SmallMassFlow) {
@@ -1154,7 +1658,11 @@ namespace HVACSingleDuctInduc {
                 // check that it can meet the load
                 CalcFourPipeIndUnit(state, IUNum, FirstHVACIteration, ZoneNodeNum, MaxHotWaterFlow, MinColdWaterFlow, PowerMet);
                 if (PowerMet > QToHeatSetPt + HVAC::SmallLoad) {
+<<<<<<< HEAD
                     ErrTolerance = state.dataHVACSingleDuctInduc->IndUnit(IUNum).HotControlOffset;
+=======
+                    ErrTolerance = indUnit.HotControlOffset;
+>>>>>>> nrel/develop
                     auto f = // (AUTO_OK_LAMBDA)
                         [&state, IUNum, FirstHVACIteration, ZoneNodeNum, MinColdWaterFlow, QToHeatSetPt, QPriOnly, PowerMet](Real64 const HWFlow) {
                             Real64 UnitOutput;
@@ -1163,6 +1671,7 @@ namespace HVACSingleDuctInduc {
                         };
                     General::SolveRoot(state, ErrTolerance, SolveMaxIter, SolFlag, HWFlow, f, MinHotWaterFlow, MaxHotWaterFlow);
                     if (SolFlag == -1) {
+<<<<<<< HEAD
                         if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).HWCoilFailNum1 == 0) {
                             ShowWarningMessage(state,
                                                EnergyPlus::format("SimFourPipeIndUnit: Hot water coil control failed for {}=\"{}\"",
@@ -1196,6 +1705,38 @@ namespace HVACSingleDuctInduc {
                                                            state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType + "=\"" +
                                                            state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name + "\"",
                                                        state.dataHVACSingleDuctInduc->IndUnit(IUNum).HWCoilFailNum2,
+=======
+                        if (indUnit.HWCoilFailNum1 == 0) {
+                            ShowWarningMessage(
+                                state,
+                                std::format("SimFourPipeIndUnit: Hot water coil control failed for {}=\"{}\"", indUnit.UnitType, indUnit.Name));
+                            ShowContinueErrorTimeStamp(state, "");
+                            ShowContinueError(state,
+                                              std::format("  Iteration limit [{}] exceeded in calculating hot water mass flow rate", SolveMaxIter));
+                        }
+                        ShowRecurringWarningErrorAtEnd(
+                            state,
+                            std::format("SimFourPipeIndUnit: Hot water coil control failed (iteration limit [{}]) for {}=\"{}\"",
+                                        SolveMaxIter,
+                                        indUnit.UnitType,
+                                        indUnit.Name),
+                            indUnit.HWCoilFailNum1);
+                    } else if (SolFlag == -2) {
+                        if (indUnit.HWCoilFailNum2 == 0) {
+                            ShowWarningMessage(state,
+                                               std::format("SimFourPipeIndUnit: Hot water coil control failed (maximum flow limits) for {}=\"{}\"",
+                                                           indUnit.UnitType,
+                                                           indUnit.Name));
+                            ShowContinueErrorTimeStamp(state, "");
+                            ShowContinueError(state, "...Bad hot water maximum flow rate limits");
+                            ShowContinueError(state, std::format("...Given minimum water flow rate={:#G} kg/s", MinHotWaterFlow));
+                            ShowContinueError(state, std::format("...Given maximum water flow rate={:#G} kg/s", MaxHotWaterFlow));
+                        }
+                        ShowRecurringWarningErrorAtEnd(state,
+                                                       "SimFourPipeIndUnit: Hot water coil control failed (flow limits) for " + indUnit.UnitType +
+                                                           "=\"" + indUnit.Name + "\"",
+                                                       indUnit.HWCoilFailNum2,
+>>>>>>> nrel/develop
                                                        MaxHotWaterFlow,
                                                        MinHotWaterFlow,
                                                        _,
@@ -1208,7 +1749,11 @@ namespace HVACSingleDuctInduc {
                 // check that it can meet the load
                 CalcFourPipeIndUnit(state, IUNum, FirstHVACIteration, ZoneNodeNum, MinHotWaterFlow, MaxColdWaterFlow, PowerMet);
                 if (PowerMet < QToCoolSetPt - HVAC::SmallLoad) {
+<<<<<<< HEAD
                     ErrTolerance = state.dataHVACSingleDuctInduc->IndUnit(IUNum).ColdControlOffset;
+=======
+                    ErrTolerance = indUnit.ColdControlOffset;
+>>>>>>> nrel/develop
                     auto f = // (AUTO_OK_LAMBDA)
                         [&state, IUNum, FirstHVACIteration, ZoneNodeNum, MinHotWaterFlow, QToCoolSetPt, QPriOnly, PowerMet](Real64 const CWFlow) {
                             Real64 UnitOutput;
@@ -1217,6 +1762,7 @@ namespace HVACSingleDuctInduc {
                         };
                     General::SolveRoot(state, ErrTolerance, SolveMaxIter, SolFlag, CWFlow, f, MinColdWaterFlow, MaxColdWaterFlow);
                     if (SolFlag == -1) {
+<<<<<<< HEAD
                         if (state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWCoilFailNum1 == 0) {
                             ShowWarningMessage(state,
                                                EnergyPlus::format("SimFourPipeIndUnit: Cold water coil control failed for {}=\"{}\"",
@@ -1250,6 +1796,38 @@ namespace HVACSingleDuctInduc {
                                                            state.dataHVACSingleDuctInduc->IndUnit(IUNum).UnitType + "=\"" +
                                                            state.dataHVACSingleDuctInduc->IndUnit(IUNum).Name + "\"",
                                                        state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWCoilFailNum2,
+=======
+                        if (indUnit.CWCoilFailNum1 == 0) {
+                            ShowWarningMessage(
+                                state,
+                                std::format("SimFourPipeIndUnit: Cold water coil control failed for {}=\"{}\"", indUnit.UnitType, indUnit.Name));
+                            ShowContinueErrorTimeStamp(state, "");
+                            ShowContinueError(state,
+                                              std::format("  Iteration limit [{}] exceeded in calculating cold water mass flow rate", SolveMaxIter));
+                        }
+                        ShowRecurringWarningErrorAtEnd(
+                            state,
+                            std::format("SimFourPipeIndUnit: Cold water coil control failed (iteration limit [{}]) for {}=\"{}",
+                                        SolveMaxIter,
+                                        indUnit.UnitType,
+                                        indUnit.Name),
+                            indUnit.CWCoilFailNum1);
+                    } else if (SolFlag == -2) {
+                        if (indUnit.CWCoilFailNum2 == 0) {
+                            ShowWarningMessage(state,
+                                               std::format("SimFourPipeIndUnit: Cold water coil control failed (maximum flow limits) for {}=\"{}\"",
+                                                           indUnit.UnitType,
+                                                           indUnit.Name));
+                            ShowContinueErrorTimeStamp(state, "");
+                            ShowContinueError(state, "...Bad cold water maximum flow rate limits");
+                            ShowContinueError(state, std::format("...Given minimum water flow rate={:#G} kg/s", MinColdWaterFlow));
+                            ShowContinueError(state, std::format("...Given maximum water flow rate={:#G} kg/s", MaxColdWaterFlow));
+                        }
+                        ShowRecurringWarningErrorAtEnd(state,
+                                                       "SimFourPipeIndUnit: Cold water coil control failed (flow limits) for " + indUnit.UnitType +
+                                                           "=\"" + indUnit.Name + "\"",
+                                                       indUnit.CWCoilFailNum2,
+>>>>>>> nrel/develop
                                                        MaxColdWaterFlow,
                                                        MinColdWaterFlow,
                                                        _,
@@ -1265,7 +1843,11 @@ namespace HVACSingleDuctInduc {
             // unit off
             CalcFourPipeIndUnit(state, IUNum, FirstHVACIteration, ZoneNodeNum, MinHotWaterFlow, MinColdWaterFlow, PowerMet);
         }
+<<<<<<< HEAD
         state.dataLoopNodes->Node(OutletNode).MassFlowRateMax = state.dataHVACSingleDuctInduc->IndUnit(IUNum).MaxTotAirMassFlow;
+=======
+        state.dataLoopNodes->Node(OutletNode).MassFlowRateMax = indUnit.MaxTotAirMassFlow;
+>>>>>>> nrel/develop
 
         // At this point we are done. There is no output to report or pass back up: the output provided is calculated
         // one level up in the calling routine SimZoneAirLoopEquipment. All the inlet and outlet flow rates and
@@ -1306,6 +1888,7 @@ namespace HVACSingleDuctInduc {
         int HWOutletNode;
         int CWOutletNode;
 
+<<<<<<< HEAD
         PriNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).PriAirInNode;
         OutletNode = state.dataHVACSingleDuctInduc->IndUnit(IUNum).OutAirNode;
         PriAirMassFlow = state.dataLoopNodes->Node(PriNode).MassFlowRateMaxAvail;
@@ -1320,10 +1903,29 @@ namespace HVACSingleDuctInduc {
 
         mdotHW = HWFlow;
         PlantUtilities::SetComponentFlowRate(state, mdotHW, HotControlNode, HWOutletNode, state.dataHVACSingleDuctInduc->IndUnit(IUNum).HWPlantLoc);
+=======
+        auto &indUnit = state.dataHVACSingleDuctInduc->IndUnit(IUNum);
+
+        PriNode = indUnit.PriAirInNode;
+        OutletNode = indUnit.OutAirNode;
+        PriAirMassFlow = state.dataLoopNodes->Node(PriNode).MassFlowRateMaxAvail;
+        InducRat = indUnit.InducRatio;
+        SecAirMassFlow = InducRat * PriAirMassFlow;
+        TotAirMassFlow = PriAirMassFlow + SecAirMassFlow;
+        HotControlNode = indUnit.HWControlNode;
+        HWOutletNode = DataPlant::CompData::getPlantComponent(state, indUnit.HWPlantLoc).NodeNumOut;
+
+        ColdControlNode = indUnit.CWControlNode;
+        CWOutletNode = DataPlant::CompData::getPlantComponent(state, indUnit.CWPlantLoc).NodeNumOut;
+
+        mdotHW = HWFlow;
+        PlantUtilities::SetComponentFlowRate(state, mdotHW, HotControlNode, HWOutletNode, indUnit.HWPlantLoc);
+>>>>>>> nrel/develop
 
         //  Node(HotControlNode)%MassFlowRate = HWFlow
 
         mdotCW = CWFlow;
+<<<<<<< HEAD
         PlantUtilities::SetComponentFlowRate(state, mdotCW, ColdControlNode, CWOutletNode, state.dataHVACSingleDuctInduc->IndUnit(IUNum).CWPlantLoc);
         //  Node(ColdControlNode)%MassFlowRate = CWFlow
 
@@ -1333,6 +1935,14 @@ namespace HVACSingleDuctInduc {
             state, state.dataHVACSingleDuctInduc->IndUnit(IUNum).CCoil, FirstHVACIteration, state.dataHVACSingleDuctInduc->IndUnit(IUNum).CCoil_Num);
         MixerComponent::SimAirMixer(
             state, state.dataHVACSingleDuctInduc->IndUnit(IUNum).MixerName, state.dataHVACSingleDuctInduc->IndUnit(IUNum).Mixer_Num);
+=======
+        PlantUtilities::SetComponentFlowRate(state, mdotCW, ColdControlNode, CWOutletNode, indUnit.CWPlantLoc);
+        //  Node(ColdControlNode)%MassFlowRate = CWFlow
+
+        WaterCoils::SimulateWaterCoilComponents(state, indUnit.HCoil, FirstHVACIteration, indUnit.HCoil_Num);
+        WaterCoils::SimulateWaterCoilComponents(state, indUnit.CCoil, FirstHVACIteration, indUnit.CCoil_Num);
+        MixerComponent::SimAirMixer(state, indUnit.MixerName, indUnit.Mixer_Num);
+>>>>>>> nrel/develop
         LoadMet = TotAirMassFlow * Psychrometrics::PsyDeltaHSenFnTdb2W2Tdb1W1(state.dataLoopNodes->Node(OutletNode).Temp,
                                                                               state.dataLoopNodes->Node(OutletNode).HumRat,
                                                                               state.dataLoopNodes->Node(ZoneNode).Temp,
@@ -1388,12 +1998,37 @@ namespace HVACSingleDuctInduc {
         auto &adu = state.dataDefineEquipment->AirDistUnit(this->ADUNum);
         if (!state.dataSize->TermUnitFinalZoneSizing.empty()) {
             auto &sizing = state.dataSize->TermUnitFinalZoneSizing(adu.TermUnitSizingNum);
+<<<<<<< HEAD
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinFlow, adu.Name, sizing.DesCoolVolFlowMin);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinOutdoorFlow, adu.Name, sizing.MinOA);
+=======
+            Real64 maxVolFlow = this->MaxTotAirVolFlow;
+            Real64 minZoneFlow = std::fmin((this->InducRatio * maxVolFlow / (1.0 + this->InducRatio)), (maxVolFlow / (1.0 + this->InducRatio)));
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinFlow, adu.Name, minZoneFlow, 4);
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinOutdoorFlow, adu.Name, sizing.MinOA, 4);
+>>>>>>> nrel/develop
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermSupCoolingSP, adu.Name, sizing.CoolDesTemp);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermSupHeatingSP, adu.Name, sizing.HeatDesTemp);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermHeatingCap, adu.Name, sizing.DesHeatLoad);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermCoolingCap, adu.Name, sizing.DesCoolLoad);
+<<<<<<< HEAD
+=======
+
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchLeedVentMinFlowPerZone, sizing.ZoneName, minZoneFlow, 6);
+            Real64 minZoneFlowPerFloorArea = (sizing.TotalZoneFloorArea != 0.0) ? minZoneFlow / sizing.TotalZoneFloorArea : 0.0;
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchLeedVentMinFlowPerArea, sizing.ZoneName, minZoneFlowPerFloorArea, 6);
+            OutputReportPredefined::PreDefTableEntry(state,
+                                                     state.dataOutRptPredefined->pdchLeedVentMinVentPerZone,
+                                                     sizing.ZoneName,
+                                                     sizing.MinOA,
+                                                     6); // minZoneVoa
+            Real64 minZoneVoaPerFloorArea = (sizing.TotalZoneFloorArea != 0.0) ? sizing.MinOA / sizing.TotalZoneFloorArea : 0.0;
+            OutputReportPredefined::PreDefTableEntry(state,
+                                                     state.dataOutRptPredefined->pdchLeedVentMinVentPerArea,
+                                                     sizing.ZoneName,
+                                                     minZoneVoaPerFloorArea,
+                                                     6); // minZoneVoaPerFloorArea
+>>>>>>> nrel/develop
         }
         OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermTypeInp, adu.Name, this->UnitType);
         OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermPrimFlow, adu.Name, this->MaxPriAirMassFlow);

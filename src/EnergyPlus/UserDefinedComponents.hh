@@ -48,8 +48,13 @@
 #ifndef UserDefinedComponents_hh_INCLUDED
 #define UserDefinedComponents_hh_INCLUDED
 
+<<<<<<< HEAD
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array1D.hh>
+=======
+// C++ Headers
+#include <vector>
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/Data/BaseData.hh>
@@ -64,6 +69,11 @@ namespace EnergyPlus {
 // Forward declarations
 struct EnergyPlusData;
 
+<<<<<<< HEAD
+=======
+int constexpr primaryConnIdx = 0;
+
+>>>>>>> nrel/develop
 namespace UserDefinedComponents {
 
     struct PlantConnectionStruct
@@ -176,8 +186,13 @@ namespace UserDefinedComponents {
         int ErlSimProgramMngr; // EMS:ProgramManager to always run when this model is called
         int simPluginLocation; // If Python Plugins are used to simulate this, this defines the location in the plugin structure
         int simCallbackIndex = -1;
+<<<<<<< HEAD
         int NumPlantConnections;             // count of how many plant loop connections there are
         Array1D<PlantConnectionStruct> Loop; // collect data for each plant loop connection
+=======
+        int NumPlantConnections;                 // count of how many plant loop connections there are
+        std::vector<PlantConnectionStruct> Loop; // collect data for each plant loop connection
+>>>>>>> nrel/develop
         AirConnectionStruct Air;
         WaterUseTankConnectionStruct Water;
         ZoneInternalGainsStruct Zone;
@@ -217,7 +232,11 @@ namespace UserDefinedComponents {
         int simCallbackIndex = -1;  // If API callbacks are used to simulate this, this defines the location in the vector
         int NumAirConnections;      // count of how many air connections there are
         bool PlantIsConnected;
+<<<<<<< HEAD
         Array1D<AirConnectionStruct> Air;
+=======
+        std::vector<AirConnectionStruct> AirConnections;
+>>>>>>> nrel/develop
         PlantConnectionStruct Loop;
         WaterUseTankConnectionStruct Water;
         ZoneInternalGainsStruct Zone;
@@ -246,8 +265,13 @@ namespace UserDefinedComponents {
         int initCallbackIndex = -1; // If API callbacks are used to init this, this defines the location in the vector
         int simCallbackIndex = -1;  // If API callbacks are used to simulate this, this defines the location in the vector
         AirConnectionStruct SourceAir;
+<<<<<<< HEAD
         int NumPlantConnections;             // count of how many plant loop (demand) connections there are
         Array1D<PlantConnectionStruct> Loop; // collect data for each plant loop connection
+=======
+        int NumPlantConnections;                 // count of how many plant loop (demand) connections there are
+        std::vector<PlantConnectionStruct> Loop; // collect data for each plant loop connection
+>>>>>>> nrel/develop
         WaterUseTankConnectionStruct Water;
         ZoneInternalGainsStruct Zone;         // for skin losses
         Real64 RemainingOutputToHeatingSP;    // sensible load remaining for device, to heating setpoint [W]
@@ -344,10 +368,17 @@ struct UserDefinedComponentsData : BaseGlobalStruct
     bool GetAirTerminalInput = true;
     bool GetPlantCompInput = true;
 
+<<<<<<< HEAD
     Array1D_bool CheckUserPlantCompName;
     Array1D_bool CheckUserCoilName;
     Array1D_bool CheckUserZoneAirName;
     Array1D_bool CheckUserAirTerminal;
+=======
+    std::vector<bool> CheckUserPlantCompName;
+    std::vector<bool> CheckUserCoilName;
+    std::vector<bool> CheckUserZoneAirName;
+    std::vector<bool> CheckUserAirTerminal;
+>>>>>>> nrel/develop
 
     // Object Data
     EPVector<UserDefinedComponents::UserPlantComponentStruct> UserPlantComp;
@@ -374,10 +405,17 @@ struct UserDefinedComponentsData : BaseGlobalStruct
         this->NumUserCoils = 0;
         this->NumUserZoneAir = 0;
         this->NumUserAirTerminals = 0;
+<<<<<<< HEAD
         this->CheckUserPlantCompName.deallocate();
         this->CheckUserCoilName.deallocate();
         this->CheckUserZoneAirName.deallocate();
         this->CheckUserAirTerminal.deallocate();
+=======
+        this->CheckUserPlantCompName.clear();
+        this->CheckUserCoilName.clear();
+        this->CheckUserZoneAirName.clear();
+        this->CheckUserAirTerminal.clear();
+>>>>>>> nrel/develop
         this->UserPlantComp.deallocate();
         this->UserCoil.deallocate();
         this->UserZoneAirHVAC.deallocate();

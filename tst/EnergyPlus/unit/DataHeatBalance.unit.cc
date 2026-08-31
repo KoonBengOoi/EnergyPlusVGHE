@@ -1047,7 +1047,11 @@ TEST_F(EnergyPlusFixture, DataHeatBalance_setThicknessPerpendicularTest)
     thisConstruct.Name = "TestThisConstruction";
 
     std::string const error_string0 = delimited_string(
+<<<<<<< HEAD
         {EnergyPlus::format("   ** Warning ** Version: missing in IDF, processing for EnergyPlus version=\"{}\"", DataStringGlobals::MatchVersion),
+=======
+        {std::format("   ** Warning ** Version: missing in IDF, processing for EnergyPlus version=\"{}\"", DataStringGlobals::MatchVersion),
+>>>>>>> nrel/develop
          "   ** Warning ** ConstructionProperty:InternalHeatSource has a tube spacing that is less than 2 mm.  This is not allowed.",
          "   **   ~~~   ** Construction=TestThisConstruction has this problem.  The tube spacing has been reset to 0.15m (~6 "
          "inches) for this construction.",
@@ -1363,8 +1367,17 @@ TEST_F(EnergyPlusFixture, DataHeatBalance_ComputeNominalUwithConvCoeffsTest)
     // in DataHeatBalance.cc
     int numTypesSurfaceClass = static_cast<int>(DataSurfaces::SurfaceClass::Num);
     bool surfClassOK = false;
+<<<<<<< HEAD
     if (numTypesSurfaceClass == 15) {
         surfClassOK = true;
     }
     EXPECT_TRUE(surfClassOK);
+=======
+    if (numTypesSurfaceClass == 19) {
+        surfClassOK = true;
+    }
+    EXPECT_TRUE(surfClassOK)
+        << "If this test fails, it is likely that a new surface class has been added.  Please check to see if the new surface class should be "
+           "included in ComputeNominalUwithConvCoeffs in DataHeatBalance.cc and update this test to reflect the new number of surface classes.";
+>>>>>>> nrel/develop
 }

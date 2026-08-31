@@ -104,7 +104,11 @@ This optional numeric field is the total system pressure rise experienced by the
 
 \paragraph{Field: Night Ventilation Mode Flow Fraction}\label{field-nite-vent-flow-fraction-fansysmodel}
 
+<<<<<<< HEAD
 This numeric field is the air flow fraction for the fan speed used when operating in night mode using AvailabilityManager:NighVentilation. This field corresponds to the input field called Maximum Flow Rate in the \hyperref[fanperformancenightventilation]{FanPerformance:NightVentilation} object and, as is the case there, this field is not currently used by the night ventilation manager (which has its own flow fraction field at present). This is a fraction between 0 and 1 and describes the speed level for the fan relative to the Design Maximum Air Flow Rate. This field and the previous one replace the \hyperref[fanperformancenightventilation]{FanPerformance:NightVentilation} object which is not needed with this fan.
+=======
+This numeric field is the air flow fraction for the fan speed used when operating in night mode using \hyperref[availabilitymanagernightventilation]{AvailabilityManager:NightVentilation}. This field corresponds to the input field called Maximum Flow Rate in the \hyperref[fanperformancenightventilation]{FanPerformance:NightVentilation} object and, as is the case there, this field is not currently used by the night ventilation manager (which has its own flow fraction field at present). This is a fraction between 0 and 1 and describes the speed level for the fan relative to the Design Maximum Air Flow Rate. This field and the previous one replace the \hyperref[fanperformancenightventilation]{FanPerformance:NightVentilation} object which is not needed with this fan.
+>>>>>>> nrel/develop
 
 \paragraph{Field: Motor Loss Zone Name}\label{field-loss-zone-name-fansysmodel}
 
@@ -127,6 +131,10 @@ This numeric field is used to specify the number of different speed levels avail
 A field set is pair of values for the flow fraction and electric power fraction at each speed. The sets should be arranged in increasing order so that the flow fractions become larger in subsequent field sets.  Typically the highest speed level will match the design maximum and have fractions of 1.0.  This object is extensible, so additional sets of the following two fields can be added to the end of this object.
 
 \paragraph{Field: Speed <\#> Flow Fraction}\label{field-speed-flow-fraction-fansysmodel}
+<<<<<<< HEAD
+=======
+
+>>>>>>> nrel/develop
 This is the flow fraction for the fan speed. This value is multiplied by the Design Maximum Air Flow Rate to obtain the flow rate when operating at this speed.
 
 \paragraph{Field: Speed <\#> Electric Power Fraction}\label{field-speed-power-fraction-fansysmodel}
@@ -225,6 +233,7 @@ Fan:SystemModel,
 
 \begin{itemize}
 \item
+<<<<<<< HEAD
 HVAC,Average,Fan Electricity Rate {[}W{]}
 \item
 HVAC,Sum,Fan Electricity Energy {[}J{]}
@@ -232,6 +241,32 @@ HVAC,Sum,Fan Electricity Energy {[}J{]}
 HVAC,Average,Fan Rise in Air Temperature{[}deltaC{]}
 \item
 HVAC,Average,Fan Air Mass Flow Rate{[}kg/s{]}
+=======
+  HVAC,Average,Fan Electricity Rate {[}W{]}
+\item
+  HVAC,Sum,Fan Electricity Energy {[}J{]}
+\item
+  HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
+\item
+  HVAC,Average,Fan Air Mass Flow Rate {[}kg/s{]}
+\item
+  HVAC,Average,Fan Heat Gain to Air {[}W{]}
+\end{itemize}
+
+There are additional variables for fans that can be discretely varied.
+For single-speed fans:
+
+\begin{itemize}
+\item
+  HVAC,Average,Fan Runtime Fraction {[]}
+\end{itemize}
+
+For two-speed and multi-speed fans:
+
+\begin{itemize}
+\item
+  HVAC,Average,Fan Runtime Fraction Speed <\#> {[]}
+>>>>>>> nrel/develop
 \end{itemize}
 
 \paragraph{Fan Electricity Rate {[}W{]}}\label{fan-electric-power-fansysmodel}
@@ -246,10 +281,29 @@ This output contains the electricity consumption of the fan in Joules for the ti
 
 This output contains the average rise in air temperature across the fan (outlet air temperature minus inlet air temperature) in degrees Celsius for the time interval being reported.
 
+<<<<<<< HEAD
 \paragraph{Fan Air Mass Flow Rate{[}kg/s{]}}\label{fan-air-mass-flow-fansysmodel}
 
 This output contains the average air mass flow rate in kg/s for the time interval being reported.
 
+=======
+\paragraph{Fan Air Mass Flow Rate {[}kg/s{]}}\label{fan-air-mass-flow-fansysmodel}
+
+This output contains the average air mass flow rate in kg/s for the time interval being reported.
+
+\paragraph{Fan Heat Gain to Air {[}W{]}}\label{fan-heat-gain-to-air-fansysmodel}
+
+This output contains the average power in Watts lost to the process air stream for the time interval being reported.
+
+\paragraph{Fan Runtime Fraction {[]}}\label{fan-runtime-fraction-fansysmodel}
+
+This output contains the fraction of time that this fan operated for the timestep being reported. Applicable only for single-speed fans that can be discretely varied (i.e., Speed Control Method = Discrete).
+
+\paragraph{Fan Runtime Fraction Speed <\#> {[]}}\label{fan-runtime-fraction-speed-fansysmodel}
+
+This output contains the fraction of time that this fan operated at each speed for the timestep being reported. The overall runtime fraction is the sum of the runtime fractions for each speed. Applicable only for two-speed and multi-speed fans that can be discretely varied (i.e., Speed Control Method = Discrete).
+
+>>>>>>> nrel/develop
 \subsection{Fan:ConstantVolume}\label{fanconstantvolume}
 
 This object models a constant air volume fan that is intended to operate continuously based on a time schedule. This fan will not cycle on and off based on cooling/heating load or other control signals (Ref: \hyperref[fanonoff]{Fan:OnOff}).
@@ -309,6 +363,13 @@ Allows you to specify a user-defined end-use subcategory, e.g., ``Central System
   HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
 \item
   HVAC,Sum,Fan Electricity Energy {[}J{]}
+<<<<<<< HEAD
+=======
+\item
+  HVAC,Average,Fan Air Mass Flow Rate {[}kg/s{]}
+\item
+  HVAC,Average,Fan Heat Gain to Air {[}W{]}
+>>>>>>> nrel/develop
 \end{itemize}
 
 \paragraph{Fan Electricity Rate {[}W{]}}\label{fan-electric-power-w}
@@ -323,6 +384,17 @@ This output field contains the average rise in air temperature across the fan (o
 
 This output field contains the electricity consumption of the fan in Joules for the timestep being reported. This output is also added to a meter with Resource Type = Electricity, End Use Key = Fans, Group Key = System (ref. Output:Meter objects).
 
+<<<<<<< HEAD
+=======
+\paragraph{Fan Air Mass Flow Rate {[}kg/s{]}}\label{fan-air-mass-flow-kgs}
+
+This output contains the average air mass flow rate in kg/s for the time interval being reported.
+
+\paragraph{Fan Heat Gain to Air {[}W{]}}\label{fan-heat-gain-to-air-w}
+
+This output contains the average power in Watts lost to the process air stream for the time interval being reported.
+
+>>>>>>> nrel/develop
 \subsection{Fan:OnOff}\label{fanonoff}
 
 This object models a constant air volume fan that is intended to cycle on and off in tandem with a cooling or heating system (i.e., AUTO fan control mode). The fan can also operate continuously like \hyperref[fanconstantvolume]{Fan:ConstantVolume}. If modeling continuous operation and this object is used as part of a system that utilizes \hyperref[coilheatinggas-000]{Coil:Heating:Fuel}, \hyperref[coilcoolingdxsinglespeed]{Coil:Cooling:DX:SingleSpeed} or \hyperref[coilheatingdxsinglespeed]{Coil:Heating:DX:SingleSpeed}, the user should confirm proper air flow rates (coil and fan max flows are equal) and that the coil part-load fraction correlation(s) are appropriate (e.g., part-load fraction is less than or equal to 1 for all values of coil part-load ratio). If modeling multi-speed fan operation, this object must be used as part of a compound object that allows multiple fan speeds (e.g., \hyperref[airloophvacunitaryfurnaceheatcool]{AirLoopHVAC:Unitary:Furnace:HeatCool}, \hyperref[zonehvacpackagedterminalairconditioner]{ZoneHVAC:PackagedTerminalAirConditioner}, etc.). In this case, the ratio of the compound object air flow rate to the fan's maximum air flow rate is used to determine the power at alternate fan speeds. The optional input for Fan Power Ratio Function of Speed Ratio Curve Name must be entered to model multi-speed fan operation. An optional fan total efficiency ratio curve is also available to model efficiency differences at alternate fan speeds.
@@ -397,6 +469,7 @@ Fan:OnOff,
 
 \subsubsection{Outputs}\label{outputs-1-011}
 
+<<<<<<< HEAD
 HVAC,Average,Fan Electricity Rate {[}W{]}
 
 HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
@@ -404,6 +477,22 @@ HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
 HVAC,Sum,Fan Electricity Energy {[}J{]}
 
 HVAC,Average,Fan Runtime Fraction {[]}
+=======
+\begin{itemize}
+\item
+  HVAC,Average,Fan Electricity Rate {[}W{]}
+\item
+  HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
+\item
+  HVAC,Sum,Fan Electricity Energy {[}J{]}
+\item
+  HVAC,Average,Fan Air Mass Flow Rate {[}kg/s{]}
+\item
+  HVAC,Average,Fan Heat Gain to Air {[}W{]}
+\item
+  HVAC,Average,Fan Runtime Fraction {[]}
+\end{itemize}
+>>>>>>> nrel/develop
 
 \paragraph{Fan Electricity Rate {[}W{]}}\label{fan-electric-power-w-1}
 
@@ -417,6 +506,17 @@ This output field contains the average rise in air temperature across the fan (o
 
 This output field contains the electricity consumption of the fan in Joules for the timestep being reported. This output is also added to a meter with Resource Type = Electricity, End Use Key = Fans, Group Key = System (ref. Output:Meter objects).
 
+<<<<<<< HEAD
+=======
+\paragraph{Fan Air Mass Flow Rate {[}kg/s{]}}\label{fan-air-mass-flow-kgs-1}
+
+This output contains the average air mass flow rate in kg/s for the time interval being reported.
+
+\paragraph{Fan Heat Gain to Air {[}W{]}}\label{fan-heat-gain-to-air-w-1}
+
+This output contains the average power in Watts lost to the process air stream for the time interval being reported.
+
+>>>>>>> nrel/develop
 \paragraph{Fan Runtime Fraction {[]}}\label{fan-runtime-fraction}
 
 This output field contains the fraction of time that this fan operated for the timestep being reported.
@@ -542,6 +642,13 @@ Allows you to specify a user-defined end-use subcategory, e.g., ``Central System
   HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
 \item
   HVAC,Sum,Fan Electricity Energy {[}J{]}
+<<<<<<< HEAD
+=======
+\item
+  HVAC,Average,Fan Air Mass Flow Rate {[}kg/s{]}
+\item
+  HVAC,Average,Fan Heat Gain to Air {[}W{]}
+>>>>>>> nrel/develop
 \end{itemize}
 
 \paragraph{Fan Electricity Rate {[}W{]}}\label{fan-electric-power-w-2}
@@ -556,6 +663,17 @@ This output field contains the average rise in air temperature across the fan (o
 
 This output field contains the electricity consumption of the fan in Joules for the timestep being reported. This output is also added to a meter with Resource Type = Electricity, End Use Key = Fans, Group Key = System (ref. Output:Meter objects).
 
+<<<<<<< HEAD
+=======
+\paragraph{Fan Air Mass Flow Rate {[}kg/s{]}}\label{fan-air-mass-flow-kgs-2}
+
+This output contains the average air mass flow rate in kg/s for the time interval being reported.
+
+\paragraph{Fan Heat Gain to Air {[}W{]}}\label{fan-heat-gain-to-air-w-2}
+
+This output contains the average power in Watts lost to the process air stream for the time interval being reported.
+
+>>>>>>> nrel/develop
 \subsection{Fan:ZoneExhaust}\label{fanzoneexhaust}
 
 This fan object differs from the other fans in that it stands on its own in a zone rather than serving as one part of an HVAC air system. This object appears directly in a \hyperref[zonehvacequipmentlist]{ZoneHVAC:EquipmentList} object and all the controls are contained within the fan object. The zone exhaust fan model provides a way to include the electrical power used by the fan. It can also impact air flows in central air handlers by decreasing the flow of return air and sometimes increasing the outdoor air flow rate.
@@ -616,7 +734,11 @@ This field is optional. If it is not used then there will be no temperature-rela
 
 \paragraph{Field: Balanced Exhaust Fraction Schedule Name}\label{field-balanced-exhaust-fraction-schedule-name}
 
+<<<<<<< HEAD
 This field is optional. If it is not used, then all the exhaust air flow is assumed to be unbalanced by any simple airflows, such as infiltration, ventilation, or zone mixing. Unbalanced exhaust is then modeled as being provided by the outdoor air system in the central air system. The modeling of unbalanced will reduce the flow rates at the zone's return air node by the flow rate that is being exhausted and will ensure that the outdoor air flow rate is sufficient to serve the exhaust. If this field is used, then enter the name of a schedule with fractional values between 0.0 and 1.0, inclusive. This fraction is applied to the exhaust fan flow rate and the model tracks the portion of the exhaust that is balanced. Balanced exhaust is then modeled as being provided by simple airflows and does not impact the central air system return air or outdoor air flow rates. For example, if a kitchen zone with an exhaust fan is designed to draw half of its make up air from a neighboring dining room and the other half from the outdoor air system, then a schedule value of 0.5 could be used here. This input field must be blank when the zone air flow balance is enforced. If user specifies a schedule and zone air flow balance is enforced, then EnergyPlus throws a warning error message, ignores the schedule and simulation continues.
+=======
+This field is optional. If it is not used, then all the exhaust air flow is assumed to be unbalanced by any simple airflows, such as infiltration, ventilation, or zone mixing. Unbalanced exhaust is then modeled as being provided by the outdoor air system in the central air system. The modeling of unbalanced will reduce the flow rates at the zone's return air node by the flow rate that is being exhausted and will ensure that the outdoor air flow rate is sufficient to serve the exhaust. If this field is used, then enter the name of a schedule with fractional values between 0.0 and 1.0, inclusive. This fraction is applied to the exhaust fan flow rate and the model tracks the portion of the exhaust that is balanced. Balanced exhaust is then modeled as being provided by simple airflows and does not impact the central air system return air or outdoor air flow rates. For example, consider a kitchen zone with an exhaust fan designed to draw 70\% of its make-up air from a neighboring dining room (via zone mixing or infiltration) and the remaining 30\% from the central outdoor air system. Because this field specifies the \emph{balanced} fraction (i.e., the portion supplied by simple airflows rather than the central OA system), a schedule value of 0.7 would be used here. This input field must be blank when the zone air flow balance is enforced. If user specifies a schedule and zone air flow balance is enforced, then EnergyPlus throws a warning error message, ignores the schedule and simulation continues.
+>>>>>>> nrel/develop
 
 \subsubsection{Outputs}\label{outputs-3-007}
 
@@ -624,10 +746,21 @@ This field is optional. If it is not used, then all the exhaust air flow is assu
 \item
   HVAC,Average,Fan Electricity Rate {[}W{]}
 \item
+<<<<<<< HEAD
   HVAC,Average,Fan Rise in Air Temperature{[}deltaC{]}
 \item
   HVAC,Sum,Fan Electricity Energy {[}J{]}
 \item
+=======
+  HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
+\item
+  HVAC,Sum,Fan Electricity Energy {[}J{]}
+\item
+  HVAC,Average,Fan Air Mass Flow Rate {[}kg/s{]}
+\item
+  HVAC,Average,Fan Heat Gain to Air {[}W{]}
+\item
+>>>>>>> nrel/develop
   HVAC,Average,Fan Unbalanced Air Mass Flow Rate {[}kg/s{]}
 \item
   HVAC,Average,Fan Balanced Air Mass Flow Rate {[}kg/s{]}
@@ -645,6 +778,17 @@ This output field contains the average rise in air temperature across the fan (o
 
 This output field contains the electricity consumption of the fan in Joules for the timestep being reported. This output is also added to an output meter with Resource Type = Electricity, End Use Key = Fans, Group Key = System (ref. Output:Meter objects).
 
+<<<<<<< HEAD
+=======
+\paragraph{Fan Air Mass Flow Rate {[}kg/s{]}}\label{fan-air-mass-flow-kgs-3}
+
+This output contains the average air mass flow rate in kg/s for the time interval being reported.
+
+\paragraph{Fan Heat Gain to Air {[}W{]}}\label{fan-heat-gain-to-air-w-3}
+
+This output contains the average power in Watts lost to the process air stream for the time interval being reported.
+
+>>>>>>> nrel/develop
 \paragraph{Fan Unbalanced Air Mass Flow Rate {[}kg/s{]}}\label{fan-unbalanced-air-mass-flow-rate-kgs}
 
 \paragraph{Fan Balanced Air Mass Flow Rate {[}kg/s{]}}\label{fan-balanced-air-mass-flow-rate-kgs}
@@ -704,16 +848,28 @@ Fan:OnOff,
 
 \subsection{FanPerformance:NightVentilation}\label{fanperformancenightventilation}
 
+<<<<<<< HEAD
 This object is used for specifying an alternate set of performance parameters for a fan.
 These alternate parameters are used when a system manager (such as \emph{\hyperref[availabilitymanagernightventilation]{AvailabilityManager:NightVentilation}}) sets a specified flow rate for a central forced air system.
 At this time, it can be used with \hyperref[fanconstantvolume]{Fan:ConstantVolume}, \hyperref[fanvariablevolume]{Fan:VariableVolume}, \hyperref[fanzoneexhaust]{Fan:ZoneExhaust}, \hyperref[fanonoff]{Fan:OnOff} and \hyperref[fansystemmodel]{Fan:SystemModel} fans, but not with \hyperref[fancomponentmodel]{Fan:ComponentModel} fans.
+=======
+This object is used for specifying an alternate set of performance parameters for a fan (i.e., the performance of the fan during night venting may be very different than during normal operation).
+These alternate parameters are used when a system manager (such as \hyperref[availabilitymanagernightventilation]{AvailabilityManager:NightVentilation}) sets a specified flow rate for a central forced air system.
+At this time, it can be used with \hyperref[fanconstantvolume]{Fan:ConstantVolume}, \hyperref[fanvariablevolume]{Fan:VariableVolume}, \hyperref[fanzoneexhaust]{Fan:ZoneExhaust}, and \hyperref[fanonoff]{Fan:OnOff} fans, but not with \hyperref[fansystemmodel]{Fan:SystemModel} or \hyperref[fancomponentmodel]{Fan:ComponentModel} fans.
+\hyperref[fansystemmodel]{Fan:SystemModel} fans have replaced \hyperref[fanperformancenightventilation]{FanPerformance:NightVentilation} (i.e., provides built-in night ventilation settings so \hyperref[fanperformancenightventilation]{FanPerformance:NightVentilation} is not applicable/needed for that fan type).
+
+>>>>>>> nrel/develop
 The fan model checks whether a fixed flow rate has been set; if it has the fan model will use these alternate performance parameters. Note that it is assumed that the fan will run at a fixed speed in the alternate mode. The inputs needed by this object are the fan name, fan total efficiency, pressure rise, flow rate, motor efficiency, and motor in airstream fraction.
 
 \subsubsection{Inputs}\label{inputs-4-013}
 
 \paragraph{Field: Fan Name}\label{field-fan-name-001}
 
+<<<<<<< HEAD
 This is the name of a fan defined elsewhere in the input file. The night vent performance parameters will be applied to the named fan when a system manager has set the air system flow rate.
+=======
+This is the name of a fan defined elsewhere in the input file. The night vent performance parameters will be applied to the named fan when a system manager (such as \hyperref[availabilitymanagernightventilation]{AvailabilityManager:NightVentilation}) has set the air system flow rate.
+>>>>>>> nrel/develop
 
 \paragraph{Field: Fan Total Efficiency}\label{field-fan-total-efficiency-4}
 
@@ -721,11 +877,19 @@ This value is the overall efficiency of the fan, i.e., the ratio of the power de
 
 \paragraph{Field: Pressure Rise}\label{field-pressure-rise-4}
 
+<<<<<<< HEAD
 The pressure rise in Pascals at full flow and standard (sea level) conditions (20 °C and 101325 Pa).
 
 \paragraph{Field: Maximum Flow Rate}\label{field-maximum-flow-rate-4}
 
 The design volumetric flow rate of the fan (m\(^{3}\)/sec) at standard conditions. This input is not currently used by the night ventilation manager. The flow rate during night ventilation is specified using the System\hyperref[availabilitymanagernightventilation]{AvailabilityManager:NightVentilation} ``Night Venting Flow Fraction'' field. This fraction is multiplied times the fan object's design flow rate.
+=======
+The pressure rise in Pascals at full flow and standard (sea level) conditions (20 °C and 101325 Pa). This is a required field with no default.
+
+\paragraph{Field: Maximum Flow Rate}\label{field-maximum-flow-rate-4}
+
+The design volumetric flow rate of the fan (m\(^{3}\)/sec) at standard conditions. This input is not currently used by the night ventilation manager. The flow rate during night ventilation is specified using the \hyperref[availabilitymanagernightventilation]{AvailabilityManager:NightVentilation} ``Night Venting Flow Fraction'' field. This fraction is multiplied by the fan object's design flow rate.
+>>>>>>> nrel/develop
 
 \paragraph{Field: Motor Efficiency}\label{field-motor-efficiency-3}
 
@@ -741,10 +905,19 @@ An example of use in an IDF:
 Fan:VariableVolume,
   Supply Fan 1,               !- Name
   FanAvailSched,              !- Availability Schedule Name
+<<<<<<< HEAD
   0.7,                        !- Fan Efficiency
   600.0,                      !- Pressure Rise {Pa}
   autosize,                   !- Maximum Flow Rate {m3/s}
   autosize,                   !- Minimum Flow Rate {m3/s}
+=======
+  0.7,                        !- Fan Total Efficiency
+  600.0,                      !- Pressure Rise {Pa}
+  autosize,                   !- Maximum Flow Rate {m3/s}
+  Fraction,                   !- Fan Power Minimum Flow Rate Input Method
+  0.25,                       !- Fan Power Minimum Flow Fraction
+  ,                           !- Fan Power Minimum Air Flow Rate {m3/s}
+>>>>>>> nrel/develop
   0.9,                        !- Motor Efficiency
   1.0,                        !- Motor In Airstream Fraction
   0.35071223,                 !- Fan Coefficient 1
@@ -1099,6 +1272,13 @@ Fan:ComponentModel,
   HVAC,Average,Fan Rise in Air Temperature {[}deltaC{]}
 \item
   HVAC,Sum,Fan Electricity Energy {[}J{]}
+<<<<<<< HEAD
+=======
+\item
+  HVAC,Average,Fan Air Mass Flow Rate {[}kg/s{]}
+\item
+  HVAC,Average,Fan Heat Gain to Air {[}W{]}
+>>>>>>> nrel/develop
 \end{itemize}
 
 \paragraph{Fan Electricity Rate {[}W{]}}\label{fan-electric-power-w-4}
@@ -1113,6 +1293,17 @@ This output field contains the average rise in air temperature across the fan (o
 
 This output field contains the electricity consumption of the fan in Joules for the timestep being reported. This output is also added to a meter with Resource Type = Electricity, End Use Key = Fans, Group Key = System (ref. Output:Meter objects).
 
+<<<<<<< HEAD
+=======
+\paragraph{Fan Air Mass Flow Rate {[}kg/s{]}}\label{fan-air-mass-flow-kgs-4}
+
+This output contains the average air mass flow rate in kg/s for the time interval being reported.
+
+\paragraph{Fan Heat Gain to Air {[}W{]}}\label{fan-heat-gain-to-air-w-4}
+
+This output contains the average power in Watts lost to the process air stream for the time interval being reported.
+
+>>>>>>> nrel/develop
 \paragraph{Other Outputs}\label{other-outputs}
 
 Several parameters input by the user or calculated during component sizing for the design condition (maximum system airflow) are reported separately in the \textless{}filename\textgreater{}.eio file. These parameters include fan airflow and pressure rise; fan shaft input, motor output, VFD output, and VFD input (rated) power; pulley drive ratio; belt output torque; and fan, belt, motor, VFD, and combined system efficiencies. They can be identified by lines in the .eio file beginning with Component Sizing Information, Fan:ComponentModel . The same values are also reported under the ComponentSizingSummary heading in the \textless{}filename\textgreater{}Table.html file.

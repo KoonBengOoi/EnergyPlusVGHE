@@ -85,6 +85,16 @@ def _prepare_temp_dir_for_transition(idd_path: Path, old_idd_path: Path | None =
     return temp_dir
 
 
+<<<<<<< HEAD
+=======
+def _cleanup_transition_artifacts(idf_path: Path) -> None:
+    for suffix in {".VCpErr", ".idfnew", ".idfold", ".imfnew", ".imfold"}:
+        artifact = idf_path.with_suffix(suffix)
+        if artifact.is_file():
+            artifact.unlink()
+
+
+>>>>>>> nrel/develop
 def translate_file_parallelizable(
     idf_path: Path, formatter_only_exe: Path, idd_path: Path, old_idd_path: Path | None = None
 ) -> int:
@@ -100,6 +110,7 @@ def translate_file_parallelizable(
         cwd=temp_dir,
     )
 
+<<<<<<< HEAD
     if r.returncode == 0:
         # Keep only the new files and remove the old ones
         for x in ["idf", "rvi", "mvi", "imf"]:
@@ -123,6 +134,55 @@ def translate_file_parallelizable(
         print(f"Error for {idf_path}: {temp_dir=}")
         print(r.stdout)
         print(r.stderr)
+=======
+    try:
+        if r.returncode == 0:
+            # Keep only the new files and remove the old ones
+            for x in ["idf", "rvi", "mvi", "imf"]:
+                new_file = idf_path.with_suffix(f".{x}new")
+                if x == "idf":
+                    assert new_file.is_file(), f"Could not find {new_file}, {temp_dir=}"
+                if new_file.is_file():
+                    shutil.move(new_file, idf_path.with_suffix(f".{x}"))
+
+                old_file = idf_path.with_suffix(f".{x}old")
+                if old_file.is_file():
+                    old_file.unlink()
+
+            # print('Done for {}.idf - {}'.format(eplus_file, path))
+        else:
+            print(f"Error for {idf_path}: {temp_dir=}")
+            print(r.stdout)
+            print(r.stderr)
+    finally:
+        _cleanup_transition_artifacts(idf_path)
+
+    # https://github.com/NatLabRockies/EnergyPlus/issues/9590
+    # Remove weird extra comments. E.g.,
+    #      !- Field 4
+    #      !- Field 6
+    #      !- Field 8
+    # ---
+    #          !- X,Y,Z  1 {m}
+    #          !- X,Y,Z  2 {m}
+    #          !- X,Y,Z  3 {m}
+    with open(idf_path, "r") as f:
+        lines = f.readlines()
+
+    with open(idf_path, "w") as f:
+        prev_line_blank = False
+        for line in lines:
+            line_strip = line.strip()
+            line_lstrip = line.lstrip()
+            this_line_blank = not line_strip
+
+            # Assume any line starting with "!-" and more than 4 spaces indented can be removed.
+            if not (prev_line_blank and this_line_blank) and not (
+                line_strip.startswith("!-") and (len(line) - len(line_lstrip) > 4)
+            ):
+                f.write(line)
+                prev_line_blank = this_line_blank
+>>>>>>> nrel/develop
 
     return r.returncode
 

@@ -48,16 +48,27 @@
 // Google Test Headers
 #include <gtest/gtest.h>
 
+<<<<<<< HEAD
 #include "Fixtures/EnergyPlusFixture.hh"
 
 // EnergyPlus Headers
 #include "EnergyPlus/InputProcessing/InputProcessor.hh"
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/IOFiles.hh>
+=======
+// Fixture Headers
+#include "Fixtures/EnergyPlusFixture.hh"
+
+// EnergyPlus Headers
+#include <EnergyPlus/Data/EnergyPlusData.hh>
+#include <EnergyPlus/IOFiles.hh>
+#include <EnergyPlus/InputProcessing/InputProcessor.hh>
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 TEST_F(EnergyPlusFixture, OutputFiles_Expected_Formatting_Tests)
 {
+<<<<<<< HEAD
     // EXPECT_EQ(format("{:#12.{}F}", 123.456, 0), "        123."); // valid for fmt <=7.0.0 but not >=7.1.3, changed sometime in between
     EXPECT_EQ(format("{:#11.{}F}", 123.456, 0), "        123.");
     EXPECT_EQ(format("{:#12.{}F}", 0.85505055394102414, 3), "       0.855");
@@ -182,6 +193,12 @@ TEST_F(EnergyPlusFixture, OutputFiles_Expected_Formatting_Tests)
     // code is expected to round down with the old version, but clearly it should not
     // for the case of "Trim"
     // EXPECT_EQ(format("{:.4T}", 0.096970000000000000639), "9.6969E-002");
+=======
+    EXPECT_EQ(std::format("{:#12.{}F}", 123.456, 0), "        123.");
+    EXPECT_EQ(std::format("{:#12.{}F}", 0.85505055394102414, 3), "       0.855");
+    EXPECT_EQ(std::format("{:#12.{}F}", 18229.761511696095, 2), "    18229.76");
+    EXPECT_EQ(std::format("{:12}", 4), "           4");
+>>>>>>> nrel/develop
 }
 
 TEST_F(EnergyPlusFixture, OutputControlFiles)
@@ -248,6 +265,7 @@ TEST_F(EnergyPlusFixture, OutputControlFiles)
 
 TEST_F(EnergyPlusFixture, OutputControlFiles_GetInput)
 {
+<<<<<<< HEAD
     std::string const idf_objects_fmt = R"(
 OutputControl:Files,
   {csv},              !- Output CSV
@@ -282,6 +300,42 @@ OutputControl:Files,
   {screen},           !- Output Screen
   {extshd},           !- Output ExtShd
   {tarcog};           !- Output Tarcog
+=======
+    constexpr std::string_view idf_objects_fmt = R"(
+OutputControl:Files,
+  {},                 !- Output CSV
+  {},                 !- Output MTR
+  {},                 !- Output ESO
+  {},                 !- Output EIO
+  {},                 !- Output Tabular
+  {},                 !- Output SQLite
+  {},                 !- Output JSON
+  {},                 !- Output AUDIT
+  {},                 !- Output Space Sizing
+  {},                 !- Output Zone Sizing
+  {},                 !- Output System Sizing
+  {},                 !- Output DXF
+  {},                 !- Output BND
+  {},                 !- Output RDD
+  {},                 !- Output MDD
+  {},                 !- Output MTD
+  {},                 !- Output END
+  {},                 !- Output SHD
+  {},                 !- Output DFS
+  {},                 !- Output GLHE
+  {},                 !- Output DelightIn
+  {},                 !- Output DelightELdmp
+  {},                 !- Output DelightDFdmp
+  {},                 !- Output EDD
+  {},                 !- Output DBG
+  {},                 !- Output PerfLog
+  {},                 !- Output SLN
+  {},                 !- Output SCI
+  {},                 !- Output WRL
+  {},                 !- Output Screen
+  {},                 !- Output ExtShd
+  {};                 !- Output Tarcog
+>>>>>>> nrel/develop
   )";
 
     auto boolToString = [](bool b) { return b ? "Yes" : "No"; };
@@ -320,6 +374,7 @@ OutputControl:Files,
         bool extshd = (i == 30);
         bool tarcog = (i == 31);
 
+<<<<<<< HEAD
         std::string const idf_objects = fmt::format(fmt::runtime(idf_objects_fmt),
                                                     fmt::arg("csv", boolToString(csv)),
                                                     fmt::arg("mtr", boolToString(mtr)),
@@ -353,6 +408,41 @@ OutputControl:Files,
                                                     fmt::arg("screen", boolToString(screen)),
                                                     fmt::arg("extshd", boolToString(extshd)),
                                                     fmt::arg("tarcog", boolToString(tarcog)));
+=======
+        std::string const idf_objects = std::format(idf_objects_fmt,
+                                                    boolToString(csv),
+                                                    boolToString(mtr),
+                                                    boolToString(eso),
+                                                    boolToString(eio),
+                                                    boolToString(tabular),
+                                                    boolToString(sqlite),
+                                                    boolToString(json),
+                                                    boolToString(audit),
+                                                    boolToString(spsz),
+                                                    boolToString(zsz),
+                                                    boolToString(ssz),
+                                                    boolToString(dxf),
+                                                    boolToString(bnd),
+                                                    boolToString(rdd),
+                                                    boolToString(mdd),
+                                                    boolToString(mtd),
+                                                    boolToString(end),
+                                                    boolToString(shd),
+                                                    boolToString(dfs),
+                                                    boolToString(glhe),
+                                                    boolToString(delightin),
+                                                    boolToString(delighteldmp),
+                                                    boolToString(delightdfdmp),
+                                                    boolToString(edd),
+                                                    boolToString(dbg),
+                                                    boolToString(perflog),
+                                                    boolToString(sln),
+                                                    boolToString(sci),
+                                                    boolToString(wrl),
+                                                    boolToString(screen),
+                                                    boolToString(extshd),
+                                                    boolToString(tarcog));
+>>>>>>> nrel/develop
 
         EXPECT_TRUE(process_idf(idf_objects));
 

@@ -80,7 +80,11 @@ public:
     bool FirstHVACIteration = true;
 
 protected:
+<<<<<<< HEAD
     virtual void SetUp()
+=======
+    void SetUp() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::SetUp(); // Sets up the base fixture first.
 
@@ -136,7 +140,11 @@ protected:
         state->dataZoneEquip->ZoneEquipList(1).EquipType(1) = DataZoneEquipment::ZoneEquipType::EvaporativeCooler;
     }
 
+<<<<<<< HEAD
     virtual void TearDown()
+=======
+    void TearDown() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::TearDown();
     }

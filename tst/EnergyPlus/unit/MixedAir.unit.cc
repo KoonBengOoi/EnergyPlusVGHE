@@ -74,8 +74,15 @@
 #include <EnergyPlus/OutAirNodeManager.hh>
 #include <EnergyPlus/Psychrometrics.hh>
 #include <EnergyPlus/ScheduleManager.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/SingleDuct.hh>
 #include <EnergyPlus/SizingManager.hh>
+=======
+#include <EnergyPlus/SimAirServingZones.hh>
+#include <EnergyPlus/SingleDuct.hh>
+#include <EnergyPlus/SizingManager.hh>
+#include <EnergyPlus/UnitarySystem.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/ZoneAirLoopEquipmentManager.hh>
 #include <EnergyPlus/ZoneEquipmentManager.hh>
 
@@ -1719,6 +1726,14 @@ TEST_F(EnergyPlusFixture, MixedAir_HumidifierOnOASystemTest)
     EXPECT_EQ(1, state->dataAirLoop->NumOASystems);
     EXPECT_EQ("DOAS OA SYSTEM", state->dataAirLoop->OutsideAirSys(OASysNum).Name);
 
+<<<<<<< HEAD
+=======
+    EXPECT_EQ(state->dataAirLoop->OutsideAirSys(OASysNum).OutletNodeNum(1), state->dataAirLoop->OutsideAirSys(OASysNum).InletNodeNum(2));
+    EXPECT_EQ("DOAS OUTDOOR AIR INLET", state->dataLoopNodes->NodeID(state->dataAirLoop->OutsideAirSys(OASysNum).InletNodeNum(1)));
+    EXPECT_EQ("DOAS HUMIDIFIER AIR OUTLET", state->dataLoopNodes->NodeID(state->dataAirLoop->OutsideAirSys(OASysNum).InletNodeNum(2)));
+    EXPECT_EQ("DOAS MIXED AIR OUTLET", state->dataLoopNodes->NodeID(state->dataAirLoop->OutsideAirSys(OASysNum).OutletNodeNum(2)));
+
+>>>>>>> nrel/develop
     // setup OA system and initialize nodes
     ManageOutsideAirSystem(*state, state->dataAirLoop->OutsideAirSys(OASysNum).Name, true, AirloopNum, OASysNum);
     // reset nodes to common property
@@ -6844,7 +6859,11 @@ TEST_F(EnergyPlusFixture, CO2ControlDesignOARateTest)
         "1, Min OA fraction is used.",
         "   **   ~~~   ** This may be overriding desired ventilation controls. Check inputs for Minimum Outdoor Air Flow Rate, Minimum Outdoor Air "
         "Schedule Name and Controller:MechanicalVentilation",
+<<<<<<< HEAD
         "   **   ~~~   ** Minimum OA fraction = 2.9412E-003, Mech Vent OA fraction = 1.5603E-003",
+=======
+        "   **   ~~~   ** Minimum OA fraction = 0.0029, Mech Vent OA fraction = 0.0016",
+>>>>>>> nrel/develop
         "   **   ~~~   **  Environment=, at Simulation time= 00:00 - 00:15",
     });
 
@@ -6926,7 +6945,11 @@ TEST_F(EnergyPlusFixture, MixedAir_OAControllerOrderInControllersListTest)
 
         "  Coil:Heating:Water,",
         "    OA Heating Coil 1,       !- Name",
+<<<<<<< HEAD
         "    CoolingCoilAvailSched,   !- Availability Schedule Name",
+=======
+        "    ,                        !- Availability Schedule Name",
+>>>>>>> nrel/develop
         "    autosize,                !- U-Factor Times Area Value {W/K}",
         "    autosize,                !- Maximum Water Flow Rate {m3/s}",
         "    OA Heating Coil 1 Water Inlet Node,  !- Water Inlet Node Name",
@@ -6943,7 +6966,11 @@ TEST_F(EnergyPlusFixture, MixedAir_OAControllerOrderInControllersListTest)
 
         "  Coil:Cooling:Water,",
         "    OA Cooling Coil 1,       !- Name",
+<<<<<<< HEAD
         "    CoolingCoilAvailSched,   !- Availability Schedule Name",
+=======
+        "    ,                        !- Availability Schedule Name",
+>>>>>>> nrel/develop
         "    autosize,                !- Design Water Flow Rate {m3/s}",
         "    autosize,                !- Design Air Flow Rate {m3/s}",
         "    autosize,                !- Design Inlet Water Temperature {C}",
@@ -6967,7 +6994,11 @@ TEST_F(EnergyPlusFixture, MixedAir_OAControllerOrderInControllersListTest)
 
         "  Coil:Cooling:Water,",
         "    Main Cooling Coil 1,     !- Name",
+<<<<<<< HEAD
         "    CoolingCoilAvailSched,   !- Availability Schedule Name",
+=======
+        "    ,                        !- Availability Schedule Name",
+>>>>>>> nrel/develop
         "    autosize,                !- Design Water Flow Rate {m3/s}",
         "    autosize,                !- Design Air Flow Rate {m3/s}",
         "    autosize,                !- Design Inlet Water Temperature {C}",
@@ -6984,7 +7015,11 @@ TEST_F(EnergyPlusFixture, MixedAir_OAControllerOrderInControllersListTest)
 
         "  Coil:Heating:Water,",
         "    Main Heating Coil 1,     !- Name",
+<<<<<<< HEAD
         "    ReheatCoilAvailSched,    !- Availability Schedule Name",
+=======
+        "    ,                        !- Availability Schedule Name",
+>>>>>>> nrel/develop
         "    autosize,                !- U-Factor Times Area Value {W/K}",
         "    autosize,                !- Maximum Water Flow Rate {m3/s}",
         "    Main Heating Coil 1 Water Inlet Node,  !- Water Inlet Node Name",
@@ -7363,7 +7398,13 @@ TEST_F(EnergyPlusFixture, OAController_FixedMinimum_MinimumLimitTypeTest)
     EXPECT_EQ("OA MIXER", state->dataAirLoop->OutsideAirSys(1).ComponentName(2));
 
     GetOAControllerInputs(*state);
+<<<<<<< HEAD
     EXPECT_EQ(5, state->dataMixedAir->OAController(1).OANode);
+=======
+    int const HROutletNodeNum = Util::FindItemInList(
+        "OUTSIDE AIR INLET NODE", state->dataLoopNodes->NodeID({1, state->dataLoopNodes->NumOfNodes}), state->dataLoopNodes->NumOfNodes);
+    EXPECT_EQ(HROutletNodeNum, state->dataMixedAir->OAController(1).OANode);
+>>>>>>> nrel/develop
     EXPECT_TRUE(OutAirNodeManager::CheckOutAirNodeNumber(*state, state->dataMixedAir->OAController(1).OANode));
 
     int OAControllerNum(1);
@@ -7522,7 +7563,11 @@ TEST_F(EnergyPlusFixture, OAController_HighExhaustMassFlowTest)
         "  OutdoorAir:Mixer,",
         "    OA Mixer,                !- Name",
         "    Mixed Air Node,          !- Mixed Air Node Name",
+<<<<<<< HEAD
         "    OA HR Outlet Node,       !- Outdoor Air Stream Node Name",
+=======
+        "    OA Sys HC Outlet Node,   !- Outdoor Air Stream Node Name",
+>>>>>>> nrel/develop
         "    Relief Air Outlet Node,  !- Relief Air Stream Node Name",
         "    VAV Sys Inlet Node;      !- Return Air Stream Node Name",
 
@@ -7550,7 +7595,11 @@ TEST_F(EnergyPlusFixture, OAController_HighExhaustMassFlowTest)
         "    ,                        !- Availability Schedule Name",
         "    1,                       !- Efficiency",
         "    2500,                    !- Nominal Capacity{ W }",
+<<<<<<< HEAD
         "    Outside Air Inlet Node,  !- Air Inlet Node Name",
+=======
+        "    OA HR Outlet Node,       !- Air Inlet Node Name",
+>>>>>>> nrel/develop
         "    OA Sys HC Outlet Node,   !- Air Outlet Node Name",
         "    OA Sys HC Outlet Node;   !- Temperature Setpoint Node Name"
 
@@ -7569,7 +7618,13 @@ TEST_F(EnergyPlusFixture, OAController_HighExhaustMassFlowTest)
     EXPECT_EQ("OA MIXER", state->dataAirLoop->OutsideAirSys(1).ComponentName(3));
 
     GetOAControllerInputs(*state);
+<<<<<<< HEAD
     EXPECT_EQ(5, state->dataMixedAir->OAController(1).OANode);
+=======
+    int const OANodeNum = Util::FindItemInList(
+        "OUTSIDE AIR INLET NODE", state->dataLoopNodes->NodeID({1, state->dataLoopNodes->NumOfNodes}), state->dataLoopNodes->NumOfNodes);
+    EXPECT_EQ(OANodeNum, state->dataMixedAir->OAController(1).OANode);
+>>>>>>> nrel/develop
     EXPECT_TRUE(OutAirNodeManager::CheckOutAirNodeNumber(*state, state->dataMixedAir->OAController(1).OANode));
 
     int OAControllerNum(1);
@@ -7756,7 +7811,11 @@ TEST_F(EnergyPlusFixture, OAController_LowExhaustMassFlowTest)
         "    0.60,                    !- Latent Effectiveness at 100% Heating Air Flow {dimensionless}",
         "    0.75,                    !- Sensible Effectiveness at 100% Cooling Air Flow {dimensionless}",
         "    0.60,                    !- Latent Effectiveness at 100% Cooling Air Flow {dimensionless}",
+<<<<<<< HEAD
         "    OA Sys HC Outlet Node,   !- Supply Air Inlet Node Name",
+=======
+        "    Outside Air Inlet Node,  !- Supply Air Inlet Node Name",
+>>>>>>> nrel/develop
         "    OA HR Outlet Node,       !- Supply Air Outlet Node Name",
         "    Relief Air Outlet Node,  !- Exhaust Air Inlet Node Name",
         "    HR Exhaust Air Outlet Node,  !- Exhaust Air Outlet Node Name",
@@ -7771,7 +7830,11 @@ TEST_F(EnergyPlusFixture, OAController_LowExhaustMassFlowTest)
         "  OutdoorAir:Mixer,",
         "    OA Mixer,                !- Name",
         "    Mixed Air Node,          !- Mixed Air Node Name",
+<<<<<<< HEAD
         "    OA HR Outlet Node,       !- Outdoor Air Stream Node Name",
+=======
+        "    OA Heating Coil Outlet Node, !- Outdoor Air Stream Node Name",
+>>>>>>> nrel/develop
         "    Relief Air Outlet Node,  !- Relief Air Stream Node Name",
         "    VAV Sys Inlet Node;      !- Return Air Stream Node Name",
 
@@ -7799,9 +7862,15 @@ TEST_F(EnergyPlusFixture, OAController_LowExhaustMassFlowTest)
         "    ,                        !- Availability Schedule Name",
         "    1,                       !- Efficiency",
         "    2500,                    !- Nominal Capacity{ W }",
+<<<<<<< HEAD
         "    Outside Air Inlet Node,  !- Air Inlet Node Name",
         "    OA Sys HC Outlet Node,   !- Air Outlet Node Name",
         "    OA Sys HC Outlet Node;   !- Temperature Setpoint Node Name"
+=======
+        "    OA HR Outlet Node,       !- Air Inlet Node Name",
+        "    OA Heating Coil Outlet Node, !- Air Outlet Node Name",
+        "    Mixed Air Node;          !- Temperature Setpoint Node Name"
+>>>>>>> nrel/develop
 
     });
 
@@ -7820,7 +7889,13 @@ TEST_F(EnergyPlusFixture, OAController_LowExhaustMassFlowTest)
     EXPECT_EQ("OA MIXER", state->dataAirLoop->OutsideAirSys(1).ComponentName(3));
 
     GetOAControllerInputs(*state);
+<<<<<<< HEAD
     EXPECT_EQ(5, state->dataMixedAir->OAController(1).OANode);
+=======
+    int const OANodeNum = Util::FindItemInList(
+        "OUTSIDE AIR INLET NODE", state->dataLoopNodes->NodeID({1, state->dataLoopNodes->NumOfNodes}), state->dataLoopNodes->NumOfNodes);
+    EXPECT_EQ(OANodeNum, state->dataMixedAir->OAController(1).OANode);
+>>>>>>> nrel/develop
     EXPECT_TRUE(OutAirNodeManager::CheckOutAirNodeNumber(*state, state->dataMixedAir->OAController(1).OANode));
 
     int OAControllerNum(1);
@@ -8045,4 +8120,60 @@ TEST_F(EnergyPlusFixture, MixedAir_TemperatureError)
     EXPECT_TRUE(state->dataMixedAir->OAMixer(1).MixTemp >= T_sat);
 }
 
+<<<<<<< HEAD
+=======
+TEST_F(EnergyPlusFixture, MixedAir_EconomizerFirstValidationWarning)
+{
+    state->dataMixedAir->GetOAControllerInputFlag = false;
+    state->dataGlobal->SysSizingCalc = true;
+
+    state->dataMixedAir->NumOAControllers = 1;
+    state->dataMixedAir->OAController.allocate(1);
+    auto &oaCtrl = state->dataMixedAir->OAController(1);
+    oaCtrl.Name = "OA CTRL 1";
+    oaCtrl.EconomizerStagingType = HVAC::EconomizerStagingType::EconomizerFirst;
+
+    state->dataAirSystemsData->PrimaryAirSystems.allocate(1);
+    auto &airSys = state->dataAirSystemsData->PrimaryAirSystems(1);
+    airSys.NumBranches = 1;
+    airSys.Branch.allocate(1);
+    airSys.Branch(1).TotalComponents = 1;
+    airSys.Branch(1).Comp.allocate(1);
+    airSys.Branch(1).Comp(1).CompType_Num = SimAirServingZones::CompType::UnitarySystemModel;
+    airSys.Branch(1).Comp(1).Name = "UNITARY SYS 1";
+
+    state->dataUnitarySystems->numUnitarySystems = 1;
+    state->dataUnitarySystems->unitarySys.resize(1);
+    state->dataUnitarySystems->unitarySys[0].Name = "UNITARY SYS 1";
+    state->dataUnitarySystems->unitarySys[0].m_ControlType = UnitarySystems::UnitarySys::UnitarySysCtrlType::Load;
+    state->dataUnitarySystems->unitarySys[0].m_coolCoilType = HVAC::CoilType::CoolingDXTwoSpeed;
+
+    state->dataLoopNodes->Node.allocate(3);
+    oaCtrl.OANode = 1;
+    oaCtrl.InletNode = 1;
+    oaCtrl.RetNode = 2;
+    oaCtrl.RelNode = 2;
+    oaCtrl.MixNode = 3;
+    state->dataLoopNodes->Node(3).MassFlowRateMaxAvail = 0.0;
+    state->dataAirLoop->AirLoopControlInfo.emplace_back();
+    state->dataAirLoop->AirLoopFlow.emplace_back();
+
+    state->dataMixedAir->InitOAControllerOneTimeFlag = false;
+    state->dataMixedAir->OAControllerMyOneTimeFlag.dimension(1, false);
+    state->dataMixedAir->OAControllerMyEnvrnFlag.dimension(1, false);
+    state->dataMixedAir->OAControllerMySizeFlag.dimension(1, false);
+    state->dataMixedAir->MechVentCheckFlag.dimension(1, false);
+    state->dataMixedAir->InitOAControllerSetPointCheckFlag.dimension(1, false);
+
+    EXPECT_FALSE(airSys.EconomizerStagingCheckFlag);
+
+    int ctrlIndex = 1;
+    MixedAir::SimOAController(*state, "OA CTRL 1", ctrlIndex, false, 1);
+
+    EXPECT_TRUE(airSys.EconomizerStagingCheckFlag);
+    EXPECT_EQ(oaCtrl.EconomizerStagingType, HVAC::EconomizerStagingType::InterlockedWithMechanicalCooling);
+    EXPECT_TRUE(match_err_stream("EconomizerFirst will not be enforced"));
+}
+
+>>>>>>> nrel/develop
 } // namespace EnergyPlus

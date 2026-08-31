@@ -49,6 +49,10 @@
 
 // C++ Headers
 #include <algorithm>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/BranchNodeConnections.hh>
@@ -89,7 +93,10 @@ namespace PCMStorage {
         }
 
         ShowFatalError(state, "PCMStorage factory: No PCM storage found with name: " + objectName);
+<<<<<<< HEAD
         return nullptr;
+=======
+>>>>>>> nrel/develop
     }
 
     void SimulatePCMStorage(EnergyPlusData &state, PlantLocation const &plantLoc, bool FirstHVACIteration, Real64 &CurLoad, bool RunFlag)
@@ -507,10 +514,16 @@ namespace PCMStorage {
 
         int matNum = Material::GetMaterialNum(state, state.dataIPShortCut->cAlphaArgs(7));
         if (matNum == 0) {
+<<<<<<< HEAD
             ShowSevereError(state,
                             EnergyPlus::format("{}: Invalid PCM material name: {}",
                                                state.dataIPShortCut->cCurrentModuleObject,
                                                state.dataIPShortCut->cAlphaArgs(7)));
+=======
+            ShowSevereError(
+                state,
+                std::format("{}: Invalid PCM material name: {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(7)));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         } else {
             // Obtains conduction FD related parameters from input file
@@ -523,8 +536,12 @@ namespace PCMStorage {
 
             if (!mat->hasPCM) {
                 ShowSevereError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("{}: Material {} is not a phase change material.", state.dataIPShortCut->cCurrentModuleObject, mat->Name));
+=======
+                    state, std::format("{}: Material {} is not a phase change material.", state.dataIPShortCut->cCurrentModuleObject, mat->Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 PCM.PCMMaterialNum = matNum;
@@ -544,18 +561,32 @@ namespace PCMStorage {
                 if (PCM.UseSideDesignFlowRate < 0.0) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}={}, Use Side Design Flow Rate was entered as {:.6R}.  This will be autosized during initialization.",
                                            state.dataIPShortCut->cCurrentModuleObject,
                                            PCM.Name,
                                            PCM.UseSideDesignFlowRate));
+=======
+                        std::format("{}={}, Use Side Design Flow Rate was entered as {:.6f}.  This will be autosized during initialization.",
+                                    state.dataIPShortCut->cCurrentModuleObject,
+                                    PCM.Name,
+                                    PCM.UseSideDesignFlowRate));
+>>>>>>> nrel/develop
                 }
                 if (PCM.PlantSideDesignFlowRate < 0.0) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}={}, Plant Side Design Flow Rate was entered as {:.6R}.  This will be autosized during initialization.",
                                            state.dataIPShortCut->cCurrentModuleObject,
                                            PCM.Name,
                                            PCM.PlantSideDesignFlowRate));
+=======
+                        std::format("{}={}, Plant Side Design Flow Rate was entered as {:.6f}.  This will be autosized during initialization.",
+                                    state.dataIPShortCut->cCurrentModuleObject,
+                                    PCM.Name,
+                                    PCM.PlantSideDesignFlowRate));
+>>>>>>> nrel/develop
                 }
 
                 PCM.MeltingTemp = PCM.PCMmat->peakTempMelting;
@@ -624,6 +655,7 @@ namespace PCMStorage {
         // Issue a warning to let the user know that autosizing will occur but do not halt execution.
         if (PCM.TankCapacity <= 0.0) {
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("{}={}, Tank Capacity was entered as {:.6R} and will be autosized during initialization.",
                                                 state.dataIPShortCut->cCurrentModuleObject,
                                                 PCM.Name,
@@ -632,6 +664,16 @@ namespace PCMStorage {
 
         if (ErrorsFound) {
             ShowFatalError(state, EnergyPlus::format("Errors found in processing input for {}", state.dataIPShortCut->cCurrentModuleObject));
+=======
+                             std::format("{}={}, Tank Capacity was entered as {:.6f} and will be autosized during initialization.",
+                                         state.dataIPShortCut->cCurrentModuleObject,
+                                         PCM.Name,
+                                         PCM.TankCapacity));
+        }
+
+        if (ErrorsFound) {
+            ShowFatalError(state, std::format("Errors found in processing input for {}", state.dataIPShortCut->cCurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 } // namespace PCMStorage

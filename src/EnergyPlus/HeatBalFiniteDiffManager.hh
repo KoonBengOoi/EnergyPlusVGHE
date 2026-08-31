@@ -166,6 +166,11 @@ namespace HeatBalFiniteDiffManager {
         // Includes the EMS heat source
         Array1D<Real64> heatSourceEMSFluxLayerReport;
         Array1D<Real64> heatSourceEMSFluxEnergyLayerReport;
+<<<<<<< HEAD
+=======
+        MaterialActuatorData enetActuator; // Sky LW radiation EMS override [W/m2]
+        Real64 enetActuatorReport = 0.0;   // Reported sky LW radiation EMS override [W/m2], zero when inactive
+>>>>>>> nrel/develop
 
         // Default Constructor
         SurfaceDataFD() : SourceNodeNum(0), QSource(0.0), GSloopCounter(0), MaxNodeDelTemp(0.0), EnthalpyM(0.0), EnthalpyF(0.0), PhaseChangeState(0)

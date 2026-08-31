@@ -45,6 +45,7 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 // Standard C++ library
 #include <cerrno>
 #include <cstdio>
@@ -55,24 +56,51 @@
 #include <sys/types.h>
 #include <type_traits>
 
+=======
+// C++ Headers
+>>>>>>> nrel/develop
 #ifdef _WIN32
 #    include <Shlwapi.h>
 #    include <windows.h>
 #else
+<<<<<<< HEAD
 #    include <unistd.h>
 #endif
 
 #ifdef __APPLE__
 #    include <mach-o/dyld.h>
 #endif
+=======
+#    include <sys/wait.h>
+#    include <unistd.h>
+#endif
+#include <cerrno>
+#include <cstdio>
+#include <cstdlib>
+#include <format>
+#include <fstream>
+#include <iostream>
+#ifdef __APPLE__
+#    include <mach-o/dyld.h>
+#endif
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <type_traits>
+
+// Third Party Headers
+#include <CLI/CLI11.hpp>
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/DataStringGlobals.hh>
 #include <EnergyPlus/FileSystem.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
 
+<<<<<<< HEAD
 #include <CLI/CLI11.hpp>
 
+=======
+>>>>>>> nrel/develop
 namespace EnergyPlus {
 
 namespace FileSystem {
@@ -207,7 +235,11 @@ namespace FileSystem {
         // *
         // * To resolve symlinks, wrap this call in getAbsolutePath().
         // */
+<<<<<<< HEAD
         char executableRelativePath[1024];
+=======
+        char executableRelativePath[1024] = {'\0'};
+>>>>>>> nrel/develop
 
 #ifdef __APPLE__
         uint32_t pathSize = sizeof(executableRelativePath);
@@ -315,9 +347,21 @@ namespace FileSystem {
         // cf C:\Program Files (x86)\Windows Kits\10\Source\10.0.17763.0\ucrt\exec
         // Ends up calling something that looks like the following:
         // cmd /C ""C:\path\to\ReadVarsESO.exe" "A folder with spaces\1ZoneUncontrolled.mvi" unlimited"
+<<<<<<< HEAD
         return system(("\"" + command + "\"").c_str());
 #else
         return system(command.c_str());
+=======
+        // On Windows, system() already returns the launched process's exit code directly.
+        return system(("\"" + command + "\"").c_str());
+#else
+        // On POSIX, system() returns a wait-status that must be decoded to get the child's actual exit code.
+        int const status = system(command.c_str());
+        if (status == -1 || !WIFEXITED(status)) {
+            return -1;
+        }
+        return WEXITSTATUS(status);
+>>>>>>> nrel/develop
 #endif
     }
 
@@ -346,9 +390,14 @@ namespace FileSystem {
 
     std::string readFile(fs::path const &filePath, std::ios_base::openmode mode)
     {
+<<<<<<< HEAD
         // Shenanigans would not be needed with fmt 10+ (maybe earlier), because fmt has native fs::path support
         if (!fileExists(filePath)) {
             throw FatalError(fmt::format("File does not exists: {}", filePath));
+=======
+        if (!fileExists(filePath)) {
+            throw FatalError(std::format("File does not exists: {}", filePath));
+>>>>>>> nrel/develop
         }
 
         // Can only be 'r', 'b' or 'rb'
@@ -359,7 +408,11 @@ namespace FileSystem {
         const std::uintmax_t file_size = fs::file_size(filePath);
         std::ifstream file(filePath, mode);
         if (!file.is_open()) {
+<<<<<<< HEAD
             throw FatalError(fmt::format("Could not open file: {}", filePath));
+=======
+            throw FatalError(std::format("Could not open file: {}", filePath));
+>>>>>>> nrel/develop
         }
         std::string result(file_size, '\0');
         file.read(result.data(), file_size);
@@ -368,10 +421,15 @@ namespace FileSystem {
 
     nlohmann::json readJSON(fs::path const &filePath, std::ios_base::openmode mode)
     {
+<<<<<<< HEAD
 
         // Shenanigans would not be needed with fmt 10+ (maybe earlier), because fmt has native fs::path support
         if (!fileExists(filePath)) {
             throw FatalError(fmt::format("File does not exists: {}", filePath));
+=======
+        if (!fileExists(filePath)) {
+            throw FatalError(std::format("File does not exists: {}", filePath));
+>>>>>>> nrel/develop
         }
 
         // Can only be 'r', 'b' or 'rb'
@@ -381,7 +439,11 @@ namespace FileSystem {
 
         std::ifstream file(filePath, mode);
         if (!file.is_open()) {
+<<<<<<< HEAD
             throw FatalError(fmt::format("Could not open file: {}", filePath));
+=======
+            throw FatalError(std::format("Could not open file: {}", filePath));
+>>>>>>> nrel/develop
         }
 
         FileTypes const ext = getFileType(filePath);

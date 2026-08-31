@@ -54,7 +54,11 @@
 ! Environmental Emissions:
 ! Utility Tariffs:
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     AutoBuilt Model,         !- Name

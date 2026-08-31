@@ -1011,7 +1011,11 @@ TEST_F(EnergyPlusFixture, SingleDuctVAVReheatAirTerminal_MinFlowTurnDownTest)
     });
 
     ASSERT_TRUE(process_idf(idf_objects));
+<<<<<<< HEAD
     compare_err_stream_substring("", true); // clear idf errors
+=======
+    compare_err_stream("", true); // clear idf errors
+>>>>>>> nrel/develop
     // setup variables for VAV Reheat
     int SysNum = 1;
     int ZoneNum = 1;
@@ -1221,7 +1225,11 @@ TEST_F(EnergyPlusFixture, SingleDuctVAVReheatVSFanAirTerminal_MinFlowTurnDownTes
     });
 
     ASSERT_TRUE(process_idf(idf_objects));
+<<<<<<< HEAD
     compare_err_stream_substring("", true); // clear idf errors
+=======
+    compare_err_stream("", true); // clear idf errors
+>>>>>>> nrel/develop
     // setup variables for VAV Reheat VS Fan
     int SysNum = 1;
     int ZoneNum = 1;
@@ -1399,7 +1407,11 @@ TEST_F(EnergyPlusFixture, SingleDuctVAVHeatCoolReheatAirTerminal_MinFlowTurnDown
     });
 
     ASSERT_TRUE(process_idf(idf_objects));
+<<<<<<< HEAD
     compare_err_stream_substring("", true); // clear idf errors
+=======
+    compare_err_stream("", true); // clear idf errors
+>>>>>>> nrel/develop
     // setup variables for VAV Reheat VS Fan
     int SysNum = 1;
     int ZoneNum = 1;
@@ -1588,7 +1600,11 @@ TEST_F(EnergyPlusFixture, SingleDuctVAVReheatVSFan_DamperPositionTest)
     });
 
     ASSERT_TRUE(process_idf(idf_objects));
+<<<<<<< HEAD
     compare_err_stream_substring("", true); // clear idf errors
+=======
+    compare_err_stream("", true); // clear idf errors
+>>>>>>> nrel/develop
     // setup variables for VAV Reheat VS Fan
     int SysNum = 1;
     int ZoneNum = 1;
@@ -1735,7 +1751,11 @@ TEST_F(EnergyPlusFixture, VAVHeatCoolReheatAirTerminal_ZoneOAVolumeFlowRateTest)
     });
 
     ASSERT_TRUE(process_idf(idf_objects));
+<<<<<<< HEAD
     compare_err_stream_substring("", true); // clear idf errors
+=======
+    compare_err_stream("", true); // clear idf errors
+>>>>>>> nrel/develop
     // setup variables for VAV HeatCoolReheat
     int SysNum = 1;
     int ZoneNum = 1;
@@ -1845,8 +1865,12 @@ TEST_F(EnergyPlusFixture, SingleDuctInduction_reportTerminalUnit)
 {
     using namespace EnergyPlus::OutputReportPredefined;
     auto &orp = *state->dataOutRptPredefined;
+<<<<<<< HEAD
 
     SetPredefinedTables(*state);
+=======
+    state->dataEnvrn->StdRhoAir = 1.1;
+>>>>>>> nrel/develop
 
     auto &adu = state->dataDefineEquipment->AirDistUnit;
     adu.allocate(2);
@@ -1855,7 +1879,10 @@ TEST_F(EnergyPlusFixture, SingleDuctInduction_reportTerminalUnit)
 
     auto &siz = state->dataSize->TermUnitFinalZoneSizing;
     siz.allocate(2);
+<<<<<<< HEAD
     siz(1).DesCoolVolFlowMin = 0.15;
+=======
+>>>>>>> nrel/develop
     siz(1).MinOA = 0.05;
     siz(1).CoolDesTemp = 12.5;
     siz(1).HeatDesTemp = 40.0;
@@ -1868,13 +1895,23 @@ TEST_F(EnergyPlusFixture, SingleDuctInduction_reportTerminalUnit)
     sdiu(1).UnitType = "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction";
     sdiu(1).MaxPriAirMassFlow = 0.30;
     sdiu(1).MaxSecAirMassFlow = 0.15;
+<<<<<<< HEAD
+=======
+    sdiu(1).MaxTotAirVolFlow = (sdiu(1).MaxPriAirMassFlow + sdiu(1).MaxSecAirMassFlow) / state->dataEnvrn->StdRhoAir;
+    sdiu(1).InducRatio = sdiu(1).MaxSecAirMassFlow / sdiu(1).MaxPriAirMassFlow;
+>>>>>>> nrel/develop
     sdiu(1).HCoilType = "hotwatercoil";
     sdiu(1).CCoilType = "coldwatercoil";
 
     sdiu(1).reportTerminalUnit(*state);
 
+<<<<<<< HEAD
     EXPECT_EQ("0.15", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinFlow, "ADU a"));
     EXPECT_EQ("0.05", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinOutdoorFlow, "ADU a"));
+=======
+    EXPECT_EQ("0.1364", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinFlow, "ADU a"));
+    EXPECT_EQ("0.0500", RetrievePreDefTableEntry(*state, orp.pdchAirTermMinOutdoorFlow, "ADU a"));
+>>>>>>> nrel/develop
     EXPECT_EQ("12.50", RetrievePreDefTableEntry(*state, orp.pdchAirTermSupCoolingSP, "ADU a"));
     EXPECT_EQ("40.00", RetrievePreDefTableEntry(*state, orp.pdchAirTermSupHeatingSP, "ADU a"));
     EXPECT_EQ("2000.00", RetrievePreDefTableEntry(*state, orp.pdchAirTermHeatingCap, "ADU a"));

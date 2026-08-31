@@ -47,7 +47,10 @@
 
 // Google Test Headers
 #include <EnergyPlus/PhaseChangeModeling/HysteresisModel.hh>
+<<<<<<< HEAD
 #include <fstream>
+=======
+>>>>>>> nrel/develop
 #include <gtest/gtest.h>
 #include <vector>
 
@@ -58,7 +61,11 @@ class HysteresisTest : public testing::Test
 {
 public:
     Material::MaterialPhaseChange ModelA;
+<<<<<<< HEAD
     virtual void SetUp()
+=======
+    void SetUp() override
+>>>>>>> nrel/develop
     {
         this->ModelA.Name = "PCM Name";
         this->ModelA.totalLatentHeat = 25000;     // J/kg ?
@@ -78,7 +85,11 @@ public:
         this->ModelA.fullyLiquidDensity = 4.0;
     }
 
+<<<<<<< HEAD
     virtual void TearDown()
+=======
+    void TearDown() override
+>>>>>>> nrel/develop
     {
     }
 };

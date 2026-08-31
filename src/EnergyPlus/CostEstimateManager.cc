@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <algorithm>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -218,7 +222,11 @@ namespace CostEstimateManager {
             state.dataCostEstimateManager->CurntBldg.RegionalModifier = state.dataIPShortCut->rNumericArgs(7);
 
         } else if (NumCostAdjust > 1) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("{}: Only one instance of this object is allowed.", cCurrentModuleObject));
+=======
+            ShowSevereError(state, std::format("{}: Only one instance of this object is allowed.", cCurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -243,7 +251,11 @@ namespace CostEstimateManager {
             state.dataCostEstimateManager->RefrncBldg.RegionalModifier = state.dataIPShortCut->rNumericArgs(8);
 
         } else if (NumRefAdjust > 1) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("{} : Only one instance of this object is allowed.", cCurrentModuleObject));
+=======
+            ShowSevereError(state, std::format("{} : Only one instance of this object is allowed.", cCurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -280,7 +292,11 @@ namespace CostEstimateManager {
         std::string ThisConstructStr;
         auto &Zone(state.dataHeatBal->Zone);
 
+<<<<<<< HEAD
         int thisCoil; // index of named coil in its derived type
+=======
+        int thisCoil = 0; // index of named coil in its derived type
+>>>>>>> nrel/develop
         int thisChil;
         int thisPV;
 
@@ -300,19 +316,31 @@ namespace CostEstimateManager {
                 if (state.dataCostEstimateManager->CostLineItem(Item).PerSquareMeter == 0) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ComponentCost:LineItem: \"{}\" Construction object needs non-zero construction costs per square meter",
                                            state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                        std::format("ComponentCost:LineItem: \"{}\" Construction object needs non-zero construction costs per square meter",
+                                    state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
                 ThisConstructStr = state.dataCostEstimateManager->CostLineItem(Item).ParentObjName;
                 ThisConstructID = Util::FindItem(ThisConstructStr, state.dataConstruction->Construct);
                 if (ThisConstructID == 0) { // do any surfaces have the specified construction? If not issue warning.
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format("ComponentCost:LineItem: \"{}\" Construction=\"{}\", no surfaces have the Construction specified",
                                            state.dataCostEstimateManager->CostLineItem(Item).LineName,
                                            state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+=======
+                    ShowWarningError(state,
+                                     std::format("ComponentCost:LineItem: \"{}\" Construction=\"{}\", no surfaces have the Construction specified",
+                                                 state.dataCostEstimateManager->CostLineItem(Item).LineName,
+                                                 state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "No costs will be calculated for this Construction.");
                     //        ErrorsFound = .TRUE.
                     continue;
@@ -326,27 +354,45 @@ namespace CostEstimateManager {
                     (state.dataCostEstimateManager->CostLineItem(Item).PerEach > 0.0)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
                                            state.dataCostEstimateManager->CostLineItem(Item).LineName,
                                            ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+=======
+                        std::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
+                                    state.dataCostEstimateManager->CostLineItem(Item).LineName,
+                                    ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if ((state.dataCostEstimateManager->CostLineItem(Item).PerKiloWattCap > 0.0) &&
                     (state.dataCostEstimateManager->CostLineItem(Item).PerKWCapPerCOP > 0.0)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
                                            state.dataCostEstimateManager->CostLineItem(Item).LineName,
                                            ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+=======
+                        std::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
+                                    state.dataCostEstimateManager->CostLineItem(Item).LineName,
+                                    ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if ((state.dataCostEstimateManager->CostLineItem(Item).PerEach > 0.0) &&
                     (state.dataCostEstimateManager->CostLineItem(Item).PerKWCapPerCOP > 0.0)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
                                            state.dataCostEstimateManager->CostLineItem(Item).LineName,
                                            ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+=======
+                        std::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
+                                    state.dataCostEstimateManager->CostLineItem(Item).LineName,
+                                    ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 //  check for wildcard * in object name..
@@ -355,9 +401,15 @@ namespace CostEstimateManager {
                 } else if (state.dataCostEstimateManager->CostLineItem(Item).ParentObjName.empty()) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
                                            state.dataCostEstimateManager->CostLineItem(Item).LineName,
                                            ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+=======
+                        std::format("ComponentCost:LineItem: \"{}\", {}, too many pricing methods specified",
+                                    state.dataCostEstimateManager->CostLineItem(Item).LineName,
+                                    ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
 
                 } else { // assume name is probably useful
@@ -374,6 +426,7 @@ namespace CostEstimateManager {
                         }
                     }
                     if (!coilFound) {
+<<<<<<< HEAD
                         ShowWarningError(state,
                                          EnergyPlus::format(
                                              "ComponentCost:LineItem: \"{}\", {}, invalid coil specified",
@@ -382,6 +435,16 @@ namespace CostEstimateManager {
                         ShowContinueError(state,
                                           EnergyPlus::format("Coil Specified=\"{}\", calculations will not be completed for this item.",
                                                              state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+=======
+                        ShowWarningError(
+                            state,
+                            std::format("ComponentCost:LineItem: \"{}\", {}, invalid coil specified",
+                                        state.dataCostEstimateManager->CostLineItem(Item).LineName,
+                                        ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+                        ShowContinueError(state,
+                                          std::format("Coil Specified=\"{}\", calculations will not be completed for this item.",
+                                                      state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+>>>>>>> nrel/develop
                     }
                 }
             } break;
@@ -390,22 +453,37 @@ namespace CostEstimateManager {
                 if ((state.dataCostEstimateManager->CostLineItem(Item).PerKiloWattCap > 0.0) &&
                     (state.dataCostEstimateManager->CostLineItem(Item).PerEach > 0.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, too many pricing methods specified",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, too many pricing methods specified",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if ((state.dataCostEstimateManager->CostLineItem(Item).PerKiloWattCap > 0.0) &&
                     (state.dataCostEstimateManager->CostLineItem(Item).PerKWCapPerCOP > 0.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, too many pricing methods specified",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, too many pricing methods specified",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if ((state.dataCostEstimateManager->CostLineItem(Item).PerEach > 0.0) &&
                     (state.dataCostEstimateManager->CostLineItem(Item).PerKWCapPerCOP > 0.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, too many pricing methods specified",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, too many pricing methods specified",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 //  check for wildcard * in object name..
@@ -413,27 +491,45 @@ namespace CostEstimateManager {
 
                 } else if (state.dataCostEstimateManager->CostLineItem(Item).ParentObjName.empty()) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, need to specify a Reference Object Name",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, need to specify a Reference Object Name",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
 
                 } else { // assume name is probably useful
                     thisCoil = Util::FindItem(state.dataCostEstimateManager->CostLineItem(Item).ParentObjName, state.dataHeatingCoils->HeatingCoil);
                     if (thisCoil == 0) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, invalid coil specified",
                                                             state.dataCostEstimateManager->CostLineItem(Item).LineName));
                         ShowContinueError(state,
                                           EnergyPlus::format("Coil Specified=\"{}\", calculations will not be completed for this item.",
                                                              state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+=======
+                                         std::format("ComponentCost:LineItem: \"{}\", Coil:Heating:Fuel, invalid coil specified",
+                                                     state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                        ShowContinueError(state,
+                                          std::format("Coil Specified=\"{}\", calculations will not be completed for this item.",
+                                                      state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+>>>>>>> nrel/develop
                     }
                 }
             } break;
             case ParentObject::ChillerElectric: {
                 if (state.dataCostEstimateManager->CostLineItem(Item).ParentObjName.empty()) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Chiller:Electric, need to specify a Reference Object Name",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Chiller:Electric, need to specify a Reference Object Name",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 thisChil = 0;
@@ -446,20 +542,34 @@ namespace CostEstimateManager {
                 }
                 if (thisChil == 0) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("ComponentCost:LineItem: \"{}\", Chiller:Electric, invalid chiller specified.",
                                                         state.dataCostEstimateManager->CostLineItem(Item).LineName));
                     ShowContinueError(state,
                                       EnergyPlus::format("Chiller Specified=\"{}\", calculations will not be completed for this item.",
                                                          state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+=======
+                                     std::format("ComponentCost:LineItem: \"{}\", Chiller:Electric, invalid chiller specified.",
+                                                 state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                    ShowContinueError(state,
+                                      std::format("Chiller Specified=\"{}\", calculations will not be completed for this item.",
+                                                  state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+>>>>>>> nrel/develop
                 }
             } break;
             case ParentObject::DaylightingControls: {
                 if (state.dataCostEstimateManager->CostLineItem(Item).ParentObjName == "*") { // wildcard, apply to all such components
                 } else if (state.dataCostEstimateManager->CostLineItem(Item).ParentObjName.empty()) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state,
                         EnergyPlus::format("ComponentCost:LineItem: \"{}\", Daylighting:Controls, need to specify a Reference Object Name",
                                            state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                    ShowSevereError(state,
+                                    std::format("ComponentCost:LineItem: \"{}\", Daylighting:Controls, need to specify a Reference Object Name",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 } else {
                     ThisZoneID = Util::FindItem(state.dataCostEstimateManager->CostLineItem(Item).ParentObjName, Zone);
@@ -467,10 +577,17 @@ namespace CostEstimateManager {
                         state.dataCostEstimateManager->CostLineItem(Item).Qty = state.dataDayltg->ZoneDaylight(ThisZoneID).totRefPts;
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("ComponentCost:LineItem: \"{}\", Daylighting:Controls, need to specify a valid zone name",
                                                            state.dataCostEstimateManager->CostLineItem(Item).LineName));
                         ShowContinueError(
                             state, EnergyPlus::format("Zone specified=\"{}\".", state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+=======
+                                        std::format("ComponentCost:LineItem: \"{}\", Daylighting:Controls, need to specify a valid zone name",
+                                                    state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                        ShowContinueError(state,
+                                          std::format("Zone specified=\"{}\".", state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -481,6 +598,7 @@ namespace CostEstimateManager {
                     if (ThisSurfID > 0) {
                         ThisZoneID = Util::FindItem(state.dataSurface->Surface(ThisSurfID).ZoneName, Zone);
                         if (ThisZoneID == 0) {
+<<<<<<< HEAD
                             ShowSevereError(
                                 state,
                                 EnergyPlus::format("ComponentCost:LineItem: \"{}\", Shading:Zone:Detailed, need to specify a valid zone name",
@@ -495,12 +613,31 @@ namespace CostEstimateManager {
                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
                         ShowContinueError(
                             state, EnergyPlus::format("Surface specified=\"{}\".", state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+=======
+                            ShowSevereError(state,
+                                            std::format("ComponentCost:LineItem: \"{}\", Shading:Zone:Detailed, need to specify a valid zone name",
+                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                            ShowContinueError(state, std::format("Zone specified=\"{}\".", state.dataSurface->Surface(ThisSurfID).ZoneName));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state,
+                                        std::format("ComponentCost:LineItem: \"{}\", Shading:Zone:Detailed, need to specify a valid surface name",
+                                                    state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                        ShowContinueError(state,
+                                          std::format("Surface specified=\"{}\".", state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Shading:Zone:Detailed, specify a Reference Object Name",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Shading:Zone:Detailed, specify a Reference Object Name",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } break;
@@ -508,8 +645,13 @@ namespace CostEstimateManager {
                 if ((state.dataCostEstimateManager->CostLineItem(Item).PerKiloWattCap > 0.0) &&
                     (state.dataCostEstimateManager->CostLineItem(Item).PerEach > 0.0)) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Lights, too many pricing methods specified",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Lights, too many pricing methods specified",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (state.dataCostEstimateManager->CostLineItem(Item).PerKiloWattCap != 0.0) {
@@ -517,16 +659,28 @@ namespace CostEstimateManager {
                         ThisZoneID = Util::FindItem(state.dataCostEstimateManager->CostLineItem(Item).ParentObjName, Zone);
                         if (ThisZoneID == 0) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("ComponentCost:LineItem: \"{}\", Lights, need to specify a valid zone name",
                                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
                             ShowContinueError(
                                 state, EnergyPlus::format("Zone specified=\"{}\".", state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+=======
+                                            std::format("ComponentCost:LineItem: \"{}\", Lights, need to specify a valid zone name",
+                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                            ShowContinueError(state,
+                                              std::format("Zone specified=\"{}\".", state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     } else {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("ComponentCost:LineItem: \"{}\", Lights, need to specify a Reference Object Name",
                                                            state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                        std::format("ComponentCost:LineItem: \"{}\", Lights, need to specify a Reference Object Name",
+                                                    state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -537,6 +691,7 @@ namespace CostEstimateManager {
                         thisPV = Util::FindItem(state.dataCostEstimateManager->CostLineItem(Item).ParentObjName, state.dataPhotovoltaic->PVarray);
                         if (thisPV > 0) {
                             if (state.dataPhotovoltaic->PVarray(thisPV).PVModelType != DataPhotovoltaics::PVModel::Simple) {
+<<<<<<< HEAD
                                 ShowSevereError(
                                     state,
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Generator:Photovoltaic, only available for model type "
@@ -559,17 +714,43 @@ namespace CostEstimateManager {
                             state,
                             EnergyPlus::format("ComponentCost:LineItem: \"{}\", Generator:Photovoltaic, need to specify a Reference Object Name",
                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                ShowSevereError(state,
+                                                std::format("ComponentCost:LineItem: \"{}\", Generator:Photovoltaic, only available for model type "
+                                                            "PhotovoltaicPerformance:Simple",
+                                                            state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                                ErrorsFound = true;
+                            }
+                        } else {
+                            ShowSevereError(state,
+                                            std::format("ComponentCost:LineItem: \"{}\", Generator:Photovoltaic, need to specify a valid PV array",
+                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                            ShowContinueError(
+                                state, std::format("PV Array specified=\"{}\".", state.dataCostEstimateManager->CostLineItem(Item).ParentObjName));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state,
+                                        std::format("ComponentCost:LineItem: \"{}\", Generator:Photovoltaic, need to specify a Reference Object Name",
+                                                    state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("ComponentCost:LineItem: \"{}\", Generator:Photovoltaic, need to specify a per-kilowatt cost ",
                                                        state.dataCostEstimateManager->CostLineItem(Item).LineName));
+=======
+                                    std::format("ComponentCost:LineItem: \"{}\", Generator:Photovoltaic, need to specify a per-kilowatt cost ",
+                                                state.dataCostEstimateManager->CostLineItem(Item).LineName));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } break;
             default: {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("ComponentCost:LineItem: \"{}\", invalid cost item -- not included in cost estimate.",
                                                     state.dataCostEstimateManager->CostLineItem(Item).LineName));
                 ShowContinueError(
@@ -577,6 +758,14 @@ namespace CostEstimateManager {
                     EnergyPlus::format(
                         "... invalid object type={}",
                         EnergyPlus::format(ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)])));
+=======
+                                 std::format("ComponentCost:LineItem: \"{}\", invalid cost item -- not included in cost estimate.",
+                                             state.dataCostEstimateManager->CostLineItem(Item).LineName));
+                ShowContinueError(
+                    state,
+                    std::format("... invalid object type={}",
+                                ParentObjectNamesUC[static_cast<int>(state.dataCostEstimateManager->CostLineItem(Item).ParentObjType)]));
+>>>>>>> nrel/develop
             } break;
             }
         }
@@ -606,8 +795,13 @@ namespace CostEstimateManager {
 
         Array1D_bool uniqueSurfMask;
         Array1D<Real64> SurfMultipleARR;
+<<<<<<< HEAD
         int surf;     // do-loop counter for checking for surfaces for uniqueness
         int thisCoil; // index of named coil in its derived type
+=======
+        int surf;         // do-loop counter for checking for surfaces for uniqueness
+        int thisCoil = 0; // index of named coil in its derived type
+>>>>>>> nrel/develop
         bool WildcardObjNames;
         int thisChil;
         int thisPV;
@@ -825,7 +1019,11 @@ namespace CostEstimateManager {
                     if (WildcardObjNames) {
                         Real64 Qty(0.0);
                         for (auto const &e : state.dataHeatingCoils->HeatingCoil) {
+<<<<<<< HEAD
                             if (e.HCoilType_Num == 1) {
+=======
+                            if (e.coilType == HVAC::CoilType::HeatingDXSingleSpeed) {
+>>>>>>> nrel/develop
                                 Qty += e.NominalCapacity;
                             }
                         }
@@ -862,7 +1060,11 @@ namespace CostEstimateManager {
                     if (WildcardObjNames) {
                         Real64 Qty(0.0);
                         for (auto const &e : state.dataHeatingCoils->HeatingCoil) {
+<<<<<<< HEAD
                             if (e.HCoilType_Num == 1) {
+=======
+                            if (e.coilType == HVAC::CoilType::HeatingDXSingleSpeed) {
+>>>>>>> nrel/develop
                                 Qty += e.Efficiency * e.NominalCapacity;
                             }
                         }

@@ -98,7 +98,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Building,                !- Name
@@ -606,8 +610,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,117.239997864; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     ShadeTransSch,           !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -5278,10 +5285,15 @@
 
 !end terminal
   !
+<<<<<<< HEAD
       !- call hot water coil model
       !unload HW coil model results
     ! run at full damper open (for good zone air mixing) and
       !- call hot water coil model
+=======
+      !unload HW coil model results
+    ! run at full damper open (for good zone air mixing) and
+>>>>>>> nrel/develop
       !unload HW coil model results
       !unload HW coil model results
 

@@ -224,9 +224,15 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestSurfTempCalcHeatBalanceI
         delimited_string({"   ** Severe  ** Temperature (high) out of bounds (201.00] for zone=\"TestZone\", for surface=\"TestSurface\"",
                           "   **   ~~~   **  Environment=, at Simulation time= 00:00 - 00:00",
                           "   **   ~~~   ** Zone=\"TestZone\", Diagnostic Details:",
+<<<<<<< HEAD
                           "   **   ~~~   ** ...Internal Heat Gain [2.500E-003] W/m2",
                           "   **   ~~~   ** ...Infiltration/Ventilation [0.500] m3/s",
                           "   **   ~~~   ** ...Mixing/Cross Mixing [0.700] m3/s",
+=======
+                          "   **   ~~~   ** ...Internal Heat Gain [0.00250] W/m2",
+                          "   **   ~~~   ** ...Infiltration/Ventilation [0.50000] m3/s",
+                          "   **   ~~~   ** ...Mixing/Cross Mixing [0.70000] m3/s",
+>>>>>>> nrel/develop
                           "   **   ~~~   ** ...Zone is part of HVAC controlled system."});
     EXPECT_TRUE(compare_err_stream(error_string01, true));
     EXPECT_TRUE(testZone.TempOutOfBoundsReported);
@@ -260,9 +266,15 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestSurfTempCalcHeatBalanceI
         delimited_string({"   ** Severe  ** Temperature (low) out of bounds [-101.00] for zone=\"TestZone\", for surface=\"TestSurface\"",
                           "   **   ~~~   **  Environment=, at Simulation time= 00:00 - 00:00",
                           "   **   ~~~   ** Zone=\"TestZone\", Diagnostic Details:",
+<<<<<<< HEAD
                           "   **   ~~~   ** ...Internal Heat Gain [2.500E-003] W/m2",
                           "   **   ~~~   ** ...Infiltration/Ventilation [0.500] m3/s",
                           "   **   ~~~   ** ...Mixing/Cross Mixing [0.700] m3/s",
+=======
+                          "   **   ~~~   ** ...Internal Heat Gain [0.00250] W/m2",
+                          "   **   ~~~   ** ...Infiltration/Ventilation [0.50000] m3/s",
+                          "   **   ~~~   ** ...Mixing/Cross Mixing [0.70000] m3/s",
+>>>>>>> nrel/develop
                           "   **   ~~~   ** ...Zone is part of HVAC controlled system."});
     EXPECT_TRUE(compare_err_stream(error_string03, true));
     EXPECT_TRUE(testZone.TempOutOfBoundsReported);
@@ -2551,6 +2563,16 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_SurfaceCOnstructionIndexTest
     state->dataSurface->Surface(1).ExtBoundCond = 1;
     state->dataSurface->Surface(1).Construction = 1;
 
+<<<<<<< HEAD
+=======
+    auto *material = new Material::MaterialBase;
+    material->Name = "TEST MATERIAL";
+    material->group = Material::Group::Regular;
+    state->dataMaterial->materials.push_back(material);
+    state->dataConstruction->Construct(1).TotLayers = 1;
+    state->dataConstruction->Construct(1).LayerPoint(1) = 1;
+
+>>>>>>> nrel/develop
     state->dataConstruction->Construct(1).NumCTFTerms = 2;
     state->dataConstruction->Construct(1).SourceSinkPresent = true;
     state->dataConstruction->Construct(1).NumHistories = 1;
@@ -6518,7 +6540,11 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestSurfPropertyViewFactorsI
     EXPECT_TRUE(SrdSurfsProperty_2.IsSkyViewFactorSet);
     EXPECT_DOUBLE_EQ(0.0, GndSurfsProperty_2.GndSurfs(1).ViewFactor);
     EXPECT_FALSE(GndSurfsProperty_2.IsGroundViewFactorSet);
+<<<<<<< HEAD
     EXPECT_DOUBLE_EQ(0.0, SrdSurfsProperty_3.SkyViewFactor);
+=======
+    EXPECT_EQ(DataSizing::AutoSize, SrdSurfsProperty_3.SkyViewFactor);
+>>>>>>> nrel/develop
     EXPECT_FALSE(SrdSurfsProperty_3.IsSkyViewFactorSet);
     EXPECT_DOUBLE_EQ(0.0, GndSurfsProperty_3.GndSurfs(1).ViewFactor);
     EXPECT_FALSE(GndSurfsProperty_3.IsGroundViewFactorSet);
@@ -7157,11 +7183,19 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestSurfPropertySurfToGndLWR
     Sched::GetSchedule(*state, "SKY TEMP SCH")->currentVal = 15.0;           // Sky temp
     Sched::GetSchedule(*state, "GROUND TEMP SCH")->currentVal = 22.0;        // Grd temp
 
+<<<<<<< HEAD
     for (int SurfNum = 1; SurfNum <= 6; SurfNum++) {
         state->dataHeatBalSurf->SurfOutsideTempHist(1)(SurfNum) = 20; // Surf temp
         state->dataSurface->SurfOutDryBulbTemp(SurfNum) = 22;         // Air temp
         state->dataSurface->surfExtConv(SurfNum).model = Convect::HcExt::MoWiTTHcOutside;
         state->dataSurface->SurfAirSkyRadSplit(SurfNum) = 1.0;
+=======
+    for (int loopSurfNum = 1; loopSurfNum <= 6; loopSurfNum++) {
+        state->dataHeatBalSurf->SurfOutsideTempHist(1)(loopSurfNum) = 20; // Surf temp
+        state->dataSurface->SurfOutDryBulbTemp(loopSurfNum) = 22;         // Air temp
+        state->dataSurface->surfExtConv(loopSurfNum).model = Convect::HcExt::MoWiTTHcOutside;
+        state->dataSurface->SurfAirSkyRadSplit(loopSurfNum) = 1.0;
+>>>>>>> nrel/develop
     }
 
     // test reset of surface view factors are correct
@@ -8404,7 +8438,11 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestSurfPropertyViewFactorsR
     auto &GndSurfsProperty_3 = state->dataSurface->GroundSurfsProperty(GndSurfsNum);
 
     // check user input sky view factor is blank
+<<<<<<< HEAD
     EXPECT_DOUBLE_EQ(0.0, SrdSurfsProperty_1.SkyViewFactor);
+=======
+    EXPECT_EQ(DataSizing::AutoSize, SrdSurfsProperty_1.SkyViewFactor);
+>>>>>>> nrel/develop
     EXPECT_FALSE(SrdSurfsProperty_1.IsSkyViewFactorSet);
     EXPECT_DOUBLE_EQ(0.2, SrdSurfsProperty_1.SurroundingSurfs(1).ViewFactor);
     // check user input ground view factor is not blank
@@ -8419,7 +8457,11 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestSurfPropertyViewFactorsR
     EXPECT_DOUBLE_EQ(0.0, GndSurfsProperty_2.GndSurfs(1).ViewFactor);
     EXPECT_FALSE(GndSurfsProperty_2.IsGroundViewFactorSet);
     // check user input sky and ground view factors are blank
+<<<<<<< HEAD
     EXPECT_DOUBLE_EQ(0.0, SrdSurfsProperty_3.SkyViewFactor);
+=======
+    EXPECT_EQ(DataSizing::AutoSize, SrdSurfsProperty_3.SkyViewFactor);
+>>>>>>> nrel/develop
     EXPECT_FALSE(SrdSurfsProperty_3.IsSkyViewFactorSet);
     EXPECT_DOUBLE_EQ(0.4, SrdSurfsProperty_3.SurroundingSurfs(1).ViewFactor);
     EXPECT_DOUBLE_EQ(0.0, GndSurfsProperty_3.GndSurfs(1).ViewFactor);
@@ -8450,7 +8492,11 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestSurfPropertyViewFactorsR
     EXPECT_DOUBLE_EQ(0.3, Surface_Living_South.ViewFactorGroundIR);
 }
 
+<<<<<<< HEAD
 TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestUpdateVariableAbsorptances)
+=======
+TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestUpdateVariableAbsorptancesOut)
+>>>>>>> nrel/develop
 {
     std::string const idf_objects = delimited_string({
         "Table:IndependentVariable,",
@@ -8543,16 +8589,27 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestUpdateVariableAbsorptanc
     auto *mat1 = new Material::MaterialBase;
     mat1->Name = "WALL_1";
     mat1->group = Material::Group::Regular;
+<<<<<<< HEAD
     mat1->absorpVarCtrlSignal = Material::VariableAbsCtrlSignal::SurfaceTemperature;
     mat1->absorpThermalVarCurve = Curve::GetCurve(*state, "THERMAL_ABSORPTANCE_TABLE");
     mat1->absorpSolarVarCurve = Curve::GetCurve(*state, "SOLAR_ABSORPTANCE_CURVE");
+=======
+    mat1->absorpVarCtrlSignalOut = Material::VariableAbsCtrlSignal::SurfaceTemperature;
+    mat1->absorpThermalVarCurveOut = Curve::GetCurve(*state, "THERMAL_ABSORPTANCE_TABLE");
+    mat1->absorpSolarVarCurveOut = Curve::GetCurve(*state, "SOLAR_ABSORPTANCE_CURVE");
+>>>>>>> nrel/develop
     s_mat->materials.push_back(mat1);
 
     auto *mat2 = new Material::MaterialBase;
     mat2->Name = "WALL_2";
     mat2->group = Material::Group::Regular;
+<<<<<<< HEAD
     mat2->absorpVarCtrlSignal = Material::VariableAbsCtrlSignal::Scheduled;
     mat2->absorpThermalVarSched = Sched::GetSchedule(*state, "THERMAL_ABS_SCH");
+=======
+    mat2->absorpVarCtrlSignalOut = Material::VariableAbsCtrlSignal::Scheduled;
+    mat2->absorpThermalVarSchedOut = Sched::GetSchedule(*state, "THERMAL_ABS_SCH");
+>>>>>>> nrel/develop
     s_mat->materials.push_back(mat2);
 
     state->dataHeatBalSurf->SurfTempOut.allocate(2);
@@ -8563,7 +8620,11 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestUpdateVariableAbsorptanc
     state->dataHeatBalSurf->SurfAbsThermalExt = 0.5;
     state->dataHeatBalSurf->SurfAbsSolarExt.allocate(3);
     state->dataHeatBalSurf->SurfAbsSolarExt = 0.8;
+<<<<<<< HEAD
     UpdateVariableAbsorptances(*state);
+=======
+    UpdateVariableAbsorptancesOut(*state);
+>>>>>>> nrel/develop
     // controlled by a lookup table
     EXPECT_NEAR(state->dataHeatBalSurf->SurfAbsThermalExt(1), 0.1, 1e-6);
     EXPECT_NEAR(state->dataHeatBalSurf->SurfAbsThermalExt(2), 0.3, 1e-6);
@@ -8576,6 +8637,181 @@ TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestUpdateVariableAbsorptanc
     EXPECT_NEAR(state->dataHeatBalSurf->SurfAbsSolarExt(2), 0.5, 1e-6);
 }
 
+<<<<<<< HEAD
+=======
+TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_TestUpdateVariableAbsorptancesInWithSolarRadiation)
+{
+    std::string const idf_objects = delimited_string({
+        "Curve:Linear,",
+        "SOLAR_ABSORPTANCE_CURVE, !- Name",
+        "0.2,                     !- Coefficient1 Constant",
+        "0.01,                    !- Coefficient2 x",
+        "0.0,                     !- Minimum Value of x",
+        "100.0;                   !- Maximum Value of x",
+    });
+
+    ASSERT_TRUE(process_idf(idf_objects));
+    state->init_state(*state);
+
+    state->dataSurface->Surface.allocate(1);
+    state->dataSurface->Surface(1).Name = "TEST SURFACE";
+    state->dataSurface->Surface(1).Construction = 1;
+    state->dataSurface->Surface(1).Area = 10.0;
+    state->dataSurface->AllVaryAbsOpaqSurfaceList = {1};
+
+    state->dataConstruction->Construct.allocate(1);
+    auto &construct = state->dataConstruction->Construct(1);
+    construct.TotLayers = 1;
+    construct.LayerPoint.allocate(1);
+    construct.LayerPoint(1) = 1;
+
+    auto *mat = new Material::MaterialBase;
+    mat->Name = "TEST MATERIAL";
+    mat->group = Material::Group::Regular;
+    mat->absorpVarCtrlSignalIn = Material::VariableAbsCtrlSignal::SurfaceReceivedSolarRadiation;
+    mat->absorpSolarVarCurveIn = Curve::GetCurve(*state, "SOLAR_ABSORPTANCE_CURVE");
+    state->dataMaterial->materials.push_back(mat);
+
+    state->dataHeatBalSurf->SurfAbsSolarInt.allocate(1);
+    state->dataHeatBalSurf->SurfAbsSolarInt(1) = 0.5;
+    state->dataHeatBal->SurfSWInAbsTotalReport.allocate(1);
+    state->dataHeatBal->SurfSWInAbsTotalReport(1) = 200.0;
+
+    UpdateVariableAbsorptancesIn(*state);
+
+    // 200 W absorbed / 10 m2 / 0.5 absorptance = 40 W/m2 incident
+    // 0.2 + 40 * 0.01 = 0.6
+    EXPECT_NEAR(state->dataHeatBalSurf->SurfAbsSolarInt(1), 0.6, 1e-6);
+
+    // A zero solar absorptance cannot be inverted, so use a zero incident-radiation signal.
+    state->dataHeatBalSurf->SurfAbsSolarInt(1) = 0.0;
+    UpdateVariableAbsorptancesIn(*state);
+    EXPECT_NEAR(state->dataHeatBalSurf->SurfAbsSolarInt(1), 0.2, 1e-6);
+}
+
+TEST_F(EnergyPlusFixture, AllocateSurfaceHeatBalArraysRegistersConditionalAbsorptanceOutputs)
+{
+    std::string const idf_objects = delimited_string({
+        "Output:Variable,*,Surface Thermal Absorptance,Timestep;",
+        "Output:Variable,*,Surface Solar Absorptance,Timestep;",
+        "Output:Variable,*,Surface Thermal Absorptance Outside Face,Timestep;",
+        "Output:Variable,*,Surface Thermal Absorptance Inside Face,Timestep;",
+        "Output:Variable,*,Surface Solar Absorptance Outside Face,Timestep;",
+        "Output:Variable,*,Surface Solar Absorptance Inside Face,Timestep;",
+    });
+
+    ASSERT_TRUE(process_idf(idf_objects));
+
+    constexpr int numSurfaces = 5;
+    constexpr int numConstructions = 4;
+    state->dataSurface->TotSurfaces = numSurfaces;
+    state->dataSurface->Surface.allocate(numSurfaces);
+    state->dataSurface->SurfaceWindow.allocate(numSurfaces);
+    state->dataSurface->SurfOutDryBulbTemp.dimension(numSurfaces, 0.0);
+    state->dataSurface->SurfOutWetBulbTemp.dimension(numSurfaces, 0.0);
+    state->dataSurface->SurfOutWindSpeed.dimension(numSurfaces, 0.0);
+    state->dataSurface->SurfOutWindDir.dimension(numSurfaces, 0.0);
+    state->dataSurface->SurfWinFracTimeShadingDeviceOn.dimension(numSurfaces, 0.0);
+    state->dataSurface->SurfWinStormWinFlag.dimension(numSurfaces, 0);
+    state->dataSurface->surfIntConv.allocate(numSurfaces);
+    state->dataSurface->surfExtConv.allocate(numSurfaces);
+    state->dataSurface->surfShades.allocate(numSurfaces);
+    state->dataSurface->SurfTAirRefRpt.allocate(numSurfaces);
+    state->dataHeatBal->TotConstructs = numConstructions;
+    state->dataConstruction->Construct.allocate(numConstructions);
+
+    for (int constructionNum = 1; constructionNum <= numConstructions; ++constructionNum) {
+        auto &construction = state->dataConstruction->Construct(constructionNum);
+        construction.TotLayers = 1;
+        construction.LayerPoint.allocate(1);
+        construction.LayerPoint(1) = constructionNum;
+    }
+
+    auto *bulkMaterial = new Material::MaterialBase;
+    bulkMaterial->Name = "BULK MATERIAL";
+    bulkMaterial->group = Material::Group::Regular;
+    state->dataMaterial->materials.push_back(bulkMaterial);
+
+    auto *explicitThermalMaterial = new Material::MaterialBase;
+    explicitThermalMaterial->Name = "EXPLICIT THERMAL MATERIAL";
+    explicitThermalMaterial->group = Material::Group::Regular;
+    explicitThermalMaterial->hasAbsorpThermalInputIn = true;
+    state->dataMaterial->materials.push_back(explicitThermalMaterial);
+
+    Curve::Curve solarCurve;
+    auto *dynamicSolarMaterial = new Material::MaterialBase;
+    dynamicSolarMaterial->Name = "DYNAMIC SOLAR MATERIAL";
+    dynamicSolarMaterial->group = Material::Group::Regular;
+    dynamicSolarMaterial->absorpVarCtrlSignalIn = Material::VariableAbsCtrlSignal::SurfaceTemperature;
+    dynamicSolarMaterial->absorpSolarVarCurveIn = &solarCurve;
+    state->dataMaterial->materials.push_back(dynamicSolarMaterial);
+
+    auto *windowMaterial = new Material::MaterialBase;
+    windowMaterial->Name = "WINDOW MATERIAL";
+    windowMaterial->group = Material::Group::Glass;
+    state->dataMaterial->materials.push_back(windowMaterial);
+    state->dataConstruction->Construct(4).TypeIsWindow = true;
+
+    std::array<std::string_view, numSurfaces> const surfaceNames = {
+        "BULK SURFACE", "EXPLICIT THERMAL SURFACE", "DYNAMIC SOLAR SURFACE", "INTERIOR DYNAMIC SOLAR SURFACE", "WINDOW SURFACE"};
+    std::array<int, numSurfaces> const constructionNumbers = {1, 2, 3, 3, 4};
+    for (int surfaceNum = 1; surfaceNum <= numSurfaces; ++surfaceNum) {
+        auto &surface = state->dataSurface->Surface(surfaceNum);
+        surface.Name = surfaceNames[surfaceNum - 1];
+        surface.Class = surfaceNum == numSurfaces ? DataSurfaces::SurfaceClass::Window : DataSurfaces::SurfaceClass::Wall;
+        surface.HeatTransSurf = true;
+        surface.Construction = constructionNumbers[surfaceNum - 1];
+        surface.ExtBoundCond = surfaceNum == numSurfaces - 1 ? 1 : DataSurfaces::ExternalEnvironment;
+    }
+
+    AllocateSurfaceHeatBalArrays(*state);
+
+    auto outputIsRegistered = [this](std::string_view const key, std::string_view const name) {
+        for (auto const *outputVariable : state->dataOutputProcessor->outVars) {
+            if (outputVariable->key == key && outputVariable->name == name) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    EXPECT_TRUE(outputIsRegistered("BULK SURFACE", "Surface Thermal Absorptance"));
+    EXPECT_TRUE(outputIsRegistered("BULK SURFACE", "Surface Solar Absorptance"));
+    EXPECT_FALSE(outputIsRegistered("BULK SURFACE", "Surface Thermal Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("BULK SURFACE", "Surface Thermal Absorptance Inside Face"));
+    EXPECT_FALSE(outputIsRegistered("BULK SURFACE", "Surface Solar Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("BULK SURFACE", "Surface Solar Absorptance Inside Face"));
+
+    EXPECT_FALSE(outputIsRegistered("EXPLICIT THERMAL SURFACE", "Surface Thermal Absorptance"));
+    EXPECT_TRUE(outputIsRegistered("EXPLICIT THERMAL SURFACE", "Surface Thermal Absorptance Outside Face"));
+    EXPECT_TRUE(outputIsRegistered("EXPLICIT THERMAL SURFACE", "Surface Thermal Absorptance Inside Face"));
+    EXPECT_TRUE(outputIsRegistered("EXPLICIT THERMAL SURFACE", "Surface Solar Absorptance"));
+    EXPECT_FALSE(outputIsRegistered("EXPLICIT THERMAL SURFACE", "Surface Solar Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("EXPLICIT THERMAL SURFACE", "Surface Solar Absorptance Inside Face"));
+
+    EXPECT_TRUE(outputIsRegistered("DYNAMIC SOLAR SURFACE", "Surface Thermal Absorptance"));
+    EXPECT_FALSE(outputIsRegistered("DYNAMIC SOLAR SURFACE", "Surface Thermal Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("DYNAMIC SOLAR SURFACE", "Surface Thermal Absorptance Inside Face"));
+    EXPECT_FALSE(outputIsRegistered("DYNAMIC SOLAR SURFACE", "Surface Solar Absorptance"));
+    EXPECT_TRUE(outputIsRegistered("DYNAMIC SOLAR SURFACE", "Surface Solar Absorptance Outside Face"));
+    EXPECT_TRUE(outputIsRegistered("DYNAMIC SOLAR SURFACE", "Surface Solar Absorptance Inside Face"));
+
+    EXPECT_TRUE(outputIsRegistered("INTERIOR DYNAMIC SOLAR SURFACE", "Surface Thermal Absorptance"));
+    EXPECT_TRUE(outputIsRegistered("INTERIOR DYNAMIC SOLAR SURFACE", "Surface Solar Absorptance"));
+    EXPECT_FALSE(outputIsRegistered("INTERIOR DYNAMIC SOLAR SURFACE", "Surface Thermal Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("INTERIOR DYNAMIC SOLAR SURFACE", "Surface Thermal Absorptance Inside Face"));
+    EXPECT_FALSE(outputIsRegistered("INTERIOR DYNAMIC SOLAR SURFACE", "Surface Solar Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("INTERIOR DYNAMIC SOLAR SURFACE", "Surface Solar Absorptance Inside Face"));
+
+    EXPECT_FALSE(outputIsRegistered("WINDOW SURFACE", "Surface Thermal Absorptance"));
+    EXPECT_FALSE(outputIsRegistered("WINDOW SURFACE", "Surface Solar Absorptance"));
+    EXPECT_FALSE(outputIsRegistered("WINDOW SURFACE", "Surface Thermal Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("WINDOW SURFACE", "Surface Thermal Absorptance Inside Face"));
+    EXPECT_FALSE(outputIsRegistered("WINDOW SURFACE", "Surface Solar Absorptance Outside Face"));
+    EXPECT_FALSE(outputIsRegistered("WINDOW SURFACE", "Surface Solar Absorptance Inside Face"));
+}
+
+>>>>>>> nrel/develop
 TEST_F(EnergyPlusFixture, HeatBalanceSurfaceManager_UpdateThermalHistoriesIZSurfaceCheck)
 {
     state->dataSurface->TotSurfaces = 2;

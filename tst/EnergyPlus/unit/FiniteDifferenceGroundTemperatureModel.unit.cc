@@ -104,7 +104,10 @@ TEST_F(EnergyPlusFixture, FiniteDiffGroundTempModelTest)
         tdwd.relativeHumidity = relHum_const;
         tdwd.windSpeed = windSpeed_const;
         tdwd.horizontalRadiation = solar_amp * std::sin(theta - omega) + (solar_min + solar_amp);
+<<<<<<< HEAD
         ;
+=======
+>>>>>>> nrel/develop
         tdwd.airDensity = 1.2;
     }
 

@@ -107,7 +107,10 @@ namespace SZVAVModel {
 
     void calcSZVAVModel(EnergyPlusData &state,
                         UnitarySystems::UnitarySys &SZVAVModel,
+<<<<<<< HEAD
                         int SysIndex,
+=======
+>>>>>>> nrel/develop
                         bool FirstHVACIteration,
                         bool CoolingLoad,
                         bool HeatingLoad,

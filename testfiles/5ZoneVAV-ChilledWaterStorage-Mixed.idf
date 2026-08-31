@@ -71,7 +71,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                Yes, PSI Indiana year 2004.
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 

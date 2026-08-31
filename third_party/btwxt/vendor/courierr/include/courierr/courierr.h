@@ -8,7 +8,11 @@
 #include <string>
 #include <iostream>
 
+<<<<<<< HEAD
 #include <fmt/format.h>
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 namespace Courierr {
 
@@ -37,7 +41,11 @@ class SimpleCourierr : public Courierr {
   private:
     void write_message(const std::string_view message_type, const std::string_view message)
     {
+<<<<<<< HEAD
         std::cout << fmt::format("[{}] {}", message_type, message) << std::endl;
+=======
+        std::cout << std::format("[{}] {}", message_type, message) << std::endl;
+>>>>>>> nrel/develop
     }
 };
 

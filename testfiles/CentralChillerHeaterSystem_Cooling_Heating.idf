@@ -106,7 +106,11 @@
 ! Utility Tariffs:                None
 !
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 !
@@ -3063,7 +3067,10 @@
     0.0005525,               !- Design Condenser Water Flow Rate {m3/s}
     0.0003525,               !- Design Hot Water Flow Rate {m3/s}
     1,                       !- Compressor Motor Efficiency
+<<<<<<< HEAD
     WaterCooled,             !- Condenser Type
+=======
+>>>>>>> nrel/develop
     EnteringCondenser,       !- Cooling Mode Temperature Curve Condenser Water Independent Variable
     ChillerHeaterClgCapFT,   !- Cooling Mode Cooling Capacity Function of Temperature Curve Name
     ChillerHeaterClgEIRFT,   !- Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name
@@ -3094,7 +3101,10 @@
     0.0005525,               !- Design Condenser Water Flow Rate {m3/s}
     0.0003525,               !- Design Hot Water Flow Rate {m3/s}
     1,                       !- Compressor Motor Efficiency
+<<<<<<< HEAD
     WaterCooled,             !- Condenser Type
+=======
+>>>>>>> nrel/develop
     EnteringCondenser,       !- Cooling Mode Temperature Curve Condenser Water Independent Variable
     ChillerHeaterClgCapFT,   !- Cooling Mode Cooling Capacity Function of Temperature Curve Name
     ChillerHeaterClgEIRFT,   !- Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name
@@ -3111,7 +3121,10 @@
 
   CentralHeatPumpSystem,
     ChillerBank,             !- Name
+<<<<<<< HEAD
     SmartMixing,             !- Control Method
+=======
+>>>>>>> nrel/develop
     Big Chiller Inlet Node,  !- Cooling Loop Inlet Node Name
     Big Chiller Outlet Node, !- Cooling Loop Outlet Node Name
     Big Chiller Condenser Inlet Node,  !- Source Loop Inlet Node Name

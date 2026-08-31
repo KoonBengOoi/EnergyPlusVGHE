@@ -174,8 +174,12 @@ namespace StandardRatings {
     void CalcDXCoilStandardRating(
         EnergyPlusData &state,
         std::string const &DXCoilName,                             // Name of DX coil for which HSPF is calculated
+<<<<<<< HEAD
         std::string const &DXCoilType,                             // Type of DX coil for which HSPF is calculated
         int const DXCoilType_Num,                                  // Integer Type of DX coil - heating or cooling
+=======
+        HVAC::CoilType coilType,                                   // Integer Type of DX coil - heating or cooling
+>>>>>>> nrel/develop
         int const ns,                                              // Number of compressor speeds
         Array1A<Real64> const RatedTotalCapacity,                  // Reference capacity of DX coil [W]
         Array1A<Real64> const RatedCOP,                            // Reference coefficient of performance [W/W]
@@ -206,8 +210,12 @@ namespace StandardRatings {
 
     void CalcTwoSpeedDXCoilRating(EnergyPlusData &state,
                                   std::string const &DXCoilName,
+<<<<<<< HEAD
                                   std::string const &DXCoilType,
                                   int const DXCoilType_Num,
+=======
+                                  HVAC::CoilType const coilType,
+>>>>>>> nrel/develop
                                   Array1A<Real64> const &RatedTotalCapacity,
                                   Real64 const RatedTotCap2,
                                   Array1A<Real64> const &RatedCOP,
@@ -227,8 +235,12 @@ namespace StandardRatings {
 
     std::map<std::string, Real64> TwoSpeedDXCoilStandardRatings(EnergyPlusData &state,
                                                                 std::string const &DXCoilName,
+<<<<<<< HEAD
                                                                 std::string const &DXCoilType,
                                                                 int const &DXCoilType_Num,
+=======
+                                                                HVAC::CoilType const coilType,
+>>>>>>> nrel/develop
                                                                 Array1A<Real64> const &RatedTotalCapacity,
                                                                 Real64 const &RatedTotCap2,
                                                                 Array1A<Real64> const &RatedCOP,
@@ -255,7 +267,12 @@ namespace StandardRatings {
     // Real64 HSPF_2023 <- seasonale energy efficiency ratio of multi speed DX cooling coil
     std::map<std::string, Real64> SingleSpeedDXHeatingCoilStandardRatings(
         EnergyPlusData &state,
+<<<<<<< HEAD
         std::string const &DXCoilType,                                 // Type of DX coil for which HSPF is calculated
+=======
+        std::string const &coilName,
+        HVAC::CoilType const coilType,                                 // Type of DX coil for which HSPF is calculated
+>>>>>>> nrel/develop
         Real64 const RatedTotalCapacity,                               // Reference capacity of DX coil [W]
         Real64 const RatedCOP,                                         // Reference coefficient of performance [W/W]
         int const CapFFlowCurveIndex,                                  // Index for the capacity as a function of flow fraction modifier curve
@@ -315,7 +332,11 @@ namespace StandardRatings {
     std::map<std::string, Real64> SingleSpeedDXCoolingCoilStandardRatings(
         EnergyPlusData &state,
         std::string const &DXCoilName,                         // Name of DX coil for which HSPF is calculated
+<<<<<<< HEAD
         std::string const &DXCoilType,                         // Type of DX coil - heating or cooling
+=======
+        HVAC::CoilType const coilType,                         // Type of DX coil - heating or cooling
+>>>>>>> nrel/develop
         int const CapFTempCurveIndex,                          // Index for the capacity as a function of temperature modifier curve
         int const CapFFlowCurveIndex,                          // Index for the capacity as a function of flow fraction modifier curve
         int const EIRFTempCurveIndex,                          // Index for the EIR as a function of temperature modifier curve
@@ -344,7 +365,11 @@ namespace StandardRatings {
     // Real64 IEER -> Integareted energy efficiency ratio of CurveFit DX cooling coil
     // Real64 EER -> Energy efficiency ratio at high speed for CurveFit DX cooling coil
     std::tuple<Real64, Real64, Real64>
+<<<<<<< HEAD
     IEERCalulcationCurveFit(EnergyPlusData &state, std::string const &CoilType, EnergyPlus::CoilCoolingDXCurveFitOperatingMode operatingMode);
+=======
+    IEERCalculationCurveFit(EnergyPlusData &state, HVAC::CoilType const coilType, EnergyPlus::CoilCoolingDXCurveFitOperatingMode operatingMode);
+>>>>>>> nrel/develop
 
     // NetCoolingCapRatedMaxSpeed2023 --> net cooling capacity at maximum speed
     // SEER2_User --> seasonal energy efficiency ratio of multi speed DX cooling coil, from user-input PLF curve and C_D value
@@ -352,7 +377,11 @@ namespace StandardRatings {
     // curve and  C_D value
     // EER2 --> Energy Efficiency Ratio from std 210/240-2023 at AFull
     std::tuple<Real64, Real64, Real64, Real64>
+<<<<<<< HEAD
     SEER2CalulcationCurveFit(EnergyPlusData &state, std::string const &CoilType, EnergyPlus::CoilCoolingDXCurveFitOperatingMode operatingMode);
+=======
+    SEER2CalculationCurveFit(EnergyPlusData &state, HVAC::CoilType const coilType, EnergyPlus::CoilCoolingDXCurveFitOperatingMode operatingMode);
+>>>>>>> nrel/develop
 
     // Calculations as per AHRI 340/360 Standard 2022
     // Real64 NetCoolingCapRated -> Net cooling capacity at high speed for Variable Speed DX Cooling Coil
@@ -360,7 +389,11 @@ namespace StandardRatings {
     // Real64 EER -> Energy efficiency ratio at high speed for Variable Speed DX cooling coil
     std::tuple<Real64, Real64, Real64> IEERCalculationVariableSpeed(
         EnergyPlusData &state,
+<<<<<<< HEAD
         std::string const &VSCoilType, //
+=======
+        HVAC::CoilType coilType,
+>>>>>>> nrel/develop
         int const nsp,
         Array1A_int const &CapFTempCurveIndex,
         Array1A<Real64> const &RatedTotalCapacity, // Rated gross total cooling capacity
@@ -378,8 +411,13 @@ namespace StandardRatings {
     // Real64 EER -> Energy efficiency ratio at high speed for MultiSpeed DX cooling coil
     std::tuple<Real64, Real64, Real64> IEERCalculationMultiSpeed(
         EnergyPlusData &state,
+<<<<<<< HEAD
         std::string const &DXCoilType, // Type of DX coil
         int const nsp,                 // Number of Speeds
+=======
+        HVAC::CoilType coilType,
+        int const nsp, // Number of Speeds
+>>>>>>> nrel/develop
         Array1A_int const &CapFTempCurveIndex,
         Array1A<Real64> const &RatedTotalCapacity, // Rated gross total cooling capacity
         Array1A_int const &CapFFlowCurveIndex,
@@ -396,7 +434,11 @@ namespace StandardRatings {
     // Real64 EER -> Energy efficiency ratio at high speed for Two Speed DX cooling coil
     std::tuple<Real64, Real64, Real64> IEERCalculationTwoSpeed(
         EnergyPlusData &state,
+<<<<<<< HEAD
         std::string const &DXCoilType,                                      // Type of DX coil
+=======
+        HVAC::CoilType const coilType,                                      // Type of DX coil
+>>>>>>> nrel/develop
         Array1D<DataHeatBalance::RefrigCondenserType> const &CondenserType, // Type of condenser user by the DX Cooling Coil
         Array1A_int const &CapFTempCurveIndex,
         Array1A<Real64> const &RatedTotalCapacity,         // Rated gross total cooling capacity
@@ -414,7 +456,11 @@ namespace StandardRatings {
     // Real64 EER -> Energy efficiency ratio for Single Speed DX cooling coil
     std::tuple<Real64, Real64, Real64> IEERCalculationSingleSpeed(
         EnergyPlus::EnergyPlusData &state,
+<<<<<<< HEAD
         std::string const &DXCoilType,           // Type of DX coil
+=======
+        HVAC::CoilType coilType,
+>>>>>>> nrel/develop
         const int CapFTempCurveIndex,            // Index for the capacity as a function of temperature modifier curve
         const Real64 RatedTotalCapacity,         // Rated gross total cooling capacity
         const Real64 TotCapFlowModFac,           // Total capacity modifier f(actual flow vs rated flow) for each speed [-]
@@ -453,7 +499,11 @@ namespace StandardRatings {
     void DXCoolingCoilDataCenterStandardRatings(
         EnergyPlusData &state,
         std::string const &DXCoilName,                    // Name of DX coil for which HSPF is calculated
+<<<<<<< HEAD
         std::string const &DXCoilType,                    // Type of DX coil - heating or cooling
+=======
+        HVAC::CoilType const coilType,                    // Type of DX coil - heating or cooling
+>>>>>>> nrel/develop
         int const CapFTempCurveIndex,                     // Index for the capacity as a function of temperature modifier curve
         int const CapFFlowCurveIndex,                     // Index for the capacity as a function of flow fraction modifier curve
         int const EIRFTempCurveIndex,                     // Index for the EIR as a function of temperature modifier curve
@@ -550,8 +600,13 @@ namespace StandardRatings {
     //                       default C_D value
     std::map<std::string, Real64> VariableSpeedDXCoolingCoilStandardRatings(
         EnergyPlusData &state,
+<<<<<<< HEAD
         std::string const &DXCoilType,                                  // Type of DX coil for which HSPF is calculated
         std::string const &DXCoilName,                                  // Name of DX coil for which standard ratings are calculated
+=======
+        std::string const &DXCoilName, // Name of DX coil for which standard ratings are calculated
+        HVAC::CoilType const coilType,
+>>>>>>> nrel/develop
         Array1A_int const CapFTempCurveIndex,                           // Index for the capacity as a function of temperature modifier curve
         Array1A_int const CapFFlowCurveIndex,                           // Index for the capacity as a function of flow fraction modifier curve
         Array1A_int const EIRFTempCurveIndex,                           // Index for the EIR as a function of temperature modifier curve
@@ -578,8 +633,13 @@ namespace StandardRatings {
     //                       default C_D value
     std::map<std::string, Real64> MultiSpeedDXCoolingCoilStandardRatings(
         EnergyPlusData &state,
+<<<<<<< HEAD
         std::string const &DXCoilType,                                  // Type of DX coil for which HSPF is calculated
         std::string const &DXCoilName,                                  // Name of DX coil for which standard Ratings are calculated
+=======
+        std::string const &DXCoilName,                                  // Name of DX coil for which standard Ratings are calculated
+        HVAC::CoilType const coilType,                                  // Type of DX coil for which HSPF is calculated
+>>>>>>> nrel/develop
         Array1A_int const CapFTempCurveIndex,                           // Index for the capacity as a function of temperature modifier curve
         Array1A_int const CapFFlowCurveIndex,                           // Index for the capacity as a function of flow fraction modifier curve
         Array1A_int const EIRFTempCurveIndex,                           // Index for the EIR as a function of temperature modifier curve
@@ -643,7 +703,11 @@ namespace StandardRatings {
     std::map<std::string, Real64> MultiSpeedDXHeatingCoilStandardRatings(
         EnergyPlusData &state,
         std::string const &DXCoilName,                                 // Name of DX coil for which HSPF is calculated
+<<<<<<< HEAD
         std::string const &DXCoilType,                                 // Type of DX coil for which HSPF is calculated
+=======
+        HVAC::CoilType const coilType,                                 // Type of DX coil for which HSPF is calculated
+>>>>>>> nrel/develop
         Array1A_int const CapFTempCurveIndex,                          // Index for the capacity as a function of temperature modifier curve
         Array1A_int const CapFFlowCurveIndex,                          // Index for the capacity as a function of flow fraction modifier curve
         Array1A_int const EIRFTempCurveIndex,                          // Index for the EIR as a function of temperature modifier curve
@@ -663,9 +727,14 @@ namespace StandardRatings {
     );
 
     void ReportDXCoilRating(EnergyPlusData &state,
+<<<<<<< HEAD
                             std::string const &CompType,     // Type of component
                             std::string_view CompName,       // Name of component
                             int const CompTypeNum,           // TypeNum of component
+=======
+                            std::string_view CompName,       // Name of component
+                            HVAC::CoilType const compType,   // TypeNum of component
+>>>>>>> nrel/develop
                             Real64 const CoolCapVal,         // Standard total (net) cooling capacity for AHRI Std. 210/240 {W}
                             Real64 const SEERValueIP,        // SEER value in IP units from user PLR curve {Btu/W-h}
                             Real64 const SEERValueDefaultIP, // SEER value in IP units from AHRI Std 210/240-2008 default PLF curve and C_D {Btu/W-h}
@@ -679,17 +748,26 @@ namespace StandardRatings {
                             bool const AHRI2023StandardRatings = false); // True if required AHRI/ANSI 210/240 Std. 2023 SEER2,HSPF2 Ratings.
 
     void ReportDXCoolCoilDataCenterApplication(EnergyPlusData &state,
+<<<<<<< HEAD
                                                std::string const &CompType,           // Type of component
                                                std::string_view CompName,             // Name of component
                                                int const CompTypeNum,                 // TypeNum of component
+=======
+                                               std::string_view const &CompName,      // Name of component
+                                               HVAC::CoilType const CompType,         // TypeNum of component
+>>>>>>> nrel/develop
                                                Array1D<Real64> &NetCoolingCapRated,   // net cooling capacity of single speed DX cooling coil
                                                Array1D<Real64> &TotElectricPowerRated // total electric power including supply fan
     );
 
     void CheckCurveLimitsForStandardRatings(EnergyPlusData &state,
                                             std::string const &DXCoilName, // Name of DX coil for which HSPF is calculated
+<<<<<<< HEAD
                                             std::string const &DXCoilType, // Type of DX coil - heating or cooling
                                             int const DXCoilTypeNum,       // Integer type of DX coil - heating or cooling
+=======
+                                            HVAC::CoilType const coilType, // Integer type of DX coil - heating or cooling
+>>>>>>> nrel/develop
                                             int const CapFTempCurveIndex,  // Index for the capacity as a function of temperature modifier curve
                                             int const CapFFlowCurveIndex,  // Index for the capacity as a function of flow fraction modifier curve
                                             int const EIRFTempCurveIndex,  // Index for the EIR as a function of temperature modifier curve

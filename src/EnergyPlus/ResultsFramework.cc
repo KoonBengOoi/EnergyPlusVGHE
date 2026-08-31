@@ -54,18 +54,31 @@
 #include <string>
 #include <vector>
 
+<<<<<<< HEAD
 #include <fmt/format.h>
 #include <milo/dtoa.h>
 
+=======
+>>>>>>> nrel/develop
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 #include <ObjexxFCL/Array1D.hh>
 #include <ObjexxFCL/Reference.fwd.hh>
 #include <ObjexxFCL/string.functions.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataStringGlobals.hh>
+=======
+// Third Party Headers
+#include <milo/dtoa.h>
+
+// EnergyPlus Headers
+#include <EnergyPlus/Data/EnergyPlusData.hh>
+#include <EnergyPlus/DataStringGlobals.hh>
+#include <EnergyPlus/Formatters.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/GlobalNames.hh>
 #include <EnergyPlus/InputProcessing/InputProcessor.hh>
 #include <EnergyPlus/OutputReportTabular.hh>
@@ -372,12 +385,21 @@ namespace ResultsFramework {
             std::swap(curMin, lastMinute);
         }
         // future start of ISO 8601 datetime output
+<<<<<<< HEAD
         // fmt::format("YYYY-{:02d}/{:02d}T{:02d}:{:02d}:00", month, dayOfMonth, hourOfDay, curMin);
         // fmt::format("{:02d}/{:02d} {:02d}:{:02d}:00", month, dayOfMonth, hourOfDay, curMin);
         if (iso8601) {
             TS.emplace_back(fmt::format("{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:00", calendarYear, month, dayOfMonth, hourOfDay, curMin));
         } else {
             TS.emplace_back(fmt::format("{:02d}/{:02d} {:02d}:{:02d}:00", month, dayOfMonth, hourOfDay, curMin));
+=======
+        // std::format("YYYY-{:02d}/{:02d}T{:02d}:{:02d}:00", month, dayOfMonth, hourOfDay, curMin);
+        // std::format("{:02d}/{:02d} {:02d}:{:02d}:00", month, dayOfMonth, hourOfDay, curMin);
+        if (iso8601) {
+            TS.emplace_back(std::format("{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:00", calendarYear, month, dayOfMonth, hourOfDay, curMin));
+        } else {
+            TS.emplace_back(std::format("{:02d}/{:02d} {:02d}:{:02d}:00", month, dayOfMonth, hourOfDay, curMin));
+>>>>>>> nrel/develop
         }
     }
 
@@ -729,6 +751,7 @@ namespace ResultsFramework {
         auto const &columns = data.at("Cols");
         for (auto const &column : columns) {
             std::string search_string =
+<<<<<<< HEAD
                 fmt::format("{0} [{1}]({2})", column.at("Variable").get<std::string>(), column.at("Units").get<std::string>(), reportFrequency);
             auto found = std::find(outputVariables.begin(), outputVariables.end(), search_string);
             if (found == outputVariables.end()) {
@@ -738,6 +761,17 @@ namespace ResultsFramework {
             }
             if (found == outputVariables.end()) {
                 ShowFatalError(state, fmt::format("Output variable ({0}) not found output variable list", search_string));
+=======
+                std::format("{0} [{1}]({2})", column.at("Variable").get<std::string>(), column.at("Units").get<std::string>(), reportFrequency);
+            auto found = std::find(outputVariables.begin(), outputVariables.end(), search_string);
+            if (found == outputVariables.end()) {
+                search_string =
+                    std::format("{0} [{1}]({2})", column.at("Variable").get<std::string>(), column.at("Units").get<std::string>(), "Each Call");
+                found = std::find(outputVariables.begin(), outputVariables.end(), search_string);
+            }
+            if (found == outputVariables.end()) {
+                ShowFatalError(state, std::format("Output variable ({0}) not found output variable list", search_string));
+>>>>>>> nrel/develop
             }
             outputVariableIndices[std::distance(outputVariables.begin(), found)] = true;
             indices.emplace_back(std::distance(outputVariables.begin(), found));
@@ -820,18 +854,30 @@ namespace ResultsFramework {
     {
         outputFile.ensure_open(state, "OpenOutputFiles", outputControl);
 
+<<<<<<< HEAD
         print<FormatSyntax::FMT>(outputFile, "{}", "Date/Time,");
+=======
+        print(outputFile, "{}", "Date/Time,");
+>>>>>>> nrel/develop
         std::string sep;
         for (auto it = outputVariables.begin(); it != outputVariables.end(); ++it) {
             if (!outputVariableIndices[std::distance(outputVariables.begin(), it)]) {
                 continue;
             }
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile, "{}{}", sep, *it);
+=======
+            print(outputFile, "{}{}", sep, *it);
+>>>>>>> nrel/develop
             if (sep.empty()) {
                 sep = ",";
             }
         }
+<<<<<<< HEAD
         print<FormatSyntax::FMT>(outputFile, "{}", '\n');
+=======
+        print(outputFile, "{}", '\n');
+>>>>>>> nrel/develop
 
         for (auto &item : outputs) {
             std::string datetime = item.first;
@@ -842,7 +888,11 @@ namespace ResultsFramework {
                     convertToMonth(datetime);
                 }
             }
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile, " {},", datetime);
+=======
+            print(outputFile, " {},", datetime);
+>>>>>>> nrel/develop
             item.second.erase(std::remove_if(item.second.begin(),
                                              item.second.end(),
                                              [&](const std::string &d) {
@@ -856,8 +906,13 @@ namespace ResultsFramework {
                 last = (result + 1).base();
             }
 
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile, "{},", fmt::join(item.second.begin(), last, ","));
             print<FormatSyntax::FMT>(outputFile, "{}\n", *last);
+=======
+            print(outputFile, "{},", std::format("{}", EnergyPlus::join(std::ranges::subrange(item.second.begin(), last), ",")));
+            print(outputFile, "{}\n", *last);
+>>>>>>> nrel/develop
         }
 
         outputFile.close();
@@ -1181,12 +1236,20 @@ namespace ResultsFramework {
                                              std::string_view const units,
                                              OutputProcessor::ReportFreq const freq)
     {
+<<<<<<< HEAD
         outputVariables.emplace_back(fmt::format("{0}:{1} [{2}]({3})", keyedValue, variableName, units, reportFreqNames[(int)freq]));
+=======
+        outputVariables.emplace_back(std::format("{0}:{1} [{2}]({3})", keyedValue, variableName, units, reportFreqNames[(int)freq]));
+>>>>>>> nrel/develop
     }
 
     void ResultsFramework::addReportMeter(std::string const &meter, std::string_view units, OutputProcessor::ReportFreq const freq)
     {
+<<<<<<< HEAD
         outputVariables.emplace_back(fmt::format("{0} [{1}]({2})", meter, units, reportFreqNames[(int)freq]));
+=======
+        outputVariables.emplace_back(std::format("{0} [{1}]({2})", meter, units, reportFreqNames[(int)freq]));
+>>>>>>> nrel/develop
     }
 
 } // namespace ResultsFramework

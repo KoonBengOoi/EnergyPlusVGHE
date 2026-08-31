@@ -14,9 +14,14 @@ else ()
     add_library(${PROJECT_NAME} SHARED ${sources})
 endif ()
 
+<<<<<<< HEAD
 target_link_libraries(libtk205 PUBLIC courierr fmt nlohmann_json)
 target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/include/libtk205)
 target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/vendor/btwxt/include)
+=======
+target_link_libraries(libtk205 PUBLIC courierr nlohmann_json btwxt)
+target_include_directories(libtk205 PUBLIC ${PROJECT_SOURCE_DIR}/include/libtk205)
+>>>>>>> nrel/develop
 target_include_directories(libtk205 PRIVATE ${PROJECT_SOURCE_DIR}/vendor/valijson/include)
 
 target_compile_options(${PROJECT_NAME} PRIVATE

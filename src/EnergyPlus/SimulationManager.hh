@@ -75,8 +75,11 @@ namespace SimulationManager {
     std::unique_ptr<std::ostream>
     OpenStreamFile(EnergyPlusData &state, const fs::path &fileName, std::ios_base::openmode mode = (std::ios_base::out | std::ios_base::trunc));
 
+<<<<<<< HEAD
     std::unique_ptr<fmt::ostream> OpenFmtStreamFile(EnergyPlusData &state, const fs::path &filePath);
 
+=======
+>>>>>>> nrel/develop
     void OpenOutputFiles(EnergyPlusData &state);
 
     void CloseOutputFiles(EnergyPlusData &state);
@@ -97,7 +100,10 @@ struct SimulationManagerData : BaseGlobalStruct
 {
     bool RunPeriodsInInput = false;
     bool RunControlInInput = false;
+<<<<<<< HEAD
     bool PreP_Fatal = false;
+=======
+>>>>>>> nrel/develop
     bool WarningOut = true;
 
     void init_constant_state([[maybe_unused]] EnergyPlusData &state) override
@@ -114,7 +120,10 @@ struct SimulationManagerData : BaseGlobalStruct
     {
         this->RunPeriodsInInput = false;
         this->RunControlInInput = false;
+<<<<<<< HEAD
         this->PreP_Fatal = false;
+=======
+>>>>>>> nrel/develop
         this->WarningOut = true;
     }
 };

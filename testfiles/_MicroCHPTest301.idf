@@ -20,7 +20,11 @@
 ! File developed for Interprogram Comparative Test Case 301
 !
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Test Harness for MicroCogen,  !- Name

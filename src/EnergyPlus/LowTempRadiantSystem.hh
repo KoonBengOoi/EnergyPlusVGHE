@@ -285,6 +285,7 @@ namespace LowTempRadiantSystem {
             0.0; // -  Low Temp Radiant system scaled maximum cooling capacity {W} or scalable variable of zone HVAC equipment,
         // {-}, or {W/m2}
 
+<<<<<<< HEAD
         void calculateLowTemperatureRadiantSystem(EnergyPlusData &state, Real64 &LoadMet);
 
         void calculateLowTemperatureRadiantSystemComponents(EnergyPlusData &state, Real64 &LoadMet, SystemType typeOfRadiantSystem);
@@ -292,6 +293,15 @@ namespace LowTempRadiantSystem {
         void updateLowTemperatureRadiantSystem(EnergyPlusData &state);
 
         void reportLowTemperatureRadiantSystem(EnergyPlusData &state);
+=======
+        void calculateLowTemperatureRadiantSystem(EnergyPlusData &state, Real64 &LoadMet) override;
+
+        void calculateLowTemperatureRadiantSystemComponents(EnergyPlusData &state, Real64 &LoadMet, SystemType typeOfRadiantSystem);
+
+        void updateLowTemperatureRadiantSystem(EnergyPlusData &state) override;
+
+        void reportLowTemperatureRadiantSystem(EnergyPlusData &state) override;
+>>>>>>> nrel/develop
 
         // Default Constructor
         VariableFlowRadiantSystemData() = default;
@@ -375,7 +385,11 @@ namespace LowTempRadiantSystem {
         bool setRunningMeanValuesAtBeginningOfDay =
             true; // flag to help certain variables only being set once per day (running mean temperature variables)
 
+<<<<<<< HEAD
         void calculateLowTemperatureRadiantSystem(EnergyPlusData &state, Real64 &LoadMet);
+=======
+        void calculateLowTemperatureRadiantSystem(EnergyPlusData &state, Real64 &LoadMet) override;
+>>>>>>> nrel/develop
 
         void
         calculateLowTemperatureRadiantSystemComponents(EnergyPlusData &state,
@@ -388,9 +402,15 @@ namespace LowTempRadiantSystem {
 
         Real64 calculateCurrentDailyAverageODB(EnergyPlusData &state);
 
+<<<<<<< HEAD
         void updateLowTemperatureRadiantSystem(EnergyPlusData &state);
 
         void reportLowTemperatureRadiantSystem(EnergyPlusData &state);
+=======
+        void updateLowTemperatureRadiantSystem(EnergyPlusData &state) override;
+
+        void reportLowTemperatureRadiantSystem(EnergyPlusData &state) override;
+>>>>>>> nrel/develop
 
         // Default Constructor
         ConstantFlowRadiantSystemData() = default;
@@ -401,9 +421,13 @@ namespace LowTempRadiantSystem {
     {
         // Members
         // This data could be shared between multiple constant flow LowTempRad Systems
+<<<<<<< HEAD
         std::string designName; // name of the design object
         Real64 runningMeanOutdoorAirTemperatureWeightingFactor =
             0.8;                                       // Weighting factor for running mean outdoor air temperature equation (user input)
+=======
+        std::string designName;                        // name of the design object
+>>>>>>> nrel/develop
         CtrlType ConstFlowControlType = CtrlType::MAT; // Control type for the system (MAT, MRT, Op temp, ODB, OWB,
                                                        // Surface Face Temp, Surface Interior Temp, Running Mean Temp
                                                        // for Constant Flow systems only)
@@ -419,7 +443,16 @@ namespace LowTempRadiantSystem {
         CondCtrlType condCtrlType = CondCtrlType::SimpleOff; // Condensation control type (initialize to simple off)
         Real64 CondDewPtDeltaT = 1.0;                        // Diff between surface temperature and dew point for cond. shut-off
 
+<<<<<<< HEAD
         ConstantFlowRadDesignData() = default;
+=======
+        ConstantFlowRadDesignData() : ConstantFlowRadiantSystemData()
+        {
+            // Weighting factor for running mean outdoor air temperature equation (user input): different default than base than doesn't use it (0.0)
+            // IDD default is 0.8, so this is set here for clarity (Could let the GetInput routine set it...)
+            runningMeanOutdoorAirTemperatureWeightingFactor = 0.8;
+        }
+>>>>>>> nrel/develop
         ~ConstantFlowRadDesignData() = default;
     };
 
@@ -440,11 +473,19 @@ namespace LowTempRadiantSystem {
             0.0; // -  Low Temp Radiant system scaled maximum heating capacity {W} or scalable variable of zone HVAC equipment,
                  // {-}, or {W/m2}
 
+<<<<<<< HEAD
         void calculateLowTemperatureRadiantSystem(EnergyPlusData &state, Real64 &LoadMet);
 
         void updateLowTemperatureRadiantSystem(EnergyPlusData &state);
 
         void reportLowTemperatureRadiantSystem(EnergyPlusData &state);
+=======
+        void calculateLowTemperatureRadiantSystem(EnergyPlusData &state, Real64 &LoadMet) override;
+
+        void updateLowTemperatureRadiantSystem(EnergyPlusData &state) override;
+
+        void reportLowTemperatureRadiantSystem(EnergyPlusData &state) override;
+>>>>>>> nrel/develop
 
         // Default Constructor
         ElectricRadiantSystemData() = default;

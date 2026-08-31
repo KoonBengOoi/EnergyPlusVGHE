@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataAirLoop.hh>
 #include <EnergyPlus/DataBranchAirLoopPlant.hh>
@@ -288,11 +292,19 @@ namespace DataPlant {
                 for (int compNum = 1; compNum <= NumComps; ++compNum) {
                     auto &this_equip(this->CoolingOnlyEquipList(equipListNum).Comp(compNum));
                     PlantLocation compLoc;
+<<<<<<< HEAD
                     DataPlant::PlantEquipmentType Type =
                         static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
                     bool errFlag1(false);
                     int NumSearchResults(0);
                     PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, Type, compLoc, errFlag1, _, _, NumSearchResults);
+=======
+                    DataPlant::PlantEquipmentType compType =
+                        static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
+                    bool errFlag1(false);
+                    int NumSearchResults(0);
+                    PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, compType, compLoc, errFlag1, _, _, NumSearchResults);
+>>>>>>> nrel/develop
                     if (NumSearchResults == 1) {
 
                         this_equip.LoopNumPtr = compLoc.loopNum;
@@ -309,7 +321,11 @@ namespace DataPlant {
                                     if (state.dataSize->PlantSizData(PltSizNum).LoopType == DataSizing::TypeOfPlantLoop::Cooling) {
                                         int innerNumSearchResults = 0;
                                         PlantUtilities::ScanPlantLoopsForObject(
+<<<<<<< HEAD
                                             state, this_equip.Name, Type, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+=======
+                                            state, this_equip.Name, compType, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+>>>>>>> nrel/develop
                                         if (innerNumSearchResults == 1) {
                                             this_equip.LoopNumPtr = compLoc.loopNum;
                                             this_equip.LoopSideNumPtr = compLoc.loopSideNum;
@@ -325,18 +341,32 @@ namespace DataPlant {
                         if (!foundit) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                    "component \"{}\" was not found on a cooling plant loop.",
                                                    this->Name,
                                                    this_equip.Name));
+=======
+                                std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                            "component \"{}\" was not found on a cooling plant loop.",
+                                            this->Name,
+                                            this_equip.Name));
+>>>>>>> nrel/develop
                         }
                     } else if (NumSearchResults == 0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                "component \"{}\" was not found on a plant loop.",
                                                this->Name,
                                                this_equip.Name));
+=======
+                            std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                        "component \"{}\" was not found on a plant loop.",
+                                        this->Name,
+                                        this_equip.Name));
+>>>>>>> nrel/develop
                     }
                     int inletNode = state.dataPlnt->PlantLoop(this_equip.LoopNumPtr)
                                         .LoopSide(this_equip.LoopSideNumPtr)
@@ -376,11 +406,19 @@ namespace DataPlant {
                 for (int compNum = 1; compNum <= NumComps; ++compNum) {
                     auto &this_equip(this->HeatingOnlyEquipList(equipListNum).Comp(compNum));
                     PlantLocation compLoc;
+<<<<<<< HEAD
                     DataPlant::PlantEquipmentType Type;
                     Type = static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
                     bool errFlag1(false);
                     int NumSearchResults(0);
                     PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, Type, compLoc, errFlag1, _, _, NumSearchResults);
+=======
+                    DataPlant::PlantEquipmentType compType;
+                    compType = static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
+                    bool errFlag1(false);
+                    int NumSearchResults(0);
+                    PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, compType, compLoc, errFlag1, _, _, NumSearchResults);
+>>>>>>> nrel/develop
                     if (NumSearchResults == 1) {
 
                         this_equip.LoopNumPtr = compLoc.loopNum;
@@ -399,7 +437,11 @@ namespace DataPlant {
                                     if (state.dataSize->PlantSizData(PltSizNum).LoopType == DataSizing::TypeOfPlantLoop::Heating) {
                                         int innerNumSearchResults = 0;
                                         PlantUtilities::ScanPlantLoopsForObject(
+<<<<<<< HEAD
                                             state, this_equip.Name, Type, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+=======
+                                            state, this_equip.Name, compType, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+>>>>>>> nrel/develop
                                         if (innerNumSearchResults == 1) {
                                             this_equip.LoopNumPtr = compLoc.loopNum;
                                             this_equip.LoopSideNumPtr = compLoc.loopSideNum;
@@ -415,18 +457,32 @@ namespace DataPlant {
                         if (!foundit) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                    "component \"{}\" was not found on a heating plant loop.",
                                                    this->Name,
                                                    this_equip.Name));
+=======
+                                std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                            "component \"{}\" was not found on a heating plant loop.",
+                                            this->Name,
+                                            this_equip.Name));
+>>>>>>> nrel/develop
                         }
                     } else if (NumSearchResults == 0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                "component \"{}\" was not found on a plant loop.",
                                                this->Name,
                                                this_equip.Name));
+=======
+                            std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                        "component \"{}\" was not found on a plant loop.",
+                                        this->Name,
+                                        this_equip.Name));
+>>>>>>> nrel/develop
                     }
                     int inletNode = state.dataPlnt->PlantLoop(this_equip.LoopNumPtr)
                                         .LoopSide(this_equip.LoopSideNumPtr)
@@ -467,11 +523,19 @@ namespace DataPlant {
                 for (int compNum = 1; compNum <= NumComps; ++compNum) {
                     auto &this_equip(this->SimultHeatCoolCoolingEquipList(equipListNum).Comp(compNum));
                     PlantLocation compLoc;
+<<<<<<< HEAD
                     DataPlant::PlantEquipmentType Type;
                     Type = static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
                     bool errFlag1(false);
                     int NumSearchResults(0);
                     PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, Type, compLoc, errFlag1, _, _, NumSearchResults);
+=======
+                    DataPlant::PlantEquipmentType compType;
+                    compType = static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
+                    bool errFlag1(false);
+                    int NumSearchResults(0);
+                    PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, compType, compLoc, errFlag1, _, _, NumSearchResults);
+>>>>>>> nrel/develop
                     if (NumSearchResults == 1) {
 
                         this_equip.LoopNumPtr = compLoc.loopNum;
@@ -489,7 +553,11 @@ namespace DataPlant {
                                     if (state.dataSize->PlantSizData(PltSizNum).LoopType == DataSizing::TypeOfPlantLoop::Cooling) {
                                         int innerNumSearchResults = 0;
                                         PlantUtilities::ScanPlantLoopsForObject(
+<<<<<<< HEAD
                                             state, this_equip.Name, Type, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+=======
+                                            state, this_equip.Name, compType, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+>>>>>>> nrel/develop
                                         if (innerNumSearchResults == 1) {
                                             this_equip.LoopNumPtr = compLoc.loopNum;
                                             this_equip.LoopSideNumPtr = compLoc.loopSideNum;
@@ -505,18 +573,32 @@ namespace DataPlant {
                         if (!foundit) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                    "component \"{}\" was not found on a cooling plant loop.",
                                                    this->Name,
                                                    this_equip.Name));
+=======
+                                std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                            "component \"{}\" was not found on a cooling plant loop.",
+                                            this->Name,
+                                            this_equip.Name));
+>>>>>>> nrel/develop
                         }
                     } else if (NumSearchResults == 0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                "component \"{}\" was not found on a plant loop.",
                                                this->Name,
                                                this_equip.Name));
+=======
+                            std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                        "component \"{}\" was not found on a plant loop.",
+                                        this->Name,
+                                        this_equip.Name));
+>>>>>>> nrel/develop
                     }
                     int inletNode = state.dataPlnt->PlantLoop(this_equip.LoopNumPtr)
                                         .LoopSide(this_equip.LoopSideNumPtr)
@@ -557,11 +639,19 @@ namespace DataPlant {
                 for (int compNum = 1; compNum <= NumComps; ++compNum) {
                     auto &this_equip(this->SimultHeatCoolHeatingEquipList(equipListNum).Comp(compNum));
                     PlantLocation compLoc;
+<<<<<<< HEAD
                     DataPlant::PlantEquipmentType Type;
                     Type = static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
                     bool errFlag1(false);
                     int NumSearchResults(0);
                     PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, Type, compLoc, errFlag1, _, _, NumSearchResults);
+=======
+                    DataPlant::PlantEquipmentType compType;
+                    compType = static_cast<DataPlant::PlantEquipmentType>(getEnumValue(PlantEquipTypeNamesUC, Util::makeUPPER(this_equip.TypeOf)));
+                    bool errFlag1(false);
+                    int NumSearchResults(0);
+                    PlantUtilities::ScanPlantLoopsForObject(state, this_equip.Name, compType, compLoc, errFlag1, _, _, NumSearchResults);
+>>>>>>> nrel/develop
                     if (NumSearchResults == 1) {
 
                         this_equip.LoopNumPtr = compLoc.loopNum;
@@ -579,7 +669,11 @@ namespace DataPlant {
                                     if (state.dataSize->PlantSizData(PltSizNum).LoopType == DataSizing::TypeOfPlantLoop::Heating) {
                                         int innerNumSearchResults = 0;
                                         PlantUtilities::ScanPlantLoopsForObject(
+<<<<<<< HEAD
                                             state, this_equip.Name, Type, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+=======
+                                            state, this_equip.Name, compType, compLoc, errFlag1, _, _, innerNumSearchResults, _, LoopNum);
+>>>>>>> nrel/develop
                                         if (innerNumSearchResults == 1) {
                                             this_equip.LoopNumPtr = compLoc.loopNum;
                                             this_equip.LoopSideNumPtr = compLoc.loopSideNum;
@@ -595,18 +689,32 @@ namespace DataPlant {
                         if (!foundit) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                    "component \"{}\" was not found on a heating plant loop.",
                                                    this->Name,
                                                    this_equip.Name));
+=======
+                                std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                            "component \"{}\" was not found on a heating plant loop.",
+                                            this->Name,
+                                            this_equip.Name));
+>>>>>>> nrel/develop
                         }
                     } else if (NumSearchResults == 0) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
                                                "component \"{}\" was not found on a plant loop.",
                                                this->Name,
                                                this_equip.Name));
+=======
+                            std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" "
+                                        "component \"{}\" was not found on a plant loop.",
+                                        this->Name,
+                                        this_equip.Name));
+>>>>>>> nrel/develop
                     }
                     int inletNode = state.dataPlnt->PlantLoop(this_equip.LoopNumPtr)
                                         .LoopSide(this_equip.LoopSideNumPtr)
@@ -721,18 +829,32 @@ namespace DataPlant {
             if (!founditCooling) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" component "
                                        "\"{}\" was not found on a cooling plant loop.",
                                        this->Name,
                                        this->DedicatedHR_ChWRetControl_Name));
+=======
+                    std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" component "
+                                "\"{}\" was not found on a cooling plant loop.",
+                                this->Name,
+                                this->DedicatedHR_ChWRetControl_Name));
+>>>>>>> nrel/develop
             }
             if (!founditHeating) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" component "
                                        "\"{}\" was not found on a heating plant loop.",
                                        this->Name,
                                        this->DedicatedHR_ChWRetControl_Name));
+=======
+                    std::format("ChillerHeaterSupervisoryOperationData::OneTimeInitChillerHeaterChangeoverOpScheme problem=\"{}\" component "
+                                "\"{}\" was not found on a heating plant loop.",
+                                this->Name,
+                                this->DedicatedHR_ChWRetControl_Name));
+>>>>>>> nrel/develop
             }
             if (founditCooling && founditHeating) {
                 this->PlantOps.DedicatedHR_Present = true;

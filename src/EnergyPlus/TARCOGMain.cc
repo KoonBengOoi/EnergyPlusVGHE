@@ -453,7 +453,11 @@ void TARCOG90(EnergyPlusData &state,
               Array1D<Real64> &ShadeGapKeffConv,          // Vector of convective keff values for areas above/below
               Real64 const SDScalar,                      // Factor of Venetian SD layer contribution to convection
               int const SHGCCalc,                         // SHGC calculation switch:
+<<<<<<< HEAD
               int &NumOfIterations,                       // Number of iterations for reaching solution
+=======
+              int &t_NumOfIterations,                     // Number of iterations for reaching solution
+>>>>>>> nrel/develop
               Real64 const edgeGlCorrFac                  // Edge of glass correction factor
 )
 {
@@ -865,7 +869,11 @@ void TARCOG90(EnergyPlusData &state,
                           ShadeGapKeffConv,
                           SDScalar,
                           SHGCCalc,
+<<<<<<< HEAD
                           NumOfIterations,
+=======
+                          t_NumOfIterations,
+>>>>>>> nrel/develop
                           edgeGlCorrFac);
         } else if ((standard == TARCOGGassesParams::Stdrd::EN673) || (standard == TARCOGGassesParams::Stdrd::EN673Design)) {
             Calc_EN673(state,
@@ -1047,7 +1055,11 @@ void TARCOG90(EnergyPlusData &state,
                                   ShadeGapKeffConv,
                                   SDScalar,
                                   SHGCCalc,
+<<<<<<< HEAD
                                   NumOfIterations,
+=======
+                                  t_NumOfIterations,
+>>>>>>> nrel/develop
                                   edgeGlCorrFac);
                 } else if ((standard == TARCOGGassesParams::Stdrd::EN673) || (standard == TARCOGGassesParams::Stdrd::EN673Design)) {
                     Calc_EN673(state,

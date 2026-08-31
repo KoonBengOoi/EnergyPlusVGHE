@@ -68,9 +68,15 @@ namespace ZoneContaminantPredictorCorrector {
                                      Real64 PriorTimeStep         // the old value for timestep length is passed for possible use in interpolating
     );
 
+<<<<<<< HEAD
     void GetZoneContaminanInputs(EnergyPlusData &state);
 
     void GetZoneContaminanSetPoints(EnergyPlusData &state);
+=======
+    void GetZoneContaminantInputs(EnergyPlusData &state);
+
+    void GetZoneContaminantSetPoints(EnergyPlusData &state);
+>>>>>>> nrel/develop
 
     void InitZoneContSetPoints(EnergyPlusData &state);
 

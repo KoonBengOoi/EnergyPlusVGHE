@@ -97,7 +97,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Building,                !- Name
@@ -2973,7 +2977,11 @@
     UNTIL: 6:00,0,           !- Field 3
     UNTIL: 7:00,0.003,       !- Field 5
     UNTIL: 13:00,0,          !- Field 7
+<<<<<<< HEAD
     UNTIL: 13:10,0.002,      !- Field 9
+=======
+    UNTIL: 13:15,0.002,      !- Field 9
+>>>>>>> nrel/develop
     UNTIL: 18:00,0,          !- Field 11
     UNTIL: 18:30,0.005,      !- Field 13
     UNTIL: 24:00,0;          !- Field 15

@@ -19,7 +19,11 @@
 ! System:   Ideal Loads
 ! Plant:    None (simple ideal loads)
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   RunPeriod,
     Run Period 1,            !- Name

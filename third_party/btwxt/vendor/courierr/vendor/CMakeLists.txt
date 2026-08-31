@@ -1,10 +1,13 @@
 include(initialize-submodules)
 initialize_submodules()
 
+<<<<<<< HEAD
 if (NOT TARGET fmt)
   add_subdirectory(fmt)
 endif ()
 
+=======
+>>>>>>> nrel/develop
 # googletest library
 if (${PROJECT_NAME}_BUILD_TESTING AND NOT TARGET gtest)
 

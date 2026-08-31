@@ -1110,7 +1110,10 @@ TEST_F(EnergyPlusFixture, UnitHeater_HWHeatingCoilUAAutoSizingTest)
     state->dataGlobal->DDOnlySimulation = true;
 
     GetProjectData(*state);
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     SetPreConstructionInputParameters(*state); // establish array bounds for constructions early
 
     state->dataGlobal->BeginSimFlag = true;

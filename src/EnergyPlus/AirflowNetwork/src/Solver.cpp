@@ -45,22 +45,38 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include "AirflowNetwork/Solver.hpp"
 
 // C++ Headers
 #include <algorithm>
 #include <cmath>
+=======
+// C++ Headers
+#include <algorithm>
+#include <cmath>
+#include <format>
+>>>>>>> nrel/develop
 #include <set>
 #include <string>
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
+<<<<<<< HEAD
 #include <ObjexxFCL/Array2D.hh>
 // #include <ObjexxFCL/Fmath.hh>
 
 // EnergyPlus Headers
 #include <AirflowNetwork/Elements.hpp>
 #include <AirflowNetwork/Solver.hpp>
+=======
+
+// Local Headers
+#include "AirflowNetwork/Elements.hpp"
+#include "AirflowNetwork/Solver.hpp"
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/BranchNodeConnections.hh>
 #include <EnergyPlus/Coils/CoilCoolingDX.hh>
 #include <EnergyPlus/Construction.hh>
@@ -81,7 +97,10 @@
 #include <EnergyPlus/DataRoomAirModel.hh>
 #include <EnergyPlus/DataSurfaces.hh>
 #include <EnergyPlus/DataZoneEquipment.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/DuctLoss.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/EMSManager.hh>
 #include <EnergyPlus/Fans.hh>
 #include <EnergyPlus/General.hh>
@@ -141,12 +160,21 @@ namespace AirflowNetwork {
     using DataSurfaces::ExternalEnvironment;
     using DataSurfaces::OtherSideCoefNoCalcExt;
     using DataSurfaces::SurfaceClass;
+<<<<<<< HEAD
+=======
+    using DataSurfaces::SurfaceClassIsDoor;
+    using DataSurfaces::SurfaceClassIsWindow;
+>>>>>>> nrel/develop
     using Fans::GetFanIndex;
     using Psychrometrics::PsyCpAirFnW;
     using Psychrometrics::PsyHFnTdbW;
     using Psychrometrics::PsyRhoAirFnPbTdbW;
 
+<<<<<<< HEAD
     Solver::Solver(EnergyPlusData &state) : m_state(state), properties(state)
+=======
+    Solver::Solver(EnergyPlusData &state) : properties(state), m_state(state)
+>>>>>>> nrel/develop
     {
     }
 
@@ -201,9 +229,13 @@ namespace AirflowNetwork {
             if (FirstHVACIteration) {
                 if (allocated(m_state.dataAirLoop->AirLoopAFNInfo)) {
                     for (i = 1; i <= DisSysNumOfCVFs; i++) {
+<<<<<<< HEAD
                         m_state.dataAirLoop->AirLoopAFNInfo(i).AFNLoopHeatingCoilMaxRTF = 0.0;
                         m_state.dataAirLoop->AirLoopAFNInfo(i).AFNLoopOnOffFanRTF = 0.0;
                         m_state.dataAirLoop->AirLoopAFNInfo(i).AFNLoopDXCoilRTF = 0.0;
+=======
+                        m_state.dataAirLoop->AirLoopAFNInfo(i).AFNLoopOnOffFanRTF = 0.0;
+>>>>>>> nrel/develop
                         m_state.dataAirLoop->AirLoopAFNInfo(i).LoopOnOffFanPartLoadRatio = 0.0;
                     }
                 }
@@ -355,6 +387,7 @@ namespace AirflowNetwork {
                 if (fields.find("reference_barometric_pressure") != fields.end()) { // not required field, has default value
                     pressure = fields.at("reference_barometric_pressure").get<Real64>();
                     if (std::abs((pressure - m_state.dataEnvrn->StdBaroPress) / m_state.dataEnvrn->StdBaroPress) > 0.1) { // 10% off
+<<<<<<< HEAD
                         ShowWarningError(
                             m_state,
                             EnergyPlus::format("{}: {}: Pressure = {:.0R} differs by more than 10% from Standard Barometric Pressure = {:.0R}.",
@@ -362,14 +395,29 @@ namespace AirflowNetwork {
                                                CurrentModuleObject,
                                                pressure,
                                                m_state.dataEnvrn->StdBaroPress));
+=======
+                        ShowWarningError(m_state,
+                                         std::format("{}: {}: Pressure = {:.0f} differs by more than 10% from Standard Barometric Pressure = {:.0f}.",
+                                                     RoutineName,
+                                                     CurrentModuleObject,
+                                                     pressure,
+                                                     m_state.dataEnvrn->StdBaroPress));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "...occurs in " + CurrentModuleObject + " = " + thisObjectName);
                     }
                     if (pressure <= 31000.0) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}: {}: {}. Reference Barometric Pressure must be greater than 31000 Pa.",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            thisObjectName));
+=======
+                                        std::format("{}: {}: {}. Reference Barometric Pressure must be greater than 31000 Pa.",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    thisObjectName));
+>>>>>>> nrel/develop
                         success = false;
                     }
                 }
@@ -425,11 +473,19 @@ namespace AirflowNetwork {
 
                         if (result == referenceConditions.end()) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                thisObjectName,
                                                                refCrackCondName));
+=======
+                                            std::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        thisObjectName,
+                                                        refCrackCondName));
+>>>>>>> nrel/develop
                             success = false;
                         } else {
                             refT = result->second.temperature;
@@ -481,7 +537,11 @@ namespace AirflowNetwork {
                 if (fanIndex == 0) {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}: {} = {} is not found in Fan:ZoneExhaust objects.", RoutineName, CurrentModuleObject, thisObjectName));
+=======
+                        std::format("{}: {} = {} is not found in Fan:ZoneExhaust objects.", RoutineName, CurrentModuleObject, thisObjectName));
+>>>>>>> nrel/develop
                     success = false;
                 }
 
@@ -494,10 +554,17 @@ namespace AirflowNetwork {
                 HVAC::FanType fanType = fan->type;
                 if (fanType != HVAC::FanType::Exhaust) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}: {} = {}. The specified Name is not found as a valid Fan:ZoneExhaust object.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        thisObjectName));
+=======
+                                    std::format("{}: {} = {}. The specified Name is not found as a valid Fan:ZoneExhaust object.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                thisObjectName));
+>>>>>>> nrel/develop
                     success = false;
                 }
 
@@ -510,11 +577,19 @@ namespace AirflowNetwork {
                         auto result = referenceConditions.find(Util::makeUPPER(refCrackCondName));
                         if (result == referenceConditions.end()) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                thisObjectName,
                                                                fields.at("reference_crack_conditions").get<std::string>()));
+=======
+                                            std::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        thisObjectName,
+                                                        fields.at("reference_crack_conditions").get<std::string>()));
+>>>>>>> nrel/develop
                             success = false;
                         } else {
                             refT = result->second.temperature;
@@ -544,7 +619,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -577,11 +656,19 @@ namespace AirflowNetwork {
                 int OAMixerNum = MixedAir::GetOAMixerNumber(m_state, mixer_name);
                 if (OAMixerNum == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}: {}: {}. Invalid Outdoor Air Mixer Name \"{}\" given.",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        thisObjectName,
                                                        mixer_name));
+=======
+                                    std::format("{}: {}: {}. Invalid Outdoor Air Mixer Name \"{}\" given.",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                thisObjectName,
+                                                mixer_name));
+>>>>>>> nrel/develop
                     success = false;
                 }
 
@@ -594,11 +681,19 @@ namespace AirflowNetwork {
                         auto result = referenceConditions.find(Util::makeUPPER(refCrackCondName));
                         if (result == referenceConditions.end()) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                thisObjectName,
                                                                refCrackCondName));
+=======
+                                            std::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        thisObjectName,
+                                                        refCrackCondName));
+>>>>>>> nrel/develop
                             success = false;
                         } else {
                             refT = result->second.temperature;
@@ -626,7 +721,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -659,7 +758,11 @@ namespace AirflowNetwork {
                 int OAMixerNum{MixedAir::GetOAMixerNumber(m_state, mixer_name)};
                 if (OAMixerNum == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + ": " + CurrentModuleObject + " object " + thisObjectName + ". Invalid " +
+=======
+                                    std::format(RoutineName) + ": " + CurrentModuleObject + " object " + thisObjectName + ". Invalid " +
+>>>>>>> nrel/develop
                                         "Outdoor Air Mixer Name" + " \"" + mixer_name + "\" given.");
                     success = false;
                 }
@@ -673,11 +776,19 @@ namespace AirflowNetwork {
                         auto result = referenceConditions.find(Util::makeUPPER(refCrackCondName));
                         if (result == referenceConditions.end()) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                thisObjectName,
                                                                refCrackCondName));
+=======
+                                            std::format("{}: {}: {}. Cannot find reference crack conditions object \"{}\".",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        thisObjectName,
+                                                        refCrackCondName));
+>>>>>>> nrel/develop
                             success = false;
                         } else {
                             refT = result->second.temperature;
@@ -703,7 +814,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -744,8 +859,13 @@ namespace AirflowNetwork {
                     } else {
                         // Code will never be executed, validation will catch invalid input
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + "Invalid Type of Rectangular Large Vertical Opening (LVO) = " + LVOstring +
                                             "in " + CurrentModuleObject + " = " + thisObjectName);
+=======
+                                        std::format(RoutineName) + "Invalid Type of Rectangular Large Vertical Opening (LVO) = " + LVOstring + "in " +
+                                            CurrentModuleObject + " = " + thisObjectName);
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "Valid choices are NonPivoted and HorizontallyPivoted.");
                         success = false;
                     }
@@ -900,11 +1020,19 @@ namespace AirflowNetwork {
                 MultizoneCompDetOpeningData(i).StartHFac4 = 0.0;  // Start height factor for opening factor #4
                 if (N == 2) {
                     if (factors[1] != 1.0) {
+<<<<<<< HEAD
                         ShowWarningError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
                         ShowContinueError(
                             m_state,
                             "..This object specifies that only 3 opening factors will be used. So, the value of Opening Factor #2 is set to 1.0.");
                         ShowContinueError(m_state, EnergyPlus::format("..Input value was {:.2R}", MultizoneCompDetOpeningData(i).OpenFac2));
+=======
+                        ShowWarningError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+                        ShowContinueError(
+                            m_state,
+                            "..This object specifies that only 3 opening factors will be used. So, the value of Opening Factor #2 is set to 1.0.");
+                        ShowContinueError(m_state, std::format("..Input value was {:.2f}", MultizoneCompDetOpeningData(i).OpenFac2));
+>>>>>>> nrel/develop
                         MultizoneCompDetOpeningData(i).OpenFac2 = 1.0;
                     }
                 } else if (N >= 3) {
@@ -916,11 +1044,19 @@ namespace AirflowNetwork {
                     if (N >= 4) {
                         MultizoneCompDetOpeningData(i).OpenFac4 = factors[3]; // Opening factor #4
                         if (factors[3] != 1.0) {
+<<<<<<< HEAD
                             ShowWarningError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
                             ShowContinueError(m_state,
                                               "..This object specifies that 4 opening factors will be used. So, the value of Opening Factor #4 "
                                               "is set to 1.0.");
                             ShowContinueError(m_state, EnergyPlus::format("..Input value was {:.2R}", MultizoneCompDetOpeningData(i).OpenFac4));
+=======
+                            ShowWarningError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+                            ShowContinueError(m_state,
+                                              "..This object specifies that 4 opening factors will be used. So, the value of Opening Factor #4 "
+                                              "is set to 1.0.");
+                            ShowContinueError(m_state, std::format("..Input value was {:.2f}", MultizoneCompDetOpeningData(i).OpenFac4));
+>>>>>>> nrel/develop
                             MultizoneCompDetOpeningData(i).OpenFac4 = 1.0;
                         }
                         MultizoneCompDetOpeningData(i).DischCoeff4 = cds[3];                 // Discharge coefficient for opening factor #4
@@ -929,11 +1065,19 @@ namespace AirflowNetwork {
                         MultizoneCompDetOpeningData(i).StartHFac4 = start_height_factors[3]; // Start height factor for opening factor #4
                     } else {
                         if (factors[2] != 1.0) {
+<<<<<<< HEAD
                             ShowWarningError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
                             ShowContinueError(m_state,
                                               "..This object specifies that only 3 opening factors will be used. So, the value of Opening Factor #3 "
                                               "is set to 1.0.");
                             ShowContinueError(m_state, EnergyPlus::format("..Input value was {:.2R}", MultizoneCompDetOpeningData(i).OpenFac3));
+=======
+                            ShowWarningError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+                            ShowContinueError(m_state,
+                                              "..This object specifies that only 3 opening factors will be used. So, the value of Opening Factor #3 "
+                                              "is set to 1.0.");
+                            ShowContinueError(m_state, std::format("..Input value was {:.2f}", MultizoneCompDetOpeningData(i).OpenFac3));
+>>>>>>> nrel/develop
                             MultizoneCompDetOpeningData(i).OpenFac3 = 1.0;
                         }
                     }
@@ -941,25 +1085,41 @@ namespace AirflowNetwork {
 
                 // Sanity checks, check sum of Height Factor and the Start Height Factor
                 if (MultizoneCompDetOpeningData(i).HeightFac1 + MultizoneCompDetOpeningData(i).StartHFac1 > 1.0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+=======
+                    ShowSevereError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         m_state, "..The sum of Height Factor for Opening Factor 1 and Start Height Factor for Opening Factor 1 is greater than 1.0");
                     success = false;
                 }
                 if (MultizoneCompDetOpeningData(i).HeightFac2 + MultizoneCompDetOpeningData(i).StartHFac2 > 1.0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+=======
+                    ShowSevereError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         m_state, "..The sum of Height Factor for Opening Factor 2 and Start Height Factor for Opening Factor 2 is greater than 1.0");
                     success = false;
                 }
                 if (MultizoneCompDetOpeningData(i).NumFac > 2) {
                     if (MultizoneCompDetOpeningData(i).OpenFac2 >= MultizoneCompDetOpeningData(i).OpenFac3) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+=======
+                        ShowSevereError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..The value of Opening Factor #2 >= the value of Opening Factor #3");
                         success = false;
                     }
                     if (MultizoneCompDetOpeningData(i).HeightFac3 + MultizoneCompDetOpeningData(i).StartHFac3 > 1.0) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+=======
+                        ShowSevereError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+>>>>>>> nrel/develop
                         ShowContinueError(
                             m_state,
                             "..The sum of Height Factor for Opening Factor 3 and Start Height Factor for Opening Factor 3 is greater than 1.0");
@@ -967,12 +1127,20 @@ namespace AirflowNetwork {
                     }
                     if (MultizoneCompDetOpeningData(i).NumFac == 4) {
                         if (MultizoneCompDetOpeningData(i).OpenFac3 >= MultizoneCompDetOpeningData(i).OpenFac4) {
+<<<<<<< HEAD
                             ShowSevereError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+=======
+                            ShowSevereError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state, "..The value of Opening Factor #3 >= the value of Opening Factor #4");
                             success = false;
                         }
                         if (MultizoneCompDetOpeningData(i).HeightFac4 + MultizoneCompDetOpeningData(i).StartHFac4 > 1.0) {
+<<<<<<< HEAD
                             ShowSevereError(m_state, EnergyPlus::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+=======
+                            ShowSevereError(m_state, std::format("{}: {} = {}", RoutineName, CurrentModuleObject, thisObjectName));
+>>>>>>> nrel/develop
                             ShowContinueError(
                                 m_state,
                                 "..The sum of Height Factor for Opening Factor 4 and Start Height Factor for Opening Factor 4 is greater than 1.0");
@@ -987,7 +1155,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -1031,7 +1203,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -1078,7 +1254,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -1131,7 +1311,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     success = false;
                 }
@@ -1169,7 +1353,11 @@ namespace AirflowNetwork {
                 if (elements.find(thisObjectName) != elements.end()) {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     success = false;
                 }
@@ -1223,7 +1411,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -1266,7 +1458,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -1343,7 +1539,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -1357,11 +1557,18 @@ namespace AirflowNetwork {
         CurrentModuleObject = "AirflowNetwork:Distribution:Component:Fan";
         DisSysNumOfCVFs = m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, CurrentModuleObject);
         if (DisSysNumOfCVFs > 0 && DisSysNumOfCVFs != m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "AirLoopHVAC")) {
+<<<<<<< HEAD
             ShowSevereError(m_state,
                             EnergyPlus::format("The number of entered AirflowNetwork:Distribution:Component:Fan objects is {}", DisSysNumOfCVFs));
             ShowSevereError(m_state,
                             EnergyPlus::format("The number of entered AirLoopHVAC objects is {}",
                                                m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "AirLoopHVAC")));
+=======
+            ShowSevereError(m_state, std::format("The number of entered AirflowNetwork:Distribution:Component:Fan objects is {}", DisSysNumOfCVFs));
+            ShowSevereError(m_state,
+                            std::format("The number of entered AirLoopHVAC objects is {}",
+                                        m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "AirLoopHVAC")));
+>>>>>>> nrel/develop
             ShowContinueError(m_state, "Both numbers should be equal. Please check your inputs.");
             success = false;
         }
@@ -1428,7 +1635,11 @@ namespace AirflowNetwork {
                 if (!(fanType2 == HVAC::FanType::Constant || fanType2 == HVAC::FanType::OnOff || fanType2 == HVAC::FanType::VAV)) {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}The Supply Fan Object Type in {} = {} is not a valid fan type.", RoutineName, CurrentModuleObject, thisObjectName));
                     ShowContinueError(m_state, "Valid fan types are  Fan:ConstantVolume, Fan:OnOff, Fan:VariableVolume, or Fan:SystemModel.");
                     success = false;
@@ -1475,9 +1686,15 @@ namespace AirflowNetwork {
                 if (elements.find(fan_name) == elements.end()) {
                     elements[fan_name] = &DisSysCompCVFData(i); // Yet another workaround
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(
                                         "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, fan_name));
+=======
+                    ShowSevereError(
+                        m_state,
+                        std::format("{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, fan_name));
+>>>>>>> nrel/develop
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
                 }
@@ -1514,10 +1731,17 @@ namespace AirflowNetwork {
                     elements[DisSysCompCoilData(i).name] = &DisSysCompCoilData(i); // Yet another workaround
                 } else {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}: {}: Duplicated airflow element names are found = \"{}\".",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        DisSysCompCoilData(i).name));
+=======
+                                    std::format("{}: {}: Duplicated airflow element names are found = \"{}\".",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                DisSysCompCoilData(i).name));
+>>>>>>> nrel/develop
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
                 }
@@ -1555,10 +1779,17 @@ namespace AirflowNetwork {
                     elements[DisSysCompHXData(i).name] = &DisSysCompHXData(i); // Yet another workaround
                 } else {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}: {}: Duplicated airflow element names are found = \"{}\".",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        DisSysCompHXData(i).name));
+=======
+                                    std::format("{}: {}: Duplicated airflow element names are found = \"{}\".",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                DisSysCompHXData(i).name));
+>>>>>>> nrel/develop
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
                 }
@@ -1594,10 +1825,17 @@ namespace AirflowNetwork {
                     elements[DisSysCompTermUnitData(i).name] = &DisSysCompTermUnitData(i); // Yet another workaround
                 } else {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}: {}: Duplicated airflow element names are found = \"{}\".",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        DisSysCompTermUnitData(i).name));
+=======
+                                    std::format("{}: {}: Duplicated airflow element names are found = \"{}\".",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                DisSysCompTermUnitData(i).name));
+>>>>>>> nrel/develop
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
                 }
@@ -1631,7 +1869,11 @@ namespace AirflowNetwork {
                 } else {
                     ShowSevereError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}: {}: Duplicated airflow element names are found = \"{}\".", RoutineName, CurrentModuleObject, thisObjectName));
                     // ShowContinueError(state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
                     success = false;
@@ -1807,20 +2049,32 @@ namespace AirflowNetwork {
                 OccupantVentilationControl(i).MinOpeningTime = Numbers(1);
                 if (OccupantVentilationControl(i).MinOpeningTime < 0.0) {
                     // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(1) + " < 0.0");
                     ShowContinueError(
                         m_state,
                         EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0", OccupantVentilationControl(i).MinOpeningTime));
+=======
+                    ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(1) + " < 0.0");
+                    ShowContinueError(
+                        m_state, std::format("..Input value = {:.1f}, Value will be reset to 0.0", OccupantVentilationControl(i).MinOpeningTime));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + OccupantVentilationControl(i).Name);
                     OccupantVentilationControl(i).MinOpeningTime = 0.0;
                 }
                 OccupantVentilationControl(i).MinClosingTime = Numbers(2);
                 if (OccupantVentilationControl(i).MinClosingTime < 0.0) {
                     // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(2) + " < 0.0");
                     ShowContinueError(
                         m_state,
                         EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0", OccupantVentilationControl(i).MinClosingTime));
+=======
+                    ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(2) + " < 0.0");
+                    ShowContinueError(
+                        m_state, std::format("..Input value = {:.1f}, Value will be reset to 0.0", OccupantVentilationControl(i).MinClosingTime));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + OccupantVentilationControl(i).Name);
                     OccupantVentilationControl(i).MinClosingTime = 0.0;
                 }
@@ -1833,7 +2087,11 @@ namespace AirflowNetwork {
                     if (OccupantVentilationControl(i).ComfortLowTempCurveNum == 0) {
                         OccupantVentilationControl(i).MinTimeControlOnly = true;
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(2) +
+=======
+                                         std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(2) +
+>>>>>>> nrel/develop
                                              " not found = " + OccupantVentilationControl(i).ComfortLowTempCurveName);
                         ShowContinueError(m_state, "..for specified " + cAlphaFields(1) + " = " + Alphas(1));
                         ShowContinueError(
@@ -1862,7 +2120,11 @@ namespace AirflowNetwork {
                                                              cAlphaFields(3));                                      // Field Name
                     } else {
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(3) +
+=======
+                                         std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(3) +
+>>>>>>> nrel/develop
                                              " not found = " + OccupantVentilationControl(i).ComfortHighTempCurveName);
                         ShowContinueError(m_state, "..for specified " + cAlphaFields(1) + " = " + Alphas(1));
                         ShowContinueError(m_state, "A single curve of thermal comfort low temperature is used only. Simulation continues.");
@@ -1872,10 +2134,17 @@ namespace AirflowNetwork {
                     OccupantVentilationControl(i).ComfortBouPoint = Numbers(3);
                     if (OccupantVentilationControl(i).ComfortBouPoint < 0.0) {
                         // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                         ShowWarningError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(3) + " < 0.0");
                         ShowContinueError(m_state,
                                           EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 10.0 as default",
                                                              OccupantVentilationControl(i).ComfortBouPoint));
+=======
+                        ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(3) + " < 0.0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 10.0 as default",
+                                                      OccupantVentilationControl(i).ComfortBouPoint));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + OccupantVentilationControl(i).Name);
                         OccupantVentilationControl(i).ComfortBouPoint = 10.0;
                     }
@@ -1885,12 +2154,20 @@ namespace AirflowNetwork {
                     if (std::abs(CurveValue(m_state, OccupantVentilationControl(i).ComfortLowTempCurveNum, Numbers(3)) -
                                  CurveValue(m_state, OccupantVentilationControl(i).ComfortHighTempCurveNum, Numbers(3))) > 0.1) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject +
                                             " object: The difference of both curve values at boundary point > 0.1");
                         ShowContinueError(m_state, "Both curve names are = " + cAlphaFields(2) + " and " + cAlphaFields(3));
                         ShowContinueError(
                             m_state,
                             EnergyPlus::format("The input value of {} = {:.1R}", cNumericFields(3), OccupantVentilationControl(i).ComfortBouPoint));
+=======
+                                        std::format(RoutineName) + CurrentModuleObject +
+                                            " object: The difference of both curve values at boundary point > 0.1");
+                        ShowContinueError(m_state, "Both curve names are = " + cAlphaFields(2) + " and " + cAlphaFields(3));
+                        ShowContinueError(
+                            m_state, std::format("The input value of {} = {:.1f}", cNumericFields(3), OccupantVentilationControl(i).ComfortBouPoint));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -1899,11 +2176,18 @@ namespace AirflowNetwork {
                     if (OccupantVentilationControl(i).MaxPPD < 0.0 || OccupantVentilationControl(i).MaxPPD > 100.0) {
                         // Code will never be executed, validation will catch invalid input
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(4) +
                                              " beyond 0.0 and 100.0");
                         ShowContinueError(m_state,
                                           EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 10.0 as default",
                                                              OccupantVentilationControl(i).MaxPPD));
+=======
+                                         std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(4) + " beyond 0.0 and 100.0");
+                        ShowContinueError(
+                            m_state,
+                            std::format("..Input value = {:.1f}, Value will be reset to 10.0 as default", OccupantVentilationControl(i).MaxPPD));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + OccupantVentilationControl(i).Name);
                         OccupantVentilationControl(i).MaxPPD = 10.0;
                     }
@@ -1916,8 +2200,13 @@ namespace AirflowNetwork {
                     } else {
                         // Code will never be executed, validation will catch invalid input
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + "=\"" + Alphas(1) + "\" invalid " + cAlphaFields(2) +
                                             "=\"" + Alphas(2) + "\" illegal key.");
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + "=\"" + Alphas(1) + "\" invalid " + cAlphaFields(2) + "=\"" +
+                                            Alphas(2) + "\" illegal key.");
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "Valid keys are: Yes or No");
                         ErrorsFound = true;
                     }
@@ -1927,7 +2216,11 @@ namespace AirflowNetwork {
                     OccupantVentilationControl(i).openingProbSched = Sched::GetSchedule(m_state, OccupantVentilationControl(i).OpeningProbSchName);
                     if (OccupantVentilationControl(i).openingProbSched == nullptr) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(5) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(5) +
+>>>>>>> nrel/develop
                                             " not found = " + OccupantVentilationControl(i).OpeningProbSchName);
                         ShowContinueError(m_state, "..for specified " + cAlphaFields(1) + " = " + Alphas(1));
                         ErrorsFound = true;
@@ -1938,7 +2231,11 @@ namespace AirflowNetwork {
                     OccupantVentilationControl(i).closingProbSched = Sched::GetSchedule(m_state, OccupantVentilationControl(i).ClosingProbSchName);
                     if (OccupantVentilationControl(i).closingProbSched == nullptr) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(6) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(6) +
+>>>>>>> nrel/develop
                                             " not found = " + OccupantVentilationControl(i).ClosingProbSchName);
                         ShowContinueError(m_state, "..for specified " + cAlphaFields(1) + " = " + Alphas(1));
                         ErrorsFound = true;
@@ -1948,7 +2245,11 @@ namespace AirflowNetwork {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(m_state, EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+            ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
         }
 
         // *** Read AirflowNetwork simulation parameters
@@ -1976,7 +2277,11 @@ namespace AirflowNetwork {
                 simulation_control.MaxPressure = 500.0; // Maximum pressure difference by default
                 SimAirNetworkKey = "MultizoneWithoutDistribution";
                 simulation_control.InitFlag = 1;
+<<<<<<< HEAD
                 ShowWarningError(m_state, EnergyPlus::format("{}{} object is not found ", RoutineName, CurrentModuleObject));
+=======
+                ShowWarningError(m_state, std::format("{}{} object is not found ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                 ShowContinueError(m_state, "..The default behaviour values are assigned. Please see details in Input Output Reference.");
             } else if (simulation_control.DuctLoss) {
                 print(m_state.files.eio, Format_110);
@@ -1989,7 +2294,11 @@ namespace AirflowNetwork {
             }
         }
         if (NumAirflowNetwork > 1) {
+<<<<<<< HEAD
             ShowFatalError(m_state, EnergyPlus::format("{}Only one (\"1\") {} object per simulation is allowed.", RoutineName, CurrentModuleObject));
+=======
+            ShowFatalError(m_state, std::format("{}Only one (\"1\") {} object per simulation is allowed.", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         if (!control_defaulted && !simulation_control.DuctLoss) {
@@ -2079,7 +2388,11 @@ namespace AirflowNetwork {
                         m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "ZoneThermalChimney") +
                         m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "ZoneCoolTower:Shower") ==
                     0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} = \"{}\"", RoutineName, cAlphaFields(2), SimAirNetworkKey));
+=======
+                    ShowWarningError(m_state, std::format("{}{} = \"{}\"", RoutineName, cAlphaFields(2), SimAirNetworkKey));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         m_state,
                         "..but there are no Infiltration, Ventilation, Mixing, Cross Mixing or ZoneAirBalance objects. The simulation continues...");
@@ -2093,50 +2406,82 @@ namespace AirflowNetwork {
 
             if (multizone_always_simulated) {
                 if (m_state.dataHeatBal->TotInfiltration > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         m_state, "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey + "\" and ZoneInfiltration:* objects are present.");
                     ShowContinueError(m_state, "..ZoneInfiltration objects will not be simulated.");
                 }
                 if (m_state.dataHeatBal->TotVentilation > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         m_state, "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey + "\" and ZoneVentilation:* objects are present.");
                     ShowContinueError(m_state, "..ZoneVentilation objects will not be simulated.");
                 }
                 if (m_state.dataHeatBal->TotMixing > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey + "\" and ZoneMixing objects are present.");
                     ShowContinueError(m_state, "..ZoneMixing objects will not be simulated.");
                 }
                 if (m_state.dataHeatBal->TotCrossMixing > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey + "\" and ZoneCrossMixing objects are present.");
                     ShowContinueError(m_state, "..ZoneCrossMixing objects will not be simulated.");
                 }
                 if (m_state.dataHeatBal->TotZoneAirBalance > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey +
                                           "\" and ZoneAirBalance:OutdoorAir objects are present.");
                     ShowContinueError(m_state, "..ZoneAirBalance:OutdoorAir objects will not be simulated.");
                 }
                 if (m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "ZoneEarthtube") > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey + "\" and ZoneEarthtube objects are present.");
                     ShowContinueError(m_state, "..ZoneEarthtube objects will not be simulated.");
                 }
                 if (m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "ZoneThermalChimney") > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         m_state, "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey + "\" and ZoneThermalChimney objects are present.");
                     ShowContinueError(m_state, "..ZoneThermalChimney objects will not be simulated.");
                 }
                 if (m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, "ZoneCoolTower:Shower") > 0) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         m_state, "..Specified " + cAlphaFields(2) + " = \"" + SimAirNetworkKey + "\" and ZoneCoolTower:Shower objects are present.");
                     ShowContinueError(m_state, "..ZoneCoolTower:Shower objects will not be simulated.");
@@ -2149,7 +2494,11 @@ namespace AirflowNetwork {
                 if (Util::SameString(simulation_control.WPCCntr, "Input")) {
                     simulation_control.iWPCCnt = iWPCCntr::Input;
                     if (lAlphaBlanks(4)) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(3) + " = INPUT.");
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(3) + " = INPUT.");
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, ".." + cAlphaFields(4) + " was not entered.");
                         ErrorsFound = true;
                         SimObjectError = true;
@@ -2157,8 +2506,13 @@ namespace AirflowNetwork {
                         if (!(Util::SameString(simulation_control.HeightOption, "ExternalNode") ||
                               Util::SameString(simulation_control.HeightOption, "OpeningHeight"))) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(4) + " = " +
                                                 Alphas(4) + " is invalid.");
+=======
+                                            std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(4) + " = " + Alphas(4) +
+                                                " is invalid.");
+>>>>>>> nrel/develop
                             ShowContinueError(m_state,
                                               "Valid choices are ExternalNode or OpeningHeight. " + CurrentModuleObject + ": " + cAlphaFields(1) +
                                                   " = " + simulation_control.name);
@@ -2170,7 +2524,11 @@ namespace AirflowNetwork {
                     simulation_control.iWPCCnt = iWPCCntr::SurfAvg;
                     if (!(Util::SameString(simulation_control.BldgType, "LowRise") || Util::SameString(simulation_control.BldgType, "HighRise"))) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(5) + " = " + Alphas(5) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(5) + " = " + Alphas(5) +
+>>>>>>> nrel/develop
                                             " is invalid.");
                         ShowContinueError(m_state,
                                           "Valid choices are LowRise or HighRise. " + CurrentModuleObject + ": " + cAlphaFields(1) + " = " +
@@ -2180,7 +2538,11 @@ namespace AirflowNetwork {
                     }
                     for (k = 1; k <= m_state.dataLoopNodes->NumOfNodes; ++k) {
                         if (Node(k).IsLocalNode) {
+<<<<<<< HEAD
                             ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "Invalid " + cAlphaFields(3) + "=" + Alphas(3));
+=======
+                            ShowSevereError(m_state, std::format(RoutineName) + "Invalid " + cAlphaFields(3) + "=" + Alphas(3));
+>>>>>>> nrel/develop
                             ShowContinueError(
                                 m_state,
                                 "A local air node is defined to INPUT the wind pressure coefficient curve, while Wind Pressure Coefficient "
@@ -2193,7 +2555,11 @@ namespace AirflowNetwork {
                     }
                 } else {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(3) + " = " +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(3) + " = " +
+>>>>>>> nrel/develop
                                         simulation_control.WPCCntr + " is not valid.");
                     ShowContinueError(
                         m_state, "Valid choices are Input or SurfaceAverageCalculation. " + CurrentModuleObject + " = " + simulation_control.name);
@@ -2212,9 +2578,14 @@ namespace AirflowNetwork {
                     simulation_control.InitFlag = 1;
                 } else {
                     // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(6) + " = " + Alphas(6) +
                                         " is invalid.");
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(6) + " = " + Alphas(6) + " is invalid.");
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "Valid choices are LinearInitializationMethod or ZeroNodePressures. " + CurrentModuleObject + " = " +
                                           simulation_control.name);
@@ -2234,7 +2605,11 @@ namespace AirflowNetwork {
                     simulation_control.solver = SimulationControl::Solver::ConjugateGradient;
                 } else {
                     simulation_control.solver = SimulationControl::Solver::SkylineLU;
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format("{}{} object, ", RoutineName, CurrentModuleObject));
+=======
+                    ShowWarningError(m_state, std::format("{}{} object, ", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state, "..Specified " + cAlphaFields(8) + " = \"" + Alphas(8) + "\" is unrecognized.");
                     ShowContinueError(m_state, "..Default value \"SkylineLU\" will be used.");
                 }
@@ -2246,6 +2621,7 @@ namespace AirflowNetwork {
                         simulation_control.autosize_ducts = true;
                         if (simulation_control.type == ControlType::MultizoneWithDistribution) {
                             if (NumAPL > 1) {
+<<<<<<< HEAD
                                 ShowWarningError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, ");
                                 ShowContinueError(
                                     m_state,
@@ -2253,6 +2629,14 @@ namespace AirflowNetwork {
                                         "The number of AirLoopHAVC is greater than 1. The current requirement for Duct Sizing requires a "
                                         "single AirLoopHVAC."));
                                 ShowContinueError(m_state, EnergyPlus::format("..Duct sizing is not performed"));
+=======
+                                ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, ");
+                                ShowContinueError(
+                                    m_state,
+                                    std::format("The number of AirLoopHAVC is greater than 1. The current requirement for Duct Sizing requires a "
+                                                "single AirLoopHVAC."));
+                                ShowContinueError(m_state, std::format("..Duct sizing is not performed"));
+>>>>>>> nrel/develop
                                 simulation_control.autosize_ducts = false;
                             }
                         }
@@ -2261,9 +2645,15 @@ namespace AirflowNetwork {
 
                 if (SimObjectError) {
                     ShowFatalError(m_state,
+<<<<<<< HEAD
                                    EnergyPlus::format("{}Errors found getting {} object. Previous error(s) cause program termination.",
                                                       RoutineName,
                                                       CurrentModuleObject));
+=======
+                                   std::format("{}Errors found getting {} object. Previous error(s) cause program termination.",
+                                               RoutineName,
+                                               CurrentModuleObject));
+>>>>>>> nrel/develop
                 }
 
                 simulation_control.maximum_iterations = static_cast<int>(Numbers(1));
@@ -2279,6 +2669,7 @@ namespace AirflowNetwork {
         CurrentModuleObject = "AirflowNetwork:Distribution:DuctSizing";
         int NumDuctSizing = m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, CurrentModuleObject);
         if (NumDuctSizing > 1) {
+<<<<<<< HEAD
             ShowWarningError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, ");
             ShowContinueError(
                 m_state,
@@ -2295,6 +2686,24 @@ namespace AirflowNetwork {
                     "The number of AirflowNetwork:Distribution:DuctSizing is not available. The current requirement for Duct Sizing requires a "
                     "single object."));
             ShowContinueError(m_state, EnergyPlus::format("..Duct sizing is not performed"));
+=======
+            ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, ");
+            ShowContinueError(
+                m_state,
+                std::format(
+                    "The number of AirflowNetwork:Distribution:DuctSizing is greater than 1. The current requirement for Duct Sizing requires a "
+                    "single object."));
+            ShowContinueError(m_state, std::format("..Duct sizing is not performed"));
+            simulation_control.autosize_ducts = false;
+        } else if (simulation_control.autosize_ducts && NumDuctSizing == 0) {
+            ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, ");
+            ShowContinueError(
+                m_state,
+                std::format(
+                    "The number of AirflowNetwork:Distribution:DuctSizing is not available. The current requirement for Duct Sizing requires a "
+                    "single object."));
+            ShowContinueError(m_state, std::format("..Duct sizing is not performed"));
+>>>>>>> nrel/develop
             simulation_control.autosize_ducts = false;
         }
         if (simulation_control.autosize_ducts && NumDuctSizing == 1) {
@@ -2319,6 +2728,7 @@ namespace AirflowNetwork {
             } else if (Util::SameString(Alphas(2), Util::makeUPPER("PressureLossWithMaximumVelocity"))) {
                 simulation_control.ductSizing.method = DuctSizingMethod::VelocityAndLoss;
             } else {
+<<<<<<< HEAD
                 ShowSevereError(
                     m_state, EnergyPlus::format("{} {} object, {} = {}  is invalid.", RoutineName, CurrentModuleObject, cAlphaFields(2), Alphas(2)));
                 ShowContinueError(
@@ -2337,6 +2747,25 @@ namespace AirflowNetwork {
                                                      Alphas(10),
                                                      cAlphaFields(2)));
                 ShowContinueError(m_state, EnergyPlus::format("..Duct sizing is not performed"));
+=======
+                ShowSevereError(m_state,
+                                std::format("{} {} object, {} = {}  is invalid.", RoutineName, CurrentModuleObject, cAlphaFields(2), Alphas(2)));
+                ShowContinueError(m_state,
+                                  std::format("Valid choices are MaximumVelocity, PressureLoss, and PressureLossWithMaximumVelocity. {}: {} = {}",
+                                              CurrentModuleObject,
+                                              cAlphaFields(1),
+                                              Alphas(1)));
+                ErrorsFound = true;
+            }
+            if (simulation_control.type != ControlType::MultizoneWithDistribution) {
+                ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, ");
+                ShowContinueError(m_state,
+                                  std::format("Although {} = \"{}\" is entered, but {} is not MultizoneWithoutDistribution.",
+                                              cAlphaFields(10),
+                                              Alphas(10),
+                                              cAlphaFields(2)));
+                ShowContinueError(m_state, std::format("..Duct sizing is not performed"));
+>>>>>>> nrel/develop
                 simulation_control.autosize_ducts = false;
             }
             simulation_control.ductSizing.factor = Numbers(1);
@@ -2396,7 +2825,11 @@ namespace AirflowNetwork {
                         Util::FindItemInList(MultizoneZoneData(i).OccupantVentilationControlName, OccupantVentilationControl);
                     if (MultizoneZoneData(i).OccupantVentilationControlNum == 0) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(6) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(6) +
+>>>>>>> nrel/develop
                                             " not found = " + MultizoneZoneData(i).OccupantVentilationControlName);
                         ShowContinueError(m_state, "..for specified " + cAlphaFields(1) + " = " + Alphas(1));
                         ErrorsFound = true;
@@ -2436,11 +2869,19 @@ namespace AirflowNetwork {
             }
         } else if (!simulation_control.DuctLoss) {
             ShowSevereError(m_state,
+<<<<<<< HEAD
                             EnergyPlus::format(RoutineName) + "For an AirflowNetwork Simulation, at least one " + CurrentModuleObject +
                                 " object is required but none were found.");
             ShowFatalError(m_state,
                            EnergyPlus::format(
                                "{}Errors found getting {} object. Previous error(s) cause program termination.", RoutineName, CurrentModuleObject));
+=======
+                            std::format(RoutineName) + "For an AirflowNetwork Simulation, at least one " + CurrentModuleObject +
+                                " object is required but none were found.");
+            ShowFatalError(
+                m_state,
+                std::format("{}Errors found getting {} object. Previous error(s) cause program termination.", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         // ==> Zone data validation
@@ -2458,7 +2899,11 @@ namespace AirflowNetwork {
             }
             if (MultizoneZoneData(i).VentCtrNum == VentControlType::None) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, invalid " + cAlphaFields(2) + " = " +
+=======
+                                std::format(RoutineName) + CurrentModuleObject + " object, invalid " + cAlphaFields(2) + " = " +
+>>>>>>> nrel/develop
                                     MultizoneZoneData(i).VentControl);
                 ShowContinueError(m_state, "Valid choices are Temperature, Enthalpy, Constant, or NoVent");
                 ShowContinueError(m_state, ".. in " + cAlphaFields(1) + " = \"" + MultizoneZoneData(i).ZoneName + "\"");
@@ -2487,9 +2932,15 @@ namespace AirflowNetwork {
             }
             if (MultizoneZoneData(i).OpenFactor > 1.0 || MultizoneZoneData(i).OpenFactor < 0.0) {
                 // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                 ShowWarningError(
                     m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(1) + " is out of range [0.0,1.0]");
                 ShowContinueError(m_state, EnergyPlus::format("..Input value = {:.2R}, Value will be set to 1.0", MultizoneZoneData(i).OpenFactor));
+=======
+                ShowWarningError(m_state,
+                                 std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(1) + " is out of range [0.0,1.0]");
+                ShowContinueError(m_state, std::format("..Input value = {:.2f}, Value will be set to 1.0", MultizoneZoneData(i).OpenFactor));
+>>>>>>> nrel/develop
                 MultizoneZoneData(i).OpenFactor = 1.0;
             }
 
@@ -2499,22 +2950,35 @@ namespace AirflowNetwork {
                 if (SELECT_CASE_var == "TEMPERATURE") { // checks on Temperature control
                     if (MultizoneZoneData(i).LowValueTemp < 0.0) {
                         // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                         ShowWarningError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(2) + " < 0.0");
                         ShowContinueError(m_state,
                                           EnergyPlus::format("..Input value = {:.1R}, Value will be set to 0.0", MultizoneZoneData(i).LowValueTemp));
+=======
+                        ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(2) + " < 0.0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be set to 0.0", MultizoneZoneData(i).LowValueTemp));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + MultizoneZoneData(i).ZoneName);
                         MultizoneZoneData(i).LowValueTemp = 0.0;
                     }
                     if (MultizoneZoneData(i).LowValueTemp >= 100.0) {
                         // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                         ShowWarningError(m_state,
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(2) + " >= 100.0");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0", MultizoneZoneData(i).LowValueTemp));
+=======
+                        ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(2) + " >= 100.0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 0.0", MultizoneZoneData(i).LowValueTemp));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + MultizoneZoneData(i).ZoneName);
                         MultizoneZoneData(i).LowValueTemp = 0.0;
                     }
                     if (MultizoneZoneData(i).UpValueTemp <= MultizoneZoneData(i).LowValueTemp) {
+<<<<<<< HEAD
                         ShowWarningError(m_state,
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(3) +
                                              " <= " + cNumericFields(2));
@@ -2522,6 +2986,14 @@ namespace AirflowNetwork {
                                           EnergyPlus::format("..Input value for {} = {:.1R}, Value will be reset to 100.0",
                                                              cNumericFields(3),
                                                              MultizoneZoneData(i).UpValueTemp));
+=======
+                        ShowWarningError(
+                            m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(3) + " <= " + cNumericFields(2));
+                        ShowContinueError(m_state,
+                                          std::format("..Input value for {} = {:.1f}, Value will be reset to 100.0",
+                                                      cNumericFields(3),
+                                                      MultizoneZoneData(i).UpValueTemp));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + MultizoneZoneData(i).ZoneName);
                         MultizoneZoneData(i).UpValueTemp = 100.0;
                     }
@@ -2529,29 +3001,49 @@ namespace AirflowNetwork {
                 } else if (SELECT_CASE_var == "ENTHALPY") { // checks for Enthalpy control
                     if (MultizoneZoneData(i).LowValueEnth < 0.0) {
                         // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                         ShowWarningError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(4) + " < 0.0");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0", MultizoneZoneData(i).LowValueEnth));
+=======
+                        ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(4) + " < 0.0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 0.0", MultizoneZoneData(i).LowValueEnth));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + MultizoneZoneData(i).ZoneName);
                         MultizoneZoneData(i).LowValueEnth = 0.0;
                     }
                     if (MultizoneZoneData(i).LowValueEnth >= 300000.0) {
                         // Code will never be executed, validation will catch invalid input
+<<<<<<< HEAD
                         ShowWarningError(m_state,
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(4) + " >= 300000.0");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0.", MultizoneZoneData(i).LowValueEnth));
+=======
+                        ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, " + cNumericFields(4) + " >= 300000.0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 0.0.", MultizoneZoneData(i).LowValueEnth));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + MultizoneZoneData(i).ZoneName);
                         MultizoneZoneData(i).LowValueEnth = 0.0;
                     }
                     if (MultizoneZoneData(i).UpValueEnth <= MultizoneZoneData(i).LowValueEnth) {
                         ShowWarningError(
+<<<<<<< HEAD
                             m_state,
                             EnergyPlus::format("{}{} object, {} <= {}", RoutineName, CurrentModuleObject, cNumericFields(5), cNumericFields(4)));
                         ShowContinueError(m_state,
                                           EnergyPlus::format("..Input value for {}= {:.1R}, Value will be reset to 300000.0",
                                                              cNumericFields(5),
                                                              MultizoneZoneData(i).UpValueEnth));
+=======
+                            m_state, std::format("{}{} object, {} <= {}", RoutineName, CurrentModuleObject, cNumericFields(5), cNumericFields(4)));
+                        ShowContinueError(m_state,
+                                          std::format("..Input value for {}= {:.1f}, Value will be reset to 300000.0",
+                                                      cNumericFields(5),
+                                                      MultizoneZoneData(i).UpValueEnth));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for " + cAlphaFields(1) + " = \"" + MultizoneZoneData(i).ZoneName);
                         MultizoneZoneData(i).UpValueEnth = 300000.0;
                     }
@@ -2597,14 +3089,24 @@ namespace AirflowNetwork {
                     MultizoneExternalNodeData(i).height = Numbers(1); // Nodal height
                     if (Util::SameString(simulation_control.HeightOption, "ExternalNode") && lNumericBlanks(1)) {
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object =" + Alphas(1) + ". The input of " +
                                              cNumericFields(1) + " is required, but a blank is found.");
                         ShowContinueError(m_state, EnergyPlus::format("The default value is assigned as {:.1R}", Numbers(1)));
+=======
+                                         std::format(RoutineName) + CurrentModuleObject + " object =" + Alphas(1) + ". The input of " +
+                                             cNumericFields(1) + " is required, but a blank is found.");
+                        ShowContinueError(m_state, std::format("The default value is assigned as {:.1f}", Numbers(1)));
+>>>>>>> nrel/develop
                     }
                     MultizoneExternalNodeData(i).ExtNum = AirflowNetworkNumOfZones + i;            // External node number
                     MultizoneExternalNodeData(i).curve = Curve::GetCurveIndex(m_state, Alphas(2)); // Wind pressure curve
                     if (MultizoneExternalNodeData(i).curve == 0) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "Invalid " + cAlphaFields(2) + "=" + Alphas(2));
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + "Invalid " + cAlphaFields(2) + "=" + Alphas(2));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "Entered in " + CurrentModuleObject + '=' + Alphas(1));
                         ErrorsFound = true;
                     }
@@ -2613,8 +3115,13 @@ namespace AirflowNetwork {
                             MultizoneExternalNodeData(i).symmetricCurve = true;
                         } else if (!Util::SameString(Alphas(3), "No")) {
                             ShowWarningError(m_state,
+<<<<<<< HEAD
                                              EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(3) +
                                                  " = " + Alphas(3));
+=======
+                                             std::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(3) + " = " +
+                                                 Alphas(3));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state, "The default value is assigned as No.");
                         }
                     }
@@ -2624,8 +3131,13 @@ namespace AirflowNetwork {
                         } else if (!Util::SameString(Alphas(4), "Absolute")) {
                             // Code will never be executed, validation will catch invalid input
                             ShowWarningError(m_state,
+<<<<<<< HEAD
                                              EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(4) +
                                                  " = " + Alphas(4));
+=======
+                                             std::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(4) + " = " +
+                                                 Alphas(4));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state, "The default value is assigned as Absolute.");
                         }
                     }
@@ -2651,7 +3163,11 @@ namespace AirflowNetwork {
                         if (NumAlphas > 5 && !lAlphaBlanks(6)) { // Wind pressure curve
                             MultizoneExternalNodeData(i).curve = GetCurveIndex(m_state, Alphas(6));
                             if (MultizoneExternalNodeData(i).curve == 0) {
+<<<<<<< HEAD
                                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "Invalid " + cAlphaFields(6) + "=" + Alphas(6));
+=======
+                                ShowSevereError(m_state, std::format(RoutineName) + "Invalid " + cAlphaFields(6) + "=" + Alphas(6));
+>>>>>>> nrel/develop
                                 ShowContinueError(m_state, "Entered in " + CurrentModuleObject + '=' + Alphas(1));
                                 ErrorsFound = true;
                             }
@@ -2662,7 +3178,11 @@ namespace AirflowNetwork {
                                 MultizoneExternalNodeData(i).symmetricCurve = true;
                             } else if (!Util::SameString(Alphas(7), "No")) {
                                 ShowWarningError(m_state,
+<<<<<<< HEAD
                                                  EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(7) +
+=======
+                                                 std::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(7) +
+>>>>>>> nrel/develop
                                                      " = " + Alphas(7));
                                 ShowContinueError(m_state, "The default value is assigned as No.");
                             }
@@ -2673,7 +3193,11 @@ namespace AirflowNetwork {
                                 MultizoneExternalNodeData(i).useRelativeAngle = true;
                             } else if (!Util::SameString(Alphas(8), "Absolute")) {
                                 ShowWarningError(m_state,
+<<<<<<< HEAD
                                                  EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(8) +
+=======
+                                                 std::format(RoutineName) + CurrentModuleObject + " object, Invalid input " + cAlphaFields(8) +
+>>>>>>> nrel/develop
                                                      " = " + Alphas(8));
                                 ShowContinueError(m_state, "The default value is assigned as Absolute.");
                             }
@@ -2696,7 +3220,11 @@ namespace AirflowNetwork {
                 }
             } else {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject +
+=======
+                                std::format(RoutineName) + "An " + CurrentModuleObject +
+>>>>>>> nrel/develop
                                     " object is required but not found when Wind Pressure Coefficient Type = Input.");
                 ErrorsFound = true;
             }
@@ -2729,7 +3257,11 @@ namespace AirflowNetwork {
                 MultizoneSurfaceData(i).ExternalNodeName = Alphas(3); // Name of external node, but not used at WPC="INPUT"
                 if ((Util::FindItemInList(Alphas(3), MultizoneExternalNodeData) != 0) &&
                     m_state.afn->MultizoneExternalNodeData(Util::FindItemInList(Alphas(3), MultizoneExternalNodeData)).curve == 0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "Invalid " + cAlphaFields(3) + "=" + Alphas(3));
+=======
+                    ShowSevereError(m_state, std::format(RoutineName) + "Invalid " + cAlphaFields(3) + "=" + Alphas(3));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "A valid wind pressure coefficient curve name is required but not found when Wind Pressure "
                                       "Coefficient Type = Input.");
@@ -2738,10 +3270,16 @@ namespace AirflowNetwork {
                 MultizoneSurfaceData(i).Factor = Numbers(1); // Crack Actual Value or Window Open Factor for Ventilation
                 if (MultizoneSurfaceData(i).Factor > 1.0 || MultizoneSurfaceData(i).Factor <= 0.0) {
                     ShowWarningError(m_state,
+<<<<<<< HEAD
                                      EnergyPlus::format(RoutineName) + CurrentModuleObject + " object=" + MultizoneSurfaceData(i).SurfName + ", " +
                                          cNumericFields(1) + " is out of range (0.0,1.0]");
                     ShowContinueError(m_state,
                                       EnergyPlus::format("..Input value = {:.2R}, Value will be set to 1.0", MultizoneSurfaceData(i).Factor));
+=======
+                                     std::format(RoutineName) + CurrentModuleObject + " object=" + MultizoneSurfaceData(i).SurfName + ", " +
+                                         cNumericFields(1) + " is out of range (0.0,1.0]");
+                    ShowContinueError(m_state, std::format("..Input value = {:.2f}, Value will be set to 1.0", MultizoneSurfaceData(i).Factor));
+>>>>>>> nrel/develop
                     MultizoneSurfaceData(i).Factor = 1.0;
                 }
                 // Get input of ventilation control and associated data
@@ -2787,7 +3325,11 @@ namespace AirflowNetwork {
                             MultizoneSurfaceData(i).VentSurfCtrNum = VentControlType::AdjEnth;
                             MultizoneSurfaceData(i).IndVentControl = true;
                         } else {
+<<<<<<< HEAD
                             ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Invalid " + cAlphaFields(4));
+=======
+                            ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, Invalid " + cAlphaFields(4));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state,
                                               ".." + cAlphaFields(1) + " = " + MultizoneSurfaceData(i).SurfName + ", Specified " + cAlphaFields(4) +
                                                   " = " + Alphas(4));
@@ -2815,7 +3357,11 @@ namespace AirflowNetwork {
                         Util::FindItemInList(MultizoneSurfaceData(i).OccupantVentilationControlName, OccupantVentilationControl);
                     if (MultizoneSurfaceData(i).OccupantVentilationControlNum == 0) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(7) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(7) +
+>>>>>>> nrel/develop
                                             " not found = " + MultizoneSurfaceData(i).OccupantVentilationControlName);
                         ShowContinueError(m_state, "..for specified " + cAlphaFields(1) + " = " + Alphas(1));
                         ErrorsFound = true;
@@ -2830,7 +3376,11 @@ namespace AirflowNetwork {
                     } else if (Alphas(8) == "USERDEFINEDASPECTRATIO") {
                         MultizoneSurfaceData(i).EquivRecMethod = EquivRec::UserAspectRatio;
                     } else {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Invalid " + cAlphaFields(8));
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, Invalid " + cAlphaFields(8));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state,
                                           ".." + cAlphaFields(1) + " = " + MultizoneSurfaceData(i).SurfName + ", Specified " + cAlphaFields(8) +
                                               " = " + Alphas(8));
@@ -2848,7 +3398,11 @@ namespace AirflowNetwork {
                 }
             }
         } else if (!simulation_control.DuctLoss) {
+<<<<<<< HEAD
             ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+=======
+            ShowSevereError(m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -2885,6 +3439,7 @@ namespace AirflowNetwork {
             MultizoneSurfaceData(i).SurfNum = Util::FindItemInList(MultizoneSurfaceData(i).SurfName, m_state.dataSurface->Surface);
             if (MultizoneSurfaceData(i).SurfNum == 0) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Invalid " + cAlphaFields(1) +
                                     " given = " + MultizoneSurfaceData(i).SurfName);
                 ShowFatalError(m_state,
@@ -2893,6 +3448,15 @@ namespace AirflowNetwork {
             if (!m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).HeatTransSurf &&
                 !m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).IsAirBoundarySurf) {
                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object");
+=======
+                                std::format(RoutineName) + CurrentModuleObject + " object, Invalid " + cAlphaFields(1) +
+                                    " given = " + MultizoneSurfaceData(i).SurfName);
+                ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+            }
+            if (!m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).HeatTransSurf &&
+                !m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).IsAirBoundarySurf) {
+                ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object");
+>>>>>>> nrel/develop
                 ShowContinueError(m_state,
                                   "..The surface specified must be a heat transfer surface. Invalid " + cAlphaFields(1) + " = " +
                                       MultizoneSurfaceData(i).SurfName);
@@ -2904,7 +3468,11 @@ namespace AirflowNetwork {
                 // Check the surface is a subsurface or not
                 if (m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).BaseSurf == MultizoneSurfaceData(i).SurfNum) {
                     if (MultizoneSurfaceData(i).SurfNum == m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object");
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object");
+>>>>>>> nrel/develop
                         ShowContinueError(m_state,
                                           "..The surface facing itself is not allowed. Invalid " + cAlphaFields(1) + " = " +
                                               MultizoneSurfaceData(i).SurfName);
@@ -2913,7 +3481,11 @@ namespace AirflowNetwork {
                 } else {
                     if (m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).BaseSurf ==
                         m_state.dataSurface->Surface(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).BaseSurf).ExtBoundCond) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object");
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object");
+>>>>>>> nrel/develop
                         ShowContinueError(m_state,
                                           "..The base surface facing itself is not allowed. Invalid " + cAlphaFields(1) + " = " +
                                               MultizoneSurfaceData(i).SurfName);
@@ -2939,13 +3511,21 @@ namespace AirflowNetwork {
                 MultizoneSurfaceData(i).NodeNums[0] = j;
             } else {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+=======
+                                std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+>>>>>>> nrel/develop
                                     MultizoneSurfaceData(i).SurfName);
                 ShowContinueError(m_state,
                                   "..Zone for inside surface must be defined in a AirflowNetwork:MultiZone:Zone object.  Could not find Zone = " +
                                       Zone(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).Zone).Name);
+<<<<<<< HEAD
                 ShowFatalError(m_state,
                                EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+                ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
             }
 
             // Calculate equivalent width and height
@@ -2962,8 +3542,13 @@ namespace AirflowNetwork {
                             MultizoneSurfaceData(i).Height =
                                 m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).Area / MultizoneSurfaceData(i).Width;
                             if (m_state.dataGlobal->DisplayExtraWarnings) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+=======
+                                ShowWarningError(m_state,
+                                                 std::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+>>>>>>> nrel/develop
                                 ShowContinueError(m_state,
                                                   "The entered choice of Equivalent Rectangle Method is PolygonHeight. This choice is not valid for "
                                                   "a horizontal surface.");
@@ -2976,8 +3561,13 @@ namespace AirflowNetwork {
                                 m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).Area / MultizoneSurfaceData(i).Width;
                             // add warning
                             if (m_state.dataGlobal->DisplayExtraWarnings) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+=======
+                                ShowWarningError(m_state,
+                                                 std::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+>>>>>>> nrel/develop
                                 ShowContinueError(m_state,
                                                   "The entered choice of Equivalent Rectangle Method is PolygonHeight. This choice is not valid for "
                                                   "a horizontal surface with a polygonal base surface.");
@@ -3030,8 +3620,13 @@ namespace AirflowNetwork {
                                 m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).Area / (maxHeight - minHeight);
                             // add warning
                             if (m_state.dataGlobal->DisplayExtraWarnings) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+=======
+                                ShowWarningError(m_state,
+                                                 std::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+>>>>>>> nrel/develop
                                 ShowContinueError(m_state,
                                                   "The entered choice of Equivalent Rectangle Method is BaseSurfaceAspectRatio. This choice is not "
                                                   "valid for a polygonal base surface.");
@@ -3044,8 +3639,13 @@ namespace AirflowNetwork {
                                 m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).Area / MultizoneSurfaceData(i).Width;
                             // add warning
                             if (m_state.dataGlobal->DisplayExtraWarnings) {
+<<<<<<< HEAD
                                 ShowWarningError(
                                     m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+=======
+                                ShowWarningError(m_state,
+                                                 std::format(RoutineName) + CurrentModuleObject + " object = " + MultizoneSurfaceData(i).SurfName);
+>>>>>>> nrel/develop
                                 ShowContinueError(m_state,
                                                   "The entered choice of Equivalent Rectangle Method is BaseSurfaceAspectRatio. This choice is not "
                                                   "valid for a horizontal surface with a polygonal base surface.");
@@ -3086,7 +3686,11 @@ namespace AirflowNetwork {
                         }
                         if (!found) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format(RoutineName) + CurrentModuleObject + ": Invalid " + cAlphaFields(3) + " = " +
+=======
+                                            std::format(RoutineName) + CurrentModuleObject + ": Invalid " + cAlphaFields(3) + " = " +
+>>>>>>> nrel/develop
                                                 MultizoneSurfaceData(i).ExternalNodeName);
                             ShowContinueError(m_state, "A valid " + cAlphaFields(3) + " is required when Wind Pressure Coefficient Type = Input");
                             ErrorsFound = true;
@@ -3101,7 +3705,11 @@ namespace AirflowNetwork {
                     !(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond == OtherSideCoefNoCalcExt &&
                       m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtWind)) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + ": Invalid " + cAlphaFields(1) + " = " +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + ": Invalid " + cAlphaFields(1) + " = " +
+>>>>>>> nrel/develop
                                         MultizoneSurfaceData(i).SurfName);
                     ShowContinueError(m_state, "This type of surface (has ground, etc exposure) cannot be used in the AiflowNetwork model.");
                     ErrorsFound = true;
@@ -3118,7 +3726,11 @@ namespace AirflowNetwork {
                     MultizoneSurfaceData(i).NodeNums[1] = j;
                 } else {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+>>>>>>> nrel/develop
                                         MultizoneSurfaceData(i).SurfName);
                     ShowContinueError(
                         m_state,
@@ -3141,7 +3753,11 @@ namespace AirflowNetwork {
                     if (found) {
                         MultizoneSurfaceData(i).NodeNums[1] = j;
                     } else {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " = " + MultizoneSurfaceData(i).SurfName);
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " = " + MultizoneSurfaceData(i).SurfName);
+>>>>>>> nrel/develop
                         ShowContinueError(m_state,
                                           "An adjacent zone = " + Zone(m_state.dataSurface->Surface(n).Zone).Name +
                                               " is not described in AIRFLOWNETWORK:MULTIZONE:ZONE");
@@ -3153,7 +3769,11 @@ namespace AirflowNetwork {
             if (!(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond == -2 &&
                   m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtWind)) {
                 if (MultizoneSurfaceData(i).NodeNums[1] == 0 && m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond < 0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " = " + MultizoneSurfaceData(i).SurfName);
+=======
+                    ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " = " + MultizoneSurfaceData(i).SurfName);
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "Outside boundary condition and object are " +
                                           cExtBoundCondition(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond) + " and " +
@@ -3177,7 +3797,11 @@ namespace AirflowNetwork {
                     found = false;
                 }
                 print(m_state.files.eio,
+<<<<<<< HEAD
                       "AirflowNetwork Model:Equivalent Rectangle Surface, {}, {:.2R},{:.2R}\n",
+=======
+                      "AirflowNetwork Model:Equivalent Rectangle Surface, {}, {:.2f},{:.2f}\n",
+>>>>>>> nrel/develop
                       MultizoneSurfaceData(i).SurfName,
                       MultizoneSurfaceData(i).Height,
                       MultizoneSurfaceData(i).Width);
@@ -3189,7 +3813,11 @@ namespace AirflowNetwork {
             if (MultizoneSurfaceData(i).VentSurfCtrNum == VentControlType::AdjTemp) {
                 if (!(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond >= 1)) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+>>>>>>> nrel/develop
                                         MultizoneSurfaceData(i).SurfName);
                     ShowContinueError(m_state, "..AdjacentTemperature venting control must be defined for an interzone surface.");
                     ErrorsFound = true;
@@ -3198,7 +3826,11 @@ namespace AirflowNetwork {
             if (MultizoneSurfaceData(i).VentSurfCtrNum == VentControlType::AdjEnth) {
                 if (!(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond >= 1)) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + " object, " + cAlphaFields(1) + " = " +
+>>>>>>> nrel/develop
                                         MultizoneSurfaceData(i).SurfName);
                     ShowContinueError(m_state, "..AdjacentEnthalpy venting control must be defined for an interzone surface.");
                     ErrorsFound = true;
@@ -3210,15 +3842,25 @@ namespace AirflowNetwork {
         if (Util::SameString(simulation_control.HeightOption, "OpeningHeight") && simulation_control.iWPCCnt == iWPCCntr::Input) {
             if (AirflowNetworkNumOfExtSurfaces != AirflowNetworkNumOfExtNode) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) +
+=======
+                                std::format(RoutineName) +
+>>>>>>> nrel/develop
                                     "When the choice of Height Selection for Local Wind Speed Calculation is OpeningHeight, the number of external "
                                     "surfaces defined in " +
                                     CurrentModuleObject + " objects ");
                 ShowContinueError(m_state, "has to be equal to the number of AirflowNetwork:MultiZone:ExternalNode objects.");
                 ShowContinueError(m_state,
+<<<<<<< HEAD
                                   EnergyPlus::format("The entered number of external nodes is {}. The entered number of external surfaces is {}.",
                                                      AirflowNetworkNumOfExtNode,
                                                      AirflowNetworkNumOfExtSurfaces));
+=======
+                                  std::format("The entered number of external nodes is {}. The entered number of external surfaces is {}.",
+                                              AirflowNetworkNumOfExtNode,
+                                              AirflowNetworkNumOfExtSurfaces));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -3267,8 +3909,12 @@ namespace AirflowNetwork {
             // Obtain schedule number and check surface shape
             if (has_Opening) {
                 if (m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).Sides == 3) {
+<<<<<<< HEAD
                     ShowWarningError(m_state,
                                      EnergyPlus::format(RoutineName) + CurrentModuleObject + "=\"" + MultizoneSurfaceData(i).SurfName + "\".");
+=======
+                    ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + "=\"" + MultizoneSurfaceData(i).SurfName + "\".");
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "The opening is a Triangular subsurface. A rectangular subsurface will be used with equivalent "
                                       "width and height.");
@@ -3277,7 +3923,11 @@ namespace AirflowNetwork {
                 if ((m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).IsAirBoundarySurf) &&
                     (MultizoneSurfaceData(i).VentSurfCtrNum != VentControlType::Const)) {
                     ShowWarningError(m_state,
+<<<<<<< HEAD
                                      EnergyPlus::format(RoutineName) + CurrentModuleObject + "=\"" + MultizoneSurfaceData(i).SurfName +
+=======
+                                     std::format(RoutineName) + CurrentModuleObject + "=\"" + MultizoneSurfaceData(i).SurfName +
+>>>>>>> nrel/develop
                                          "\" is an air boundary surface.");
                     ShowContinueError(m_state, "Ventilation Control Mode = " + Alphas(4) + " is not valid. Resetting to Constant.");
                     MultizoneSurfaceData(i).VentSurfCtrNum = VentControlType::Const;
@@ -3310,26 +3960,46 @@ namespace AirflowNetwork {
                     }
                     if (MultizoneSurfaceData(i).LowValueTemp < 0.0) {
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Low Temperature difference value < 0.0d0");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value={:.1R}, Value will be reset to 0.0.", MultizoneSurfaceData(i).LowValueTemp));
+=======
+                                         std::format(RoutineName) + CurrentModuleObject + " object, Low Temperature difference value < 0.0d0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value={:.1f}, Value will be reset to 0.0.", MultizoneSurfaceData(i).LowValueTemp));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for Surface = \"" + MultizoneSurfaceData(i).SurfName + "\"");
                         MultizoneSurfaceData(i).LowValueTemp = 0.0;
                     }
                     if (MultizoneSurfaceData(i).LowValueTemp >= 100.0) {
+<<<<<<< HEAD
                         ShowWarningError(
                             m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Low Temperature difference value >= 100.0d0");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0", MultizoneSurfaceData(i).LowValueTemp));
+=======
+                        ShowWarningError(m_state,
+                                         std::format(RoutineName) + CurrentModuleObject + " object, Low Temperature difference value >= 100.0d0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 0.0", MultizoneSurfaceData(i).LowValueTemp));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for Surface = \"" + MultizoneSurfaceData(i).SurfName + "\"");
                         MultizoneZoneData(i).LowValueTemp = 0.0;
                     }
                     if (MultizoneSurfaceData(i).UpValueTemp <= MultizoneSurfaceData(i).LowValueTemp) {
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject +
                                              " object, Upper Temperature <= Lower Temperature difference value.");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 100.0", MultizoneSurfaceData(i).UpValueTemp));
+=======
+                                         std::format(RoutineName) + CurrentModuleObject +
+                                             " object, Upper Temperature <= Lower Temperature difference value.");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 100.0", MultizoneSurfaceData(i).UpValueTemp));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for Surface = \"" + MultizoneSurfaceData(i).SurfName + "\"");
                         MultizoneSurfaceData(i).UpValueTemp = 100.0;
                     }
@@ -3347,28 +4017,48 @@ namespace AirflowNetwork {
                         ErrorsFound = true;
                     }
                     if (MultizoneSurfaceData(i).LowValueEnth < 0.0) {
+<<<<<<< HEAD
                         ShowWarningError(m_state,
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Low Enthalpy difference value < 0.0d0");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0", MultizoneSurfaceData(i).LowValueEnth));
+=======
+                        ShowWarningError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, Low Enthalpy difference value < 0.0d0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 0.0", MultizoneSurfaceData(i).LowValueEnth));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for Surface = \"" + MultizoneSurfaceData(i).SurfName + "\"");
                         MultizoneSurfaceData(i).LowValueEnth = 0.0;
                     }
                     if (MultizoneSurfaceData(i).LowValueEnth >= 300000.0) {
+<<<<<<< HEAD
                         ShowWarningError(
                             m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, Low Enthalpy difference value >= 300000.0");
                         ShowContinueError(
                             m_state, EnergyPlus::format("..Input value = {:.1R}, Value will be reset to 0.0", MultizoneSurfaceData(i).LowValueEnth));
+=======
+                        ShowWarningError(m_state,
+                                         std::format(RoutineName) + CurrentModuleObject + " object, Low Enthalpy difference value >= 300000.0");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be reset to 0.0", MultizoneSurfaceData(i).LowValueEnth));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for Surface = \"" + MultizoneSurfaceData(i).SurfName + "\"");
                         MultizoneZoneData(i).LowValueEnth = 0.0;
                     }
                     if (MultizoneSurfaceData(i).UpValueEnth <= MultizoneSurfaceData(i).LowValueEnth) {
+<<<<<<< HEAD
                         ShowWarningError(m_state,
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject +
                                              " object, Upper Enthalpy <= Lower Enthalpy difference value.");
                         ShowContinueError(
                             m_state,
                             EnergyPlus::format("..Input value = {:.1R}, Value will be set to 300000.0", MultizoneSurfaceData(i).UpValueEnth));
+=======
+                        ShowWarningError(
+                            m_state, std::format(RoutineName) + CurrentModuleObject + " object, Upper Enthalpy <= Lower Enthalpy difference value.");
+                        ShowContinueError(m_state,
+                                          std::format("..Input value = {:.1f}, Value will be set to 300000.0", MultizoneSurfaceData(i).UpValueEnth));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..for Surface = \"" + MultizoneSurfaceData(i).SurfName + "\"");
                         MultizoneSurfaceData(i).UpValueEnth = 300000.0;
                     }
@@ -3402,9 +4092,14 @@ namespace AirflowNetwork {
                                     Solver::get_people_index(MultizoneZoneData(mzPtr).ZoneNum, VentControlType::CEN15251, ErrorsFound);
                             }
                         } else {
+<<<<<<< HEAD
                             ShowSevereError(m_state,
                                             EnergyPlus::format(RoutineName) + "No zone number was found for AFN Surface " +
                                                 MultizoneSurfaceData(i).SurfName);
+=======
+                            ShowSevereError(
+                                m_state, std::format(RoutineName) + "No zone number was found for AFN Surface " + MultizoneSurfaceData(i).SurfName);
+>>>>>>> nrel/develop
                             ShowContinueError(m_state,
                                               "Check the " + CurrentModuleObject + " and Surface objects to verify they are connected to a zone.");
                         }
@@ -3453,7 +4148,11 @@ namespace AirflowNetwork {
                     found = true;
                     if (m_state.dataGlobal->DisplayExtraWarnings) {
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) +
+=======
+                                         std::format(RoutineName) +
+>>>>>>> nrel/develop
                                              "SurfaceAverageCalculation is entered for field = Wind Pressure Coefficient Type, but no roof "
                                              "surface is defined using an AirflowNetwork:MultiZone:Surface object.");
                         ShowContinueError(m_state, "Reconsider if this is your modeling intent. Simulation continues.");
@@ -3461,15 +4160,26 @@ namespace AirflowNetwork {
                 }
             }
             if (n < 5 && m_state.dataGlobal->DisplayExtraWarnings) {
+<<<<<<< HEAD
                 ShowWarningError(
                     m_state, EnergyPlus::format(RoutineName) + "SurfaceAverageCalculation is entered for field = Wind Pressure Coefficient Type.");
+=======
+                ShowWarningError(m_state,
+                                 std::format(RoutineName) + "SurfaceAverageCalculation is entered for field = Wind Pressure Coefficient Type.");
+>>>>>>> nrel/develop
                 ShowContinueError(m_state,
                                   "The AirflowNetwork model provides wind pressure coefficients for 4 vertical exterior orientations and "
                                   "1 horizontal roof.");
                 ShowContinueError(m_state,
+<<<<<<< HEAD
                                   EnergyPlus::format(" There are only {} exterior surface orientations defined in this input file using "
                                                      "AirflowNetwork:MultiZone:Surface objects.",
                                                      n));
+=======
+                                  std::format(" There are only {} exterior surface orientations defined in this input file using "
+                                              "AirflowNetwork:MultiZone:Surface objects.",
+                                              n));
+>>>>>>> nrel/develop
                 ShowContinueError(m_state, "Reconsider if this is your modeling intent. Simulation continues.");
             }
         }
@@ -3506,13 +4216,20 @@ namespace AirflowNetwork {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(m_state, EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+            ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
         }
 
         // Write wind pressure coefficients in the EIO file
         if (!simulation_control.DuctLoss) {
+<<<<<<< HEAD
             print(m_state.files.eio, "! <AirflowNetwork Model:Wind Direction>, Wind Direction #1 to n (degree)\n");
             print(m_state.files.eio, "AirflowNetwork Model:Wind Direction, ");
+=======
+>>>>>>> nrel/develop
 
             int numWinDirs = 11;
             Real64 angleDelta = 30.0;
@@ -3521,6 +4238,7 @@ namespace AirflowNetwork {
                 angleDelta = 10.0;
             }
 
+<<<<<<< HEAD
             for (int i = 0; i < numWinDirs; ++i) {
                 print(m_state.files.eio, "{:.1R},", i * angleDelta);
             }
@@ -3528,6 +4246,25 @@ namespace AirflowNetwork {
 
             print(m_state.files.eio,
                   "! <AirflowNetwork Model:Wind Pressure Coefficients>, Name, Wind Pressure Coefficients #1 to n (dimensionless)\n");
+=======
+            print(m_state.files.eio, "! <AirflowNetwork Model:Wind Direction (degrees)>");
+            for (int j = 1; j <= numWinDirs; ++j) {
+                print(m_state.files.eio, ", Wind Direction #{}", j);
+            }
+            print(m_state.files.eio, ", Wind Direction #{}\n", numWinDirs + 1);
+
+            print(m_state.files.eio, "AirflowNetwork Model:Wind Direction (degrees)");
+            for (int j = 0; j < numWinDirs; ++j) {
+                print(m_state.files.eio, ",{:.2f}", j * angleDelta);
+            }
+            print(m_state.files.eio, ",{:.2f}\n", numWinDirs * angleDelta);
+
+            print(m_state.files.eio, "! <AirflowNetwork Model:Wind Pressure Coefficients (dimensionless)>, Name");
+            for (int j = 1; j <= numWinDirs; ++j) {
+                print(m_state.files.eio, ", Coefficient #{}", j);
+            }
+            print(m_state.files.eio, ", Coefficient #{}\n", numWinDirs + 1);
+>>>>>>> nrel/develop
 
             // The old version used to write info with single-sided natural ventilation specific labeling, this version no longer does that.
             std::set<int> curves;
@@ -3535,12 +4272,21 @@ namespace AirflowNetwork {
                 curves.insert(MultizoneExternalNodeData(i).curve);
             }
             for (auto index : curves) {
+<<<<<<< HEAD
                 print(m_state.files.eio, "AirflowNetwork Model:Wind Pressure Coefficients, {}, ", Curve::GetCurveName(m_state, index));
 
                 for (int j = 0; j < numWinDirs; ++j) {
                     print(m_state.files.eio, "{:.2R},", Curve::CurveValue(m_state, index, j * angleDelta));
                 }
                 print(m_state.files.eio, "{:.2R}\n", Curve::CurveValue(m_state, index, numWinDirs * angleDelta));
+=======
+                print(
+                    m_state.files.eio, "AirflowNetwork Model:Wind Pressure Coefficients (dimensionless), {}, ", Curve::GetCurveName(m_state, index));
+                for (int j = 0; j < numWinDirs; ++j) {
+                    print(m_state.files.eio, "{:.2f},", Curve::CurveValue(m_state, index, j * angleDelta));
+                }
+                print(m_state.files.eio, "{:.2f}\n", Curve::CurveValue(m_state, index, numWinDirs * angleDelta));
+>>>>>>> nrel/develop
             }
 
             if (AirflowNetworkNumOfSingleSideZones > 0) {
@@ -3550,27 +4296,44 @@ namespace AirflowNetwork {
                               "AirflowNetwork: Advanced Single-Sided Model: Difference in Opening Wind Pressure Coefficients (DeltaCP), ");
                         print(m_state.files.eio, "{}, ", MultizoneZoneData(i).ZoneName);
                         for (unsigned j = 1; j <= EPDeltaCP(i).WindDir.size() - 1; ++j) {
+<<<<<<< HEAD
                             print(m_state.files.eio, "{:.2R},", EPDeltaCP(i).WindDir(j));
                         }
                         print(m_state.files.eio, "{:.2R}\n", EPDeltaCP(i).WindDir(static_cast<int>(EPDeltaCP(i).WindDir.size())));
+=======
+                            print(m_state.files.eio, "{:.2f},", EPDeltaCP(i).WindDir(j));
+                        }
+                        print(m_state.files.eio, "{:.2f}\n", EPDeltaCP(i).WindDir(static_cast<int>(EPDeltaCP(i).WindDir.size())));
+>>>>>>> nrel/develop
                     }
                 }
             }
 
             // If no zone object, exit
             if (AirflowNetworkNumOfZones == 0) {
+<<<<<<< HEAD
                 ShowFatalError(m_state,
                                EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+                ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
             }
             // If zone node number =0, exit.
             for (int j = 1; j <= AirflowNetworkNumOfSurfaces; ++j) {
                 if (MultizoneSurfaceData(j).NodeNums[0] == 0 && ErrorsFound) {
+<<<<<<< HEAD
                     ShowFatalError(m_state,
                                    EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
                 }
                 if (MultizoneSurfaceData(j).NodeNums[1] == 0 && ErrorsFound) {
                     ShowFatalError(m_state,
                                    EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+                    ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+                }
+                if (MultizoneSurfaceData(j).NodeNums[1] == 0 && ErrorsFound) {
+                    ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
                 }
             }
         }
@@ -3593,13 +4356,21 @@ namespace AirflowNetwork {
         }
         for (int i = 1; i <= AirflowNetworkNumOfZones; ++i) {
             if (ZoneCheck(i) == 0) {
+<<<<<<< HEAD
                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "AirflowNetwork:Multizone:Zone = " + MultizoneZoneData(i).ZoneName);
+=======
+                ShowSevereError(m_state, std::format(RoutineName) + "AirflowNetwork:Multizone:Zone = " + MultizoneZoneData(i).ZoneName);
+>>>>>>> nrel/develop
                 ShowContinueError(m_state, " does not have any surfaces defined in " + CurrentModuleObject);
                 ShowContinueError(m_state, "Each zone should have at least two surfaces defined in " + CurrentModuleObject);
                 ErrorsFound = true;
             }
             if (ZoneCheck(i) == 1) {
+<<<<<<< HEAD
                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "AirflowNetwork:Multizone:Zone = " + MultizoneZoneData(i).ZoneName);
+=======
+                ShowSevereError(m_state, std::format(RoutineName) + "AirflowNetwork:Multizone:Zone = " + MultizoneZoneData(i).ZoneName);
+>>>>>>> nrel/develop
                 ShowContinueError(m_state, " has only one surface defined in " + CurrentModuleObject);
                 ShowContinueError(m_state, " Each zone should have at least two surfaces defined in " + CurrentModuleObject);
                 ErrorsFound = true;
@@ -3621,7 +4392,11 @@ namespace AirflowNetwork {
                     }
                 }
                 if (!SurfaceFound) {
+<<<<<<< HEAD
                     ShowWarningError(m_state, EnergyPlus::format(RoutineName) + "AirflowNetwork:Multizone:Zone = " + MultizoneZoneData(i).ZoneName);
+=======
+                    ShowWarningError(m_state, std::format(RoutineName) + "AirflowNetwork:Multizone:Zone = " + MultizoneZoneData(i).ZoneName);
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "has more than one surface defined in " + CurrentModuleObject + ", but has the same boundary conditions");
                     ShowContinueError(m_state, "Please check inputs of " + CurrentModuleObject);
@@ -3658,8 +4433,12 @@ namespace AirflowNetwork {
         for (int i = 1; i <= AirflowNetworkNumOfSurfaces; ++i) {
             int j = MultizoneSurfaceData(i).SurfNum;
             auto const &surf = m_state.dataSurface->Surface(j);
+<<<<<<< HEAD
             if (surf.OriginalClass == SurfaceClass::Window || surf.OriginalClass == SurfaceClass::Door ||
                 surf.OriginalClass == SurfaceClass::GlassDoor) {
+=======
+            if (SurfaceClassIsWindow(surf.OriginalClass) || SurfaceClassIsDoor(surf.OriginalClass)) {
+>>>>>>> nrel/develop
                 for (n = 1; n <= AirflowNetworkNumOfZones; ++n) {
                     if (MultizoneZoneData(n).ZoneNum == m_state.dataSurface->Surface(j).Zone) {
                         if (MultizoneZoneData(n).OccupantVentilationControlNum > 0 && MultizoneSurfaceData(i).OccupantVentilationControlNum == 0) {
@@ -3700,8 +4479,13 @@ namespace AirflowNetwork {
                 }
                 if (IntraZoneNodeData(i).RAFNNodeNum == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "' invalid name " + cAlphaFields(2) +
                                         "='" + Alphas(2));
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "' invalid name " + cAlphaFields(2) + "='" +
+                                        Alphas(2));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 IntraZoneNodeData(i).AFNZoneNum =
@@ -3715,7 +4499,11 @@ namespace AirflowNetwork {
                 }
                 if (IntraZoneNodeData(i).ZoneNum == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "' the Zone is not defined for " +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "' the Zone is not defined for " +
+>>>>>>> nrel/develop
                                         cAlphaFields(3) + "='" + Alphas(3));
                     ErrorsFound = true;
                 }
@@ -3726,6 +4514,7 @@ namespace AirflowNetwork {
         if (IntraZoneNumOfNodes > 0) {
             if (!Util::SameString(SimAirNetworkKey, "MultizoneWithoutDistribution")) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + CurrentModuleObject +
                                     " model requires Simulation Control = MultizoneWithoutDistribution, while the input choice is " +
                                     SimAirNetworkKey + ".");
@@ -3734,6 +4523,15 @@ namespace AirflowNetwork {
                                EnergyPlus::format("{}Errors found getting {} object. Previous error(s) cause program termination.",
                                                   RoutineName,
                                                   CurrentModuleObject));
+=======
+                                std::format(RoutineName) + CurrentModuleObject +
+                                    " model requires Simulation Control = MultizoneWithoutDistribution, while the input choice is " +
+                                    SimAirNetworkKey + ".");
+                ErrorsFound = true;
+                ShowFatalError(
+                    m_state,
+                    std::format("{}Errors found getting {} object. Previous error(s) cause program termination.", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
             }
         }
 
@@ -3781,7 +4579,11 @@ namespace AirflowNetwork {
                         Util::FindItemInList(Alphas(5), MultizoneSurfaceData, &MultizoneSurfaceProp::SurfName, AirflowNetworkNumOfSurfaces);
                     if (IntraZoneLinkageData(i).LinkNum == 0) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid " + cAlphaFields(5) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid " + cAlphaFields(5) +
+>>>>>>> nrel/develop
                                             " given = " + Alphas(5) + " in AirflowNetwork:MultiZone:Surface objects");
                         ErrorsFound = true;
                     }
@@ -3790,8 +4592,13 @@ namespace AirflowNetwork {
                 }
                 if (Util::SameString(Alphas(2), Alphas(3))) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) +
                                         "': Invalid inputs of both node name with " + Alphas(2) + " = " + Alphas(3));
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid inputs of both node name with " +
+                                        Alphas(2) + " = " + Alphas(3));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 // Check valid node names
@@ -3802,7 +4609,11 @@ namespace AirflowNetwork {
                     IntraZoneLinkageData(i).NodeHeights[0] = Zone(MultizoneZoneData(IntraZoneLinkageData(i).NodeNums[0]).ZoneNum).Centroid.z;
                     if (IntraZoneLinkageData(i).NodeNums[0] == 0) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid " + cAlphaFields(2) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid " + cAlphaFields(2) +
+>>>>>>> nrel/develop
                                             " given = " + Alphas(2) + " in AirflowNetwork:IntraZone:Node and AirflowNetwork:MultiZone:Zone objects");
                         ErrorsFound = true;
                     }
@@ -3821,8 +4632,13 @@ namespace AirflowNetwork {
                             IntraZoneLinkageData(i).NodeNums[1] = MultizoneSurfaceData(IntraZoneLinkageData(i).LinkNum).NodeNums[1];
                             if (IntraZoneLinkageData(i).NodeNums[1] == 0) {
                                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid " +
                                                     cAlphaFields(3) + " given = " + Alphas(3) +
+=======
+                                                std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid " + cAlphaFields(3) +
+                                                    " given = " + Alphas(3) +
+>>>>>>> nrel/develop
                                                     " in AirflowNetwork:IntraZone:Node or AirflowNetwork:MultiZone:Zone or "
                                                     "AirflowNetwork:MultiZone:ExternalNode objects");
                                 ErrorsFound = true;
@@ -3831,7 +4647,11 @@ namespace AirflowNetwork {
                         if (simulation_control.iWPCCnt == iWPCCntr::SurfAvg) {
                             if (!lAlphaBlanks(3)) {
                                 ShowWarningError(m_state,
+<<<<<<< HEAD
                                                  EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + " The input of " +
+=======
+                                                 std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + " The input of " +
+>>>>>>> nrel/develop
                                                      cAlphaFields(3) + " is not needed, ");
                                 ShowContinueError(m_state,
                                                   " since AirflowNetwork Wind Pressure Coefficient Type = SURFACE-AVERAGE CALCULATION. The "
@@ -3848,7 +4668,11 @@ namespace AirflowNetwork {
                 if (IntraZoneLinkageData(i).NodeNums[1] <= AirflowNetworkNumOfZones &&
                     IntraZoneLinkageData(i).NodeNums[0] <= AirflowNetworkNumOfZones) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid node inputs " + Alphas(2) +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + "': Invalid node inputs " + Alphas(2) +
+>>>>>>> nrel/develop
                                         " and " + Alphas(3) + " are zone nodes");
                     ErrorsFound = true;
                 }
@@ -3859,8 +4683,13 @@ namespace AirflowNetwork {
                             .AFNZoneNum) {
                         ShowSevereError(
                             m_state,
+<<<<<<< HEAD
                             EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) +
                                 ": Invalid zone inputs between Node and Link " + Alphas(2) + " and " +
+=======
+                            std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + ": Invalid zone inputs between Node and Link " +
+                                Alphas(2) + " and " +
+>>>>>>> nrel/develop
                                 m_state.afn->MultizoneZoneData(IntraZoneNodeData(IntraZoneLinkageData(i).NodeNums[0]).AFNZoneNum).ZoneName);
                         ErrorsFound = true;
                     }
@@ -3872,8 +4701,13 @@ namespace AirflowNetwork {
                             .AFNZoneNum) {
                         ShowSevereError(
                             m_state,
+<<<<<<< HEAD
                             EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) +
                                 ": Invalid zone inputs between Node and Link " + Alphas(3) + " and " +
+=======
+                            std::format(RoutineName) + CurrentModuleObject + "='" + Alphas(1) + ": Invalid zone inputs between Node and Link " +
+                                Alphas(3) + " and " +
+>>>>>>> nrel/develop
                                 m_state.afn->MultizoneZoneData(IntraZoneNodeData(IntraZoneLinkageData(i).NodeNums[1]).AFNZoneNum).ZoneName);
                         ErrorsFound = true;
                     }
@@ -3898,10 +4732,17 @@ namespace AirflowNetwork {
                             MultizoneSurfaceData(j).ZonePtr = MultizoneSurfaceData(j).NodeNums[0];
                             MultizoneSurfaceData(j).NodeNums[0] = IntraZoneLinkageData(i).NodeNums[1];
                         } else {
+<<<<<<< HEAD
                             ShowSevereError(
                                 m_state,
                                 EnergyPlus::format(RoutineName) + "The InterZone link is not found between AirflowNetwork:IntraZone:Linkage =" +
                                     IntraZoneLinkageData(i).Name + " and AirflowNetwork:Multizone:Surface = " + MultizoneSurfaceData(j).SurfName);
+=======
+                            ShowSevereError(m_state,
+                                            std::format(RoutineName) + "The InterZone link is not found between AirflowNetwork:IntraZone:Linkage =" +
+                                                IntraZoneLinkageData(i).Name +
+                                                " and AirflowNetwork:Multizone:Surface = " + MultizoneSurfaceData(j).SurfName);
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     } else {
@@ -3931,7 +4772,11 @@ namespace AirflowNetwork {
                             } else {
                                 ShowSevereError(
                                     m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + "The InterZone link is not found between AirflowNetwork:IntraZone:Linkage =" +
+=======
+                                    std::format(RoutineName) + "The InterZone link is not found between AirflowNetwork:IntraZone:Linkage =" +
+>>>>>>> nrel/develop
                                         IntraZoneLinkageData(i).Name + " and AirflowNetwork:Multizone:Surface = " + MultizoneSurfaceData(j).SurfName);
                                 ErrorsFound = true;
                             }
@@ -3945,7 +4790,11 @@ namespace AirflowNetwork {
                             } else {
                                 ShowSevereError(
                                     m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + "The InterZone link is not found between AirflowNetwork:IntraZone:Linkage =" +
+=======
+                                    std::format(RoutineName) + "The InterZone link is not found between AirflowNetwork:IntraZone:Linkage =" +
+>>>>>>> nrel/develop
                                         IntraZoneLinkageData(i).Name + " and AirflowNetwork:Multizone:Surface = " + MultizoneSurfaceData(j).SurfName);
                                 ErrorsFound = true;
                             }
@@ -3960,7 +4809,11 @@ namespace AirflowNetwork {
                     if (IntraZoneLinkageData(link).LinkNum > 0) {
                         if (m_state.dataGlobal->DisplayExtraWarnings) {
                             ShowWarningError(m_state,
+<<<<<<< HEAD
                                              EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + IntraZoneLinkageData(link).Name +
+=======
+                                             std::format(RoutineName) + CurrentModuleObject + "='" + IntraZoneLinkageData(link).Name +
+>>>>>>> nrel/develop
                                                  " is reomoved from the list due to the surface connection from Intrazone to Interzone.");
                         }
                         for (int j = link; j <= IntraZoneNumOfLinks - 1; ++j) {
@@ -3974,7 +4827,11 @@ namespace AirflowNetwork {
                 if (IntraZoneLinkageData(link).LinkNum > 0) {
                     if (m_state.dataGlobal->DisplayExtraWarnings) {
                         ShowWarningError(m_state,
+<<<<<<< HEAD
                                          EnergyPlus::format(RoutineName) + CurrentModuleObject + "='" + IntraZoneLinkageData(link).Name +
+=======
+                                         std::format(RoutineName) + CurrentModuleObject + "='" + IntraZoneLinkageData(link).Name +
+>>>>>>> nrel/develop
                                              " is removed from the list due to the surface connection from Intrazone to Interzone.");
                     }
                 }
@@ -4012,8 +4869,13 @@ namespace AirflowNetwork {
                 } else if (simulation_control.DuctLoss && Util::SameString(Alphas(3), "Zone")) {
                 } else {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + "=\"" + Alphas(1) + "\" invalid " + cAlphaFields(3) +
                                         "=\"" + Alphas(3) + "\" illegal key.");
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + "=\"" + Alphas(1) + "\" invalid " + cAlphaFields(3) + "=\"" +
+                                        Alphas(3) + "\" illegal key.");
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "Valid keys are: AirLoopHVAC:ZoneMixer, AirLoopHVAC:ZoneSplitter, AirLoopHVAC:OutdoorAirSystem, "
                                       "OAMixerOutdoorAirStreamNode, OutdoorAir:NodeList, OutdoorAir:Node or Other.");
@@ -4025,7 +4887,11 @@ namespace AirflowNetwork {
                         if (!Util::SameString(Alphas(2), "")) {
                             if (Util::SameString(DisSysNodeData(j).EPlusName, Alphas(2))) {
                                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(RoutineName) + CurrentModuleObject + "=\"" + Alphas(1) + "\" Duplicated " +
+=======
+                                                std::format(RoutineName) + CurrentModuleObject + "=\"" + Alphas(1) + "\" Duplicated " +
+>>>>>>> nrel/develop
                                                     cAlphaFields(2) + "=\"" + Alphas(2) + "\". Please make a correction.");
                                 ErrorsFound = true;
                             }
@@ -4035,7 +4901,11 @@ namespace AirflowNetwork {
             }
         } else {
             if (distribution_simulated) {
+<<<<<<< HEAD
                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+=======
+                ShowSevereError(m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -4043,7 +4913,11 @@ namespace AirflowNetwork {
         CurrentModuleObject = "AirflowNetwork:Distribution:Component:Duct";
         if (DisSysNumOfDucts == 0) {
             if (distribution_simulated) {
+<<<<<<< HEAD
                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+=======
+                ShowSevereError(m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -4146,7 +5020,11 @@ namespace AirflowNetwork {
         CurrentModuleObject = "AirflowNetwork:Distribution:Component:Fan";
         if (DisSysNumOfCVFs == 0) {
             if (distribution_simulated) {
+<<<<<<< HEAD
                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+=======
+                ShowSevereError(m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -4156,11 +5034,19 @@ namespace AirflowNetwork {
         NumOfPressureControllers = m_state.dataInputProcessing->inputProcessor->getNumObjectsFound(m_state, CurrentModuleObject);
         if (NumOfPressureControllers > 1) {
             ShowSevereError(m_state,
+<<<<<<< HEAD
                             EnergyPlus::format(RoutineName) + "More " + CurrentModuleObject + " are found. Currently only one( \"1\") " +
                                 CurrentModuleObject + " object per simulation is allowed when using AirflowNetwork Distribution Systems.");
             ShowFatalError(m_state,
                            EnergyPlus::format(
                                "{}Errors found getting {} object. Previous error(s) cause program termination.", RoutineName, CurrentModuleObject));
+=======
+                            std::format(RoutineName) + "More " + CurrentModuleObject + " are found. Currently only one( \"1\") " +
+                                CurrentModuleObject + " object per simulation is allowed when using AirflowNetwork Distribution Systems.");
+            ShowFatalError(
+                m_state,
+                std::format("{}Errors found getting {} object. Previous error(s) cause program termination.", RoutineName, CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         if (NumOfPressureControllers > 0) {
@@ -4187,8 +5073,12 @@ namespace AirflowNetwork {
                 PressureControllerData(i).AFNNodeNum =
                     Util::FindItemInList(Alphas(2), MultizoneZoneData, &MultizoneZoneProp::ZoneName, AirflowNetworkNumOfZones);
                 if (PressureControllerData(i).ZoneNum == 0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, invalid " + cAlphaFields(2) + " given.");
+=======
+                    ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, invalid " + cAlphaFields(2) + " given.");
+>>>>>>> nrel/develop
                     ShowContinueError(m_state, "..invalid " + cAlphaFields(2) + " = \"" + PressureControllerData(i).ZoneName + "\"");
                     ErrorsFound = true;
                 }
@@ -4205,7 +5095,11 @@ namespace AirflowNetwork {
                         PressureControllerData(i).ControlTypeSet = PressureCtrlRelief;
                     } else { // Error
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, The entered choice for " + cAlphaFields(3) +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + " object, The entered choice for " + cAlphaFields(3) +
+>>>>>>> nrel/develop
                                             " is not valid = \"" + PressureControllerData(i).Name + "\"");
                         ShowContinueError(m_state,
                                           "Valid choices are "
@@ -4224,7 +5118,11 @@ namespace AirflowNetwork {
                         is_EXF = afe->second->type() == ComponentType::EXF;
                     }
                     if (!is_EXF) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, an invalid name is given:");
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, an invalid name is given:");
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, ".. invalid " + cAlphaFields(4) + " = \"" + Alphas(4) + "\".");
                         ErrorsFound = true;
                     }
@@ -4237,7 +5135,11 @@ namespace AirflowNetwork {
                         is_REL = afe->second->type() == ComponentType::REL;
                     }
                     if (!is_REL) {
+<<<<<<< HEAD
                         ShowSevereError(m_state, EnergyPlus::format(RoutineName) + CurrentModuleObject + " object, an invalid name is given:");
+=======
+                        ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " object, an invalid name is given:");
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, ".. invalid " + cAlphaFields(4) + " = \"" + Alphas(4) + "\".");
                         ErrorsFound = true;
                     }
@@ -4379,7 +5281,11 @@ namespace AirflowNetwork {
                         AirflowNetworkNodeData(i).NodeTypeNum = 1;
                     } else {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + "AirflowNetwork:Distribution:Node: The outdoor air node is found at " +
+=======
+                                        std::format(RoutineName) + "AirflowNetwork:Distribution:Node: The outdoor air node is found at " +
+>>>>>>> nrel/develop
                                             AirflowNetworkNodeData(i).Name);
                         ShowContinueError(m_state,
                                           "The node with Component Object Type = OAMixerOutdoorAirStreamNode is not found. Please check inputs.");
@@ -4390,9 +5296,14 @@ namespace AirflowNetwork {
                 if (simulation_control.DuctLoss && Util::SameString(DisSysNodeData(i - NumOfNodesMultiZone).EPlusType, "Zone")) {
                     AirflowNetworkNodeData(i).EPlusTypeNum = iEPlusNodeType::ZON;
                     if (Util::FindItemInList(AirflowNetworkNodeData(i).Name, Zone) == 0) {
+<<<<<<< HEAD
                         ShowSevereError(m_state,
                                         EnergyPlus::format(RoutineName) +
                                             "AirflowNetwork:Distribution:Node object, Component Object Type or Node Type = Zone");
+=======
+                        ShowSevereError(
+                            m_state, std::format(RoutineName) + "AirflowNetwork:Distribution:Node object, Component Object Type or Node Type = Zone");
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "..invalid Zone name = \"" + DisSysNodeData(i - NumOfNodesMultiZone).Name + "\"");
                         ErrorsFound = true;
                     } else {
@@ -4748,19 +5659,32 @@ namespace AirflowNetwork {
                         ShowContinueError(m_state, "10 deg of being horizontal. Airflows through large horizontal openings are poorly");
                         ShowContinueError(m_state, "modeled in the AirflowNetwork model resulting in only one-way airflow.");
                     }
+<<<<<<< HEAD
                     if (!(surf.OriginalClass == SurfaceClass::Window || surf.OriginalClass == SurfaceClass::GlassDoor ||
                           surf.OriginalClass == SurfaceClass::Door || surf.IsAirBoundarySurf)) {
                         ShowSevereError(m_state,
                                         EnergyPlus::format(RoutineName) +
+=======
+                    if (!(SurfaceClassIsWindow(surf.OriginalClass) || SurfaceClassIsDoor(surf.OriginalClass) || surf.IsAirBoundarySurf)) {
+                        ShowSevereError(m_state,
+                                        std::format(RoutineName) +
+>>>>>>> nrel/develop
                                             "AirflowNetworkComponent: The opening must be assigned to a window, door, glassdoor or air boundary at " +
                                             AirflowNetworkLinkageData(count).Name);
                         ErrorsFound = true;
                     }
 
+<<<<<<< HEAD
                     if (surf.OriginalClass == SurfaceClass::Door || surf.OriginalClass == SurfaceClass::GlassDoor) {
                         if (MultizoneCompDetOpeningData(AirflowNetworkCompData(compnum).TypeNum).LVOType == 2) {
                             ShowSevereError(m_state,
                                             EnergyPlus::format(RoutineName) +
+=======
+                    if (SurfaceClassIsDoor(surf.OriginalClass)) {
+                        if (MultizoneCompDetOpeningData(AirflowNetworkCompData(compnum).TypeNum).LVOType == 2) {
+                            ShowSevereError(m_state,
+                                            std::format(RoutineName) +
+>>>>>>> nrel/develop
                                                 "AirflowNetworkComponent: The opening with horizontally pivoted type must be assigned to a "
                                                 "window surface at " +
                                                 AirflowNetworkLinkageData(count).Name);
@@ -4779,10 +5703,16 @@ namespace AirflowNetwork {
                         ErrorsFound = true;
                     }
 
+<<<<<<< HEAD
                     if (!(surf.OriginalClass == SurfaceClass::Window || surf.OriginalClass == SurfaceClass::GlassDoor ||
                           surf.OriginalClass == SurfaceClass::Door || surf.IsAirBoundarySurf)) {
                         ShowSevereError(m_state,
                                         EnergyPlus::format(RoutineName) +
+=======
+                    if (!(SurfaceClassIsWindow(surf.OriginalClass) || SurfaceClassIsDoor(surf.OriginalClass) || surf.IsAirBoundarySurf)) {
+                        ShowSevereError(m_state,
+                                        std::format(RoutineName) +
+>>>>>>> nrel/develop
                                             "AirflowNetworkComponent: The opening must be assigned to a window, door, glassdoor or air boundary at " +
                                             AirflowNetworkLinkageData(count).Name);
                         ErrorsFound = true;
@@ -4804,7 +5734,11 @@ namespace AirflowNetwork {
                     }
                     if (AirflowNetworkLinkageData(count).NodeNums[1] > AirflowNetworkNumOfZones) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) +
+=======
+                                        std::format(RoutineName) +
+>>>>>>> nrel/develop
                                             "AirflowNetworkComponent: The horizontal opening must be located between two thermal zones at " +
                                             AirflowNetworkLinkageData(count).Name);
                         ShowContinueError(m_state, "This component is exposed to outdoors.");
@@ -4813,7 +5747,11 @@ namespace AirflowNetwork {
                         if (!(MultizoneZoneData(AirflowNetworkLinkageData(count).NodeNums[0]).ZoneNum > 0 &&
                               MultizoneZoneData(AirflowNetworkLinkageData(count).NodeNums[1]).ZoneNum > 0)) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format(RoutineName) +
+=======
+                                            std::format(RoutineName) +
+>>>>>>> nrel/develop
                                                 "AirflowNetworkComponent: The horizontal opening must be located between two thermal zones at " +
                                                 AirflowNetworkLinkageData(count).Name);
                             ErrorsFound = true;
@@ -4827,10 +5765,16 @@ namespace AirflowNetwork {
                                           "with the object of AirflowNetwork:Multizone:Component:HorizontalOpening = " +
                                               AirflowNetworkCompData(compnum).Name);
                     }
+<<<<<<< HEAD
                     if (!(surf.OriginalClass == SurfaceClass::Window || surf.OriginalClass == SurfaceClass::GlassDoor ||
                           surf.OriginalClass == SurfaceClass::Door || surf.IsAirBoundarySurf)) {
                         ShowSevereError(m_state,
                                         EnergyPlus::format(RoutineName) +
+=======
+                    if (!(SurfaceClassIsWindow(surf.OriginalClass) || SurfaceClassIsDoor(surf.OriginalClass) || surf.IsAirBoundarySurf)) {
+                        ShowSevereError(m_state,
+                                        std::format(RoutineName) +
+>>>>>>> nrel/develop
                                             "AirflowNetworkComponent: The opening must be assigned to a window, door, glassdoor or air boundary at " +
                                             AirflowNetworkLinkageData(count).Name);
                         ErrorsFound = true;
@@ -4842,7 +5786,11 @@ namespace AirflowNetwork {
                 }
             } else {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The component is not defined in " +
+=======
+                                std::format(RoutineName) + CurrentModuleObject + ": The component is not defined in " +
+>>>>>>> nrel/develop
                                     AirflowNetworkLinkageData(count).Name);
                 ErrorsFound = true;
             }
@@ -4871,8 +5819,13 @@ namespace AirflowNetwork {
                     AirflowNetworkLinkageData(count).element->type() != ComponentType::SEL) {
 
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + AirflowNetworkLinkageData(count).CompName +
                                         ": The component is not allowed in " + AirflowNetworkLinkageData(count).Name);
+=======
+                                    std::format(RoutineName) + AirflowNetworkLinkageData(count).CompName + ": The component is not allowed in " +
+                                        AirflowNetworkLinkageData(count).Name);
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "The allowed component type is either AirflowNetwork:MultiZone:Surface:Crack or "
                                       "AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea.");
@@ -4880,7 +5833,11 @@ namespace AirflowNetwork {
                 }
             } else {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + AirflowNetworkLinkageData(count).CompName + ": The component is not defined in " +
+=======
+                                std::format(RoutineName) + AirflowNetworkLinkageData(count).CompName + ": The component is not defined in " +
+>>>>>>> nrel/develop
                                     AirflowNetworkLinkageData(count).Name);
                 ErrorsFound = true;
             }
@@ -4974,14 +5931,22 @@ namespace AirflowNetwork {
                         AirflowNetworkLinkageData(count).ZoneNum = Util::FindItemInList(AirflowNetworkLinkageData(count).ZoneName, Zone);
                         if (AirflowNetworkLinkageData(count).ZoneNum == 0) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format(RoutineName) + CurrentModuleObject + ": Invalid " +
+=======
+                                            std::format(RoutineName) + CurrentModuleObject + ": Invalid " +
+>>>>>>> nrel/develop
                                                 AirflowNetworkLinkageData(count).ZoneName + " given = " + AirflowNetworkLinkageData(count).ZoneName);
                             ErrorsFound = true;
                         }
                     }
                     if (AirflowNetworkLinkageData(count).NodeNames[0] == AirflowNetworkLinkageData(count).NodeNames[1]) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + ", " + AirflowNetworkLinkageData(count).NodeNames[0] +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + ", " + AirflowNetworkLinkageData(count).NodeNames[0] +
+>>>>>>> nrel/develop
                                             " = " + AirflowNetworkLinkageData(count).NodeNames[1] + " in " + AirflowNetworkLinkageData(count).Name);
                         ErrorsFound = true;
                     }
@@ -4997,7 +5962,11 @@ namespace AirflowNetwork {
                         AirflowNetworkLinkageData(count).CompNum = compnum;
                     } else {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(count).CompName +
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(count).CompName +
+>>>>>>> nrel/develop
                                             " is not defined in " + AirflowNetworkLinkageData(count).Name);
                         ErrorsFound = true;
                     }
@@ -5013,9 +5982,14 @@ namespace AirflowNetwork {
                     }
                     if (!found) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The " +
                                             AirflowNetworkLinkageData(count).NodeNames[0] + " is not found in the node data " +
                                             AirflowNetworkLinkageData(count).Name);
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(count).NodeNames[0] +
+                                            " is not found in the node data " + AirflowNetworkLinkageData(count).Name);
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     for (int i = 1; i <= AirflowNetworkNumOfNodes; ++i) {
@@ -5028,16 +6002,26 @@ namespace AirflowNetwork {
                     }
                     if (!found) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The " +
                                             AirflowNetworkLinkageData(count).NodeNames[1] + " is not found in the node data " +
                                             AirflowNetworkLinkageData(count).Name);
+=======
+                                        std::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(count).NodeNames[1] +
+                                            " is not found in the node data " + AirflowNetworkLinkageData(count).Name);
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
                 if (!found && !simulation_control.DuctLoss) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The " + cAlphaFields(2) +
                                         " is not found in the node data " + AirflowNetworkLinkageData(count).Name);
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + ": The " + cAlphaFields(2) + " is not found in the node data " +
+                                        AirflowNetworkLinkageData(count).Name);
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 for (int i = 1; i <= AirflowNetworkNumOfNodes; ++i) {
@@ -5050,15 +6034,24 @@ namespace AirflowNetwork {
                 }
                 if (!found && !simulation_control.DuctLoss) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The " + cAlphaFields(3) +
                                         " is not found in the node data " + AirflowNetworkLinkageData(count).Name);
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + ": The " + cAlphaFields(3) + " is not found in the node data " +
+                                        AirflowNetworkLinkageData(count).Name);
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
         } else {
 
             if (distribution_simulated) {
+<<<<<<< HEAD
                 ShowSevereError(m_state, EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+=======
+                ShowSevereError(m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object is required but not found.");
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -5066,30 +6059,51 @@ namespace AirflowNetwork {
         if (simulation_control.DuctLoss) {
             // Assign node num based on Distribution node
             for (int i = 1; i <= AirflowNetworkNumOfLinks; ++i) {
+<<<<<<< HEAD
                 for (int j = 1; j <= DisSysNumOfNodes; ++j) {
                     if (Util::SameString(AirflowNetworkLinkageData(i).NodeNames[0], DisSysNodeData(j).Name)) {
                         AirflowNetworkLinkageData(i).NodeNums[0] = j;
                     }
                     if (Util::SameString(AirflowNetworkLinkageData(i).NodeNames[1], DisSysNodeData(j).Name)) {
                         AirflowNetworkLinkageData(i).NodeNums[1] = j;
+=======
+                for (int l = 1; l <= DisSysNumOfNodes; ++l) {
+                    if (Util::SameString(AirflowNetworkLinkageData(i).NodeNames[0], DisSysNodeData(l).Name)) {
+                        AirflowNetworkLinkageData(i).NodeNums[0] = l;
+                    }
+                    if (Util::SameString(AirflowNetworkLinkageData(i).NodeNames[1], DisSysNodeData(l).Name)) {
+                        AirflowNetworkLinkageData(i).NodeNums[1] = l;
+>>>>>>> nrel/develop
                     }
                 }
                 if (AirflowNetworkLinkageData(i).NodeNums[0] == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(i).NodeNames[0] +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(i).NodeNames[0] +
+>>>>>>> nrel/develop
                                         " is not found in the AirflowNetwork:Distribution:Node. " + AirflowNetworkLinkageData(i).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkLinkageData(i).NodeNums[1] == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(i).NodeNames[1] +
+=======
+                                    std::format(RoutineName) + CurrentModuleObject + ": The " + AirflowNetworkLinkageData(i).NodeNames[1] +
+>>>>>>> nrel/develop
                                         " is not found in the AirflowNetwork:Distribution:Node. " + AirflowNetworkLinkageData(i).Name);
                     ErrorsFound = true;
                 }
             }
             if (ErrorsFound) {
+<<<<<<< HEAD
                 ShowFatalError(m_state,
                                EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+                ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
             }
 
             return;
@@ -5146,7 +6160,11 @@ namespace AirflowNetwork {
         //        (AirflowNetworkCompData(j).CompTypeNum == iComponentTypeNum::TMU) CompName(2) =
         //        "AirflowNetwork:Distribution:Component:TerminalUnit"; if (AirflowNetworkCompData(j).CompTypeNum ==
         //        iComponentTypeNum::HEX) CompName(2) = "AirflowNetwork:Distribution:Component:HeatExchanger"; ShowSevereError(m_state,
+<<<<<<< HEAD
         //        format(RoutineName) + "Duplicated component names are found = " + AirflowNetworkCompData(i).Name);
+=======
+        //        std::format(RoutineName) + "Duplicated component names are found = " + AirflowNetworkCompData(i).Name);
+>>>>>>> nrel/develop
         //        ShowContinueError(m_state, "A unique component name is required in both objects " + CompName(1) + " and " + CompName(2));
         //        ErrorsFound = true;
         //                    }
@@ -5166,11 +6184,19 @@ namespace AirflowNetwork {
             if (!NodeFound) {
                 if (count <= AirflowNetworkNumOfSurfaces) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[0] +
                                         " in AIRFLOWNETWORK:MULTIZONE:SURFACE = " + AirflowNetworkLinkageData(count).Name + " is not found");
                 } else {
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[0] +
+=======
+                                    std::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[0] +
+                                        " in AIRFLOWNETWORK:MULTIZONE:SURFACE = " + AirflowNetworkLinkageData(count).Name + " is not found");
+                } else {
+                    ShowSevereError(m_state,
+                                    std::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[0] +
+>>>>>>> nrel/develop
                                         " in AIRFLOWNETWORK:DISTRIBUTION:LINKAGE = " + AirflowNetworkLinkageData(count).Name +
                                         " is not found in AIRFLOWNETWORK:DISTRIBUTION:NODE objects.");
                 }
@@ -5186,11 +6212,19 @@ namespace AirflowNetwork {
             if (!NodeFound) {
                 if (count <= AirflowNetworkNumOfSurfaces) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[0] +
                                         " in AIRFLOWNETWORK:MULTIZONE:SURFACE = " + AirflowNetworkLinkageData(count).Name + " is not found");
                 } else {
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[1] +
+=======
+                                    std::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[0] +
+                                        " in AIRFLOWNETWORK:MULTIZONE:SURFACE = " + AirflowNetworkLinkageData(count).Name + " is not found");
+                } else {
+                    ShowSevereError(m_state,
+                                    std::format(RoutineName) + AirflowNetworkLinkageData(count).NodeNames[1] +
+>>>>>>> nrel/develop
                                         " in AIRFLOWNETWORK:DISTRIBUTION:LINKAGE = " + AirflowNetworkLinkageData(count).Name +
                                         " is not found in AIRFLOWNETWORK:DISTRIBUTION:NODE objects.");
                 }
@@ -5204,7 +6238,11 @@ namespace AirflowNetwork {
             }
             if (!CompFound) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + "Component = " + AirflowNetworkLinkageData(count).CompName +
+=======
+                                std::format(RoutineName) + "Component = " + AirflowNetworkLinkageData(count).CompName +
+>>>>>>> nrel/develop
                                     " in AIRFLOWNETWORK:DISTRIBUTION:LINKAGE = " + AirflowNetworkLinkageData(count).Name +
                                     " is not found in AirflowNetwork Component Data objects.");
                 ErrorsFound = true;
@@ -5225,7 +6263,11 @@ namespace AirflowNetwork {
             }
             if ((!NodeFound1) && count > NumOfNodesMultiZone && AirflowNetworkNodeData(count).ExtNodeNum == 0) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + "AIRFLOWNETWORK:DISTRIBUTION:NODE = " + AirflowNetworkNodeData(count).Name +
+=======
+                                std::format(RoutineName) + "AIRFLOWNETWORK:DISTRIBUTION:NODE = " + AirflowNetworkNodeData(count).Name +
+>>>>>>> nrel/develop
                                     " is not found as Node 1 Name in AIRFLOWNETWORK:DISTRIBUTION:LINKAGE");
                 ShowContinueError(m_state,
                                   "Each non-external AIRFLOWNETWORK:DISTRIBUTION:NODE has to be defined as Node 1 once in "
@@ -5234,7 +6276,11 @@ namespace AirflowNetwork {
             }
             if ((!NodeFound2) && count > NumOfNodesMultiZone && AirflowNetworkNodeData(count).ExtNodeNum == 0) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + "AIRFLOWNETWORK:DISTRIBUTION:NODE = " + AirflowNetworkNodeData(count).Name +
+=======
+                                std::format(RoutineName) + "AIRFLOWNETWORK:DISTRIBUTION:NODE = " + AirflowNetworkNodeData(count).Name +
+>>>>>>> nrel/develop
                                     " is not found as Node 2 Name in AIRFLOWNETWORK:DISTRIBUTION:LINKAGE");
                 ShowContinueError(m_state,
                                   "Each non-external AIRFLOWNETWORK:DISTRIBUTION:NODE has to be defined as Node 2 once in "
@@ -5243,7 +6289,11 @@ namespace AirflowNetwork {
             }
             if ((!NodeFound1) && (!NodeFound2) && count > NumOfNodesMultiZone && AirflowNetworkNodeData(count).ExtNodeNum > 0) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) + "AIRFLOWNETWORK:DISTRIBUTION:NODE = " + AirflowNetworkNodeData(count).Name +
+=======
+                                std::format(RoutineName) + "AIRFLOWNETWORK:DISTRIBUTION:NODE = " + AirflowNetworkNodeData(count).Name +
+>>>>>>> nrel/develop
                                     " is not found as Node 1 Name or Node 2 Name in AIRFLOWNETWORK:DISTRIBUTION:LINKAGE");
                 ShowContinueError(m_state, "This external AIRFLOWNETWORK:DISTRIBUTION:NODE has to be defined in AIRFLOWNETWORK:DISTRIBUTION:LINKAGE");
                 ErrorsFound = true;
@@ -5259,7 +6309,11 @@ namespace AirflowNetwork {
         }
         if (!NodeFound) {
             ShowSevereError(m_state,
+<<<<<<< HEAD
                             EnergyPlus::format(RoutineName) +
+=======
+                            std::format(RoutineName) +
+>>>>>>> nrel/develop
                                 "No External Nodes found in AirflowNetwork:Multizone:ExternalNode. There must be at least 1 external node defined.");
             ErrorsFound = true;
         }
@@ -5315,22 +6369,40 @@ namespace AirflowNetwork {
 
                 if (DisSysCompHXData(i).CoilParentExists && count != 2) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + "The inputs of component name field as a heat exchanger in "
                                                                       "AIRFLOWNETWORK:DISTRIBUTION:LINKAGE is not correct");
                     ShowContinueError(m_state,
                                       "The entered name of heat exchanger is " + DisSysCompHXData(i).name +
                                           " in AirflowNetwork:Distribution:Component:HeatExchanger objects");
                     ShowContinueError(m_state, EnergyPlus::format("The correct appearance number is 2. The entered appearance number is {}", count));
+=======
+                                    std::format(RoutineName) + "The inputs of component name field as a heat exchanger in "
+                                                               "AIRFLOWNETWORK:DISTRIBUTION:LINKAGE is not correct");
+                    ShowContinueError(m_state,
+                                      "The entered name of heat exchanger is " + DisSysCompHXData(i).name +
+                                          " in AirflowNetwork:Distribution:Component:HeatExchanger objects");
+                    ShowContinueError(m_state, std::format("The correct appearance number is 2. The entered appearance number is {}", count));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if ((!DisSysCompHXData(i).CoilParentExists) && count != 1) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + "The inputs of component name field as a heat exchanger in "
                                                                       "AIRFLOWNETWORK:DISTRIBUTION:LINKAGE is not correct");
                     ShowContinueError(m_state,
                                       "The entered name of heat exchanger is " + DisSysCompHXData(i).name +
                                           " in AirflowNetwork:Distribution:Component:HeatExchanger objects");
                     ShowContinueError(m_state, EnergyPlus::format("The correct appearance number is 1. The entered appearance number is {}", count));
+=======
+                                    std::format(RoutineName) + "The inputs of component name field as a heat exchanger in "
+                                                               "AIRFLOWNETWORK:DISTRIBUTION:LINKAGE is not correct");
+                    ShowContinueError(m_state,
+                                      "The entered name of heat exchanger is " + DisSysCompHXData(i).name +
+                                          " in AirflowNetwork:Distribution:Component:HeatExchanger objects");
+                    ShowContinueError(m_state, std::format("The correct appearance number is 1. The entered appearance number is {}", count));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -5346,7 +6418,11 @@ namespace AirflowNetwork {
             if (AirflowNetworkCompData(i).CompTypeNum == iComponentTypeNum::OAF) {
                 if (!Util::SameString(DisSysNodeData(j - NumOfNodesMultiZone).EPlusType, "OAMixerOutdoorAirStreamNode")) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) +
+=======
+                                    std::format(RoutineName) +
+>>>>>>> nrel/develop
                                         "AirflowNetwork:Distribution:Linkage: When the component type is "
                                         "AirflowNetwork:Distribution:Component:OutdoorAirFlow at " +
                                         AirflowNetworkNodeData(j).Name + ",");
@@ -5356,7 +6432,11 @@ namespace AirflowNetwork {
                 }
                 if (!Util::SameString(DisSysNodeData(k - NumOfNodesMultiZone).EPlusType, "AirLoopHVAC:OutdoorAirSystem")) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) +
+=======
+                                    std::format(RoutineName) +
+>>>>>>> nrel/develop
                                         "AirflowNetwork:Distribution:Linkage: When the component type is "
                                         "AirflowNetwork:Distribution:Component:OutdoorAirFlow at " +
                                         AirflowNetworkNodeData(k).Name + ",");
@@ -5370,7 +6450,11 @@ namespace AirflowNetwork {
             if (AirflowNetworkCompData(i).CompTypeNum == iComponentTypeNum::REL) {
                 if (!Util::SameString(DisSysNodeData(j - NumOfNodesMultiZone).EPlusType, "AirLoopHVAC:OutdoorAirSystem")) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) +
+=======
+                                    std::format(RoutineName) +
+>>>>>>> nrel/develop
                                         "AirflowNetwork:Distribution:Linkage: When the component type is "
                                         "AirflowNetwork:Distribution:Component:OutdoorAirFlow at " +
                                         AirflowNetworkNodeData(j).Name + ",");
@@ -5381,7 +6465,11 @@ namespace AirflowNetwork {
                 }
                 if (!Util::SameString(DisSysNodeData(k - NumOfNodesMultiZone).EPlusType, "OAMixerOutdoorAirStreamNode")) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) +
+=======
+                                    std::format(RoutineName) +
+>>>>>>> nrel/develop
                                         "AirflowNetwork:Distribution:Linkage: When the component type is "
                                         "AirflowNetwork:Distribution:Component:OutdoorAirFlow at " +
                                         AirflowNetworkNodeData(k).Name + ",");
@@ -5393,7 +6481,11 @@ namespace AirflowNetwork {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(m_state, EnergyPlus::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+=======
+            ShowFatalError(m_state, std::format("{}Errors found getting inputs. Previous error(s) cause program termination.", RoutineName));
+>>>>>>> nrel/develop
         }
 
         Alphas.deallocate();
@@ -6616,8 +7708,12 @@ namespace AirflowNetwork {
             }
             j = MultizoneSurfaceData(i).SurfNum;
             auto const &surf = m_state.dataSurface->Surface(j);
+<<<<<<< HEAD
             if (surf.OriginalClass == SurfaceClass::Window || surf.OriginalClass == SurfaceClass::Door ||
                 surf.OriginalClass == SurfaceClass::GlassDoor || surf.IsAirBoundarySurf) {
+=======
+            if (SurfaceClassIsWindow(surf.OriginalClass) || SurfaceClassIsDoor(surf.OriginalClass) || surf.IsAirBoundarySurf) {
+>>>>>>> nrel/develop
                 if (MultizoneSurfaceData(i).OccupantVentilationControlNum > 0) {
                     if (MultizoneSurfaceData(i).OpeningStatus == OpenStatus::FreeOperation) {
                         if (MultizoneSurfaceData(i).OpeningProbStatus == ProbabilityCheck::ForceChange) {
@@ -6656,7 +7752,11 @@ namespace AirflowNetwork {
                                              "AirflowNetwork: The window or door is open during HVAC system operation " +
                                                  MultizoneSurfaceData(i).SurfName);
                             ShowContinueError(m_state,
+<<<<<<< HEAD
                                               EnergyPlus::format("The window or door opening factor is {:.2R}", MultizoneSurfaceData(i).OpenFactor));
+=======
+                                              std::format("The window or door opening factor is {:.2f}", MultizoneSurfaceData(i).OpenFactor));
+>>>>>>> nrel/develop
                             ShowContinueErrorTimeStamp(m_state, "");
                         } else {
                             ShowRecurringWarningErrorAtEnd(m_state,
@@ -6704,8 +7804,12 @@ namespace AirflowNetwork {
                 }
                 j = MultizoneSurfaceData(i).SurfNum;
                 auto const &surf = m_state.dataSurface->Surface(j);
+<<<<<<< HEAD
                 if (surf.OriginalClass == SurfaceClass::Window || surf.OriginalClass == SurfaceClass::Door ||
                     surf.OriginalClass == SurfaceClass::GlassDoor) {
+=======
+                if (SurfaceClassIsWindow(surf.OriginalClass) || SurfaceClassIsDoor(surf.OriginalClass)) {
+>>>>>>> nrel/develop
                     if (MultizoneSurfaceData(i).HybridCtrlGlobal) {
                         MultizoneSurfaceData(i).OpenFactor = GlobalOpenFactor;
                     }
@@ -6755,7 +7859,11 @@ namespace AirflowNetwork {
                                          "The calculated pressure with minimum exhaust fan rate is lower than the pressure setpoint. The pressure "
                                          "control is unable to perform.");
                         ShowContinueErrorTimeStamp(
+<<<<<<< HEAD
                             m_state, EnergyPlus::format("Calculated pressure = {:.2R}[Pa], Pressure setpoint ={:.2R}", ZonePressure1, PressureSet));
+=======
+                            m_state, std::format("Calculated pressure = {:.2f}[Pa], Pressure setpoint ={:.2f}", ZonePressure1, PressureSet));
+>>>>>>> nrel/develop
                     } else {
                         ++ErrCountLowPre;
                         ShowRecurringWarningErrorAtEnd(m_state,
@@ -6779,8 +7887,12 @@ namespace AirflowNetwork {
                                              "The calculated pressure with maximum exhaust fan rate is higher than the pressure setpoint. The "
                                              "pressure control is unable to perform.");
                             ShowContinueErrorTimeStamp(
+<<<<<<< HEAD
                                 m_state,
                                 EnergyPlus::format("Calculated pressure = {:.2R}[Pa], Pressure setpoint = {:.2R}", ZonePressure2, PressureSet));
+=======
+                                m_state, std::format("Calculated pressure = {:.2f}[Pa], Pressure setpoint = {:.2f}", ZonePressure2, PressureSet));
+>>>>>>> nrel/develop
                         } else {
                             ++ErrCountHighPre;
                             ShowRecurringWarningErrorAtEnd(
@@ -6805,7 +7917,11 @@ namespace AirflowNetwork {
                             if (ErrCountVar == 0) {
                                 ++ErrCountVar;
                                 ShowWarningError(m_state, "Iteration limit exceeded pressure setpoint using an exhaust fan. Simulation continues.");
+<<<<<<< HEAD
                                 ShowContinueErrorTimeStamp(m_state, EnergyPlus::format("Exhaust fan flow rate = {:.4R}", ExhaustFanMassFlowRate));
+=======
+                                ShowContinueErrorTimeStamp(m_state, std::format("Exhaust fan flow rate = {:.4f}", ExhaustFanMassFlowRate));
+>>>>>>> nrel/develop
                             } else {
                                 ++ErrCountVar;
                                 ShowRecurringWarningErrorAtEnd(m_state,
@@ -6845,7 +7961,11 @@ namespace AirflowNetwork {
                                          "The calculated pressure with minimum relief air rate is lower than the pressure setpoint. The pressure "
                                          "control is unable to perform.");
                         ShowContinueErrorTimeStamp(
+<<<<<<< HEAD
                             m_state, EnergyPlus::format("Calculated pressure = {:.2R}[Pa], Pressure setpoint ={:.2R}", ZonePressure1, PressureSet));
+=======
+                            m_state, std::format("Calculated pressure = {:.2f}[Pa], Pressure setpoint ={:.2f}", ZonePressure1, PressureSet));
+>>>>>>> nrel/develop
                     } else {
                         ++ErrCountLowPre;
                         ShowRecurringWarningErrorAtEnd(m_state,
@@ -6870,8 +7990,12 @@ namespace AirflowNetwork {
                                              "The calculated pressure with maximum relief air rate is higher than the pressure setpoint. The "
                                              "pressure control is unable to perform.");
                             ShowContinueErrorTimeStamp(
+<<<<<<< HEAD
                                 m_state,
                                 EnergyPlus::format("Calculated pressure = {:.2R}[Pa], Pressure setpoint = {:.2R}", ZonePressure2, PressureSet));
+=======
+                                m_state, std::format("Calculated pressure = {:.2f}[Pa], Pressure setpoint = {:.2f}", ZonePressure2, PressureSet));
+>>>>>>> nrel/develop
                         } else {
                             ++ErrCountHighPre;
                             ShowRecurringWarningErrorAtEnd(
@@ -6895,7 +8019,11 @@ namespace AirflowNetwork {
                             if (ErrCountVar == 0) {
                                 ++ErrCountVar;
                                 ShowWarningError(m_state, "Iteration limit exceeded pressure setpoint using relief air. Simulation continues.");
+<<<<<<< HEAD
                                 ShowContinueErrorTimeStamp(m_state, EnergyPlus::format("Relief air flow rate = {:.4R}", ReliefMassFlowRate));
+=======
+                                ShowContinueErrorTimeStamp(m_state, std::format("Relief air flow rate = {:.4f}", ReliefMassFlowRate));
+>>>>>>> nrel/develop
                             } else {
                                 ++ErrCountVar;
                                 ShowRecurringWarningErrorAtEnd(m_state,
@@ -7070,7 +8198,11 @@ namespace AirflowNetwork {
         NumOfExtNodes = AirflowNetworkNumOfExtSurfaces;
         for (ExtNum = 1; ExtNum <= NumOfExtNodes; ++ExtNum) {
             MultizoneExternalNodeData(ExtNum).ExtNum = AirflowNetworkNumOfZones + ExtNum;
+<<<<<<< HEAD
             MultizoneExternalNodeData(ExtNum).Name = EnergyPlus::format("ExtNode{:4}", ExtNum);
+=======
+            MultizoneExternalNodeData(ExtNum).Name = std::format("ExtNode{:4}", ExtNum);
+>>>>>>> nrel/develop
         }
 
         // Associate each external node with SurfaceData
@@ -7200,7 +8332,11 @@ namespace AirflowNetwork {
                 } // End of wind direction loop
                 // Add new table
                 vals[12] = vals[0]; // Enforce periodicity
+<<<<<<< HEAD
                 curveIndex[FacadeNum - 1] = AirflowNetwork::makeTable(m_state, EnergyPlus::format("!WPCTABLE{}", FacadeNum), dirs30GridIndex, vals);
+=======
+                curveIndex[FacadeNum - 1] = AirflowNetwork::makeTable(m_state, std::format("!WPCTABLE{}", FacadeNum), dirs30GridIndex, vals);
+>>>>>>> nrel/develop
             } // End of facade number loop
 
         } else { //-calculate the advanced single sided wind pressure coefficients
@@ -7286,6 +8422,7 @@ namespace AirflowNetwork {
 
             for (FacadeNum = 1; FacadeNum <= 4; ++FacadeNum) {
                 valsByFacade[FacadeNum - 1].push_back(valsByFacade[FacadeNum - 1][0]); // Enforce periodicity
+<<<<<<< HEAD
                 curveIndex[FacadeNum - 1] = AirflowNetwork::makeTable(
                     m_state, EnergyPlus::format("!SSWPCTABLEFACADE{}", FacadeNum), dirs10GridIndex, valsByFacade[FacadeNum - 1]);
             }
@@ -7297,6 +8434,19 @@ namespace AirflowNetwork {
                 valsByFacade[facadeNum - 1].push_back(valsByFacade[facadeNum - 1][0]); // Enforce periodicity
                 curveIndex[facadeNum - 1] =
                     AirflowNetwork::makeTable(m_state, EnergyPlus::format("!SSWPCTABLE{}", facadeNum), dirs10GridIndex, valsByFacade[facadeNum - 1]);
+=======
+                curveIndex[FacadeNum - 1] =
+                    AirflowNetwork::makeTable(m_state, std::format("!SSWPCTABLEFACADE{}", FacadeNum), dirs10GridIndex, valsByFacade[FacadeNum - 1]);
+            }
+            FacadeNum = 5;
+            valsByFacade[FacadeNum - 1].push_back(valsByFacade[FacadeNum - 1][0]); // Enforce periodicity
+            curveIndex[FacadeNum - 1] =
+                AirflowNetwork::makeTable(m_state, std::format("!SSWPCTABLEFACADE{}", FacadeNum), dirs30GridIndex, valsByFacade[FacadeNum - 1]);
+            for (unsigned facadeNum = 6; facadeNum <= valsByFacade.size(); ++facadeNum) {
+                valsByFacade[facadeNum - 1].push_back(valsByFacade[facadeNum - 1][0]); // Enforce periodicity
+                curveIndex[facadeNum - 1] =
+                    AirflowNetwork::makeTable(m_state, std::format("!SSWPCTABLE{}", facadeNum), dirs10GridIndex, valsByFacade[facadeNum - 1]);
+>>>>>>> nrel/develop
             }
         }
         // Connect the external nodes to the new curves
@@ -9514,6 +10664,62 @@ namespace AirflowNetwork {
         }
     }
 
+<<<<<<< HEAD
+=======
+    void Solver::update_onoff_fan_runtime_fractions()
+    {
+        auto &NumPrimaryAirSys = m_state.dataHVACGlobal->NumPrimaryAirSys;
+        auto &Node(m_state.dataLoopNodes->Node);
+        using HVAC::VerySmallMassFlow;
+
+        int AirLoopNum;
+        int FanNum;
+        Real64 MaxPartLoadRatio = 0.0;
+        MaxOnOffFanRunTimeFraction = 0.0;
+        for (AirLoopNum = 1; AirLoopNum <= NumPrimaryAirSys; ++AirLoopNum) {
+            MaxPartLoadRatio = max(MaxPartLoadRatio, m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopOnOffFanPartLoadRatio);
+            MaxOnOffFanRunTimeFraction = max(MaxOnOffFanRunTimeFraction, LoopOnOffFanRunTimeFraction(AirLoopNum));
+        }
+        for (AirLoopNum = 1; AirLoopNum <= NumPrimaryAirSys; ++AirLoopNum) {
+            for (FanNum = 1; FanNum <= DisSysNumOfCVFs; ++FanNum) {
+                if (DisSysCompCVFData(FanNum).AirLoopNum == AirLoopNum) {
+                    break;
+                }
+            }
+            LoopPartLoadRatio(AirLoopNum) = 1.0;
+            LoopOnOffFanRunTimeFraction(AirLoopNum) = 1.0;
+            // Calculate the part load ratio, can't be greater than 1 for a simple ONOFF fan
+            if (DisSysCompCVFData(FanNum).fanType == HVAC::FanType::OnOff &&
+                Node(DisSysCompCVFData(FanNum).InletNode).MassFlowRate > VerySmallMassFlow &&
+                m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopFanOperationMode == HVAC::FanOp::Cycling) {
+                // Hard code here
+                LoopPartLoadRatio(AirLoopNum) = m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopOnOffFanPartLoadRatio;
+                LoopOnOffFanRunTimeFraction(AirLoopNum) = m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).AFNLoopOnOffFanRTF;
+            }
+
+            if (DisSysCompCVFData(FanNum).fanType == HVAC::FanType::OnOff && LoopPartLoadRatio(AirLoopNum) < 1.0) {
+                for (std::size_t i = 0; i < linkReport.size(); ++i) {
+                    auto &r(linkReport[i]);
+                    auto const &s(AirflowNetworkLinkSimu[i]);
+                    auto const &t(AirflowNetworkLinkageData[i]);
+                    if (t.AirLoopNum == AirLoopNum) {
+                        r.FLOW = s.FLOW * LoopPartLoadRatio(AirLoopNum);
+                        r.FLOW2 = s.FLOW2 * LoopPartLoadRatio(AirLoopNum);
+                        r.VolFLOW = s.VolFLOW * LoopPartLoadRatio(AirLoopNum);
+                        r.VolFLOW2 = s.VolFLOW2 * LoopPartLoadRatio(AirLoopNum);
+                    }
+                    if (t.AirLoopNum == 0) {
+                        r.FLOW = s.FLOW * MaxPartLoadRatio;
+                        r.FLOW2 = s.FLOW2 * MaxPartLoadRatio;
+                        r.VolFLOW = s.VolFLOW * MaxPartLoadRatio;
+                        r.VolFLOW2 = s.VolFLOW2 * MaxPartLoadRatio;
+                    }
+                }
+            }
+        }
+    }
+
+>>>>>>> nrel/develop
     void Solver::update(ObjexxFCL::Optional_bool_const FirstHVACIteration) // True when solution technique on first iteration
     {
 
@@ -9542,7 +10748,10 @@ namespace AirflowNetwork {
         Real64 Qlat;
         Real64 AirDensity;
         Real64 Tamb;
+<<<<<<< HEAD
         Real64 PartLoadRatio;
+=======
+>>>>>>> nrel/develop
         Real64 OnOffRatio;
         Real64 NodeMass;
         Real64 AFNMass;
@@ -9768,6 +10977,7 @@ namespace AirflowNetwork {
             }
         }
 
+<<<<<<< HEAD
         int AirLoopNum;
         int FanNum;
         Real64 MaxPartLoadRatio = 0.0;
@@ -9823,6 +11033,18 @@ namespace AirflowNetwork {
                 }
             }
         }
+=======
+        update_onoff_fan_runtime_fractions();
+
+        int AirLoopNum;
+        int FanNum;
+        Real64 MaxPartLoadRatio = 0.0;
+        for (AirLoopNum = 1; AirLoopNum <= NumPrimaryAirSys; ++AirLoopNum) {
+            MaxPartLoadRatio = max(MaxPartLoadRatio, m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopOnOffFanPartLoadRatio);
+        }
+        Real64 OnOffFanRunTimeFraction = (NumPrimaryAirSys > 0) ? LoopOnOffFanRunTimeFraction(NumPrimaryAirSys) : 1.0;
+        Real64 PartLoadRatio = 1.0;
+>>>>>>> nrel/develop
 
         // One time warning
         if (UpdateAirflowNetworkMyOneTimeFlag) {
@@ -9846,10 +11068,16 @@ namespace AirflowNetwork {
                                           "calculated based on the mass flow rate during HVAC operation.");
                         ShowContinueError(
                             m_state,
+<<<<<<< HEAD
                             EnergyPlus::format(
                                 "The mass flow rate during HVAC operation = {:.2R} The mass flow rate during no HVAC operation = {:.2R}",
                                 m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopSystemOnMassFlowrate,
                                 m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopSystemOffMassFlowrate));
+=======
+                            std::format("The mass flow rate during HVAC operation = {:.2f} The mass flow rate during no HVAC operation = {:.2f}",
+                                        m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopSystemOnMassFlowrate,
+                                        m_state.dataAirLoop->AirLoopAFNInfo(AirLoopNum).LoopSystemOffMassFlowrate));
+>>>>>>> nrel/develop
                         UpdateAirflowNetworkMyOneTimeFlag = false;
                     }
                 }
@@ -9886,9 +11114,15 @@ namespace AirflowNetwork {
                                                  AirflowNetworkLinkageData(i).Name + "'.");
                             ShowContinueError(
                                 m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format("The system node max mass flow rate = {:.3R} kg/s. The AFN node mass flow rate = {:.3R} kg.s.",
                                                    NodeMass,
                                                    AFNMass));
+=======
+                                std::format("The system node max mass flow rate = {:.3f} kg/s. The AFN node mass flow rate = {:.3f} kg.s.",
+                                            NodeMass,
+                                            AFNMass));
+>>>>>>> nrel/develop
                             WriteFlag = true;
                         }
                     }
@@ -10463,7 +11697,11 @@ namespace AirflowNetwork {
                     DisSysNodeData(i).AirLoopNum = get_airloop_number(j);
                     if (DisSysNodeData(i).AirLoopNum == 0) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + "The Node or Component Name defined in " + DisSysNodeData(i).Name +
+=======
+                                        std::format(RoutineName) + "The Node or Component Name defined in " + DisSysNodeData(i).Name +
+>>>>>>> nrel/develop
                                             " is not found in the AirLoopHVAC.");
                         ShowContinueError(m_state,
                                           "The entered name is " + DisSysNodeData(i).EPlusName + " in an AirflowNetwork:Distribution:Node object.");
@@ -10482,7 +11720,11 @@ namespace AirflowNetwork {
                 Util::SameString(DisSysNodeData(i).EPlusType, "OutdoorAir:Node")) {
                 if (!LocalError) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + "The Node or Component Name defined in " + DisSysNodeData(i).Name +
+=======
+                                    std::format(RoutineName) + "The Node or Component Name defined in " + DisSysNodeData(i).Name +
+>>>>>>> nrel/develop
                                         " is not found in the " + DisSysNodeData(i).EPlusType);
                     ShowContinueError(m_state,
                                       "The entered name is " + DisSysNodeData(i).EPlusName + " in an AirflowNetwork:Distribution:Node object.");
@@ -10491,7 +11733,11 @@ namespace AirflowNetwork {
             }
             if (DisSysNodeData(i).EPlusNodeNum == 0) {
                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(RoutineName) +
+=======
+                                std::format(RoutineName) +
+>>>>>>> nrel/develop
                                     "Primary Air Loop Node is not found in AIRFLOWNETWORK:DISTRIBUTION:NODE = " + DisSysNodeData(i).Name);
                 ErrorsFound = true;
             }
@@ -10599,7 +11845,11 @@ namespace AirflowNetwork {
                 if (m_state.dataZoneEquip->ZoneEquipConfig(zoneNum).ZoneNode == i) {
                     if (zoneNum > AirflowNetworkNumOfNodes) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+=======
+                                        std::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+>>>>>>> nrel/develop
                                             "' is not defined as an AirflowNetwork:Distribution:Node object.");
                         ShowContinueError(
                             m_state, "This Node is the zone air node for Zone '" + m_state.dataZoneEquip->ZoneEquipConfig(zoneNum).ZoneName + "'.");
@@ -10660,7 +11910,11 @@ namespace AirflowNetwork {
             if (!NodeFound(i)) {
                 // Check if this node is the OA relief node. For the time being, OA relief node is not used
                 if (GetNumOAMixers(m_state) > 1) {
+<<<<<<< HEAD
                     //                        ShowSevereError(m_state,  format(RoutineName) + "Only one OutdoorAir:Mixer is allowed in the
+=======
+                    //                        ShowSevereError(m_state,  std::format(RoutineName) + "Only one OutdoorAir:Mixer is allowed in the
+>>>>>>> nrel/develop
                     // AirflowNetwork model." );                         ErrorsFound = true;
                     int OAFanNum;
                     int OARelNum;
@@ -10690,14 +11944,22 @@ namespace AirflowNetwork {
                         }
                         if (OAMixerNum == GetNumOAMixers(m_state)) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+=======
+                                            std::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+>>>>>>> nrel/develop
                                                 "' is not defined as an AirflowNetwork:Distribution:Node object.");
                             ErrorsFound = true;
                         }
                     }
                 } else if (GetNumOAMixers(m_state) == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+=======
+                                    std::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+>>>>>>> nrel/develop
                                         "' is not defined as an AirflowNetwork:Distribution:Node object.");
                     ErrorsFound = true;
                 } else {
@@ -10715,7 +11977,11 @@ namespace AirflowNetwork {
                         NodeFound(i) = true;
                     } else {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+=======
+                                        std::format(RoutineName) + "'" + m_state.dataLoopNodes->NodeID(i) +
+>>>>>>> nrel/develop
                                             "' is not defined as an AirflowNetwork:Distribution:Node object.");
                         ErrorsFound = true;
                     }
@@ -10724,6 +11990,7 @@ namespace AirflowNetwork {
         }
         if (hpwhFound) {
             ShowWarningError(m_state,
+<<<<<<< HEAD
                              EnergyPlus::format(RoutineName) +
                                  "Heat pump water heater is simulated along with an AirflowNetwork but is not included in "
                                  "the AirflowNetwork.");
@@ -10743,13 +12010,37 @@ namespace AirflowNetwork {
         if (vrfTUFound) {
             ShowWarningError(m_state,
                              EnergyPlus::format(RoutineName) +
+=======
+                             std::format(RoutineName) + "Heat pump water heater is simulated along with an AirflowNetwork but is not included in "
+                                                        "the AirflowNetwork.");
+        }
+        if (standaloneERVFound) {
+            ShowWarningError(m_state,
+                             std::format(RoutineName) + "A ZoneHVAC:EnergyRecoveryVentilator is simulated along with an AirflowNetwork but is not "
+                                                        "included in the AirflowNetwork.");
+        }
+        if (packagedUnitaryFound) {
+            ShowWarningError(m_state,
+                             std::format(RoutineName) + "A ZoneHVAC:PackagedTerminalAirConditioner, ZoneHVAC:PackagedTerminalHeatPump, or "
+                                                        "ZoneHVAC:WaterToAirHeatPump is simulated along with an AirflowNetwork but is not "
+                                                        "included in the AirflowNetwork.");
+        }
+        if (vrfTUFound) {
+            ShowWarningError(m_state,
+                             std::format(RoutineName) +
+>>>>>>> nrel/develop
                                  "A ZoneHVAC:TerminalUnit:VariableRefrigerantFlow is simulated along with an AirflowNetwork but is not "
                                  "included in the AirflowNetwork.");
         }
         if (windowACFound) {
             ShowWarningError(m_state,
+<<<<<<< HEAD
                              EnergyPlus::format(RoutineName) + "A ZoneHVAC:WindowAirConditioner is simulated along with an AirflowNetwork but is not "
                                                                "included in the AirflowNetwork.");
+=======
+                             std::format(RoutineName) + "A ZoneHVAC:WindowAirConditioner is simulated along with an AirflowNetwork but is not "
+                                                        "included in the AirflowNetwork.");
+>>>>>>> nrel/develop
         }
         NodeFound.deallocate();
 
@@ -10771,8 +12062,13 @@ namespace AirflowNetwork {
 
         // Set AirLoopNum to fans and coils
         for (int i = AirflowNetworkNumOfSurfaces + 1; i <= AirflowNetworkNumOfLinks; ++i) {
+<<<<<<< HEAD
             int j = AirflowNetworkLinkageData(i).NodeNums[0];
             int k = AirflowNetworkLinkageData(i).NodeNums[1];
+=======
+            [[maybe_unused]] int j = AirflowNetworkLinkageData(i).NodeNums[0];
+            [[maybe_unused]] int k = AirflowNetworkLinkageData(i).NodeNums[1];
+>>>>>>> nrel/develop
             if (AirflowNetworkCompData(AirflowNetworkLinkageData(i).CompNum).EPlusTypeNum == iEPlusComponentType::FAN) {
                 n = m_state.afn->DisSysCompCVFData(AirflowNetworkCompData(AirflowNetworkLinkageData(i).CompNum).TypeNum).FanIndex;
                 m_state.afn->DisSysCompCVFData(AirflowNetworkCompData(AirflowNetworkLinkageData(i).CompNum).TypeNum).AirLoopNum =
@@ -10806,7 +12102,11 @@ namespace AirflowNetwork {
 
                 if (SELECT_CASE_var == "COIL:COOLING:DX") {
                     ValidateComponent(
+<<<<<<< HEAD
                         m_state, "Coil:Cooling:DX", DisSysCompCoilData(i).name, IsNotOK, EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                        m_state, "Coil:Cooling:DX", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
@@ -10823,11 +12123,16 @@ namespace AirflowNetwork {
                         }
                     }
                 } else if (SELECT_CASE_var == "COIL:COOLING:DX:SINGLESPEED") {
+<<<<<<< HEAD
                     ValidateComponent(m_state,
                                       "Coil:Cooling:DX:SingleSpeed",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                    ValidateComponent(
+                        m_state, "Coil:Cooling:DX:SingleSpeed", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
@@ -10835,11 +12140,16 @@ namespace AirflowNetwork {
                     }
 
                 } else if (SELECT_CASE_var == "COIL:HEATING:DX:SINGLESPEED") {
+<<<<<<< HEAD
                     ValidateComponent(m_state,
                                       "Coil:Heating:DX:SingleSpeed",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                    ValidateComponent(
+                        m_state, "Coil:Heating:DX:SingleSpeed", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
@@ -10848,7 +12158,11 @@ namespace AirflowNetwork {
 
                 } else if (SELECT_CASE_var == "COIL:HEATING:FUEL") {
                     ValidateComponent(
+<<<<<<< HEAD
                         m_state, "Coil:Heating:Fuel", DisSysCompCoilData(i).name, IsNotOK, EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                        m_state, "Coil:Heating:Fuel", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
@@ -10857,7 +12171,11 @@ namespace AirflowNetwork {
 
                 } else if (SELECT_CASE_var == "COIL:HEATING:ELECTRIC") {
                     ValidateComponent(
+<<<<<<< HEAD
                         m_state, "Coil:Heating:Electric", DisSysCompCoilData(i).name, IsNotOK, EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                        m_state, "Coil:Heating:Electric", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
@@ -10866,14 +12184,22 @@ namespace AirflowNetwork {
 
                 } else if (SELECT_CASE_var == "COIL:COOLING:WATER") {
                     ValidateComponent(
+<<<<<<< HEAD
                         m_state, "Coil:Cooling:Water", DisSysCompCoilData(i).name, IsNotOK, EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                        m_state, "Coil:Cooling:Water", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
 
                 } else if (SELECT_CASE_var == "COIL:HEATING:WATER") {
                     ValidateComponent(
+<<<<<<< HEAD
                         m_state, "Coil:Heating:Water", DisSysCompCoilData(i).name, IsNotOK, EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                        m_state, "Coil:Heating:Water", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
@@ -10883,7 +12209,11 @@ namespace AirflowNetwork {
                                       "Coil:Cooling:Water:DetailedGeometry",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
@@ -10893,7 +12223,11 @@ namespace AirflowNetwork {
                                       "Coil:Cooling:DX:TwoStageWithHumidityControlMode",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
@@ -10901,11 +12235,16 @@ namespace AirflowNetwork {
                     }
 
                 } else if (SELECT_CASE_var == "COIL:COOLING:DX:MULTISPEED") {
+<<<<<<< HEAD
                     ValidateComponent(m_state,
                                       "Coil:Cooling:DX:MultiSpeed",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                    ValidateComponent(
+                        m_state, "Coil:Cooling:DX:MultiSpeed", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     ++MultiSpeedHPIndicator;
                     if (IsNotOK) {
                         ErrorsFound = true;
@@ -10914,11 +12253,16 @@ namespace AirflowNetwork {
                     }
 
                 } else if (SELECT_CASE_var == "COIL:HEATING:DX:MULTISPEED") {
+<<<<<<< HEAD
                     ValidateComponent(m_state,
                                       "Coil:Heating:DX:MultiSpeed",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                    ValidateComponent(
+                        m_state, "Coil:Heating:DX:MultiSpeed", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     ++MultiSpeedHPIndicator;
                     if (IsNotOK) {
                         ErrorsFound = true;
@@ -10931,7 +12275,11 @@ namespace AirflowNetwork {
                                       "Coil:Cooling:DX:VariableSpeed",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     ++MultiSpeedHPIndicator;
                     if (IsNotOK) {
                         ErrorsFound = true;
@@ -10944,7 +12292,11 @@ namespace AirflowNetwork {
                                       "Coil:Heating:DX:VariableSpeed",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     ++MultiSpeedHPIndicator;
                     if (IsNotOK) {
                         ErrorsFound = true;
@@ -10956,7 +12308,11 @@ namespace AirflowNetwork {
                                       "Coil:Cooling:WaterToAirHeatPump:EquationFit",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
@@ -10966,7 +12322,11 @@ namespace AirflowNetwork {
                                       "Coil:Heating:WaterToAirHeatPump:EquationFit",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
@@ -10975,7 +12335,11 @@ namespace AirflowNetwork {
                                       "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
@@ -10985,27 +12349,41 @@ namespace AirflowNetwork {
                                       "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
 
                 } else if (SELECT_CASE_var == "COIL:HEATING:DESUPERHEATER") {
+<<<<<<< HEAD
                     ValidateComponent(m_state,
                                       "Coil:Heating:Desuperheater",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                    ValidateComponent(
+                        m_state, "Coil:Heating:Desuperheater", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
 
                 } else if (SELECT_CASE_var == "COIL:COOLING:DX:TWOSPEED") {
+<<<<<<< HEAD
                     ValidateComponent(m_state,
                                       "Coil:Cooling:DX:TwoSpeed",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                    ValidateComponent(
+                        m_state, "Coil:Cooling:DX:TwoSpeed", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
@@ -11016,26 +12394,39 @@ namespace AirflowNetwork {
                                       "Coil:Heating:Electric:MultiStage",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
                         SetHeatingCoilAirLoopNumber(m_state, DisSysCompCoilData(i).name, DisSysCompCoilData(i).AirLoopNum, ErrorsFound);
                     }
                 } else if (SELECT_CASE_var == "COIL:HEATING:GAS:MULTISTAGE") {
+<<<<<<< HEAD
                     ValidateComponent(m_state,
                                       "Coil:Heating:Gas:MultiStage",
                                       DisSysCompCoilData(i).name,
                                       IsNotOK,
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                    ValidateComponent(
+                        m_state, "Coil:Heating:Gas:MultiStage", DisSysCompCoilData(i).name, IsNotOK, std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     } else {
                         SetHeatingCoilAirLoopNumber(m_state, DisSysCompCoilData(i).name, DisSysCompCoilData(i).AirLoopNum, ErrorsFound);
                     }
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject + " Invalid coil type = " + DisSysCompCoilData(i).name);
+=======
+                    ShowSevereError(m_state, std::format(RoutineName) + CurrentModuleObject + " Invalid coil type = " + DisSysCompCoilData(i).name);
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -11068,7 +12459,11 @@ namespace AirflowNetwork {
                             if (DisSysCompCVFData(j).AirLoopNum == DisSysCompTermUnitData(i).AirLoopNum &&
                                 !Util::SameString(DisSysCompTermUnitData(i).EPlusType, "AirTerminal:SingleDuct:VAV:Reheat")) {
                                 ShowSevereError(m_state,
+<<<<<<< HEAD
                                                 EnergyPlus::format(RoutineName) + CurrentModuleObject +
+=======
+                                                std::format(RoutineName) + CurrentModuleObject +
+>>>>>>> nrel/develop
                                                     " Invalid terminal type for a VAV system = " + DisSysCompTermUnitData(i).name);
                                 ShowContinueError(m_state, "The input type = " + DisSysCompTermUnitData(i).EPlusType);
                                 ShowContinueError(m_state, "A VAV system requires all terminal units with type = AirTerminal:SingleDuct:VAV:Reheat");
@@ -11078,10 +12473,16 @@ namespace AirflowNetwork {
                     }
                 }
             } else {
+<<<<<<< HEAD
                 ShowSevereError(
                     m_state,
                     EnergyPlus::format(RoutineName) +
                         "AIRFLOWNETWORK:DISTRIBUTION:COMPONENT TERMINAL UNIT: Invalid Terminal unit type = " + DisSysCompTermUnitData(i).name);
+=======
+                ShowSevereError(m_state,
+                                std::format(RoutineName) + "AIRFLOWNETWORK:DISTRIBUTION:COMPONENT TERMINAL UNIT: Invalid Terminal unit type = " +
+                                    DisSysCompTermUnitData(i).name);
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -11097,7 +12498,11 @@ namespace AirflowNetwork {
                                       "HeatExchanger:AirToAir:FlatPlate",
                                       DisSysCompHXData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
@@ -11107,7 +12512,11 @@ namespace AirflowNetwork {
                                       "HeatExchanger:AirToAir:SensibleAndLatent",
                                       DisSysCompHXData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
@@ -11117,15 +12526,24 @@ namespace AirflowNetwork {
                                       "HeatExchanger:Desiccant:BalancedFlow",
                                       DisSysCompHXData(i).name,
                                       IsNotOK,
+<<<<<<< HEAD
                                       EnergyPlus::format(RoutineName) + CurrentModuleObject);
+=======
+                                      std::format(RoutineName) + CurrentModuleObject);
+>>>>>>> nrel/develop
                     if (IsNotOK) {
                         ErrorsFound = true;
                     }
 
                 } else {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + CurrentModuleObject +
                                         " Invalid heat exchanger type = " + DisSysCompHXData(i).EPlusType);
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + CurrentModuleObject + " Invalid heat exchanger type = " + DisSysCompHXData(i).EPlusType);
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -11198,7 +12616,11 @@ namespace AirflowNetwork {
                     if (AirflowNetworkLinkageData(i).NodeNums[0] == AirflowNetworkLinkageData(j).NodeNums[1]) {
                         if (AirflowNetworkCompData(AirflowNetworkLinkageData(j).CompNum).CompTypeNum != iComponentTypeNum::DWC) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
+=======
+                                            std::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
+>>>>>>> nrel/develop
                                                 AirflowNetworkLinkageData(i).CompName + ')');
                             ShowContinueError(m_state, "must connect a duct component upstream and not " + AirflowNetworkLinkageData(j).Name);
                             ErrorsFound = true;
@@ -11206,72 +12628,112 @@ namespace AirflowNetwork {
                     }
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).EPlusTypeNum == iEPlusNodeType::SPL) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow a AirLoopHVAC:ZoneSplitter node = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).EPlusTypeNum == iEPlusNodeType::SPL) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow a AirLoopHVAC:ZoneSplitter node = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).EPlusTypeNum == iEPlusNodeType::MIX) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow a AirLoopHVAC:ZoneMixer node = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).EPlusTypeNum == iEPlusNodeType::MIX) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow a AirLoopHVAC:ZoneMixer node = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).EPlusNodeNum > 0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow to connect an EnergyPlus node = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).EPlusNodeNum > 0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow to connect an EnergyPlus node = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).EPlusZoneNum > 0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow to connect an EnergyPlus zone = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[0]).Name);
                     ErrorsFound = true;
                 }
                 if (AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).EPlusZoneNum > 0) {
+<<<<<<< HEAD
                     ShowSevereError(m_state,
                                     EnergyPlus::format(RoutineName) + "An " + CurrentModuleObject + " object (" +
                                         AirflowNetworkLinkageData(i).CompName + ')');
+=======
+                    ShowSevereError(
+                        m_state, std::format(RoutineName) + "An " + CurrentModuleObject + " object (" + AirflowNetworkLinkageData(i).CompName + ')');
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "does not allow to connect an EnergyPlus zone = " +
                                           AirflowNetworkNodeData(AirflowNetworkLinkageData(i).NodeNums[1]).Name);
@@ -11479,7 +12941,11 @@ namespace AirflowNetwork {
 
         // Check number of fans specified in an AirLoop #6748
         int BranchNum;
+<<<<<<< HEAD
         int NumOfFans;
+=======
+        int NumOfFans = 0;
+>>>>>>> nrel/develop
         std::string FanNames;
         for (BranchNum = 1; BranchNum <= m_state.dataAirSystemsData->PrimaryAirSystems(1).NumBranches; ++BranchNum) {
             NumOfFans = 0;
@@ -11502,7 +12968,11 @@ namespace AirflowNetwork {
         }
         if (NumOfFans > 1) {
             ShowSevereError(m_state,
+<<<<<<< HEAD
                             EnergyPlus::format(RoutineName) + "An AirLoop branch, " +
+=======
+                            std::format(RoutineName) + "An AirLoop branch, " +
+>>>>>>> nrel/develop
                                 m_state.dataAirSystemsData->PrimaryAirSystems(1).Branch(BranchNum).Name + ", has two or more fans: " + FanNames);
             ShowContinueError(m_state,
                               "The AirflowNetwork model allows a single supply fan in an AirLoop only. Please make changes in the input "
@@ -11511,7 +12981,11 @@ namespace AirflowNetwork {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(m_state, EnergyPlus::format("{}Program terminates for preceding reason(s).", RoutineName));
+=======
+            ShowFatalError(m_state, std::format("{}Program terminates for preceding reason(s).", RoutineName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -11564,6 +13038,7 @@ namespace AirflowNetwork {
             }
             // Ensure the number of exhaust fan defined in the AirflowNetwork model matches the number of Zone Exhaust Fan objects
             if (NumOfExhaustFans != AirflowNetworkNumOfExhFan) {
+<<<<<<< HEAD
                 ShowSevereError(m_state,
                                 EnergyPlus::format(
                                     "{}The number of {} is not equal to the number of Fan:ZoneExhaust fans defined in ZoneHVAC:EquipmentConnections",
@@ -11572,6 +13047,16 @@ namespace AirflowNetwork {
                 ShowContinueError(m_state, EnergyPlus::format("The number of {} is {}", CurrentModuleObject, AirflowNetworkNumOfExhFan));
                 ShowContinueError(
                     m_state, EnergyPlus::format("The number of Zone exhaust fans defined in ZoneHVAC:EquipmentConnections is {}", NumOfExhaustFans));
+=======
+                ShowSevereError(
+                    m_state,
+                    std::format("{}The number of {} is not equal to the number of Fan:ZoneExhaust fans defined in ZoneHVAC:EquipmentConnections",
+                                RoutineName,
+                                CurrentModuleObject));
+                ShowContinueError(m_state, std::format("The number of {} is {}", CurrentModuleObject, AirflowNetworkNumOfExhFan));
+                ShowContinueError(m_state,
+                                  std::format("The number of Zone exhaust fans defined in ZoneHVAC:EquipmentConnections is {}", NumOfExhaustFans));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -11590,10 +13075,17 @@ namespace AirflowNetwork {
                 }
                 if (MultizoneCompExhaustFanData(i).EPlusZoneNum == 0) {
                     ShowSevereError(m_state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}Zone name in {} = {} does not match the zone name in ZoneHVAC:EquipmentConnections",
                                                        RoutineName,
                                                        CurrentModuleObject,
                                                        MultizoneCompExhaustFanData(i).name));
+=======
+                                    std::format("{}Zone name in {} = {} does not match the zone name in ZoneHVAC:EquipmentConnections",
+                                                RoutineName,
+                                                CurrentModuleObject,
+                                                MultizoneCompExhaustFanData(i).name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 // Ensure a surface using zone exhaust fan to expose to the same zone
@@ -11606,10 +13098,17 @@ namespace AirflowNetwork {
                             !(m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtBoundCond == OtherSideCoefNoCalcExt &&
                               m_state.dataSurface->Surface(MultizoneSurfaceData(i).SurfNum).ExtWind)) {
                             ShowSevereError(m_state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}The surface using {} is not an exterior surface: {}",
                                                                RoutineName,
                                                                CurrentModuleObject,
                                                                MultizoneSurfaceData(j).SurfName));
+=======
+                                            std::format("{}The surface using {} is not an exterior surface: {}",
+                                                        RoutineName,
+                                                        CurrentModuleObject,
+                                                        MultizoneSurfaceData(j).SurfName));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                         break;
@@ -11621,10 +13120,17 @@ namespace AirflowNetwork {
                 } else {
                     if (MultizoneCompExhaustFanData(i).EPlusZoneNum != m_state.dataSurface->Surface(MultizoneSurfaceData(j).SurfNum).Zone) {
                         ShowSevereError(m_state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}Zone name in {} = {} does not match the zone name",
                                                            RoutineName,
                                                            CurrentModuleObject,
                                                            MultizoneCompExhaustFanData(i).name));
+=======
+                                        std::format("{}Zone name in {} = {} does not match the zone name",
+                                                    RoutineName,
+                                                    CurrentModuleObject,
+                                                    MultizoneCompExhaustFanData(i).name));
+>>>>>>> nrel/develop
                         ShowContinueError(m_state, "the surface is exposed to " + m_state.dataSurface->Surface(MultizoneSurfaceData(j).SurfNum).Name);
                         ErrorsFound = true;
                     } else {
@@ -11650,12 +13156,21 @@ namespace AirflowNetwork {
                             }
                         }
                         if (!found) {
+<<<<<<< HEAD
                             ShowSevereError(m_state, EnergyPlus::format("{}Fan:ZoneExhaust is not defined in {}", RoutineName, CurrentModuleObject));
                             ShowContinueError(m_state,
                                               EnergyPlus::format(
                                                   "The inlet node of the {} Fan:ZoneExhaust is not defined in the {}'s ZoneHVAC:EquipmentConnections",
                                                   m_state.dataZoneEquip->ZoneEquipList(j).EquipName,
                                                   m_state.dataZoneEquip->ZoneEquipConfig(j).ZoneName));
+=======
+                            ShowSevereError(m_state, std::format("{}Fan:ZoneExhaust is not defined in {}", RoutineName, CurrentModuleObject));
+                            ShowContinueError(
+                                m_state,
+                                std::format("The inlet node of the {} Fan:ZoneExhaust is not defined in the {}'s ZoneHVAC:EquipmentConnections",
+                                            m_state.dataZoneEquip->ZoneEquipList(j).EquipName(EquipTypeNum),
+                                            m_state.dataZoneEquip->ZoneEquipConfig(j).ZoneName));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -11664,7 +13179,11 @@ namespace AirflowNetwork {
 
             ValidateExhaustFanInputOneTimeFlag = false;
             if (ErrorsFound) {
+<<<<<<< HEAD
                 ShowFatalError(m_state, EnergyPlus::format("{}Program terminates for preceding reason(s).", RoutineName));
+=======
+                ShowFatalError(m_state, std::format("{}Program terminates for preceding reason(s).", RoutineName));
+>>>>>>> nrel/develop
             }
         } // End if OneTimeFlag_FindFirstLastPtr
     }
@@ -11771,8 +13290,12 @@ namespace AirflowNetwork {
                                 if (ControlType == GlobalCtrlType) {
                                     MultizoneSurfaceData(ANSurfaceNum).HybridCtrlGlobal = true;
                                     if (hybridVentMgr.Master == ActualZoneNum) {
+<<<<<<< HEAD
                                         if ((surf.OriginalClass == SurfaceClass::Window || surf.OriginalClass == SurfaceClass::Door ||
                                              surf.OriginalClass == SurfaceClass::GlassDoor) &&
+=======
+                                        if ((SurfaceClassIsWindow(surf.OriginalClass) || SurfaceClassIsDoor(surf.OriginalClass)) &&
+>>>>>>> nrel/develop
                                             surf.ExtBoundCond == ExternalEnvironment) {
                                             MultizoneSurfaceData(ANSurfaceNum).HybridCtrlMaster = true;
                                             Found = true;
@@ -11789,9 +13312,15 @@ namespace AirflowNetwork {
                 if (HybridGlobalErrCount < 2) {
                     ShowWarningError(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}The hybrid ventilation control schedule value indicates global control in the controlled zone = {}",
                                            RoutineName,
                                            m_state.dataHeatBal->Zone(hybridVentMgr.Master).Name));
+=======
+                        std::format("{}The hybrid ventilation control schedule value indicates global control in the controlled zone = {}",
+                                    RoutineName,
+                                    m_state.dataHeatBal->Zone(hybridVentMgr.Master).Name));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "The exterior surface containing an opening component in the controlled zone is not found.  No global control "
                                       "will not be modeled.");
@@ -11800,8 +13329,12 @@ namespace AirflowNetwork {
                 } else {
                     ShowRecurringWarningErrorAtEnd(
                         m_state,
+<<<<<<< HEAD
                         EnergyPlus::format("{}The hybrid ventilation control requires a global control. The individual control continues...",
                                            RoutineName),
+=======
+                        std::format("{}The hybrid ventilation control requires a global control. The individual control continues...", RoutineName),
+>>>>>>> nrel/develop
                         HybridGlobalErrIndex,
                         double(ControlType),
                         double(ControlType));
@@ -11934,12 +13467,21 @@ namespace AirflowNetwork {
                     MultizoneZoneData(AFNZnNum).SingleSidedCpType = "STANDARD";
                 } else if (NumofExtSurfInZone(AFNZnNum) > 2) {
                     ShowWarningError(m_state,
+<<<<<<< HEAD
                                      EnergyPlus::format("AirflowNetwork:Multizone:Zone = {} has single side wind pressure coefficient type "
                                                         "\"ADVANCED\", but has {} exterior "
                                                         "AirflowNetwork:MultiZone:Component:DetailedOpening and/or "
                                                         "AirflowNetwork:MultiZone:Component:SimpleOpening objects.",
                                                         MultizoneZoneData(AFNZnNum).ZoneName,
                                                         NumofExtSurfInZone(AFNZnNum)));
+=======
+                                     std::format("AirflowNetwork:Multizone:Zone = {} has single side wind pressure coefficient type "
+                                                 "\"ADVANCED\", but has {} exterior "
+                                                 "AirflowNetwork:MultiZone:Component:DetailedOpening and/or "
+                                                 "AirflowNetwork:MultiZone:Component:SimpleOpening objects.",
+                                                 MultizoneZoneData(AFNZnNum).ZoneName,
+                                                 NumofExtSurfInZone(AFNZnNum)));
+>>>>>>> nrel/develop
                     ShowContinueError(m_state,
                                       "Zones must have exactly two openings in order for the \"ADVANCED\" single side wind pressure coefficient "
                                       "model to be used.");
@@ -12637,7 +14179,11 @@ namespace AirflowNetwork {
         }
         if (NumOfCtrlZones != 1) {
             ShowWarningError(m_state, "AirflowNetwork Duct Sizing: The current restriction is limited to a single controlled zone only");
+<<<<<<< HEAD
             ShowContinueError(m_state, EnergyPlus::format("The number of controlled zone is {}", NumOfCtrlZones));
+=======
+            ShowContinueError(m_state, std::format("The number of controlled zone is {}", NumOfCtrlZones));
+>>>>>>> nrel/develop
             ShowContinueError(m_state, "..Duct sizing is not performed");
             simulation_control.autosize_ducts = false;
             simulation_control.iWPCCnt = iWPCCntr::Input;
@@ -12752,8 +14298,12 @@ namespace AirflowNetwork {
                                     ++ErrCountDuct; // TODO: Why is the error count shared among all heat pump units?
                                     ShowWarningError(m_state,
                                                      "AirflowNetwork Duct Autosizing: Iteration limit exceeded calculating Supply Duct Trunk size.");
+<<<<<<< HEAD
                                     ShowContinueErrorTimeStamp(m_state,
                                                                EnergyPlus::format("Supply Duct Hydronic Diameter={:.2R}", hydraulicDiameter));
+=======
+                                    ShowContinueErrorTimeStamp(m_state, std::format("Supply Duct Hydronic Diameter={:.2f}", hydraulicDiameter));
+>>>>>>> nrel/develop
                                 } else {
                                     ++ErrCountDuct;
                                     ShowRecurringWarningErrorAtEnd(
@@ -12787,10 +14337,16 @@ namespace AirflowNetwork {
                                 m_state, "AirflowNetwork Duct Sizing: Duct Sizing Method = PressureLossWithMaximumVelocity for Supply Trunk size");
                             ShowContinueError(
                                 m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "The Maximum Airflow Velocity at {:.1R} is less than calculated velosity at {:.1R} using PressureLoss",
                                     simulation_control.ductSizing.max_velocity,
                                     Velocity));
+=======
+                                std::format("The Maximum Airflow Velocity at {:.1f} is less than calculated velocity at {:.1f} using PressureLoss",
+                                            simulation_control.ductSizing.max_velocity,
+                                            Velocity));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state, "..The Maximum Airflow Velocity is used to calculate Supply Trunk Diameter");
                         }
                     }
@@ -12875,8 +14431,12 @@ namespace AirflowNetwork {
                                     ++ErrCountDuct; // TODO: Why is the error count shared among all heat pump units?
                                     ShowWarningError(m_state,
                                                      "AirflowNetwork Duct Autosizing: Iteration limit exceeded calculating Supply Duct Branch size.");
+<<<<<<< HEAD
                                     ShowContinueErrorTimeStamp(m_state,
                                                                EnergyPlus::format("Supply Duct Hydronic Diameter={:.2R}", hydraulicDiameter));
+=======
+                                    ShowContinueErrorTimeStamp(m_state, std::format("Supply Duct Hydronic Diameter={:.2f}", hydraulicDiameter));
+>>>>>>> nrel/develop
                                 } else {
                                     ++ErrCountDuct;
                                     ShowRecurringWarningErrorAtEnd(
@@ -12910,10 +14470,16 @@ namespace AirflowNetwork {
                                 m_state, "AirflowNetwork Duct Sizing: Duct Sizing Method = PressureLossWithMaximumVelocity for Supply Branch size");
                             ShowContinueError(
                                 m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "The Maximum Airflow Velocity at {:.1R} is less than calculated velosity at {:.1R} using PressureLoss",
                                     simulation_control.ductSizing.max_velocity,
                                     Velocity));
+=======
+                                std::format("The Maximum Airflow Velocity at {:.1f} is less than calculated velocity at {:.1f} using PressureLoss",
+                                            simulation_control.ductSizing.max_velocity,
+                                            Velocity));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state, "..The Maximum Airflow Velocity is used to calculate Supply Branch Diameter");
                         }
                     }
@@ -13003,8 +14569,12 @@ namespace AirflowNetwork {
                                     ++ErrCountDuct; // TODO: Why is the error count shared among all heat pump units?
                                     ShowWarningError(m_state,
                                                      "AirflowNetwork Duct Autosizing: Iteration limit exceeded calculating Return Duct Trunk size.");
+<<<<<<< HEAD
                                     ShowContinueErrorTimeStamp(m_state,
                                                                EnergyPlus::format("Return Duct Hydronic Diameter={:.2R}", hydraulicDiameter));
+=======
+                                    ShowContinueErrorTimeStamp(m_state, std::format("Return Duct Hydronic Diameter={:.2f}", hydraulicDiameter));
+>>>>>>> nrel/develop
                                 } else {
                                     ++ErrCountDuct;
                                     ShowRecurringWarningErrorAtEnd(
@@ -13038,10 +14608,16 @@ namespace AirflowNetwork {
                                 m_state, "AirflowNetwork Duct Sizing: Duct Sizing Method = PressureLossWithMaximumVelocity for Return Trunk size");
                             ShowContinueError(
                                 m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "The Maximum Airflow Velocity at {:.1R} is less than calculated velosity at {:.1R} using PressureLoss",
                                     simulation_control.ductSizing.max_velocity,
                                     Velocity));
+=======
+                                std::format("The Maximum Airflow Velocity at {:.1f} is less than calculated velocity at {:.1f} using PressureLoss",
+                                            simulation_control.ductSizing.max_velocity,
+                                            Velocity));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state, "..The Maximum Airflow Velocity is used to calculate Return Trunk Diameter");
                         }
                     }
@@ -13127,8 +14703,12 @@ namespace AirflowNetwork {
                                     ++ErrCountDuct; // TODO: Why is the error count shared among all heat pump units?
                                     ShowWarningError(m_state,
                                                      "AirflowNetwork Duct Autosizing: Iteration limit exceeded calculating Return Duct Branch size.");
+<<<<<<< HEAD
                                     ShowContinueErrorTimeStamp(m_state,
                                                                EnergyPlus::format("Return Duct Hydronic Diameter={:.2R}", hydraulicDiameter));
+=======
+                                    ShowContinueErrorTimeStamp(m_state, std::format("Return Duct Hydronic Diameter={:.2f}", hydraulicDiameter));
+>>>>>>> nrel/develop
                                 } else {
                                     ++ErrCountDuct;
                                     ShowRecurringWarningErrorAtEnd(
@@ -13162,10 +14742,16 @@ namespace AirflowNetwork {
                                 m_state, "AirflowNetwork Duct Sizing: Duct Sizing Method = PressureLossWithMaximumVelocity for Return Branch size");
                             ShowContinueError(
                                 m_state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
                                     "The Maximum Airflow Velocity at {:.1R} is less than calculated velosity at {:.1R} using PressureLoss",
                                     simulation_control.ductSizing.max_velocity,
                                     Velocity));
+=======
+                                std::format("The Maximum Airflow Velocity at {:.1f} is less than calculated velocity at {:.1f} using PressureLoss",
+                                            simulation_control.ductSizing.max_velocity,
+                                            Velocity));
+>>>>>>> nrel/develop
                             ShowContinueError(m_state, "..The Maximum Airflow Velocity is used to calculate Return Branch Diameter");
                         }
                     }
@@ -13222,28 +14808,44 @@ namespace AirflowNetwork {
                       "AirflowNetwork Model:Duct Autosizing, {}, Supply Trunk, {}, ",
                       AirflowNetworkLinkageData(AFNLinkNum).Name,
                       disSysCompDuct.name);
+<<<<<<< HEAD
                 print(m_state.files.eio, "{:.4R},{:.4R}\n", SupplyTrunkD, SupplyTrunkArea);
+=======
+                print(m_state.files.eio, "{:.4f},{:.4f}\n", SupplyTrunkD, SupplyTrunkArea);
+>>>>>>> nrel/develop
             }
             if (AirflowNetworkLinkageData(AFNLinkNum).ductLineType == DuctLineType::SupplyBranch) {
                 print(m_state.files.eio,
                       "AirflowNetwork Model:Duct Autosizing, {}, Supply Branch, {}, ",
                       AirflowNetworkLinkageData(AFNLinkNum).Name,
                       disSysCompDuct.name);
+<<<<<<< HEAD
                 print(m_state.files.eio, "{:.4R},{:.4R}\n", SupplyBranchD, SupplyBranchArea);
+=======
+                print(m_state.files.eio, "{:.4f},{:.4f}\n", SupplyBranchD, SupplyBranchArea);
+>>>>>>> nrel/develop
             }
             if (AirflowNetworkLinkageData(AFNLinkNum).ductLineType == DuctLineType::ReturnTrunk) {
                 print(m_state.files.eio,
                       "AirflowNetwork Model:Duct Autosizing, {}, Return Trunk, {}, ",
                       AirflowNetworkLinkageData(AFNLinkNum).Name,
                       disSysCompDuct.name);
+<<<<<<< HEAD
                 print(m_state.files.eio, "{:.4R},{:.4R}\n", ReturnTrunkD, ReturnTrunkArea);
+=======
+                print(m_state.files.eio, "{:.4f},{:.4f}\n", ReturnTrunkD, ReturnTrunkArea);
+>>>>>>> nrel/develop
             }
             if (AirflowNetworkLinkageData(AFNLinkNum).ductLineType == DuctLineType::ReturnBranch) {
                 print(m_state.files.eio,
                       "AirflowNetwork Model:Duct Autosizing, {}, Return Branch, {}, ",
                       AirflowNetworkLinkageData(AFNLinkNum).Name,
                       disSysCompDuct.name);
+<<<<<<< HEAD
                 print(m_state.files.eio, "{:.4R},{:.4R}\n", ReturnBranchD, ReturnBranchArea);
+=======
+                print(m_state.files.eio, "{:.4f},{:.4f}\n", ReturnBranchD, ReturnBranchArea);
+>>>>>>> nrel/develop
             }
         }
     }
@@ -13285,7 +14887,11 @@ namespace AirflowNetwork {
         Real64 viscosity{AirflowNetwork::AIRDYNAMICVISCOSITY_CONSTEXPR(20)};
         velocity = flowrate / A;
 
+<<<<<<< HEAD
         if (LamFriCoef >= 0.001) {
+=======
+        if constexpr (LamFriCoef >= 0.001) {
+>>>>>>> nrel/develop
             A2 = LamFriCoef / (2.0 * m_state.dataEnvrn->StdRhoAir * A * A);
             A1 = (viscosity * LamDynCoef * ld) / (2.0 * m_state.dataEnvrn->StdRhoAir * A * hydraulicDiameter);
             A0 = -DeltaP;
@@ -13388,7 +14994,11 @@ namespace AirflowNetwork {
         if (Toperative > (Tcomfort + ComfortBand)) {
             if (opening_probability(state, ZoneNum, TimeCloseDuration)) {
                 OpeningProbStatus = ProbabilityCheck::ForceChange;
+<<<<<<< HEAD
                 ; // forced to open
+=======
+                // forced to open
+>>>>>>> nrel/develop
             } else {
                 OpeningProbStatus = ProbabilityCheck::KeepStatus; // Keep previous status
             }
@@ -13463,7 +15073,11 @@ namespace AirflowNetwork {
         return false;
     }
 
+<<<<<<< HEAD
     bool OccupantVentilationControlProp::closing_probability(EnergyPlusData &state,
+=======
+    bool OccupantVentilationControlProp::closing_probability([[maybe_unused]] EnergyPlusData &state,
+>>>>>>> nrel/develop
                                                              Real64 const TimeOpenDuration) // function to perform calculations of closing probability
     {
         Real64 SchValue;

@@ -102,7 +102,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   AirLoopHVAC:UnitaryHeatPump:AirToAir,
     DXAC Heat Pump 1,        !- Name

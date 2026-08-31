@@ -17,7 +17,11 @@ else ()
     add_library(${PROJECT_NAME} SHARED ${library_sources})
 endif ()
 
+<<<<<<< HEAD
 target_link_libraries(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}_interface courierr fmt)
+=======
+target_link_libraries(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}_interface courierr)
+>>>>>>> nrel/develop
 
 target_compile_options(btwxt PRIVATE
         $<$<CXX_COMPILER_ID:MSVC>:/W4>

@@ -65,7 +65,11 @@ std::string format_errors_or_warnings(std::vector<std::pair<std::string, bool>> 
 
     std::string errs;
     for (auto const &[error, isContinued] : errors) {
+<<<<<<< HEAD
         errs += fmt::format("{}{}\n", isContinued ? "**   ~~~   **" : base, error);
+=======
+        errs += std::format("{}{}\n", isContinued ? "**   ~~~   **" : base, error);
+>>>>>>> nrel/develop
     }
     return errs;
 }

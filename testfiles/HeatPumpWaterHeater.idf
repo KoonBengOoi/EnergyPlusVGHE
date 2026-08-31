@@ -127,7 +127,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Building,                !- Name
@@ -3111,7 +3115,11 @@
   ZoneControl:Humidistat,
     Space2-1 Humidistat,     !- Name
     SPACE2-1,                !- Zone Name
+<<<<<<< HEAD
     Seasonal Relative Humidity Sch;  !- Humidifying Relative Humidity Setpoint Schedule Name
+=======
+    Seasonal Relative Humidity Sch;  !- Humidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Thermostat,
     SPACE3-1 Control,        !- Name

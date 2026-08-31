@@ -10,7 +10,11 @@
 ! Modified: Conforms with Beta 4 input
 ! 2 design days to facilitate reverse DD testing.
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Site:Location,
     ATLANTA,                 !- Name

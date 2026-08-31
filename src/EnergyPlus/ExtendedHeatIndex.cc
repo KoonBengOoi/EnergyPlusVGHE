@@ -59,8 +59,15 @@
 // }
 //
 
+<<<<<<< HEAD
 #include <cmath>
 
+=======
+// C++ Headers
+#include <cmath>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/ExtendedHeatIndex.hh>
 #include <EnergyPlus/General.hh>
@@ -94,8 +101,11 @@ namespace ExtendedHI {
             return ptrip * pow((T / Ttrip), ((cpv - cvs) / rgasv)) * exp((E0v + E0s - (cvv - cvs) * Ttrip) / rgasv * (1. / Ttrip - 1. / T));
         }
         return ptrip * pow((T / Ttrip), ((cpv - cvl) / rgasv)) * exp((E0v - (cvv - cvl) * Ttrip) / rgasv * (1. / Ttrip - 1. / T));
+<<<<<<< HEAD
 
         return 0.0;
+=======
+>>>>>>> nrel/develop
     }
 
     // The latent heat of vaporization of water

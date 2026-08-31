@@ -43,7 +43,11 @@
 ! RoofConstruction=Insulation Entirely Above Deck
 ! ExtWallConstruction=Steel-Framed
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,6;
 

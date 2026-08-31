@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -104,10 +108,14 @@ namespace PlantComponentTemperatureSources {
         }
         // If we didn't find it, fatal
         ShowFatalError(
+<<<<<<< HEAD
             state,
             EnergyPlus::format("LocalTemperatureSourceFactory: Error getting inputs for temperature source named: {}", objectName)); // LCOV_EXCL_LINE
         // Shut up the compiler
         return nullptr; // LCOV_EXCL_LINE
+=======
+            state, std::format("LocalTemperatureSourceFactory: Error getting inputs for temperature source named: {}", objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
     }
 
     void WaterSourceSpecs::initialize(EnergyPlusData &state, Real64 &MyLoad)
@@ -312,6 +320,7 @@ namespace PlantComponentTemperatureSources {
                             if (state.dataGlobal->DisplayExtraWarnings) {
                                 if ((std::abs(tmpVolFlowRate - DesVolFlowRateUser) / DesVolFlowRateUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                     ShowMessage(state,
                                                 EnergyPlus::format(
                                                     "SizePlantComponentTemperatureSource: Potential issue with equipment sizing for {}", this->Name));
@@ -320,6 +329,15 @@ namespace PlantComponentTemperatureSources {
                                     ShowContinueError(
                                         state,
                                         EnergyPlus::format("differs from Design Size Design Fluid Flow Rate of {:.5R} [m3/s]", tmpVolFlowRate));
+=======
+                                    ShowMessage(
+                                        state,
+                                        std::format("SizePlantComponentTemperatureSource: Potential issue with equipment sizing for {}", this->Name));
+                                    ShowContinueError(state,
+                                                      std::format("User-Specified Design Fluid Flow Rate of {:.5f} [m3/s]", DesVolFlowRateUser));
+                                    ShowContinueError(
+                                        state, std::format("differs from Design Size Design Fluid Flow Rate of {:.5f} [m3/s]", tmpVolFlowRate));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -332,7 +350,11 @@ namespace PlantComponentTemperatureSources {
         } else {
             if (this->DesVolFlowRateWasAutoSized && state.dataPlnt->PlantFirstSizesOkayToFinalize) {
                 ShowSevereError(state, "Autosizing of plant component temperature source flow rate requires a loop Sizing:Plant object");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("Occurs in PlantComponent:TemperatureSource object={}", this->Name));
+=======
+                ShowContinueError(state, std::format("Occurs in PlantComponent:TemperatureSource object={}", this->Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
             if (!this->DesVolFlowRateWasAutoSized && state.dataPlnt->PlantFinalSizesOkayToReport) {
@@ -421,7 +443,11 @@ namespace PlantComponentTemperatureSources {
             PlantUtilities::ScanPlantLoopsForObject(
                 state, this->Name, DataPlant::PlantEquipmentType::WaterSource, this->plantLoc, errFlag, _, _, _, this->InletNodeNum, _);
             if (errFlag) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("{}: Program terminated due to previous condition(s).", RoutineName));
+=======
+                ShowFatalError(state, std::format("{}: Program terminated due to previous condition(s).", RoutineName));
+>>>>>>> nrel/develop
             }
             this->MyFlag = false;
         }
@@ -464,7 +490,11 @@ namespace PlantComponentTemperatureSources {
         state.dataPlantCompTempSrc->NumSources = state.dataInputProcessing->inputProcessor->getNumObjectsFound(state, cCurrentModuleObject);
 
         if (state.dataPlantCompTempSrc->NumSources <= 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("No {} equipment specified in input file", cCurrentModuleObject));
+=======
+            ShowSevereError(state, std::format("No {} equipment specified in input file", cCurrentModuleObject));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
 
@@ -536,17 +566,28 @@ namespace PlantComponentTemperatureSources {
                     ErrorsFound = true;
                 }
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Input error for {}={}", cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
                 ShowContinueError(
                     state,
                     EnergyPlus::format(R"(Invalid temperature specification type.  Expected either "Constant" or "Scheduled". Encountered {})",
                                        state.dataIPShortCut->cAlphaArgs(4)));
+=======
+                ShowSevereError(state, std::format("Input error for {}={}", cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format(R"(Invalid temperature specification type.  Expected either "Constant" or "Scheduled". Encountered {})",
+                                              state.dataIPShortCut->cAlphaArgs(4)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("Errors found in processing input for {}", cCurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("Errors found in processing input for {}", cCurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 

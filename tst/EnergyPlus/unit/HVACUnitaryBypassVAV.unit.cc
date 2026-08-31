@@ -71,6 +71,10 @@
 #include <EnergyPlus/MixedAir.hh>
 #include <EnergyPlus/OutputReportPredefined.hh>
 #include <EnergyPlus/Psychrometrics.hh>
+<<<<<<< HEAD
+=======
+#include <EnergyPlus/ReportCoilSelection.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/ScheduleManager.hh>
 #include <EnergyPlus/SimAirServingZones.hh>
 #include <EnergyPlus/SimulationManager.hh>
@@ -94,7 +98,11 @@ public:
     bool ErrorsFound = false;
 
 protected:
+<<<<<<< HEAD
     virtual void SetUp() // Please don't do this
+=======
+    void SetUp() override // Please don't do this
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::SetUp(); // Sets up the base fixture first.
 
@@ -202,6 +210,7 @@ protected:
         state->dataDXCoils->DXCoilNumericFields.allocate(1);
         state->dataDXCoils->DXCoilNumericFields(1).PerfMode.allocate(1);
         state->dataDXCoils->DXCoilNumericFields(1).PerfMode(1).FieldNames.allocate(20);
+<<<<<<< HEAD
         state->dataDXCoils->DXCoil(1).Name = "MyDXCoolCoil";
         state->dataDXCoils->DXCoil(1).DXCoilType = "COIL:COOLING:DX:SINGLESPEED";
         state->dataDXCoils->NumDXCoils = 1;
@@ -229,6 +238,37 @@ protected:
         state->dataDXCoils->DXCoil(1).RatedSHR.allocate(1);
         state->dataDXCoils->DXCoil(1).RatedSHR(1) = 0.7;
         state->dataDXCoils->DXCoil(1).availSched = Sched::GetScheduleAlwaysOn(*state);
+=======
+        auto &dxCoil1 = state->dataDXCoils->DXCoil(1);
+        dxCoil1.Name = "MyDXCoolCoil";
+        dxCoil1.coilType = HVAC::CoilType::CoolingDXSingleSpeed;
+        dxCoil1.coilReportNum = ReportCoilSelection::getReportIndex(*state, dxCoil1.Name, dxCoil1.coilType);
+        state->dataDXCoils->NumDXCoils = 1;
+        state->dataDXCoils->CheckEquipName.dimension(1, true);
+        state->dataDXCoils->GetCoilsInputFlag = false;
+        dxCoil1.CCapFFlow.allocate(1);
+        dxCoil1.CCapFFlow(1) = 1;
+        dxCoil1.CCapFTemp.allocate(1);
+        dxCoil1.CCapFTemp(1) = 1;
+        dxCoil1.EIRFFlow.allocate(1);
+        dxCoil1.EIRFFlow(1) = 1;
+        dxCoil1.EIRFTemp.allocate(1);
+        dxCoil1.EIRFTemp(1) = 1;
+        dxCoil1.PLFFPLR.allocate(1);
+        dxCoil1.PLFFPLR(1) = 1;
+        state->dataDXCoils->DXCoilFullLoadOutAirTemp.allocate(1);
+        state->dataDXCoils->DXCoilFullLoadOutAirHumRat.allocate(1);
+        dxCoil1.RatedAirVolFlowRate.allocate(1);
+        dxCoil1.RatedAirVolFlowRate(1) = 0.5;
+        dxCoil1.RatedTotCap.allocate(1);
+        dxCoil1.RatedTotCap(1) = 10000.0;
+        dxCoil1.RatedCOP(1) = 3.3333;
+        dxCoil1.RatedEIR.allocate(1);
+        dxCoil1.RatedEIR(1) = 0.3;
+        dxCoil1.RatedSHR.allocate(1);
+        dxCoil1.RatedSHR(1) = 0.7;
+        dxCoil1.availSched = Sched::GetScheduleAlwaysOn(*state);
+>>>>>>> nrel/develop
         state->dataDXCoils->DXCoilOutletTemp.allocate(1);
         state->dataDXCoils->DXCoilOutletHumRat.allocate(1);
         state->dataDXCoils->DXCoilPartLoadRatio.allocate(1);
@@ -236,19 +276,37 @@ protected:
         state->dataHeatBal->HeatReclaimDXCoil.allocate(1);
 
         cbvav.DXCoolCoilName = "MyDXCoolCoil";
+<<<<<<< HEAD
         state->dataDXCoils->DXCoil(1).DXCoilType_Num = HVAC::CoilDX_CoolingSingleSpeed;
         state->dataHeatingCoils->HeatingCoil.allocate(1);
         state->dataHeatingCoils->HeatingCoilNumericFields.allocate(1);
         state->dataHeatingCoils->HeatingCoilNumericFields(1).FieldNames.allocate(20);
         state->dataHeatingCoils->HeatingCoil(1).Name = "MyHeatingCoil";
         state->dataHeatingCoils->HeatingCoil(1).HCoilType_Num = HVAC::Coil_HeatingElectric;
+=======
+        dxCoil1.coilType = HVAC::CoilType::CoolingDXSingleSpeed;
+        dxCoil1.coilReportNum = ReportCoilSelection::getReportIndex(*state, dxCoil1.Name, dxCoil1.coilType);
+
+        state->dataHeatingCoils->HeatingCoil.allocate(1);
+        state->dataHeatingCoils->HeatingCoilNumericFields.allocate(1);
+        state->dataHeatingCoils->HeatingCoilNumericFields(1).FieldNames.allocate(20);
+        auto &heatingCoil1 = state->dataHeatingCoils->HeatingCoil(1);
+        heatingCoil1.Name = "MyHeatingCoil";
+        heatingCoil1.coilType = HVAC::CoilType::HeatingElectric;
+        heatingCoil1.coilReportNum = ReportCoilSelection::getReportIndex(*state, heatingCoil1.Name, heatingCoil1.coilType);
+>>>>>>> nrel/develop
         state->dataHeatingCoils->NumHeatingCoils = 1;
         state->dataHeatingCoils->ValidSourceType.dimension(state->dataHeatingCoils->NumHeatingCoils, false);
         state->dataHeatingCoils->GetCoilsInputFlag = false;
         state->dataSize->UnitarySysEqSizing.allocate(1);
         cbvav.HeatCoilName = "MyHeatingCoil";
+<<<<<<< HEAD
         cbvav.CoolCoilType = HVAC::CoilType::DXCoolingSingleSpeed;
         cbvav.HeatCoilType = HVAC::CoilType::HeatingElectric;
+=======
+        cbvav.coolCoilType = HVAC::CoilType::CoolingDXSingleSpeed;
+        cbvav.heatCoilType = HVAC::CoilType::HeatingElectric;
+>>>>>>> nrel/develop
         cbvav.minModeChangeTime = 0.0;
         cbvav.AirInNode = 1;
         cbvav.AirOutNode = 2;
@@ -274,6 +332,7 @@ protected:
         state->dataMixedAir->OAMixer(1).RelNode = 4;
         state->dataMixedAir->OAMixer(1).RetNode = 6;
         state->dataMixedAir->OAMixer(1).MixNode = 7;
+<<<<<<< HEAD
         state->dataDXCoils->DXCoil(1).AirInNode = 7;
         cbvav.DXCoilInletNode = state->dataDXCoils->DXCoil(1).AirInNode;
         state->dataDXCoils->DXCoil(1).AirOutNode = 8;
@@ -286,6 +345,20 @@ protected:
         state->dataHeatingCoils->HeatingCoil(1).NominalCapacity = 10000.0;
         state->dataHeatingCoils->HeatingCoil(1).Efficiency = 1.0;
         state->dataHeatingCoils->HeatingCoil(1).availSched = Sched::GetScheduleAlwaysOn(*state);
+=======
+        dxCoil1.AirInNode = 7;
+        cbvav.DXCoilInletNode = dxCoil1.AirInNode;
+        dxCoil1.AirOutNode = 8;
+        cbvav.DXCoilOutletNode = dxCoil1.AirOutNode;
+        heatingCoil1.AirInletNodeNum = 8;
+        cbvav.HeatingCoilInletNode = heatingCoil1.AirInletNodeNum;
+        heatingCoil1.AirOutletNodeNum = 9;
+        heatingCoil1.TempSetPointNodeNum = 9;
+        cbvav.HeatingCoilOutletNode = heatingCoil1.AirOutletNodeNum;
+        heatingCoil1.NominalCapacity = 10000.0;
+        heatingCoil1.Efficiency = 1.0;
+        heatingCoil1.availSched = Sched::GetScheduleAlwaysOn(*state);
+>>>>>>> nrel/develop
 
         cbvav.CBVAVBoxOutletNode.allocate(1);
         cbvav.CBVAVBoxOutletNode(1) = 11;
@@ -302,10 +375,16 @@ protected:
         state->dataAirLoop->AirLoopFlow.allocate(1);
         state->dataAirSystemsData->PrimaryAirSystems.allocate(1);
         state->dataAirLoop->AirLoopControlInfo.allocate(1);
+<<<<<<< HEAD
         OutputReportPredefined::SetPredefinedTables(*state);
     }
 
     virtual void TearDown()
+=======
+    }
+
+    void TearDown() override
+>>>>>>> nrel/develop
     {
         EnergyPlusFixture::TearDown(); // Remember to tear down the base fixture after cleaning up derived fixture!
     }

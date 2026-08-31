@@ -66,6 +66,7 @@ struct EnergyPlusData;
 
 namespace UnitHeater {
 
+<<<<<<< HEAD
     enum class HCoilType
     {
         Invalid = -1,
@@ -83,6 +84,8 @@ namespace UnitHeater {
         "COIL:HEATING:STEAM",
     };
 
+=======
+>>>>>>> nrel/develop
     struct UnitHeaterData
     {
         // Members
@@ -103,10 +106,17 @@ namespace UnitHeater {
         std::string FanOperatesDuringNoHeating; // Indicates whether fan operates or not during no heating
         int FanOutletNode;                      // outlet node number for fan exit
         // (assumes fan is upstream of heating coil)
+<<<<<<< HEAD
         HVAC::FanOp fanOp = HVAC::FanOp::Invalid; // mode of operation; 1=cycling fan, cycling coil, 2=continuous fan, cycling coil
         HCoilType Type;                           // type of heating coil (water, gas, electric, etc.)
         std::string HCoilTypeCh;                  // actual object name
         std::string HCoilName;                    // name of heating coil
+=======
+        HVAC::FanOp fanOp = HVAC::FanOp::Invalid;              // mode of operation; 1=cycling fan, cycling coil, 2=continuous fan, cycling coil
+        HVAC::CoilType heatCoilType = HVAC::CoilType::Invalid; // type of heating coil (water, gas, electric, etc.)
+        std::string HCoilTypeCh;                               // actual object name
+        std::string HCoilName;                                 // name of heating coil
+>>>>>>> nrel/develop
         int HCoil_Index;
         DataPlant::PlantEquipmentType HeatingCoilType;
         Fluid::RefrigProps *HCoil_fluid = nullptr;

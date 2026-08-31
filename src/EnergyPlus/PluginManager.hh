@@ -49,6 +49,7 @@
 #define EPLUS_PLUGIN_MANAGER_HH
 
 // C++ Headers
+<<<<<<< HEAD
 #include <iomanip>
 #include <queue>
 #include <utility>
@@ -56,6 +57,12 @@
 
 // EnergyPlus Headers
 #include <EnergyPlus/DataGlobals.hh>
+=======
+#include <queue>
+#include <vector>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/EMSManager.hh>
 #include <EnergyPlus/EnergyPlus.hh>
 
@@ -73,8 +80,11 @@ struct EnergyPlusData;
 
 namespace PluginManagement {
 
+<<<<<<< HEAD
     constexpr const char *programName = "python";
 
+=======
+>>>>>>> nrel/develop
     void registerNewCallback(const EnergyPlusData &state, EMSManager::EMSCallFrom iCalledFrom, const std::function<void(void *)> &f);
     void registerUserDefinedCallback(const EnergyPlusData &state, const std::function<void(void *)> &f, const std::string &programNameInInputFile);
 
@@ -103,7 +113,10 @@ namespace PluginManagement {
         void shutdown() const;
 
         // methods
+<<<<<<< HEAD
         static void reportPythonError(EnergyPlusData &state);
+=======
+>>>>>>> nrel/develop
         bool run(EnergyPlusData &state, EMSManager::EMSCallFrom iCallingPoint) const; // calls main() on this plugin instance
 
         // plugin calling point hooks
@@ -176,7 +189,10 @@ namespace PluginManagement {
         ~PluginManager();
 
         static int numActiveCallbacks(const EnergyPlusData &state);
+<<<<<<< HEAD
         static void addToPythonPath(EnergyPlusData &state, const fs::path &includePath, bool userDefinedPath);
+=======
+>>>>>>> nrel/develop
         static void setupOutputVariables(EnergyPlusData &state);
 
         int maxGlobalVariableIndex = -1;

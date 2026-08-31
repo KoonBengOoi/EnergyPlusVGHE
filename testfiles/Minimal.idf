@@ -12,7 +12,11 @@
 !
 ! HVAC: None.
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 

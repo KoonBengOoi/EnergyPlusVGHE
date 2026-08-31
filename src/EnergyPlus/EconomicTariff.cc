@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cassert>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -224,7 +228,11 @@ void UpdateUtilityBills(EnergyPlusData &state)
     //    Single routine used to call all get input
     //    routines for economics.
 
+<<<<<<< HEAD
     auto &s_econ = state.dataEconTariff;
+=======
+    const auto &s_econ = state.dataEconTariff;
+>>>>>>> nrel/develop
 
     if (s_econ->Update_GetInput) {
         bool ErrorsFound = false;
@@ -318,7 +326,11 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
         for (int jFld = 1; jFld <= NumAlphas; ++jFld) {
             //  args are always turned to upper case but this is okay...
             if (hasi(s_ipsc->cAlphaArgs(jFld), "UtilityCost:")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... a field was found containing UtilityCost: which may indicate a missing comma.");
             }
         }
@@ -342,11 +354,18 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
         GetVariableKeyCountandType(state, tariff.reportMeter, KeyCount, TypeVar, AvgSumVar, StepTypeVar, UnitsVar);
         // if no meters found for that name
         if (KeyCount == 0) {
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\" missing meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
             ShowContinueError(
                 state,
                 EnergyPlus::format("Meter referenced is not present due to a lack of equipment that uses that energy source/meter:\"{}\".",
                                    tariff.reportMeter));
+=======
+            ShowWarningError(state, std::format("{}{}=\"{}\" missing meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+            ShowContinueError(state,
+                              std::format("Meter referenced is not present due to a lack of equipment that uses that energy source/meter:\"{}\".",
+                                          tariff.reportMeter));
+>>>>>>> nrel/develop
             tariff.reportMeterIndx = -1;
         } else {
             NamesOfKeys.allocate(KeyCount);
@@ -354,7 +373,11 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
             GetVariableKeys(state, tariff.reportMeter, TypeVar, NamesOfKeys, IndexesForKeyVar);
             // although this retrieves all keys for a variable, we only need one so the first one is chosen
             if (KeyCount > 1) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\" multiple keys", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\" multiple keys", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... Multiple keys for variable select. First key will be used.");
             }
             // assign the index
@@ -492,9 +515,15 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
                 tariff.demandConv = 0.00003412;
                 ShowWarningCustom(state,
                                   eoh,
+<<<<<<< HEAD
                                   EnergyPlus::format("{}=\"{}\", Therm is an unusual choice for an electric resource.",
                                                      s_ipsc->cAlphaFieldNames(3),
                                                      s_ipsc->cAlphaArgs(3)));
+=======
+                                  std::format("{}=\"{}\", Therm is an unusual choice for an electric resource.",
+                                              s_ipsc->cAlphaFieldNames(3),
+                                              s_ipsc->cAlphaArgs(3)));
+>>>>>>> nrel/develop
             } break;
 
                 // Otherwise, default to kWh
@@ -652,10 +681,17 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
                 case 15: {
                     tariff.demandWindow = DemandWindow::Hour;
                     tariff.demWinTime = 1.00;
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\" invalid data", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(state,
                                       EnergyPlus::format("Demand window of QuarterHour is not consistent with number of timesteps per hour [{}].",
                                                          state.dataGlobal->TimeStepsInHour));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\" invalid data", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(state,
+                                      std::format("Demand window of QuarterHour is not consistent with number of timesteps per hour [{}].",
+                                                  state.dataGlobal->TimeStepsInHour));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Demand window will be set to FullHour, and the simulation continues.");
                 } break;
                 case 2:
@@ -664,10 +700,17 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
                 case 30: {
                     tariff.demandWindow = DemandWindow::Half;
                     tariff.demWinTime = 0.50;
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\" invalid data", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(state,
                                       EnergyPlus::format("Demand window of QuarterHour is not consistent with number of timesteps per hour [{}].",
                                                          state.dataGlobal->TimeStepsInHour));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\" invalid data", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(state,
+                                      std::format("Demand window of QuarterHour is not consistent with number of timesteps per hour [{}].",
+                                                  state.dataGlobal->TimeStepsInHour));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Demand window will be set to HalfHour, and the simulation continues.");
                 } break;
                 case 4:
@@ -691,10 +734,17 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
                 case 15: {
                     tariff.demandWindow = DemandWindow::Hour;
                     tariff.demWinTime = 1.00;
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\" invalid data", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(state,
                                       EnergyPlus::format("Demand window of HalfHour is not consistent with number of timesteps per hour [{}].",
                                                          state.dataGlobal->TimeStepsInHour));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\" invalid data", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(state,
+                                      std::format("Demand window of HalfHour is not consistent with number of timesteps per hour [{}].",
+                                                  state.dataGlobal->TimeStepsInHour));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Demand window will be set to FullHour, and the simulation continues.");
                 } break;
                 case 2:
@@ -782,27 +832,45 @@ void GetInputEconomicsTariff(EnergyPlusData &state, bool &ErrorsFound) // true i
         // check if meter is consistent with buy or sell option
         if (tariff.buyOrSell == BuySell::SellToUtility) {
             if (!Util::SameString(tariff.reportMeter, "ELECTRICITYSURPLUSSOLD:FACILITY")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\" atypical meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                 ShowContinueError(
                     state, EnergyPlus::format("The meter chosen \"{}\" is not typically used with the sellToUtility option.", tariff.reportMeter));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\" atypical meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format("The meter chosen \"{}\" is not typically used with the sellToUtility option.", tariff.reportMeter));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Usually the ElectricitySurplusSold:Facility meter is selected when the sellToUtility option is used.");
             }
         } else if (tariff.buyOrSell == BuySell::NetMetering) {
             if (!Util::SameString(tariff.reportMeter, "ELECTRICITYNET:FACILITY")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\" atypical meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                 ShowContinueError(
                     state, EnergyPlus::format("The meter chosen \"{}\" is not typically used with the netMetering option.", tariff.reportMeter));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\" atypical meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format("The meter chosen \"{}\" is not typically used with the netMetering option.", tariff.reportMeter));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Usually the ElectricityNet:Facility meter is selected when the netMetering option is used.");
             }
         } else if (tariff.buyOrSell == BuySell::BuyFromUtility) {
             if (hasi(tariff.reportMeter, "Elec")) { // test if electric meter
                 if (!(Util::SameString(tariff.reportMeter, "Electricity:Facility") ||
                       Util::SameString(tariff.reportMeter, "ElectricityPurchased:Facility"))) {
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format("{}{}=\"{}\" atypical meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("The meter chosen \"{}\" is not typically used with the buyFromUtility option.", tariff.reportMeter));
+=======
+                    ShowWarningError(state, std::format("{}{}=\"{}\" atypical meter", RoutineName, CurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(
+                        state, std::format("The meter chosen \"{}\" is not typically used with the buyFromUtility option.", tariff.reportMeter));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "Usually the Electricity:Facility meter or the ElectricityPurchased:Facility is selected when the "
                                       "buyFromUtility option is used.");
@@ -881,7 +949,11 @@ void GetInputEconomicsQualify(EnergyPlusData &state, bool &ErrorsFound) // true 
         // check to make sure none of the values are another economic object
         for (jFld = 1; jFld <= NumAlphas; ++jFld) {
             if (hasi(s_ipsc->cAlphaArgs(jFld), "UtilityCost:")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... a field was found containing UtilityCost: which may indicate a missing comma.");
             }
         }
@@ -966,7 +1038,11 @@ void GetInputEconomicsChargeSimple(EnergyPlusData &state, bool &ErrorsFound) // 
         // check to make sure none of the values are another economic object
         for (int jFld = 1; jFld <= NumAlphas; ++jFld) {
             if (hasi(s_ipsc->cAlphaArgs(jFld), "UtilityCost:")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... a field was found containing UtilityCost: which may indicate a missing comma.");
             }
         }
@@ -989,9 +1065,15 @@ void GetInputEconomicsChargeSimple(EnergyPlusData &state, bool &ErrorsFound) // 
         if (chargeSimple.season != Season::Annual) {
             if (chargeSimple.tariffIndx != 0) {
                 if (s_econ->tariff(chargeSimple.tariffIndx).seasonSched == nullptr) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state, EnergyPlus::format("{}{}=\"{}\" invalid data", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(state, EnergyPlus::format("{}=\"{}\".", s_ipsc->cAlphaFieldNames(4), s_ipsc->cAlphaArgs(4)));
+=======
+                    ShowWarningError(state,
+                                     std::format("{}{}=\"{}\" invalid data", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(state, std::format("{}=\"{}\".", s_ipsc->cAlphaFieldNames(4), s_ipsc->cAlphaArgs(4)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       " a Season other than Annual is used but no Season Schedule Name is specified in the UtilityCost:Tariff.");
                 }
@@ -1051,7 +1133,11 @@ void GetInputEconomicsChargeBlock(EnergyPlusData &state, bool &ErrorsFound) // t
         // check to make sure none of the values are another economic object
         for (int jFld = 1; jFld <= NumAlphas; ++jFld) {
             if (hasi(s_ipsc->cAlphaArgs(jFld), "UtilityCost:")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... a field was found containing UtilityCost: which may indicate a missing comma.");
             }
         }
@@ -1074,9 +1160,15 @@ void GetInputEconomicsChargeBlock(EnergyPlusData &state, bool &ErrorsFound) // t
         if (chargeBlock.season != Season::Annual) {
             if (chargeBlock.tariffIndx != 0) {
                 if (s_econ->tariff(chargeBlock.tariffIndx).seasonSched == nullptr) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state, EnergyPlus::format("{}{}=\"{}\" invalid data", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
                     ShowContinueError(state, EnergyPlus::format("{}=\"{}\".", s_ipsc->cAlphaFieldNames(4), s_ipsc->cAlphaArgs(4)));
+=======
+                    ShowWarningError(state,
+                                     std::format("{}{}=\"{}\" invalid data", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+                    ShowContinueError(state, std::format("{}=\"{}\".", s_ipsc->cAlphaFieldNames(4), s_ipsc->cAlphaArgs(4)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       " a Season other than Annual is used but no Season Schedule Name is specified in the UtilityCost:Tariff.");
                 }
@@ -1174,7 +1266,11 @@ void GetInputEconomicsRatchet(EnergyPlusData &state, bool &ErrorsFound) // true 
         // check to make sure none of the values are another economic object
         for (int jFld = 1; jFld <= NumAlphas; ++jFld) {
             if (hasi(s_ipsc->cAlphaArgs(jFld), "UtilityCost:")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... a field was found containing UtilityCost: which may indicate a missing comma.");
             }
         }
@@ -1250,7 +1346,11 @@ void GetInputEconomicsVariable(EnergyPlusData &state, bool &ErrorsFound) // true
         // check to make sure none of the values are another economic object
         for (int jFld = 1; jFld <= NumAlphas; ++jFld) {
             if (hasi(s_ipsc->cAlphaArgs(jFld), "UtilityCost:")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... a field was found containing UtilityCost: which may indicate a missing comma.");
             }
         }
@@ -1323,7 +1423,11 @@ void GetInputEconomicsComputation(EnergyPlusData &state, bool &ErrorsFound) // t
         // check to make sure none of the values are another economic object
         for (int jFld = 1; jFld <= NumAlphas; ++jFld) {
             if (hasi(s_ipsc->cAlphaArgs(jFld), "UtilityCost:")) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("{}{}=\"{}\".", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... a field was found containing UtilityCost: which may indicate a missing comma.");
             }
         }
@@ -1345,16 +1449,25 @@ void GetInputEconomicsComputation(EnergyPlusData &state, bool &ErrorsFound) // t
                 computation.firstStep = 0;
                 computation.lastStep = -1;
                 computation.isUserDef = false;
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}{}=\"{}\" invalid data.", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+=======
+                ShowSevereError(state, std::format("{}{}=\"{}\" invalid data.", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "... No lines in the computation can be interpreted ");
                 ErrorsFound = true;
             } else {
                 computation.isUserDef = true;
             }
         } else {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\" invalid data.", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
             ShowContinueError(state, EnergyPlus::format("... not found {}=\"{}\".", s_ipsc->cAlphaFieldNames(2), s_ipsc->cAlphaArgs(2)));
+=======
+            ShowSevereError(state, std::format("{}{}=\"{}\" invalid data.", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+            ShowContinueError(state, std::format("... not found {}=\"{}\".", s_ipsc->cAlphaFieldNames(2), s_ipsc->cAlphaArgs(2)));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
     }
@@ -1405,14 +1518,23 @@ void GetInputEconomicsCurrencyType(EnergyPlusData &state, bool &ErrorsFound) // 
             }
         }
         if (state.dataCostEstimateManager->selectedMonetaryUnit == 0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("{}{}=\"{}\" invalid data.", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
             ShowContinueError(state, EnergyPlus::format("... invalid {}.", s_ipsc->cAlphaFieldNames(1)));
+=======
+            ShowSevereError(state, std::format("{}{}=\"{}\" invalid data.", RoutineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)));
+            ShowContinueError(state, std::format("... invalid {}.", s_ipsc->cAlphaFieldNames(1)));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
     } else if (NumCurrencyType > 1) {
         ShowWarningError(
+<<<<<<< HEAD
             state,
             EnergyPlus::format("{}{} Only one instance of this object is allowed. USD will be used.", RoutineName, s_ipsc->cCurrentModuleObject));
+=======
+            state, std::format("{}{} Only one instance of this object is allowed. USD will be used.", RoutineName, s_ipsc->cCurrentModuleObject));
+>>>>>>> nrel/develop
         state.dataCostEstimateManager->selectedMonetaryUnit = 1; // USD - U.S. Dollar
     }
 }
@@ -1460,8 +1582,13 @@ void parseComputeLine(EnergyPlusData &state, std::string const &lineOfCompute, i
 
             // if a token is found then put it into step array
             if (varNum == 0) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("In UtilityCost:Computation line: {}", lineOfCompute));
                 ShowContinueError(state, EnergyPlus::format("  Do not recognize: {} Will skip.", word));
+=======
+                ShowWarningError(state, std::format("In UtilityCost:Computation line: {}", lineOfCompute));
+                ShowContinueError(state, std::format("  Do not recognize: {} Will skip.", word));
+>>>>>>> nrel/develop
             } else {
                 incrementSteps(state);
                 s_econ->steps(s_econ->numSteps).type = StepType::Var;
@@ -1914,8 +2041,13 @@ int FindTariffIndex(
     if (found > 0) {
         FindTariffIndex = found;
     } else {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("{}=\"{}\" invalid tariff referenced", nameOfCurObj, nameOfReferingObj));
         ShowContinueError(state, EnergyPlus::format("not found UtilityCost:Tariff=\"{}\".", nameOfTariff));
+=======
+        ShowSevereError(state, std::format("{}=\"{}\" invalid tariff referenced", nameOfCurObj, nameOfReferingObj));
+        ShowContinueError(state, std::format("not found UtilityCost:Tariff=\"{}\".", nameOfTariff));
+>>>>>>> nrel/develop
         ErrorsFound = true;
         FindTariffIndex = 0;
     }
@@ -1942,6 +2074,7 @@ void warnIfNativeVarname(
         auto &s_econ = state.dataEconTariff;
         ErrorsFound = true;
         if (curTariffIndex >= 1 && curTariffIndex <= s_econ->numTariff) {
+<<<<<<< HEAD
             ShowSevereError(state,
                             EnergyPlus::format("UtilityCost:Tariff=\"{}\" invalid referenced name", s_econ->tariff(curTariffIndex).tariffName));
             ShowContinueError(
@@ -1949,6 +2082,13 @@ void warnIfNativeVarname(
         } else {
             ShowSevereError(state,
                             EnergyPlus::format("{}=\"{}\" You cannot name an object using the same name as a native variable.", curobjName, objName));
+=======
+            ShowSevereError(state, std::format("UtilityCost:Tariff=\"{}\" invalid referenced name", s_econ->tariff(curTariffIndex).tariffName));
+            ShowContinueError(state,
+                              std::format("{}=\"{}\" You cannot name an object using the same name as a native variable.", curobjName, objName));
+        } else {
+            ShowSevereError(state, std::format("{}=\"{}\" You cannot name an object using the same name as a native variable.", curobjName, objName));
+>>>>>>> nrel/develop
         }
     }
 }
@@ -2109,8 +2249,13 @@ std::string RemoveSpaces(EnergyPlusData &state, std::string_view const StringIn)
         }
     }
     if (foundSpaces) {
+<<<<<<< HEAD
         ShowWarningError(state, EnergyPlus::format("UtilityCost: Spaces were removed from the variable=\"{}\".", StringIn));
         ShowContinueError(state, EnergyPlus::format("...Resultant variable=\"{}\".", StringOut));
+=======
+        ShowWarningError(state, std::format("UtilityCost: Spaces were removed from the variable=\"{}\".", StringIn));
+        ShowContinueError(state, std::format("...Resultant variable=\"{}\".", StringOut));
+>>>>>>> nrel/develop
     }
     return StringOut;
 }
@@ -2328,7 +2473,11 @@ void CreateDefaultComputation(EnergyPlusData &state)
             }
             // make sure no computation is already user defined
             if (computation.firstStep != 0) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("In UtilityCost:Tariff: Overwriting user defined tariff {}", tariff.tariffName));
+=======
+                ShowWarningError(state, std::format("In UtilityCost:Tariff: Overwriting user defined tariff {}", tariff.tariffName));
+>>>>>>> nrel/develop
             }
             // initialize the computation
             computation.computeName = "Autogenerated - " + tariff.tariffName;
@@ -2354,7 +2503,11 @@ void CreateDefaultComputation(EnergyPlusData &state)
             //   counter.
             int numNoDepend = -1;
             int loopCount = 0;
+<<<<<<< HEAD
             while ((numNoDepend != 0) || (loopCount > 100000)) {
+=======
+            while ((numNoDepend != 0) && (loopCount < 100000)) {
+>>>>>>> nrel/develop
                 numNoDepend = 0;
                 for (int iVar = 1; iVar <= s_econ->numEconVar; ++iVar) {
                     if (s_econ->econVar(iVar).activeNow) {
@@ -2408,9 +2561,15 @@ void CreateDefaultComputation(EnergyPlusData &state)
                 }
                 ++loopCount;
             }
+<<<<<<< HEAD
             if (loopCount > 100000) {
                 ShowWarningError(
                     state, EnergyPlus::format("UtilityCost:Tariff: Loop count exceeded when counting dependencies in tariff: {}", tariff.tariffName));
+=======
+            if (loopCount >= 100000) {
+                ShowWarningError(state,
+                                 std::format("UtilityCost:Tariff: Loop count exceeded when counting dependencies in tariff: {}", tariff.tariffName));
+>>>>>>> nrel/develop
             }
             // make sure that all variables associated with the tariff are included
             bool remainingVarFlag = false;
@@ -2422,16 +2581,27 @@ void CreateDefaultComputation(EnergyPlusData &state)
             if (remainingVarFlag) {
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("CreateDefaultComputation: In UtilityCost:Computation: Circular or invalid dependencies found in tariff: {}",
                                        tariff.tariffName));
+=======
+                    std::format("CreateDefaultComputation: In UtilityCost:Computation: Circular or invalid dependencies found in tariff: {}",
+                                tariff.tariffName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "  UtilityCost variables that may have invalid dependencies and the variables they are dependent on.");
                 for (int iVar = 1; iVar <= s_econ->numEconVar; ++iVar) {
                     if (s_econ->econVar(iVar).tariffIndx == iTariff) {
                         if (s_econ->econVar(iVar).activeNow) {
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("     {}", s_econ->econVar(iVar).name));
                             for (int kOperand = s_econ->econVar(iVar).firstOperand; kOperand <= s_econ->econVar(iVar).lastOperand; ++kOperand) {
                                 ShowContinueError(state,
                                                   EnergyPlus::format("        ->  {}", s_econ->econVar(s_econ->operands(kOperand).varNum).name));
+=======
+                            ShowContinueError(state, std::format("     {}", s_econ->econVar(iVar).name));
+                            for (int kOperand = s_econ->econVar(iVar).firstOperand; kOperand <= s_econ->econVar(iVar).lastOperand; ++kOperand) {
+                                ShowContinueError(state, std::format("        ->  {}", s_econ->econVar(s_econ->operands(kOperand).varNum).name));
+>>>>>>> nrel/develop
                             }
                         }
                     }
@@ -2444,9 +2614,15 @@ void CreateDefaultComputation(EnergyPlusData &state)
                 computation.lastStep = -1;
                 ShowWarningError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("CreateDefaultComputation: In UtilityCost:Computation: No lines in the auto-generated computation can be "
                                        "interpreted in tariff: {}",
                                        tariff.tariffName));
+=======
+                    std::format("CreateDefaultComputation: In UtilityCost:Computation: No lines in the auto-generated computation can be "
+                                "interpreted in tariff: {}",
+                                tariff.tariffName));
+>>>>>>> nrel/develop
             }
         }
     }
@@ -2597,7 +2773,11 @@ void GatherForEconomics(EnergyPlusData &state)
                         tariff.gatherDemand(curMonth)[(int)curPeriod] = curDemand;
                     }
                 } else {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("UtilityCost:Tariff: While gathering for: {}", tariff.tariffName));
+=======
+                    ShowWarningError(state, std::format("UtilityCost:Tariff: While gathering for: {}", tariff.tariffName));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Invalid schedule values - outside of range");
                 }
                 // Real Time Pricing
@@ -3112,8 +3292,13 @@ void pushStack(EnergyPlusData &state, Array1A<Real64> const monthlyArray, int co
                 evaluateQualify(state, variablePointer);
                 break;
             case ObjType::Invalid:
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("UtilityCost variable not defined: {}", econVar(variablePointer).name));
                 ShowContinueError(state, EnergyPlus::format("   In tariff: {}", tariff(econVar(variablePointer).tariffIndx).tariffName));
+=======
+                ShowWarningError(state, std::format("UtilityCost variable not defined: {}", econVar(variablePointer).name));
+                ShowContinueError(state, std::format("   In tariff: {}", tariff(econVar(variablePointer).tariffIndx).tariffName));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "   This may be the result of a misspelled variable name in the UtilityCost:Computation object.");
                 ShowContinueError(state, "   All zero values will be assumed for this variable.");
                 break;
@@ -3127,9 +3312,15 @@ void pushStack(EnergyPlusData &state, Array1A<Real64> const monthlyArray, int co
                 break;
             default:
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("UtilityCost Debugging issue. Invalid kind of variable used (pushStack). {} in tariff: {}",
                                                     econVar(variablePointer).kindOfObj,
                                                     tariff(econVar(variablePointer).tariffIndx).tariffName));
+=======
+                                 std::format("UtilityCost Debugging issue. Invalid kind of variable used (pushStack). {} in tariff: {}",
+                                             static_cast<int>(econVar(variablePointer).kindOfObj),
+                                             tariff(econVar(variablePointer).tariffIndx).tariffName));
+>>>>>>> nrel/develop
             }
             // if the serviceCharges are being evaluated add in the monthly charges
             if (econVar(variablePointer).kindOfObj == ObjType::Category && econVar(variablePointer).specific == (int)Cat::ServiceCharges) {
@@ -3167,8 +3358,13 @@ void popStack(EnergyPlusData &state, Array1A<Real64> monthlyArray, int &variable
         monthlyArray = stack(s_econ->topOfStack).values;
     } else {
         ShowWarningError(state,
+<<<<<<< HEAD
                          EnergyPlus::format("UtilityCost:Tariff: stack underflow in calculation of utility bills. On variable: {}",
                                             s_econ->econVar(variablePointer).name));
+=======
+                         std::format("UtilityCost:Tariff: stack underflow in calculation of utility bills. On variable: {}",
+                                     s_econ->econVar(variablePointer).name));
+>>>>>>> nrel/develop
         variablePointer = 0;
         monthlyArray = {0.0};
         s_econ->topOfStack = 0;
@@ -3195,6 +3391,7 @@ void evaluateChargeSimple(EnergyPlusData &state, int const usingVariable)
     // check the tariff - make sure they match
     if (chargeSimple.namePt != usingVariable) {
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. ChargeSimple index does not match variable pointer.");
+<<<<<<< HEAD
         ShowContinueError(state, EnergyPlus::format("   Between: {}", s_econ->econVar(usingVariable).name));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->econVar(chargeSimple.namePt).name));
     }
@@ -3202,6 +3399,15 @@ void evaluateChargeSimple(EnergyPlusData &state, int const usingVariable)
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. ChargeSimple index does not match tariff index.");
         ShowContinueError(state, EnergyPlus::format("   Between: {}", tariff.tariffName));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->tariff(chargeSimple.tariffIndx).tariffName));
+=======
+        ShowContinueError(state, std::format("   Between: {}", s_econ->econVar(usingVariable).name));
+        ShowContinueError(state, std::format("       And: {}", s_econ->econVar(chargeSimple.namePt).name));
+    }
+    if (chargeSimple.tariffIndx != curTariff) {
+        ShowWarningError(state, "UtilityCost:Tariff Debugging issue. ChargeSimple index does not match tariff index.");
+        ShowContinueError(state, std::format("   Between: {}", tariff.tariffName));
+        ShowContinueError(state, std::format("       And: {}", s_econ->tariff(chargeSimple.tariffIndx).tariffName));
+>>>>>>> nrel/develop
     }
     // data from the Charge:Simple
     sourceVals = s_econ->econVar(chargeSimple.sourcePt).values;
@@ -3255,6 +3461,7 @@ void evaluateChargeBlock(EnergyPlusData &state, int const usingVariable)
     // check the tariff - make sure they match
     if (chargeBlock.namePt != usingVariable) {
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. chargeBlock index does not match variable pointer.");
+<<<<<<< HEAD
         ShowContinueError(state, EnergyPlus::format("   Between: {}", s_econ->econVar(usingVariable).name));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->econVar(chargeBlock.namePt).name));
     }
@@ -3262,6 +3469,15 @@ void evaluateChargeBlock(EnergyPlusData &state, int const usingVariable)
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. chargeBlock index does not match tariff index.");
         ShowContinueError(state, EnergyPlus::format("   Between: {}", tariff.tariffName));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->tariff(chargeBlock.tariffIndx).tariffName));
+=======
+        ShowContinueError(state, std::format("   Between: {}", s_econ->econVar(usingVariable).name));
+        ShowContinueError(state, std::format("       And: {}", s_econ->econVar(chargeBlock.namePt).name));
+    }
+    if (chargeBlock.tariffIndx != curTariff) {
+        ShowWarningError(state, "UtilityCost:Tariff Debugging issue. chargeBlock index does not match tariff index.");
+        ShowContinueError(state, std::format("   Between: {}", tariff.tariffName));
+        ShowContinueError(state, std::format("       And: {}", s_econ->tariff(chargeBlock.tariffIndx).tariffName));
+>>>>>>> nrel/develop
     }
     // data from the chargeBlock
     sourceVals = s_econ->econVar(chargeBlock.sourcePt).values;
@@ -3331,9 +3547,15 @@ void evaluateChargeBlock(EnergyPlusData &state, int const usingVariable)
             }
         }
         if (!flagAllZero) {
+<<<<<<< HEAD
             ShowWarningError(state,
                              EnergyPlus::format("UtilityCost:Tariff Not all energy or demand was assigned in the block charge: {}",
                                                 s_econ->econVar(usingVariable).name));
+=======
+            ShowWarningError(
+                state,
+                std::format("UtilityCost:Tariff Not all energy or demand was assigned in the block charge: {}", s_econ->econVar(usingVariable).name));
+>>>>>>> nrel/develop
         }
     }
     // store the cost in the name of the variable
@@ -3368,6 +3590,7 @@ void evaluateRatchet(EnergyPlusData &state, int const usingVariable)
     // check the tariff - make sure they match
     if (ratchet.namePt != usingVariable) {
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. Ratchet index does not match variable pointer.");
+<<<<<<< HEAD
         ShowContinueError(state, EnergyPlus::format("   Between: {}", s_econ->econVar(usingVariable).name));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->econVar(ratchet.namePt).name));
     }
@@ -3375,6 +3598,15 @@ void evaluateRatchet(EnergyPlusData &state, int const usingVariable)
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. Ratchet index does not match tariff index.");
         ShowContinueError(state, EnergyPlus::format("   Between: {}", tariff.tariffName));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->tariff(ratchet.tariffIndx).tariffName));
+=======
+        ShowContinueError(state, std::format("   Between: {}", s_econ->econVar(usingVariable).name));
+        ShowContinueError(state, std::format("       And: {}", s_econ->econVar(ratchet.namePt).name));
+    }
+    if (ratchet.tariffIndx != curTariff) {
+        ShowWarningError(state, "UtilityCost:Tariff Debugging issue. Ratchet index does not match tariff index.");
+        ShowContinueError(state, std::format("   Between: {}", tariff.tariffName));
+        ShowContinueError(state, std::format("       And: {}", s_econ->tariff(ratchet.tariffIndx).tariffName));
+>>>>>>> nrel/develop
     }
     // data from the Ratchet
     baselineVals = s_econ->econVar(ratchet.baselinePt).values;
@@ -3485,6 +3717,7 @@ void evaluateQualify(EnergyPlusData &state, int const usingVariable)
     // check the tariff - make sure they match
     if (qualify.namePt != usingVariable) {
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. Qualify index does not match variable pointer.");
+<<<<<<< HEAD
         ShowContinueError(state, EnergyPlus::format("   Between: {}", econVar.name));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->econVar(qualify.namePt).name));
     }
@@ -3492,6 +3725,15 @@ void evaluateQualify(EnergyPlusData &state, int const usingVariable)
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. Qualify index does not match tariff index.");
         ShowContinueError(state, EnergyPlus::format("   Between: {}", tariff.tariffName));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->tariff(qualify.tariffIndx).tariffName));
+=======
+        ShowContinueError(state, std::format("   Between: {}", econVar.name));
+        ShowContinueError(state, std::format("       And: {}", s_econ->econVar(qualify.namePt).name));
+    }
+    if (qualify.tariffIndx != curTariff) {
+        ShowWarningError(state, "UtilityCost:Tariff Debugging issue. Qualify index does not match tariff index.");
+        ShowContinueError(state, std::format("   Between: {}", tariff.tariffName));
+        ShowContinueError(state, std::format("       And: {}", s_econ->tariff(qualify.tariffIndx).tariffName));
+>>>>>>> nrel/develop
     }
     // data from the Qualify
     sourceVals = s_econ->econVar(qualify.sourcePt).values;
@@ -3615,8 +3857,13 @@ void addMonthlyCharge(EnergyPlusData &state, int const usingVariable)
     // check the tariff - make sure they match
     if (tariff.cats[(int)Cat::ServiceCharges] != usingVariable) {
         ShowWarningError(state, "UtilityCost:Tariff Debugging issue. Tariff index for service charge does not match variable pointer.");
+<<<<<<< HEAD
         ShowContinueError(state, EnergyPlus::format("   Between: {}", tariff.tariffName));
         ShowContinueError(state, EnergyPlus::format("       And: {}", s_econ->tariff(tariff.cats[(int)Cat::ServiceCharges]).tariffName));
+=======
+        ShowContinueError(state, std::format("   Between: {}", tariff.tariffName));
+        ShowContinueError(state, std::format("       And: {}", s_econ->tariff(tariff.cats[(int)Cat::ServiceCharges]).tariffName));
+>>>>>>> nrel/develop
     }
     if (tariff.monthChgPt != 0) {
         s_econ->econVar(usingVariable).values += s_econ->econVar(tariff.monthChgPt).values;
@@ -3908,6 +4155,12 @@ void LEEDtariffReporting(EnergyPlusData &state)
         othrUnits = EconConv::USERDEF;
         gasDemWindowUnits = DemandWindow::Invalid;
         othrDemWindowUnits = DemandWindow::Invalid;
+<<<<<<< HEAD
+=======
+        distCoolDemWindowUnits = DemandWindow::Invalid;
+        distHeatWaterDemWindowUnits = DemandWindow::Invalid;
+        distHeatSteamDemWindowUnits = DemandWindow::Invalid;
+>>>>>>> nrel/develop
         std::string elecTariffNames;
         std::string gasTariffNames;
         std::string distCoolTariffNames;
@@ -3915,7 +4168,11 @@ void LEEDtariffReporting(EnergyPlusData &state)
         std::string distHeatSteamTariffNames;
         std::string othrTariffNames;
         for (int iTariff = 1; iTariff <= s_econ->numTariff; ++iTariff) {
+<<<<<<< HEAD
             auto &tariff = s_econ->tariff(iTariff);
+=======
+            const auto &tariff = s_econ->tariff(iTariff);
+>>>>>>> nrel/develop
             if (tariff.isSelected) {
                 allTotalCost += tariff.totalAnnualCost;
                 if (tariff.kindMtr == MeterType::ElecSimple || tariff.kindMtr == MeterType::ElecProduced ||
@@ -3996,6 +4253,7 @@ void LEEDtariffReporting(EnergyPlusData &state)
         }
         // units
         OutputReportPredefined::PreDefTableEntry(
+<<<<<<< HEAD
             state, s_orp->pdchLeedEtsEneUnt, "Electricity", EnergyPlus::format("{}", convEnergyStrings[(int)elecUnits]));
         OutputReportPredefined::PreDefTableEntry(
             state, s_orp->pdchLeedEtsEneUnt, "Natural Gas", EnergyPlus::format("{}", convEnergyStrings[(int)gasUnits]));
@@ -4003,20 +4261,39 @@ void LEEDtariffReporting(EnergyPlusData &state)
             state, s_orp->pdchLeedEtsEneUnt, "Other", EnergyPlus::format("{}", convEnergyStrings[(int)othrUnits]));
         OutputReportPredefined::PreDefTableEntry(
             state, s_orp->pdchLeedEtsDemUnt, "Electricity", EnergyPlus::format("{}", convDemandStrings[(int)elecUnits]));
+=======
+            state, s_orp->pdchLeedEtsEneUnt, "Electricity", std::format("{}", convEnergyStrings[(int)elecUnits]));
+        OutputReportPredefined::PreDefTableEntry(state, s_orp->pdchLeedEtsEneUnt, "Natural Gas", std::format("{}", convEnergyStrings[(int)gasUnits]));
+        OutputReportPredefined::PreDefTableEntry(state, s_orp->pdchLeedEtsEneUnt, "Other", std::format("{}", convEnergyStrings[(int)othrUnits]));
+        OutputReportPredefined::PreDefTableEntry(
+            state, s_orp->pdchLeedEtsDemUnt, "Electricity", std::format("{}", convDemandStrings[(int)elecUnits]));
+>>>>>>> nrel/develop
         OutputReportPredefined::PreDefTableEntry(
             state,
             s_orp->pdchLeedEtsDemUnt,
             "Natural Gas",
+<<<<<<< HEAD
             EnergyPlus::format("{}{}",
                                convDemandStrings[(int)gasUnits],
                                (gasDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)gasDemWindowUnits]));
+=======
+            std::format("{}{}",
+                        convDemandStrings[(int)gasUnits],
+                        (gasDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)gasDemWindowUnits]));
+>>>>>>> nrel/develop
         OutputReportPredefined::PreDefTableEntry(
             state,
             s_orp->pdchLeedEtsDemUnt,
             "Other",
+<<<<<<< HEAD
             EnergyPlus::format("{}{}",
                                convDemandStrings[(int)othrUnits],
                                (othrDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)othrDemWindowUnits]));
+=======
+            std::format("{}{}",
+                        convDemandStrings[(int)othrUnits],
+                        (othrDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)othrDemWindowUnits]));
+>>>>>>> nrel/develop
 
         // total cost
         OutputReportPredefined::PreDefTableEntry(state, s_orp->pdchLeedEcsTotal, "Electricity", elecTotalCost, 2);
@@ -4026,20 +4303,31 @@ void LEEDtariffReporting(EnergyPlusData &state)
         if (distCoolTotalEne != 0) {
             OutputReportPredefined::PreDefTableEntry(state, s_orp->pdchLeedEtsVirt, "District Cooling", distCoolTotalCost / distCoolTotalEne, 3);
             OutputReportPredefined::PreDefTableEntry(
+<<<<<<< HEAD
                 state, s_orp->pdchLeedEtsEneUnt, "District Cooling", EnergyPlus::format("{}", convEnergyStrings[(int)distCoolUnits]));
+=======
+                state, s_orp->pdchLeedEtsEneUnt, "District Cooling", std::format("{}", convEnergyStrings[(int)distCoolUnits]));
+>>>>>>> nrel/develop
             OutputReportPredefined::PreDefTableEntry(
                 state,
                 s_orp->pdchLeedEtsDemUnt,
                 "District Cooling",
+<<<<<<< HEAD
                 EnergyPlus::format("{}{}",
                                    convDemandStrings[(int)distCoolUnits],
                                    (distCoolDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)distCoolDemWindowUnits]));
+=======
+                std::format("{}{}",
+                            convDemandStrings[(int)distCoolUnits],
+                            (distCoolDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)distCoolDemWindowUnits]));
+>>>>>>> nrel/develop
             OutputReportPredefined::PreDefTableEntry(state, s_orp->pdchLeedEcsTotal, "District Cooling", distCoolTotalCost, 2);
         }
         if (distHeatWaterTotalEne != 0) {
             OutputReportPredefined::PreDefTableEntry(
                 state, s_orp->pdchLeedEtsVirt, "District Heating Water", distHeatWaterTotalCost / distHeatWaterTotalEne, 3);
             OutputReportPredefined::PreDefTableEntry(
+<<<<<<< HEAD
                 state, s_orp->pdchLeedEtsEneUnt, "District Heating Water", EnergyPlus::format("{}", convEnergyStrings[(int)distHeatWaterUnits]));
             OutputReportPredefined::PreDefTableEntry(state,
                                                      s_orp->pdchLeedEtsDemUnt,
@@ -4049,12 +4337,23 @@ void LEEDtariffReporting(EnergyPlusData &state)
                                                                         (distHeatWaterDemWindowUnits == DemandWindow::Invalid)
                                                                             ? ""
                                                                             : demandWindowStrings[(int)distHeatWaterDemWindowUnits]));
+=======
+                state, s_orp->pdchLeedEtsEneUnt, "District Heating Water", std::format("{}", convEnergyStrings[(int)distHeatWaterUnits]));
+            OutputReportPredefined::PreDefTableEntry(
+                state,
+                s_orp->pdchLeedEtsDemUnt,
+                "District Heating Water",
+                std::format("{}{}",
+                            convDemandStrings[(int)distHeatWaterUnits],
+                            (distHeatWaterDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)distHeatWaterDemWindowUnits]));
+>>>>>>> nrel/develop
             OutputReportPredefined::PreDefTableEntry(state, s_orp->pdchLeedEcsTotal, "District Heating Water", distHeatWaterTotalCost, 2);
         }
         if (distHeatSteamTotalEne != 0) {
             OutputReportPredefined::PreDefTableEntry(
                 state, s_orp->pdchLeedEtsVirt, "District Heating Steam", distHeatSteamTotalCost / distHeatSteamTotalEne, 3);
             OutputReportPredefined::PreDefTableEntry(
+<<<<<<< HEAD
                 state, s_orp->pdchLeedEtsEneUnt, "District Heating Steam", EnergyPlus::format("{}", convEnergyStrings[(int)distHeatSteamUnits]));
             OutputReportPredefined::PreDefTableEntry(state,
                                                      s_orp->pdchLeedEtsDemUnt,
@@ -4064,6 +4363,16 @@ void LEEDtariffReporting(EnergyPlusData &state)
                                                                         (distHeatSteamDemWindowUnits == DemandWindow::Invalid)
                                                                             ? ""
                                                                             : demandWindowStrings[(int)distHeatSteamDemWindowUnits]));
+=======
+                state, s_orp->pdchLeedEtsEneUnt, "District Heating Steam", std::format("{}", convEnergyStrings[(int)distHeatSteamUnits]));
+            OutputReportPredefined::PreDefTableEntry(
+                state,
+                s_orp->pdchLeedEtsDemUnt,
+                "District Heating Steam",
+                std::format("{}{}",
+                            convDemandStrings[(int)distHeatSteamUnits],
+                            (distHeatSteamDemWindowUnits == DemandWindow::Invalid) ? "" : demandWindowStrings[(int)distHeatSteamDemWindowUnits]));
+>>>>>>> nrel/develop
             OutputReportPredefined::PreDefTableEntry(state, s_orp->pdchLeedEcsTotal, "District Heating Steam", distHeatSteamTotalCost, 2);
         }
         // save the total costs for later to compute process fraction
@@ -4480,7 +4789,11 @@ void WriteTabularTariffReports(EnergyPlusData &state)
                                 } else if (step.type == StepType::Var) {
                                     outString = econVar(step.varNum).name + ' ' + outString;
                                 } else if (step.type == StepType::Op) {
+<<<<<<< HEAD
                                     outString = EnergyPlus::format("{} {}", opNamesUC[(int)step.op], outString);
+=======
+                                    outString = std::format("{} {}", opNamesUC[(int)step.op], outString);
+>>>>>>> nrel/develop
                                 }
                             }
                         }
@@ -4504,18 +4817,30 @@ void showWarningsBasedOnTotal(EnergyPlusData &state)
         if (tariff.buyOrSell == BuySell::BuyFromUtility) {
             if (tariff.totalAnnualCost < 0) {
                 ShowWarningError(state, "UtilityCost:Tariff: A negative annual total cost when buying electricity from a utility is unusual. ");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("  In UtilityCost:Tariff named {}", tariff.tariffName));
+=======
+                ShowContinueError(state, std::format("  In UtilityCost:Tariff named {}", tariff.tariffName));
+>>>>>>> nrel/develop
             }
         } else if (tariff.buyOrSell == BuySell::SellToUtility) {
             if (tariff.totalAnnualCost > 0) {
                 ShowWarningError(state, "UtilityCost:Tariff: A positive annual total cost when selling electricity to a utility is unusual. ");
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("  In UtilityCost:Tariff named {}", tariff.tariffName));
+=======
+                ShowContinueError(state, std::format("  In UtilityCost:Tariff named {}", tariff.tariffName));
+>>>>>>> nrel/develop
             }
         }
     }
 }
 
+<<<<<<< HEAD
 void getMaxAndSum(EnergyPlusData &state, int const varPointer, Real64 &sumResult, Real64 &maxResult)
+=======
+void getMaxAndSum(EnergyPlusData const &state, int const varPointer, Real64 &sumResult, Real64 &maxResult)
+>>>>>>> nrel/develop
 {
     //    AUTHOR         Jason Glazer of GARD Analytics, Inc.
     //    DATE WRITTEN   July 2004
@@ -4864,7 +5189,11 @@ void selectTariff(EnergyPlusData &state)
     MinTariffIndex.deallocate();
 }
 
+<<<<<<< HEAD
 void GetMonthlyCostForResource(EnergyPlusData &state, Constant::eResource const inResourceNumber, Array1A<Real64> outMonthlyCosts)
+=======
+void GetMonthlyCostForResource(EnergyPlusData const &state, Constant::eResource const inResourceNumber, Array1A<Real64> outMonthlyCosts)
+>>>>>>> nrel/develop
 {
     //       AUTHOR         Jason Glazer
     //       DATE WRITTEN   May 2010

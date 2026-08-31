@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -152,13 +156,18 @@ namespace VentilatedSlab {
         if (CompIndex == 0) {
             Item = Util::FindItemInList(CompName, state.dataVentilatedSlab->VentSlab);
             if (Item == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("SimVentilatedSlab: system not found={}", CompName));
+=======
+                ShowFatalError(state, std::format("SimVentilatedSlab: system not found={}", CompName));
+>>>>>>> nrel/develop
             }
             CompIndex = Item;
         } else {
             Item = CompIndex;
             if (Item > state.dataVentilatedSlab->NumOfVentSlabs || Item < 1) {
                 ShowFatalError(state,
+<<<<<<< HEAD
                                EnergyPlus::format("SimVentilatedSlab:  Invalid CompIndex passed={}, Number of Systems={}, Entered System name={}",
                                                   Item,
                                                   state.dataVentilatedSlab->NumOfVentSlabs,
@@ -172,6 +181,20 @@ namespace VentilatedSlab {
                                            Item,
                                            CompName,
                                            state.dataVentilatedSlab->VentSlab(Item).Name));
+=======
+                               std::format("SimVentilatedSlab:  Invalid CompIndex passed={}, Number of Systems={}, Entered System name={}",
+                                           Item,
+                                           state.dataVentilatedSlab->NumOfVentSlabs,
+                                           CompName));
+            }
+            if (state.dataVentilatedSlab->CheckEquipName(Item)) {
+                if (CompName != state.dataVentilatedSlab->VentSlab(Item).Name) {
+                    ShowFatalError(state,
+                                   std::format("SimVentilatedSlab: Invalid CompIndex passed={}, System name={}, stored System Name for that index={}",
+                                               Item,
+                                               CompName,
+                                               state.dataVentilatedSlab->VentSlab(Item).Name));
+>>>>>>> nrel/develop
                 }
                 state.dataVentilatedSlab->CheckEquipName(Item) = false;
             }
@@ -254,12 +277,16 @@ namespace VentilatedSlab {
 
         constexpr std::array<std::string_view, static_cast<int>(OutsideAirControlType::Num)> OutsideAirControlTypeNamesUC{
             "VARIABLEPERCENT", "FIXEDTEMPERATURE", "FIXEDAMOUNT"};
+<<<<<<< HEAD
         constexpr std::array<std::string_view, static_cast<int>(CoilType::Num)> CoilTypeNamesUC{"NONE", "HEATING", "COOLING", "HEATINGANDCOOLING"};
 
         constexpr std::array<std::string_view, static_cast<int>(HeatingCoilType::Num)> HeatingCoilTypeNamesUC{
             "COIL:HEATING:ELECTRIC", "COIL:HEATING:FUEL", "COIL:HEATING:WATER", "COIL:HEATING:STEAM"};
         constexpr std::array<std::string_view, static_cast<int>(CoolingCoilType::Num)> CoolingCoilTypeNamesUC{
             "COIL:COOLING:WATER", "COIL:COOLING:WATER:DETAILEDGEOMETRY", "COILSYSTEM:COOLING:WATER:HEATEXCHANGERASSISTED"};
+=======
+        constexpr std::array<std::string_view, static_cast<int>(CoilsUsed::Num)> coilsUsedNamesUC{"NONE", "HEATING", "COOLING", "HEATINGANDCOOLING"};
+>>>>>>> nrel/develop
 
         // Figure out how many Ventilated Slab Systems there are in the input file
 
@@ -317,6 +344,7 @@ namespace VentilatedSlab {
                 if (lAlphaBlanks(3)) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
                             R"({}="{}" invalid {} is required but input is blank.)", CurrentModuleObject, ventSlab.Name, cAlphaFields(3)));
                 } else {
@@ -326,6 +354,16 @@ namespace VentilatedSlab {
                                                        ventSlab.Name,
                                                        cAlphaFields(3),
                                                        state.dataIPShortCut->cAlphaArgs(3)));
+=======
+                        std::format(R"({}="{}" invalid {} is required but input is blank.)", CurrentModuleObject, ventSlab.Name, cAlphaFields(3)));
+                } else {
+                    ShowSevereError(state,
+                                    std::format(R"({}="{}" invalid {}="{}" not found.)",
+                                                CurrentModuleObject,
+                                                ventSlab.Name,
+                                                cAlphaFields(3),
+                                                state.dataIPShortCut->cAlphaArgs(3)));
+>>>>>>> nrel/develop
                 }
                 ErrorsFound = true;
             }
@@ -376,6 +414,7 @@ namespace VentilatedSlab {
                 // Error checking for single surfaces
                 if (ventSlab.SurfacePtr(1) == 0) {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format(R"({}="{}" invalid {}="{}" not found.)",
                                                        CurrentModuleObject,
                                                        ventSlab.Name,
@@ -388,6 +427,20 @@ namespace VentilatedSlab {
                                       EnergyPlus::format("{}=\"{}\" has been used in another radiant system or ventilated slab.",
                                                          cAlphaFields(4),
                                                          state.dataIPShortCut->cAlphaArgs(4)));
+=======
+                                    std::format(R"({}="{}" invalid {}="{}" not found.)",
+                                                CurrentModuleObject,
+                                                ventSlab.Name,
+                                                cAlphaFields(4),
+                                                state.dataIPShortCut->cAlphaArgs(4)));
+                    ErrorsFound = true;
+                } else if (state.dataSurface->SurfIsRadSurfOrVentSlabOrPool(ventSlab.SurfacePtr(1))) {
+                    ShowSevereError(state, std::format("{}=\"{}\", invalid Surface", CurrentModuleObject, ventSlab.Name));
+                    ShowContinueError(state,
+                                      std::format("{}=\"{}\" has been used in another radiant system or ventilated slab.",
+                                                  cAlphaFields(4),
+                                                  state.dataIPShortCut->cAlphaArgs(4)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
                 if (ventSlab.SurfacePtr(1) != 0) {
@@ -415,6 +468,7 @@ namespace VentilatedSlab {
                     }
                     if (!thisConstruct.SourceSinkPresent) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}=\"{}\" invalid surface=\"{}\".",
                                                            CurrentModuleObject,
                                                            ventSlab.Name,
@@ -422,6 +476,14 @@ namespace VentilatedSlab {
                         ShowContinueError(
                             state,
                             EnergyPlus::format("Surface Construction does not have a source/sink, Construction name= \"{}\".", thisConstruct.Name));
+=======
+                                        std::format("{}=\"{}\" invalid surface=\"{}\".",
+                                                    CurrentModuleObject,
+                                                    ventSlab.Name,
+                                                    state.dataSurface->Surface(ventSlab.SurfacePtr(SurfNum)).Name));
+                        ShowContinueError(
+                            state, std::format("Surface Construction does not have a source/sink, Construction name= \"{}\".", thisConstruct.Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -437,6 +499,7 @@ namespace VentilatedSlab {
                     }
                     if (state.dataSurface->Surface(ventSlab.SurfacePtr(SurfNum)).Zone != ventSlab.ZonePtr) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}=\"{}\" invalid surface=\"{}\".",
                                                            CurrentModuleObject,
                                                            ventSlab.Name,
@@ -447,6 +510,17 @@ namespace VentilatedSlab {
                                                state.dataHeatBal->Zone(state.dataSurface->Surface(ventSlab.SurfacePtr(SurfNum)).Zone).Name,
                                                CurrentModuleObject,
                                                state.dataIPShortCut->cAlphaArgs(3)));
+=======
+                                        std::format("{}=\"{}\" invalid surface=\"{}\".",
+                                                    CurrentModuleObject,
+                                                    ventSlab.Name,
+                                                    state.dataSurface->Surface(ventSlab.SurfacePtr(SurfNum)).Name));
+                        ShowContinueError(state,
+                                          std::format("Surface in Zone={} {} in Zone={}",
+                                                      state.dataHeatBal->Zone(state.dataSurface->Surface(ventSlab.SurfacePtr(SurfNum)).Zone).Name,
+                                                      CurrentModuleObject,
+                                                      state.dataIPShortCut->cAlphaArgs(3)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                     if (state.dataSurface->Surface(ventSlab.SurfacePtr(SurfNum)).Construction == 0) {
@@ -454,6 +528,7 @@ namespace VentilatedSlab {
                     }
                     if (!thisConstruct.SourceSinkPresent) {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format("{}=\"{}\" invalid surface=\"{}\".",
                                                            CurrentModuleObject,
                                                            ventSlab.Name,
@@ -461,6 +536,14 @@ namespace VentilatedSlab {
                         ShowContinueError(
                             state,
                             EnergyPlus::format("Surface Construction does not have a source/sink, Construction name= \"{}\".", thisConstruct.Name));
+=======
+                                        std::format("{}=\"{}\" invalid surface=\"{}\".",
+                                                    CurrentModuleObject,
+                                                    ventSlab.Name,
+                                                    state.dataSurface->Surface(ventSlab.SurfacePtr(SurfNum)).Name));
+                        ShowContinueError(
+                            state, std::format("Surface Construction does not have a source/sink, Construction name= \"{}\".", thisConstruct.Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -516,7 +599,11 @@ namespace VentilatedSlab {
             default: {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         R"({}="{}" invalid {}="{}".)", CurrentModuleObject, ventSlab.Name, cAlphaFields(5), state.dataIPShortCut->cAlphaArgs(5)));
             } break;
             } // switch (outsideAirControlType)
@@ -542,9 +629,15 @@ namespace VentilatedSlab {
             if (Util::SameString(state.dataIPShortCut->cAlphaArgs(8), "SurfaceListNames")) {
                 if (!lNumericBlanks(4)) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\"  Core Diameter is not needed for the series slabs configuration- ignored.",
                                                         CurrentModuleObject,
                                                         ventSlab.Name));
+=======
+                                     std::format("{}=\"{}\"  Core Diameter is not needed for the series slabs configuration- ignored.",
+                                                 CurrentModuleObject,
+                                                 ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...It has been assigned on SlabGroup.");
                 }
             }
@@ -552,9 +645,15 @@ namespace VentilatedSlab {
             if (Util::SameString(state.dataIPShortCut->cAlphaArgs(8), "SurfaceListNames")) {
                 if (!lNumericBlanks(5)) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\"  Core Length is not needed for the series slabs configuration- ignored.",
                                                         CurrentModuleObject,
                                                         ventSlab.Name));
+=======
+                                     std::format("{}=\"{}\"  Core Length is not needed for the series slabs configuration- ignored.",
+                                                 CurrentModuleObject,
+                                                 ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...It has been assigned on SlabGroup.");
                 }
             }
@@ -562,9 +661,15 @@ namespace VentilatedSlab {
             if (Util::SameString(state.dataIPShortCut->cAlphaArgs(8), "SurfaceListNames")) {
                 if (!lNumericBlanks(6)) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\"  Core Numbers is not needed for the series slabs configuration- ignored.",
                                                         CurrentModuleObject,
                                                         ventSlab.Name));
+=======
+                                     std::format("{}=\"{}\"  Core Numbers is not needed for the series slabs configuration- ignored.",
+                                                 CurrentModuleObject,
+                                                 ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...It has been assigned on SlabGroup.");
                 }
             }
@@ -575,7 +680,11 @@ namespace VentilatedSlab {
             if (ventSlab.controlType == ControlType::Invalid) {
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
+=======
+                    std::format(
+>>>>>>> nrel/develop
                         R"({}="{}" invalid {}="{}".)", CurrentModuleObject, ventSlab.Name, cAlphaFields(9), state.dataIPShortCut->cAlphaArgs(9)));
                 ShowContinueError(state, "Control reset to ODB control.");
                 ventSlab.controlType = ControlType::OutdoorDryBulbTemp;
@@ -830,19 +939,33 @@ namespace VentilatedSlab {
             if (ventSlab.SysConfg == VentilatedSlabConfig::SlabOnly) {
                 if (!lAlphaBlanks(20)) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("{}=\"{}\" {}=\"{}\" not needed - ignored.",
                                                         CurrentModuleObject,
                                                         ventSlab.Name,
                                                         cAlphaFields(20),
                                                         state.dataIPShortCut->cAlphaArgs(20)));
+=======
+                                     std::format("{}=\"{}\" {}=\"{}\" not needed - ignored.",
+                                                 CurrentModuleObject,
+                                                 ventSlab.Name,
+                                                 cAlphaFields(20),
+                                                 state.dataIPShortCut->cAlphaArgs(20)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "It is used for \"SlabAndZone\" only");
                 }
 
             } else if (ventSlab.SysConfg == VentilatedSlabConfig::SlabAndZone) {
                 if (lAlphaBlanks(20)) {
+<<<<<<< HEAD
                     ShowSevereError(state,
                                     EnergyPlus::format(
                                         "{}=\"{}\" invalid {} is blank and must be entered.", CurrentModuleObject, ventSlab.Name, cAlphaFields(20)));
+=======
+                    ShowSevereError(
+                        state,
+                        std::format("{}=\"{}\" invalid {} is blank and must be entered.", CurrentModuleObject, ventSlab.Name, cAlphaFields(20)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
 
@@ -883,7 +1006,11 @@ namespace VentilatedSlab {
                 if (!IsValid) {
                     ShowWarningError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format(
+=======
+                        std::format(
+>>>>>>> nrel/develop
                             "{}=\"{}\", Adding OutdoorAir:Node={}", CurrentModuleObject, ventSlab.Name, state.dataIPShortCut->cAlphaArgs(21)));
                 }
             }
@@ -909,9 +1036,15 @@ namespace VentilatedSlab {
                 if (ventSlab.fanType != HVAC::FanType::Constant && ventSlab.fanType != HVAC::FanType::SystemModel) {
                     ShowSevereCustom(state,
                                      eoh,
+<<<<<<< HEAD
                                      EnergyPlus::format("Only fans of type Fan:ConstantVolume and Fan:SystemModel are supported.  {} is of type {}",
                                                         ventSlab.FanName,
                                                         HVAC::fanTypeNames[(int)ventSlab.fanType]));
+=======
+                                     std::format("Only fans of type Fan:ConstantVolume and Fan:SystemModel are supported.  {} is of type {}",
+                                                 ventSlab.FanName,
+                                                 HVAC::fanTypeNames[(int)ventSlab.fanType]));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -931,6 +1064,7 @@ namespace VentilatedSlab {
 
             // Coil options assign
 
+<<<<<<< HEAD
             ventSlab.coilOption = static_cast<CoilType>(getEnumValue(CoilTypeNamesUC, Util::makeUPPER(state.dataIPShortCut->cAlphaArgs(26))));
 
             if (ventSlab.coilOption == CoilType::Invalid) {
@@ -942,6 +1076,16 @@ namespace VentilatedSlab {
             }
 
             if (ventSlab.coilOption == CoilType::Both || ventSlab.coilOption == CoilType::Heating) {
+=======
+            ventSlab.coilsUsed = static_cast<CoilsUsed>(getEnumValue(coilsUsedNamesUC, Util::makeUPPER(state.dataIPShortCut->cAlphaArgs(26))));
+
+            if (ventSlab.coilsUsed == CoilsUsed::Invalid) {
+                ShowSevereInvalidKey(state, eoh, cAlphaFields(26), state.dataIPShortCut->cAlphaArgs(26));
+                ErrorsFound = true;
+            }
+
+            if (ventSlab.coilsUsed == CoilsUsed::Both || ventSlab.coilsUsed == CoilsUsed::Heating) {
+>>>>>>> nrel/develop
                 // Heating coil information:
                 //        A27, \field Heating Coil Object Type
                 //             \type choice
@@ -959,6 +1103,7 @@ namespace VentilatedSlab {
                     ventSlab.heatingCoilTypeCh = state.dataIPShortCut->cAlphaArgs(27);
                     errFlag = false;
 
+<<<<<<< HEAD
                     ventSlab.hCoilType =
                         static_cast<HeatingCoilType>(getEnumValue(HeatingCoilTypeNamesUC, Util::makeUPPER(state.dataIPShortCut->cAlphaArgs(27))));
 
@@ -973,6 +1118,21 @@ namespace VentilatedSlab {
                         ventSlab.heatingCoil_fluid = Fluid::GetSteam(state);
                         if (ventSlab.heatingCoil_fluid == nullptr) {
                             ShowSevereError(state, EnergyPlus::format("{}=\"{}Steam Properties not found.", CurrentModuleObject, ventSlab.Name));
+=======
+                    ventSlab.heatCoilType = static_cast<HVAC::CoilType>(getEnumValue(HVAC::coilTypeNamesUC, state.dataIPShortCut->cAlphaArgs(27)));
+
+                    switch (ventSlab.heatCoilType) {
+
+                    case HVAC::CoilType::HeatingWater: {
+                        ventSlab.heatingCoilType = DataPlant::PlantEquipmentType::CoilWaterSimpleHeating;
+                        break;
+                    }
+                    case HVAC::CoilType::HeatingSteam: {
+                        ventSlab.heatingCoilType = DataPlant::PlantEquipmentType::CoilSteamAirHeating;
+                        ventSlab.heatingCoil_fluid = Fluid::GetSteam(state);
+                        if (ventSlab.heatingCoil_fluid == nullptr) {
+                            ShowSevereError(state, std::format("{}=\"{}Steam Properties not found.", CurrentModuleObject, ventSlab.Name));
+>>>>>>> nrel/develop
                             if (SteamMessageNeeded) {
                                 ShowContinueError(state, "Steam Fluid Properties should have been included in the input file.");
                             }
@@ -981,6 +1141,7 @@ namespace VentilatedSlab {
                         }
                         break;
                     }
+<<<<<<< HEAD
                     case HeatingCoilType::Electric:
                     case HeatingCoilType::Gas:
                         break;
@@ -991,6 +1152,13 @@ namespace VentilatedSlab {
                                                            ventSlab.Name,
                                                            cAlphaFields(27),
                                                            state.dataIPShortCut->cAlphaArgs(27)));
+=======
+                    case HVAC::CoilType::HeatingElectric:
+                    case HVAC::CoilType::HeatingGasOrOtherFuel:
+                        break;
+                    default: {
+                        ShowSevereInvalidKey(state, eoh, cAlphaFields(27), state.dataIPShortCut->cAlphaArgs(27));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                         errFlag = true;
                         break;
@@ -1001,6 +1169,7 @@ namespace VentilatedSlab {
                         ValidateComponent(state, state.dataIPShortCut->cAlphaArgs(27), ventSlab.heatingCoilName, IsNotOK, CurrentModuleObject);
                         if (IsNotOK) {
                             ShowContinueError(state,
+<<<<<<< HEAD
                                               EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\".",
                                                                  CurrentModuleObject,
                                                                  ventSlab.Name,
@@ -1008,6 +1177,15 @@ namespace VentilatedSlab {
                                                                  state.dataIPShortCut->cAlphaArgs(28)));
                             ShowContinueError(
                                 state, EnergyPlus::format("... not valid for {}=\"{}\".", cAlphaFields(27), state.dataIPShortCut->cAlphaArgs(27)));
+=======
+                                              std::format("{}=\"{}\" invalid {}=\"{}\".",
+                                                          CurrentModuleObject,
+                                                          ventSlab.Name,
+                                                          cAlphaFields(28),
+                                                          state.dataIPShortCut->cAlphaArgs(28)));
+                            ShowContinueError(state,
+                                              std::format("... not valid for {}=\"{}\".", cAlphaFields(27), state.dataIPShortCut->cAlphaArgs(27)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -1017,6 +1195,7 @@ namespace VentilatedSlab {
 
                     // The heating coil control node is necessary for a hot water coil, but not necessary for an
                     // electric or gas coil.
+<<<<<<< HEAD
                     if (ventSlab.hCoilType == HeatingCoilType::Gas || ventSlab.hCoilType == HeatingCoilType::Electric) {
                         if (!lAlphaBlanks(29)) {
                             ShowWarningError(state,
@@ -1025,13 +1204,27 @@ namespace VentilatedSlab {
                                                                 ventSlab.Name,
                                                                 cAlphaFields(29),
                                                                 state.dataIPShortCut->cAlphaArgs(29)));
+=======
+                    if (ventSlab.heatCoilType == HVAC::CoilType::HeatingGasOrOtherFuel || ventSlab.heatCoilType == HVAC::CoilType::HeatingElectric) {
+                        if (!lAlphaBlanks(29)) {
+                            ShowWarningError(state,
+                                             std::format("{}=\"{}\" {}=\"{}\" not needed - ignored.",
+                                                         CurrentModuleObject,
+                                                         ventSlab.Name,
+                                                         cAlphaFields(29),
+                                                         state.dataIPShortCut->cAlphaArgs(29)));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "..It is used for hot water coils only.");
                         }
                     } else {
                         if (lAlphaBlanks(29)) {
                             ShowSevereError(
                                 state,
+<<<<<<< HEAD
                                 EnergyPlus::format(
+=======
+                                std::format(
+>>>>>>> nrel/develop
                                     "{}=\"{}\" invalid {} is blank and must be entered.", CurrentModuleObject, ventSlab.Name, cAlphaFields(29)));
                             ErrorsFound = true;
                         }
@@ -1047,24 +1240,41 @@ namespace VentilatedSlab {
                     }
                     ventSlab.HotControlOffset = 0.001;
 
+<<<<<<< HEAD
                     if (ventSlab.hCoilType == HeatingCoilType::Water) {
                         ventSlab.MaxVolHotWaterFlow = GetWaterCoilMaxFlowRate(state, "Coil:Heating:Water", ventSlab.heatingCoilName, ErrorsFound);
                         ventSlab.MaxVolHotSteamFlow = GetWaterCoilMaxFlowRate(state, "Coil:Heating:Water", ventSlab.heatingCoilName, ErrorsFound);
                     } else if (ventSlab.hCoilType == HeatingCoilType::Steam) {
+=======
+                    if (ventSlab.heatCoilType == HVAC::CoilType::HeatingWater) {
+                        ventSlab.MaxVolHotWaterFlow = GetWaterCoilMaxFlowRate(state, "Coil:Heating:Water", ventSlab.heatingCoilName, ErrorsFound);
+                        ventSlab.MaxVolHotSteamFlow = GetWaterCoilMaxFlowRate(state, "Coil:Heating:Water", ventSlab.heatingCoilName, ErrorsFound);
+                    } else if (ventSlab.heatCoilType == HVAC::CoilType::HeatingSteam) {
+>>>>>>> nrel/develop
                         ventSlab.MaxVolHotWaterFlow = GetSteamCoilMaxFlowRate(state, "Coil:Heating:Steam", ventSlab.heatingCoilName, ErrorsFound);
                         ventSlab.MaxVolHotSteamFlow = GetSteamCoilMaxFlowRate(state, "Coil:Heating:Steam", ventSlab.heatingCoilName, ErrorsFound);
                     }
 
                 } else { // no heating coil
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}=\"{}\" missing heating coil.", CurrentModuleObject, ventSlab.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("a heating coil is required for {}=\"{}\".", cAlphaFields(26), state.dataIPShortCut->cAlphaArgs(26)));
+=======
+                    ShowSevereError(state, std::format("{}=\"{}\" missing heating coil.", CurrentModuleObject, ventSlab.Name));
+                    ShowContinueError(
+                        state, std::format("a heating coil is required for {}=\"{}\".", cAlphaFields(26), state.dataIPShortCut->cAlphaArgs(26)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
 
+<<<<<<< HEAD
             if (ventSlab.coilOption == CoilType::Both || ventSlab.coilOption == CoilType::Cooling) {
+=======
+            if (ventSlab.coilsUsed == CoilsUsed::Both || ventSlab.coilsUsed == CoilsUsed::Cooling) {
+>>>>>>> nrel/develop
                 // Cooling coil information (if one is present):
                 //        A30, \field Cooling Coil Object Type
                 //             \type choice
@@ -1080,20 +1290,34 @@ namespace VentilatedSlab {
                     ventSlab.coolingCoilTypeCh = state.dataIPShortCut->cAlphaArgs(30);
                     errFlag = false;
 
+<<<<<<< HEAD
                     ventSlab.cCoilType =
                         static_cast<CoolingCoilType>(getEnumValue(CoolingCoilTypeNamesUC, Util::makeUPPER(state.dataIPShortCut->cAlphaArgs(30))));
                     switch (ventSlab.cCoilType) {
                     case CoolingCoilType::WaterCooling: {
+=======
+                    ventSlab.coolCoilType = static_cast<HVAC::CoilType>(getEnumValue(HVAC::coilTypeNamesUC, state.dataIPShortCut->cAlphaArgs(30)));
+                    switch (ventSlab.coolCoilType) {
+                    case HVAC::CoilType::CoolingWater: {
+>>>>>>> nrel/develop
                         ventSlab.coolingCoilType = DataPlant::PlantEquipmentType::CoilWaterCooling;
                         ventSlab.coolingCoilPlantName = state.dataIPShortCut->cAlphaArgs(31);
                         break;
                     }
+<<<<<<< HEAD
                     case CoolingCoilType::DetailedCooling: {
+=======
+                    case HVAC::CoilType::CoolingWaterDetailed: {
+>>>>>>> nrel/develop
                         ventSlab.coolingCoilType = DataPlant::PlantEquipmentType::CoilWaterDetailedFlatCooling;
                         ventSlab.coolingCoilPlantName = state.dataIPShortCut->cAlphaArgs(31);
                         break;
                     }
+<<<<<<< HEAD
                     case CoolingCoilType::HXAssisted: {
+=======
+                    case HVAC::CoilType::CoolingWaterHXAssisted: {
+>>>>>>> nrel/develop
                         HVACHXAssistedCoolingCoil::GetHXCoilTypeAndName(state,
                                                                         state.dataIPShortCut->cAlphaArgs(30),
                                                                         state.dataIPShortCut->cAlphaArgs(31),
@@ -1105,12 +1329,19 @@ namespace VentilatedSlab {
                         } else if (Util::SameString(ventSlab.coolingCoilPlantType, "Coil:Cooling:Water:DetailedGeometry")) {
                             ventSlab.coolingCoilType = DataPlant::PlantEquipmentType::CoilWaterDetailedFlatCooling;
                         } else {
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format("GetVentilatedSlabInput: {}=\"{}\", invalid", CurrentModuleObject, ventSlab.Name));
                             ShowContinueError(state, EnergyPlus::format("For: {}=\"{}\".", cAlphaFields(30), state.dataIPShortCut->cAlphaArgs(30)));
                             ShowContinueError(
                                 state,
                                 EnergyPlus::format("Invalid Coil Type={}, Name={}", ventSlab.coolingCoilPlantType, ventSlab.coolingCoilPlantName));
+=======
+                            ShowSevereError(state, std::format("GetVentilatedSlabInput: {}=\"{}\", invalid", CurrentModuleObject, ventSlab.Name));
+                            ShowContinueError(state, std::format("For: {}=\"{}\".", cAlphaFields(30), state.dataIPShortCut->cAlphaArgs(30)));
+                            ShowContinueError(
+                                state, std::format("Invalid Coil Type={}, Name={}", ventSlab.coolingCoilPlantType, ventSlab.coolingCoilPlantName));
+>>>>>>> nrel/develop
                             ShowContinueError(state, R"(must be "Coil:Cooling:Water" or "Coil:Cooling:Water:DetailedGeometry")");
                             ErrorsFound = true;
                         }
@@ -1118,11 +1349,19 @@ namespace VentilatedSlab {
                     }
                     default: {
                         ShowSevereError(state,
+<<<<<<< HEAD
                                         EnergyPlus::format(R"({}="{}" invalid {}="{}".)",
                                                            CurrentModuleObject,
                                                            ventSlab.Name,
                                                            cAlphaFields(29),
                                                            state.dataIPShortCut->cAlphaArgs(29)));
+=======
+                                        std::format(R"({}="{}" invalid {}="{}".)",
+                                                    CurrentModuleObject,
+                                                    ventSlab.Name,
+                                                    cAlphaFields(29),
+                                                    state.dataIPShortCut->cAlphaArgs(29)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                         errFlag = true;
                         break;
@@ -1134,6 +1373,7 @@ namespace VentilatedSlab {
                         ValidateComponent(state, state.dataIPShortCut->cAlphaArgs(30), ventSlab.coolingCoilName, IsNotOK, "ZoneHVAC:VentilatedSlab ");
                         if (IsNotOK) {
                             ShowContinueError(state,
+<<<<<<< HEAD
                                               EnergyPlus::format("{}=\"{}\" invalid {}=\"{}\".",
                                                                  CurrentModuleObject,
                                                                  ventSlab.Name,
@@ -1141,6 +1381,15 @@ namespace VentilatedSlab {
                                                                  state.dataIPShortCut->cAlphaArgs(31)));
                             ShowContinueError(
                                 state, EnergyPlus::format("... not valid for {}=\"{}\".", cAlphaFields(30), state.dataIPShortCut->cAlphaArgs(30)));
+=======
+                                              std::format("{}=\"{}\" invalid {}=\"{}\".",
+                                                          CurrentModuleObject,
+                                                          ventSlab.Name,
+                                                          cAlphaFields(31),
+                                                          state.dataIPShortCut->cAlphaArgs(31)));
+                            ShowContinueError(state,
+                                              std::format("... not valid for {}=\"{}\".", cAlphaFields(30), state.dataIPShortCut->cAlphaArgs(30)));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -1160,28 +1409,47 @@ namespace VentilatedSlab {
                     if (lAlphaBlanks(32)) {
                         ShowSevereError(
                             state,
+<<<<<<< HEAD
                             EnergyPlus::format(
                                 "{}=\"{}\" invalid {} is blank and must be entered.", CurrentModuleObject, ventSlab.Name, cAlphaFields(32)));
+=======
+                            std::format("{}=\"{}\" invalid {} is blank and must be entered.", CurrentModuleObject, ventSlab.Name, cAlphaFields(32)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
 
                     ventSlab.ColdControlOffset = 0.001;
 
+<<<<<<< HEAD
                     if (ventSlab.cCoilType == CoolingCoilType::WaterCooling) {
                         ventSlab.MaxVolColdWaterFlow = GetWaterCoilMaxFlowRate(state, "Coil:Cooling:Water", ventSlab.coolingCoilName, ErrorsFound);
                     } else if (ventSlab.cCoilType == CoolingCoilType::DetailedCooling) {
                         ventSlab.MaxVolColdWaterFlow =
                             GetWaterCoilMaxFlowRate(state, "Coil:Cooling:Water:DetailedGeometry", ventSlab.coolingCoilName, ErrorsFound);
                     } else if (ventSlab.cCoilType == CoolingCoilType::HXAssisted) {
+=======
+                    if (ventSlab.coolCoilType == HVAC::CoilType::CoolingWater) {
+                        ventSlab.MaxVolColdWaterFlow = GetWaterCoilMaxFlowRate(state, "Coil:Cooling:Water", ventSlab.coolingCoilName, ErrorsFound);
+                    } else if (ventSlab.coolCoilType == HVAC::CoilType::CoolingWaterDetailed) {
+                        ventSlab.MaxVolColdWaterFlow =
+                            GetWaterCoilMaxFlowRate(state, "Coil:Cooling:Water:DetailedGeometry", ventSlab.coolingCoilName, ErrorsFound);
+                    } else if (ventSlab.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
                         ventSlab.MaxVolColdWaterFlow =
                             GetHXAssistedCoilFlowRate(state, "CoilSystem:Cooling:Water:HeatExchangerAssisted", ventSlab.coolingCoilName, ErrorsFound);
                     }
 
                 } else { // No Cooling Coil
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}=\"{}\" missing cooling coil.", CurrentModuleObject, ventSlab.Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("a cooling coil is required for {}=\"{}\".", cAlphaFields(26), state.dataIPShortCut->cAlphaArgs(26)));
+=======
+                    ShowSevereError(state, std::format("{}=\"{}\" missing cooling coil.", CurrentModuleObject, ventSlab.Name));
+                    ShowContinueError(
+                        state, std::format("a cooling coil is required for {}=\"{}\".", cAlphaFields(26), state.dataIPShortCut->cAlphaArgs(26)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -1190,14 +1458,24 @@ namespace VentilatedSlab {
             if (!lAlphaBlanks(34)) {
                 ventSlab.HVACSizingIndex = Util::FindItemInList(state.dataIPShortCut->cAlphaArgs(34), state.dataSize->ZoneHVACSizing);
                 if (ventSlab.HVACSizingIndex == 0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{} = {} not found.", cAlphaFields(34), state.dataIPShortCut->cAlphaArgs(34)));
                     ShowContinueError(state, EnergyPlus::format("Occurs in {} = {}", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                    ShowSevereError(state, std::format("{} = {} not found.", cAlphaFields(34), state.dataIPShortCut->cAlphaArgs(34)));
+                    ShowContinueError(state, std::format("Occurs in {} = {}", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
 
+<<<<<<< HEAD
             switch (ventSlab.coilOption) {
             case CoilType::Both: { // 'HeatingAndCooling'
+=======
+            switch (ventSlab.coilsUsed) {
+            case CoilsUsed::Both: { // 'HeatingAndCooling'
+>>>>>>> nrel/develop
                 // Add cooling coil to component sets array when present
                 Node::SetUpCompSets(state,
                                     CurrentModuleObject,
@@ -1217,7 +1495,11 @@ namespace VentilatedSlab {
                                     state.dataIPShortCut->cAlphaArgs(19));
                 break;
             }
+<<<<<<< HEAD
             case CoilType::Heating: { // 'Heating'
+=======
+            case CoilsUsed::Heating: { // 'Heating'
+>>>>>>> nrel/develop
                 // Add heating coil to component sets array when no cooling coil present
                 Node::SetUpCompSets(state,
                                     CurrentModuleObject,
@@ -1228,7 +1510,11 @@ namespace VentilatedSlab {
                                     state.dataIPShortCut->cAlphaArgs(19));
                 break;
             }
+<<<<<<< HEAD
             case CoilType::Cooling: { // 'Cooling'
+=======
+            case CoilsUsed::Cooling: { // 'Cooling'
+>>>>>>> nrel/develop
                 // Add cooling coil to component sets array when no heating coil present
                 Node::SetUpCompSets(state,
                                     CurrentModuleObject,
@@ -1239,7 +1525,11 @@ namespace VentilatedSlab {
                                     state.dataIPShortCut->cAlphaArgs(19));
                 break;
             }
+<<<<<<< HEAD
             case CoilType::None:
+=======
+            case CoilsUsed::None:
+>>>>>>> nrel/develop
             default:
                 break;
             }
@@ -1254,7 +1544,11 @@ namespace VentilatedSlab {
         lNumericBlanks.deallocate();
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{} errors occurred in input.  Program terminates.", CurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("{} errors occurred in input.  Program terminates.", CurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         // Setup Report variables for the VENTILATED SLAB
@@ -1487,7 +1781,11 @@ namespace VentilatedSlab {
                 PlantUtilities::ScanPlantLoopsForObject(
                     state, ventSlab.heatingCoilName, ventSlab.heatingCoilType, ventSlab.HWPlantLoc, errFlag, _, _, _, _, _);
                 if (errFlag) {
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Reference Unit=\"{}\", type=ZoneHVAC:VentilatedSlab", ventSlab.Name));
+=======
+                    ShowContinueError(state, std::format("Reference Unit=\"{}\", type=ZoneHVAC:VentilatedSlab", ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "InitVentilatedSlab: Program terminated due to previous condition(s).");
                 }
 
@@ -1498,14 +1796,22 @@ namespace VentilatedSlab {
                 bool errFlag = false;
                 PlantUtilities::ScanPlantLoopsForObject(state, ventSlab.coolingCoilPlantName, ventSlab.coolingCoilType, ventSlab.CWPlantLoc, errFlag);
                 if (errFlag) {
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Reference Unit=\"{}\", type=ZoneHVAC:VentilatedSlab", ventSlab.Name));
+=======
+                    ShowContinueError(state, std::format("Reference Unit=\"{}\", type=ZoneHVAC:VentilatedSlab", ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowFatalError(state, "InitVentilatedSlab: Program terminated due to previous condition(s).");
                 }
                 ventSlab.ColdCoilOutNodeNum = DataPlant::CompData::getPlantComponent(state, ventSlab.CWPlantLoc).NodeNumOut;
             } else {
                 if (ventSlab.coolingCoilPresent) {
+<<<<<<< HEAD
                     ShowFatalError(state,
                                    EnergyPlus::format("InitVentilatedSlab: Unit={}, invalid cooling coil type. Program terminated.", ventSlab.Name));
+=======
+                    ShowFatalError(state, std::format("InitVentilatedSlab: Unit={}, invalid cooling coil type. Program terminated.", ventSlab.Name));
+>>>>>>> nrel/develop
                 }
             }
             state.dataVentilatedSlab->MyPlantScanFlag(Item) = false;
@@ -1522,10 +1828,16 @@ namespace VentilatedSlab {
                 }
                 ShowSevereError(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format(
                         "InitVentilatedSlab: Ventilated Slab Unit=[{},{}] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.",
                         cMO_VentilatedSlab,
                         state.dataVentilatedSlab->VentSlab(RadNum).Name));
+=======
+                    std::format("InitVentilatedSlab: Ventilated Slab Unit=[{},{}] is not on any ZoneHVAC:EquipmentList.  It will not be simulated.",
+                                cMO_VentilatedSlab,
+                                state.dataVentilatedSlab->VentSlab(RadNum).Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1569,9 +1881,14 @@ namespace VentilatedSlab {
             if (ventSlab.OutAirMassFlow > ventSlab.MaxAirMassFlow) {
                 ventSlab.OutAirMassFlow = ventSlab.MaxAirMassFlow;
                 ventSlab.MinOutAirMassFlow = ventSlab.OutAirMassFlow * (ventSlab.MinOutAirVolFlow / ventSlab.OutAirVolFlow);
+<<<<<<< HEAD
                 ShowWarningError(
                     state,
                     EnergyPlus::format("Outdoor air mass flow rate higher than unit flow rate, reset to unit flow rate for {}", ventSlab.Name));
+=======
+                ShowWarningError(state,
+                                 std::format("Outdoor air mass flow rate higher than unit flow rate, reset to unit flow rate for {}", ventSlab.Name));
+>>>>>>> nrel/develop
             }
 
             // set the node max and min mass flow rates
@@ -1713,6 +2030,7 @@ namespace VentilatedSlab {
         std::string CoolingCoilType;
         Real64 rho;
         Real64 Cp;
+<<<<<<< HEAD
         Real64 MaxAirVolFlowDes;        // Autosized maximum air flow for reporting
         Real64 MaxAirVolFlowUser;       // Hardsized maximum air flow for reporting
         Real64 OutAirVolFlowDes;        // Autosized outdoor air flow for reporting
@@ -1730,6 +2048,25 @@ namespace VentilatedSlab {
         std::string SizingString;       // input field sizing description (e.g., Nominal Capacity)
         Real64 TempSize;                // autosized value of coil input field
         int FieldNum = 2;               // IDD numeric field number where input field description is found
+=======
+        Real64 MaxAirVolFlowDes;                // Autosized maximum air flow for reporting
+        Real64 MaxAirVolFlowUser;               // Hardsized maximum air flow for reporting
+        Real64 OutAirVolFlowDes;                // Autosized outdoor air flow for reporting
+        Real64 OutAirVolFlowUser;               // Hardsized outdoor air flow for reporting
+        Real64 MinOutAirVolFlowDes;             // Autosized minimum outdoor air flow for reporting
+        Real64 MinOutAirVolFlowUser;            // Hardsized minimum outdoor air flow for reporting
+        Real64 MaxVolHotWaterFlowDes;           // Autosized maximum hot water flow for reporting
+        Real64 MaxVolHotWaterFlowUser;          // Hardsized maximum hot water flow for reporting
+        Real64 MaxVolHotSteamFlowDes;           // Autosized maximum hot steam flow for reporting
+        Real64 MaxVolHotSteamFlowUser;          // Hardsized maximum hot steam flow for reporting
+        Real64 MaxVolColdWaterFlowDes;          // Autosized maximum cold water flow for reporting
+        Real64 MaxVolColdWaterFlowUser;         // Hardsized maximum cold water flow for reporting
+        std::string CompName;                   // component name
+        std::string CompType;                   // component type
+        std::string SizingString;               // input field sizing description (e.g., Nominal Capacity)
+        Real64 TempSize = DataSizing::AutoSize; // autosized value of coil input field
+        int FieldNum = 2;                       // IDD numeric field number where input field description is found
+>>>>>>> nrel/develop
         int SizingMethod;  // Integer representation of sizing method name (e.g., CoolingAirflowSizing, HeatingAirflowSizing, CoolingCapacitySizing,
                            // HeatingCapacitySizing, etc.)
         bool PrintFlag;    // TRUE when sizing information is reported in the eio file
@@ -1799,9 +2136,12 @@ namespace VentilatedSlab {
                     }
                     CoolingAirFlowSizer sizingCoolingAirFlow;
                     std::string stringOverride = "Maximum Air Flow Rate [m3/s]";
+<<<<<<< HEAD
                     if (state.dataGlobal->isEpJSON) {
                         stringOverride = "maximum_air_flow_rate [m3/s]";
                     }
+=======
+>>>>>>> nrel/develop
                     sizingCoolingAirFlow.overrideSizingString(stringOverride);
                     // sizingCoolingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                     sizingCoolingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
@@ -1821,9 +2161,12 @@ namespace VentilatedSlab {
                     TempSize = DataSizing::AutoSize;
                     CoolingAirFlowSizer sizingCoolingAirFlow;
                     std::string stringOverride = "Maximum Air Flow Rate [m3/s]";
+<<<<<<< HEAD
                     if (state.dataGlobal->isEpJSON) {
                         stringOverride = "maximum_air_flow_rate [m3/s]";
                     }
+=======
+>>>>>>> nrel/develop
                     sizingCoolingAirFlow.overrideSizingString(stringOverride);
                     // sizingCoolingAirFlow.setHVACSizingIndexData(FanCoil(FanCoilNum).HVACSizingIndex);
                     sizingCoolingAirFlow.initializeWithinEP(state, CompType, CompName, PrintFlag, RoutineName);
@@ -1925,6 +2268,7 @@ namespace VentilatedSlab {
                                                      OutAirVolFlowUser);
                         if (state.dataGlobal->DisplayExtraWarnings) {
                             if ((std::abs(OutAirVolFlowDes - OutAirVolFlowUser) / OutAirVolFlowUser) > state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                 ShowMessage(state,
                                             EnergyPlus::format(
                                                 "SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
@@ -1934,6 +2278,16 @@ namespace VentilatedSlab {
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("differs from Design Size Maximum Outdoor Air Flow Rate of {:.5R} [m3/s]", OutAirVolFlowDes));
+=======
+                                ShowMessage(
+                                    state,
+                                    std::format("SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
+                                                ventSlab.Name));
+                                ShowContinueError(state,
+                                                  std::format("User-Specified Maximum Outdoor Air Flow Rate of {:.5f} [m3/s]", OutAirVolFlowUser));
+                                ShowContinueError(
+                                    state, std::format("differs from Design Size Maximum Outdoor Air Flow Rate of {:.5f} [m3/s]", OutAirVolFlowDes));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                 ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                             }
@@ -1976,6 +2330,7 @@ namespace VentilatedSlab {
                         if (state.dataGlobal->DisplayExtraWarnings) {
                             if ((std::abs(MinOutAirVolFlowDes - MinOutAirVolFlowUser) / MinOutAirVolFlowUser) >
                                 state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                 ShowMessage(state,
                                             EnergyPlus::format(
                                                 "SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
@@ -1985,6 +2340,17 @@ namespace VentilatedSlab {
                                 ShowContinueError(state,
                                                   EnergyPlus::format("differs from Design Size Minimum Outdoor Air Flow Rate of {:.5R} [m3/s]",
                                                                      MinOutAirVolFlowDes));
+=======
+                                ShowMessage(
+                                    state,
+                                    std::format("SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
+                                                ventSlab.Name));
+                                ShowContinueError(state,
+                                                  std::format("User-Specified Minimum Outdoor Air Flow Rate of {:.5f} [m3/s]", MinOutAirVolFlowUser));
+                                ShowContinueError(
+                                    state,
+                                    std::format("differs from Design Size Minimum Outdoor Air Flow Rate of {:.5f} [m3/s]", MinOutAirVolFlowDes));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                 ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                             }
@@ -1998,7 +2364,11 @@ namespace VentilatedSlab {
         if (ventSlab.MaxVolHotWaterFlow == DataSizing::AutoSize) {
             IsAutoSize = true;
         }
+<<<<<<< HEAD
         if (ventSlab.hCoilType == HeatingCoilType::Water) {
+=======
+        if (ventSlab.heatCoilType == HVAC::CoilType::HeatingWater) {
+>>>>>>> nrel/develop
 
             if (CurZoneEqNum > 0) {
                 if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) {
@@ -2026,7 +2396,11 @@ namespace VentilatedSlab {
                                 DoWaterCoilSizing = false;
                                 // If there is no heating Plant Sizing object and autosizing was requested, issue fatal error message
                                 ShowSevereError(state, "Autosizing of water flow requires a heating loop Sizing:Plant object");
+<<<<<<< HEAD
                                 ShowContinueError(state, EnergyPlus::format("Occurs in {} Object={}", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                                ShowContinueError(state, std::format("Occurs in {} Object={}", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
@@ -2100,6 +2474,7 @@ namespace VentilatedSlab {
                             if (state.dataGlobal->DisplayExtraWarnings) {
                                 if ((std::abs(MaxVolHotWaterFlowDes - MaxVolHotWaterFlowUser) / MaxVolHotWaterFlowUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                     ShowMessage(state,
                                                 EnergyPlus::format(
                                                     "SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
@@ -2109,6 +2484,17 @@ namespace VentilatedSlab {
                                     ShowContinueError(state,
                                                       EnergyPlus::format("differs from Design Size Maximum Hot Water Flow of {:.5R} [m3/s]",
                                                                          MaxVolHotWaterFlowDes));
+=======
+                                    ShowMessage(
+                                        state,
+                                        std::format("SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
+                                                    ventSlab.Name));
+                                    ShowContinueError(state,
+                                                      std::format("User-Specified Maximum Hot Water Flow of {:.5f} [m3/s]", MaxVolHotWaterFlowUser));
+                                    ShowContinueError(
+                                        state,
+                                        std::format("differs from Design Size Maximum Hot Water Flow of {:.5f} [m3/s]", MaxVolHotWaterFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -2125,7 +2511,11 @@ namespace VentilatedSlab {
         if (ventSlab.MaxVolHotSteamFlow == DataSizing::AutoSize) {
             IsAutoSize = true;
         }
+<<<<<<< HEAD
         if (ventSlab.hCoilType == HeatingCoilType::Steam) {
+=======
+        if (ventSlab.heatCoilType == HVAC::CoilType::HeatingSteam) {
+>>>>>>> nrel/develop
 
             if (CurZoneEqNum > 0) {
                 if (!IsAutoSize && !state.dataSize->ZoneSizingRunDone) {
@@ -2205,7 +2595,11 @@ namespace VentilatedSlab {
                             }
                         } else {
                             ShowSevereError(state, "Autosizing of Steam flow requires a heating loop Sizing:Plant object");
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("Occurs in ZoneHVAC:VentilatedSlab Object={}", ventSlab.Name));
+=======
+                            ShowContinueError(state, std::format("Occurs in ZoneHVAC:VentilatedSlab Object={}", ventSlab.Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                         ventSlab.MaxVolHotSteamFlow = MaxVolHotSteamFlowDes;
@@ -2224,6 +2618,7 @@ namespace VentilatedSlab {
                             if (state.dataGlobal->DisplayExtraWarnings) {
                                 if ((std::abs(MaxVolHotSteamFlowDes - MaxVolHotSteamFlowUser) / MaxVolHotSteamFlowUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                     ShowMessage(state,
                                                 EnergyPlus::format(
                                                     "SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
@@ -2233,6 +2628,16 @@ namespace VentilatedSlab {
                                     ShowContinueError(
                                         state,
                                         EnergyPlus::format("differs from Design Size Maximum Steam Flow of {:.5R} [m3/s]", MaxVolHotSteamFlowDes));
+=======
+                                    ShowMessage(
+                                        state,
+                                        std::format("SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
+                                                    ventSlab.Name));
+                                    ShowContinueError(state,
+                                                      std::format("User-Specified Maximum Steam Flow of {:.5f} [m3/s]", MaxVolHotSteamFlowUser));
+                                    ShowContinueError(
+                                        state, std::format("differs from Design Size Maximum Steam Flow of {:.5f} [m3/s]", MaxVolHotSteamFlowDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -2257,7 +2662,11 @@ namespace VentilatedSlab {
                 }
             } else {
                 CheckZoneSizing(state, cMO_VentilatedSlab, ventSlab.Name);
+<<<<<<< HEAD
                 if (ventSlab.cCoilType == CoolingCoilType::HXAssisted) {
+=======
+                if (ventSlab.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
                     CoolingCoilName =
                         HVACHXAssistedCoolingCoil::GetHXDXCoilName(state, ventSlab.coolingCoilTypeCh, ventSlab.coolingCoilName, ErrorsFound);
                     CoolingCoilType =
@@ -2283,7 +2692,11 @@ namespace VentilatedSlab {
                             DoWaterCoilSizing = false;
                             // If there is no cooling Plant Sizing object and autosizing was requested, issue fatal error message
                             ShowSevereError(state, "Autosizing of water flow requires a cooling loop Sizing:Plant object");
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("Occurs in {} Object={}", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                            ShowContinueError(state, std::format("Occurs in {} Object={}", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -2358,6 +2771,7 @@ namespace VentilatedSlab {
                         if (state.dataGlobal->DisplayExtraWarnings) {
                             if ((std::abs(MaxVolColdWaterFlowDes - MaxVolColdWaterFlowUser) / MaxVolColdWaterFlowUser) >
                                 state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                 ShowMessage(state,
                                             EnergyPlus::format(
                                                 "SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
@@ -2367,6 +2781,16 @@ namespace VentilatedSlab {
                                 ShowContinueError(
                                     state,
                                     EnergyPlus::format("differs from Design Size Maximum Cold Water Flow of {:.5R} [m3/s]", MaxVolColdWaterFlowDes));
+=======
+                                ShowMessage(
+                                    state,
+                                    std::format("SizeVentilatedSlab: Potential issue with equipment sizing for ZoneHVAC:VentilatedSlab = \"{}\".",
+                                                ventSlab.Name));
+                                ShowContinueError(state,
+                                                  std::format("User-Specified Maximum Cold Water Flow of {:.5f} [m3/s]", MaxVolColdWaterFlowUser));
+                                ShowContinueError(
+                                    state, std::format("differs from Design Size Maximum Cold Water Flow of {:.5f} [m3/s]", MaxVolColdWaterFlowDes));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                 ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                             }
@@ -2376,7 +2800,11 @@ namespace VentilatedSlab {
             }
         }
 
+<<<<<<< HEAD
         if (ventSlab.cCoilType == CoolingCoilType::HXAssisted) {
+=======
+        if (ventSlab.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
             CoolingCoilName = HVACHXAssistedCoolingCoil::GetHXDXCoilName(state, ventSlab.coolingCoilTypeCh, ventSlab.coolingCoilName, ErrorsFound);
             CoolingCoilType = HVACHXAssistedCoolingCoil::GetHXCoilType(state, ventSlab.coolingCoilTypeCh, ventSlab.coolingCoilName, ErrorsFound);
         } else {
@@ -2493,6 +2921,7 @@ namespace VentilatedSlab {
         int RadSurfNum;        // DO loop counter for the surfaces that comprise a particular radiant system
         static std::string const CurrentModuleObject("ZoneHVAC:VentilatedSlab");
 
+<<<<<<< HEAD
         switch (ventSlab.coilOption) {
         case CoilType::Both: {
 
@@ -2502,16 +2931,35 @@ namespace VentilatedSlab {
                 break;
             }
             case HeatingCoilType::Steam: {
+=======
+        switch (ventSlab.coilsUsed) {
+        case CoilsUsed::Both: {
+
+            switch (ventSlab.heatCoilType) {
+            case HVAC::CoilType::HeatingWater: {
+                WaterCoils::CheckWaterCoilSchedule(state, ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
+                break;
+            }
+            case HVAC::CoilType::HeatingSteam: {
+>>>>>>> nrel/develop
                 SteamCoils::CheckSteamCoilSchedule(
                     state, "Coil:Heating:Steam", ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
                 break;
             }
+<<<<<<< HEAD
             case HeatingCoilType::Electric: {
+=======
+            case HVAC::CoilType::HeatingElectric: {
+>>>>>>> nrel/develop
                 HeatingCoils::CheckHeatingCoilSchedule(
                     state, "Coil:Heating:Electric", ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
                 break;
             }
+<<<<<<< HEAD
             case HeatingCoilType::Gas: {
+=======
+            case HVAC::CoilType::HeatingGasOrOtherFuel: {
+>>>>>>> nrel/develop
                 HeatingCoils::CheckHeatingCoilSchedule(
                     state, "Coil:Heating:Fuel", ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
                 break;
@@ -2520,6 +2968,7 @@ namespace VentilatedSlab {
                 break;
             }
 
+<<<<<<< HEAD
             switch (ventSlab.cCoilType) {
             case CoolingCoilType::WaterCooling:
             case CoolingCoilType::DetailedCooling: {
@@ -2527,6 +2976,15 @@ namespace VentilatedSlab {
                 break;
             }
             case CoolingCoilType::HXAssisted: {
+=======
+            switch (ventSlab.coolCoilType) {
+            case HVAC::CoilType::CoolingWater:
+            case HVAC::CoilType::CoolingWaterDetailed: {
+                WaterCoils::CheckWaterCoilSchedule(state, ventSlab.coolingCoilName, ventSlab.coolingCoilSchedValue, ventSlab.coolingCoil_Index);
+                break;
+            }
+            case HVAC::CoilType::CoolingWaterHXAssisted: {
+>>>>>>> nrel/develop
                 HVACHXAssistedCoolingCoil::CheckHXAssistedCoolingCoilSchedule(state,
                                                                               "CoilSystem:Cooling:Water:HeatExchangerAssisted",
                                                                               ventSlab.coolingCoilName,
@@ -2539,6 +2997,7 @@ namespace VentilatedSlab {
             }
             break;
         }
+<<<<<<< HEAD
         case CoilType::Heating: {
 
             switch (ventSlab.hCoilType) {
@@ -2547,16 +3006,35 @@ namespace VentilatedSlab {
                 break;
             }
             case HeatingCoilType::Steam: {
+=======
+
+        case CoilsUsed::Heating: {
+
+            switch (ventSlab.heatCoilType) {
+            case HVAC::CoilType::HeatingWater: {
+                WaterCoils::CheckWaterCoilSchedule(state, ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
+                break;
+            }
+            case HVAC::CoilType::HeatingSteam: {
+>>>>>>> nrel/develop
                 SteamCoils::CheckSteamCoilSchedule(
                     state, "Coil:Heating:Steam", ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
                 break;
             }
+<<<<<<< HEAD
             case HeatingCoilType::Electric: {
+=======
+            case HVAC::CoilType::HeatingElectric: {
+>>>>>>> nrel/develop
                 HeatingCoils::CheckHeatingCoilSchedule(
                     state, "Coil:Heating:Electric", ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
                 break;
             }
+<<<<<<< HEAD
             case HeatingCoilType::Gas: {
+=======
+            case HVAC::CoilType::HeatingGasOrOtherFuel: {
+>>>>>>> nrel/develop
                 HeatingCoils::CheckHeatingCoilSchedule(
                     state, "Coil:Heating:Fuel", ventSlab.heatingCoilName, ventSlab.heatingCoilSchedValue, ventSlab.heatingCoil_Index);
                 break;
@@ -2566,6 +3044,7 @@ namespace VentilatedSlab {
             }
             break;
         }
+<<<<<<< HEAD
         case CoilType::Cooling: {
 
             switch (ventSlab.cCoilType) {
@@ -2575,6 +3054,18 @@ namespace VentilatedSlab {
                 break;
             }
             case CoolingCoilType::HXAssisted: {
+=======
+
+        case CoilsUsed::Cooling: {
+
+            switch (ventSlab.coolCoilType) {
+            case HVAC::CoilType::CoolingWater:
+            case HVAC::CoilType::CoolingWaterDetailed: {
+                WaterCoils::CheckWaterCoilSchedule(state, ventSlab.coolingCoilName, ventSlab.coolingCoilSchedValue, ventSlab.coolingCoil_Index);
+                break;
+            }
+            case HVAC::CoilType::CoolingWaterHXAssisted: {
+>>>>>>> nrel/develop
                 HVACHXAssistedCoolingCoil::CheckHXAssistedCoolingCoilSchedule(state,
                                                                               "CoilSystem:Cooling:Water:HeatExchangerAssisted",
                                                                               ventSlab.coolingCoilName,
@@ -2586,7 +3077,11 @@ namespace VentilatedSlab {
                 break;
             }
         }
+<<<<<<< HEAD
         case CoilType::None:
+=======
+        case CoilsUsed::None:
+>>>>>>> nrel/develop
         default:
             break;
         }
@@ -2645,7 +3140,11 @@ namespace VentilatedSlab {
         }
         default: {              // Should never get here
             SetPointTemp = 0.0; // Suppress uninitialized warning
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Illegal control type in low temperature radiant system: {}", ventSlab.Name));
+=======
+            ShowSevereError(state, std::format("Illegal control type in low temperature radiant system: {}", ventSlab.Name));
+>>>>>>> nrel/develop
             ShowFatalError(state, "Preceding condition causes termination.");
         } break;
         } // switch (ctrlType)
@@ -2732,7 +3231,11 @@ namespace VentilatedSlab {
                 SetPointTempHi = ventSlab.hotCtrlHiTempSched->getCurrentVal();
                 SetPointTempLo = ventSlab.hotCtrlLoTempSched->getCurrentVal();
                 if (SetPointTempHi < SetPointTempLo) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Heating setpoint temperature mismatch in{}", ventSlab.Name));
+=======
+                    ShowSevereError(state, std::format("Heating setpoint temperature mismatch in{}", ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "High setpoint temperature is less than low setpoint temperature--check your schedule input");
                     ShowFatalError(state, "Preceding condition causes termination.");
                 }
@@ -2741,7 +3244,11 @@ namespace VentilatedSlab {
                 AirTempLo = ventSlab.hotAirLoTempSched->getCurrentVal();
 
                 if (AirTempHi < AirTempLo) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Heating Air temperature mismatch in{}", ventSlab.Name));
+=======
+                    ShowSevereError(state, std::format("Heating Air temperature mismatch in{}", ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "High Air temperature is less than low Air temperature--check your schedule input");
                     ShowFatalError(state, "Preceding condition causes termination.");
                 }
@@ -2769,12 +3276,20 @@ namespace VentilatedSlab {
                 // On the first HVAC iteration the system values are given to the controller, but after that
                 // the demand limits are in place and there needs to be feedback to the Zone Equipment
 
+<<<<<<< HEAD
                 if (!FirstHVACIteration && ventSlab.hCoilType == HeatingCoilType::Water) {
+=======
+                if (!FirstHVACIteration && ventSlab.heatCoilType == HVAC::CoilType::HeatingWater) {
+>>>>>>> nrel/develop
                     MaxWaterFlow = state.dataLoopNodes->Node(ControlNode).MassFlowRateMaxAvail;
                     MinWaterFlow = state.dataLoopNodes->Node(ControlNode).MassFlowRateMinAvail;
                 }
 
+<<<<<<< HEAD
                 if (!FirstHVACIteration && ventSlab.hCoilType == HeatingCoilType::Steam) {
+=======
+                if (!FirstHVACIteration && ventSlab.heatCoilType == HVAC::CoilType::HeatingSteam) {
+>>>>>>> nrel/develop
                     MaxSteamFlow = state.dataLoopNodes->Node(ControlNode).MassFlowRateMaxAvail;
                     MinSteamFlow = state.dataLoopNodes->Node(ControlNode).MassFlowRateMinAvail;
                 }
@@ -2866,8 +3381,12 @@ namespace VentilatedSlab {
                             }
                         } else {
                             // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                             ShowFatalError(state,
                                            EnergyPlus::format("Ventilated Slab simulation control: illogical condition for {}", ventSlab.Name));
+=======
+                            ShowFatalError(state, std::format("Ventilated Slab simulation control: illogical condition for {}", ventSlab.Name));
+>>>>>>> nrel/develop
                         }
                         break;
                     }
@@ -2936,8 +3455,12 @@ namespace VentilatedSlab {
                             }
                         } else {
                             // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                             ShowFatalError(state,
                                            EnergyPlus::format("Ventilated Slab simulation control: illogical condition for {}", ventSlab.Name));
+=======
+                            ShowFatalError(state, std::format("Ventilated Slab simulation control: illogical condition for {}", ventSlab.Name));
+>>>>>>> nrel/develop
                         }
                         break;
                     }
@@ -2954,9 +3477,15 @@ namespace VentilatedSlab {
                         (state.dataLoopNodes->Node(OutletNode).MassFlowRate) * CpFan * (RadInTemp - state.dataLoopNodes->Node(FanOutletNode).Temp);
 
                     // Setup the coil configuration
+<<<<<<< HEAD
                     switch (ventSlab.hCoilType) {
 
                     case HeatingCoilType::Water: {
+=======
+                    switch (ventSlab.heatCoilType) {
+
+                    case HVAC::CoilType::HeatingWater: {
+>>>>>>> nrel/develop
                         // control water flow to obtain output matching QZnReq
 
                         ControlCompOutput(state,
@@ -2979,9 +3508,15 @@ namespace VentilatedSlab {
                                           ventSlab.HWPlantLoc);
                         break;
                     }
+<<<<<<< HEAD
                     case HeatingCoilType::Gas:
                     case HeatingCoilType::Electric:
                     case HeatingCoilType::Steam: {
+=======
+                    case HVAC::CoilType::HeatingGasOrOtherFuel:
+                    case HVAC::CoilType::HeatingElectric:
+                    case HVAC::CoilType::HeatingSteam: {
+>>>>>>> nrel/develop
 
                         CalcVentilatedSlabComps(state, Item, FirstHVACIteration, QUnitOut);
                         break;
@@ -2998,7 +3533,11 @@ namespace VentilatedSlab {
                 SetPointTempHi = ventSlab.coldCtrlHiTempSched->getCurrentVal();
                 SetPointTempLo = ventSlab.coldCtrlLoTempSched->getCurrentVal();
                 if (SetPointTempHi < SetPointTempLo) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Cooling setpoint temperature mismatch in{}", ventSlab.Name));
+=======
+                    ShowSevereError(state, std::format("Cooling setpoint temperature mismatch in{}", ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "High setpoint temperature is less than low setpoint temperature--check your schedule input");
                     ShowFatalError(state, "Preceding condition causes termination.");
                 }
@@ -3006,7 +3545,11 @@ namespace VentilatedSlab {
                 AirTempHi = ventSlab.coldAirHiTempSched->getCurrentVal();
                 AirTempLo = ventSlab.coldAirLoTempSched->getCurrentVal();
                 if (AirTempHi < AirTempLo) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Cooling Air temperature mismatch in{}", ventSlab.Name));
+=======
+                    ShowSevereError(state, std::format("Cooling Air temperature mismatch in{}", ventSlab.Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "High Air temperature is less than low Air temperature--check your schedule input");
                     ShowFatalError(state, "Preceding condition causes termination.");
                 }
@@ -3124,8 +3667,13 @@ namespace VentilatedSlab {
                             }
                         } else {
                             // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                             ShowFatalError(
                                 state, EnergyPlus::format("{} simulation control: illogical condition for {}", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                            ShowFatalError(state,
+                                           std::format("{} simulation control: illogical condition for {}", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                         }
                         break;
                     }
@@ -3198,8 +3746,13 @@ namespace VentilatedSlab {
                             }
                         } else {
                             // It should NEVER get to this point, but just in case...
+<<<<<<< HEAD
                             ShowFatalError(
                                 state, EnergyPlus::format("{} simulation control: illogical condition for {}", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                            ShowFatalError(state,
+                                           std::format("{} simulation control: illogical condition for {}", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                         }
                         break;
                     }
@@ -3303,7 +3856,11 @@ namespace VentilatedSlab {
         state.dataFans->fans(ventSlab.Fan_Index)->simulate(state, FirstHVACIteration, _, _);
 
         if ((ventSlab.coolingCoilPresent) && (ventSlab.coolingCoilSchedValue >= 0.0)) {
+<<<<<<< HEAD
             if (ventSlab.cCoilType == CoolingCoilType::HXAssisted) {
+=======
+            if (ventSlab.coolCoilType == HVAC::CoilType::CoolingWaterHXAssisted) {
+>>>>>>> nrel/develop
                 HVACHXAssistedCoolingCoil::SimHXAssistedCoolingCoil(state,
                                                                     ventSlab.coolingCoilName,
                                                                     FirstHVACIteration,
@@ -3318,14 +3875,24 @@ namespace VentilatedSlab {
 
         if ((ventSlab.heatingCoilPresent) && (ventSlab.heatingCoilSchedValue >= 0.0)) {
 
+<<<<<<< HEAD
             switch (ventSlab.hCoilType) {
 
             case HeatingCoilType::Water: {
+=======
+            switch (ventSlab.heatCoilType) {
+
+            case HVAC::CoilType::HeatingWater: {
+>>>>>>> nrel/develop
 
                 WaterCoils::SimulateWaterCoilComponents(state, ventSlab.heatingCoilName, FirstHVACIteration, ventSlab.heatingCoil_Index);
                 break;
             }
+<<<<<<< HEAD
             case HeatingCoilType::Steam: {
+=======
+            case HVAC::CoilType::HeatingSteam: {
+>>>>>>> nrel/develop
 
                 if (!state.dataVentilatedSlab->HCoilOn) {
                     QCoilReq = 0.0;
@@ -3344,8 +3911,13 @@ namespace VentilatedSlab {
                 SteamCoils::SimulateSteamCoilComponents(state, ventSlab.heatingCoilName, FirstHVACIteration, ventSlab.heatingCoil_Index, QCoilReq);
                 break;
             }
+<<<<<<< HEAD
             case HeatingCoilType::Electric:
             case HeatingCoilType::Gas: {
+=======
+            case HVAC::CoilType::HeatingElectric:
+            case HVAC::CoilType::HeatingGasOrOtherFuel: {
+>>>>>>> nrel/develop
 
                 if (!state.dataVentilatedSlab->HCoilOn) {
                     QCoilReq = 0.0;
@@ -3471,7 +4043,11 @@ namespace VentilatedSlab {
         static std::string const CurrentModuleObject("ZoneHVAC:VentilatedSlab");
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
+<<<<<<< HEAD
         Real64 CpAirZn;        // Intermediate calculational variable for specific heat of air
+=======
+        Real64 CpAirZn = 0.0;  // Intermediate calculational variable for specific heat of air
+>>>>>>> nrel/develop
         Real64 DewPointTemp;   // Dew-point temperature based on the zone air conditions
         Real64 EpsMdotCpAirZn; // Epsilon (heat exchanger terminology) times water mass flow rate times water specific heat
         Real64 Mdot;           // Intermediate calculation variable for mass flow rate in a surface within the radiant system
@@ -3482,7 +4058,11 @@ namespace VentilatedSlab {
         // unused0309  INTEGER  :: RadSurfNumNum
         Real64 TotalVentSlabRadPower; // Total heat source/sink to radiant system
         Real64 AirOutletTempCheck;    // Radiant system air outlet temperature (calculated from mixing all outlet streams together)
+<<<<<<< HEAD
         Real64 AirTempIn;             // Temperature of the air entering the radiant system, in C
+=======
+        Real64 AirTempIn = 0.0;       // Temperature of the air entering the radiant system, in C
+>>>>>>> nrel/develop
         Real64 Ca;                    // Coefficients to relate the inlet air temperature to the heat source
         Real64 Cb;
         Real64 Cc;
@@ -3703,6 +4283,7 @@ namespace VentilatedSlab {
                                     ++state.dataVentilatedSlab->CondensationErrorCount;
 
                                     if (ventSlab.CondErrIndex == 0) {
+<<<<<<< HEAD
                                         ShowWarningMessage(state, EnergyPlus::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
                                         ShowContinueError(
                                             state,
@@ -3723,6 +4304,27 @@ namespace VentilatedSlab {
                                         ShowContinueError(state,
                                                           EnergyPlus::format("Note that there is a {:.4R} C safety built-in to the shut-off criteria",
                                                                              CondDeltaTemp));
+=======
+                                        ShowWarningMessage(state, std::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Surface [{}] temperature below dew-point temperature--potential for condensation exists",
+                                                        state.dataSurface->Surface(ventSlab.SurfacePtr(RadSurfNum2)).Name));
+                                        ShowContinueError(state, "Flow to the ventilated slab system will be shut-off to avoid condensation");
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Predicted radiant system surface temperature = {:.2f}",
+                                                        state.dataHeatBalSurf->SurfInsideTempHist(1)(ventSlab.SurfacePtr(RadSurfNum2))));
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Zone dew-point temperature + safety factor delta= {:.2f}", DewPointTemp + CondDeltaTemp));
+                                        ShowContinueErrorTimeStamp(state, "");
+                                    }
+                                    if (state.dataVentilatedSlab->CondensationErrorCount == 1) {
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Note that there is a {:.4f} C safety built-in to the shut-off criteria", CondDeltaTemp));
+>>>>>>> nrel/develop
                                         ShowContinueError(state, "Note also that this affects all surfaces that are part of this system");
                                     }
                                     ShowRecurringWarningErrorAtEnd(state,
@@ -3763,13 +4365,18 @@ namespace VentilatedSlab {
                             if (!state.dataGlobal->WarmupFlag) {
                                 ++state.dataVentilatedSlab->EnergyImbalanceErrorCount;
                                 if (ventSlab.EnrgyImbalErrIndex == 0) {
+<<<<<<< HEAD
                                     ShowWarningMessage(state, EnergyPlus::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                                    ShowWarningMessage(state, std::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "Ventilated Slab (slab only type) air outlet temperature calculation mismatch.");
                                     ShowContinueError(state,
                                                       "This should not happen as it indicates a potential energy imbalance in the calculations.");
                                     ShowContinueError(state, "However, it could also result from improper input for the ventilated slab or");
                                     ShowContinueError(state, "illogical control temperatures.  Check your input for this ventilated slab and");
                                     ShowContinueError(state, "also look at the internal data shown below.");
+<<<<<<< HEAD
                                     ShowContinueError(
                                         state,
                                         EnergyPlus::format("Predicted return air temperature [C] from the overall energy balance = {:.4R}",
@@ -3780,6 +4387,17 @@ namespace VentilatedSlab {
                                                            AirOutletTempCheck));
                                     ShowContinueError(
                                         state, EnergyPlus::format("Total energy rate (power) [W] added to the slab = {:.4R}", TotalVentSlabRadPower));
+=======
+                                    ShowContinueError(state,
+                                                      std::format("Predicted return air temperature [C] from the overall energy balance = {:.4f}",
+                                                                  state.dataLoopNodes->Node(ReturnAirNode).Temp));
+                                    ShowContinueError(
+                                        state,
+                                        std::format("Predicted return air temperature [C] from the slab section energy balances = {:.4f}",
+                                                    AirOutletTempCheck));
+                                    ShowContinueError(state,
+                                                      std::format("Total energy rate (power) [W] added to the slab = {:.4f}", TotalVentSlabRadPower));
+>>>>>>> nrel/develop
                                     ShowContinueErrorTimeStamp(state, "");
                                 }
                                 ShowRecurringWarningErrorAtEnd(state,
@@ -3803,13 +4421,18 @@ namespace VentilatedSlab {
                             if (!state.dataGlobal->WarmupFlag) {
                                 ++state.dataVentilatedSlab->EnergyImbalanceErrorCount;
                                 if (ventSlab.EnrgyImbalErrIndex == 0) {
+<<<<<<< HEAD
                                     ShowWarningMessage(state, EnergyPlus::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                                    ShowWarningMessage(state, std::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "Ventilated Slab (slab only type) air outlet temperature calculation mismatch.");
                                     ShowContinueError(state,
                                                       "This should not happen as it indicates a potential energy imbalance in the calculations.");
                                     ShowContinueError(state, "However, it could also result from improper input for the ventilated slab or");
                                     ShowContinueError(state, "illogical control temperatures.  Check your input for this ventilated slab and");
                                     ShowContinueError(state, "also look at the internal data shown below.");
+<<<<<<< HEAD
                                     ShowContinueError(
                                         state,
                                         EnergyPlus::format("Predicted return air temperature [C] from the overall energy balance = {:.4R}",
@@ -3820,6 +4443,17 @@ namespace VentilatedSlab {
                                                            AirOutletTempCheck));
                                     ShowContinueError(
                                         state, EnergyPlus::format("Total energy rate (power) [W] added to the slab = {:.4R}", TotalVentSlabRadPower));
+=======
+                                    ShowContinueError(state,
+                                                      std::format("Predicted return air temperature [C] from the overall energy balance = {:.4f}",
+                                                                  state.dataLoopNodes->Node(ReturnAirNode).Temp));
+                                    ShowContinueError(
+                                        state,
+                                        std::format("Predicted return air temperature [C] from the slab section energy balances = {:.4f}",
+                                                    AirOutletTempCheck));
+                                    ShowContinueError(state,
+                                                      std::format("Total energy rate (power) [W] added to the slab = {:.4f}", TotalVentSlabRadPower));
+>>>>>>> nrel/develop
                                     ShowContinueErrorTimeStamp(state, "");
                                 }
                                 ShowRecurringWarningErrorAtEnd(state,
@@ -3968,6 +4602,7 @@ namespace VentilatedSlab {
                                 if (!state.dataGlobal->WarmupFlag) {
                                     ++state.dataVentilatedSlab->CondensationErrorCount;
                                     if (ventSlab.CondErrIndex == 0) {
+<<<<<<< HEAD
                                         ShowWarningMessage(state, EnergyPlus::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
                                         ShowContinueError(
                                             state,
@@ -3988,6 +4623,27 @@ namespace VentilatedSlab {
                                         ShowContinueError(state,
                                                           EnergyPlus::format("Note that there is a {:.4R} C safety built-in to the shut-off criteria",
                                                                              CondDeltaTemp));
+=======
+                                        ShowWarningMessage(state, std::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Surface [{}] temperature below dew-point temperature--potential for condensation exists",
+                                                        state.dataSurface->Surface(ventSlab.SurfacePtr(RadSurfNum2)).Name));
+                                        ShowContinueError(state, "Flow to the ventilated slab system will be shut-off to avoid condensation");
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Predicted radiant system surface temperature = {:.2f}",
+                                                        state.dataHeatBalSurf->SurfInsideTempHist(1)(ventSlab.SurfacePtr(RadSurfNum2))));
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Zone dew-point temperature + safety factor delta= {:.2f}", DewPointTemp + CondDeltaTemp));
+                                        ShowContinueErrorTimeStamp(state, "");
+                                    }
+                                    if (state.dataVentilatedSlab->CondensationErrorCount == 1) {
+                                        ShowContinueError(
+                                            state,
+                                            std::format("Note that there is a {:.4f} C safety built-in to the shut-off criteria", CondDeltaTemp));
+>>>>>>> nrel/develop
                                         ShowContinueError(state, "Note also that this affects all surfaces that are part of this system");
                                     }
                                     ShowRecurringWarningErrorAtEnd(state,
@@ -4074,13 +4730,18 @@ namespace VentilatedSlab {
                         if (!state.dataGlobal->WarmupFlag) {
                             ++state.dataVentilatedSlab->EnergyImbalanceErrorCount;
                             if (ventSlab.EnrgyImbalErrIndex == 0) {
+<<<<<<< HEAD
                                 ShowWarningMessage(state, EnergyPlus::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+=======
+                                ShowWarningMessage(state, std::format("{} [{}]", cMO_VentilatedSlab, ventSlab.Name));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "Ventilated Slab (slab only type) air outlet temperature calculation mismatch.");
                                 ShowContinueError(state, "This should not happen as it indicates a potential energy imbalance in the calculations.");
                                 ShowContinueError(state, "However, it could also result from improper input for the ventilated slab or");
                                 ShowContinueError(state, "illogical control temperatures.  Check your input for this ventilated slab and");
                                 ShowContinueError(state, "also look at the internal data shown below.");
                                 ShowContinueError(state,
+<<<<<<< HEAD
                                                   EnergyPlus::format("Predicted return air temperature [C] from the overall energy balance = {:.4R}",
                                                                      state.dataLoopNodes->Node(ReturnAirNode).Temp));
                                 ShowContinueError(
@@ -4089,6 +4750,15 @@ namespace VentilatedSlab {
                                                        AirOutletTempCheck));
                                 ShowContinueError(
                                     state, EnergyPlus::format("Total energy rate (power) [W] added to the slab = {:.4R}", TotalVentSlabRadPower));
+=======
+                                                  std::format("Predicted return air temperature [C] from the overall energy balance = {:.4f}",
+                                                              state.dataLoopNodes->Node(ReturnAirNode).Temp));
+                                ShowContinueError(state,
+                                                  std::format("Predicted return air temperature [C] from the slab section energy balances = {:.4f}",
+                                                              AirOutletTempCheck));
+                                ShowContinueError(state,
+                                                  std::format("Total energy rate (power) [W] added to the slab = {:.4f}", TotalVentSlabRadPower));
+>>>>>>> nrel/develop
                                 ShowContinueErrorTimeStamp(state, "");
                             }
                             ShowRecurringWarningErrorAtEnd(state,

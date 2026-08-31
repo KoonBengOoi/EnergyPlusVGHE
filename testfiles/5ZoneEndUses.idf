@@ -106,7 +106,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Building,                !- Name
@@ -629,8 +633,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,117.239997864; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     ShadeTransSch,           !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -1700,6 +1707,21 @@
     0.5,                     !- Fraction Radiant
     Baseboard Heat;          !- End-Use Subcategory
 
+<<<<<<< HEAD
+=======
+  ZoneBaseboard:OutdoorTemperatureControlled,
+    SPACE5-1 BBHeat 1,       !- Name
+    SPACE5-1,                !- Zone or ZoneList or Space or SpaceList Name
+    EQUIP-1,                 !- Schedule Name
+    autosize,                !- Capacity at Low Temperature {W}
+    autosize,                !- Low Temperature {C}
+    autosize,                !- Capacity at High Temperature {W}
+    autosize,                !- High Temperature {C}
+    0.5,                     !- Fraction Radiant
+    Baseboard Heat,          !- End-Use Subcategory
+    30;                      !- Design Zone Heating Setpoint {C}
+
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     LEFT-1,                  !- Name
     WALL,                    !- Surface Type

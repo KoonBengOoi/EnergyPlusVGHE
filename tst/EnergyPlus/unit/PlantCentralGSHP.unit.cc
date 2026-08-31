@@ -80,15 +80,21 @@ TEST_F(EnergyPlusFixture, ChillerHeater_Autosize)
     state->dataPlantCentralGSHP->Wrapper(1).WrapperComp(1).chSched = Sched::GetScheduleAlwaysOn(*state);
     state->dataPlantCentralGSHP->Wrapper(1).ChillerHeaterNums = 2;
     state->dataPlantCentralGSHP->Wrapper(1).ChillerHeater.allocate(2);
+<<<<<<< HEAD
     // First test in SizeWrapper, so need to set that
     state->dataPlantCentralGSHP->Wrapper(1).ControlMode = PlantCentralGSHP::CondenserType::SmartMixing;
+=======
+>>>>>>> nrel/develop
 
     int NumChillerHeaters = 1;
     state->dataPlantCentralGSHP->numChillerHeaters = NumChillerHeaters;
     state->dataPlantCentralGSHP->ChillerHeater.allocate(NumChillerHeaters);
     state->dataPlantCentralGSHP->ChillerHeater(1).ConstantFlow = false;
     state->dataPlantCentralGSHP->ChillerHeater(1).VariableFlow = true;
+<<<<<<< HEAD
     state->dataPlantCentralGSHP->ChillerHeater(1).condenserType = PlantCentralGSHP::CondenserType::WaterCooled;
+=======
+>>>>>>> nrel/develop
 
     state->dataPlantCentralGSHP->ChillerHeater(1).SizFac = 1.2;
 
@@ -205,7 +211,10 @@ TEST_F(EnergyPlusFixture, Test_CentralHeatPumpSystem_Control_Schedule_fix)
 
         "CentralHeatPumpSystem,",
         "ChW_Loop HeatPump1, !-Name",
+<<<<<<< HEAD
         "SmartMixing, !-Control Method",
+=======
+>>>>>>> nrel/develop
         "ChW_Loop HeatPump1 ChW Inlet, !-Cooling Loop Inlet Node Name",
         "ChW_Loop HeatPump1 ChW Outlet, !-Cooling Loop Outlet Node Name",
         "ChW_Loop HeatPump1 Cnd Inlet, !-Source Loop Inlet Node Name",
@@ -237,7 +246,10 @@ TEST_F(EnergyPlusFixture, Test_CentralHeatPumpSystem_Control_Schedule_fix)
         "    autosize,                !- Design Condenser Water Flow Rate {m3/s}",
         "    0.01684,                 !- Design Hot Water Flow Rate {m3/s}",
         "    1,                       !- Compressor Motor Efficiency",
+<<<<<<< HEAD
         "    WaterCooled,             !- Condenser Type",
+=======
+>>>>>>> nrel/develop
         "    EnteringCondenser,       !- Cooling Mode Temperature Curve Condenser Water Independent Variable",
         "    ChillerHeaterClgCapFT,   !- Cooling Mode Cooling Capacity Function of Temperature Curve Name",
         "    ChillerHeaterClgEIRFT,   !- Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name",
@@ -611,7 +623,12 @@ TEST_F(EnergyPlusFixture, Test_CentralHeatPumpSystem_checkEvapOutletTemp)
     evapMassFlowRate = 0.5;
     expQEvap = 2000.0;
     expTout = 9.0;
+<<<<<<< HEAD
     thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp);
+=======
+    PlantCentralGSHP::CurrentMode controlMode = PlantCentralGSHP::CurrentMode::CoolingDominant;
+    thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp, controlMode);
+>>>>>>> nrel/develop
     EXPECT_NEAR(qEvaporator, expQEvap, allowedTolerance);
     EXPECT_NEAR(evapOutletTemp, expTout, allowedTolerance);
 
@@ -625,7 +642,11 @@ TEST_F(EnergyPlusFixture, Test_CentralHeatPumpSystem_checkEvapOutletTemp)
     evapMassFlowRate = 0.5;
     expQEvap = 0.0;
     expTout = 8.0;
+<<<<<<< HEAD
     thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp);
+=======
+    thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp, controlMode);
+>>>>>>> nrel/develop
     EXPECT_NEAR(qEvaporator, expQEvap, allowedTolerance);
     EXPECT_NEAR(evapOutletTemp, expTout, allowedTolerance);
 
@@ -638,7 +659,11 @@ TEST_F(EnergyPlusFixture, Test_CentralHeatPumpSystem_checkEvapOutletTemp)
     evapMassFlowRate = 0.5;
     expQEvap = 2000.0;
     expTout = 9.0;
+<<<<<<< HEAD
     thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp);
+=======
+    thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp, controlMode);
+>>>>>>> nrel/develop
     EXPECT_NEAR(qEvaporator, expQEvap, allowedTolerance);
     EXPECT_NEAR(evapOutletTemp, expTout, allowedTolerance);
 
@@ -652,7 +677,11 @@ TEST_F(EnergyPlusFixture, Test_CentralHeatPumpSystem_checkEvapOutletTemp)
     evapMassFlowRate = 0.5;
     expQEvap = 0.0;
     expTout = 8.0;
+<<<<<<< HEAD
     thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp);
+=======
+    thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp, controlMode);
+>>>>>>> nrel/develop
     EXPECT_NEAR(qEvaporator, expQEvap, allowedTolerance);
     EXPECT_NEAR(evapOutletTemp, expTout, allowedTolerance);
 
@@ -665,7 +694,11 @@ TEST_F(EnergyPlusFixture, Test_CentralHeatPumpSystem_checkEvapOutletTemp)
     evapMassFlowRate = 0.5;
     expQEvap = 4000.0;
     expTout = 6.0;
+<<<<<<< HEAD
     thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp);
+=======
+    thisWrap.checkEvapOutletTemp(*state, chNum, evapOutletTemp, lowTempLimitEout, evapInletTemp, qEvaporator, evapMassFlowRate, Cp, controlMode);
+>>>>>>> nrel/develop
     EXPECT_NEAR(qEvaporator, expQEvap, allowedTolerance);
     EXPECT_NEAR(evapOutletTemp, expTout, allowedTolerance);
 }

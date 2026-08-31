@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/All_Simple_Sizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -167,11 +171,18 @@ Real64 ASHRAEMinSATCoolingSizer::size(EnergyPlusData &state, Real64 _originalVal
                     this->callingRoutine + ' ' + this->compType + ' ' + this->compName + ", Developer Error: Component sizing incomplete.";
                 this->addErrorMessage(msg);
                 ShowSevereError(state, msg);
+<<<<<<< HEAD
                 msg =
                     EnergyPlus::format("SizingString = {}, DataCapacityUsedForSizing = {:.1T}", this->sizingString, this->dataCapacityUsedForSizing);
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
                 msg = EnergyPlus::format("SizingString = {}, DataFlowUsedForSizing = {:.1T}", this->sizingString, this->dataFlowUsedForSizing);
+=======
+                msg = std::format("SizingString = {}, DataCapacityUsedForSizing = {:.1f}", this->sizingString, this->dataCapacityUsedForSizing);
+                this->addErrorMessage(msg);
+                ShowContinueError(state, msg);
+                msg = std::format("SizingString = {}, DataFlowUsedForSizing = {:.1f}", this->sizingString, this->dataFlowUsedForSizing);
+>>>>>>> nrel/develop
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
             }
@@ -191,6 +202,7 @@ Real64 ASHRAEMinSATCoolingSizer::size(EnergyPlusData &state, Real64 _originalVal
                     this->callingRoutine + ' ' + this->compType + ' ' + this->compName + ", Developer Error: Component sizing incomplete.";
                 this->addErrorMessage(msg);
                 ShowSevereError(state, msg);
+<<<<<<< HEAD
                 msg =
                     EnergyPlus::format("SizingString = {}, DataCapacityUsedForSizing = {:.1T}", this->sizingString, this->dataCapacityUsedForSizing);
                 this->addErrorMessage(msg);
@@ -200,6 +212,15 @@ Real64 ASHRAEMinSATCoolingSizer::size(EnergyPlusData &state, Real64 _originalVal
                 ShowContinueError(state, msg);
                 msg =
                     EnergyPlus::format("SizingString = {}, DataZoneUsedForSizing = {:.0T}", this->sizingString, Real64(this->dataZoneUsedForSizing));
+=======
+                msg = std::format("SizingString = {}, DataCapacityUsedForSizing = {:.1f}", this->sizingString, this->dataCapacityUsedForSizing);
+                this->addErrorMessage(msg);
+                ShowContinueError(state, msg);
+                msg = std::format("SizingString = {}, DataFlowUsedForSizing = {:.1f}", this->sizingString, this->dataFlowUsedForSizing);
+                this->addErrorMessage(msg);
+                ShowContinueError(state, msg);
+                msg = std::format("SizingString = {}, DataZoneUsedForSizing = {:.0f}", this->sizingString, Real64(this->dataZoneUsedForSizing));
+>>>>>>> nrel/develop
                 ShowContinueError(state, msg);
             }
         }
@@ -229,11 +250,18 @@ Real64 ASHRAEMaxSATHeatingSizer::size(EnergyPlusData &state, Real64 _originalVal
                     this->callingRoutine + ' ' + this->compType + ' ' + this->compName + ", Developer Error: Component sizing incomplete.";
                 this->addErrorMessage(msg);
                 ShowSevereError(state, msg);
+<<<<<<< HEAD
                 msg =
                     EnergyPlus::format("SizingString = {}, DataCapacityUsedForSizing = {:.1T}", this->sizingString, this->dataCapacityUsedForSizing);
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
                 msg = EnergyPlus::format("SizingString = {}, DataFlowUsedForSizing = {:.1T}", this->sizingString, this->dataFlowUsedForSizing);
+=======
+                msg = std::format("SizingString = {}, DataCapacityUsedForSizing = {:.1f}", this->sizingString, this->dataCapacityUsedForSizing);
+                this->addErrorMessage(msg);
+                ShowContinueError(state, msg);
+                msg = std::format("SizingString = {}, DataFlowUsedForSizing = {:.1f}", this->sizingString, this->dataFlowUsedForSizing);
+>>>>>>> nrel/develop
                 this->addErrorMessage(msg);
                 ShowContinueError(state, msg);
             }
@@ -253,6 +281,7 @@ Real64 ASHRAEMaxSATHeatingSizer::size(EnergyPlusData &state, Real64 _originalVal
                     this->callingRoutine + ' ' + this->compType + ' ' + this->compName + ", Developer Error: Component sizing incomplete.";
                 this->addErrorMessage(msg);
                 ShowSevereError(state, msg);
+<<<<<<< HEAD
                 msg =
                     EnergyPlus::format("SizingString = {}, DataCapacityUsedForSizing = {:.1T}", this->sizingString, this->dataCapacityUsedForSizing);
                 this->addErrorMessage(msg);
@@ -262,6 +291,15 @@ Real64 ASHRAEMaxSATHeatingSizer::size(EnergyPlusData &state, Real64 _originalVal
                 ShowContinueError(state, msg);
                 msg =
                     EnergyPlus::format("SizingString = {}, DataZoneUsedForSizing = {:.0T}", this->sizingString, Real64(this->dataZoneUsedForSizing));
+=======
+                msg = std::format("SizingString = {}, DataCapacityUsedForSizing = {:.1f}", this->sizingString, this->dataCapacityUsedForSizing);
+                this->addErrorMessage(msg);
+                ShowContinueError(state, msg);
+                msg = std::format("SizingString = {}, DataFlowUsedForSizing = {:.1f}", this->sizingString, this->dataFlowUsedForSizing);
+                this->addErrorMessage(msg);
+                ShowContinueError(state, msg);
+                msg = std::format("SizingString = {}, DataZoneUsedForSizing = {:.0f}", this->sizingString, Real64(this->dataZoneUsedForSizing));
+>>>>>>> nrel/develop
                 ShowContinueError(state, msg);
             }
         }
@@ -283,7 +321,11 @@ Real64 DesiccantDehumidifierBFPerfDataFaceVelocitySizer::size(EnergyPlusData &st
         this->autoSizedValue = min(6.0, this->autoSizedValue);
     }
     if (this->isEpJSON) {
+<<<<<<< HEAD
         this->sizingString = "nominal_air_face_velocity [m/s]";
+=======
+        this->sizingString = "Nominal Air Face Velocity [m/s]";
+>>>>>>> nrel/develop
     }
     this->selectSizerOutput(state, errorsFound);
     return this->autoSizedValue;
@@ -321,8 +363,12 @@ Real64 HeatingCoilDesAirInletTempSizer::size(EnergyPlusData &state, Real64 _orig
     }
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
+<<<<<<< HEAD
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntAirTemp(
             state, this->compName, this->compType, this->autoSizedValue, this->curSysNum, this->curZoneEqNum);
+=======
+        ReportCoilSelection::setCoilEntAirTemp(state, this->coilReportNum, this->autoSizedValue, this->curSysNum, this->curZoneEqNum);
+>>>>>>> nrel/develop
     }
     return this->autoSizedValue;
 }
@@ -355,7 +401,11 @@ Real64 HeatingCoilDesAirOutletTempSizer::size(EnergyPlusData &state, Real64 _ori
     }
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
+<<<<<<< HEAD
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilLvgAirTemp(state, this->compName, this->compType, this->autoSizedValue);
+=======
+        ReportCoilSelection::setCoilLvgAirTemp(state, this->coilReportNum, this->autoSizedValue);
+>>>>>>> nrel/develop
     }
     return this->autoSizedValue;
 }
@@ -392,7 +442,11 @@ Real64 HeatingCoilDesAirInletHumRatSizer::size(EnergyPlusData &state, Real64 _or
     }
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
+<<<<<<< HEAD
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntAirHumRat(state, this->compName, this->compType, this->autoSizedValue);
+=======
+        ReportCoilSelection::setCoilEntAirHumRat(state, this->coilReportNum, this->autoSizedValue);
+>>>>>>> nrel/develop
     }
     return this->autoSizedValue;
 }

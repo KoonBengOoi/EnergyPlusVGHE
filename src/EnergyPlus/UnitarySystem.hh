@@ -260,7 +260,11 @@ namespace UnitarySystems {
         int m_ZoneSequenceHeatingNum = 0;
         bool m_HeatCoilExists = false;
         Real64 m_HeatingSizingRatio = 1.0;
+<<<<<<< HEAD
         int m_HeatingCoilType_Num = 0;
+=======
+        HVAC::CoilType m_heatCoilType = HVAC::CoilType::Invalid;
+>>>>>>> nrel/develop
         bool m_DXHeatingCoil = false;
         int m_HeatingCoilIndex = 0;
         Sched::Schedule *m_heatingCoilAvailSched = nullptr;
@@ -272,7 +276,11 @@ namespace UnitarySystems {
         bool m_VarSpeedHeatingCoil = false;
         int HeatCtrlNode = 0;
         bool m_CoolCoilExists = false;
+<<<<<<< HEAD
         int m_CoolingCoilType_Num = 0;
+=======
+        HVAC::CoilType m_coolCoilType = HVAC::CoilType::Invalid;
+>>>>>>> nrel/develop
         int m_NumOfSpeedCooling = 0;
         Sched::Schedule *m_coolingCoilAvailSched = nullptr;
         Real64 m_DesignCoolingCapacity = 0.0;
@@ -291,7 +299,11 @@ namespace UnitarySystems {
         bool m_RunOnLatentLoad = false;
         bool m_RunOnLatentOnlyWithSensible = false;
         HVAC::CoilMode m_DehumidificationMode = HVAC::CoilMode::Normal; // Only explicitly initialized if something other than Normal
+<<<<<<< HEAD
         int m_SuppHeatCoilType_Num = 0;
+=======
+        HVAC::CoilType m_suppHeatCoilType = HVAC::CoilType::Invalid;
+>>>>>>> nrel/develop
         bool m_SuppCoilExists = false;
         Real64 m_DesignSuppHeatingCapacity = 0.0;
         int m_SuppCoilAirInletNode = 0;
@@ -892,6 +904,7 @@ namespace UnitarySystems {
 
         static void getUnitarySysHeatCoolCoil(EnergyPlusData &state,
                                               std::string_view UnitarySysName, // Name of Unitary System object
+<<<<<<< HEAD
                                               bool &CoolingCoil,               // Cooling coil exists
                                               bool &HeatingCoil,               // Heating coil exists
                                               int const ZoneOAUnitNum          // index to zone OA unit
@@ -916,6 +929,31 @@ namespace UnitarySystems {
 
         void simulate(EnergyPlusData &state,
                       std::string_view Name,
+=======
+                                              bool &t_CoolingCoil,             // Cooling coil exists
+                                              bool &t_HeatingCoil,             // Heating coil exists
+                                              int const ZoneOAUnitNum          // index to zone OA unit
+        );
+
+        Real64 calcUnitarySystemWaterFlowResidual(EnergyPlusData &state,
+                                                  Real64 const PartLoadRatio, // coil part load ratio
+                                                  bool FirstHVACIteration,
+                                                  Real64 QZnReq,
+                                                  int AirControlNode,
+                                                  Real64 OnOffAirFlowRat,
+                                                  int AirLoopNum,
+                                                  int WaterControlNode,
+                                                  Real64 highWaterMdot,
+                                                  Real64 lowSpeedRatio,
+                                                  Real64 airMdot,
+                                                  Real64 par13_SATempTarget,
+                                                  Real64 systemMaxAirFlowRate,
+                                                  bool isCoolingLoad,
+                                                  bool const iterWaterAirOrNot);
+
+        void simulate(EnergyPlusData &state,
+                      std::string_view t_Name,
+>>>>>>> nrel/develop
                       bool const firstHVACIteration,
                       int AirLoopNum,
                       int &CompIndex,

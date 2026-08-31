@@ -164,7 +164,11 @@ namespace ThermalISO15099Calc {
                        Array1D<Real64> &ShadeGapKeffConv,
                        Real64 SDScalar,
                        int SHGCCalc,
+<<<<<<< HEAD
                        int &NumOfIterations,
+=======
+                       int &t_NumOfIterations,
+>>>>>>> nrel/develop
                        Real64 egdeGlCorrFac);
 
     void therm1d(EnergyPlusData &state,

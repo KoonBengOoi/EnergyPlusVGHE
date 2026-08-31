@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <iostream>
 
 // ObjexxFCL Headers
@@ -122,9 +126,13 @@ namespace PhotovoltaicThermalCollectors {
         }
 
         // If we didn't find it, fatal
+<<<<<<< HEAD
         ShowFatalError(state, EnergyPlus::format("Solar Thermal Collector Factory: Error getting inputs for object named: {}", objectName));
         // Shut up the compiler
         return nullptr;
+=======
+        ShowFatalError(state, std::format("Solar Thermal Collector Factory: Error getting inputs for object named: {}", objectName));
+>>>>>>> nrel/develop
     }
 
     void PVTCollectorStruct::onInitLoopEquip(EnergyPlusData &state, [[maybe_unused]] const PlantLocation &calledFromLocation)
@@ -272,10 +280,17 @@ namespace PhotovoltaicThermalCollectors {
             int Found = Util::FindItemInList(thisTmpBIPVTperf.OSCMName, state.dataSurface->OSCM);
             if (Found == 0) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("GetBIPVTCollectorsInput: Invalid outside model name={}, object type={}, object name={}",
                                                    thisTmpBIPVTperf.OSCMName,
                                                    state.dataIPShortCut->cCurrentModuleObject,
                                                    thisTmpBIPVTperf.Name));
+=======
+                                std::format("GetBIPVTCollectorsInput: Invalid outside model name={}, object type={}, object name={}",
+                                            thisTmpBIPVTperf.OSCMName,
+                                            state.dataIPShortCut->cCurrentModuleObject,
+                                            thisTmpBIPVTperf.Name));
+>>>>>>> nrel/develop
             }
             thisTmpBIPVTperf.OSCMPtr = Found;
             thisTmpBIPVTperf.PVEffGapWidth = state.dataIPShortCut->rNumericArgs(1);
@@ -343,6 +358,7 @@ namespace PhotovoltaicThermalCollectors {
             // check surface
             if (thisPVT.SurfNum == 0) {
                 if (state.dataIPShortCut->lAlphaFieldBlanks(2)) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state, EnergyPlus::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
                     ShowContinueError(
@@ -356,23 +372,44 @@ namespace PhotovoltaicThermalCollectors {
                     ShowContinueError(
                         state,
                         EnergyPlus::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                    ShowSevereError(state,
+                                    std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
+                    ShowContinueError(
+                        state, std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+
+                    ShowContinueError(state, "Surface name cannot be blank.");
+                } else {
+                    ShowSevereError(state,
+                                    std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
+                    ShowContinueError(
+                        state, std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Surface was not found.");
                 }
                 ErrorsFound = true;
             } else {
 
                 if (!state.dataSurface->Surface(thisPVT.SurfNum).ExtSolar) {
+<<<<<<< HEAD
                     ShowSevereError(
                         state, EnergyPlus::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                    ShowSevereError(state,
+                                    std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
+                    ShowContinueError(
+                        state, std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Surface must be exposed to solar.");
                     ErrorsFound = true;
                 }
                 // check surface orientation, warn if upside down
                 if ((state.dataSurface->Surface(thisPVT.SurfNum).Tilt < -95.0) || (state.dataSurface->Surface(thisPVT.SurfNum).Tilt > 95.0)) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format("Suspected input problem with {} = {}",
                                                         state.dataIPShortCut->cAlphaFieldNames(2),
                                                         state.dataIPShortCut->cAlphaArgs(2)));
@@ -383,15 +420,34 @@ namespace PhotovoltaicThermalCollectors {
                     ShowContinueError(state,
                                       EnergyPlus::format("Surface tilt angle (degrees from ground outward normal) = {:.2R}",
                                                          state.dataSurface->Surface(thisPVT.SurfNum).Tilt));
+=======
+                                     std::format("Suspected input problem with {} = {}",
+                                                 state.dataIPShortCut->cAlphaFieldNames(2),
+                                                 state.dataIPShortCut->cAlphaArgs(2)));
+                    ShowContinueError(
+                        state, std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                    ShowContinueError(state, "Surface used for solar collector faces down");
+                    ShowContinueError(state,
+                                      std::format("Surface tilt angle (degrees from ground outward normal) = {:.2f}",
+                                                  state.dataSurface->Surface(thisPVT.SurfNum).Tilt));
+>>>>>>> nrel/develop
                 }
             } // check surface
 
             if (state.dataIPShortCut->lAlphaFieldBlanks(3)) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state, EnergyPlus::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(3), state.dataIPShortCut->cAlphaArgs(3)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
                 ShowContinueError(state, EnergyPlus::format("{}, name cannot be blank.", state.dataIPShortCut->cAlphaFieldNames(3)));
+=======
+                ShowSevereError(state,
+                                std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(3), state.dataIPShortCut->cAlphaArgs(3)));
+                ShowContinueError(state,
+                                  std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(state, std::format("{}, name cannot be blank.", state.dataIPShortCut->cAlphaFieldNames(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 thisPVT.PVTModelName = state.dataIPShortCut->cAlphaArgs(3);
@@ -410,12 +466,20 @@ namespace PhotovoltaicThermalCollectors {
                         thisPVT.ModelType = PVTModelType::BIPVT;
                     } else {
                         ShowSevereError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(3), state.dataIPShortCut->cAlphaArgs(3)));
                         ShowContinueError(state,
                                           EnergyPlus::format(
                                               "Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
                         ShowContinueError(state, EnergyPlus::format("{}, was not found.", state.dataIPShortCut->cAlphaFieldNames(3)));
+=======
+                            state, std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(3), state.dataIPShortCut->cAlphaArgs(3)));
+                        ShowContinueError(
+                            state,
+                            std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                        ShowContinueError(state, std::format("{}, was not found.", state.dataIPShortCut->cAlphaFieldNames(3)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     }
                 }
@@ -425,11 +489,18 @@ namespace PhotovoltaicThermalCollectors {
                     // check PV
                     if (thisPVT.PVnum == 0) {
                         ShowSevereError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(4), state.dataIPShortCut->cAlphaArgs(4)));
                         ShowContinueError(state,
                                           EnergyPlus::format(
                                               "Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                            state, std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(4), state.dataIPShortCut->cAlphaArgs(4)));
+                        ShowContinueError(
+                            state,
+                            std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         thisPVT.PVname = state.dataIPShortCut->cAlphaArgs(4);
@@ -447,6 +518,7 @@ namespace PhotovoltaicThermalCollectors {
                 } else {
                     if (state.dataIPShortCut->lAlphaFieldBlanks(5)) {
                         ShowSevereError(
+<<<<<<< HEAD
                             state,
                             EnergyPlus::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(5), state.dataIPShortCut->cAlphaArgs(5)));
                         ShowContinueError(state,
@@ -460,6 +532,19 @@ namespace PhotovoltaicThermalCollectors {
                         ShowContinueError(state,
                                           EnergyPlus::format(
                                               "Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                            state, std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(5), state.dataIPShortCut->cAlphaArgs(5)));
+                        ShowContinueError(
+                            state,
+                            std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                        ShowContinueError(state, std::format("{} field cannot be blank.", state.dataIPShortCut->cAlphaFieldNames(5)));
+                    } else {
+                        ShowSevereError(
+                            state, std::format("Invalid {} = {}", state.dataIPShortCut->cAlphaFieldNames(5), state.dataIPShortCut->cAlphaArgs(5)));
+                        ShowContinueError(
+                            state,
+                            std::format("Entered in {} = {}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     }
                     ErrorsFound = true;
                 }
@@ -632,15 +717,24 @@ namespace PhotovoltaicThermalCollectors {
             if (allocated(state.dataPhotovoltaic->PVarray)) {
                 this->PVnum = Util::FindItemInList(this->PVname, state.dataPhotovoltaic->PVarray);
                 if (this->PVnum == 0) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Invalid name for photovoltaic generator = {}", this->PVname));
                     ShowContinueError(state, EnergyPlus::format("Entered in flat plate photovoltaic-thermal collector = {}", this->Name));
+=======
+                    ShowSevereError(state, std::format("Invalid name for photovoltaic generator = {}", this->PVname));
+                    ShowContinueError(state, std::format("Entered in flat plate photovoltaic-thermal collector = {}", this->Name));
+>>>>>>> nrel/develop
                 } else {
                     this->PVfound = true;
                 }
             } else {
                 if ((!state.dataGlobal->BeginEnvrnFlag) && (!FirstHVACIteration)) {
                     ShowSevereError(state, "Photovoltaic generators are missing for Photovoltaic Thermal modeling");
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Needed for flat plate photovoltaic-thermal collector = {}", this->Name));
+=======
+                    ShowContinueError(state, std::format("Needed for flat plate photovoltaic-thermal collector = {}", this->Name));
+>>>>>>> nrel/develop
                 }
             }
         }
@@ -653,8 +747,13 @@ namespace PhotovoltaicThermalCollectors {
                         if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
                             ShowSevereError(state, "Missing temperature setpoint for PVT outlet node  ");
                             ShowContinueError(state,
+<<<<<<< HEAD
                                               EnergyPlus::format("Add a setpoint manager to outlet node of PVT named {}",
                                                                  state.dataPhotovoltaicThermalCollector->PVT(PVTindex).Name));
+=======
+                                              std::format("Add a setpoint manager to outlet node of PVT named {}",
+                                                          state.dataPhotovoltaicThermalCollector->PVT(PVTindex).Name));
+>>>>>>> nrel/develop
                             state.dataHVACGlobal->SetPointErrorFlag = true;
                         } else {
                             // need call to EMS to check node
@@ -665,8 +764,13 @@ namespace PhotovoltaicThermalCollectors {
                             if (state.dataHVACGlobal->SetPointErrorFlag) {
                                 ShowSevereError(state, "Missing temperature setpoint for PVT outlet node  ");
                                 ShowContinueError(state,
+<<<<<<< HEAD
                                                   EnergyPlus::format("Add a setpoint manager to outlet node of PVT named {}",
                                                                      state.dataPhotovoltaicThermalCollector->PVT(PVTindex).Name));
+=======
+                                                  std::format("Add a setpoint manager to outlet node of PVT named {}",
+                                                              state.dataPhotovoltaicThermalCollector->PVT(PVTindex).Name));
+>>>>>>> nrel/develop
                                 ShowContinueError(state, "  or use an EMS actuator to establish a setpoint at the outlet node of PVT");
                             }
                         }
@@ -812,7 +916,11 @@ namespace PhotovoltaicThermalCollectors {
                     if (this->DesignVolFlowRateWasAutoSized) {
                         if (state.dataPlnt->PlantFirstSizesOkayToFinalize) {
                             ShowSevereError(state, "Autosizing of PVT solar collector design flow rate requires a Sizing:Plant object");
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("Occurs in PVT object={}", this->Name));
+=======
+                            ShowContinueError(state, std::format("Occurs in PVT object={}", this->Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     } else { // Hardsized
@@ -860,10 +968,16 @@ namespace PhotovoltaicThermalCollectors {
                     if (state.dataGlobal->DisplayExtraWarnings) {
                         if ((std::abs(DesignVolFlowRateDes - DesignVolFlowRateUser) / DesignVolFlowRateUser) >
                             state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                             ShowMessage(state, EnergyPlus::format("SizeSolarCollector: Potential issue with equipment sizing for {}", this->Name));
                             ShowContinueError(state, EnergyPlus::format("User-Specified Design Flow Rate of {:.5R} [W]", DesignVolFlowRateUser));
                             ShowContinueError(state,
                                               EnergyPlus::format("differs from Design Size Design Flow Rate of {:.5R} [W]", DesignVolFlowRateDes));
+=======
+                            ShowMessage(state, std::format("SizeSolarCollector: Potential issue with equipment sizing for {}", this->Name));
+                            ShowContinueError(state, std::format("User-Specified Design Flow Rate of {:.5f} [W]", DesignVolFlowRateUser));
+                            ShowContinueError(state, std::format("differs from Design Size Design Flow Rate of {:.5f} [W]", DesignVolFlowRateDes));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                             ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                         }
@@ -930,12 +1044,19 @@ namespace PhotovoltaicThermalCollectors {
                             if (state.dataGlobal->DisplayExtraWarnings) {
                                 if ((std::abs(DesignVolFlowRateDes - DesignVolFlowRateUser) / DesignVolFlowRateUser) >
                                     state.dataSize->AutoVsHardSizingThreshold) {
+<<<<<<< HEAD
                                     ShowMessage(state,
                                                 EnergyPlus::format("SizeSolarCollector: Potential issue with equipment sizing for {}", this->Name));
                                     ShowContinueError(state,
                                                       EnergyPlus::format("User-Specified Design Flow Rate of {:.5R} [W]", DesignVolFlowRateUser));
                                     ShowContinueError(
                                         state, EnergyPlus::format("differs from Design Size Design Flow Rate of {:.5R} [W]", DesignVolFlowRateDes));
+=======
+                                    ShowMessage(state, std::format("SizeSolarCollector: Potential issue with equipment sizing for {}", this->Name));
+                                    ShowContinueError(state, std::format("User-Specified Design Flow Rate of {:.5f} [W]", DesignVolFlowRateUser));
+                                    ShowContinueError(state,
+                                                      std::format("differs from Design Size Design Flow Rate of {:.5f} [W]", DesignVolFlowRateDes));
+>>>>>>> nrel/develop
                                     ShowContinueError(state, "This may, or may not, indicate mismatched component sizes.");
                                     ShowContinueError(state, "Verify that the value entered is intended and is consistent with other components.");
                                 }
@@ -1370,7 +1491,11 @@ namespace PhotovoltaicThermalCollectors {
         Real64 hconvt(0.0);                           // htc external total
         Real64 hpvg_pv;                               // conductance of pv glass cover (W/m2-K)
         Real64 hpv_1;                                 // conductance of pv backing (W/m2-K)
+<<<<<<< HEAD
         Real64 hrad12;                                // radiative heat transfer coefficient between bldg surface and pv backing surface (W/m2-K)
+=======
+        Real64 hrad12 = 0.0;                          // radiative heat transfer coefficient between bldg surface and pv backing surface (W/m2-K)
+>>>>>>> nrel/develop
         Real64 hrad_surr;                             // radiative heat transfer coefficient between pv glass cover and surrounding (W/m2-K)
         constexpr Real64 sigma(5.67e-8);              // stephan bolzmann constant
         Real64 reynolds(0.0);                         // Reynolds inside collector
@@ -1670,7 +1795,11 @@ namespace PhotovoltaicThermalCollectors {
         // PURPOSE OF THIS SUBROUTINE:
         // Solve a system of linear equations using Gaussian elimination and back substitution method.
 
+<<<<<<< HEAD
         int p;
+=======
+        int p = 0;
+>>>>>>> nrel/develop
         int constexpr m = 3;
         Real64 constexpr small = 1.0e-10;
 
@@ -1889,8 +2018,12 @@ namespace PhotovoltaicThermalCollectors {
         if (WhichPVT != 0) {
             NodeNum = state.dataPhotovoltaicThermalCollector->PVT(WhichPVT).HVACInletNodeNum;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state,
                             EnergyPlus::format("GetAirInletNodeNum: Could not find SolarCollector FlatPlate PhotovoltaicThermal = \"{}\"", PVTName));
+=======
+            ShowSevereError(state, std::format("GetAirInletNodeNum: Could not find SolarCollector FlatPlate PhotovoltaicThermal = \"{}\"", PVTName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             NodeNum = 0;
         }
@@ -1921,8 +2054,12 @@ namespace PhotovoltaicThermalCollectors {
         if (WhichPVT != 0) {
             NodeNum = state.dataPhotovoltaicThermalCollector->PVT(WhichPVT).HVACOutletNodeNum;
         } else {
+<<<<<<< HEAD
             ShowSevereError(state,
                             EnergyPlus::format("GetAirInletNodeNum: Could not find SolarCollector FlatPlate PhotovoltaicThermal = \"{}\"", PVTName));
+=======
+            ShowSevereError(state, std::format("GetAirInletNodeNum: Could not find SolarCollector FlatPlate PhotovoltaicThermal = \"{}\"", PVTName));
+>>>>>>> nrel/develop
             ErrorsFound = true;
             NodeNum = 0;
         }
@@ -1944,9 +2081,13 @@ namespace PhotovoltaicThermalCollectors {
         }
 
         // If we didn't find it, fatal
+<<<<<<< HEAD
         ShowFatalError(state, EnergyPlus::format("Solar Thermal Collector GetIndexFromName: Error getting inputs for object named: {}", objectName));
         assert(false);
         return 0; // Shutup compiler
+=======
+        ShowFatalError(state, std::format("Solar Thermal Collector GetIndexFromName: Error getting inputs for object named: {}", objectName));
+>>>>>>> nrel/develop
     }
 
     void simPVTfromOASys(EnergyPlusData &state, int const index, bool const FirstHVACIteration)

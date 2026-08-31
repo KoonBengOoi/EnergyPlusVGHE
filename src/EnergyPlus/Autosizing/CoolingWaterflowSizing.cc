@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Autosizing/CoolingWaterflowSizing.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -139,6 +143,7 @@ Real64 CoolingWaterflowSizer::size(EnergyPlusData &state, Real64 _originalValue,
     }
     // override sizing string for detailed coil model
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->coilType_Num == HVAC::Coil_CoolingWaterDetailed) {
             if (this->isEpJSON) {
                 this->sizingString = "maximum_water_flow_rate [m3/s]";
@@ -149,10 +154,17 @@ Real64 CoolingWaterflowSizer::size(EnergyPlusData &state, Real64 _originalValue,
             if (this->isEpJSON) {
                 this->sizingString = "design_water_flow_rate [m3/s]";
             }
+=======
+        if (this->coilType == HVAC::CoilType::CoolingWaterDetailed) {
+            this->sizingString = "Maximum Water Flow Rate [m3/s]";
+        } else {
+            this->sizingString = "Design Water Flow Rate [m3/s]";
+>>>>>>> nrel/develop
         }
     }
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject) {
+<<<<<<< HEAD
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilWaterFlowPltSizNum(
             state, this->compName, this->compType, this->autoSizedValue, this->wasAutoSized, this->dataPltSizCoolNum, this->dataWaterLoopNum);
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilWaterDeltaT(state, this->compName, this->compType, CoilDesWaterDeltaT);
@@ -165,6 +177,17 @@ Real64 CoolingWaterflowSizer::size(EnergyPlusData &state, Real64 _originalValue,
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilEntWaterTemp(state, this->compName, this->compType, Constant::CWInitConvTemp);
             state.dataRptCoilSelection->coilSelectionReportObj->setCoilLvgWaterTemp(
                 state, this->compName, this->compType, Constant::CWInitConvTemp + CoilDesWaterDeltaT);
+=======
+        ReportCoilSelection::setCoilWaterFlowPltSizNum(
+            state, this->coilReportNum, this->autoSizedValue, this->wasAutoSized, this->dataPltSizCoolNum, this->dataWaterLoopNum);
+        ReportCoilSelection::setCoilWaterDeltaT(state, this->coilReportNum, CoilDesWaterDeltaT);
+        if (this->dataDesInletWaterTemp > 0.0) {
+            ReportCoilSelection::setCoilEntWaterTemp(state, this->coilReportNum, this->dataDesInletWaterTemp);
+            ReportCoilSelection::setCoilLvgWaterTemp(state, this->coilReportNum, this->dataDesInletWaterTemp + CoilDesWaterDeltaT);
+        } else {
+            ReportCoilSelection::setCoilEntWaterTemp(state, this->coilReportNum, Constant::CWInitConvTemp);
+            ReportCoilSelection::setCoilLvgWaterTemp(state, this->coilReportNum, Constant::CWInitConvTemp + CoilDesWaterDeltaT);
+>>>>>>> nrel/develop
         }
         this->calcCoilWaterFlowRates(state,
                                      this->compName,

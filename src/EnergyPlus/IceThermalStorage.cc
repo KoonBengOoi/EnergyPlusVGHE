@@ -48,6 +48,10 @@
 // C++ Headers
 #include <cassert>
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Fmath.hh>
@@ -135,10 +139,14 @@ namespace IceThermalStorage {
         }
         // If we didn't find it, fatal
         ShowFatalError(
+<<<<<<< HEAD
             state,
             EnergyPlus::format("LocalSimpleIceStorageFactory: Error getting inputs for simple ice storage named: {}", objectName)); // LCOV_EXCL_LINE
         // Shut up the compiler
         return nullptr; // LCOV_EXCL_LINE
+=======
+            state, std::format("LocalSimpleIceStorageFactory: Error getting inputs for simple ice storage named: {}", objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
     }
 
     PlantComponent *DetailedIceStorageData::factory(EnergyPlusData &state, std::string const &objectName)
@@ -157,10 +165,15 @@ namespace IceThermalStorage {
         }
         // If we didn't find it, fatal
         ShowFatalError(state,
+<<<<<<< HEAD
                        EnergyPlus::format("LocalDetailedIceStorageFactory: Error getting inputs for detailed ice storage named: {}",
                                           objectName)); // LCOV_EXCL_LINE
         // Shut up the compiler
         return nullptr; // LCOV_EXCL_LINE
+=======
+                       std::format("LocalDetailedIceStorageFactory: Error getting inputs for detailed ice storage named: {}",
+                                   objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
     }
 
     void SimpleIceStorageData::simulate(EnergyPlusData &state,
@@ -513,7 +526,11 @@ namespace IceThermalStorage {
                         ++this->ChargeIterErrors;
                         if (this->ChargeIterErrors <= 25) {
                             ShowWarningError(state, "Detailed Ice Storage model exceeded its internal charging maximum iteration limit");
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("Detailed Ice Storage System Name = {}", this->Name));
+=======
+                            ShowContinueError(state, std::format("Detailed Ice Storage System Name = {}", this->Name));
+>>>>>>> nrel/develop
                             ShowContinueErrorTimeStamp(state, "");
                         } else {
                             ShowRecurringWarningErrorAtEnd(state,
@@ -647,7 +664,11 @@ namespace IceThermalStorage {
                         ++this->DischargeIterErrors;
                         if (this->DischargeIterErrors <= 25) {
                             ShowWarningError(state, "Detailed Ice Storage model exceeded its internal discharging maximum iteration limit");
+<<<<<<< HEAD
                             ShowContinueError(state, EnergyPlus::format("Detailed Ice Storage System Name = {}", this->Name));
+=======
+                            ShowContinueError(state, std::format("Detailed Ice Storage System Name = {}", this->Name));
+>>>>>>> nrel/develop
                             ShowContinueErrorTimeStamp(state, "");
                         } else {
                             ShowRecurringWarningErrorAtEnd(state,
@@ -742,6 +763,7 @@ namespace IceThermalStorage {
             if (state.dataIceThermalStorage->ThermalStorageSizing(sizingNum).onPeakEnd <=
                 state.dataIceThermalStorage->ThermalStorageSizing(sizingNum).onPeakStart) {
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("{}{}=\"{}\"",
                                                    routineName,
                                                    state.dataIPShortCut->cCurrentModuleObject,
@@ -750,6 +772,16 @@ namespace IceThermalStorage {
                                   EnergyPlus::format("Invalid start {} and end times {}. End time must be greater than start time.",
                                                      state.dataIceThermalStorage->ThermalStorageSizing(sizingNum).onPeakStart,
                                                      state.dataIceThermalStorage->ThermalStorageSizing(sizingNum).onPeakEnd));
+=======
+                                std::format("{}{}=\"{}\"",
+                                            routineName,
+                                            state.dataIPShortCut->cCurrentModuleObject,
+                                            state.dataIceThermalStorage->ThermalStorageSizing(sizingNum).name));
+                ShowContinueError(state,
+                                  std::format("Invalid start {} and end times {}. End time must be greater than start time.",
+                                              state.dataIceThermalStorage->ThermalStorageSizing(sizingNum).onPeakStart,
+                                              state.dataIceThermalStorage->ThermalStorageSizing(sizingNum).onPeakEnd));
+>>>>>>> nrel/develop
             }
         }
 
@@ -788,9 +820,15 @@ namespace IceThermalStorage {
             } else if (Util::SameString(state.dataIceThermalStorage->SimpleIceStorage(iceNum).ITSType, "IceOnCoilExternal")) {
                 state.dataIceThermalStorage->SimpleIceStorage(iceNum).ITSType_Num = ITSType::IceOnCoilExternal;
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
                 ShowContinueError(
                     state, EnergyPlus::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
+=======
+                ShowSevereError(state, std::format("{}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(2), state.dataIPShortCut->cAlphaArgs(2)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -799,10 +837,16 @@ namespace IceThermalStorage {
             if (state.dataIPShortCut->rNumericArgs(1) == DataSizing::AutoSize) {
                 state.dataIceThermalStorage->SimpleIceStorage(iceNum).NomCapacityWasAutoSized = true;
             } else if (state.dataIPShortCut->rNumericArgs(1) == 0.0) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("{}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
                 ShowContinueError(
                     state,
                     EnergyPlus::format("Invalid {}={:.2R}", state.dataIPShortCut->cNumericFieldNames(1), state.dataIPShortCut->rNumericArgs(1)));
+=======
+                ShowSevereError(state, std::format("{}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(
+                    state, std::format("Invalid {}={:.2f}", state.dataIPShortCut->cNumericFieldNames(1), state.dataIPShortCut->rNumericArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -842,6 +886,7 @@ namespace IceThermalStorage {
                 state.dataIPShortCut->cAlphaArgs(5), state.dataIceThermalStorage->ThermalStorageSizing, &ThermalStorageSizingData::name);
             if (state.dataIceThermalStorage->SimpleIceStorage(iceNum).TESSizingIndex == 0 &&
                 state.dataIceThermalStorage->SimpleIceStorage(iceNum).NomCapacityWasAutoSized) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(5), state.dataIPShortCut->cAlphaArgs(5)));
                 ShowContinueError(
@@ -850,6 +895,15 @@ namespace IceThermalStorage {
                                   EnergyPlus::format("Input field {} must be entered when input field {} is autosized",
                                                      state.dataIPShortCut->cAlphaFieldNames(5),
                                                      state.dataIPShortCut->cNumericFieldNames(1)));
+=======
+                ShowSevereError(state, std::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(5), state.dataIPShortCut->cAlphaArgs(5)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format("Input field {} must be entered when input field {} is autosized",
+                                              state.dataIPShortCut->cAlphaFieldNames(5),
+                                              state.dataIPShortCut->cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -868,7 +922,11 @@ namespace IceThermalStorage {
         } // IceNum
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("Errors found in processing input for {}", state.dataIPShortCut->cCurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("Errors found in processing input for {}", state.dataIPShortCut->cCurrentModuleObject));
+>>>>>>> nrel/develop
         }
 
         ErrorsFound = false; // Always need to reset this since there are multiple types of ice storage systems
@@ -921,11 +979,18 @@ namespace IceThermalStorage {
             if (state.dataIPShortCut->rNumericArgs(1) == DataSizing::AutoSize) {
                 state.dataIceThermalStorage->DetailedIceStorage(iceNum).NomCapacityWasAutoSized = true;
             } else if (state.dataIPShortCut->rNumericArgs(1) <= 0.0) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state,
                     EnergyPlus::format("Invalid {}={:.2R}", state.dataIPShortCut->cNumericFieldNames(1), state.dataIPShortCut->rNumericArgs(1)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state,
+                                std::format("Invalid {}={:.2f}", state.dataIPShortCut->cNumericFieldNames(1), state.dataIPShortCut->rNumericArgs(1)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -966,16 +1031,23 @@ namespace IceThermalStorage {
             state.dataIceThermalStorage->DetailedIceStorage(iceNum).DischargeCurveNum =
                 Curve::GetCurveIndex(state, state.dataIPShortCut->cAlphaArgs(6));
             if (state.dataIceThermalStorage->DetailedIceStorage(iceNum).DischargeCurveNum <= 0) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(6), state.dataIPShortCut->cAlphaArgs(6)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state, std::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(6), state.dataIPShortCut->cAlphaArgs(6)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             int dischargeCurveDim =
                 state.dataCurveManager->curves(state.dataIceThermalStorage->DetailedIceStorage(iceNum).DischargeCurveNum)->numDims;
             if (dischargeCurveDim != 2) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state, EnergyPlus::format("{}: Discharge curve must have 2 independent variables", state.dataIPShortCut->cCurrentModuleObject));
                 ShowContinueError(
@@ -983,6 +1055,15 @@ namespace IceThermalStorage {
                 ShowContinueError(state,
                                   EnergyPlus::format("{} does not have 2 independent variables and thus cannot be used for detailed ice storage",
                                                      state.dataIPShortCut->cAlphaArgs(6)));
+=======
+                ShowSevereError(state,
+                                std::format("{}: Discharge curve must have 2 independent variables", state.dataIPShortCut->cCurrentModuleObject));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format("{} does not have 2 independent variables and thus cannot be used for detailed ice storage",
+                                              state.dataIPShortCut->cAlphaArgs(6)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 if (state.dataIPShortCut->cAlphaArgs(5) == "FRACTIONCHARGEDLMTD") {
@@ -995,12 +1076,20 @@ namespace IceThermalStorage {
                     state.dataIceThermalStorage->DetailedIceStorage(iceNum).DischargeCurveTypeNum = CurveVars::LMTDFracCharged;
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}: Discharge curve independent variable options not valid, option={}",
                                                        state.dataIPShortCut->cCurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(5)));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                    std::format("{}: Discharge curve independent variable options not valid, option={}",
+                                                state.dataIPShortCut->cCurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(5)));
+                    ShowContinueError(
+                        state, std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "The valid options are: FractionChargedLMTD, FractionDischargedLMTD, LMTDMassFlow or LMTDFractionCharged");
                     ErrorsFound = true;
@@ -1018,15 +1107,22 @@ namespace IceThermalStorage {
             state.dataIceThermalStorage->DetailedIceStorage(iceNum).ChargeCurveName = state.dataIPShortCut->cAlphaArgs(8);
             state.dataIceThermalStorage->DetailedIceStorage(iceNum).ChargeCurveNum = Curve::GetCurveIndex(state, state.dataIPShortCut->cAlphaArgs(8));
             if (state.dataIceThermalStorage->DetailedIceStorage(iceNum).ChargeCurveNum <= 0) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(8), state.dataIPShortCut->cAlphaArgs(8)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state, std::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(8), state.dataIPShortCut->cAlphaArgs(8)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
             int chargeCurveDim = state.dataCurveManager->curves(state.dataIceThermalStorage->DetailedIceStorage(iceNum).ChargeCurveNum)->numDims;
             if (chargeCurveDim != 2) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("{}: Charge curve must have 2 independent variables", state.dataIPShortCut->cCurrentModuleObject));
                 ShowContinueError(
@@ -1034,6 +1130,14 @@ namespace IceThermalStorage {
                 ShowContinueError(state,
                                   EnergyPlus::format("{} does not have 2 independent variables and thus cannot be used for detailed ice storage",
                                                      state.dataIPShortCut->cAlphaArgs(8)));
+=======
+                ShowSevereError(state, std::format("{}: Charge curve must have 2 independent variables", state.dataIPShortCut->cCurrentModuleObject));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format("{} does not have 2 independent variables and thus cannot be used for detailed ice storage",
+                                              state.dataIPShortCut->cAlphaArgs(8)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
                 if (state.dataIPShortCut->cAlphaArgs(7) == "FRACTIONCHARGEDLMTD") {
@@ -1046,12 +1150,20 @@ namespace IceThermalStorage {
                     state.dataIceThermalStorage->DetailedIceStorage(iceNum).ChargeCurveTypeNum = CurveVars::LMTDFracCharged;
                 } else {
                     ShowSevereError(state,
+<<<<<<< HEAD
                                     EnergyPlus::format("{}: Charge curve independent variable options not valid, option={}",
                                                        state.dataIPShortCut->cCurrentModuleObject,
                                                        state.dataIPShortCut->cAlphaArgs(7)));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                    std::format("{}: Charge curve independent variable options not valid, option={}",
+                                                state.dataIPShortCut->cCurrentModuleObject,
+                                                state.dataIPShortCut->cAlphaArgs(7)));
+                    ShowContinueError(
+                        state, std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       "The valid options are: FractionChargedLMTD, FractionDischargedLMTD, LMTDMassFlow or LMTDFractionCharged");
                     ErrorsFound = true;
@@ -1069,6 +1181,7 @@ namespace IceThermalStorage {
             state.dataIceThermalStorage->DetailedIceStorage(iceNum).CurveFitTimeStep = state.dataIPShortCut->rNumericArgs(2);
             if ((state.dataIceThermalStorage->DetailedIceStorage(iceNum).CurveFitTimeStep <= 0.0) ||
                 (state.dataIceThermalStorage->DetailedIceStorage(iceNum).CurveFitTimeStep > 1.0)) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state,
                     EnergyPlus::format("Invalid {}={:.3R}", state.dataIPShortCut->cNumericFieldNames(2), state.dataIPShortCut->rNumericArgs(2)));
@@ -1077,6 +1190,14 @@ namespace IceThermalStorage {
                 ShowContinueError(
                     state,
                     EnergyPlus::format("Curve fit time step invalid, less than zero or greater than 1 for {}", state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state,
+                                std::format("Invalid {}={:.3f}", state.dataIPShortCut->cNumericFieldNames(2), state.dataIPShortCut->rNumericArgs(2)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(
+                    state, std::format("Curve fit time step invalid, less than zero or greater than 1 for {}", state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1087,9 +1208,15 @@ namespace IceThermalStorage {
                        (state.dataIceThermalStorage->DetailedIceStorage(iceNum).ThawProcessIndicator.empty())) {
                 state.dataIceThermalStorage->DetailedIceStorage(iceNum).ThawProcessIndex = DetIce::OutsideMelt;
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Invalid thaw process indicator of {} was entered", state.dataIPShortCut->cAlphaArgs(9)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state, std::format("Invalid thaw process indicator of {} was entered", state.dataIPShortCut->cAlphaArgs(9)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, R"(Value should either be "InsideMelt" or "OutsideMelt")");
                 state.dataIceThermalStorage->DetailedIceStorage(iceNum).ThawProcessIndex =
                     DetIce::InsideMelt; // Severe error will end simulation, but just in case...
@@ -1099,6 +1226,7 @@ namespace IceThermalStorage {
                 state.dataIPShortCut->cAlphaArgs(10), state.dataIceThermalStorage->ThermalStorageSizing, &ThermalStorageSizingData::name);
             if (state.dataIceThermalStorage->DetailedIceStorage(iceNum).TESSizingIndex == 0 &&
                 state.dataIceThermalStorage->DetailedIceStorage(iceNum).NomCapacityWasAutoSized) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state, EnergyPlus::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(10), state.dataIPShortCut->cAlphaArgs(10)));
                 ShowContinueError(
@@ -1107,6 +1235,16 @@ namespace IceThermalStorage {
                                   EnergyPlus::format("Input field {} must be entered when input field {} is autosized",
                                                      state.dataIPShortCut->cAlphaFieldNames(10),
                                                      state.dataIPShortCut->cNumericFieldNames(1)));
+=======
+                ShowSevereError(state,
+                                std::format("Invalid {}={}", state.dataIPShortCut->cAlphaFieldNames(10), state.dataIPShortCut->cAlphaArgs(10)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+                ShowContinueError(state,
+                                  std::format("Input field {} must be entered when input field {} is autosized",
+                                              state.dataIPShortCut->cAlphaFieldNames(10),
+                                              state.dataIPShortCut->cNumericFieldNames(1)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -1118,45 +1256,74 @@ namespace IceThermalStorage {
 
             if ((state.dataIceThermalStorage->DetailedIceStorage(iceNum).DischargeParaElecLoad < 0.0) ||
                 (state.dataIceThermalStorage->DetailedIceStorage(iceNum).DischargeParaElecLoad > 1.0)) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state,
                     EnergyPlus::format("Invalid {}={:.3R}", state.dataIPShortCut->cNumericFieldNames(3), state.dataIPShortCut->rNumericArgs(3)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state,
+                                std::format("Invalid {}={:.3f}", state.dataIPShortCut->cNumericFieldNames(3), state.dataIPShortCut->rNumericArgs(3)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Value is either less than/equal to zero or greater than 1");
                 ErrorsFound = true;
             }
 
             if ((state.dataIceThermalStorage->DetailedIceStorage(iceNum).ChargeParaElecLoad < 0.0) ||
                 (state.dataIceThermalStorage->DetailedIceStorage(iceNum).ChargeParaElecLoad > 1.0)) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state,
                     EnergyPlus::format("Invalid {}={:.3R}", state.dataIPShortCut->cNumericFieldNames(4), state.dataIPShortCut->rNumericArgs(4)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state,
+                                std::format("Invalid {}={:.3f}", state.dataIPShortCut->cNumericFieldNames(4), state.dataIPShortCut->rNumericArgs(4)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Value is either less than/equal to zero or greater than 1");
                 ErrorsFound = true;
             }
 
             if ((state.dataIceThermalStorage->DetailedIceStorage(iceNum).TankLossCoeff < 0.0) ||
                 (state.dataIceThermalStorage->DetailedIceStorage(iceNum).TankLossCoeff > 0.1)) {
+<<<<<<< HEAD
                 ShowSevereError(
                     state,
                     EnergyPlus::format("Invalid {}={:.3R}", state.dataIPShortCut->cNumericFieldNames(5), state.dataIPShortCut->rNumericArgs(5)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowSevereError(state,
+                                std::format("Invalid {}={:.3f}", state.dataIPShortCut->cNumericFieldNames(5), state.dataIPShortCut->rNumericArgs(5)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Value is either less than/equal to zero or greater than 0.1 (10%)");
                 ErrorsFound = true;
             }
 
             if ((state.dataIceThermalStorage->DetailedIceStorage(iceNum).FreezingTemp < -10.0) ||
                 (state.dataIceThermalStorage->DetailedIceStorage(iceNum).FreezingTemp > 10.0)) {
+<<<<<<< HEAD
                 ShowWarningError(state,
                                  EnergyPlus::format("Potentially invalid {}={:.3R}",
                                                     state.dataIPShortCut->cNumericFieldNames(6),
                                                     state.dataIPShortCut->rNumericArgs(6)));
                 ShowContinueError(
                     state, EnergyPlus::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                ShowWarningError(
+                    state,
+                    std::format("Potentially invalid {}={:.3f}", state.dataIPShortCut->cNumericFieldNames(6), state.dataIPShortCut->rNumericArgs(6)));
+                ShowContinueError(state,
+                                  std::format("Entered in {}={}", state.dataIPShortCut->cCurrentModuleObject, state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "Value is either less than -10.0C or greater than 10.0C");
                 ShowContinueError(state, "This value will be allowed but the user should verify that this temperature is correct");
             }
@@ -1187,7 +1354,11 @@ namespace IceThermalStorage {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("Errors found in processing input for {}", state.dataIPShortCut->cCurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("Errors found in processing input for {}", state.dataIPShortCut->cCurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 
@@ -1479,8 +1650,13 @@ namespace IceThermalStorage {
     void DetailedIceStorageData::size(EnergyPlusData &state)
     {
         int const TESTankIndex = Util::FindItemInList(this->Name, state.dataIceThermalStorage->DetailedIceStorage, &DetailedIceStorageData::Name);
+<<<<<<< HEAD
         int const TESSizingIndex = state.dataIceThermalStorage->DetailedIceStorage(TESTankIndex).TESSizingIndex;
         if (TESSizingIndex == 0) {
+=======
+        int const tesSizingIndex = state.dataIceThermalStorage->DetailedIceStorage(TESTankIndex).TESSizingIndex;
+        if (tesSizingIndex == 0) {
+>>>>>>> nrel/develop
             return;
         }
         std::string_view const tankType = "ThermalStorage:Ice:Detailed";
@@ -1490,11 +1666,19 @@ namespace IceThermalStorage {
         int PltSizNum = plntLoop.PlantSizNum;
         auto &plntSizData = state.dataSize->PlantSizData(PltSizNum);
 
+<<<<<<< HEAD
         int startPeak = state.dataIceThermalStorage->ThermalStorageSizing(TESSizingIndex).onPeakStart * state.dataGlobal->TimeStepsInHour;
         int endPeak = state.dataIceThermalStorage->ThermalStorageSizing(TESSizingIndex).onPeakEnd * state.dataGlobal->TimeStepsInHour;
         Real64 onPeakTimeSteps = endPeak - startPeak;
         Real64 onPeakHours = onPeakTimeSteps / state.dataGlobal->TimeStepsInHour;
         Real64 sizingFactor = state.dataIceThermalStorage->ThermalStorageSizing(TESSizingIndex).sizingFactor;
+=======
+        int startPeak = state.dataIceThermalStorage->ThermalStorageSizing(tesSizingIndex).onPeakStart * state.dataGlobal->TimeStepsInHour;
+        int endPeak = state.dataIceThermalStorage->ThermalStorageSizing(tesSizingIndex).onPeakEnd * state.dataGlobal->TimeStepsInHour;
+        Real64 onPeakTimeSteps = endPeak - startPeak;
+        Real64 onPeakHours = onPeakTimeSteps / state.dataGlobal->TimeStepsInHour;
+        Real64 sizingFactor = state.dataIceThermalStorage->ThermalStorageSizing(tesSizingIndex).sizingFactor;
+>>>>>>> nrel/develop
         Real64 onPeakSumWaterFlow = 0.0;
         if (!plntLoop.plantDesWaterFlowRate.empty()) {
             for (int ts = 0; ts < 24 * state.dataGlobal->TimeStepsInHour; ++ts) {
@@ -1529,8 +1713,13 @@ namespace IceThermalStorage {
     void SimpleIceStorageData::size(EnergyPlusData &state)
     {
         int const TESTankIndex = Util::FindItemInList(this->Name, state.dataIceThermalStorage->SimpleIceStorage, &SimpleIceStorageData::Name);
+<<<<<<< HEAD
         int const TESSizingIndex = state.dataIceThermalStorage->SimpleIceStorage(TESTankIndex).TESSizingIndex;
         if (TESSizingIndex == 0) {
+=======
+        int const tesSizingIndex = state.dataIceThermalStorage->SimpleIceStorage(TESTankIndex).TESSizingIndex;
+        if (tesSizingIndex == 0) {
+>>>>>>> nrel/develop
             return;
         }
         std::string_view const tankType = "ThermalStorage:Ice:Simple";
@@ -1540,11 +1729,19 @@ namespace IceThermalStorage {
         int PltSizNum = plntLoop.PlantSizNum;
         auto &plntSizData = state.dataSize->PlantSizData(PltSizNum);
 
+<<<<<<< HEAD
         Real64 startPeak = state.dataIceThermalStorage->ThermalStorageSizing(TESSizingIndex).onPeakStart * state.dataGlobal->TimeStepsInHour;
         Real64 endPeak = state.dataIceThermalStorage->ThermalStorageSizing(TESSizingIndex).onPeakEnd * state.dataGlobal->TimeStepsInHour;
         Real64 onPeakTimeSteps = endPeak - startPeak;
         Real64 onPeakHours = onPeakTimeSteps / state.dataGlobal->TimeStepsInHour;
         Real64 sizingFactor = state.dataIceThermalStorage->ThermalStorageSizing(TESSizingIndex).sizingFactor;
+=======
+        Real64 startPeak = state.dataIceThermalStorage->ThermalStorageSizing(tesSizingIndex).onPeakStart * state.dataGlobal->TimeStepsInHour;
+        Real64 endPeak = state.dataIceThermalStorage->ThermalStorageSizing(tesSizingIndex).onPeakEnd * state.dataGlobal->TimeStepsInHour;
+        Real64 onPeakTimeSteps = endPeak - startPeak;
+        Real64 onPeakHours = onPeakTimeSteps / state.dataGlobal->TimeStepsInHour;
+        Real64 sizingFactor = state.dataIceThermalStorage->ThermalStorageSizing(tesSizingIndex).sizingFactor;
+>>>>>>> nrel/develop
         Real64 onPeakSumWaterFlow = 0.0;
         if (!plntLoop.plantDesWaterFlowRate.empty()) {
             for (int ts = 0; ts < 24 * state.dataGlobal->TimeStepsInHour; ++ts) {

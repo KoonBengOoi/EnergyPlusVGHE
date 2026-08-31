@@ -23,7 +23,11 @@
 
   SurfaceConvectionAlgorithm:Outside,DOE-2;
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Test Harness for MicroCogen,  !- Name

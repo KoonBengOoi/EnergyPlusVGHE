@@ -10,7 +10,11 @@
 ! Plant:    None.
 ! Modified:
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Site:Location,
     UNKNOWN,                 !- Name

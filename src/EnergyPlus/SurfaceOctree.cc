@@ -45,15 +45,25 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include <EnergyPlus/DataSurfaces.hh>
 #include <EnergyPlus/SurfaceOctree.hh>
 
+=======
+>>>>>>> nrel/develop
 // C++ Headers
 #include <algorithm>
 #include <cmath>
 #include <limits>
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+#include <EnergyPlus/DataSurfaces.hh>
+#include <EnergyPlus/SurfaceOctree.hh>
+
+>>>>>>> nrel/develop
 namespace EnergyPlus {
 
 // Package: Surface Octree System

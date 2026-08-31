@@ -47,7 +47,13 @@
 
 // C++ Headers
 #include <algorithm>
+<<<<<<< HEAD
 #include <cassert>
+=======
+#include <array>
+#include <cassert>
+#include <format>
+>>>>>>> nrel/develop
 #include <memory>
 #include <string>
 #include <unordered_set>
@@ -57,8 +63,15 @@
 #include <ObjexxFCL/Fmath.hh>
 #include <ObjexxFCL/string.functions.hh>
 
+<<<<<<< HEAD
 // EnergyPlus Headers
 #include "re2/re2.h"
+=======
+// Third Party Headers
+#include <milo/dtoa.h>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
 #include <EnergyPlus/DataGlobalConstants.hh>
@@ -76,8 +89,13 @@
 #include <EnergyPlus/ScheduleManager.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
 
+<<<<<<< HEAD
 #include <fmt/ostream.h>
 #include <milo/dtoa.h>
+=======
+// Local Headers
+#include "re2/re2.h"
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 
@@ -201,7 +219,11 @@ namespace OutputProcessor {
 
         Constant::EndUse endUse = endUseCat2endUse[(int)endUseCat];
         if (endUse == Constant::EndUse::Invalid) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Nonexistent end use passed to addEndUseSpaceType={}", endUseCatNames[(int)endUseCat]));
+=======
+            ShowSevereError(state, std::format("Nonexistent end use passed to addEndUseSpaceType={}", endUseCatNames[(int)endUseCat]));
+>>>>>>> nrel/develop
             return;
         }
 
@@ -229,7 +251,11 @@ namespace OutputProcessor {
         Constant::EndUse endUse = endUseCat2endUse[(int)sovEndUseCat];
 
         if (endUse == Constant::EndUse::Invalid) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Nonexistent end use passed to addEndUseSpaceType={}", endUseCatNames[(int)sovEndUseCat]));
+=======
+            ShowSevereError(state, std::format("Nonexistent end use passed to addEndUseSpaceType={}", endUseCatNames[(int)sovEndUseCat]));
+>>>>>>> nrel/develop
             return;
         }
 
@@ -273,7 +299,11 @@ namespace OutputProcessor {
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         // ValidateTimeStepType will throw a Fatal if not valid
         if (state.dataOutputProcessor->TimeValue[(int)timeStep].TimeStep != nullptr) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("SetupTimePointers was already called for {}", timeStepTypeNames[(int)timeStep]));
+=======
+            ShowFatalError(state, std::format("SetupTimePointers was already called for {}", timeStepTypeNames[(int)timeStep]));
+>>>>>>> nrel/develop
         }
         state.dataOutputProcessor->TimeValue[(int)timeStep].TimeStep = &TimeStep;
     }
@@ -407,9 +437,15 @@ namespace OutputProcessor {
         for (unsigned Loop = 0; Loop < FreqValues.size(); ++Loop) {
             if (FreqStringTrim == PossibleFreqs[Loop]) {
                 if (FreqStringUpper != ExactFreqStringsUC[Loop]) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state, EnergyPlus::format("DetermineFrequency: Entered frequency=\"{}\" is not an exact match to key strings.", FreqString));
                     ShowContinueError(state, EnergyPlus::format("Frequency={} will be used.", ExactFreqStrings[Loop]));
+=======
+                    ShowWarningError(state,
+                                     std::format("DetermineFrequency: Entered frequency=\"{}\" is not an exact match to key strings.", FreqString));
+                    ShowContinueError(state, std::format("Frequency={} will be used.", ExactFreqStrings[Loop]));
+>>>>>>> nrel/develop
                 }
                 freq = std::max(FreqValues[Loop], state.dataOutputProcessor->minimumReportFreq);
                 break;
@@ -540,7 +576,11 @@ namespace OutputProcessor {
         }
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("GetReportVariableInput:{}: errors in input.", cCurrentModuleObject));
+=======
+            ShowFatalError(state, std::format("GetReportVariableInput:{}: errors in input.", cCurrentModuleObject));
+>>>>>>> nrel/develop
         }
     }
 
@@ -571,12 +611,21 @@ namespace OutputProcessor {
 
         switch (freq) {
         case ReportFreq::Day:
+<<<<<<< HEAD
             return EnergyPlus::format("{:2},{:2}", Hour, Minute);
         case ReportFreq::Month:
             return EnergyPlus::format("{:2},{:2},{:2}", Day, Hour, Minute);
         case ReportFreq::Year:
         case ReportFreq::Simulation:
             return EnergyPlus::format("{:2},{:2},{:2},{:2}", Mon, Day, Hour, Minute);
+=======
+            return std::format("{:2},{:2}", Hour, Minute);
+        case ReportFreq::Month:
+            return std::format("{:2},{:2},{:2}", Day, Hour, Minute);
+        case ReportFreq::Year:
+        case ReportFreq::Simulation:
+            return std::format("{:2},{:2},{:2},{:2}", Mon, Day, Hour, Minute);
+>>>>>>> nrel/develop
         default:
             return std::string();
         }
@@ -756,22 +805,37 @@ namespace OutputProcessor {
                 // A custom meter cannot reference another custom meter
                 if (std::find(customMeterNames.begin(), customMeterNames.end(), meterOrVarNameUC) != customMeterNames.end()) {
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format(R"(Meter:Custom="{}", contains a reference to another Meter:Custom in field: {}="{}".)",
                                                         ipsc->cAlphaArgs(1),
                                                         ipsc->cAlphaFieldNames(fldIndex + 1),
                                                         ipsc->cAlphaArgs(fldIndex + 1)));
+=======
+                                     std::format(R"(Meter:Custom="{}", contains a reference to another Meter:Custom in field: {}="{}".)",
+                                                 ipsc->cAlphaArgs(1),
+                                                 ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                 ipsc->cAlphaArgs(fldIndex + 1)));
+>>>>>>> nrel/develop
                     foundBadSrc = true;
                     break;
                 }
 
                 // A custom meter cannot reference another customDec meter
                 if (std::find(customDecMeterNames.begin(), customDecMeterNames.end(), meterOrVarNameUC) != customDecMeterNames.end()) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format(R"(Meter:Custom="{}", contains a reference to another Meter:CustomDecrement in field: {}="{}".)",
                                            ipsc->cAlphaArgs(1),
                                            ipsc->cAlphaFieldNames(fldIndex + 1),
                                            ipsc->cAlphaArgs(fldIndex + 1)));
+=======
+                    ShowWarningError(state,
+                                     std::format(R"(Meter:Custom="{}", contains a reference to another Meter:CustomDecrement in field: {}="{}".)",
+                                                 ipsc->cAlphaArgs(1),
+                                                 ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                 ipsc->cAlphaArgs(fldIndex + 1)));
+>>>>>>> nrel/develop
                     foundBadSrc = true;
                     break;
                 }
@@ -788,6 +852,7 @@ namespace OutputProcessor {
                     } else if (units != srcMeter->units) {
                         ShowWarningCustom(state,
                                           eoh,
+<<<<<<< HEAD
                                           EnergyPlus::format(R"(Meter:Custom="{}", differing units in {}="{}".)",
                                                              ipsc->cAlphaArgs(1),
                                                              ipsc->cAlphaFieldNames(fldIndex + 1),
@@ -797,6 +862,16 @@ namespace OutputProcessor {
                             EnergyPlus::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
                                                Constant::unitNames[(int)units],
                                                Constant::unitNames[(int)srcMeter->units]));
+=======
+                                          std::format(R"(Meter:Custom="{}", differing units in {}="{}".)",
+                                                      ipsc->cAlphaArgs(1),
+                                                      ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                      meterOrVarNameUC));
+                        ShowContinueError(state,
+                                          std::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
+                                                      Constant::unitNames[(int)units],
+                                                      Constant::unitNames[(int)srcMeter->units]));
+>>>>>>> nrel/develop
                         foundBadSrc = true;
                         break;
                     }
@@ -810,6 +885,7 @@ namespace OutputProcessor {
                     if (srcDDVar->storeType != StoreType::Sum) {
                         ShowWarningCustom(state,
                                           eoh,
+<<<<<<< HEAD
                                           EnergyPlus::format(R"(Meter:Custom="{}", variable not summed variable {}="{}".)",
                                                              ipsc->cAlphaArgs(1),
                                                              ipsc->cAlphaFieldNames(fldIndex + 1),
@@ -819,6 +895,16 @@ namespace OutputProcessor {
                             EnergyPlus::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
                                                units != Constant::Units::Invalid ? Constant::unitNames[(int)units] : "Unknown",
                                                Constant::unitNames[(int)srcDDVar->units]));
+=======
+                                          std::format(R"(Meter:Custom="{}", variable not summed variable {}="{}".)",
+                                                      ipsc->cAlphaArgs(1),
+                                                      ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                      meterOrVarNameUC));
+                        ShowContinueError(state,
+                                          std::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
+                                                      units != Constant::Units::Invalid ? Constant::unitNames[(int)units] : "Unknown",
+                                                      Constant::unitNames[(int)srcDDVar->units]));
+>>>>>>> nrel/develop
                         foundBadSrc = true;
                         break;
                     }
@@ -829,12 +915,20 @@ namespace OutputProcessor {
                         // Otherwise it has to match the existing units
                     } else if (units != srcDDVar->units) {
                         ShowWarningCustom(
+<<<<<<< HEAD
                             state, eoh, EnergyPlus::format("differing units in {}=\"{}\".", ipsc->cAlphaFieldNames(fldIndex + 1), meterOrVarNameUC));
                         ShowContinueError(
                             state,
                             EnergyPlus::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
                                                Constant::unitNames[(int)units],
                                                Constant::unitNames[(int)srcDDVar->units]));
+=======
+                            state, eoh, std::format("differing units in {}=\"{}\".", ipsc->cAlphaFieldNames(fldIndex + 1), meterOrVarNameUC));
+                        ShowContinueError(state,
+                                          std::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
+                                                      Constant::unitNames[(int)units],
+                                                      Constant::unitNames[(int)srcDDVar->units]));
+>>>>>>> nrel/develop
                         foundBadSrc = true;
                         break;
                     }
@@ -850,9 +944,35 @@ namespace OutputProcessor {
 
                         itemsAssigned = true;
                     } else { // Key is not "*"
+<<<<<<< HEAD
                         bool foundKey = false;
                         for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
                             if (op->outVars[keyOutVarNum]->keyUC == ipsc->cAlphaArgs(fldIndex)) {
+=======
+                        std::string const &keyArg = ipsc->cAlphaArgs(fldIndex);
+                        bool keyIsRegex = DataOutputs::isKeyRegexLike(keyArg);
+                        std::unique_ptr<RE2> keyPattern;
+                        if (keyIsRegex) {
+                            // keyArg is already uppercased (no \retaincase in IDD), and keyUC is uppercase too,
+                            // so matching uppercase pattern against uppercase key is effectively case-insensitive.
+                            keyPattern = std::make_unique<RE2>(keyArg);
+                            if (!keyPattern->ok()) {
+                                ShowSevereError(state,
+                                                std::format("Regular expression \"{}\" for {} in {}=\"{}\" is invalid",
+                                                            keyArg,
+                                                            ipsc->cAlphaFieldNames(fldIndex),
+                                                            ipsc->cCurrentModuleObject,
+                                                            ipsc->cAlphaArgs(1)));
+                                ShowContinueError(state, keyPattern->error());
+                                ShowFatalError(state, "Error found in regular expression. Previous error(s) cause program termination.");
+                            }
+                        }
+                        bool foundKey = false;
+                        for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
+                            bool matched = keyIsRegex ? RE2::FullMatch(op->outVars[keyOutVarNum]->keyUC, *keyPattern)
+                                                      : (op->outVars[keyOutVarNum]->keyUC == keyArg);
+                            if (matched) {
+>>>>>>> nrel/develop
                                 foundKey = true;
                                 itemsAssigned = true;
                                 break;
@@ -869,10 +989,17 @@ namespace OutputProcessor {
                 } else {
                     // Cannot use ShowWarningItemNotFound because this string appears in a unit test
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format(R"(Meter:Custom="{}", invalid {}="{}".)",
                                                         ipsc->cAlphaArgs(1),
                                                         ipsc->cAlphaFieldNames(fldIndex + 1),
                                                         ipsc->cAlphaArgs(fldIndex + 1)));
+=======
+                                     std::format(R"(Meter:Custom="{}", invalid {}="{}".)",
+                                                 ipsc->cAlphaArgs(1),
+                                                 ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                 ipsc->cAlphaArgs(fldIndex + 1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...will not be shown with the Meter results.");
                     // Not setting the foundBadSrc flag here.
                 }
@@ -881,7 +1008,11 @@ namespace OutputProcessor {
 
             // Somehow, this meter is not linked to any variables either directly or via another meter
             if (!itemsAssigned) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("Meter:Custom=\"{}\", no items assigned ", ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("Meter:Custom=\"{}\", no items assigned ", ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(
                     state,
                     "...will not be shown with the Meter results. This may be caused by a Meter:Custom being assigned to another Meter:Custom.");
@@ -900,7 +1031,11 @@ namespace OutputProcessor {
             bool errFlag = false;
             meter->RT_forIPUnits = GetResourceIPUnits(state, meter->resource, meter->units, errFlag);
             if (errFlag) {
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("..on {}=\"{}\".", ipsc->cCurrentModuleObject, ipsc->cAlphaArgs(1)));
+=======
+                ShowContinueError(state, std::format("..on {}=\"{}\".", ipsc->cCurrentModuleObject, ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "..requests for IP units from this meter will be ignored.");
             }
 
@@ -941,9 +1076,15 @@ namespace OutputProcessor {
                     if (std::find(meter->srcMeterNums.begin(), meter->srcMeterNums.end(), srcMeterNum) != meter->srcMeterNums.end()) {
                         ShowWarningCustom(state,
                                           eoh,
+<<<<<<< HEAD
                                           EnergyPlus::format("{}=\"{}\" referenced multiple times, only first instance will be used",
                                                              ipsc->cAlphaFieldNames(fldIndex + 1),
                                                              meterOrVarNameUC));
+=======
+                                          std::format("{}=\"{}\" referenced multiple times, only first instance will be used",
+                                                      ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                      meterOrVarNameUC));
+>>>>>>> nrel/develop
                         continue;
                     }
 
@@ -974,8 +1115,13 @@ namespace OutputProcessor {
                             if (std::find(meter->srcVarNums.begin(), meter->srcVarNums.end(), keyOutVarNum) != meter->srcVarNums.end()) {
                                 ShowWarningCustom(state,
                                                   eoh,
+<<<<<<< HEAD
                                                   EnergyPlus::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
                                                                      op->outVars[keyOutVarNum]->keyColonNameUC));
+=======
+                                                  std::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
+                                                              op->outVars[keyOutVarNum]->keyColonNameUC));
+>>>>>>> nrel/develop
 
                             } else {
                                 meter->srcVarNums.push_back(keyOutVarNum);
@@ -983,6 +1129,7 @@ namespace OutputProcessor {
                             }
                         }
                     } else { // Key is not "*"
+<<<<<<< HEAD
                         for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
                             if (op->outVars[keyOutVarNum]->keyUC == ipsc->cAlphaArgs(fldIndex)) {
                                 if (std::find(meter->srcVarNums.begin(), meter->srcVarNums.end(), keyOutVarNum) != meter->srcVarNums.end()) {
@@ -990,11 +1137,36 @@ namespace OutputProcessor {
                                                       eoh,
                                                       EnergyPlus::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
                                                                          op->outVars[keyOutVarNum]->keyColonNameUC));
+=======
+                        std::string const &keyArg = ipsc->cAlphaArgs(fldIndex);
+                        bool keyIsRegex = DataOutputs::isKeyRegexLike(keyArg);
+                        std::unique_ptr<RE2> keyPattern;
+                        if (keyIsRegex) {
+                            // keyArg is already uppercased (no \retaincase in IDD), and keyUC is uppercase too,
+                            // so matching uppercase pattern against uppercase key is effectively case-insensitive.
+                            keyPattern = std::make_unique<RE2>(keyArg);
+                        }
+                        for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
+                            bool matched = keyIsRegex ? RE2::FullMatch(op->outVars[keyOutVarNum]->keyUC, *keyPattern)
+                                                      : (op->outVars[keyOutVarNum]->keyUC == keyArg);
+                            if (matched) {
+                                if (std::find(meter->srcVarNums.begin(), meter->srcVarNums.end(), keyOutVarNum) != meter->srcVarNums.end()) {
+                                    ShowWarningCustom(state,
+                                                      eoh,
+                                                      std::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
+                                                                  op->outVars[keyOutVarNum]->keyColonNameUC));
+>>>>>>> nrel/develop
                                 } else {
                                     meter->srcVarNums.push_back(keyOutVarNum);
                                     op->outVars[keyOutVarNum]->meterNums.push_back(meterNum);
                                 }
+<<<<<<< HEAD
                                 break;
+=======
+                                if (!keyIsRegex) {
+                                    break;
+                                }
+>>>>>>> nrel/develop
                             }
                         }
                     } // if (keyIsStar)
@@ -1054,12 +1226,20 @@ namespace OutputProcessor {
 
             // DecMeter cannot be a Meter:Custom
             if (std::find(customDecMeterNames.begin(), customDecMeterNames.end(), decMeterNameUC) != customDecMeterNames.end()) {
+<<<<<<< HEAD
                 ShowWarningError(
                     state,
                     EnergyPlus::format(R"(Meter:CustomDec="{}", contains a reference to another Meter:CustomDecrement in field: {}="{}".)",
                                        ipsc->cAlphaArgs(1),
                                        ipsc->cAlphaFieldNames(3),
                                        ipsc->cAlphaArgs(3)));
+=======
+                ShowWarningError(state,
+                                 std::format(R"(Meter:CustomDec="{}", contains a reference to another Meter:CustomDecrement in field: {}="{}".)",
+                                             ipsc->cAlphaArgs(1),
+                                             ipsc->cAlphaFieldNames(3),
+                                             ipsc->cAlphaArgs(3)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
@@ -1101,12 +1281,20 @@ namespace OutputProcessor {
 
                 // A custom meter cannot reference another custom meter
                 if (std::find(customDecMeterNames.begin(), customDecMeterNames.end(), meterOrVarNameUC) != customDecMeterNames.end()) {
+<<<<<<< HEAD
                     ShowWarningError(
                         state,
                         EnergyPlus::format(R"(Meter:Custom="{}", contains a reference to another Meter:CustomDecrement in field: {}="{}".)",
                                            ipsc->cAlphaArgs(1),
                                            ipsc->cAlphaFieldNames(fldIndex + 1),
                                            ipsc->cAlphaArgs(fldIndex + 1)));
+=======
+                    ShowWarningError(state,
+                                     std::format(R"(Meter:Custom="{}", contains a reference to another Meter:CustomDecrement in field: {}="{}".)",
+                                                 ipsc->cAlphaArgs(1),
+                                                 ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                 ipsc->cAlphaArgs(fldIndex + 1)));
+>>>>>>> nrel/develop
                     foundBadSrc = true;
                     break;
                 }
@@ -1123,6 +1311,7 @@ namespace OutputProcessor {
                     } else if (units != srcMeter->units) {
                         ShowWarningCustom(state,
                                           eoh,
+<<<<<<< HEAD
                                           EnergyPlus::format(R"(Meter:Custom="{}", differing units in {}="{}".)",
                                                              ipsc->cAlphaArgs(1),
                                                              ipsc->cAlphaFieldNames(fldIndex + 1),
@@ -1132,6 +1321,16 @@ namespace OutputProcessor {
                             EnergyPlus::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
                                                Constant::unitNames[(int)units],
                                                Constant::unitNames[(int)srcMeter->units]));
+=======
+                                          std::format(R"(Meter:Custom="{}", differing units in {}="{}".)",
+                                                      ipsc->cAlphaArgs(1),
+                                                      ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                      meterOrVarNameUC));
+                        ShowContinueError(state,
+                                          std::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
+                                                      Constant::unitNames[(int)units],
+                                                      Constant::unitNames[(int)srcMeter->units]));
+>>>>>>> nrel/develop
                         foundBadSrc = true;
                         break;
                     }
@@ -1145,6 +1344,7 @@ namespace OutputProcessor {
                     if (srcDDVar->storeType != StoreType::Sum) {
                         ShowWarningCustom(state,
                                           eoh,
+<<<<<<< HEAD
                                           EnergyPlus::format(R"(Meter:Custom="{}", variable not summed variable {}="{}".)",
                                                              ipsc->cAlphaArgs(1),
                                                              ipsc->cAlphaFieldNames(fldIndex + 1),
@@ -1154,6 +1354,16 @@ namespace OutputProcessor {
                             EnergyPlus::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
                                                Constant::unitNames[(int)units],
                                                Constant::unitNames[(int)srcDDVar->units]));
+=======
+                                          std::format(R"(Meter:Custom="{}", variable not summed variable {}="{}".)",
+                                                      ipsc->cAlphaArgs(1),
+                                                      ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                      meterOrVarNameUC));
+                        ShowContinueError(state,
+                                          std::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
+                                                      Constant::unitNames[(int)units],
+                                                      Constant::unitNames[(int)srcDDVar->units]));
+>>>>>>> nrel/develop
                         foundBadSrc = true;
                         break;
                     }
@@ -1164,12 +1374,20 @@ namespace OutputProcessor {
                         // Otherwise it has to match the existing units
                     } else if (units != srcDDVar->units) {
                         ShowWarningCustom(
+<<<<<<< HEAD
                             state, eoh, EnergyPlus::format("differing units in {}=\"{}\".", ipsc->cAlphaFieldNames(fldIndex + 1), meterOrVarNameUC));
                         ShowContinueError(
                             state,
                             EnergyPlus::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
                                                Constant::unitNames[(int)units],
                                                Constant::unitNames[(int)srcDDVar->units]));
+=======
+                            state, eoh, std::format("differing units in {}=\"{}\".", ipsc->cAlphaFieldNames(fldIndex + 1), meterOrVarNameUC));
+                        ShowContinueError(state,
+                                          std::format("...will not be shown with the Meter results; units for meter={}, units for this variable={}.",
+                                                      Constant::unitNames[(int)units],
+                                                      Constant::unitNames[(int)srcDDVar->units]));
+>>>>>>> nrel/develop
                         foundBadSrc = true;
                         break;
                     }
@@ -1185,9 +1403,35 @@ namespace OutputProcessor {
 
                         itemsAssigned = true;
                     } else { // Key is not "*"
+<<<<<<< HEAD
                         bool foundKey = false;
                         for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
                             if (op->outVars[keyOutVarNum]->keyUC == ipsc->cAlphaArgs(fldIndex)) {
+=======
+                        std::string const &keyArg = ipsc->cAlphaArgs(fldIndex);
+                        bool keyIsRegex = DataOutputs::isKeyRegexLike(keyArg);
+                        std::unique_ptr<RE2> keyPattern;
+                        if (keyIsRegex) {
+                            // keyArg is already uppercased (no \retaincase in IDD), and keyUC is uppercase too,
+                            // so matching uppercase pattern against uppercase key is effectively case-insensitive.
+                            keyPattern = std::make_unique<RE2>(keyArg);
+                            if (!keyPattern->ok()) {
+                                ShowSevereError(state,
+                                                std::format("Regular expression \"{}\" for {} in {}=\"{}\" is invalid",
+                                                            keyArg,
+                                                            ipsc->cAlphaFieldNames(fldIndex),
+                                                            ipsc->cCurrentModuleObject,
+                                                            ipsc->cAlphaArgs(1)));
+                                ShowContinueError(state, keyPattern->error());
+                                ShowFatalError(state, "Error found in regular expression. Previous error(s) cause program termination.");
+                            }
+                        }
+                        bool foundKey = false;
+                        for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
+                            bool matched = keyIsRegex ? RE2::FullMatch(op->outVars[keyOutVarNum]->keyUC, *keyPattern)
+                                                      : (op->outVars[keyOutVarNum]->keyUC == keyArg);
+                            if (matched) {
+>>>>>>> nrel/develop
                                 foundKey = true;
                                 itemsAssigned = true;
                                 break;
@@ -1204,10 +1448,17 @@ namespace OutputProcessor {
                 } else {
                     // Cannot use ShowWarningItemNotFound because this string appears in a unit test
                     ShowWarningError(state,
+<<<<<<< HEAD
                                      EnergyPlus::format(R"(Meter:Custom="{}", invalid {}="{}".)",
                                                         ipsc->cAlphaArgs(1),
                                                         ipsc->cAlphaFieldNames(fldIndex + 1),
                                                         ipsc->cAlphaArgs(fldIndex + 1)));
+=======
+                                     std::format(R"(Meter:Custom="{}", invalid {}="{}".)",
+                                                 ipsc->cAlphaArgs(1),
+                                                 ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                 ipsc->cAlphaArgs(fldIndex + 1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...will not be shown with the Meter results.");
                     foundBadSrc = true;
                     break;
@@ -1217,7 +1468,11 @@ namespace OutputProcessor {
 
             // Somehow, this meter is not linked to any variables either directly or via another meter
             if (!itemsAssigned) {
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("Meter:Custom=\"{}\", no items assigned ", ipsc->cAlphaArgs(1)));
+=======
+                ShowWarningError(state, std::format("Meter:Custom=\"{}\", no items assigned ", ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(
                     state,
                     "...will not be shown with the Meter results. This may be caused by a Meter:Custom being assigned to another Meter:Custom.");
@@ -1236,7 +1491,11 @@ namespace OutputProcessor {
             bool errFlag = false;
             meter->RT_forIPUnits = GetResourceIPUnits(state, meter->resource, meter->units, errFlag);
             if (errFlag) {
+<<<<<<< HEAD
                 ShowContinueError(state, EnergyPlus::format("..on {}=\"{}\".", ipsc->cCurrentModuleObject, ipsc->cAlphaArgs(1)));
+=======
+                ShowContinueError(state, std::format("..on {}=\"{}\".", ipsc->cCurrentModuleObject, ipsc->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "..requests for IP units from this meter will be ignored.");
             }
 
@@ -1290,9 +1549,15 @@ namespace OutputProcessor {
                     if (std::find(meter->srcMeterNums.begin(), meter->srcMeterNums.end(), srcMeterNum) != meter->srcMeterNums.end()) {
                         ShowWarningCustom(state,
                                           eoh,
+<<<<<<< HEAD
                                           EnergyPlus::format("{}=\"{}\" referenced multiple times, only first instance will be used",
                                                              ipsc->cAlphaFieldNames(fldIndex + 1),
                                                              meterOrVarNameUC));
+=======
+                                          std::format("{}=\"{}\" referenced multiple times, only first instance will be used",
+                                                      ipsc->cAlphaFieldNames(fldIndex + 1),
+                                                      meterOrVarNameUC));
+>>>>>>> nrel/develop
                         continue;
                     }
 
@@ -1323,8 +1588,13 @@ namespace OutputProcessor {
                             if (std::find(meter->srcVarNums.begin(), meter->srcVarNums.end(), keyOutVarNum) != meter->srcVarNums.end()) {
                                 ShowWarningCustom(state,
                                                   eoh,
+<<<<<<< HEAD
                                                   EnergyPlus::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
                                                                      op->outVars[keyOutVarNum]->keyColonNameUC));
+=======
+                                                  std::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
+                                                              op->outVars[keyOutVarNum]->keyColonNameUC));
+>>>>>>> nrel/develop
 
                             } else {
                                 meter->srcVarNums.push_back(keyOutVarNum);
@@ -1332,6 +1602,7 @@ namespace OutputProcessor {
                             }
                         }
                     } else { // Key is not "*"
+<<<<<<< HEAD
                         for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
                             if (op->outVars[keyOutVarNum]->keyUC == ipsc->cAlphaArgs(fldIndex)) {
                                 if (std::find(meter->srcVarNums.begin(), meter->srcVarNums.end(), keyOutVarNum) != meter->srcVarNums.end()) {
@@ -1339,11 +1610,36 @@ namespace OutputProcessor {
                                                       eoh,
                                                       EnergyPlus::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
                                                                          op->outVars[keyOutVarNum]->keyColonNameUC));
+=======
+                        std::string const &keyArg = ipsc->cAlphaArgs(fldIndex);
+                        bool keyIsRegex = DataOutputs::isKeyRegexLike(keyArg);
+                        std::unique_ptr<RE2> keyPattern;
+                        if (keyIsRegex) {
+                            // keyArg is already uppercased (no \retaincase in IDD), and keyUC is uppercase too,
+                            // so matching uppercase pattern against uppercase key is effectively case-insensitive.
+                            keyPattern = std::make_unique<RE2>(keyArg);
+                        }
+                        for (int keyOutVarNum : srcDDVar->keyOutVarNums) {
+                            bool matched = keyIsRegex ? RE2::FullMatch(op->outVars[keyOutVarNum]->keyUC, *keyPattern)
+                                                      : (op->outVars[keyOutVarNum]->keyUC == keyArg);
+                            if (matched) {
+                                if (std::find(meter->srcVarNums.begin(), meter->srcVarNums.end(), keyOutVarNum) != meter->srcVarNums.end()) {
+                                    ShowWarningCustom(state,
+                                                      eoh,
+                                                      std::format("Output variable \"{}\" referenced multiple times (directly or via meter)",
+                                                                  op->outVars[keyOutVarNum]->keyColonNameUC));
+>>>>>>> nrel/develop
                                 } else {
                                     meter->srcVarNums.push_back(keyOutVarNum);
                                     op->outVars[keyOutVarNum]->meterNums.push_back(meterNum);
                                 }
+<<<<<<< HEAD
                                 break;
+=======
+                                if (!keyIsRegex) {
+                                    break;
+                                }
+>>>>>>> nrel/develop
                             }
                         }
                     } // if (keyIsStar)
@@ -1416,7 +1712,11 @@ namespace OutputProcessor {
                 bool errFlag = false;
                 meter->RT_forIPUnits = GetResourceIPUnits(state, meter->resource, units, errFlag);
                 if (errFlag) {
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("..on Meter=\"{}\".", Name));
+=======
+                    ShowContinueError(state, std::format("..on Meter=\"{}\".", Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "..requests for IP units from this meter will be ignored.");
                 }
             }
@@ -1464,20 +1764,36 @@ namespace OutputProcessor {
             addEndUseSpaceType(state, endUseCat, SpaceType);
         }
 
+<<<<<<< HEAD
         std::string meterName = EnergyPlus::format("{}:Facility", resourceName);
         AddMeter(state, meterName, units, resource, EndUseCat::Invalid, "", Group::Invalid, outVarNum);
 
         if (group != Group::Invalid) {
             std::string groupMeterName = EnergyPlus::format("{}:{}", resourceName, groupNames[(int)group]);
+=======
+        std::string meterName = std::format("{}:Facility", resourceName);
+        AddMeter(state, meterName, units, resource, EndUseCat::Invalid, "", Group::Invalid, outVarNum);
+
+        if (group != Group::Invalid) {
+            std::string groupMeterName = std::format("{}:{}", resourceName, groupNames[(int)group]);
+>>>>>>> nrel/develop
             AddMeter(state, groupMeterName, units, resource, EndUseCat::Invalid, "", group, outVarNum);
 
             if (group == Group::Building) {
                 if (!ZoneName.empty()) {
+<<<<<<< HEAD
                     std::string zoneMeterName = EnergyPlus::format("{}:Zone:{}", resourceName, ZoneName);
                     AddMeter(state, zoneMeterName, units, resource, EndUseCat::Invalid, "", Group::Zone, outVarNum);
                 }
                 if (!SpaceType.empty()) {
                     std::string spaceMeterName = EnergyPlus::format("{}:SpaceType:{}", resourceName, SpaceType);
+=======
+                    std::string zoneMeterName = std::format("{}:Zone:{}", resourceName, ZoneName);
+                    AddMeter(state, zoneMeterName, units, resource, EndUseCat::Invalid, "", Group::Zone, outVarNum);
+                }
+                if (!SpaceType.empty()) {
+                    std::string spaceMeterName = std::format("{}:SpaceType:{}", resourceName, SpaceType);
+>>>>>>> nrel/develop
                     AddMeter(state, spaceMeterName, units, resource, EndUseCat::Invalid, "", Group::SpaceType, outVarNum);
                 }
             } // if (Group == "Building")
@@ -1486,33 +1802,57 @@ namespace OutputProcessor {
         //!! Following if we do EndUse by ResourceType
         if (endUseCat != EndUseCat::Invalid) {
             std::string_view endUseCatName = endUseCatNames[(int)endUseCat];
+<<<<<<< HEAD
             std::string enduseMeterName = EnergyPlus::format("{}:{}", endUseCatName, resourceName);
+=======
+            std::string enduseMeterName = std::format("{}:{}", endUseCatName, resourceName);
+>>>>>>> nrel/develop
             AddMeter(state, enduseMeterName, units, resource, endUseCat, "", Group::Invalid, outVarNum);
 
             if (group == Group::Building) { // Match to Zone and Space
                 if (!ZoneName.empty()) {
+<<<<<<< HEAD
                     std::string enduseZoneMeterName = EnergyPlus::format("{}:{}:Zone:{}", endUseCatName, resourceName, ZoneName);
                     AddMeter(state, enduseZoneMeterName, units, resource, endUseCat, "", Group::Zone, outVarNum);
                 }
                 if (!SpaceType.empty()) {
                     std::string enduseSpaceMeterName = EnergyPlus::format("{}:{}:SpaceType:{}", endUseCatName, resourceName, SpaceType);
+=======
+                    std::string enduseZoneMeterName = std::format("{}:{}:Zone:{}", endUseCatName, resourceName, ZoneName);
+                    AddMeter(state, enduseZoneMeterName, units, resource, endUseCat, "", Group::Zone, outVarNum);
+                }
+                if (!SpaceType.empty()) {
+                    std::string enduseSpaceMeterName = std::format("{}:{}:SpaceType:{}", endUseCatName, resourceName, SpaceType);
+>>>>>>> nrel/develop
                     AddMeter(state, enduseSpaceMeterName, units, resource, endUseCat, "", Group::SpaceType, outVarNum);
                 }
             }
 
             // End-Use Subcategories
             if (!endUseSub.empty()) {
+<<<<<<< HEAD
                 std::string subEnduseMeterName = EnergyPlus::format("{}:{}:{}", endUseSub, endUseCatNames[(int)endUseCat], resourceName);
+=======
+                std::string subEnduseMeterName = std::format("{}:{}:{}", endUseSub, endUseCatNames[(int)endUseCat], resourceName);
+>>>>>>> nrel/develop
                 AddMeter(state, subEnduseMeterName, units, resource, endUseCat, endUseSub, Group::Invalid, outVarNum);
 
                 if (group == Group::Building) { // Match to Zone and Space
                     if (!ZoneName.empty()) {
+<<<<<<< HEAD
                         std::string subEnduseZoneMeterName = EnergyPlus::format("{}:{}:{}:Zone:{}", endUseSub, endUseCatName, resourceName, ZoneName);
                         AddMeter(state, subEnduseZoneMeterName, units, resource, endUseCat, endUseSub, Group::Zone, outVarNum);
                     }
                     if (!SpaceType.empty()) {
                         std::string subEnduseSpaceMeterName =
                             EnergyPlus::format("{}:{}:{}:SpaceType:{}", endUseSub, endUseCatName, resourceName, SpaceType);
+=======
+                        std::string subEnduseZoneMeterName = std::format("{}:{}:{}:Zone:{}", endUseSub, endUseCatName, resourceName, ZoneName);
+                        AddMeter(state, subEnduseZoneMeterName, units, resource, endUseCat, endUseSub, Group::Zone, outVarNum);
+                    }
+                    if (!SpaceType.empty()) {
+                        std::string subEnduseSpaceMeterName = std::format("{}:{}:{}:SpaceType:{}", endUseSub, endUseCatName, resourceName, SpaceType);
+>>>>>>> nrel/develop
                         AddMeter(state, subEnduseSpaceMeterName, units, resource, endUseCat, endUseSub, Group::SpaceType, outVarNum);
                     }
                 } // if (sovGroup == Building)
@@ -1603,9 +1943,15 @@ namespace OutputProcessor {
         //  write(outputfiledebug,*) 'resourcetype=',TRIM(resourcetype)
         //  write(outputfiledebug,*) 'ipunits type=',CodeForIPUnits
         if (units != Constant::Units::kg && units != Constant::Units::J && units != Constant::Units::m3 && units != Constant::Units::L) {
+<<<<<<< HEAD
             ShowWarningMessage(state,
                                EnergyPlus::format("DetermineMeterIPUnits: Meter units not recognized for IP Units conversion=[{}].",
                                                   Constant::unitNames[(int)units]));
+=======
+            ShowWarningMessage(
+                state,
+                std::format("DetermineMeterIPUnits: Meter units not recognized for IP Units conversion=[{}].", Constant::unitNames[(int)units]));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
         return IPUnits;
@@ -2140,6 +2486,7 @@ namespace OutputProcessor {
             return "-";
         }
 
+<<<<<<< HEAD
         static constexpr std::string_view DateFmt("{:02}-{:3}-{:02}:{:02}");
 
         // ((month*100 + day)*100 + hour)*100 + minute
@@ -2147,6 +2494,13 @@ namespace OutputProcessor {
         int Day;    // day in integer format (1-31)
         int Hour;   // hour in integer format (1-24)
         int Minute; // minute in integer format (0:59)
+=======
+        // ((month*100 + day)*100 + hour)*100 + minute
+        int Month;  // month in integer format(1-12)
+        int Day;    // day in integer format(1-31)
+        int Hour;   // hour in integer format(1-24)
+        int Minute; // minute in integer format(0:59)
+>>>>>>> nrel/develop
 
         General::DecodeMonDayHrMin(codedDate, Month, Day, Hour, Minute);
 
@@ -2211,14 +2565,22 @@ namespace OutputProcessor {
             assert(false);
         }
 
+<<<<<<< HEAD
         return EnergyPlus::format(DateFmt, Day, monthName, Hour, Minute);
+=======
+        return std::format("{:02}-{:3}-{:02}:{:02}", Day, monthName, Hour, Minute);
+>>>>>>> nrel/develop
     }
 
     std::string OutVar::multiplierString() const
     {
         return (ZoneMult == 1 && ZoneListMult == 1)
                    ? ""
+<<<<<<< HEAD
                    : EnergyPlus::format(" * {}  (Zone Multiplier = {}, Zone List Multiplier = {})", ZoneMult * ZoneListMult, ZoneMult, ZoneListMult);
+=======
+                   : std::format(" * {}  (Zone Multiplier = {}, Zone List Multiplier = {})", ZoneMult * ZoneListMult, ZoneMult, ZoneListMult);
+>>>>>>> nrel/develop
     }
 
     void ReportMeterDetails(EnergyPlusData &state)
@@ -2344,6 +2706,7 @@ namespace OutputProcessor {
         case ReportFreq::EachCall:
         case ReportFreq::TimeStep: {
             assert(Month != -1 && DayOfMonth != -1 && Hour != -1 && StartMinute != -1 && EndMinute != -1 && DST != -1 && !DayType.empty());
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile,
                                      "{},{},{:2d},{:2d},{:2d},{:2d},{:5.2f},{:5.2f},{}\n",
                                      reportStr,
@@ -2355,6 +2718,19 @@ namespace OutputProcessor {
                                      StartMinute,
                                      EndMinute,
                                      DayType);
+=======
+            print(outputFile,
+                  "{},{},{:2d},{:2d},{:2d},{:2d},{:5.2f},{:5.2f},{}\n",
+                  reportStr,
+                  DayOfSimChr,
+                  Month,
+                  DayOfMonth,
+                  DST,
+                  Hour,
+                  StartMinute,
+                  EndMinute,
+                  DayType);
+>>>>>>> nrel/develop
 
             if (writeToSQL && sql) {
                 sql->createSQLiteTimeIndexRecord(reportingInterval,
@@ -2376,6 +2752,7 @@ namespace OutputProcessor {
 
         case ReportFreq::Hour: {
             assert(Month != -1 && DayOfMonth != -1 && Hour != -1 && DST != -1 && !DayType.empty());
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile,
                                      "{},{},{:2d},{:2d},{:2d},{:2d},{:5.2f},{:5.2f},{}\n",
                                      reportStr,
@@ -2387,6 +2764,19 @@ namespace OutputProcessor {
                                      0.0,
                                      60.0,
                                      DayType);
+=======
+            print(outputFile,
+                  "{},{},{:2d},{:2d},{:2d},{:2d},{:5.2f},{:5.2f},{}\n",
+                  reportStr,
+                  DayOfSimChr,
+                  Month,
+                  DayOfMonth,
+                  DST,
+                  Hour,
+                  0.0,
+                  60.0,
+                  DayType);
+>>>>>>> nrel/develop
             if (writeToSQL && sql) {
                 sql->createSQLiteTimeIndexRecord(reportingInterval,
                                                  reportID,
@@ -2406,7 +2796,11 @@ namespace OutputProcessor {
         } break;
         case ReportFreq::Day: {
             assert(Month != -1 && DayOfMonth != -1 && DST != -1 && !DayType.empty());
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile, "{},{},{:2d},{:2d},{:2d},{}\n", reportStr, DayOfSimChr, Month, DayOfMonth, DST, DayType);
+=======
+            print(outputFile, "{},{},{:2d},{:2d},{:2d},{}\n", reportStr, DayOfSimChr, Month, DayOfMonth, DST, DayType);
+>>>>>>> nrel/develop
             if (writeToSQL && sql) {
                 sql->createSQLiteTimeIndexRecord(reportingInterval,
                                                  reportID,
@@ -2427,7 +2821,11 @@ namespace OutputProcessor {
 
         case ReportFreq::Month: {
             assert(Month != -1);
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile, "{},{},{:2d}\n", reportStr, DayOfSimChr, Month);
+=======
+            print(outputFile, "{},{},{:2d}\n", reportStr, DayOfSimChr, Month);
+>>>>>>> nrel/develop
             if (writeToSQL && sql) {
                 sql->createSQLiteTimeIndexRecord(reportingInterval,
                                                  reportID,
@@ -2440,7 +2838,11 @@ namespace OutputProcessor {
         } break;
 
         case ReportFreq::Simulation: {
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(outputFile, "{},{}\n", reportStr, DayOfSimChr);
+=======
+            print(outputFile, "{},{}\n", reportStr, DayOfSimChr);
+>>>>>>> nrel/develop
             if (writeToSQL && sql) {
                 sql->createSQLiteTimeIndexRecord(reportingInterval,
                                                  reportID,
@@ -2453,7 +2855,11 @@ namespace OutputProcessor {
         default: {
             if (sql) {
                 sql->sqliteWriteMessage(
+<<<<<<< HEAD
                     format<FormatSyntax::FMT>("Illegal reportingInterval passed to WriteTimeStampFormatData: {}", (int)reportingInterval));
+=======
+                    std::format("Illegal reportingInterval passed to WriteTimeStampFormatData: {}", static_cast<int>(reportingInterval)));
+>>>>>>> nrel/develop
             }
         } break;
         } // switch (reportFreq)
@@ -2709,20 +3115,48 @@ namespace OutputProcessor {
         } else { // if ( ( reportingInterval == ReportDaily ) || ( reportingInterval == ReportMonthly ) || ( reportingInterval == ReportSim ) ) {
                  // // 2, 3, 4
             // Append the min and max strings with date information
+<<<<<<< HEAD
             char minValString[128], maxValString[128];
             dtoa(MinVal, minValString);
             dtoa(MaxVal, maxValString);
+=======
+            std::array<char, 128> minValString{}, maxValString{};
+            dtoa(MinVal, minValString.data());
+            dtoa(MaxVal, maxValString.data());
+>>>>>>> nrel/develop
 
             std::string minDateString = produceDateString(MinValDate, freq);
             std::string maxDateString = produceDateString(MaxValDate, freq);
 
             if (state.files.mtr.good()) {
+<<<<<<< HEAD
                 print(state.files.mtr, "{},{},{},{},{},{}\n", RptNum, NumberOut, minValString, minDateString, maxValString, maxDateString);
+=======
+                print(state.files.mtr,
+                      "{},{},{},{},{},{}\n",
+                      RptNum,
+                      NumberOut,
+                      minValString.data(),
+                      minDateString,
+                      maxValString.data(),
+                      maxDateString);
+>>>>>>> nrel/develop
             }
 
             ++state.dataGlobal->StdMeterRecordCount;
             if (state.files.eso.good() && !RptFO) {
+<<<<<<< HEAD
                 print(state.files.eso, "{},{},{},{},{},{}\n", RptNum, NumberOut, minValString, minDateString, maxValString, maxDateString);
+=======
+                print(state.files.eso,
+                      "{},{},{},{},{},{}\n",
+                      RptNum,
+                      NumberOut,
+                      minValString.data(),
+                      minDateString,
+                      maxValString.data(),
+                      maxDateString);
+>>>>>>> nrel/develop
                 ++state.dataGlobal->StdOutputRecordCount;
             }
         }
@@ -2758,9 +3192,15 @@ namespace OutputProcessor {
         }
 
         if (state.files.eso.good()) {
+<<<<<<< HEAD
             char numericData[129];
             dtoa(repValue, numericData);
             print<FormatSyntax::FMT>(state.files.eso, "{},{}\n", reportID, numericData);
+=======
+            std::array<char, 129> numericData{};
+            dtoa(repValue, numericData.data());
+            print(state.files.eso, "{},{}\n", reportID, numericData.data());
+>>>>>>> nrel/develop
         }
     } // WriteNumericData()
 
@@ -2792,7 +3232,11 @@ namespace OutputProcessor {
         }
 
         if (state.files.eso.good()) {
+<<<<<<< HEAD
             print<FormatSyntax::FMT>(state.files.eso, "{},{}\n", reportID, fmt::format_int(repValue).c_str());
+=======
+            print(state.files.eso, "{},{}\n", reportID, repValue);
+>>>>>>> nrel/develop
         }
     } // WriteNumericData()
 
@@ -2835,20 +3279,41 @@ namespace OutputProcessor {
                 // Can someone explain why we are printing integers as
                 // floats and why we are doing it differently than
                 // floats?
+<<<<<<< HEAD
                 NumberOut = (repVal == 0.0) ? "0.0" : EnergyPlus::format("{:f}", repVal);
+=======
+                NumberOut = (repVal == 0.0) ? "0.0" : std::format("{:f}", repVal);
+>>>>>>> nrel/develop
             }
 
             if ((freq == ReportFreq::EachCall) || (freq == ReportFreq::TimeStep) || (freq == ReportFreq::Hour)) { // -1, 0, 1
                 print(state.files.eso, "{},{}\n", ReportID, NumberOut);
             } else {
+<<<<<<< HEAD
                 char minValString[128], maxValString[128];
                 dtoa(MinValue, minValString);
                 dtoa(MaxValue, maxValString);
+=======
+                std::array<char, 128> minValString{}, maxValString{};
+                dtoa(MinValue, minValString.data());
+                dtoa(MaxValue, maxValString.data());
+>>>>>>> nrel/develop
 
                 std::string minDateString = produceDateString(minValueDate, freq);
                 std::string maxDateString = produceDateString(maxValueDate, freq);
 
+<<<<<<< HEAD
                 print(state.files.eso, "{},{},{},{},{},{}\n", ReportID, NumberOut, minValString, minDateString, maxValString, maxDateString);
+=======
+                print(state.files.eso,
+                      "{},{},{},{},{},{}\n",
+                      ReportID,
+                      NumberOut,
+                      minValString.data(),
+                      minDateString,
+                      maxValString.data(),
+                      maxDateString);
+>>>>>>> nrel/develop
             }
         }
     } // OutVar::WriteReportData()
@@ -2909,8 +3374,11 @@ namespace OutputProcessor {
         {
             return -11;
         }
+<<<<<<< HEAD
 
         return -1;
+=======
+>>>>>>> nrel/develop
     } // DetermineIndexGroupKeyFromMeterName()
 
     std::string DetermineIndexGroupFromMeterGroup(Meter const *meter) // the meter
@@ -2936,11 +3404,19 @@ namespace OutputProcessor {
         }
 
         if (meter->resource != Constant::eResource::Invalid) {
+<<<<<<< HEAD
             indexGroup += EnergyPlus::format(":{}", Constant::eResourceNames[(int)meter->resource]);
         }
 
         if (meter->endUseCat != EndUseCat::Invalid) {
             indexGroup += EnergyPlus::format(":{}", endUseCatNames[(int)meter->endUseCat]);
+=======
+            indexGroup += std::format(":{}", Constant::eResourceNames[(int)meter->resource]);
+        }
+
+        if (meter->endUseCat != EndUseCat::Invalid) {
+            indexGroup += std::format(":{}", endUseCatNames[(int)meter->endUseCat]);
+>>>>>>> nrel/develop
         }
 
         if (len(meter->EndUseSub) > 0) {
@@ -2993,7 +3469,11 @@ namespace OutputProcessor {
         // This function is here just for unit test purposes
         DDOutVar *ddVar = state.dataOutputProcessor->ddOutVars[ddNum];
         Constant::Units units = ddVar->units;
+<<<<<<< HEAD
         return EnergyPlus::format(" [{}]", units == Constant::Units::customEMS ? ddVar->unitNameCustomEMS : Constant::unitNames[(int)units]);
+=======
+        return std::format(" [{}]", units == Constant::Units::customEMS ? ddVar->unitNameCustomEMS : Constant::unitNames[(int)units]);
+>>>>>>> nrel/develop
     } // unitStringFromDDitem()
 
 } // namespace OutputProcessor
@@ -3059,7 +3539,11 @@ void SetupOutputVariable(EnergyPlusData &state,
 
     if (OnMeter && store == StoreType::Average) {
         ShowSevereError(state, "Meters can only be \"Summed\" variables");
+<<<<<<< HEAD
         ShowContinueError(state, fmt::format("..reference variable={}:{}", key, name));
+=======
+        ShowContinueError(state, std::format("..reference variable={}:{}", key, name));
+>>>>>>> nrel/develop
         OnMeter = false;
     }
 
@@ -3102,7 +3586,11 @@ void SetupOutputVariable(EnergyPlusData &state,
         var->nameUC = Util::makeUPPER(var->name);
         var->key = key;
         var->keyUC = Util::makeUPPER(key);
+<<<<<<< HEAD
         var->keyColonName = fmt::format("{}:{}", key, name);
+=======
+        var->keyColonName = std::format("{}:{}", key, name);
+>>>>>>> nrel/develop
         var->keyColonNameUC = Util::makeUPPER(var->keyColonName);
         var->units = units;
         if (units == Constant::Units::customEMS) {
@@ -3217,7 +3705,11 @@ void SetupOutputVariable(EnergyPlusData &state,
         var->nameUC = Util::makeUPPER(var->name);
         var->key = key;
         var->keyUC = Util::makeUPPER(key);
+<<<<<<< HEAD
         var->keyColonName = fmt::format("{}:{}", key, name);
+=======
+        var->keyColonName = std::format("{}:{}", key, name);
+>>>>>>> nrel/develop
         var->keyColonNameUC = Util::makeUPPER(var->keyColonName);
         var->units = units;
         var->ReportID = ++op->ReportNumberCounter;
@@ -3739,7 +4231,11 @@ void UpdateDataandReport(EnergyPlusData &state, OutputProcessor::TimeStepType co
         ReportMeters(state, ReportFreq::Year, TimePrint);
 
         state.dataGlobal->CalendarYear += 1;
+<<<<<<< HEAD
         state.dataGlobal->CalendarYearChr = fmt::to_string(state.dataGlobal->CalendarYear);
+=======
+        state.dataGlobal->CalendarYearChr = std::to_string(state.dataGlobal->CalendarYear);
+>>>>>>> nrel/develop
     }
 } // UpdateDataandReport()
 
@@ -3763,7 +4259,11 @@ void GenOutputVariablesAuditReport(EnergyPlusData &state)
     using namespace OutputProcessor;
 
     // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
+<<<<<<< HEAD
     auto &op = state.dataOutputProcessor;
+=======
+    const auto &op = state.dataOutputProcessor;
+>>>>>>> nrel/develop
 
     static constexpr std::array<std::string_view, (int)ReportFreq::Num> localReportFreqNames = {
         "Detailed",  // EachCall  // For some reason, this is "Detailed" here and "Each Call" in other places
@@ -3796,8 +4296,12 @@ void GenOutputVariablesAuditReport(EnergyPlusData &state)
                               "or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;");
             state.dataOutputProcessor->Rept = true;
         }
+<<<<<<< HEAD
         ShowMessage(state,
                     EnergyPlus::format("Key={}, VarName={}, Frequency={}", reqVar->key, reqVar->name, localReportFreqNames[(int)reqVar->freq]));
+=======
+        ShowMessage(state, std::format("Key={}, VarName={}, Frequency={}", reqVar->key, reqVar->name, localReportFreqNames[(int)reqVar->freq]));
+>>>>>>> nrel/develop
     }
 } // GenOutputVariablesAuditReport()
 
@@ -3932,8 +4436,13 @@ void UpdateMeterReporting(EnergyPlusData &state)
         ReportFreq freq = determineFrequency(state, Util::makeUPPER(Alphas(2)));
 
         if (!setupMeterFromMeterName(Alphas(1), freq, meterFileOnlyIndicator, cumulativeIndicator)) {
+<<<<<<< HEAD
             ShowWarningError(
                 state, EnergyPlus::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+=======
+            ShowWarningError(state,
+                             std::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+>>>>>>> nrel/develop
         }
     }
 
@@ -3958,8 +4467,13 @@ void UpdateMeterReporting(EnergyPlusData &state)
         bool cumulativeIndicator = false;
         ReportFreq freq = determineFrequency(state, Util::makeUPPER(Alphas(2)));
         if (!setupMeterFromMeterName(Alphas(1), freq, meterFileOnlyIndicator, cumulativeIndicator)) {
+<<<<<<< HEAD
             ShowWarningError(
                 state, EnergyPlus::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+=======
+            ShowWarningError(state,
+                             std::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+>>>>>>> nrel/develop
         }
     }
 
@@ -3985,8 +4499,13 @@ void UpdateMeterReporting(EnergyPlusData &state)
         bool cumulativeIndicator = true;
         ReportFreq freq = determineFrequency(state, Util::makeUPPER(Alphas(2)));
         if (!setupMeterFromMeterName(Alphas(1), freq, meterFileOnlyIndicator, cumulativeIndicator)) {
+<<<<<<< HEAD
             ShowWarningError(
                 state, EnergyPlus::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+=======
+            ShowWarningError(state,
+                             std::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+>>>>>>> nrel/develop
         }
     }
 
@@ -4011,8 +4530,13 @@ void UpdateMeterReporting(EnergyPlusData &state)
         bool cumulativeIndicator = true;
         ReportFreq freq = determineFrequency(state, Util::makeUPPER(Alphas(2)));
         if (!setupMeterFromMeterName(Alphas(1), freq, meterFileOnlyIndicator, cumulativeIndicator)) {
+<<<<<<< HEAD
             ShowWarningError(
                 state, EnergyPlus::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+=======
+            ShowWarningError(state,
+                             std::format("{}: invalid {}=\"{}\" - not found.", ipsc->cCurrentModuleObject, ipsc->cAlphaFieldNames(1), Alphas(1)));
+>>>>>>> nrel/develop
         }
     }
 
@@ -4053,11 +4577,19 @@ void SetInitialMeterReportingAndOutputNames(EnergyPlusData &state,
         if (MeterFileOnlyIndicator && period.Rpt) {
             ShowWarningError(
                 state,
+<<<<<<< HEAD
                 EnergyPlus::format(R"(Output:Meter:MeterFileOnly requested for "{}" ({}), already on "Output:Meter". Will report to both {} and {})",
                                    meter->Name,
                                    reportFreqNames[(freq == ReportFreq::EachCall) ? (int)ReportFreq::TimeStep : (int)freq],
                                    state.files.eso.filePath.filename(),
                                    state.files.mtr.filePath.filename()));
+=======
+                std::format(R"(Output:Meter:MeterFileOnly requested for "{}" ({}), already on "Output:Meter". Will report to both {} and {})",
+                            meter->Name,
+                            reportFreqNames[(freq == ReportFreq::EachCall) ? (int)ReportFreq::TimeStep : (int)freq],
+                            state.files.eso.filePath.filename(),
+                            state.files.mtr.filePath.filename()));
+>>>>>>> nrel/develop
         }
         if (!period.Rpt) {
             period.Rpt = true;
@@ -4074,11 +4606,19 @@ void SetInitialMeterReportingAndOutputNames(EnergyPlusData &state,
     } else { // !CumulativeIndicator
         if (MeterFileOnlyIndicator && period.accRpt) {
             ShowWarningError(state,
+<<<<<<< HEAD
                              EnergyPlus::format("Output:Meter:MeterFileOnly requested for \"Cumulative {}\" (TimeStep), already on \"Output:Meter\". "
                                                 "Will report to both {} and {}",
                                                 meter->Name,
                                                 state.files.eso.filePath.filename(),
                                                 state.files.mtr.filePath.filename()));
+=======
+                             std::format("Output:Meter:MeterFileOnly requested for \"Cumulative {}\" (TimeStep), already on \"Output:Meter\". "
+                                         "Will report to both {} and {}",
+                                         meter->Name,
+                                         state.files.eso.filePath.filename().string(),
+                                         state.files.mtr.filePath.filename().string()));
+>>>>>>> nrel/develop
         }
 
         if (!period.accRpt) {
@@ -4102,8 +4642,13 @@ int GetMeterIndex(EnergyPlusData const &state, std::string const &name)
     //       DATE WRITTEN   August 2002
 
     // PURPOSE OF THIS FUNCTION:
+<<<<<<< HEAD
     // This function returns a index to the meter "number" (aka assigned report number)
     // for the meter name.  If none active for this run, a zero is returned.  This is used later to
+=======
+    // This function returns an index to the meter "number" (aka assigned report number)
+    // for the meter name. If none is active for this run, -1 is returned. This is used later to
+>>>>>>> nrel/develop
     // obtain a meter "value".
 
     auto const &op = state.dataOutputProcessor;
@@ -4138,7 +4683,11 @@ Real64 GetCurrentMeterValue(EnergyPlusData const &state, int const MeterNumber) 
     return (MeterNumber != -1) ? state.dataOutputProcessor->meters[MeterNumber]->CurTSValue : 0.0;
 } // GetCurrentMeterValue()
 
+<<<<<<< HEAD
 Real64 GetInstantMeterValue(EnergyPlusData &state,
+=======
+Real64 GetInstantMeterValue(EnergyPlusData const &state,
+>>>>>>> nrel/develop
                             int const meterNum,                              // Which Meter Number (from GetMeterIndex)
                             OutputProcessor::TimeStepType const timeStepType // Whether this is zone of HVAC
 )
@@ -4238,8 +4787,13 @@ Real64 GetInternalVariableValue(EnergyPlusData &state,
         resultVal = 0.0;
     } else if (varType == VariableType::Integer || varType == VariableType::Real) {
         if (keyVarIndex < 0 || keyVarIndex >= (int)op->outVars.size()) {
+<<<<<<< HEAD
             ShowFatalError(state, "GetInternalVariableValue: passed variable index beyond range of array.");
             ShowContinueError(state, EnergyPlus::format("Index = {} Number of variables = {}", keyVarIndex, op->outVars.size()));
+=======
+            ShowContinueError(state, std::format("Index = {} Number of variables = {}", keyVarIndex, op->outVars.size()));
+            ShowFatalError(state, "GetInternalVariableValue: passed variable index beyond range of array.");
+>>>>>>> nrel/develop
         }
 
         // must use %Which, %Value is always zero if variable is not a requested report variable
@@ -4568,7 +5122,11 @@ void GetVariableKeys(EnergyPlusData &state,
     }
 } // GetVariableKeys()
 
+<<<<<<< HEAD
 bool ReportingThisVariable(EnergyPlusData &state, std::string const &RepVarName)
+=======
+bool ReportingThisVariable(EnergyPlusData const &state, std::string const &RepVarName)
+>>>>>>> nrel/develop
 {
 
     // FUNCTION INFORMATION:
@@ -4584,7 +5142,11 @@ bool ReportingThisVariable(EnergyPlusData &state, std::string const &RepVarName)
 
     std::string name = Util::makeUPPER(RepVarName);
 
+<<<<<<< HEAD
     for (auto &reqVar : op->reqVars) {
+=======
+    for (const auto &reqVar : op->reqVars) {
+>>>>>>> nrel/develop
         if (reqVar->name == name) {
             return true;
         }
@@ -4662,7 +5224,11 @@ void InitPollutionMeterReporting(EnergyPlusData &state, OutputProcessor::ReportF
     auto &op = state.dataOutputProcessor;
 
     for (int iResource = 0; iResource < (int)Constant::eResource::Num; ++iResource) {
+<<<<<<< HEAD
         std::string meterName = EnergyPlus::format("{}:Facility", Constant::eResourceNames[iResource]);
+=======
+        std::string meterName = std::format("{}:Facility", Constant::eResourceNames[iResource]);
+>>>>>>> nrel/develop
         std::string meterNameUC = Util::makeUPPER(meterName);
 
         auto found = op->meterMap.find(meterNameUC);
@@ -4777,10 +5343,17 @@ void ProduceRDDMDD(EnergyPlusData &state)
                 (ddVar->units == Constant::Units::customEMS) ? ddVar->unitNameCustomEMS : Constant::unitNames[(int)ddVar->units];
             if (op->ProduceReportVDD == ReportVDD::Yes) {
                 print(state.files.rdd, "{},{},{} [{}]\n", timeStepName, storeTypeName, varName, unitName);
+<<<<<<< HEAD
                 rf->RDD.push_back(EnergyPlus::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
             } else {
                 print(state.files.rdd, "Output:Variable,*,{},hourly; !- {} {} [{}]\n", varName, timeStepName, storeTypeName, unitName);
                 rf->RDD.push_back(EnergyPlus::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
+=======
+                rf->RDD.push_back(std::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
+            } else {
+                print(state.files.rdd, "Output:Variable,*,{},hourly; !- {} {} [{}]\n", varName, timeStepName, storeTypeName, unitName);
+                rf->RDD.push_back(std::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
+>>>>>>> nrel/develop
             }
 
             ddVar->ReportedOnDDFile = true;
@@ -4794,10 +5367,17 @@ void ProduceRDDMDD(EnergyPlusData &state)
 
                     if (op->ProduceReportVDD == ReportVDD::Yes) {
                         print(state.files.rdd, "{},{},{} [{}]\n", timeStepName, storeTypeName, varName, unitName);
+<<<<<<< HEAD
                         rf->RDD.push_back(EnergyPlus::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
                     } else {
                         print(state.files.rdd, "Output:Variable,*,{},hourly; !- {} {} [{}]\n", varName, timeStepName, storeTypeName, unitName);
                         rf->RDD.push_back(EnergyPlus::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
+=======
+                        rf->RDD.push_back(std::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
+                    } else {
+                        print(state.files.rdd, "Output:Variable,*,{},hourly; !- {} {} [{}]\n", varName, timeStepName, storeTypeName, unitName);
+                        rf->RDD.push_back(std::format("{},{},{} [{}]", timeStepName, storeTypeName, varName, unitName));
+>>>>>>> nrel/develop
                     }
                     ddVar->ReportedOnDDFile = true;
                 } // while (ddVar->Next != 0)
@@ -4813,12 +5393,21 @@ void ProduceRDDMDD(EnergyPlusData &state)
         std::string_view unitName = Constant::unitNames[(int)meter->units];
         if (op->ProduceReportVDD == ReportVDD::Yes) {
             print(state.files.mdd, "Zone,Meter,{} [{}]\n", meter->Name, unitName);
+<<<<<<< HEAD
             rf->MDD.push_back(EnergyPlus::format("Zone,Meter,{} [{}]", meter->Name, unitName));
         } else if (op->ProduceReportVDD == ReportVDD::IDF) {
             print(state.files.mdd, "Output:Meter,{},hourly; !- [{}]\n", meter->Name, unitName);
             rf->MDD.push_back(EnergyPlus::format("Output:Meter,{} [{}]", meter->Name, unitName));
             print(state.files.mdd, "Output:Meter:Cumulative,{},hourly; !- [{}]\n", meter->Name, unitName);
             rf->MDD.push_back(EnergyPlus::format("Output:Meter:Cumulative,{} [{}]", meter->Name, unitName));
+=======
+            rf->MDD.push_back(std::format("Zone,Meter,{} [{}]", meter->Name, unitName));
+        } else if (op->ProduceReportVDD == ReportVDD::IDF) {
+            print(state.files.mdd, "Output:Meter,{},hourly; !- [{}]\n", meter->Name, unitName);
+            rf->MDD.push_back(std::format("Output:Meter,{} [{}]", meter->Name, unitName));
+            print(state.files.mdd, "Output:Meter:Cumulative,{},hourly; !- [{}]\n", meter->Name, unitName);
+            rf->MDD.push_back(std::format("Output:Meter:Cumulative,{} [{}]", meter->Name, unitName));
+>>>>>>> nrel/develop
         }
     }
     state.files.mdd.close();
@@ -4906,7 +5495,11 @@ int initErrorFile(EnergyPlusData &state)
 {
     state.files.err_stream = std::make_unique<std::ofstream>(state.files.outputErrFilePath);
     if (state.files.err_stream->bad()) {
+<<<<<<< HEAD
         DisplayString(state, fmt::format("ERROR: Could not open file {} for output (write).", state.files.outputErrFilePath));
+=======
+        DisplayString(state, std::format("ERROR: Could not open file {} for output (write).", state.files.outputErrFilePath));
+>>>>>>> nrel/develop
         return EXIT_FAILURE;
     }
 

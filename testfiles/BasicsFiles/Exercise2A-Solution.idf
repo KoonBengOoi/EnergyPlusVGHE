@@ -127,7 +127,11 @@
 !
 !
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Exercise 2A,             !- Name
@@ -1547,8 +1551,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,117.239997864; !- Field 3
 
+<<<<<<< HEAD
                              !- Complex Field #4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     ShadeTransSch,           !- Name
     Fraction,                !- Schedule Type Limits Name

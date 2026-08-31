@@ -80,7 +80,15 @@ namespace WaterToAirHeatPumpSimple {
     struct SimpleWatertoAirHPConditions
     {
         // Members
+<<<<<<< HEAD
         std::string Name;                                                                     // Name of the Water to Air Heat pump
+=======
+        std::string Name; // Name of the Water to Air Heat pump
+
+        HVAC::CoilType coilType = HVAC::CoilType::Invalid;
+        int coilReportNum = -1;
+
+>>>>>>> nrel/develop
         Sched::Schedule *availSched = nullptr;                                                // availability schedule
         WatertoAirHP WAHPType = WatertoAirHP::Invalid;                                        // Type of WatertoAirHP ie. Heating or Cooling
         DataPlant::PlantEquipmentType WAHPPlantType = DataPlant::PlantEquipmentType::Invalid; // type of component in plant
@@ -132,6 +140,7 @@ namespace WaterToAirHeatPumpSimple {
         Real64 RatedEntAirWetbulbTemp = 0.0;         // Rated Entering Air Wetbulb Temperature [C]
         Real64 RatedEntAirDrybulbTemp = 0.0;         // Rated Entering Air Drybulb Temperature [C]
         Real64 RatioRatedHeatRatedTotCoolCap = 0.0;  // Ratio of Rated Heating Capacity to Rated Cooling Capacity [-]
+<<<<<<< HEAD
         Curve::Curve *HeatCapCurve = nullptr;        // Index of the heating capacity performance curve
         Curve::Curve *HeatPowCurve = nullptr;        // Index of the heating power consumption curve
         Curve::Curve *TotalCoolCapCurve = nullptr;   // Index of the Total Cooling capacity performance curve
@@ -142,6 +151,21 @@ namespace WaterToAirHeatPumpSimple {
         int AirOutletNodeNum = 0;                    // Node Number of the Air Outlet
         int WaterInletNodeNum = 0;                   // Node Number of the Water Onlet
         int WaterOutletNodeNum = 0;                  // Node Number of the Water Outlet
+=======
+
+        Curve::Curve *HeatCapCurve = nullptr;      // Index of the heating capacity performance curve
+        Curve::Curve *HeatPowCurve = nullptr;      // Index of the heating power consumption curve
+        Curve::Curve *TotalCoolCapCurve = nullptr; // Index of the Total Cooling capacity performance curve
+        Curve::Curve *SensCoolCapCurve = nullptr;  // Index of the Sensible Cooling capacity performance curve
+        Curve::Curve *CoolPowCurve = nullptr;      // Index of the Cooling power consumption curve
+        Curve::Curve *PLFCurve = nullptr;          // Index of the Part Load Factor curve
+
+        int AirInletNodeNum = 0;    // Node Number of the Air Inlet
+        int AirOutletNodeNum = 0;   // Node Number of the Air Outlet
+        int WaterInletNodeNum = 0;  // Node Number of the Water Onlet
+        int WaterOutletNodeNum = 0; // Node Number of the Water Outlet
+
+>>>>>>> nrel/develop
         PlantLocation plantLoc;
         HVAC::WaterFlow WaterCyclingMode = HVAC::WaterFlow::Invalid; // Heat Pump Coil water flow mode; See definitions in DataHVACGlobals,
         // 1=water cycling, 2=water constant, 3=water constant on demand (old mode)
@@ -162,6 +186,10 @@ namespace WaterToAirHeatPumpSimple {
         Real64 LatentCapacityTimeConstant = 0.0; // Latent capcacity time constant [s]
         Real64 FanDelayTime = 0.0;               // Fan delay time, time delay for the HP's fan to
         bool reportCoilFinalSizes = true;        // one time report of sizes to coil report
+<<<<<<< HEAD
+=======
+        bool LowFlowFlag = true;                 // one time low flow warning for coil in cycling fan mode
+>>>>>>> nrel/develop
     };
 
     void SimWatertoAirHPSimple(EnergyPlusData &state,
@@ -190,7 +218,12 @@ namespace WaterToAirHeatPumpSimple {
                                 Real64 const LatentLoad,        // Control zone latent load[W]
                                 HVAC::FanOp const fanOp,        // fan operating mode
                                 Real64 const OnOffAirFlowRatio, // ratio of compressor on flow to average flow over time step
+<<<<<<< HEAD
                                 bool const FirstHVACIteration   // Iteration flag
+=======
+                                bool const FirstHVACIteration,  // Iteration flag
+                                Real64 const PartLoadRatio      // compressor part load ratio
+>>>>>>> nrel/develop
     );
 
     void SizeHVACWaterToAir(EnergyPlusData &state, int const HPNum);
@@ -237,6 +270,7 @@ namespace WaterToAirHeatPumpSimple {
     );
 
     Real64 GetCoilCapacity(EnergyPlusData &state,
+<<<<<<< HEAD
                            std::string const &CoilType, // must match coil types in this module
                            std::string const &CoilName, // must match coil names for the coil type
                            bool &ErrorsFound            // set to true if problem
@@ -246,6 +280,17 @@ namespace WaterToAirHeatPumpSimple {
                               std::string const &CoilType, // must match coil types in this module
                               std::string const &CoilName, // must match coil names for the coil type
                               bool &ErrorsFound            // set to true if problem
+=======
+                           std::string_view const coilType, // must match coil types in this module
+                           std::string const &CoilName,     // must match coil names for the coil type
+                           bool &ErrorsFound                // set to true if problem
+    );
+
+    Real64 GetCoilAirFlowRate(EnergyPlusData &state,
+                              std::string_view const coilType, // must match coil types in this module
+                              std::string const &CoilName,     // must match coil names for the coil type
+                              bool &ErrorsFound                // set to true if problem
+>>>>>>> nrel/develop
     );
 
     int GetCoilInletNode(EnergyPlusData &state,

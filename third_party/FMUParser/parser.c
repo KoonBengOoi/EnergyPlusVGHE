@@ -104,7 +104,11 @@ int callparser(const char *fmuFilNam, const char *tmpPat)
 //////////////////////////////////////////////////////////////////////
 /// Print help information
 /////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 void help()
+=======
+void help(void)
+>>>>>>> nrel/develop
 {
 
     printf("NAME\n");

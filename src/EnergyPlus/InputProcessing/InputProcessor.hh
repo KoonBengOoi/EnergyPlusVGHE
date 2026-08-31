@@ -121,7 +121,11 @@ public:
 
     int getNumSectionsFound(std::string const &SectionWord);
 
+<<<<<<< HEAD
     int getNumObjectsFound(EnergyPlusData &state, std::string_view const ObjectWord);
+=======
+    int getNumObjectsFound([[maybe_unused]] EnergyPlusData &state, std::string_view const ObjectWord);
+>>>>>>> nrel/develop
 
     bool findDefault(std::string &default_value, json const &schema_field_obj);
 
@@ -182,7 +186,11 @@ public:
                              int &NumNumeric                    // How many Numeric arguments (max) this Object can have
     );
 
+<<<<<<< HEAD
     void preProcessorCheck(EnergyPlusData &state, bool &PreP_Fatal); // True if a preprocessor flags a fatal error
+=======
+    bool preProcessorCheck(EnergyPlusData &state); // Returns true if a preprocessor flags a fatal error
+>>>>>>> nrel/develop
 
     void preScanReportingVariables(EnergyPlusData &state);
 
@@ -287,6 +295,7 @@ private:
 
     json const &getPatternProperties(EnergyPlusData &state, json const &schema_obj);
 
+<<<<<<< HEAD
     inline std::string convertToUpper(std::string_view s)
     {
         std::string s2;
@@ -294,6 +303,15 @@ private:
         s2.resize(len);
         for (size_t i = 0; i < len; ++i) {
             char c = s[i];
+=======
+    inline std::string convertToUpper(std::string_view sv)
+    {
+        std::string s2;
+        size_t len = sv.size();
+        s2.resize(len);
+        for (size_t i = 0; i < len; ++i) {
+            char c = sv[i];
+>>>>>>> nrel/develop
             s2[i] = ('a' <= c && c <= 'z') ? c ^ 0x20 : c; // ASCII only
         }
         s2[len] = '\0';

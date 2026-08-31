@@ -109,7 +109,11 @@ TEST_F(EnergyPlusFixture, DuctLoss_test)
 
     std::string const idf_objects0 = R"IDF(
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     House with AirflowNetwork simulation,  !- Name

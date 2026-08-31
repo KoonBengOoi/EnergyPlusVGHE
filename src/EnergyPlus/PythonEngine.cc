@@ -45,11 +45,15 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <EnergyPlus/DataStringGlobals.hh>
 #include <EnergyPlus/PluginManager.hh>
 #include <EnergyPlus/PythonEngine.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
 
+=======
+// Third Party Headers
+>>>>>>> nrel/develop
 #if LINK_WITH_PYTHON
 #    ifdef _DEBUG
 // We don't want to try to import a debug build of Python here
@@ -62,6 +66,7 @@
 #    else
 #        include <Python.h>
 #    endif
+<<<<<<< HEAD
 
 #    include <fmt/format.h>
 namespace fmt {
@@ -95,6 +100,24 @@ template <> struct formatter<PyStatus>
 };
 } // namespace fmt
 
+=======
+#endif
+
+// C++ Headers
+#include <filesystem>
+#include <format>
+
+// EnergyPlus Headers
+#include <EnergyPlus/DataStringGlobals.hh>
+#include <EnergyPlus/FileSystem.hh>
+#include <EnergyPlus/Formatters.hh>
+#include <EnergyPlus/PluginManager.hh>
+#include <EnergyPlus/PythonEngine.hh>
+#include <EnergyPlus/UtilityRoutines.hh>
+
+#if LINK_WITH_PYTHON
+#    include <EnergyPlus/PythonHelpers.hh>
+>>>>>>> nrel/develop
 #endif
 
 namespace EnergyPlus {
@@ -103,6 +126,7 @@ namespace Python {
 
 #if LINK_WITH_PYTHON
 
+<<<<<<< HEAD
     void reportPythonError([[maybe_unused]] EnergyPlusData &state)
     {
         PyObject *exc_type = nullptr;
@@ -304,6 +328,8 @@ namespace Python {
         Py_InitializeFromConfig(&config);
     }
 
+=======
+>>>>>>> nrel/develop
     PythonEngine::PythonEngine(EnergyPlusData &state) : eplusRunningViaPythonAPI(state.dataPluginManager->eplusRunningViaPythonAPI)
     {
         // we'll need the program directory for a few things so get it once here at the top and sanitize it
@@ -313,6 +339,7 @@ namespace Python {
         } else {
             programDir = FileSystem::getParentDirectoryPath(FileSystem::getAbsolutePath(FileSystem::getProgramPath()));
         }
+<<<<<<< HEAD
         fs::path const pathToPythonPackages = programDir / "python_lib";
 
         initPython(state, pathToPythonPackages);
@@ -328,6 +355,10 @@ namespace Python {
 
         // so add the executable directory here
         addToPythonPath(state, programDir, false);
+=======
+
+        EnergyPlus::PythonHelpers::initPython(state, programDir);
+>>>>>>> nrel/develop
 
         PyObject *m = PyImport_AddModule("__main__");
         if (m == nullptr) {
@@ -372,7 +403,11 @@ sys.argv.append("energyplus")
         fs::path const pathToPythonPackages = programDir / "python_lib";
         std::string sPathToPythonPackages = std::string(pathToPythonPackages.string());
         std::replace(sPathToPythonPackages.begin(), sPathToPythonPackages.end(), '\\', '/');
+<<<<<<< HEAD
         cmd += fmt::format("sys.path.insert(0, \"{}\")\n", sPathToPythonPackages);
+=======
+        cmd += std::format("sys.path.insert(0, \"{}\")\n", sPathToPythonPackages);
+>>>>>>> nrel/develop
         return cmd;
     }
 
@@ -383,22 +418,37 @@ sys.argv.clear()
 sys.argv.append("energyplus")
 )python";
         for (const auto &arg : python_fwd_args) {
+<<<<<<< HEAD
             cmd += fmt::format("sys.argv.append(\"{}\")\n", arg);
+=======
+            cmd += std::format("sys.argv.append(\"{}\")\n", arg);
+>>>>>>> nrel/develop
         }
         fs::path programDir = FileSystem::getParentDirectoryPath(FileSystem::getAbsolutePath(FileSystem::getProgramPath()));
         fs::path const pathToPythonPackages = programDir / "python_lib";
         std::string sPathToPythonPackages = std::string(pathToPythonPackages.string());
         std::replace(sPathToPythonPackages.begin(), sPathToPythonPackages.end(), '\\', '/');
+<<<<<<< HEAD
         cmd += fmt::format("sys.path.insert(0, \"{}\")\n", sPathToPythonPackages);
+=======
+        cmd += std::format("sys.path.insert(0, \"{}\")\n", sPathToPythonPackages);
+>>>>>>> nrel/develop
         std::string tclConfigDir;
         std::string tkConfigDir;
         for (auto &p : std::filesystem::directory_iterator(pathToPythonPackages)) {
             if (p.is_directory()) {
                 std::string dirName = p.path().filename().string();
+<<<<<<< HEAD
                 if (dirName.find("tcl", 0) == 0 && dirName.find('.', 0) > 0) {
                     tclConfigDir = dirName;
                 }
                 if (dirName.find("tk", 0) == 0 && dirName.find('.', 0) > 0) {
+=======
+                if (dirName.starts_with("tcl") && dirName.find('.') != std::string::npos) {
+                    tclConfigDir = dirName;
+                }
+                if (dirName.starts_with("tk") && dirName.find('.') != std::string::npos) {
+>>>>>>> nrel/develop
                     tkConfigDir = dirName;
                 }
                 if (!tclConfigDir.empty() && !tkConfigDir.empty()) {
@@ -407,8 +457,13 @@ sys.argv.append("energyplus")
             }
         }
         cmd += "from os import environ\n";
+<<<<<<< HEAD
         cmd += fmt::format("environ[\'TCL_LIBRARY\'] = \"{}/{}\"\n", sPathToPythonPackages, tclConfigDir);
         cmd += fmt::format("environ[\'TK_LIBRARY\'] = \"{}/{}\"\n", sPathToPythonPackages, tkConfigDir);
+=======
+        cmd += std::format("environ[\'TCL_LIBRARY\'] = \"{}/{}\"\n", sPathToPythonPackages, tclConfigDir);
+        cmd += std::format("environ[\'TK_LIBRARY\'] = \"{}/{}\"\n", sPathToPythonPackages, tkConfigDir);
+>>>>>>> nrel/develop
         return cmd;
     }
 

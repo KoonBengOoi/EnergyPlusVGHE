@@ -74,7 +74,11 @@ Real64 HeatingWaterDesCoilLoadUsedForUASizer::size(EnergyPlusData &state, Real64
                 Real64 const rho =
                     state.dataPlnt->PlantLoop(this->dataWaterLoopNum).glycol->getDensity(state, Constant::HWInitConvTemp, this->callingRoutine);
                 this->autoSizedValue = this->dataWaterFlowUsedForSizing * this->dataWaterCoilSizHeatDeltaT * Cp * rho;
+<<<<<<< HEAD
                 state.dataRptCoilSelection->coilSelectionReportObj->setCoilReheatMultiplier(state, this->compName, this->compType, 1.0);
+=======
+                ReportCoilSelection::setCoilReheatMultiplier(state, this->coilReportNum, 1.0);
+>>>>>>> nrel/develop
             } else if ((this->termUnitPIU || this->termUnitIU) && (this->curTermUnitSizingNum > 0)) {
                 Real64 const Cp =
                     state.dataPlnt->PlantLoop(this->dataWaterLoopNum).glycol->getSpecificHeat(state, Constant::HWInitConvTemp, this->callingRoutine);
@@ -88,7 +92,11 @@ Real64 HeatingWaterDesCoilLoadUsedForUASizer::size(EnergyPlusData &state, Real64
                 Real64 const rho =
                     state.dataPlnt->PlantLoop(this->dataWaterLoopNum).glycol->getDensity(state, Constant::HWInitConvTemp, this->callingRoutine);
                 this->autoSizedValue = this->dataWaterFlowUsedForSizing * this->dataWaterCoilSizHeatDeltaT * Cp * rho;
+<<<<<<< HEAD
                 state.dataRptCoilSelection->coilSelectionReportObj->setCoilReheatMultiplier(state, this->compName, this->compType, 1.0);
+=======
+                ReportCoilSelection::setCoilReheatMultiplier(state, this->coilReportNum, 1.0);
+>>>>>>> nrel/develop
             } else {
                 Real64 DesMassFlow = 0.0;
                 if (this->zoneEqSizing(this->curZoneEqNum).SystemAirFlow) {
@@ -168,9 +176,13 @@ Real64 HeatingWaterDesCoilLoadUsedForUASizer::size(EnergyPlusData &state, Real64
     // heating coil can't have negative capacity
     this->autoSizedValue = std::max(0.0, this->autoSizedValue) * this->dataHeatSizeRatio * this->dataFracOfAutosizedHeatingCapacity;
     if (this->overrideSizeString) {
+<<<<<<< HEAD
         if (this->isEpJSON) {
             this->sizingString = "water_heating_design_coil_load_for_ua_sizing";
         }
+=======
+        this->sizingString = "Water Heating Design Coil Load for UA Sizing [W]";
+>>>>>>> nrel/develop
     }
     this->selectSizerOutput(state, errorsFound);
     if (this->isCoilReportObject && this->curSysNum <= this->numPrimaryAirSys) {
@@ -178,6 +190,7 @@ Real64 HeatingWaterDesCoilLoadUsedForUASizer::size(EnergyPlusData &state, Real64
         Real64 constexpr TotCapTempModFac = 1.0;
         Real64 constexpr DXFlowPerCapMinRatio = 1.0;
         Real64 constexpr DXFlowPerCapMaxRatio = 1.0;
+<<<<<<< HEAD
         state.dataRptCoilSelection->coilSelectionReportObj->setCoilHeatingCapacity(state,
                                                                                    this->compName,
                                                                                    this->compType,
@@ -190,6 +203,19 @@ Real64 HeatingWaterDesCoilLoadUsedForUASizer::size(EnergyPlusData &state, Real64
                                                                                    TotCapTempModFac,
                                                                                    DXFlowPerCapMinRatio,
                                                                                    DXFlowPerCapMaxRatio);
+=======
+        ReportCoilSelection::setCoilHeatingCapacity(state,
+                                                    this->coilReportNum,
+                                                    this->autoSizedValue,
+                                                    this->wasAutoSized,
+                                                    this->curSysNum,
+                                                    this->curZoneEqNum,
+                                                    this->curOASysNum,
+                                                    FanCoolLoad,
+                                                    TotCapTempModFac,
+                                                    DXFlowPerCapMinRatio,
+                                                    DXFlowPerCapMaxRatio);
+>>>>>>> nrel/develop
     }
     return this->autoSizedValue;
 }

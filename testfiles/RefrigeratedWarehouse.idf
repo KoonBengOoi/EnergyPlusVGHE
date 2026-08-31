@@ -193,7 +193,11 @@
 !
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
 !-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
 
@@ -13489,6 +13493,7 @@
 
   Output:Variable,*,Zone Mixing Total Heat Gain Energy,hourly;
 
+<<<<<<< HEAD
   Output:Variable,*,Refrigeration Zone Air Chiller Sensible Heat Ratio,hourly;
 
   Output:Variable,*,Refrigeration Zone Air Chiller Frost Accumulation Mass,hourly;
@@ -13498,6 +13503,17 @@
   Output:Variable,*,Refrigeration Zone Air Chiller Latent Cooling Rate,hourly;
 
   Output:Variable,*,Refrigeration Zone Air Chiller Sensible Cooling Rate,hourly;
+=======
+  Output:Variable,*,Refrigeration Zone Air Chiller Coil Sensible Heat Ratio,hourly;
+
+  Output:Variable,*,Refrigeration Zone Air Chiller Coil Frost Accumulation Mass,hourly;
+
+  Output:Variable,*,Refrigeration Zone Air Chiller Coil Total Cooling Rate,hourly;
+
+  Output:Variable,*,Refrigeration Zone Air Chiller Coil Latent Cooling Rate,hourly;
+
+  Output:Variable,*,Refrigeration Zone Air Chiller Coil Sensible Cooling Rate,hourly;
+>>>>>>> nrel/develop
 
   Output:Variable,*,Refrigeration Zone Air Chiller Zone Sensible Cooling Rate,hourly;
 
@@ -13509,11 +13525,19 @@
 
   Output:Variable,*,Refrigeration Zone Air Chiller Heater Electricity Rate,hourly;
 
+<<<<<<< HEAD
   Output:Variable,*,Refrigeration Zone Air Chiller Defrost Electricity Rate,hourly;
 
   Output:Variable,*,Refrigeration Zone Air Chiller Total Cooling Rate,hourly;
 
   Output:Variable,*,Refrigeration Zone Air Chiller Water Removed Mass Flow Rate,hourly;
+=======
+  Output:Variable,*,Refrigeration Zone Air Chiller Coil Defrost Electricity Rate,hourly;
+
+  Output:Variable,*,Refrigeration Zone Air Chiller Total Cooling Rate,hourly;
+
+  Output:Variable,*,Refrigeration Zone Air Chiller Coil Water Removed Mass Flow Rate,hourly;
+>>>>>>> nrel/develop
 
   Output:Variable,*,Refrigeration Zone Air Chiller Sensible Cooling Rate,hourly;
 
@@ -13523,8 +13547,11 @@
 
   Output:Variable,*,Refrigeration Zone Air Chiller Sensible Heat Transfer Rate,hourly;
 
+<<<<<<< HEAD
   Output:Variable,*,Refrigeration Zone Air Chiller Latent Cooling Rate,hourly;
 
+=======
+>>>>>>> nrel/develop
   Output:Variable,*,Refrigeration Zone Air Chiller Heating Rate,hourly;
 
   Output:Variable,*,Refrigeration Air Chiller System Compressor Electricity Rate,detailed;

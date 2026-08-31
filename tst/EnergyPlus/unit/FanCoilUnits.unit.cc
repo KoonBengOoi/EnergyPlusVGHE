@@ -2319,7 +2319,10 @@ TEST_F(EnergyPlusFixture, Test_TightenWaterFlowLimits)
 
     GetZoneData(*state, ErrorsFound);
     GetZoneEquipmentData(*state);
+<<<<<<< HEAD
     SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     GetFanInput(*state);
     GetFanCoilUnits(*state);
 

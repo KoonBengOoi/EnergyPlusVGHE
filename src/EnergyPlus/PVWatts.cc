@@ -46,10 +46,23 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
 #include <math.h>
 #include <stdexcept>
 
 // ObjexxFCL Headers
+=======
+#include <format>
+#include <math.h>
+#include <stdexcept>
+
+// Third Party Headers
+// #include <../third_party/ssc/shared/lib_irradproc.h>
+// #include <../third_party/ssc/shared/lib_pv_incidence_modifier.h>
+// #include <../third_party/ssc/shared/lib_pvshade.h>
+// #include <../third_party/ssc/shared/lib_pvwatts.h>
+#include <../third_party/ssc/ssc/sscapi.h>
+>>>>>>> nrel/develop
 
 // EnergyPlus Headers
 #include <EnergyPlus/Data/EnergyPlusData.hh>
@@ -65,6 +78,7 @@
 #include <EnergyPlus/UtilityRoutines.hh>
 #include <EnergyPlus/WeatherManager.hh>
 
+<<<<<<< HEAD
 // SAM Headers
 // #include <../third_party/ssc/shared/lib_irradproc.h>
 // #include <../third_party/ssc/shared/lib_pvwatts.h>
@@ -72,6 +86,8 @@
 // #include <../third_party/ssc/shared/lib_pv_incidence_modifier.h>
 #include <../third_party/ssc/ssc/sscapi.h>
 
+=======
+>>>>>>> nrel/develop
 namespace EnergyPlus {
 
 namespace PVWatts {
@@ -111,24 +127,40 @@ namespace PVWatts {
         dcSystemCapacity_ = dcSystemCapacity;
 
         if (systemLosses > 1.0 || systemLosses < 0.0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("PVWatts: Invalid system loss value {:.2R}", systemLosses));
+=======
+            ShowSevereError(state, std::format("PVWatts: Invalid system loss value {:.2f}", systemLosses));
+>>>>>>> nrel/develop
             errorsFound = true;
         }
         systemLosses_ = systemLosses;
 
         if (geometryType_ == GeometryType::TILT_AZIMUTH) {
             if (tilt < 0 || tilt > 90) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("PVWatts: Invalid tilt: {:.2R}", tilt));
+=======
+                ShowSevereError(state, std::format("PVWatts: Invalid tilt: {:.2f}", tilt));
+>>>>>>> nrel/develop
                 errorsFound = true;
             }
             tilt_ = tilt;
             if (azimuth < 0 || azimuth >= 360) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("PVWatts: Invalid azimuth: {:.2R}", azimuth));
+=======
+                ShowSevereError(state, std::format("PVWatts: Invalid azimuth: {:.2f}", azimuth));
+>>>>>>> nrel/develop
             }
             azimuth_ = azimuth;
         } else if (geometryType_ == GeometryType::SURFACE) {
             if (surfaceNum == 0 || surfaceNum > state.dataSurface->Surface.size()) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("PVWatts: SurfaceNum not in Surfaces: {}", surfaceNum));
+=======
+                ShowSevereError(state, std::format("PVWatts: SurfaceNum not in Surfaces: {}", surfaceNum));
+>>>>>>> nrel/develop
                 errorsFound = true;
             } else {
                 surfaceNum_ = surfaceNum;
@@ -141,7 +173,11 @@ namespace PVWatts {
         }
 
         if (groundCoverageRatio > 1.0 || groundCoverageRatio < 0.0) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("PVWatts: Invalid ground coverage ratio: {:.2R}", groundCoverageRatio));
+=======
+            ShowSevereError(state, std::format("PVWatts: Invalid ground coverage ratio: {:.2f}", groundCoverageRatio));
+>>>>>>> nrel/develop
             errorsFound = true;
         }
         groundCoverageRatio_ = groundCoverageRatio;
@@ -254,7 +290,11 @@ namespace PVWatts {
         ModuleType moduleType;
         auto moduleTypeIt = moduleTypeMap.find(cAlphaArgs(AlphaFields::MODULE_TYPE));
         if (moduleTypeIt == moduleTypeMap.end()) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("PVWatts: Invalid Module Type: {}", cAlphaArgs(AlphaFields::MODULE_TYPE)));
+=======
+            ShowSevereError(state, std::format("PVWatts: Invalid Module Type: {}", cAlphaArgs(AlphaFields::MODULE_TYPE)));
+>>>>>>> nrel/develop
             errorsFound = true;
         } else {
             moduleType = moduleTypeIt->second;
@@ -268,7 +308,11 @@ namespace PVWatts {
         ArrayType arrayType;
         auto arrayTypeIt = arrayTypeMap.find(cAlphaArgs(AlphaFields::ARRAY_TYPE));
         if (arrayTypeIt == arrayTypeMap.end()) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("PVWatts: Invalid Array Type: {}", cAlphaArgs(AlphaFields::ARRAY_TYPE)));
+=======
+            ShowSevereError(state, std::format("PVWatts: Invalid Array Type: {}", cAlphaArgs(AlphaFields::ARRAY_TYPE)));
+>>>>>>> nrel/develop
             errorsFound = true;
         } else {
             arrayType = arrayTypeIt->second;
@@ -279,7 +323,11 @@ namespace PVWatts {
         GeometryType geometryType;
         auto geometryTypeIt = geometryTypeMap.find(cAlphaArgs(AlphaFields::GEOMETRY_TYPE));
         if (geometryTypeIt == geometryTypeMap.end()) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("PVWatts: Invalid Geometry Type: {}", cAlphaArgs(AlphaFields::GEOMETRY_TYPE)));
+=======
+            ShowSevereError(state, std::format("PVWatts: Invalid Geometry Type: {}", cAlphaArgs(AlphaFields::GEOMETRY_TYPE)));
+>>>>>>> nrel/develop
             errorsFound = true;
         } else {
             geometryType = geometryTypeIt->second;

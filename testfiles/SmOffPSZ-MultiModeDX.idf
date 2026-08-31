@@ -58,7 +58,11 @@
 !             the same as in SmOffPSZ.
 !
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Small Office,            !- Name
@@ -477,8 +481,11 @@
     CounterClockWise,        !- Vertex Entry Direction
     World;                   !- Coordinate System
 
+<<<<<<< HEAD
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     EWall,                   !- Name
     WALL,                    !- Surface Type
@@ -530,8 +537,11 @@
     0,0,3.352800369,  !- X,Y,Z ==> Vertex 3 {m}
     0,8.794457436,3.352800369;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     zE-W-5,                  !- Name
     WALL,                    !- Surface Type
@@ -600,8 +610,11 @@
     0,17.588914871,3.352800369,  !- X,Y,Z ==> Vertex 3 {m}
     17.588914871,17.588914871,3.352800369;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     zE-W-8,                  !- Name
     WALL,                    !- Surface Type
@@ -619,9 +632,12 @@
     0,8.794457436,3.352800369,  !- X,Y,Z ==> Vertex 3 {m}
     0,17.588914871,3.352800369;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     zE-W-11,                 !- Name
     WALL,                    !- Surface Type
@@ -673,8 +689,11 @@
     0,0,6.705600738,  !- X,Y,Z ==> Vertex 3 {m}
     0,8.794457436,6.705600738;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     ZRoof,                   !- Name
     ROOF,                    !- Surface Type
@@ -692,10 +711,13 @@
     17.588914871,8.794457436,6.705600738,  !- X,Y,Z ==> Vertex 3 {m}
     0,8.794457436,6.705600738;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  1 {m}
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     zE-W-17,                 !- Name
     WALL,                    !- Surface Type
@@ -713,9 +735,12 @@
     17.588914871,17.588914871,6.705600738,  !- X,Y,Z ==> Vertex 3 {m}
     17.588914871,8.794457436,6.705600738;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
                                         !- X,Y,Z  1 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     zE-W-19,                 !- Name
     WALL,                    !- Surface Type
@@ -733,8 +758,11 @@
     0,17.588914871,6.705600738,  !- X,Y,Z ==> Vertex 3 {m}
     17.588914871,17.588914871,6.705600738;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  4 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     zE-W-21,                 !- Name
     WALL,                    !- Surface Type
@@ -752,9 +780,12 @@
     0,8.794457436,6.705600738,  !- X,Y,Z ==> Vertex 3 {m}
     0,17.588914871,6.705600738;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     zROOF-23,                !- Name
     ROOF,                    !- Surface Type
@@ -840,8 +871,11 @@
     17.588914871,8.794457436,0,  !- X,Y,Z ==> Vertex 3 {m}
     0,8.794457436,0;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     FSCEING-1,               !- Name
     CEILING,                 !- Surface Type
@@ -859,9 +893,12 @@
     17.588914871,8.794457436,3.352800369,  !- X,Y,Z ==> Vertex 3 {m}
     0,8.794457436,3.352800369;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     FNCEING-1,               !- Name
     CEILING,                 !- Surface Type
@@ -879,8 +916,11 @@
     17.588914871,17.588914871,3.352800369,  !- X,Y,Z ==> Vertex 3 {m}
     0,17.588914871,3.352800369;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     SSFLOOR-1,               !- Name
     FLOOR,                   !- Surface Type
@@ -898,9 +938,12 @@
     17.588914871,0,3.352800369,  !- X,Y,Z ==> Vertex 3 {m}
     0,0,3.352800369;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
                                         !- X,Y,Z  3 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     SNFLOOR-1,               !- Name
     FLOOR,                   !- Surface Type
@@ -918,8 +961,11 @@
     17.588914871,8.794457436,3.352800369,  !- X,Y,Z ==> Vertex 3 {m}
     0,8.794457436,3.352800369;  !- X,Y,Z ==> Vertex 4 {m}
 
+<<<<<<< HEAD
                                         !- X,Y,Z  2 {m}
 
+=======
+>>>>>>> nrel/develop
   BuildingSurface:Detailed,
     SLAB-1,                  !- Name
     FLOOR,                   !- Surface Type
@@ -1247,10 +1293,13 @@
     1,                       !- Upper Limit Value
     DISCRETE;                !- Numeric Type
 
+<<<<<<< HEAD
                              !- Field 8
                              !- Field 21
                              !- Field 25
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     OCC-SCHED,               !- Name
     FRACTION,                !- Schedule Type Limits Name
@@ -2692,7 +2741,11 @@
   ZoneControl:Humidistat,
     Air Loop 2 Humidistat,   !- Name
     ZNF1,                    !- Zone Name
+<<<<<<< HEAD
     Relative Humidity Sch;   !- Humidifying Relative Humidity Setpoint Schedule Name
+=======
+    Relative Humidity Sch;   !- Humidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   Schedule:Compact,
     Relative Humidity Sch,   !- Name

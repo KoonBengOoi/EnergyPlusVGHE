@@ -475,7 +475,11 @@ inline void PrintTo(char16_t c, ::std::ostream* os) {
 }
 #ifdef __cpp_char8_t
 inline void PrintTo(char8_t c, ::std::ostream* os) {
+<<<<<<< HEAD
   PrintTo(ImplicitCast_<char32_t>(c), os);
+=======
+  PrintTo(static_cast<char32_t>(c), os);
+>>>>>>> nrel/develop
 }
 #endif
 

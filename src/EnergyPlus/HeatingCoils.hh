@@ -86,7 +86,14 @@ namespace HeatingCoils {
         std::string Name;             // Name of the HeatingCoil
         std::string HeatingCoilType;  // Type of HeatingCoil ie. Heating or Cooling
         std::string HeatingCoilModel; // Type of HeatingCoil ie. Simple, Detailed, etc.
+<<<<<<< HEAD
         int HCoilType_Num = 0;
+=======
+
+        HVAC::CoilType coilType = HVAC::CoilType::Invalid;
+        int coilReportNum = -1;
+
+>>>>>>> nrel/develop
         Constant::eFuel FuelType = Constant::eFuel::Invalid; // Type of fuel used, reference resource type integers
         Sched::Schedule *availSched = nullptr;               // availability schedule
         int InsuffTemperatureWarn = 0;                       // Used for recurring error message
@@ -209,15 +216,26 @@ namespace HeatingCoils {
     void GetCoilIndex(EnergyPlusData &state, std::string const &HeatingCoilName, int &HeatingCoilIndex, bool &ErrorsFound);
 
     void CheckHeatingCoilSchedule(EnergyPlusData &state,
+<<<<<<< HEAD
                                   std::string const &CompType, // unused1208
                                   std::string_view CompName,
+=======
+                                  std::string_view const CompType, // unused1208
+                                  std::string const &CompName,
+>>>>>>> nrel/develop
                                   Real64 &Value,
                                   int &CompIndex);
 
     Real64 GetCoilCapacity(EnergyPlusData &state,
+<<<<<<< HEAD
                            std::string const &CoilType, // must match coil types in this module
                            std::string const &CoilName, // must match coil names for the coil type
                            bool &ErrorsFound            // set to true if problem
+=======
+                           std::string_view const CoilType, // must match coil types in this module
+                           std::string const &CoilName,     // must match coil names for the coil type
+                           bool &ErrorsFound                // set to true if problem
+>>>>>>> nrel/develop
     );
 
     Sched::Schedule *GetCoilAvailSched(EnergyPlusData &state,
@@ -250,10 +268,17 @@ namespace HeatingCoils {
                               bool &ErrorsFound            // set to true if problem
     );
 
+<<<<<<< HEAD
     int GetHeatingCoilTypeNum(EnergyPlusData &state,
                               std::string const &CoilType, // must match coil types in this module
                               std::string const &CoilName, // must match coil names for the coil type
                               bool &ErrorsFound            // set to true if problem
+=======
+    HVAC::CoilType GetHeatingCoilTypeNum(EnergyPlusData &state,
+                                         std::string_view const CoilType, // must match coil types in this module
+                                         std::string const &CoilName,     // must match coil names for the coil type
+                                         bool &ErrorsFound                // set to true if problem
+>>>>>>> nrel/develop
     );
 
     int GetHeatingCoilIndex(EnergyPlusData &state,

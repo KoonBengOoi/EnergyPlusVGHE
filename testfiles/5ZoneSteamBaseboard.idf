@@ -100,7 +100,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Building,                !- Name
@@ -1597,8 +1601,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,117.239997864; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     SHADETRANSSCH,           !- Name
     FRACTION,                !- Schedule Type Limits Name
@@ -3454,6 +3461,11 @@
 
   Output:Variable,*,Boiler Steam Efficiency,Hourly;
 
+<<<<<<< HEAD
+=======
+  Output:Variable,*,Boiler Steam Coefficient of Performance,Hourly;
+
+>>>>>>> nrel/develop
 ! Reporting NODES Values
 
   Output:Variable,VAV SYS 1 Air Loop Outlet,System Node Temperature,hourly;

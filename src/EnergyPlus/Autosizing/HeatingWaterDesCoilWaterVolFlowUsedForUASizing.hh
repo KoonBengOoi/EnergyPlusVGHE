@@ -57,7 +57,11 @@ struct HeatingWaterDesCoilWaterVolFlowUsedForUASizer : BaseSizer
     HeatingWaterDesCoilWaterVolFlowUsedForUASizer()
     {
         this->sizingType = AutoSizingType::HeatingWaterDesCoilWaterVolFlowUsedForUASizing;
+<<<<<<< HEAD
         this->sizingString = "Design Water Volume Flow Rate Used for UA Sizing";
+=======
+        this->sizingString = "Design Water Volume Flow Rate Used for UA Sizing [m3/s]";
+>>>>>>> nrel/develop
     }
     ~HeatingWaterDesCoilWaterVolFlowUsedForUASizer() = default;
 

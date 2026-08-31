@@ -104,6 +104,10 @@ add_simulation_test(IDF_FILE 5ZoneIceStorage_autosized.idf EPW_FILE USA_IL_Chica
 add_simulation_test(IDF_FILE 5ZoneNightVent1.idf EPW_FILE USA_CA_Fresno.Air.Terminal.723890_TMY3.epw)
 add_simulation_test(IDF_FILE 5ZoneNightVent2.idf EPW_FILE USA_CA_Fresno.Air.Terminal.723890_TMY3.epw)
 add_simulation_test(IDF_FILE 5ZoneNightVent3.idf EPW_FILE USA_CA_Fresno.Air.Terminal.723890_TMY3.epw)
+<<<<<<< HEAD
+=======
+add_simulation_test(IDF_FILE 5ZoneNightVent4.idf EPW_FILE USA_CA_Fresno.Air.Terminal.723890_TMY3.epw)
+>>>>>>> nrel/develop
 add_simulation_test(IDF_FILE 5ZoneReturnFan.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE 5ZoneSteamBaseboard.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE 5ZoneSupRetPlenRAB.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
@@ -140,6 +144,11 @@ add_simulation_test(IDF_FILE 5Zone_Unitary_HXAssistedCoil.idf EPW_FILE USA_IL_Ch
 add_simulation_test(IDF_FILE 5Zone_Unitary_VSDesuperheater.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE 5Zone_Unitary_VSDesuperheatWaterHeater.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE 5ZoneWaterSystems.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+<<<<<<< HEAD
+=======
+add_simulation_test(IDF_FILE 5ZoneWaterSystemsAbsorpUpgrades.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+add_simulation_test(IDF_FILE 5ZoneWaterSystemsZoneMRTCalc.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+>>>>>>> nrel/develop
 add_simulation_test(IDF_FILE 5ZoneWaterSystems_NoSitePrec.idf EPW_FILE USA_FL_Orlando.Intl.AP.722050_TMY3.epw)
 add_simulation_test(IDF_FILE AbsorptionChiller.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE ActiveTrombeWall.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
@@ -200,6 +209,10 @@ add_simulation_test(IDF_FILE CoilWaterDesuperheatingUnitaryCoilDX.idf EPW_FILE U
 add_simulation_test(IDF_FILE CommonPipe_Pri-Sec.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE CompSetPtControl.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE CondFD1ZonePurchAirAutoSizeWithPCM.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+<<<<<<< HEAD
+=======
+add_simulation_test(IDF_FILE ConstructionAssignmentSet.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+>>>>>>> nrel/develop
 add_simulation_test(IDF_FILE ConstSpeedBranchPumpExercise.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE Convection.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE ConvectionAdaptiveSmallOffice.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
@@ -384,6 +397,10 @@ add_simulation_test(IDF_FILE HeatPumpWaterToAirEquationFit.idf EPW_FILE USA_IL_C
 add_simulation_test(IDF_FILE HeatPumpWaterToAirWithAntifreezeAndLatentModel.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE HeatPumpWaterToAirWithAntifreezeAndLatentModel2.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE HeatPumpWaterToAirWithRHControl.idf EPW_FILE USA_FL_Miami.Intl.AP.722020_TMY3.epw)
+<<<<<<< HEAD
+=======
+add_simulation_test(IDF_FILE HeatPumpWaterToAirWithHumControlDewPoint.idf EPW_FILE USA_FL_Miami.Intl.AP.722020_TMY3.epw)
+>>>>>>> nrel/develop
 add_simulation_test(IDF_FILE HeatPumpwithBiquadraticCurves.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE HeatRecoveryElectricChiller.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE HeatRecoveryPlantLoop.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
@@ -464,6 +481,10 @@ add_simulation_test(IDF_FILE PlantLoopChainDeadband.idf EPW_FILE USA_IL_Chicago-
 add_simulation_test(IDF_FILE PlantLoopChainDualDeadband.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE PlantLoopChainHeating.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE PlantLoopHeatPump_EIR_AirSource.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+<<<<<<< HEAD
+=======
+add_simulation_test(IDF_FILE PlantLoopHeatPump_EIR_AirSource_Parallel.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+>>>>>>> nrel/develop
 add_simulation_test(IDF_FILE PlantLoopHeatPump_EIR_AirSource_BufferTank.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE PlantLoopHeatPump_EIR_WaterSource.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE PlantLoopHeatPump_Fuel-Fired.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
@@ -493,6 +514,10 @@ if (LINK_WITH_PYTHON)
     add_simulation_test(IDF_FILE PythonPlugin_SingleFamilyHouse_TwoSpeed_MultiStageElectricSuppCoil.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
     add_simulation_test(IDF_FILE PythonPlugin1ZoneUncontrolledCondFD.idf EPW_FILE USA_CO_Golden-NREL.724666_TMY3.epw)
     add_simulation_test(IDF_FILE PythonPlugin1ZoneUncontrolledTrackHistory.idf EPW_FILE USA_CO_Golden-NREL.724666_TMY3.epw)
+<<<<<<< HEAD
+=======
+    add_simulation_test(IDF_FILE PythonPluginCondFD_Enet.idf EPW_FILE USA_CO_Golden-NREL.724666_TMY3.epw DESIGN_DAY_ONLY)
+>>>>>>> nrel/develop
     add_simulation_test(IDF_FILE PythonPluginAirflowNetworkOpeningControlByHumidity.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
     add_simulation_test(IDF_FILE PythonPluginConstantVolumePurchasedAir.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
     add_simulation_test(IDF_FILE PythonPluginCurveOverride_PackagedTerminalHeatPump.idf EPW_FILE USA_FL_Miami.Intl.AP.722020_TMY3.epw)
@@ -606,6 +631,10 @@ add_simulation_test(IDF_FILE SolarShadingTest_ExternalFraction.idf EPW_FILE USA_
 add_simulation_test(IDF_FILE SolarShadingTest_DisableSelfShading.idf EPW_FILE USA_AZ_Phoenix-Sky.Harbor.Intl.AP.722780_TMY3.epw)
 add_simulation_test(IDF_FILE SolarShadingTest_DisableSelfShadingGroup.idf EPW_FILE USA_AZ_Phoenix-Sky.Harbor.Intl.AP.722780_TMY3.epw)
 add_simulation_test(IDF_FILE SolarShadingTest_ImportedShading.idf EPW_FILE USA_AZ_Phoenix-Sky.Harbor.Intl.AP.722780_TMY3.epw)
+<<<<<<< HEAD
+=======
+add_simulation_test(IDF_FILE SpaceLoadInstanceDefinition.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
+>>>>>>> nrel/develop
 add_simulation_test(IDF_FILE SpectralAngularOpticalProperties_TableData.idf EPW_FILE USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw)
 add_simulation_test(IDF_FILE StackedZonesWithInterzoneIRTLayers.idf EPW_FILE USA_IL_University.of.Illinois-Willard.AP.725315_TMY3.epw)
 add_simulation_test(IDF_FILE Standard621SimplifiedProcedure_PIUterminal.idf EPW_FILE USA_IL_Chicago-OHare_TMY2.epw)

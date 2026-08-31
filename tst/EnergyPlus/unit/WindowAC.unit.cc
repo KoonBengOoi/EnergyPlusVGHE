@@ -449,7 +449,10 @@ TEST_F(EnergyPlusFixture, WindowAC_VStest1)
     state->dataGlobal->DDOnlySimulation = true;
 
     SimulationManager::GetProjectData(*state);
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     HeatBalanceManager::SetPreConstructionInputParameters(*state); // establish array bounds for constructions early
 
     state->dataGlobal->BeginSimFlag = true;
@@ -484,7 +487,11 @@ TEST_F(EnergyPlusFixture, WindowAC_VStest1)
 
     EXPECT_EQ(windowAC.HVACSizingIndex, 0);
 
+<<<<<<< HEAD
     EXPECT_EQ(windowAC.DXCoilType_Num, HVAC::Coil_CoolingAirToAirVariableSpeed);
+=======
+    EXPECT_ENUM_EQ(windowAC.coilType, HVAC::CoilType::CoolingDXVariableSpeed);
+>>>>>>> nrel/develop
     ASSERT_GT(windowAC.DXCoilIndex, 0);
     auto const &varSpeedCoil = state->dataVariableSpeedCoils->VarSpeedCoil(windowAC.DXCoilIndex);
 
@@ -924,7 +931,10 @@ TEST_F(EnergyPlusFixture, WindowAC_DesignSpecificationZoneHVACSizing)
     state->dataGlobal->DDOnlySimulation = true;
 
     SimulationManager::GetProjectData(*state);
+<<<<<<< HEAD
     OutputReportPredefined::SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     HeatBalanceManager::SetPreConstructionInputParameters(*state); // establish array bounds for constructions early
 
     state->dataGlobal->BeginSimFlag = true;
@@ -966,7 +976,11 @@ TEST_F(EnergyPlusFixture, WindowAC_DesignSpecificationZoneHVACSizing)
     EXPECT_EQ(DataSizing::FractionOfAutosizedCoolingCapacity, zoneHVACSizing.CoolingCapMethod);
     EXPECT_EQ(scaler_cooling_cap, zoneHVACSizing.ScaledCoolingCapacity);
 
+<<<<<<< HEAD
     EXPECT_EQ(windowAC.DXCoilType_Num, HVAC::Coil_CoolingAirToAirVariableSpeed);
+=======
+    EXPECT_ENUM_EQ(windowAC.coilType, HVAC::CoilType::CoolingDXVariableSpeed);
+>>>>>>> nrel/develop
     ASSERT_GT(windowAC.DXCoilIndex, 0);
     auto const &varSpeedCoil = state->dataVariableSpeedCoils->VarSpeedCoil(windowAC.DXCoilIndex);
 

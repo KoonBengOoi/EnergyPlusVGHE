@@ -345,7 +345,10 @@ TEST_F(EnergyPlusFixture, EconomicTariff_Gas_CCF_Test)
     state->dataOutputProcessor->meterMap.insert_or_assign("NATURALGAS:FACILITY", state->dataOutputProcessor->meters.size() - 1);
 
     UpdateUtilityBills(*state);
+<<<<<<< HEAD
     ;
+=======
+>>>>>>> nrel/develop
 
     // tariff
     EXPECT_EQ(1, state->dataEconTariff->numTariff);
@@ -386,7 +389,10 @@ TEST_F(EnergyPlusFixture, EconomicTariff_Electric_CCF_Test)
     state->dataOutputProcessor->meterMap.insert_or_assign("ELECTRICITY:FACILITY", state->dataOutputProcessor->meters.size() - 1);
 
     UpdateUtilityBills(*state);
+<<<<<<< HEAD
     ;
+=======
+>>>>>>> nrel/develop
 
     // tariff
     EXPECT_EQ(1, state->dataEconTariff->numTariff);
@@ -450,8 +456,11 @@ TEST_F(EnergyPlusFixture, EconomicTariff_LEEDtariffReporting_Test)
         tariff.demandWindow = EconomicTariff::DemandWindow::Hour;
     }
 
+<<<<<<< HEAD
     SetPredefinedTables(*state); // need to setup the predefined table entry numbers
 
+=======
+>>>>>>> nrel/develop
     LEEDtariffReporting(*state);
 
     EXPECT_EQ("SecondaryGeneralUnit", RetrievePreDefTableEntry(*state, state->dataOutRptPredefined->pdchLeedEtsRtNm, "Electricity"));
@@ -605,7 +614,10 @@ TEST_F(EnergyPlusFixture, EconomicTariff_GatherForEconomics)
 
     // This will only do the get input routines
     EconomicTariff::UpdateUtilityBills(*state);
+<<<<<<< HEAD
     ;
+=======
+>>>>>>> nrel/develop
 
     // tariff
     EXPECT_EQ(1, state->dataEconTariff->numTariff);
@@ -655,7 +667,10 @@ TEST_F(EnergyPlusFixture, EconomicTariff_GatherForEconomics)
     // This Should now call GatherForEconomics
     state->dataGlobal->DoOutputReporting = true;
     EconomicTariff::UpdateUtilityBills(*state);
+<<<<<<< HEAD
     ;
+=======
+>>>>>>> nrel/develop
     EXPECT_ENUM_EQ(Season::Winter, state->dataEconTariff->tariff(1).seasonForMonth(5));
     EXPECT_ENUM_EQ(Season::Invalid, state->dataEconTariff->tariff(1).seasonForMonth(6));
 
@@ -681,7 +696,10 @@ TEST_F(EnergyPlusFixture, EconomicTariff_GatherForEconomics)
 
     // This Should now call GatherForEconomics
     EconomicTariff::UpdateUtilityBills(*state);
+<<<<<<< HEAD
     ;
+=======
+>>>>>>> nrel/develop
     EXPECT_ENUM_EQ(Season::Winter, state->dataEconTariff->tariff(1).seasonForMonth(5));
     EXPECT_ENUM_EQ(Season::Summer, state->dataEconTariff->tariff(1).seasonForMonth(6));
 }
@@ -1754,8 +1772,11 @@ TEST_F(EnergyPlusFixture, EconomicTariff_LEEDtariff_with_Custom_Meter)
     state->dataEconTariff->tariff(7).kindMtr = EconomicTariff::MeterType::Gas;
     state->dataEconTariff->tariff(7).reportMeterIndx = GetMeterIndex(*state, "BUILDING NATURAL GAS");
 
+<<<<<<< HEAD
     SetPredefinedTables(*state); // setup the predefined table entry numbers first
 
+=======
+>>>>>>> nrel/develop
     LEEDtariffReporting(*state);
 
     EXPECT_EQ("ExampleA ExampleI-Sell", RetrievePreDefTableEntry(*state, state->dataOutRptPredefined->pdchLeedEtsRtNm, "Electricity"));

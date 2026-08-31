@@ -241,6 +241,19 @@ TEST_F(EnergyPlusFixture, OutputReportTabularTest_unitsFromHeading)
     EXPECT_EQ(0, unitsFromHeading(*state, unitString));
     EXPECT_EQ("Fictional field {nonsense}", unitString);
 
+<<<<<<< HEAD
+=======
+    // #11710 - Material CTF Summary table: Conductivity {W/m-K} and ThermalResistance {m2-K/W}
+    // headers (from HeatBalanceManager::ReportCTFs eio output) were not converted to IP
+    unitString = "Conductivity {W/m-K}";
+    EXPECT_EQ(119, unitsFromHeading(*state, unitString));
+    EXPECT_EQ("Conductivity {Btu-in/hr-ft2-F}", unitString);
+
+    unitString = "ThermalResistance {m2-K/W}";
+    EXPECT_EQ(120, unitsFromHeading(*state, unitString));
+    EXPECT_EQ("ThermalResistance {ft2-F-hr/Btu}", unitString);
+
+>>>>>>> nrel/develop
     // Check a few report column headings too
     unitString = "Standard Rated Net Cooling Capacity [W]";
     indexUnitConv = unitsFromHeading(*state, unitString);
@@ -568,8 +581,13 @@ TEST_F(EnergyPlusFixture, OutputReportTabularTest_ConfirmConvertToEscaped)
     EXPECT_EQ("Xml string with &quot; in it", ConvertToEscaped(R"(Xml string with \" in it)", true));
     EXPECT_EQ("Xml string with &apos; in it", ConvertToEscaped(R"(Xml string with \' in it)", true));
     EXPECT_EQ("気", ConvertToEscaped("気", true)); // Don't mangle the Japanese character for air in unicode.
+<<<<<<< HEAD
     EXPECT_EQ(std::string("Xml string with ") + char(176) + std::string(" in it"),
               ConvertToEscaped(std::string("Xml string with ") + char(176) + std::string(" in it"), true));
+=======
+    EXPECT_EQ(std::string("Xml string with ") + '\xB0' + std::string(" in it"),
+              ConvertToEscaped(std::string("Xml string with ") + '\xB0' + std::string(" in it"), true));
+>>>>>>> nrel/develop
     // Don't escape degree symbol with &deg; in xml since it is not a valid escape.
 
     EXPECT_EQ("Xml string with \xC2 in it", ConvertToEscaped("Xml string with \xC2 in it", true));
@@ -587,7 +605,11 @@ TEST_F(EnergyPlusFixture, OutputReportTabularTest_ConfirmConvertToEscaped)
     EXPECT_EQ("Html string with &gt; in it", ConvertToEscaped("Html string with > in it", false));
     EXPECT_EQ("Html string with &lt; in it", ConvertToEscaped("Html string with < in it", false));
     EXPECT_EQ("Html string with &amp; in it", ConvertToEscaped("Html string with & in it", false));
+<<<<<<< HEAD
     EXPECT_EQ("Html string with &deg; in it", ConvertToEscaped(std::string("Html string with ") + char(176) + std::string(" in it"), false));
+=======
+    EXPECT_EQ("Html string with &deg; in it", ConvertToEscaped(std::string("Html string with ") + '\xB0' + std::string(" in it"), false));
+>>>>>>> nrel/develop
     EXPECT_EQ("Html string with &deg; in it", ConvertToEscaped("Html string with \u00B0 in it", false));
     EXPECT_EQ("Html string with &deg; in it", ConvertToEscaped("Html string with \xB0 in it", false));
     EXPECT_EQ("Html string with &deg; in it", ConvertToEscaped("Html string with \xC2\xB0 in it", false));
@@ -3749,7 +3771,11 @@ TEST_F(EnergyPlusFixture, OutputReportTabular_GatherHeatEmissionReport)
 
     state->dataDXCoils->NumDXCoils = 2;
     state->dataDXCoils->DXCoil.allocate(2);
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(1).DXCoilType_Num = HVAC::CoilDX_MultiSpeedCooling;
+=======
+    state->dataDXCoils->DXCoil(1).coilType = HVAC::CoilType::CoolingDXMultiSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(1).CondenserType(1) = DataHeatBalance::RefrigCondenserType::Air;
     state->dataDXCoils->DXCoil(1).FuelType = Constant::eFuel::NaturalGas;
     state->dataDXCoils->DXCoil(1).ElecCoolingConsumption = 100.0;
@@ -3757,7 +3783,11 @@ TEST_F(EnergyPlusFixture, OutputReportTabular_GatherHeatEmissionReport)
     state->dataDXCoils->DXCoil(1).MSFuelWasteHeat = 1.0;
     state->dataDXCoils->DXCoil(1).DefrostConsumption = 0.0;
     state->dataDXCoils->DXCoil(1).CrankcaseHeaterConsumption = 0.0;
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(2).DXCoilType_Num = HVAC::CoilDX_HeatingEmpirical;
+=======
+    state->dataDXCoils->DXCoil(2).coilType = HVAC::CoilType::HeatingDXSingleSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(2).ElecHeatingConsumption = 50.0;
     state->dataDXCoils->DXCoil(2).TotalHeatingEnergy = 40.0;
     state->dataDXCoils->DXCoil(2).DefrostConsumption = 0.0;
@@ -3772,7 +3802,11 @@ TEST_F(EnergyPlusFixture, OutputReportTabular_GatherHeatEmissionReport)
     EXPECT_EQ(2 * condenserReject * Constant::convertJtoGJ + coilReject * Constant::convertJtoGJ,
               state->dataHeatBal->BuildingPreDefRep.emiHVACReject);
 
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(1).DXCoilType_Num = HVAC::CoilDX_MultiSpeedCooling;
+=======
+    state->dataDXCoils->DXCoil(1).coilType = HVAC::CoilType::CoolingDXMultiSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(1).CondenserType(1) = DataHeatBalance::RefrigCondenserType::Air;
     state->dataDXCoils->DXCoil(1).FuelType = Constant::eFuel::NaturalGas;
     state->dataDXCoils->DXCoil(1).ElecCoolingConsumption = 100.0;
@@ -3781,7 +3815,11 @@ TEST_F(EnergyPlusFixture, OutputReportTabular_GatherHeatEmissionReport)
     state->dataDXCoils->DXCoil(1).DefrostConsumption = 0.0;
     state->dataDXCoils->DXCoil(1).CrankcaseHeaterConsumption = 20.0;
     state->dataDXCoils->DXCoil(1).FuelConsumed = 50.0; // not included for cooling
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(2).DXCoilType_Num = HVAC::CoilDX_MultiSpeedHeating;
+=======
+    state->dataDXCoils->DXCoil(2).coilType = HVAC::CoilType::HeatingDXMultiSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(2).ElecHeatingConsumption = 15.0;
     state->dataDXCoils->DXCoil(2).TotalHeatingEnergy = 100.0;
     state->dataDXCoils->DXCoil(2).DefrostConsumption = 10.0;
@@ -6051,9 +6089,12 @@ TEST_F(EnergyPlusFixture, OutputTableTimeBins_GetInput)
 
 TEST_F(EnergyPlusFixture, OutputReportTabularTest_PredefinedTableRowMatchingTest)
 {
+<<<<<<< HEAD
 
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     PreDefTableEntry(*state, state->dataOutRptPredefined->pdchLeedPerfElEneUse, "Exterior Lighting", 1000., 2);
     EXPECT_EQ("1000.00", RetrievePreDefTableEntry(*state, state->dataOutRptPredefined->pdchLeedPerfElEneUse, "Exterior Lighting"));
     EXPECT_EQ("NOT FOUND", RetrievePreDefTableEntry(*state, state->dataOutRptPredefined->pdchLeedPerfElEneUse, "EXTERIOR LIGHTING"));
@@ -6549,7 +6590,10 @@ TEST_F(EnergyPlusFixture, OutputReportTabularMonthly_invalidAggregationOrder)
 TEST_F(EnergyPlusFixture, OutputReportTabularTest_CollectPeakZoneConditions_test)
 {
     state->init_state(*state);
+<<<<<<< HEAD
     createCoilSelectionReportObj(*state);
+=======
+>>>>>>> nrel/develop
 
     CompLoadTablesType compLoad;
     int timeOfMax = 63;
@@ -7045,8 +7089,11 @@ TEST_F(SQLiteFixture, OutputReportTabular_WriteLoadComponentSummaryTables_AirLoo
     state->dataOutRptTab->displayFacilityComponentLoadSummary = true;
     state->dataGlobal->CompLoadReportIsReq = true;
 
+<<<<<<< HEAD
     createCoilSelectionReportObj(*state);
 
+=======
+>>>>>>> nrel/develop
     // Two design days
     int numDesDays = 2;
     state->dataEnvrn->TotDesDays = numDesDays;
@@ -7426,7 +7473,10 @@ TEST_F(SQLiteFixture, OutputReportTabularTest_PredefinedTableDXConversion)
     state->dataOutRptTab->unitsStyle_SQLite = OutputReportTabular::UnitsStyle::InchPound;
     setTabularReportStyles(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     std::string CompName = "My DX Coil with 10000W cooling";
 
     PreDefTableEntry(*state, state->dataOutRptPredefined->pdchDXCoolCoilType2, CompName, "Coil:Cooling:DX:SingleSpeed");
@@ -7483,7 +7533,10 @@ TEST_F(SQLiteFixture, OutputReportTabularTest_PredefinedTableCoilHumRat)
     state->dataOutRptTab->unitsStyle_SQLite = OutputReportTabular::UnitsStyle::InchPound;
     setTabularReportStyles(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     std::string CompName = "My DX Coil";
 
     PreDefTableEntry(*state, state->dataOutRptPredefined->pdchDXCoolCoilType, CompName, "Coil:Cooling:DX:SingleSpeed");
@@ -7588,19 +7641,30 @@ TEST_F(EnergyPlusFixture, AzimuthToCardinal)
         if (i % 2 == 1) {
             // It's a wall
             state->dataSurface->Surface(i).Class = DataSurfaces::SurfaceClass::Wall;
+<<<<<<< HEAD
             state->dataSurface->Surface(i).Name = format("ExtWall_{}_{}", i, entryIndex);
         } else {
             // It's a window
             state->dataSurface->Surface(i).Class = DataSurfaces::SurfaceClass::Window;
             state->dataSurface->Surface(i).Name = format("ExtWindow_{}_{}", i, entryIndex);
+=======
+            state->dataSurface->Surface(i).Name = std::format("ExtWall_{}_{}", i, entryIndex);
+        } else {
+            // It's a window
+            state->dataSurface->Surface(i).Class = DataSurfaces::SurfaceClass::Window;
+            state->dataSurface->Surface(i).Name = std::format("ExtWindow_{}_{}", i, entryIndex);
+>>>>>>> nrel/develop
             // Window references the previous wall
             state->dataSurface->Surface(i).BaseSurf = i - 1;
         }
     }
 
+<<<<<<< HEAD
     // Setup pre def tables
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     // Call the routine that fills up the table we care about
     HeatBalanceSurfaceManager::GatherForPredefinedReport(*state);
 
@@ -7623,7 +7687,11 @@ TEST_F(EnergyPlusFixture, AzimuthToCardinal)
         std::string cardinalDir = expectedAzimuthToCard.second;
 
         // Internal: Just to ensure that we gets the same one with round
+<<<<<<< HEAD
         EXPECT_EQ(format("{:.2R}", round(oriAzimuth * 100.0) / 100.0), format("{:.2R}", oriAzimuth));
+=======
+        EXPECT_EQ(std::format("{:.2f}", round(oriAzimuth * 100.0) / 100.0), std::format("{:.2f}", oriAzimuth));
+>>>>>>> nrel/develop
 
         // Wall (odd entries)
 
@@ -7633,7 +7701,11 @@ TEST_F(EnergyPlusFixture, AzimuthToCardinal)
         // Check that the azimuth entry is the rounded version indeed
         EXPECT_EQ(
             OutputReportPredefined::RetrievePreDefTableEntry(*state, state->dataOutRptPredefined->pdchOpAzimuth, state->dataSurface->Surface(i).Name),
+<<<<<<< HEAD
             format("{:.2R}", expectedAzimuthToCard.first))
+=======
+            std::format("{:.2f}", expectedAzimuthToCard.first))
+>>>>>>> nrel/develop
             << "Surface Name = " << state->dataSurface->Surface(i).Name;
         // Check that we do get the expected cardinal direction
         EXPECT_EQ(
@@ -7648,7 +7720,11 @@ TEST_F(EnergyPlusFixture, AzimuthToCardinal)
         // Check that the azimuth entry is the rounded version indeed
         EXPECT_EQ(OutputReportPredefined::RetrievePreDefTableEntry(
                       *state, state->dataOutRptPredefined->pdchFenAzimuth, state->dataSurface->Surface(i + 1).Name),
+<<<<<<< HEAD
                   format("{:.2R}", expectedAzimuthToCard.first))
+=======
+                  std::format("{:.2f}", expectedAzimuthToCard.first))
+>>>>>>> nrel/develop
             << "Surface Name = " << state->dataSurface->Surface(i + 1).Name;
         // Check that we do get the expected cardinal direction
         EXPECT_EQ(OutputReportPredefined::RetrievePreDefTableEntry(
@@ -7689,12 +7765,20 @@ TEST_F(EnergyPlusFixture, InteriorSurfaceEnvelopeSummaryReport)
         state->dataSurface->Surface(i).Construction = 1;
         // odd number - wall, even number - door
         if (i % 2 == 1) {
+<<<<<<< HEAD
             state->dataSurface->Surface(i).Name = "Interzonal_Wall_" + fmt::to_string((i + 1) / 2);
+=======
+            state->dataSurface->Surface(i).Name = "Interzonal_Wall_" + std::to_string((i + 1) / 2);
+>>>>>>> nrel/develop
             state->dataSurface->Surface(i).GrossArea = 200.;
             state->dataSurface->Surface(i).Class = DataSurfaces::SurfaceClass::Wall;
             state->dataSurface->AllSurfaceListReportOrder.push_back(i);
         } else {
+<<<<<<< HEAD
             state->dataSurface->Surface(i).Name = "Interzonal_Door_" + fmt::to_string((i + 1) / 2);
+=======
+            state->dataSurface->Surface(i).Name = "Interzonal_Door_" + std::to_string((i + 1) / 2);
+>>>>>>> nrel/develop
             state->dataSurface->Surface(i).BaseSurfName = state->dataSurface->Surface(i - 1).Name;
             state->dataSurface->Surface(i).BaseSurf = i - 1;
             state->dataSurface->Surface(i).GrossArea = 50.;
@@ -7718,9 +7802,12 @@ TEST_F(EnergyPlusFixture, InteriorSurfaceEnvelopeSummaryReport)
     state->dataSurface->Surface(3).ExtBoundCondName = "Interzonal_Wall_1";
     state->dataSurface->Surface(4).ExtBoundCondName = "Interzonal_Door_1";
 
+<<<<<<< HEAD
     // Setup pre def tables
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     // Call the routine that fills up the table we care about
     HeatBalanceSurfaceManager::GatherForPredefinedReport(*state);
 
@@ -7988,8 +8075,11 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
     // Needed to avoid crash (from ElectricPowerServiceManager.hh)
     createFacilityElectricPowerServiceObject(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     Real64 extLitUse = 1e8;
     Real64 CoalHeating = 2e8;
     Real64 GasolineHeating = 3e8;
@@ -8122,7 +8212,11 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
     std::string rowName = endUseName + ":" + endUseSubCategoryName;
     std::string columnName = "Electricity";
 
+<<<<<<< HEAD
     for (auto &endUseSubCategoryName : endUseSubCategoryNames) {
+=======
+    for (auto &subCatName : endUseSubCategoryNames) {
+>>>>>>> nrel/develop
         for (auto &reportName : testReportNames) {
 
             std::string query("SELECT Value From TabularDataWithStrings"
@@ -8132,7 +8226,11 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
                               reportName +
                               "'"
                               "  AND RowName = '" +
+<<<<<<< HEAD
                               endUseName + ":" + endUseSubCategoryName + "'"); // Now Like 'Exterior Lighting:General'
+=======
+                              endUseName + ":" + subCatName + "'"); // Now Like 'Exterior Lighting:General'
+>>>>>>> nrel/develop
 
             auto result = queryResult(query, "TabularDataWithStrings");
 
@@ -8169,6 +8267,7 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
 
     // Get all Interior Lighting End Uses (all subcats) for Electricity
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -8177,10 +8276,21 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(2u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Electricity'"
+                               "  AND RowName LIKE 'Exterior Lighting:%'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(2u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Get all subcat usage for all fuels (13)
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -8188,12 +8298,22 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Exterior Lighting:AnotherEndUseSubCat'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Specifically get the each fuel (Coal, Gasoline, and Propane) usage for End Use = Heating,
     // and make sure it's the right number that's returned
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -8230,11 +8350,50 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
 
         ASSERT_EQ(1u, result.size()) << "Failed for query: " << query;
         EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Coal'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val1 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(CoalHeating * 3 / 3.6e6, return_val1, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Gasoline'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val2 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(GasolineHeating * 3 / 3.6e6, return_val2, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Propane'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val3 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Check the heating category has the result size of 13 (including all disaggregated additional fuels) in both reports)
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -8252,6 +8411,25 @@ TEST_F(SQLiteFixture, OutputReportTabular_EndUseBySubcategorySQL)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'DemandEndUseComponentsSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 }
 
@@ -9562,8 +9740,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
     // Needed to avoid crash (from ElectricPowerServiceManager.hh)
     createFacilityElectricPowerServiceObject(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     Real64 extLitUse = 1e8;
     Real64 CoalHeating = 2.0000012e8;
     Real64 GasolineHeating = 3.1256e8;
@@ -9696,7 +9877,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
     std::string rowName = endUseName + ":" + endUseSubCategoryName;
     std::string columnName = "Electricity";
 
+<<<<<<< HEAD
     for (auto &endUseSubCategoryName : endUseSubCategoryNames) {
+=======
+    for (auto &subCatName : endUseSubCategoryNames) {
+>>>>>>> nrel/develop
         for (auto &reportName : testReportNames) {
 
             std::string query("SELECT Value From TabularDataWithStrings"
@@ -9706,7 +9891,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
                               reportName +
                               "'"
                               "  AND RowName = '" +
+<<<<<<< HEAD
                               endUseName + ":" + endUseSubCategoryName + "'"); // Now Like 'Exterior Lighting:General'
+=======
+                              endUseName + ":" + subCatName + "'"); // Now Like 'Exterior Lighting:General'
+>>>>>>> nrel/develop
 
             auto result = queryResult(query, "TabularDataWithStrings");
 
@@ -9745,6 +9934,7 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
 
     // Get all Interior Lighting End Uses (all subcats) for Electricity
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -9753,10 +9943,21 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(2u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Electricity'"
+                               "  AND RowName LIKE 'Exterior Lighting:%'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(2u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Get all subcat usage for all fuels (13)
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -9764,12 +9965,22 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Exterior Lighting:AnotherEndUseSubCat'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Specifically get the each fuel (Coal, Gasoline, and Propane) usage for End Use = Heating,
     // and make sure it's the right number that's returned
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -9810,11 +10021,54 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
         ASSERT_EQ(1u, result.size()) << "Failed for query: " << query;
         // EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for query: " << query;
         EXPECT_NEAR(PropaneHeating * 3 / 1.0e9 / enerConv, return_val3, 0.01) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Coal'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val1 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(CoalHeating * 3 / 3.6e6, return_val1, 0.01) << "Failed for blockQuery: " << blockQuery;
+        Real64 expected_coalHt = CoalHeating * 3 / 1.0e9 / enerConv;
+        EXPECT_NEAR(expected_coalHt, return_val1, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Gasoline'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val2 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(GasolineHeating * 3 / 3.6e6, return_val2, 0.01) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(GasolineHeating * 3 / 1.0e9 / enerConv, return_val2, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Propane'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val3 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(PropaneHeating * 3 / 1.0e9 / enerConv, return_val3, 0.01) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Check the heating category has the result size of 13 (including all disaggregated additional fuels) in both reports)
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -9832,6 +10086,25 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'DemandEndUseComponentsSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for query: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Check JSON output - no units conversion, no formatting
@@ -9927,8 +10200,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
     // Needed to avoid crash (from ElectricPowerServiceManager.hh)
     createFacilityElectricPowerServiceObject(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     Real64 extLitUse = 1e8;
     Real64 CoalHeating = 2.0000012e8;
     Real64 GasolineHeating = 3.1256e8;
@@ -10061,7 +10337,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
     std::string rowName = endUseName + ":" + endUseSubCategoryName;
     std::string columnName = "Electricity";
 
+<<<<<<< HEAD
     for (auto &endUseSubCategoryName : endUseSubCategoryNames) {
+=======
+    for (auto &subCatName : endUseSubCategoryNames) {
+>>>>>>> nrel/develop
         for (auto &reportName : testReportNames) {
 
             std::string query("SELECT Value From TabularDataWithStrings"
@@ -10071,7 +10351,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
                               reportName +
                               "'"
                               "  AND RowName = '" +
+<<<<<<< HEAD
                               endUseName + ":" + endUseSubCategoryName + "'"); // Now Like 'Exterior Lighting:General'
+=======
+                              endUseName + ":" + subCatName + "'"); // Now Like 'Exterior Lighting:General'
+>>>>>>> nrel/develop
 
             auto result = queryResult(query, "TabularDataWithStrings");
 
@@ -10110,6 +10394,7 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
 
     // Get all Interior Lighting End Uses (all subcats) for Electricity
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -10118,10 +10403,21 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(2u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Electricity'"
+                               "  AND RowName LIKE 'Exterior Lighting:%'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(2u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Get all subcat usage for all fuels (13)
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -10129,12 +10425,22 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Exterior Lighting:AnotherEndUseSubCat'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Specifically get the each fuel (Coal, Gasoline, and Propane) usage for End Use = Heating,
     // and make sure it's the right number that's returned
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -10175,11 +10481,54 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
         ASSERT_EQ(1u, result.size()) << "Failed for query: " << query;
         // EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for query: " << query;
         EXPECT_NEAR(PropaneHeating * 3 / 1.0e9, return_val3, 0.01) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Coal'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val1 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(CoalHeating * 3 / 3.6e6, return_val1, 0.01) << "Failed for blockQuery: " << blockQuery;
+        Real64 expected_coalHt = CoalHeating * 3 / 1.0e9;
+        EXPECT_NEAR(expected_coalHt, return_val1, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Gasoline'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val2 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(GasolineHeating * 3 / 3.6e6, return_val2, 0.01) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(GasolineHeating * 3 / 1.0e9, return_val2, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Propane'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val3 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(PropaneHeating * 3 / 1.0e9, return_val3, 0.01) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Check the heating category has the result size of 13 (including all disaggregated additional fuels) in both reports)
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -10197,6 +10546,25 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_DualUnits2)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'DemandEndUseComponentsSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Check JSON output - InchPoundExceptElectricity units conversion, yes formatting
@@ -10266,7 +10634,10 @@ TEST_F(SQLiteFixture, OutputReportTabularTest_EscapeHTML)
     ort->unitsStyle_Tabular = OutputReportTabular::UnitsStyle::JtoKWH;
     setTabularReportStyles(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     std::string CompName = "My Coil <coil is DX>";
 
     PreDefTableEntry(*state, state->dataOutRptPredefined->pdchDXCoolCoilType, CompName, "Coil:Cooling:DX:SingleSpeed");
@@ -10345,9 +10716,12 @@ TEST_F(SQLiteFixture, OutputReportTabularTest_EscapeHTML)
 
 TEST_F(EnergyPlusFixture, OutputReportTabularTest_PredefinedTable_SigDigits_Force_NonZero)
 {
+<<<<<<< HEAD
 
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     // < 1e8, not using scientific notation
     Real64 value = 123.456;
     PreDefTableEntry(*state, state->dataOutRptPredefined->pdchPlantSizPkTimeMin, "MyPlant Sizing Pass 1", value, 2);
@@ -10396,6 +10770,7 @@ TEST_F(EnergyPlusFixture, OutputReportTabularTest_PredefinedTable_Standard62_1_N
 
     EXPECT_EQ(1, state->dataInputProcessing->inputProcessor->getNumObjectsFound(*state, "Output:Table:SummaryReports"));
 
+<<<<<<< HEAD
     EXPECT_EQ(0, state->dataOutRptPredefined->numReportName);
     SetPredefinedTables(*state);
     EXPECT_GT(state->dataOutRptPredefined->numReportName, 0);
@@ -10411,6 +10786,24 @@ TEST_F(EnergyPlusFixture, OutputReportTabularTest_PredefinedTable_Standard62_1_N
                           "   **   ~~~   ** Do Zone Sizing or Do System Sizing must be enabled in SimulationControl."});
 
     compare_err_stream(expected_error, true);
+=======
+    EXPECT_GT(state->dataOutRptPredefined->numReportName, 0);
+    // Do this some other way, whether or not a report is used should not depend on whether or not it is defined
+
+    // auto &reportNameArray = state->dataOutRptPredefined->reportName;
+    // auto it =
+    //    std::find_if(reportNameArray.begin(), reportNameArray.end(), [](const auto &rN) { return Util::SameString("Standard62.1Summary", rN.name);
+    //    });
+    // EXPECT_FALSE(it != reportNameArray.end()); // Not found
+
+    // GetInputOutputTableSummaryReports(*state);
+
+    // std::string expected_error =
+    //  delimited_string({"   ** Warning ** Output:Table:SummaryReports Field[1]=\"Standard62.1Summary\", Report is not enabled.",
+    //                    "   **   ~~~   ** Do Zone Sizing or Do System Sizing must be enabled in SimulationControl."});
+
+    // compare_err_stream(expected_error, true);
+>>>>>>> nrel/develop
 }
 
 TEST_F(EnergyPlusFixture, OutputReportTabularTest_PredefinedTable_Standard62_1_WithSizing)
@@ -10430,8 +10823,11 @@ TEST_F(EnergyPlusFixture, OutputReportTabularTest_PredefinedTable_Standard62_1_W
 
     EXPECT_EQ(1, state->dataInputProcessing->inputProcessor->getNumObjectsFound(*state, "Output:Table:SummaryReports"));
 
+<<<<<<< HEAD
     EXPECT_EQ(0, state->dataOutRptPredefined->numReportName);
     SetPredefinedTables(*state);
+=======
+>>>>>>> nrel/develop
     EXPECT_GT(state->dataOutRptPredefined->numReportName, 0);
     auto &reportNameArray = state->dataOutRptPredefined->reportName;
     auto it =
@@ -10844,7 +11240,11 @@ TEST_F(EnergyPlusFixture, OutputReportTabularTest_RetrieveEntryFromTableBody)
     tableBody.allocate(columnCount, rowCount);
     for (int col_i = 1; col_i <= columnCount; col_i++) {
         for (int row_i = 1; row_i <= rowCount; row_i++) {
+<<<<<<< HEAD
             tableBody(col_i, row_i) = fmt::format("{}-{}", col_i, row_i);
+=======
+            tableBody(col_i, row_i) = std::format("{}-{}", col_i, row_i);
+>>>>>>> nrel/develop
         }
     }
     EXPECT_EQ(RetrieveEntryFromTableBody(tableBody, 1, 1), "1-1");
@@ -11048,8 +11448,11 @@ TEST_F(SQLiteFixture, StatFile_TMYx)
     state->dataOutRptTab->unitsStyle_SQLite = OutputReportTabular::UnitsStyle::InchPound;
     setTabularReportStyles(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     FillWeatherPredefinedEntries(*state);
 
     // Enable the ClimaticDataSummary report, in a future-proof way
@@ -11074,9 +11477,15 @@ TEST_F(SQLiteFixture, StatFile_TMYx)
           AND TableName = "Weather Statistics File"
           AND RowName = "{}";
     )sqlite";
+<<<<<<< HEAD
     EXPECT_EQ(807.0, execAndReturnFirstDouble(fmt::format(queryStr, "Annual Total Precipitation")));
     EXPECT_EQ(7.0, execAndReturnFirstDouble(fmt::format(queryStr, "Max Hourly Precipitation")));
     auto result = queryResult(fmt::format(queryStr, "Max Hourly Precipitation Occurs in"), "TabularDataWithStrings");
+=======
+    EXPECT_EQ(807.0, execAndReturnFirstDouble(std::format(queryStr, "Annual Total Precipitation")));
+    EXPECT_EQ(7.0, execAndReturnFirstDouble(std::format(queryStr, "Max Hourly Precipitation")));
+    auto result = queryResult(std::format(queryStr, "Max Hourly Precipitation Occurs in"), "TabularDataWithStrings");
+>>>>>>> nrel/develop
     ASSERT_EQ(1, result.size());
     ASSERT_FALSE(result[0].empty());
     EXPECT_EQ("Mar", result[0][0]);
@@ -11265,7 +11674,11 @@ TEST_F(SQLiteFixture, WriteVeriSumSpaceTables_Test)
 TEST_F(SQLiteFixture, DOASDirectToZone_ZoneMultiplierRemoved)
 {
     std::string const idf_objects_1 = R"IDF(
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 
@@ -12093,7 +12506,11 @@ TEST_F(SQLiteFixture, DOASDirectToZone_ZoneMultiplierRemoved)
                             "  AND RowName = 'DOAS Direct to Zone'");
     // check the value from result records
     Real64 return_val_total = execAndReturnFirstDouble(query_total);
+<<<<<<< HEAD
     EXPECT_EQ(return_val_total, 598.2);
+=======
+    EXPECT_NEAR(return_val_total, 598.2, 0.011);
+>>>>>>> nrel/develop
 
     // get the sensible instant 'DOAS Direct to Zone' cooling peak load component
     std::string query_sensible_instant("SELECT Value From TabularDataWithStrings"
@@ -12109,7 +12526,11 @@ TEST_F(SQLiteFixture, DOASDirectToZone_ZoneMultiplierRemoved)
 TEST_F(SQLiteFixture, UpdateSizing_EndSysSizingCalc)
 {
     std::string const idf_objects_1 = R"IDF(
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 
@@ -13524,8 +13945,11 @@ TEST_F(SQLiteFixture, OutputReportTabular_DistrictHeating)
     // Needed to avoid crash (from ElectricPowerServiceManager.hh)
     createFacilityElectricPowerServiceObject(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     Real64 DistrictHeatingWater = 4e8;
     SetupOutputVariable(*state,
                         "Exterior Equipment DistrictHeatingWater Energy",
@@ -13927,8 +14351,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
     // Needed to avoid crash (from ElectricPowerServiceManager.hh)
     createFacilityElectricPowerServiceObject(*state);
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     Real64 extLitUse = 1e8;
     Real64 CoalHeating = 2e8;
     Real64 GasolineHeating = 3e8;
@@ -14061,7 +14488,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
     std::string rowName = endUseName + ":" + endUseSubCategoryName;
     std::string columnName = "Electricity";
 
+<<<<<<< HEAD
     for (auto &endUseSubCategoryName : endUseSubCategoryNames) {
+=======
+    for (auto &subCatName : endUseSubCategoryNames) {
+>>>>>>> nrel/develop
         for (auto &reportName : testReportNames) {
 
             std::string query("SELECT Value From TabularDataWithStrings"
@@ -14071,7 +14502,11 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
                               reportName +
                               "'"
                               "  AND RowName = '" +
+<<<<<<< HEAD
                               endUseName + ":" + endUseSubCategoryName + "'"); // Now Like 'Exterior Lighting:General'
+=======
+                              endUseName + ":" + subCatName + "'"); // Now Like 'Exterior Lighting:General'
+>>>>>>> nrel/develop
 
             auto result = queryResult(query, "TabularDataWithStrings");
 
@@ -14110,6 +14545,7 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
 
     // Get all Interior Lighting End Uses (all subcats) for Electricity
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -14118,10 +14554,21 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(2u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Electricity'"
+                               "  AND RowName LIKE 'Exterior Lighting:%'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(2u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Get all subcat usage for all fuels (13)
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses By Subcategory'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -14129,12 +14576,22 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses By Subcategory'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Exterior Lighting:AnotherEndUseSubCat'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Specifically get the each fuel (Coal, Gasoline, and Propane) usage for End Use = Heating,
     // and make sure it's the right number that's returned
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -14175,11 +14632,54 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
         ASSERT_EQ(1u, result.size()) << "Failed for query: " << query;
         // EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for query: " << query;
         EXPECT_NEAR(PropaneHeating * 3 / 1.0e9 / enerConv, return_val3, 0.01) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Coal'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val1 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(CoalHeating * 3 / 3.6e6, return_val1, 0.01) << "Failed for blockQuery: " << blockQuery;
+        Real64 expected_coalHt = CoalHeating * 3 / 1.0e9 / enerConv;
+        EXPECT_NEAR(expected_coalHt, return_val1, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Gasoline'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val2 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(GasolineHeating * 3 / 3.6e6, return_val2, 0.01) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(GasolineHeating * 3 / 1.0e9 / enerConv, return_val2, 0.01) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND ColumnName = 'Propane'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+        Real64 return_val3 = execAndReturnFirstDouble(blockQuery);
+
+        ASSERT_EQ(1u, result.size()) << "Failed for blockQuery: " << blockQuery;
+        // EXPECT_NEAR(PropaneHeating * 3 / 3.6e6, return_val3, 0.01) << "Failed for blockQuery: " << blockQuery;
+        EXPECT_NEAR(PropaneHeating * 3 / 1.0e9 / enerConv, return_val3, 0.01) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 
     // Check the heating category has the result size of 13 (including all disaggregated additional fuels) in both reports)
 
     {
+<<<<<<< HEAD
         std::string query("SELECT Value From TabularDataWithStrings"
                           "  WHERE TableName = 'End Uses'"
                           "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
@@ -14197,6 +14697,25 @@ TEST_F(SQLiteFixture, ORT_EndUseBySubcategorySQL_IPUnitExceptElec)
         auto result = queryResult(query, "TabularDataWithStrings");
 
         ASSERT_EQ(14u, result.size()) << "Failed for query: " << query;
+=======
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'AnnualBuildingUtilityPerformanceSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+    }
+
+    {
+        std::string blockQuery("SELECT Value From TabularDataWithStrings"
+                               "  WHERE TableName = 'End Uses'"
+                               "  AND ReportName = 'DemandEndUseComponentsSummary'"
+                               "  AND RowName = 'Heating'");
+        auto result = queryResult(blockQuery, "TabularDataWithStrings");
+
+        ASSERT_EQ(14u, result.size()) << "Failed for blockQuery: " << blockQuery;
+>>>>>>> nrel/develop
     }
 }
 
@@ -14815,8 +15334,15 @@ TEST_F(EnergyPlusFixture, ExteriorFenestrationShadedStateTest)
     mat1->Resistance = 1.25;
     mat1->Roughness = Material::SurfaceRoughness::VerySmooth;
     mat1->group = Material::Group::Glass;
+<<<<<<< HEAD
     mat1->AbsorpSolar = 0.75;
     mat1->AbsorpThermal = 0.75;
+=======
+    mat1->AbsorpSolarOut = 0.75;
+    mat1->AbsorpThermalOut = 0.75;
+    mat1->AbsorpSolarIn = 0.75;
+    mat1->AbsorpThermalIn = 0.75;
+>>>>>>> nrel/develop
     mat1->Trans = 0.25;
     mat1->ReflectSolBeamFront = 0.20;
 
@@ -14827,8 +15353,15 @@ TEST_F(EnergyPlusFixture, ExteriorFenestrationShadedStateTest)
     mat2->Resistance = 2.5;
     mat2->Roughness = Material::SurfaceRoughness::VerySmooth;
     mat2->group = Material::Group::Glass;
+<<<<<<< HEAD
     mat2->AbsorpSolar = 0.25;
     mat2->AbsorpThermal = 0.25;
+=======
+    mat2->AbsorpSolarOut = 0.25;
+    mat2->AbsorpThermalOut = 0.25;
+    mat2->AbsorpSolarIn = 0.25;
+    mat2->AbsorpThermalIn = 0.25;
+>>>>>>> nrel/develop
     mat2->Trans = 0.5;
     mat2->ReflectSolBeamFront = 0.20;
 
@@ -14872,12 +15405,20 @@ TEST_F(EnergyPlusFixture, ExteriorFenestrationShadedStateTest)
         }
         // odd number - wall, even number - window
         if (i % 2 == 1) {
+<<<<<<< HEAD
             dSurf->Surface(i).Name = "Exterior_Wall_" + fmt::to_string((i + 1) / 2);
+=======
+            dSurf->Surface(i).Name = "Exterior_Wall_" + std::to_string((i + 1) / 2);
+>>>>>>> nrel/develop
             dSurf->Surface(i).GrossArea = 200.;
             dSurf->Surface(i).Class = DataSurfaces::SurfaceClass::Wall;
             dSurf->AllSurfaceListReportOrder.push_back(i);
         } else {
+<<<<<<< HEAD
             dSurf->Surface(i).Name = "Window_" + fmt::to_string((i + 1) / 2);
+=======
+            dSurf->Surface(i).Name = "Window_" + std::to_string((i + 1) / 2);
+>>>>>>> nrel/develop
             dSurf->Surface(i).BaseSurfName = dSurf->Surface(i - 1).Name;
             dSurf->Surface(i).BaseSurf = i - 1;
             dSurf->Surface(i).GrossArea = 50.;
@@ -14886,9 +15427,12 @@ TEST_F(EnergyPlusFixture, ExteriorFenestrationShadedStateTest)
         }
     }
 
+<<<<<<< HEAD
     // Setup pre def tables
     OutputReportPredefined::SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     // Call the routine that fills up the table we care about
     HeatBalanceSurfaceManager::GatherForPredefinedReport(*state);
 

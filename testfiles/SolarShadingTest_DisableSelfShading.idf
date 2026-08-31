@@ -82,7 +82,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 
@@ -3017,8 +3021,11 @@
 
   Output:Variable,*,Zone Mean Radiant Temperature,hourly;
 
+<<<<<<< HEAD
   Output:Variable,*,Zone Mean Radiant Temperature,hourly;
 
+=======
+>>>>>>> nrel/develop
   Output:Variable,*,Surface Inside Face Temperature,daily;
 
   Output:Variable,*,Surface Outside Face Temperature,daily;

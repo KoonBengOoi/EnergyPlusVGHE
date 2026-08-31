@@ -9799,7 +9799,11 @@
     },
     "Version": {
         "Version 1": {
+<<<<<<< HEAD
             "version_identifier": "26.1"
+=======
+            "version_identifier": "26.2"
+>>>>>>> nrel/develop
         }
     },
     "WaterHeater:Mixed": {

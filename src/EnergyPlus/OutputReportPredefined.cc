@@ -45,6 +45,12 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+>>>>>>> nrel/develop
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
 
@@ -126,6 +132,10 @@ namespace OutputReportPredefined {
         s->pdstOpaque = newPreDefSubTable(state, s->pdrEnvelope, "Opaque Exterior");
 
         s->pdchOpCons = newPreDefColumn(state, s->pdstOpaque, "Construction");
+<<<<<<< HEAD
+=======
+        s->pdchOpConsSource = newPreDefColumn(state, s->pdstOpaque, "Construction Assignment Source");
+>>>>>>> nrel/develop
         s->pdchOpZone = newPreDefColumn(state, s->pdstOpaque, "Zone");
         s->pdchOpSpace = newPreDefColumn(state, s->pdstOpaque, "Space");
         s->pdchOpRefl = newPreDefColumn(state, s->pdstOpaque, "Reflectance");
@@ -140,6 +150,10 @@ namespace OutputReportPredefined {
         s->pdstIntOpaque = newPreDefSubTable(state, s->pdrEnvelope, "Opaque Interior");
 
         s->pdchIntOpCons = newPreDefColumn(state, s->pdstIntOpaque, "Construction");
+<<<<<<< HEAD
+=======
+        s->pdchIntOpConsSource = newPreDefColumn(state, s->pdstIntOpaque, "Construction Assignment Source");
+>>>>>>> nrel/develop
         s->pdchIntOpZone = newPreDefColumn(state, s->pdstIntOpaque, "Zone");
         s->pdchIntOpSpace = newPreDefColumn(state, s->pdstIntOpaque, "Space");
         s->pdchIntOpAdjSurf = newPreDefColumn(state, s->pdstIntOpaque, "Adjacent Surface");
@@ -155,6 +169,10 @@ namespace OutputReportPredefined {
         s->pdstFen = newPreDefSubTable(state, s->pdrEnvelope, "Exterior Fenestration");
 
         s->pdchFenCons = newPreDefColumn(state, s->pdstFen, "Construction");
+<<<<<<< HEAD
+=======
+        s->pdchFenConsSource = newPreDefColumn(state, s->pdstFen, "Construction Assignment Source");
+>>>>>>> nrel/develop
         s->pdchFenZone = newPreDefColumn(state, s->pdstFen, "Zone");
         s->pdchFenSpace = newPreDefColumn(state, s->pdstFen, "Space");
         s->pdchFenFrameDivName = newPreDefColumn(state, s->pdstFen, "Frame and Divider");
@@ -192,6 +210,10 @@ namespace OutputReportPredefined {
         s->pdstIntFen = newPreDefSubTable(state, s->pdrEnvelope, "Interior Fenestration");
 
         s->pdchIntFenCons = newPreDefColumn(state, s->pdstIntFen, "Construction");
+<<<<<<< HEAD
+=======
+        s->pdchIntFenConsSource = newPreDefColumn(state, s->pdstIntFen, "Construction Assignment Source");
+>>>>>>> nrel/develop
         s->pdchIntFenZone = newPreDefColumn(state, s->pdstIntFen, "Zone");
         s->pdchIntFenSpace = newPreDefColumn(state, s->pdstIntFen, "Space");
         s->pdchIntFenAreaOf1 = newPreDefColumn(state, s->pdstIntFen, "Area of One Opening [m2]");
@@ -208,6 +230,10 @@ namespace OutputReportPredefined {
 
         s->pdstDoor = newPreDefSubTable(state, s->pdrEnvelope, "Exterior Door");
         s->pdchDrCons = newPreDefColumn(state, s->pdstDoor, "Construction");
+<<<<<<< HEAD
+=======
+        s->pdchDrConsSource = newPreDefColumn(state, s->pdstDoor, "Construction Assignment Source");
+>>>>>>> nrel/develop
         s->pdchDrZone = newPreDefColumn(state, s->pdstDoor, "Zone");
         s->pdchDrSpace = newPreDefColumn(state, s->pdstDoor, "Space");
         s->pdchDrUfactFilm = newPreDefColumn(state, s->pdstDoor, "U-Factor with Film [W/m2-K]");
@@ -218,6 +244,10 @@ namespace OutputReportPredefined {
         s->pdstIntDoor = newPreDefSubTable(state, s->pdrEnvelope, "Interior Door");
 
         s->pdchIntDrCons = newPreDefColumn(state, s->pdstIntDoor, "Construction");
+<<<<<<< HEAD
+=======
+        s->pdchIntDrConsSource = newPreDefColumn(state, s->pdstIntDoor, "Construction Assignment Source");
+>>>>>>> nrel/develop
         s->pdchIntDrZone = newPreDefColumn(state, s->pdstIntDoor, "Zone");
         s->pdchIntDrSpace = newPreDefColumn(state, s->pdstIntDoor, "Space");
         s->pdchIntDrUfactFilm = newPreDefColumn(state, s->pdstIntDoor, "U-Factor with Film [W/m2-K]");
@@ -317,6 +347,19 @@ namespace OutputReportPredefined {
         s->pdchMechIPLVSI = newPreDefColumn(state, s->pdstMech, "IPLV in SI Units [W/W]");
         s->pdchMechIPLVIP = newPreDefColumn(state, s->pdstMech, "IPLV in IP Units [Btu/W-h]");
 
+<<<<<<< HEAD
+=======
+        s->pdstGLHE = newPreDefSubTable(state, s->pdrEquip, "Ground Loop Heat Exchangers");
+
+        s->pdchGLHEType = newPreDefColumn(state, s->pdstGLHE, "Type");
+        s->pdchGLHETubeLength = newPreDefColumn(state, s->pdstGLHE, "Total Tube Length [m]");
+        s->pdchGLHEVolFlow = newPreDefColumn(state, s->pdstGLHE, "Design Volume Flow Rate [m3/s]");
+        s->pdchGLHEbhDepth = newPreDefColumn(state, s->pdstGLHE, "Depth [m]");
+        s->pdchGLHEbhDiam = newPreDefColumn(state, s->pdstGLHE, "Diameter [m]");
+        s->pdchGLHEbhLeng = newPreDefColumn(state, s->pdstGLHE, "Length [m]");
+        s->pdchGLHENumHolesTrenches = newPreDefColumn(state, s->pdstGLHE, "Number of Holes/Trenches");
+
+>>>>>>> nrel/develop
         // Ok Constant                        Object Name                            Module                   Example File
         // -- ------------------------------- -------------------------------------- ------------------------ -----------------
         // o  CoilDX_CoolingSingleSpeed       Coil:Cooling:DX:SingleSpeed            DXCoil                   FurnaceWithDXSystem
@@ -1447,6 +1490,7 @@ namespace OutputReportPredefined {
         s->pdchSHGSHtOtherRem = newPreDefColumn(state, s->pdstSHGSpkHt, "Opaque Surface Conduction and Other Heat Removal [W]");
 
         // Standard62Report
+<<<<<<< HEAD
         if (state.dataGlobal->DoZoneSizing || state.dataGlobal->DoSystemSizing) {
             s->pdrStd62 = newPreDefReport(state, "Standard62.1Summary", "Std62", "Standard 62.1 Summary");
 
@@ -1568,6 +1612,126 @@ namespace OutputReportPredefined {
             s->pdchS62shdEvz = newPreDefColumn(state, s->pdstS62sysHeatDes, "Zone Ventilation Efficiency - Evz-min");
         }
 
+=======
+        s->pdrStd62 = newPreDefReport(state, standard62RptSummaryName, "Std62", "Standard 62.1 Summary");
+
+        s->pdstS62sysVentReqCool = newPreDefSubTable(state, s->pdrStd62, "System Ventilation Requirements for Cooling");
+
+        s->pdchS62svrClSumVpz = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Sum of Zone Primary Air Flow - Vpz-sum [m3/s]");
+        s->pdchS62svrClPs = newPreDefColumn(state, s->pdstS62sysVentReqCool, "System Population - Ps");
+        s->pdchS62svrClSumPz = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Sum of Zone Population - Pz-sum");
+        s->pdchS62svrClD = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Occupant Diversity - D");
+        s->pdchS62svrClDorg = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Origin of D");
+        s->pdchS62svrClVou = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Uncorrected Outdoor Air Intake Airflow - Vou [m3/s]");
+        s->pdchS62svrClVps = newPreDefColumn(state, s->pdstS62sysVentReqCool, "System Primary Airflow - Vps [m3/s]");
+        s->pdchS62svrClXs = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Average Outdoor Air Fraction - Xs");
+        s->pdchS62svrClEv = newPreDefColumn(state, s->pdstS62sysVentReqCool, "System Ventilation Efficiency - Ev");
+        s->pdchS62svrClEvMthd = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Calculation Method for Ev");
+        s->pdchS62svrClVot = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Outdoor Air Intake Flow - Vot [m3/s]");
+        s->pdchS62svrClPercOA = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Percent Outdoor Air - %OA");
+        s->pdchS62svrClEnvironmentOfPs = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Environment Name of Peak System Population - Ps");
+        s->pdchS62svrClTimeOfPs = newPreDefColumn(state, s->pdstS62sysVentReqCool, "Date and Time of Last Peak System Population - Ps");
+
+        s->pdstS62sysVentReqHeat = newPreDefSubTable(state, s->pdrStd62, "System Ventilation Requirements for Heating");
+
+        s->pdchS62svrHtSumVpz = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Sum of Zone Primary Air Flow - Vpz-sum [m3/s]");
+        s->pdchS62svrHtPs = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "System Population - Ps");
+        s->pdchS62svrHtSumPz = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Sum of Zone Population - Pz-sum");
+        s->pdchS62svrHtD = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Occupant Diversity - D");
+        s->pdchS62svrHtDorg = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Origin of D");
+        s->pdchS62svrHtVou = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Uncorrected Outdoor Air Intake Airflow - Vou [m3/s]");
+        s->pdchS62svrHtVps = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "System Primary Airflow - Vps [m3/s]");
+        s->pdchS62svrHtXs = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Average Outdoor Air Fraction - Xs");
+        s->pdchS62svrHtEv = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "System Ventilation Efficiency - Ev");
+        s->pdchS62svrHtEvMthd = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Calculation Method for Ev");
+        s->pdchS62svrHtVot = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Outdoor Air Intake Flow Vot [m3/s]");
+        s->pdchS62svrHtPercOA = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Percent Outdoor Air - %OA");
+        s->pdchS62svrHtEnvironmentOfPs = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Environment Name of Peak System Population - Ps");
+        s->pdchS62svrHtTimeOfPs = newPreDefColumn(state, s->pdstS62sysVentReqHeat, "Date and Time of Last Peak System Population - Ps");
+
+        s->pdstS62znVentPar = newPreDefSubTable(state, s->pdrStd62, "Zone Ventilation Parameters");
+
+        s->pdchS62zvpAlN = newPreDefColumn(state, s->pdstS62znVentPar, "AirLoop Name");
+        s->pdchS62zvpRp = newPreDefColumn(state, s->pdstS62znVentPar, "People Outdoor Air Rate - Rp [m3/s-person]");
+        s->pdchS62zvpPz = newPreDefColumn(state, s->pdstS62znVentPar, "Zone Population - Pz");
+        s->pdchS62zvpRa = newPreDefColumn(state, s->pdstS62znVentPar, "Area Outdoor Air Rate - Ra [m3/s-m2]");
+        s->pdchS62zvpAz = newPreDefColumn(state, s->pdstS62znVentPar, "Zone Floor Area - Az [m2]");
+        s->pdchS62zvpVbz = newPreDefColumn(state, s->pdstS62znVentPar, "Breathing Zone Outdoor Airflow - Vbz [m3/s]");
+        s->pdchS62zvpClEz = newPreDefColumn(state, s->pdstS62znVentPar, "Cooling Zone Air Distribution Effectiveness - Ez-clg");
+        s->pdchS62zvpClVoz = newPreDefColumn(state, s->pdstS62znVentPar, "Cooling Zone Outdoor Airflow - Voz-clg [m3/s]");
+        s->pdchS62zvpHtEz = newPreDefColumn(state, s->pdstS62znVentPar, "Heating Zone Air Distribution Effectiveness - Ez-htg");
+        s->pdchS62zvpHtVoz = newPreDefColumn(state, s->pdstS62znVentPar, "Heating Zone Outdoor Airflow - Voz-htg [m3/s]");
+
+        s->pdstS62sysVentPar = newPreDefSubTable(state, s->pdrStd62, "System Ventilation Parameters");
+
+        s->pdchS62svpRp = newPreDefColumn(state, s->pdstS62sysVentPar, "People Outdoor Air Rate - Rp [m3/s-person]");
+        s->pdchS62svpPz = newPreDefColumn(state, s->pdstS62sysVentPar, "Sum of Zone Population - Pz-sum");
+        s->pdchS62svpRa = newPreDefColumn(state, s->pdstS62sysVentPar, "Area Outdoor Air Rate - Ra [m3/s-m2]");
+        s->pdchS62svpAz = newPreDefColumn(state, s->pdstS62sysVentPar, "Sum of Zone Floor Area - Az-sum [m2]");
+        s->pdchS62svpVbz = newPreDefColumn(state, s->pdstS62sysVentPar, "Breathing Zone Outdoor Airflow - Vbz [m3/s]");
+        s->pdchS62svpClVoz = newPreDefColumn(state, s->pdstS62sysVentPar, "Cooling Zone Outdoor Airflow - Voz-clg [m3/s]");
+        s->pdchS62svpHtVoz = newPreDefColumn(state, s->pdstS62sysVentPar, "Heating Zone Outdoor Airflow - Voz-htg [m3/s]");
+
+        s->pdstS62znCoolDes = newPreDefSubTable(state, s->pdrStd62, "Zone Ventilation Calculations for Cooling Design");
+
+        s->pdchS62zcdAlN = newPreDefColumn(state, s->pdstS62znCoolDes, "AirLoop Name");
+        s->pdchS62zcdBox = newPreDefColumn(state, s->pdstS62znCoolDes, "Box Type");
+        s->pdchS62zcdVpz = newPreDefColumn(state, s->pdstS62znCoolDes, "Zone Primary Airflow - Vpz [m3/s]");
+        // s->pdchS62zcdVps =         newPreDefColumn(state, s->pdstS62znCoolDes,'System Primary Airflow - Vps [m3/s]')
+        // s->pdchS62zcdVsec =        newPreDefColumn(state, s->pdstS62znCoolDes,'Secondary Fan Airflow - Vsec [m3/s]')
+        s->pdchS62zcdVdz = newPreDefColumn(state, s->pdstS62znCoolDes, "Zone Discharge Airflow - Vdz [m3/s]");
+        s->pdchS62zcdVpzmin = newPreDefColumn(state, s->pdstS62znCoolDes, "Minimum Zone Primary Airflow - Vpz-min [m3/s]");
+        s->pdchS62zcdVpzminSPSize =
+            newPreDefColumn(state, s->pdstS62znCoolDes, "Is Vpz-min calculated using the Standard 62.1 Simplified Procedure?");
+        s->pdchS62zcdVozclg = newPreDefColumn(state, s->pdstS62znCoolDes, "Zone Outdoor Airflow Cooling - Voz-clg [m3/s]");
+        s->pdchS62zcdZpz = newPreDefColumn(state, s->pdstS62znCoolDes, "Primary Outdoor Air Fraction - Zpz");
+        s->pdchS62zcdEp = newPreDefColumn(state, s->pdstS62znCoolDes, "Primary Air Fraction - Ep");
+        s->pdchS62zcdEr = newPreDefColumn(state, s->pdstS62znCoolDes, "Secondary Recirculation Fraction- Er");
+        s->pdchS62zcdFa = newPreDefColumn(state, s->pdstS62znCoolDes, "Supply Air Fraction- Fa");
+        s->pdchS62zcdFb = newPreDefColumn(state, s->pdstS62znCoolDes, "Mixed Air Fraction - Fb");
+        s->pdchS62zcdFc = newPreDefColumn(state, s->pdstS62znCoolDes, "Outdoor Air Fraction - Fc");
+        s->pdchS62zcdEvz = newPreDefColumn(state, s->pdstS62znCoolDes, "Zone Ventilation Efficiency - Evz");
+
+        s->pdstS62sysCoolDes = newPreDefSubTable(state, s->pdrStd62, "System Ventilation Calculations for Cooling Design");
+
+        s->pdchS62scdVpz = newPreDefColumn(state, s->pdstS62sysCoolDes, "Sum of Zone Primary Airflow - Vpz-sum [m3/s]");
+        s->pdchS62scdVps = newPreDefColumn(state, s->pdstS62sysCoolDes, "System Primary Airflow - Vps [m3/s]");
+        // s->pdchS62scdVsec =        newPreDefColumn(state, s->pdstS62sysCoolDes,'Secondary Fan Airflow - Vsec [m3/s]')
+        s->pdchS62scdVdz = newPreDefColumn(state, s->pdstS62sysCoolDes, "Sum of Zone Discharge Airflow - Vdz-sum [m3/s]");
+        s->pdchS62scdVpzmin = newPreDefColumn(state, s->pdstS62sysCoolDes, "Sum of Min Zone Primary Airflow - Vpz-min [m3/s]");
+        s->pdchS62scdVozclg = newPreDefColumn(state, s->pdstS62sysCoolDes, "Zone Outdoor Airflow Cooling - Voz-clg [m3/s]");
+        s->pdchS62scdEvz = newPreDefColumn(state, s->pdstS62sysCoolDes, "Zone Ventilation Efficiency - Evz-min");
+
+        s->pdstS62znHeatDes = newPreDefSubTable(state, s->pdrStd62, "Zone Ventilation Calculations for Heating Design");
+
+        s->pdchS62zhdAlN = newPreDefColumn(state, s->pdstS62znHeatDes, "AirLoop Name");
+        s->pdchS62zhdBox = newPreDefColumn(state, s->pdstS62znHeatDes, "Box Type");
+        s->pdchS62zhdVpz = newPreDefColumn(state, s->pdstS62znHeatDes, "Zone Primary Airflow - Vpz [m3/s]");
+        // s->pdchS62zhdVps =         newPreDefColumn(state, s->pdstS62znHeatDes,'System Primary Airflow - Vps [m3/s]')
+        // s->pdchS62zhdVsec =        newPreDefColumn(state, s->pdstS62znHeatDes,'Secondary Fan Airflow - Vsec [m3/s]')
+        s->pdchS62zhdVdz = newPreDefColumn(state, s->pdstS62znHeatDes, "Zone Discharge Airflow - Vdz [m3/s]");
+        s->pdchS62zhdVpzmin = newPreDefColumn(state, s->pdstS62znHeatDes, "Minimum Zone Primary Airflow - Vpz-min [m3/s]");
+        s->pdchS62zhdVpzminSPSize =
+            newPreDefColumn(state, s->pdstS62znHeatDes, "Is Vpz-min calculated using the Standard 62.1 Simplified Procedure?");
+        s->pdchS62zhdVozhtg = newPreDefColumn(state, s->pdstS62znHeatDes, "Zone Outdoor Airflow Heating - Voz-htg [m3/s]");
+        s->pdchS62zhdZpz = newPreDefColumn(state, s->pdstS62znHeatDes, "Primary Outdoor Air Fraction - Zpz");
+        s->pdchS62zhdEp = newPreDefColumn(state, s->pdstS62znHeatDes, "Primary Air Fraction - Ep");
+        s->pdchS62zhdEr = newPreDefColumn(state, s->pdstS62znHeatDes, "Secondary Recirculation Fraction- Er");
+        s->pdchS62zhdFa = newPreDefColumn(state, s->pdstS62znHeatDes, "Supply Air Fraction- Fa");
+        s->pdchS62zhdFb = newPreDefColumn(state, s->pdstS62znHeatDes, "Mixed Air Fraction - Fb");
+        s->pdchS62zhdFc = newPreDefColumn(state, s->pdstS62znHeatDes, "Outdoor Air Fraction - Fc");
+        s->pdchS62zhdEvz = newPreDefColumn(state, s->pdstS62znHeatDes, "Zone Ventilation Efficiency - Evz");
+
+        s->pdstS62sysHeatDes = newPreDefSubTable(state, s->pdrStd62, "System Ventilation Calculations for Heating Design");
+
+        s->pdchS62shdVpz = newPreDefColumn(state, s->pdstS62sysHeatDes, "Sum of Zone Primary Airflow - Vpz-sum [m3/s]");
+        s->pdchS62shdVps = newPreDefColumn(state, s->pdstS62sysHeatDes, "System Primary Airflow - Vps [m3/s]");
+        // s->pdchS62shdVsec =        newPreDefColumn(state, s->pdstS62sysHeatDes,'Secondary Fan Airflow - Vsec [m3/s]')
+        s->pdchS62shdVdz = newPreDefColumn(state, s->pdstS62sysHeatDes, "Sum of Zone Discharge Airflow - Vdz-sum [m3/s]");
+        s->pdchS62shdVpzmin = newPreDefColumn(state, s->pdstS62sysHeatDes, "Sum of Min Zone Primary Airflow - Vpz-min [m3/s]");
+        s->pdchS62shdVozhtg = newPreDefColumn(state, s->pdstS62sysHeatDes, "Zone Outdoor Airflow Heating - Voz-htg [m3/s]");
+        s->pdchS62shdEvz = newPreDefColumn(state, s->pdstS62sysHeatDes, "Zone Ventilation Efficiency - Evz-min");
+>>>>>>> nrel/develop
         s->pdrLeed = newPreDefReport(state, "LEEDsummary", "LEED", "LEED Summary");
 
         s->pdstLeedGenInfo = newPreDefSubTable(state, s->pdrLeed, "Sec1.1A-General Information");
@@ -1725,6 +1889,15 @@ namespace OutputReportPredefined {
         s->pdchLeedSchStPt11pmWednesday = newPreDefColumn(state, s->pdstLeedSchedSetPts, "11pm First Wednesday [C]");
         s->pdchLeedSchStPt11pmWedCnt = newPreDefColumn(state, s->pdstLeedSchedSetPts, "Days with Same 11pm Value");
 
+<<<<<<< HEAD
+=======
+        s->pdstLeedVentilation = newPreDefSubTable(state, s->pdrLeed, "Ventilation");
+        s->pdchLeedVentMinVentPerArea = newPreDefColumn(state, s->pdstLeedVentilation, "Minimum Ventilation Per Area [m3/s-m2]");
+        s->pdchLeedVentMinVentPerZone = newPreDefColumn(state, s->pdstLeedVentilation, "Minimum Ventilation Per Zone [m3/s]");
+        s->pdchLeedVentMinFlowPerArea = newPreDefColumn(state, s->pdstLeedVentilation, "Minimum Flow Per Area [m3/s-m2]");
+        s->pdchLeedVentMinFlowPerZone = newPreDefColumn(state, s->pdstLeedVentilation, "Minimum Flow Per Zone [m3/s]");
+
+>>>>>>> nrel/develop
         s->pdrCO2Resilience = newPreDefReport(state, "CO2ResilienceSummary", "CO2R", "Annual CO2 Resilience Summary");
 
         s->pdstCO2Hours = newPreDefSubTable(state, s->pdrCO2Resilience, "CO2 Level Hours");
@@ -1779,6 +1952,7 @@ namespace OutputReportPredefined {
         //   Creates an entry for predefined tables when the entry
         //   is a real variable
 
+<<<<<<< HEAD
         // METHODOLOGY EMPLOYED:
         //   Simple assignments to public variables.
 
@@ -1800,6 +1974,16 @@ namespace OutputReportPredefined {
 
         // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
         incrementTableEntry(state);
+=======
+        assert(columnIndex > 0 && columnIndex <= state.dataOutRptPredefined->numColumnTag);
+        auto &column = state.dataOutRptPredefined->columnTag(columnIndex);
+        auto &table = state.dataOutRptPredefined->subTable(column.indexSubTable);
+
+        incrementTableEntry(state, column.indexSubTable);
+
+        auto &entry = table.entries(table.numEntries);
+
+>>>>>>> nrel/develop
         int sigDigitCount = 2;
         // check for number of significant digits
         if (present(numSigDigits)) {
@@ -1811,14 +1995,19 @@ namespace OutputReportPredefined {
         if (std::abs(tableEntryReal) < 1e8) { // change from 1e10 for more robust entry writing
             // something changed in FMT 7.x and "{:#12.{}F}" now outputs 13. So changing it to 11.{}F to maintain existing functionality. Likely
             // related to https://github.com/fmtlib/fmt/issues/1893
+<<<<<<< HEAD
             state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).charEntry =
                 EnergyPlus::format("{:#11.{}F}", tableEntryReal, sigDigitCount);
+=======
+            entry.charEntry = std::format("{:#11.{}F}", tableEntryReal, sigDigitCount);
+>>>>>>> nrel/develop
         } else {
             // Formatting in scientific notation, zero sigDigits makes zero sense.
             // **for something greater than 1E+08**, one sigDigits is very unhelpful (you're having an accuracy of 0.5E+07 at best)
             if (sigDigitCount < 2) {
                 sigDigitCount = 2;
             }
+<<<<<<< HEAD
             state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).charEntry =
                 EnergyPlus::format("{:12.{}E}", tableEntryReal, sigDigitCount);
         }
@@ -1832,6 +2021,21 @@ namespace OutputReportPredefined {
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).origRealEntry = tableEntryReal;
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).significantDigits = sigDigitCount;
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).origEntryIsReal = true;
+=======
+            entry.charEntry = std::format("{:12.{}E}", tableEntryReal, sigDigitCount);
+        }
+
+        if (entry.charEntry.size() > 12) {
+            entry.charEntry = "  Too Big";
+        }
+
+        entry.objectName = objName;
+        entry.indexColumn = columnIndex;
+        entry.indexTable = column.indexSubTable;
+        entry.origRealEntry = tableEntryReal;
+        entry.significantDigits = sigDigitCount;
+        entry.origEntryIsReal = true;
+>>>>>>> nrel/develop
     }
 
     void PreDefTableEntry(EnergyPlusData &state, int const columnIndex, std::string_view objName, std::string_view tableEntryChar)
@@ -1846,6 +2050,7 @@ namespace OutputReportPredefined {
         //   Creates an entry for predefined tables when the entry
         //   is a character variable
 
+<<<<<<< HEAD
         // METHODOLOGY EMPLOYED:
         //   Simple assignments to public variables.
 
@@ -1872,6 +2077,19 @@ namespace OutputReportPredefined {
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).charEntry = tableEntryChar;
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).objectName = objName;
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).indexColumn = columnIndex;
+=======
+        assert(columnIndex > 0 && columnIndex <= state.dataOutRptPredefined->numColumnTag);
+        auto &column = state.dataOutRptPredefined->columnTag(columnIndex);
+        auto &table = state.dataOutRptPredefined->subTable(column.indexSubTable);
+
+        incrementTableEntry(state, column.indexSubTable);
+
+        auto &entry = table.entries(table.numEntries);
+        entry.charEntry = tableEntryChar;
+        entry.objectName = objName;
+        entry.indexColumn = columnIndex;
+        entry.indexTable = column.indexSubTable;
+>>>>>>> nrel/develop
     }
 
     void PreDefTableEntry(EnergyPlusData &state, int const columnIndex, std::string_view objName, int const tableEntryInt)
@@ -1886,6 +2104,7 @@ namespace OutputReportPredefined {
         //   Creates an entry for predefined tables when the entry
         //   is a integer variable
 
+<<<<<<< HEAD
         // METHODOLOGY EMPLOYED:
         //   Simple assignments to public variables.
 
@@ -1912,20 +2131,49 @@ namespace OutputReportPredefined {
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).charEntry = EnergyPlus::format("{:12}", tableEntryInt);
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).objectName = objName;
         state.dataOutRptPredefined->tableEntry(state.dataOutRptPredefined->numTableEntry).indexColumn = columnIndex;
+=======
+        assert(columnIndex > 0 && columnIndex <= state.dataOutRptPredefined->numColumnTag);
+        auto &column = state.dataOutRptPredefined->columnTag(columnIndex);
+        auto &table = state.dataOutRptPredefined->subTable(column.indexSubTable);
+
+        incrementTableEntry(state, column.indexSubTable);
+
+        auto &entry = table.entries(table.numEntries);
+
+        // convert the integer to a string
+        entry.charEntry = std::format("{:12}", tableEntryInt);
+        entry.objectName = objName;
+        entry.indexColumn = columnIndex;
+        entry.indexTable = column.indexSubTable;
+>>>>>>> nrel/develop
     }
 
     std::string RetrievePreDefTableEntry(EnergyPlusData &state, int const columnIndex, std::string_view objName)
     {
+<<<<<<< HEAD
         for (int iTableEntry = 1; iTableEntry <= state.dataOutRptPredefined->numTableEntry; ++iTableEntry) {
             if (state.dataOutRptPredefined->tableEntry(iTableEntry).indexColumn == columnIndex &&
                 state.dataOutRptPredefined->tableEntry(iTableEntry).objectName == objName) {
                 return trimmed(ljustified(state.dataOutRptPredefined->tableEntry(iTableEntry).charEntry));
+=======
+        assert(columnIndex > 0 && columnIndex <= state.dataOutRptPredefined->numColumnTag);
+        auto &column = state.dataOutRptPredefined->columnTag(columnIndex);
+        auto &table = state.dataOutRptPredefined->subTable(column.indexSubTable);
+
+        for (int i = 1; i <= table.numEntries; ++i) {
+            if (table.entries(i).indexColumn == columnIndex && table.entries(i).objectName == objName) {
+                return trimmed(ljustified(table.entries(i).charEntry));
+>>>>>>> nrel/develop
             }
         }
         return "NOT FOUND";
     }
 
+<<<<<<< HEAD
     void incrementTableEntry(EnergyPlusData &state)
+=======
+    void incrementTableEntry(EnergyPlusData &state, int const subTableNum)
+>>>>>>> nrel/develop
     {
         // SUBROUTINE INFORMATION:
         //       AUTHOR         Jason Glazer
@@ -1936,6 +2184,7 @@ namespace OutputReportPredefined {
         // PURPOSE OF THIS SUBROUTINE:
         //   Manages the resizing of the TableEntry Array
 
+<<<<<<< HEAD
         // METHODOLOGY EMPLOYED:
         //   Simple assignments to public variables.
 
@@ -1968,6 +2217,20 @@ namespace OutputReportPredefined {
                 state.dataOutRptPredefined->tableEntry.redimension(
                     state.dataOutRptPredefined->sizeTableEntry *=
                     2); // Tuned Changed += sizeIncrement to *= 2 for reduced heap allocations (at some space cost)
+=======
+        assert(subTableNum > 0 && subTableNum <= state.dataOutRptPredefined->numSubTable);
+        auto &table = state.dataOutRptPredefined->subTable(subTableNum);
+
+        if (!allocated(table.entries)) {
+            table.entries.allocate(sizeIncrement);
+            table.sizeEntries = sizeIncrement;
+            table.numEntries = 1;
+        } else {
+            ++table.numEntries;
+            // if larger than current size grow the array
+            if (table.numEntries > table.sizeEntries) {
+                table.entries.redimension(table.sizeEntries *= 2); // Tuned Changed += sizeIncrement to *= 2 for reduced heap allocations
+>>>>>>> nrel/develop
             }
         }
     }

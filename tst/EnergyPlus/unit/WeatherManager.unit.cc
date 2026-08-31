@@ -615,7 +615,11 @@ TEST_F(EnergyPlusFixture, WaterMainsOutputReports_CorrelationFromWeatherFileTest
     });
 
     ASSERT_TRUE(process_idf(idf_objects));
+<<<<<<< HEAD
     compare_eio_stream_substring("", true);
+=======
+    compare_err_stream("", true);
+>>>>>>> nrel/develop
     bool foundErrors(false);
     Weather::GetWaterMainsTemperatures(*state, foundErrors);
     EXPECT_FALSE(foundErrors); // expect no errors
@@ -1056,9 +1060,15 @@ TEST_F(EnergyPlusFixture, IRHoriz_InterpretWeatherZeroIRHoriz)
     bool ErrorFound;
     std::string ErrOut;
 
+<<<<<<< HEAD
     for (auto WeatherDataLine : Lines) {
         Weather::InterpretWeatherDataLine(*state,
                                           WeatherDataLine,
+=======
+    for (auto loopWeatherDataLine : Lines) {
+        Weather::InterpretWeatherDataLine(*state,
+                                          loopWeatherDataLine,
+>>>>>>> nrel/develop
                                           ErrorFound,
                                           WYear,
                                           WMonth,

@@ -46,24 +46,41 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <thread>
 
 // CLI Headers
 #include <CLI/CLI11.hpp>
 
+<<<<<<< HEAD
 // Project headers
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/CommandLineInterface.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataStringGlobals.hh>
 #include <EnergyPlus/DisplayRoutines.hh>
 #include <EnergyPlus/EnergyPlus.hh>
 #include <EnergyPlus/FileSystem.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/PluginManager.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
 
 #if LINK_WITH_PYTHON
 #    include <EnergyPlus/PythonEngine.hh>
 #endif
+=======
+#include <EnergyPlus/Formatters.hh>
+#include <EnergyPlus/PluginManager.hh>
+#if LINK_WITH_PYTHON
+#    include <EnergyPlus/PythonEngine.hh>
+#endif
+#include <EnergyPlus/UtilityRoutines.hh>
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 
@@ -114,7 +131,11 @@ namespace CommandLineInterface {
         // opt.add("", false, 0, 0, "Display version information", "-v", "--version");
         app.set_version_flag("-v,--version", EnergyPlus::DataStringGlobals::VerString);
 
+<<<<<<< HEAD
         std::string const description = fmt::format(R"({}
+=======
+        std::string const description = std::format(R"({}
+>>>>>>> nrel/develop
 PythonLinkage: {}
 Built on Platform: {}
 )",
@@ -180,7 +201,11 @@ Built on Platform: {}
                 bool const converted = CLI::detail::lexical_cast(input, number_of_threads);
                 if (!converted) {
                     // CLI::ValidationError
+<<<<<<< HEAD
                     return fmt::format("Argument should be an integer, not '{}'", input);
+=======
+                    return std::format("Argument should be an integer, not '{}'", input);
+>>>>>>> nrel/develop
                 }
                 if (number_of_threads <= 0) {
                     DisplayString(state, "Invalid value for -j arg. Defaulting to 1.");
@@ -188,7 +213,11 @@ Built on Platform: {}
                 }
                 if (number_of_threads > MAX_N) {
                     DisplayString(state,
+<<<<<<< HEAD
                                   fmt::format("Invalid value for -j arg. Value exceeds num available. Defaulting to num available. -j {}", MAX_N));
+=======
+                                  std::format("Invalid value for -j arg. Value exceeds num available. Defaulting to num available. -j {}", MAX_N));
+>>>>>>> nrel/develop
                     return std::to_string(MAX_N);
                 }
                 return input;
@@ -216,6 +245,7 @@ Built on Platform: {}
         bool debugCLI = std::any_of(args.begin(), args.end(), [](const auto &arg) { return arg == "--debug-cli"; });
         if (debugCLI) {
             {
+<<<<<<< HEAD
                 fmt::print("ProcessArgs: received args\n");
                 int na = 0;
                 for (const auto &a : args) {
@@ -230,6 +260,22 @@ Built on Platform: {}
                 }
             }
             fmt::print("\n");
+=======
+                EnergyPlus::print("ProcessArgs: received args\n");
+                int na = 0;
+                for (const auto &a : args) {
+                    EnergyPlus::print("* {}: '{}'\n", na++, a);
+                }
+            }
+            {
+                EnergyPlus::print("\nAfter massaging/expanding of args\n");
+                int na = 0;
+                for (const auto &a : arguments) {
+                    EnergyPlus::print("* {}: '{}'\n", na++, a);
+                }
+            }
+            EnergyPlus::print("\n");
+>>>>>>> nrel/develop
         }
         // bool debugCLI = false;
         app.add_flag("--debug-cli", debugCLI, "Print the result of the CLI assignments to the console and exit")->group(""); // Empty group to hide it
@@ -257,7 +303,11 @@ main_gui(True)
             exit(0);
         });
 
+<<<<<<< HEAD
         auto *updaterSubCommand = auxiliaryToolsSubcommand->add_subcommand("updater", "IDF Version Updater");
+=======
+        auto *updaterSubCommand = auxiliaryToolsSubcommand->add_subcommand("updater", "IDF Version Updater GUI");
+>>>>>>> nrel/develop
         updaterSubCommand->add_option("args", python_fwd_args, "Extra Arguments forwarded to IDF Version Updater")->option_text("ARG ...");
         updaterSubCommand->positionals_at_end(true);
         updaterSubCommand->footer("You can pass extra arguments after the updater keyword, they will be forwarded to IDF Version Updater.");
@@ -266,6 +316,22 @@ main_gui(True)
             EnergyPlus::Python::PythonEngine engine(state);
             // There's probably better to be done, like instantiating the pythonEngine with the argc/argv then calling PyRun_SimpleFile but whatever
             std::string cmd = Python::PythonEngine::getTclPreppedPreamble(python_fwd_args);
+<<<<<<< HEAD
+=======
+#        if DEBUG_PYTHON_CONFIG
+            cmd += R"python(
+import sys, sysconfig, pprint
+print(f"sys.executable={sys.executable}")
+print(f"sys.version={sys.version}")
+pprint.pprint({"sys.path": sys.path,
+             "sys.prefix": sys.prefix,
+             "sys.base_prefix": sys.base_prefix,
+             "sys.exec_prefix": sys.exec_prefix,
+             "sys.base_exec_prefix": sys.base_exec_prefix})
+pprint.pprint(sysconfig.get_paths())
+)python";
+#        endif
+>>>>>>> nrel/develop
             cmd += R"python(
 from energyplus_transition.runner import main_gui
 main_gui(True)
@@ -274,6 +340,42 @@ main_gui(True)
             exit(0);
         });
 
+<<<<<<< HEAD
+=======
+        auto *updaterCLISubCommand = auxiliaryToolsSubcommand->add_subcommand("updater-cli", "IDF Version Updater CLI");
+        updaterCLISubCommand->allow_extras();
+        updaterCLISubCommand->footer("You can pass extra arguments after the updater-cli keyword, they will be forwarded to IDF Version Updater.\n"
+                                     "To get updater-cli's help, invoke without any arguments.");
+
+        updaterCLISubCommand->callback([&state, updaterCLISubCommand] {
+            EnergyPlus::Python::PythonEngine engine(state);
+            auto const &fwd_args = updaterCLISubCommand->remaining();
+
+            std::string cmd = R"python(import sys
+sys.argv = ["energyplus auxiliary updater-cli"]
+
+from energyplus_transition.cli import main
+main([)python";
+            if (fwd_args.empty()) {
+                cmd += "\"--help\"";
+            } else {
+                // Unless specifically passed, we pass eplus-dir to the current executable directory, so it doesn't try to auto find in the usual
+                // installation paths
+                bool eplus_dir_provided =
+                    std::any_of(fwd_args.begin(), fwd_args.end(), [](const std::string &a) { return a == "-e" || a == "--eplus-dir"; });
+                if (!eplus_dir_provided) {
+                    cmd += std::format(R"("--eplus-dir", "{:g}", )", state.dataStrGlobals->exeDirectoryPath);
+                }
+                for (const auto &arg : fwd_args) {
+                    cmd += std::format("\"{}\", ", arg);
+                }
+            }
+            cmd += "])\n";
+            engine.exec(cmd);
+            exit(0);
+        });
+
+>>>>>>> nrel/develop
         auto *gheDesignerSubCommand = auxiliaryToolsSubcommand->add_subcommand("ghedesigner", "GHEDesigner Operation");
         gheDesignerSubCommand->add_option("args", python_fwd_args, "Extra Arguments forwarded to GHEDesigner")->option_text("ARG ...");
         gheDesignerSubCommand->positionals_at_end(true);
@@ -324,8 +426,13 @@ run_manager_from_cli()
         }
 
         if (debugCLI) {
+<<<<<<< HEAD
             fmt::print(stderr,
                        R"debug(
+=======
+            EnergyPlus::print(stderr,
+                              R"debug(
+>>>>>>> nrel/develop
 state.dataGlobal->AnnualSimulation = {},
 state.dataGlobal->DDOnlySimulation = {},
 state.dataStrGlobals->outDirPath = '{:g}',
@@ -344,6 +451,7 @@ state.dataGlobal->numThread={},
 state.files.inputWeatherFilePath.filePath='{:g}',
 state.dataStrGlobals->inputFilePath='{:g}',
 )debug",
+<<<<<<< HEAD
                        state.dataGlobal->AnnualSimulation,
                        state.dataGlobal->DDOnlySimulation,
                        state.dataStrGlobals->outDirPath,
@@ -360,6 +468,24 @@ state.dataStrGlobals->inputFilePath='{:g}',
                        state.dataStrGlobals->inputFilePath);
 
             fmt::print(stderr, "--debug-cli passed: exiting early\n");
+=======
+                              state.dataGlobal->AnnualSimulation,
+                              state.dataGlobal->DDOnlySimulation,
+                              state.dataStrGlobals->outDirPath,
+                              state.dataStrGlobals->inputIddFilePath,
+
+                              runEPMacro,
+                              prefixOutName,
+                              state.dataGlobal->runReadVars,
+                              state.dataGlobal->outputEpJSONConversion,
+                              state.dataGlobal->outputEpJSONConversionOnly,
+                              suffixType,
+                              state.dataGlobal->numThread,
+                              state.files.inputWeatherFilePath.filePath,
+                              state.dataStrGlobals->inputFilePath);
+
+            EnergyPlus::print(stderr, "--debug-cli passed: exiting early\n");
+>>>>>>> nrel/develop
 
             exit(0);
         }
@@ -396,7 +522,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
                 break;
             default:
                 DisplayString(state,
+<<<<<<< HEAD
                               fmt::format("ERROR: Input file must have IDF, IMF, or epJSON extension: {:g}", state.dataStrGlobals->inputFilePath));
+=======
+                              std::format("ERROR: Input file must have IDF, IMF, or epJSON extension: {:g}", state.dataStrGlobals->inputFilePath));
+>>>>>>> nrel/develop
                 if (eplusRunningViaAPI) {
                     return static_cast<int>(ReturnCodes::Failure);
                 }
@@ -606,7 +736,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
         if (FileSystem::fileExists(state.files.iniFile.filePath)) {
             EnergyPlus::InputFile iniFile = state.files.iniFile.try_open();
             if (!iniFile.good()) {
+<<<<<<< HEAD
                 DisplayString(state, fmt::format("ERROR: Could not open file {} for input (read).", iniFile.filePath));
+=======
+                DisplayString(state, std::format("ERROR: Could not open file {} for input (read).", iniFile.filePath));
+>>>>>>> nrel/develop
                 if (eplusRunningViaAPI) {
                     return static_cast<int>(ReturnCodes::Failure);
                 }
@@ -634,7 +768,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
         // Check if specified files exist
         if (!FileSystem::fileExists(state.dataStrGlobals->inputFilePath)) {
             DisplayString(
+<<<<<<< HEAD
                 state, fmt::format("ERROR: Could not find input data file: {}.", FileSystem::getAbsolutePath(state.dataStrGlobals->inputFilePath)));
+=======
+                state, std::format("ERROR: Could not find input data file: {}.", FileSystem::getAbsolutePath(state.dataStrGlobals->inputFilePath)));
+>>>>>>> nrel/develop
             DisplayString(state, errorFollowUp);
             if (eplusRunningViaAPI) {
                 return static_cast<int>(ReturnCodes::Failure);
@@ -646,7 +784,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
             if (!FileSystem::fileExists(state.files.inputWeatherFilePath.filePath)) {
                 DisplayString(
                     state,
+<<<<<<< HEAD
                     fmt::format("ERROR: Could not find weather file: {}.", FileSystem::getAbsolutePath(state.files.inputWeatherFilePath.filePath)));
+=======
+                    std::format("ERROR: Could not find weather file: {}.", FileSystem::getAbsolutePath(state.files.inputWeatherFilePath.filePath)));
+>>>>>>> nrel/develop
                 DisplayString(state, errorFollowUp);
                 if (eplusRunningViaAPI) {
                     return static_cast<int>(ReturnCodes::Failure);
@@ -661,7 +803,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
         if (runEPMacro) {
             fs::path epMacroPath = (state.dataStrGlobals->exeDirectoryPath / "EPMacro").replace_extension(FileSystem::exeExtension);
             if (!FileSystem::fileExists(epMacroPath)) {
+<<<<<<< HEAD
                 DisplayString(state, fmt::format("ERROR: Could not find EPMacro executable: {}.", FileSystem::getAbsolutePath(epMacroPath)));
+=======
+                DisplayString(state, std::format("ERROR: Could not find EPMacro executable: {}.", FileSystem::getAbsolutePath(epMacroPath)));
+>>>>>>> nrel/develop
                 if (eplusRunningViaAPI) {
                     return static_cast<int>(ReturnCodes::Failure);
                 }
@@ -688,7 +834,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
                 (state.dataStrGlobals->exeDirectoryPath / fs::path("ExpandObjects")).replace_extension(FileSystem::exeExtension);
             if (!FileSystem::fileExists(expandObjectsPath)) {
                 DisplayString(state,
+<<<<<<< HEAD
                               fmt::format("ERROR: Could not find ExpandObjects executable: {}.", FileSystem::getAbsolutePath(expandObjectsPath)));
+=======
+                              std::format("ERROR: Could not find ExpandObjects executable: {}.", FileSystem::getAbsolutePath(expandObjectsPath)));
+>>>>>>> nrel/develop
                 if (eplusRunningViaAPI) {
                     return static_cast<int>(ReturnCodes::Failure);
                 }
@@ -700,7 +850,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
             // check if IDD actually exists since ExpandObjects still requires it
             if (!FileSystem::fileExists(state.dataStrGlobals->inputIddFilePath)) {
                 DisplayString(state,
+<<<<<<< HEAD
                               fmt::format("ERROR: Could not find input data dictionary: {}.",
+=======
+                              std::format("ERROR: Could not find input data dictionary: {}.",
+>>>>>>> nrel/develop
                                           FileSystem::getAbsolutePath(state.dataStrGlobals->inputIddFilePath)));
                 DisplayString(state, errorFollowUp);
                 if (eplusRunningViaAPI) {
@@ -719,7 +873,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
                 FileSystem::linkFile(state.dataStrGlobals->inputIddFilePath, "Energy+.idd");
             }
 
+<<<<<<< HEAD
             FileSystem::systemCall(expandObjectsCommand);
+=======
+            int const expandObjectsExitCode = FileSystem::systemCall(expandObjectsCommand);
+>>>>>>> nrel/develop
             if (!inputFilePathdIn) {
                 FileSystem::removeFile("in.idf");
             }
@@ -732,6 +890,18 @@ state.dataStrGlobals->inputFilePath='{:g}',
                 FileSystem::moveFile("expanded.idf", outputExpidfFilePath);
                 state.dataStrGlobals->inputFilePath = outputExpidfFilePath;
             }
+<<<<<<< HEAD
+=======
+
+            if (expandObjectsExitCode != 0) {
+                DisplayString(state, "ERROR: ExpandObjects failed to expand the HVACTemplate:* or GroundHeatTransfer:* objects in this input file.");
+                DisplayString(state, std::format("See {} for details.", FileSystem::getAbsolutePath(outputExperrFilePath)));
+                if (eplusRunningViaAPI) {
+                    return static_cast<int>(ReturnCodes::Failure);
+                }
+                exit(EXIT_FAILURE);
+            }
+>>>>>>> nrel/develop
         }
 
         return static_cast<int>(ReturnCodes::Success);
@@ -894,7 +1064,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
                         state,
                         "ERROR: Could not find ReadVarsESO executable.  When calling through C API, make sure to call setEnergyPlusRootDirectory");
                 } else {
+<<<<<<< HEAD
                     DisplayString(state, fmt::format("ERROR: Could not find ReadVarsESO executable: {}.", FileSystem::getAbsolutePath(readVarsPath)));
+=======
+                    DisplayString(state, std::format("ERROR: Could not find ReadVarsESO executable: {}.", FileSystem::getAbsolutePath(readVarsPath)));
+>>>>>>> nrel/develop
                 }
                 return static_cast<int>(ReturnCodes::Failure);
             }
@@ -907,7 +1081,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
         if (!rviFileExists) {
             std::ofstream ofs{RVIfile};
             if (!ofs.good()) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("EnergyPlus: Could not open file \"{}\" for output (write).", RVIfile));
+=======
+                ShowFatalError(state, std::format("EnergyPlus: Could not open file \"{}\" for output (write).", RVIfile));
+>>>>>>> nrel/develop
             } else {
                 ofs << FileSystem::toString(state.files.eso.filePath) << '\n';
                 ofs << FileSystem::toString(state.files.csv.filePath) << '\n';
@@ -918,7 +1096,11 @@ state.dataStrGlobals->inputFilePath='{:g}',
         if (!mviFileExists) {
             std::ofstream ofs{MVIfile};
             if (!ofs.good()) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("EnergyPlus: Could not open file \"{}\" for output (write).", RVIfile));
+=======
+                ShowFatalError(state, std::format("EnergyPlus: Could not open file \"{}\" for output (write).", RVIfile));
+>>>>>>> nrel/develop
             } else {
                 ofs << FileSystem::toString(state.files.mtr.filePath) << '\n';
                 ofs << FileSystem::toString(state.files.mtr_csv.filePath) << '\n';

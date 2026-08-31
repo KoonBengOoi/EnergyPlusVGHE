@@ -80,7 +80,11 @@ TEST_F(EnergyPlusFixture, SecondaryDXCoolingCoilSingleSpeed_Test1)
     DXCoilNum = 1;
     state->dataDXCoils->DXCoil.allocate(state->dataDXCoils->NumDXCoils);
     state->dataDXCoils->DXCoil(DXCoilNum).IsSecondaryDXCoilInZone = true;
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(DXCoilNum).DXCoilType_Num = HVAC::CoilDX_CoolingSingleSpeed;
+=======
+    state->dataDXCoils->DXCoil(DXCoilNum).coilType = HVAC::CoilType::CoolingDXSingleSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(DXCoilNum).TotalCoolingEnergyRate = 5000.0;
     state->dataDXCoils->DXCoil(DXCoilNum).ElecCoolingPower = 500.0;
     state->dataDXCoils->DXCoil(DXCoilNum).SecCoilSensibleHeatGainRate = 0.0;
@@ -103,7 +107,11 @@ TEST_F(EnergyPlusFixture, SecondaryDXCoolingCoilTwoSpeed_Test2)
     DXCoilNum = 1;
     state->dataDXCoils->DXCoil.allocate(state->dataDXCoils->NumDXCoils);
     state->dataDXCoils->DXCoil(DXCoilNum).IsSecondaryDXCoilInZone = true;
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(DXCoilNum).DXCoilType_Num = HVAC::CoilDX_CoolingTwoSpeed;
+=======
+    state->dataDXCoils->DXCoil(DXCoilNum).coilType = HVAC::CoilType::CoolingDXTwoSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(DXCoilNum).TotalCoolingEnergyRate = 5000.0;
     state->dataDXCoils->DXCoil(DXCoilNum).ElecCoolingPower = 500.0;
     state->dataDXCoils->DXCoil(DXCoilNum).SecCoilSensibleHeatGainRate = 0.0;
@@ -126,7 +134,11 @@ TEST_F(EnergyPlusFixture, SecondaryDXCoolingCoilMultiSpeed_Test3)
     DXCoilNum = 1;
     state->dataDXCoils->DXCoil.allocate(state->dataDXCoils->NumDXCoils);
     state->dataDXCoils->DXCoil(DXCoilNum).IsSecondaryDXCoilInZone = true;
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(DXCoilNum).DXCoilType_Num = HVAC::CoilDX_MultiSpeedCooling;
+=======
+    state->dataDXCoils->DXCoil(DXCoilNum).coilType = HVAC::CoilType::CoolingDXMultiSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(DXCoilNum).TotalCoolingEnergyRate = 5000.0;
     state->dataDXCoils->DXCoil(DXCoilNum).ElecCoolingPower = 500.0;
     state->dataDXCoils->DXCoil(DXCoilNum).SecCoilSensibleHeatGainRate = 0.0;
@@ -149,7 +161,11 @@ TEST_F(EnergyPlusFixture, SecondaryDXHeatingCoilSingleSpeed_Test4)
     DXCoilNum = 1;
     state->dataDXCoils->DXCoil.allocate(state->dataDXCoils->NumDXCoils);
     state->dataDXCoils->DXCoil(DXCoilNum).IsSecondaryDXCoilInZone = true;
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(DXCoilNum).DXCoilType_Num = HVAC::CoilDX_HeatingEmpirical;
+=======
+    state->dataDXCoils->DXCoil(DXCoilNum).coilType = HVAC::CoilType::HeatingDXSingleSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(DXCoilNum).MinOATCompressor = -5.0;
     state->dataDXCoils->DXCoil(DXCoilNum).TotalHeatingEnergyRate = 5500.0;
     state->dataDXCoils->DXCoil(DXCoilNum).ElecHeatingPower = 500.0;
@@ -231,7 +247,11 @@ TEST_F(EnergyPlusFixture, SecondaryDXHeatingCoilMultiSpeed_Test5)
     state->dataDXCoils->DXCoil(DXCoilNum).MSSecCoilSHRFF.allocate(state->dataDXCoils->DXCoil(DXCoilNum).NumOfSpeeds);
 
     state->dataDXCoils->DXCoil(DXCoilNum).IsSecondaryDXCoilInZone = true;
+<<<<<<< HEAD
     state->dataDXCoils->DXCoil(DXCoilNum).DXCoilType_Num = HVAC::CoilDX_MultiSpeedHeating;
+=======
+    state->dataDXCoils->DXCoil(DXCoilNum).coilType = HVAC::CoilType::HeatingDXMultiSpeed;
+>>>>>>> nrel/develop
     state->dataDXCoils->DXCoil(DXCoilNum).MinOATCompressor = -5.0;
     state->dataDXCoils->DXCoil(DXCoilNum).TotalHeatingEnergyRate = 5500.0;
     state->dataDXCoils->DXCoil(DXCoilNum).ElecHeatingPower = 500.0;

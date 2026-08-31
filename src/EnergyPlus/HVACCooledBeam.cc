@@ -142,13 +142,18 @@ namespace HVACCooledBeam {
         if (CompIndex == 0) {
             CBNum = Util::FindItemInList(CompName, state.dataHVACCooledBeam->CoolBeam);
             if (CBNum == 0) {
+<<<<<<< HEAD
                 ShowFatalError(state, EnergyPlus::format("SimCoolBeam: Cool Beam Unit not found={}", CompName));
+=======
+                ShowFatalError(state, std::format("SimCoolBeam: Cool Beam Unit not found={}", CompName));
+>>>>>>> nrel/develop
             }
             CompIndex = CBNum;
         } else {
             CBNum = CompIndex;
             if (CBNum > state.dataHVACCooledBeam->NumCB || CBNum < 1) {
                 ShowFatalError(state,
+<<<<<<< HEAD
                                EnergyPlus::format("SimCoolBeam: Invalid CompIndex passed={}, Number of Cool Beam Units={}, System name={}",
                                                   CompIndex,
                                                   state.dataHVACCooledBeam->NumCB,
@@ -162,12 +167,31 @@ namespace HVACCooledBeam {
                                        CompIndex,
                                        CompName,
                                        state.dataHVACCooledBeam->CoolBeam(CBNum).Name));
+=======
+                               std::format("SimCoolBeam: Invalid CompIndex passed={}, Number of Cool Beam Units={}, System name={}",
+                                           CompIndex,
+                                           state.dataHVACCooledBeam->NumCB,
+                                           CompName));
+            }
+            if (state.dataHVACCooledBeam->CheckEquipName(CBNum)) {
+                if (CompName != state.dataHVACCooledBeam->CoolBeam(CBNum).Name) {
+                    ShowFatalError(
+                        state,
+                        std::format("SimCoolBeam: Invalid CompIndex passed={}, Cool Beam Unit name={}, stored Cool Beam Unit for that index={}",
+                                    CompIndex,
+                                    CompName,
+                                    state.dataHVACCooledBeam->CoolBeam(CBNum).Name));
+>>>>>>> nrel/develop
                 }
                 state.dataHVACCooledBeam->CheckEquipName(CBNum) = false;
             }
         }
         if (CBNum == 0) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("Cool Beam Unit not found = {}", CompName));
+=======
+            ShowFatalError(state, std::format("Cool Beam Unit not found = {}", CompName));
+>>>>>>> nrel/develop
         }
 
         state.dataSize->CurTermUnitSizingNum =
@@ -226,7 +250,11 @@ namespace HVACCooledBeam {
         bool ErrorsFound(false); // Set to true if errors in input, fatal at end of routine
         int CtrlZone;            // controlled zome do loop index
         int SupAirIn;            // controlled zone supply air inlet index
+<<<<<<< HEAD
         bool AirNodeFound;
+=======
+        bool AirNodeFound = false;
+>>>>>>> nrel/develop
         int ADUNum;
 
         auto &CoolBeam = state.dataHVACCooledBeam->CoolBeam;
@@ -280,8 +308,13 @@ namespace HVACCooledBeam {
             } else if (Util::SameString(CoolBeam(CBNum).CBTypeString, "Active")) {
                 CoolBeam(CBNum).CBType = CooledBeamType::Active;
             } else {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("Illegal {} = {}.", cAlphaFields(3), CoolBeam(CBNum).CBTypeString));
                 ShowContinueError(state, EnergyPlus::format("Occurs in {} = {}", CurrentModuleObject, CoolBeam(CBNum).Name));
+=======
+                ShowSevereError(state, std::format("Illegal {} = {}.", cAlphaFields(3), CoolBeam(CBNum).CBTypeString));
+                ShowContinueError(state, std::format("Occurs in {} = {}", CurrentModuleObject, CoolBeam(CBNum).Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
 
@@ -435,6 +468,7 @@ namespace HVACCooledBeam {
                 }
             }
             // one assumes if there isn't one assigned, it's an error?
+<<<<<<< HEAD
             if (CoolBeam(CBNum).ADUNum == 0) {
                 ShowSevereError(
                     state,
@@ -442,11 +476,22 @@ namespace HVACCooledBeam {
                         "{}No matching Air Distribution Unit, for Unit = [{},{}].", RoutineName, CurrentModuleObject, CoolBeam(CBNum).Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("...should have outlet node={}", state.dataLoopNodes->NodeID(CoolBeam(CBNum).AirOutNode)));
+=======
+            AirNodeFound = false;
+            if (CoolBeam(CBNum).ADUNum == 0) {
+                ShowSevereError(
+                    state,
+                    std::format("{}No matching Air Distribution Unit, for Unit = [{},{}].", RoutineName, CurrentModuleObject, CoolBeam(CBNum).Name));
+                ShowContinueError(state, std::format("...should have outlet node={}", state.dataLoopNodes->NodeID(CoolBeam(CBNum).AirOutNode)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             } else {
 
                 // Fill the Zone Equipment data with the supply air inlet node number of this unit.
+<<<<<<< HEAD
                 AirNodeFound = false;
+=======
+>>>>>>> nrel/develop
                 for (CtrlZone = 1; CtrlZone <= state.dataGlobal->NumOfZones; ++CtrlZone) {
                     if (!state.dataZoneEquip->ZoneEquipConfig(CtrlZone).IsControlled) {
                         continue;
@@ -467,8 +512,13 @@ namespace HVACCooledBeam {
                 }
             }
             if (!AirNodeFound) {
+<<<<<<< HEAD
                 ShowSevereError(state, EnergyPlus::format("The outlet air node from the {} = {}", CurrentModuleObject, CoolBeam(CBNum).Name));
                 ShowContinueError(state, EnergyPlus::format("did not have a matching Zone Equipment Inlet Node, Node ={}", Alphas(5)));
+=======
+                ShowSevereError(state, std::format("The outlet air node from the {} = {}", CurrentModuleObject, CoolBeam(CBNum).Name));
+                ShowContinueError(state, std::format("did not have a matching Zone Equipment Inlet Node, Node ={}", Alphas(5)));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
             }
         }
@@ -481,7 +531,11 @@ namespace HVACCooledBeam {
         lNumericBlanks.deallocate();
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}Errors found in getting input. Preceding conditions cause termination.", RoutineName));
+=======
+            ShowFatalError(state, std::format("{}Errors found in getting input. Preceding conditions cause termination.", RoutineName));
+>>>>>>> nrel/develop
         }
     }
 
@@ -546,9 +600,15 @@ namespace HVACCooledBeam {
                     continue;
                 }
                 ShowSevereError(state,
+<<<<<<< HEAD
                                 EnergyPlus::format("InitCoolBeam: ADU=[Air Distribution Unit,{}] is not on any ZoneHVAC:EquipmentList.",
                                                    state.dataDefineEquipment->AirDistUnit(coolBeam.ADUNum).Name));
                 ShowContinueError(state, EnergyPlus::format("...Unit=[{},{}] will not be simulated.", CurrentModuleObject, coolBeam.Name));
+=======
+                                std::format("InitCoolBeam: ADU=[Air Distribution Unit,{}] is not on any ZoneHVAC:EquipmentList.",
+                                            state.dataDefineEquipment->AirDistUnit(coolBeam.ADUNum).Name));
+                ShowContinueError(state, std::format("...Unit=[{},{}] will not be simulated.", CurrentModuleObject, coolBeam.Name));
+>>>>>>> nrel/develop
             }
         }
 
@@ -744,7 +804,11 @@ namespace HVACCooledBeam {
                         state, coolBeam.UnitType, coolBeam.Name, "Maximum Total Chilled Water Flow Rate [m3/s]", coolBeam.MaxCoolWaterVolFlow);
                 } else {
                     ShowSevereError(state, "Autosizing of water flow requires a cooling loop Sizing:Plant object");
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Occurs in{} Object={}", coolBeam.UnitType, coolBeam.Name));
+=======
+                    ShowContinueError(state, std::format("Occurs in{} Object={}", coolBeam.UnitType, coolBeam.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -823,7 +887,11 @@ namespace HVACCooledBeam {
                     BaseSizer::reportSizerOutput(state, coolBeam.UnitType, coolBeam.Name, "Beam Length [m]", coolBeam.BeamLength);
                 } else {
                     ShowSevereError(state, "Autosizing of cooled beam length requires a cooling loop Sizing:Plant object");
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Occurs in{} Object={}", coolBeam.UnitType, coolBeam.Name));
+=======
+                    ShowContinueError(state, std::format("Occurs in{} Object={}", coolBeam.UnitType, coolBeam.Name));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             }
@@ -951,10 +1019,17 @@ namespace HVACCooledBeam {
                     int SolFlag = 0;
                     General::SolveRoot(state, ErrTolerance, 50, SolFlag, CWFlow, f, MinColdWaterFlow, MaxColdWaterFlow);
                     if (SolFlag == -1) {
+<<<<<<< HEAD
                         ShowWarningError(state, EnergyPlus::format("Cold water control failed in cooled beam unit {}", coolBeam.Name));
                         ShowContinueError(state, "  Iteration limit exceeded in calculating cold water mass flow rate");
                     } else if (SolFlag == -2) {
                         ShowWarningError(state, EnergyPlus::format("Cold water control failed in cooled beam unit {}", coolBeam.Name));
+=======
+                        ShowWarningError(state, std::format("Cold water control failed in cooled beam unit {}", coolBeam.Name));
+                        ShowContinueError(state, "  Iteration limit exceeded in calculating cold water mass flow rate");
+                    } else if (SolFlag == -2) {
+                        ShowWarningError(state, std::format("Cold water control failed in cooled beam unit {}", coolBeam.Name));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "  Bad cold water flow limits");
                     }
                 } else {
@@ -1222,12 +1297,36 @@ namespace HVACCooledBeam {
         auto &adu = state.dataDefineEquipment->AirDistUnit(this->ADUNum);
         if (!state.dataSize->TermUnitFinalZoneSizing.empty()) {
             auto &sizing = state.dataSize->TermUnitFinalZoneSizing(adu.TermUnitSizingNum);
+<<<<<<< HEAD
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinFlow, adu.Name, sizing.DesCoolVolFlowMin);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinOutdoorFlow, adu.Name, sizing.MinOA);
+=======
+            Real64 minZoneFlow = this->MaxAirVolFlow;
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinFlow, adu.Name, minZoneFlow, 4);
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermMinOutdoorFlow, adu.Name, sizing.MinOA, 4);
+>>>>>>> nrel/develop
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermSupCoolingSP, adu.Name, sizing.CoolDesTemp);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermSupHeatingSP, adu.Name, sizing.HeatDesTemp);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermHeatingCap, adu.Name, sizing.DesHeatLoad);
             OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermCoolingCap, adu.Name, sizing.DesCoolLoad);
+<<<<<<< HEAD
+=======
+
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchLeedVentMinFlowPerZone, sizing.ZoneName, minZoneFlow, 6);
+            Real64 minZoneFlowPerFloorArea = (sizing.TotalZoneFloorArea != 0.0) ? minZoneFlow / sizing.TotalZoneFloorArea : 0.0;
+            OutputReportPredefined::PreDefTableEntry(state, orp->pdchLeedVentMinFlowPerArea, sizing.ZoneName, minZoneFlowPerFloorArea, 6);
+            OutputReportPredefined::PreDefTableEntry(state,
+                                                     state.dataOutRptPredefined->pdchLeedVentMinVentPerZone,
+                                                     sizing.ZoneName,
+                                                     sizing.MinOA,
+                                                     6); // minZoneVoa
+            Real64 minZoneVoaPerFloorArea = (sizing.TotalZoneFloorArea != 0.0) ? sizing.MinOA / sizing.TotalZoneFloorArea : 0.0;
+            OutputReportPredefined::PreDefTableEntry(state,
+                                                     state.dataOutRptPredefined->pdchLeedVentMinVentPerArea,
+                                                     sizing.ZoneName,
+                                                     minZoneVoaPerFloorArea,
+                                                     6); // minZoneVoaPerFloorArea
+>>>>>>> nrel/develop
         }
         OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermTypeInp, adu.Name, this->UnitType);
         OutputReportPredefined::PreDefTableEntry(state, orp->pdchAirTermPrimFlow, adu.Name, this->MaxAirVolFlow);

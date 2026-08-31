@@ -96,9 +96,15 @@ Surface2D::Surface2D(ShapeCat const shapeCat, int const axis, Vertices const &v,
     // If sorting by y for slab method can detect clockwise faster by just comparing edges at bottom or top-most vertex
     Real64 area(0.0); // Actually 2x the signed area
     for (Vertices::size_type i = 0; i < n; ++i) {
+<<<<<<< HEAD
         Vector2D const &v(vertices[i]);
         Vector2D const &w(vertices[(i + 1) % n]);
         area += (v.x * w.y) - (w.x * v.y);
+=======
+        Vector2D const &vi(vertices[i]);
+        Vector2D const &w(vertices[(i + 1) % n]);
+        area += (vi.x * w.y) - (w.x * vi.y);
+>>>>>>> nrel/develop
     }
     if (area < 0.0) {
         std::reverse(vertices.begin() + 1, vertices.end()); // Vertices in clockwise order: Reverse all but first
@@ -134,16 +140,28 @@ Surface2D::Surface2D(ShapeCat const shapeCat, int const axis, Vertices const &v,
             using CrossEdges = std::vector<CrossEdge>;
             CrossEdges crossEdges;
             for (size_type i = 0; i < n; ++i) { // Find edges crossing slab
+<<<<<<< HEAD
                 Vector2D const &v(vertices[i]);
                 Vector2D const &w(vertices[(i + 1) % n]);
                 if (((v.y <= yl) && (yu <= w.y)) || // Crosses upward
                     ((yu <= v.y) && (w.y <= yl)))   // Crosses downward
+=======
+                Vector2D const &vi(vertices[i]);
+                Vector2D const &w(vertices[(i + 1) % n]);
+                if (((vi.y <= yl) && (yu <= w.y)) || // Crosses upward
+                    ((yu <= vi.y) && (w.y <= yl)))   // Crosses downward
+>>>>>>> nrel/develop
                 {
                     Edge const &e(edges[i]);
                     assert(e.y != 0.0);
                     Real64 const exy(e.x / e.y);
+<<<<<<< HEAD
                     Real64 const xb(v.x + (yl - v.y) * exy); // x_bot coordinate where edge intersects yl
                     Real64 const xt(v.x + (yu - v.y) * exy); // x_top coordinate where edge intersects yu
+=======
+                    Real64 const xb(vi.x + (yl - vi.y) * exy); // x_bot coordinate where edge intersects yl
+                    Real64 const xt(vi.x + (yu - vi.y) * exy); // x_top coordinate where edge intersects yu
+>>>>>>> nrel/develop
                     xl = std::min(xl, std::min(xb, xt));
                     xu = std::max(xu, std::max(xb, xt));
                     crossEdges.emplace_back(xb, xt, i);
@@ -233,8 +251,13 @@ Real64 SurfaceData::getInsideAirTemperature(EnergyPlusData &state, const int t_S
         // check whether this zone is a controlled zone or not
         if (!state.dataHeatBal->Zone(Zone).IsControlled) {
             ShowFatalError(state,
+<<<<<<< HEAD
                            EnergyPlus::format("Zones must be controlled for Ceiling-Diffuser Convection model. No system serves zone {}",
                                               state.dataHeatBal->Zone(Zone).Name));
+=======
+                           std::format("Zones must be controlled for Ceiling-Diffuser Convection model. No system serves zone {}",
+                                       state.dataHeatBal->Zone(Zone).Name));
+>>>>>>> nrel/develop
             // return;
         }
         // determine supply air conditions
@@ -505,14 +528,22 @@ Real64 SurfaceData::get_average_height(EnergyPlusData &state) const
     if (totalWidth == 0.0) {
         // This should never happen, but if it does, print a somewhat meaningful fatal error
         // (instead of allowing a divide by zero).
+<<<<<<< HEAD
         ShowFatalError(state, EnergyPlus::format("Calculated projected surface width is zero for surface=\"{}\"", Name));
+=======
+        ShowFatalError(state, std::format("Calculated projected surface width is zero for surface=\"{}\"", Name));
+>>>>>>> nrel/develop
     }
 
     Real64 averageHeight = 0.0;
     for (Vertices::size_type i = 0; i < n; ++i) {
         Vertex2D const &v(v2d[i]);
 
+<<<<<<< HEAD
         Vertex2D *v2;
+=======
+        Vertex2D const *v2;
+>>>>>>> nrel/develop
         if (i == n - 1) {
             v2 = &v2d[0];
         } else {
@@ -693,9 +724,27 @@ std::string cSurfaceClass(SurfaceClass const ClassNo)
     case SurfaceClass::Window: {
         ClassName = "Window";
     } break;
+<<<<<<< HEAD
     case SurfaceClass::GlassDoor: {
         ClassName = "Glass Door";
     } break;
+=======
+    case SurfaceClass::FixedWindow: {
+        ClassName = "FixedWindow";
+    } break;
+    case SurfaceClass::OperableWindow: {
+        ClassName = "OperableWindow";
+    } break;
+    case SurfaceClass::Skylight: {
+        ClassName = "Skylight";
+    } break;
+    case SurfaceClass::GlassDoor: {
+        ClassName = "Glass Door";
+    } break;
+    case SurfaceClass::OverheadDoor: {
+        ClassName = "OverheadDoor";
+    } break;
+>>>>>>> nrel/develop
     case SurfaceClass::Door: {
         ClassName = "Door";
     } break;
@@ -757,6 +806,7 @@ void GetVariableAbsorptanceSurfaceList(EnergyPlusData &state)
         if (thisConstruct.TotLayers == 0) {
             continue;
         }
+<<<<<<< HEAD
         if (thisConstruct.LayerPoint(1) == 0) {
             continue; // error finding material number
         }
@@ -775,6 +825,42 @@ void GetVariableAbsorptanceSurfaceList(EnergyPlusData &state)
                                        thisSurface.Name));
             } else {
                 state.dataSurface->AllVaryAbsOpaqSurfaceList.push_back(surfNum);
+=======
+        if (thisConstruct.LayerPoint(1) == 0 || thisConstruct.LayerPoint(thisConstruct.TotLayers) == 0) {
+            continue; // error finding material number for either outside or inside (shouldn't ever get to this?)
+        }
+        auto const *matExt = state.dataMaterial->materials(thisConstruct.LayerPoint(1));
+        auto const *matInt = state.dataMaterial->materials(thisConstruct.LayerPoint(thisConstruct.TotLayers));
+        if (matExt->group != Material::Group::Regular && matInt->group != Material::Group::Regular) {
+            continue;
+        }
+
+        bool pushedBack =
+            false; // gets set to true when the exterior gets pushed back to avoid double counting a surface in AllVaryAbsOpaqSurfaceList
+        if (matExt->group == Material::Group::Regular && matExt->absorpVarCtrlSignalOut != Material::VariableAbsCtrlSignal::Invalid) {
+            // check for dynamic coating defined on interior surface
+            if (thisSurface.ExtBoundCond != ExternalEnvironment) {
+                ShowWarningError(state,
+                                 std::format("MaterialProperty:VariableAbsorptance defined for the outside material of an interior surface, {}."
+                                             " This VariableAbsorptance property will be ignored here.",
+                                             thisSurface.Name));
+            } else {
+                state.dataSurface->AllVaryAbsOpaqSurfaceList.push_back(surfNum);
+                pushedBack = true;
+            }
+        }
+        if (matInt->group == Material::Group::Regular && matInt->absorpVarCtrlSignalIn != Material::VariableAbsCtrlSignal::Invalid) {
+            // check for dynamic coating defined on interior surface
+            if (thisSurface.ExtBoundCond != ExternalEnvironment) {
+                ShowWarningError(state,
+                                 std::format("MaterialProperty:VariableAbsorptance defined for the inside material of an interior surface, {}."
+                                             " This VariableAbsorptance property will be ignored here.",
+                                             thisSurface.Name));
+            } else {
+                if (!pushedBack) {
+                    state.dataSurface->AllVaryAbsOpaqSurfaceList.push_back(surfNum); // only add if the outside didn't already add this
+                }
+>>>>>>> nrel/develop
             }
         }
     }
@@ -786,12 +872,36 @@ void GetVariableAbsorptanceSurfaceList(EnergyPlusData &state)
             if (mat->group != Material::Group::Regular) {
                 continue;
             }
+<<<<<<< HEAD
             if (mat->absorpVarCtrlSignal != Material::VariableAbsCtrlSignal::Invalid) {
                 ShowWarningError(
                     state,
                     EnergyPlus::format("MaterialProperty:VariableAbsorptance defined on a inside-layer materials, {}. This VariableAbsorptance "
                                        "property will be ignored here",
                                        mat->Name));
+=======
+            if (mat->absorpVarCtrlSignalOut != Material::VariableAbsCtrlSignal::Invalid) {
+                ShowWarningError(
+                    state,
+                    std::format("MaterialProperty:VariableAbsorptance for the outside face defined on an inside-layer material, {} in {}."
+                                " This VariableAbsorptance property will be ignored here.",
+                                mat->Name,
+                                thisConstruct.Name));
+            }
+        }
+        for (int Layer = 1; Layer <= thisConstruct.TotLayers - 1; ++Layer) {
+            auto const *mat = state.dataMaterial->materials(thisConstruct.LayerPoint(Layer));
+            if (mat->group != Material::Group::Regular) {
+                continue;
+            }
+            if (mat->absorpVarCtrlSignalIn != Material::VariableAbsCtrlSignal::Invalid) {
+                ShowWarningError(
+                    state,
+                    std::format("MaterialProperty:VariableAbsorptance for the inside face defined on an outside-layer material, {} in {}."
+                                " This VariableAbsorptance property will be ignored here.",
+                                mat->Name,
+                                thisConstruct.Name));
+>>>>>>> nrel/develop
             }
         }
     }

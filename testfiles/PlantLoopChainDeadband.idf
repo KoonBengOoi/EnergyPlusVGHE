@@ -13,7 +13,11 @@
 ! System:   None.
 ! Plant:    A chain of 5 plant loops that connect LoadProfile:Plant objects to DistrictCooling and DistrictHeating by heat exchangers
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Plant Load Profile Example,  !- Name

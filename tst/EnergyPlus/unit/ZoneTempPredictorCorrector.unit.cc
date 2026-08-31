@@ -69,7 +69,10 @@
 #include <EnergyPlus/DataZoneEquipment.hh>
 #include <EnergyPlus/HeatBalanceManager.hh>
 #include <EnergyPlus/HybridModel.hh>
+<<<<<<< HEAD
 #include <EnergyPlus/IOFiles.hh>
+=======
+>>>>>>> nrel/develop
 #include <EnergyPlus/OutputReportPredefined.hh>
 #include <EnergyPlus/PoweredInductionUnits.hh>
 #include <EnergyPlus/ScheduleManager.hh>
@@ -301,6 +304,43 @@ TEST_F(EnergyPlusFixture, ZoneTempPredictorCorrector_ReportingTest)
         "  ThermostatSetpoint:SingleHeating,  !- Control 1 Object Type",
         "  Core_top HeatSPSched;    !- Control 1 Name",
         " ",
+<<<<<<< HEAD
+=======
+        "ZoneControl:Humidistat,",
+        "  Core_top Humidistat,     !- Name",
+        "  Core_top,                !- Zone Name",
+        "  Humidification Seasonal Dew-Point Temperature Sch,    !- Humidifying Setpoint Schedule Name",
+        "  Dehumidification Seasonal Dew-Point Temperature Sch,  !- Dehumidifying Setpoint Schedule Name",
+        "  Dewpoint;                                             !- Control Variable",
+        " ",
+        "ZoneControl:Humidistat,",
+        "  Core_bottom Humidistat,     !- Name",
+        "  Core_bottom,                !- Zone Name",
+        "  Humidification Seasonal Dew-Point Temperature Sch,    !- Humidifying Setpoint Schedule Name",
+        "  Dehumidification Seasonal Dew-Point Temperature Sch,  !- Dehumidifying Setpoint Schedule Name",
+        "  Dewpoint;                                             !- Control Variable",
+        " ",
+        "ZoneControl:Humidistat,",
+        "  Core_middle Humidistat,     !- Name",
+        "  Core_middle,                !- Zone Name",
+        "  Humidification Seasonal Dew-Point Temperature Sch,    !- Humidifying Setpoint Schedule Name",
+        "  Dehumidification Seasonal Dew-Point Temperature Sch,  !- Dehumidifying Setpoint Schedule Name",
+        "  Dewpoint;                                             !- Control Variable",
+        " ",
+        "ZoneControl:Humidistat,",
+        "  Core_basement Humidistat,     !- Name",
+        "  Core_basement,                !- Zone Name",
+        "  Humidification Seasonal Dew-Point Temperature Sch,    !- Humidifying Setpoint Schedule Name",
+        "  Dehumidification Seasonal Dew-Point Temperature Sch,  !- Dehumidifying Setpoint Schedule Name",
+        "  Dewpoint;                                             !- Control Variable",
+        " ",
+        "Schedule:Constant,",
+        "  Dehumidification Seasonal Dew-Point Temperature Sch,,14.0;",
+        " ",
+        "Schedule:Constant,",
+        "  Humidification Seasonal Dew-Point Temperature Sch,,10.0;",
+        " ",
+>>>>>>> nrel/develop
         "Schedule:Compact,",
         "  Single Heating Control Type Sched,  !- Name",
         "  Control Type,            !- Schedule Type Limits Name",
@@ -452,6 +492,11 @@ TEST_F(EnergyPlusFixture, ZoneTempPredictorCorrector_ReportingTest)
 
     state->dataGlobal->TimeStepsInHour = 1;    // must initialize this to get schedules initialized
     state->dataGlobal->MinutesInTimeStep = 60; // must initialize this to get schedules initialized
+<<<<<<< HEAD
+=======
+    state->dataEnvrn->OutBaroPress = 101325.0;
+    state->dataHVACGlobal->TimeStepSysSec = 6;
+>>>>>>> nrel/develop
     state->init_state(*state);
 
     bool ErrorsFound(false); // If errors detected in input
@@ -482,6 +527,29 @@ TEST_F(EnergyPlusFixture, ZoneTempPredictorCorrector_ReportingTest)
     state->dataHeatBalFanSys->LoadCorrectionFactor(CoolHeatZoneNum) = 1.0;
     state->dataHeatBalFanSys->LoadCorrectionFactor(DualZoneNum) = 1.0;
 
+<<<<<<< HEAD
+=======
+    state->dataHeatBalFanSys->SumLatentHTRadSys.allocate(state->dataZoneCtrls->NumTempControlledZones);
+    state->dataHeatBalFanSys->SumLatentHTRadSys(HeatZoneNum) = 0.0;
+    state->dataHeatBalFanSys->SumLatentHTRadSys(CoolZoneNum) = 0.0;
+    state->dataHeatBalFanSys->SumLatentHTRadSys(CoolHeatZoneNum) = 0.0;
+    state->dataHeatBalFanSys->SumLatentHTRadSys(DualZoneNum) = 0.0;
+
+    state->dataHeatBalFanSys->SumLatentPool.allocate(state->dataZoneCtrls->NumTempControlledZones);
+    state->dataHeatBalFanSys->SumLatentPool(HeatZoneNum) = 0.0;
+    state->dataHeatBalFanSys->SumLatentPool(CoolZoneNum) = 0.0;
+    state->dataHeatBalFanSys->SumLatentPool(CoolHeatZoneNum) = 0.0;
+    state->dataHeatBalFanSys->SumLatentPool(DualZoneNum) = 0.0;
+
+    state->dataZoneEnergyDemand->ZoneSysMoistureDemand.allocate(state->dataZoneCtrls->NumTempControlledZones);
+
+    state->dataRoomAir->AirModel.allocate(state->dataZoneCtrls->NumTempControlledZones);
+    state->dataRoomAir->AirModel(HeatZoneNum).AirModel = RoomAirModel::Mixing;
+    state->dataRoomAir->AirModel(CoolZoneNum).AirModel = RoomAirModel::Mixing;
+    state->dataRoomAir->AirModel(CoolHeatZoneNum).AirModel = RoomAirModel::Mixing;
+    state->dataRoomAir->AirModel(DualZoneNum).AirModel = RoomAirModel::Mixing;
+
+>>>>>>> nrel/develop
     // The following parameters describe the setpoint types in TempControlType(ActualZoneNum)
     //	extern int const SingleHeatingSetPoint; = 1
     //	extern int const SingleCoolingSetPoint; = 2
@@ -566,8 +634,19 @@ TEST_F(EnergyPlusFixture, ZoneTempPredictorCorrector_ReportingTest)
                   .TotalOutputRequired); // TotalOutputRequired gets updated in CalcPredictedSystemLoad based on the load
 
     state->dataZoneTempPredictorCorrector->zoneHeatBalance(CoolHeatZoneNum).calcPredictedSystemLoad(*state, 1.0, CoolHeatZoneNum);
+<<<<<<< HEAD
 
     ASSERT_EQ(22.0, state->dataHeatBalFanSys->zoneTstatSetpts(CoolHeatZoneNum).setpt);
+=======
+    state->dataZoneTempPredictorCorrector->zoneHeatBalance(CoolHeatZoneNum).calcPredictedHumidityRatio(*state, 1.0, CoolHeatZoneNum);
+
+    ASSERT_EQ(22.0, state->dataHeatBalFanSys->zoneTstatSetpts(CoolHeatZoneNum).setpt);
+    ASSERT_EQ(10.0, state->dataZoneCtrls->HumidityControlZone(CoolHeatZoneNum).humidifyingSched->getCurrentVal());
+    ASSERT_EQ(14.0, state->dataZoneCtrls->HumidityControlZone(CoolHeatZoneNum).dehumidifyingSched->getCurrentVal());
+    EXPECT_NEAR(-357.443,
+                state->dataZoneEnergyDemand->ZoneSysMoistureDemand(CoolHeatZoneNum).OutputRequiredToDehumidifyingSP,
+                0.001); // calculated based on 14 deg. C dew-point temperature
+>>>>>>> nrel/develop
     EXPECT_FALSE(
         state->dataZoneEnergyDemand->CurDeadBandOrSetback(CoolHeatZoneNum)); // Tstat should show there is load on a single heating or cooling SP
     EXPECT_EQ(-4000.0,
@@ -1871,7 +1950,11 @@ TEST_F(EnergyPlusFixture, HybridModel_processInverseModelMultpHMTest)
     EXPECT_NE(state->dataZoneTempPredictorCorrector->zoneHeatBalance(numZones).hmThermalMassMultErrIndex,
               0); // This is now set, won't be zero anymore
     std::string const error_string = delimited_string(
+<<<<<<< HEAD
         {EnergyPlus::format("   ** Warning ** Version: missing in IDF, processing for EnergyPlus version=\"{}\"", DataStringGlobals::MatchVersion),
+=======
+        {std::format("   ** Warning ** Version: missing in IDF, processing for EnergyPlus version=\"{}\"", DataStringGlobals::MatchVersion),
+>>>>>>> nrel/develop
          "   ** Warning ** Hybrid model thermal mass multiplier higher than the limit for Hybrid Zone",
          "   **   ~~~   ** This means that the ratio of the zone air heat capacity for the current time step to the",
          "   **   ~~~   ** zone air heat storage is higher than the maximum limit of 30.0."});
@@ -1899,8 +1982,11 @@ TEST_F(EnergyPlusFixture, FillPredefinedTableOnThermostatSchedules_Test)
     auto &orp = *state->dataOutRptPredefined;
     auto &dzc = *state->dataZoneCtrls;
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     dzc.NumTempControlledZones = 4;
     dzc.TempControlledZone.allocate(dzc.NumTempControlledZones);
 
@@ -2077,6 +2163,153 @@ TEST_F(EnergyPlusFixture, GetZoneAirSetPoints_Test)
                                              true));
 }
 
+<<<<<<< HEAD
+=======
+TEST_F(EnergyPlusFixture, GetZoneAirSetPoints_ITEApproachTempWarning)
+{
+    // issue 10594: Zone cooling setpoint is bypassed when an ITE object uses FlowControlWithApproachTemperatures. Verify the user is warned.
+    std::string const idf_objects = delimited_string({
+        "ScheduleTypeLimits,",
+        "  Any Number;              !- Name",
+        " ",
+        "ScheduleTypeLimits,",
+        " Control Type,            !- Name",
+        " 0,                       !- Lower Limit Value",
+        " 4,                       !- Upper Limit Value",
+        " DISCRETE;                !- Numeric Type",
+        " ",
+        "Schedule:Compact,",
+        " ZONE CONTROL TYPE SCHED, !- Name",
+        " Control Type,            !- Schedule Type Limits Name",
+        " Through: 12/31,          !- Field 1",
+        " For: AllDays,            !- Field 2",
+        " Until: 24:00, 4.0;       !- Field 3",
+        " ",
+        "Schedule:Compact,",
+        " HeatingSetpoints,        !- Name",
+        " Any Number,              !- Schedule Type Limits Name",
+        " Through: 12/31,          !- Field 1",
+        " For: AllDays,            !- Field 2",
+        " Until: 24:00, 20.0;      !- Field 3",
+        " ",
+        "Schedule:Compact,",
+        " CoolingSetpoints,        !- Name",
+        " Any Number,              !- Schedule Type Limits Name",
+        " Through: 12/31,          !- Field 1",
+        " For: AllDays,            !- Field 2",
+        " Until: 24:00, 23.0;      !- Field 3",
+        " ",
+        "ThermostatSetpoint:DualSetpoint,",
+        " DualSetpoints,",
+        " HeatingSetpoints,",
+        " CoolingSetpoints;",
+        " ",
+        "ZoneControl:Thermostat,",
+        " East Zone Thermostat,",
+        " East Zone,",
+        " ZONE CONTROL TYPE SCHED,",
+        " ThermostatSetpoint:DualSetpoint,",
+        " DualSetpoints;",
+        " ",
+        "Zone,",
+        "  East Zone,  !- Name",
+        "  0, 0, 0, 0, !- Origin",
+        "  1,          !- Type",
+        "  1;          !- Multiplier",
+    });
+
+    ASSERT_TRUE(process_idf(idf_objects));
+    state->init_state(*state);
+
+    bool errFlag;
+    GetZoneData(*state, errFlag);
+
+    // Emulate what GetInternalHeatGainsInput does for an ITE object with Air Flow Calculation Method = FlowControlWithApproachTemperatures
+    state->dataHeatBal->TotITEquip = 1;
+    state->dataHeatBal->ZoneITEq.allocate(1);
+    state->dataHeatBal->ZoneITEq(1).Name = "EASTDATACENTER_EQUIP";
+    state->dataHeatBal->ZoneITEq(1).ZonePtr = 1;
+    state->dataHeatBal->ZoneITEq(1).FlowControlWithApproachTemps = true;
+    state->dataHeatBal->Zone(1).HasAdjustedReturnTempByITE = true;
+
+    GetZoneAirSetPoints(*state);
+
+    EXPECT_TRUE(compare_err_stream_substring("EASTDATACENTER_EQUIP", false));
+    EXPECT_TRUE(compare_err_stream_substring("EAST ZONE THERMOSTAT", false));
+    EXPECT_TRUE(compare_err_stream_substring("The zone cooling setpoint is ignored for this zone", false));
+    EXPECT_TRUE(compare_err_stream_substring("FlowFromSystem", true));
+}
+
+TEST_F(EnergyPlusFixture, GetZoneAirSetPoints_ITEApproachTempNoWarningForInactiveCoolingControl)
+{
+    // A cooling-capable setpoint may be declared but never selected by the control type schedule. Do not warn unless cooling
+    // control is active.
+    std::string const idf_objects = delimited_string({
+        "ScheduleTypeLimits,",
+        "  Control Type,           !- Name",
+        "  0,                      !- Lower Limit Value",
+        "  4,                      !- Upper Limit Value",
+        "  DISCRETE;               !- Numeric Type",
+        " ",
+        "Schedule:Constant,",
+        "  Zone Control Type Sched,!- Name",
+        "  Control Type,           !- Schedule Type Limits Name",
+        "  1;                      !- Hourly Value",
+        " ",
+        "Schedule:Constant,",
+        "  Heating Setpoints,      !- Name",
+        "  ,                       !- Schedule Type Limits Name",
+        "  20.0;                   !- Hourly Value",
+        " ",
+        "Schedule:Constant,",
+        "  Cooling Setpoints,      !- Name",
+        "  ,                       !- Schedule Type Limits Name",
+        "  23.0;                   !- Hourly Value",
+        " ",
+        "ThermostatSetpoint:SingleHeating,",
+        "  Heating Only Setpoint,  !- Name",
+        "  Heating Setpoints;      !- Setpoint Temperature Schedule Name",
+        " ",
+        "ThermostatSetpoint:DualSetpoint,",
+        "  Inactive Dual Setpoints,!- Name",
+        "  Heating Setpoints,      !- Heating Setpoint Temperature Schedule Name",
+        "  Cooling Setpoints;      !- Cooling Setpoint Temperature Schedule Name",
+        " ",
+        "ZoneControl:Thermostat,",
+        "  East Zone Thermostat,   !- Name",
+        "  East Zone,              !- Zone or ZoneList or Space or SpaceList Name",
+        "  Zone Control Type Sched,!- Control Type Schedule Name",
+        "  ThermostatSetpoint:SingleHeating, !- Control 1 Object Type",
+        "  Heating Only Setpoint,  !- Control 1 Name",
+        "  ThermostatSetpoint:DualSetpoint, !- Control 2 Object Type",
+        "  Inactive Dual Setpoints;!- Control 2 Name",
+        " ",
+        "Zone,",
+        "  East Zone,  !- Name",
+        "  0, 0, 0, 0, !- Origin",
+        "  1,          !- Type",
+        "  1;          !- Multiplier",
+    });
+
+    ASSERT_TRUE(process_idf(idf_objects));
+    state->init_state(*state);
+
+    bool errFlag;
+    GetZoneData(*state, errFlag);
+
+    state->dataHeatBal->TotITEquip = 1;
+    state->dataHeatBal->ZoneITEq.allocate(1);
+    state->dataHeatBal->ZoneITEq(1).Name = "EASTDATACENTER_EQUIP";
+    state->dataHeatBal->ZoneITEq(1).ZonePtr = 1;
+    state->dataHeatBal->ZoneITEq(1).FlowControlWithApproachTemps = true;
+    state->dataHeatBal->Zone(1).HasAdjustedReturnTempByITE = true;
+
+    GetZoneAirSetPoints(*state);
+
+    EXPECT_FALSE(compare_err_stream_substring("The zone cooling setpoint is ignored for this zone", true, false));
+}
+
+>>>>>>> nrel/develop
 #ifdef GET_OUT
 TEST_F(EnergyPlusFixture, FillPredefinedTableOnThermostatSchedules_MultipleControls)
 {
@@ -2085,8 +2318,11 @@ TEST_F(EnergyPlusFixture, FillPredefinedTableOnThermostatSchedules_MultipleContr
     auto &orp = *state->dataOutRptPredefined;
     auto &dzc = *state->dataZoneCtrls;
 
+<<<<<<< HEAD
     SetPredefinedTables(*state);
 
+=======
+>>>>>>> nrel/develop
     constexpr int NumControlTypes = 4;
     dzc.NumTempControlledZones = NumControlTypes;
     dzc.TempControlledZone.allocate(dzc.NumTempControlledZones);
@@ -2100,9 +2336,15 @@ TEST_F(EnergyPlusFixture, FillPredefinedTableOnThermostatSchedules_MultipleContr
         std::rotate(order.begin(), std::next(order.begin()), order.end());
         auto &tcz = dzc.TempControlledZone(i + 1);
 
+<<<<<<< HEAD
         const std::string ZoneName = fmt::format("ZONE {}", zoneLetter);
         tcz.ZoneName = ZoneName;
         tcz.Name = fmt::format("TSTAT {}", zoneLetter);
+=======
+        const std::string ZoneName = std::format("ZONE {}", zoneLetter);
+        tcz.ZoneName = ZoneName;
+        tcz.Name = std::format("TSTAT {}", zoneLetter);
+>>>>>>> nrel/develop
         tcz.ControlTypeSchedName = state->dataScheduleMgr->Schedule(CTSchedIndex).Name;
         tcz.CTSchedIndex = CTSchedIndex;
         tcz.NumControlTypes = NumControlTypes;
@@ -2131,8 +2373,13 @@ TEST_F(EnergyPlusFixture, FillPredefinedTableOnThermostatSchedules_MultipleContr
 
     for (size_t i = 0; i < order.size(); ++i) {
         char zoneLetter = char(int('A') + i);
+<<<<<<< HEAD
         const std::string ZoneName = fmt::format("ZONE {}", zoneLetter);
         EXPECT_EQ(fmt::format("TSTAT {}", zoneLetter), RetrievePreDefTableEntry(*state, orp.pdchStatName, ZoneName)) << "Failed for " << ZoneName;
+=======
+        const std::string ZoneName = std::format("ZONE {}", zoneLetter);
+        EXPECT_EQ(std::format("TSTAT {}", zoneLetter), RetrievePreDefTableEntry(*state, orp.pdchStatName, ZoneName)) << "Failed for " << ZoneName;
+>>>>>>> nrel/develop
         EXPECT_EQ("CONTROL SCHEDULE", RetrievePreDefTableEntry(*state, orp.pdchStatCtrlTypeSchd, ZoneName)) << "Failed for " << ZoneName;
         EXPECT_EQ("DualSetPointWithDeadBand, SingleCooling, SingleHeatCool, SingleHeating",
                   RetrievePreDefTableEntry(*state, orp.pdchStatSchdType1, ZoneName))

@@ -55,9 +55,17 @@
 #include <EnergyPlus/DataGlobals.hh>
 #include <EnergyPlus/DataIPShortCuts.hh>
 #include <EnergyPlus/FileSystem.hh>
+<<<<<<< HEAD
 #include <embedded/EmbeddedEpJSONSchema.hh>
 #include <nlohmann/json.hpp>
 
+=======
+#include <EnergyPlus/Formatters.hh>
+#include <embedded/EmbeddedEpJSONSchema.hh>
+#include <nlohmann/json.hpp>
+
+#include <format>
+>>>>>>> nrel/develop
 #include <stdexcept>
 
 #include "Fixtures/EnergyPlusFixture.hh"
@@ -797,7 +805,11 @@ TEST_P(InputUnitTypeIsValid, IndepentVariable)
         "  0.714,                     !- Minimum Value",
         "  1.2857,                    !- Maximum Value",
         "  ,                          !- Normalization Reference Value",
+<<<<<<< HEAD
         fmt::format("  {},             !-  Unit Type", unit_type),
+=======
+        std::format("  {},             !-  Unit Type", unit_type),
+>>>>>>> nrel/develop
         "  ,                          !- External File Name",
         "  ,                          !- External File Column Number",
         "  ,                          !- External File Starting Row Number",
@@ -874,7 +886,11 @@ TEST_P(OutputUnitTypeIsValid, TableLookup)
         "  ,                          !- Normalization Divisor",
         "  0.8234,                    !- Minimum Output",
         "  1.1256,                    !- Maximum Output",
+<<<<<<< HEAD
         fmt::format("  {},             !- Output Unit Type", unit_type),
+=======
+        std::format("  {},             !- Output Unit Type", unit_type),
+>>>>>>> nrel/develop
         "  ,                          !- External File Name",
         "  ,                          !- External File Column Number",
         "  ,                          !- External File Starting Row Number",
@@ -934,8 +950,13 @@ TEST_F(EnergyPlusFixture, AllPossibleUnitTypeValid)
     // As of 2024-12-18
     // in = ["", "Angle", "Dimensionless", "Distance", "MassFlow", "Power", "Pressure", "Temperature", "VolumetricFlow","VolumetricFlowPerPower"]
     // out = ["", "Capacity", "Dimensionless", "Power", "Pressure", "Temperature"]
+<<<<<<< HEAD
     EXPECT_FALSE(all_input_choices.empty()) << fmt::format("{}", all_input_choices);
     EXPECT_FALSE(all_output_choices.empty()) << fmt::format("{}", all_output_choices);
+=======
+    EXPECT_FALSE(all_input_choices.empty()) << std::format("{}", all_input_choices);
+    EXPECT_FALSE(all_output_choices.empty()) << std::format("{}", all_output_choices);
+>>>>>>> nrel/develop
 
     for (const auto &input_unit_type : all_input_choices) {
         EXPECT_TRUE(Curve::IsCurveInputTypeValid(input_unit_type)) << input_unit_type << " is rejected by IsCurveOutputTypeValid";

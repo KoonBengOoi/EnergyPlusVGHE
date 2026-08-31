@@ -50,7 +50,14 @@
 // Google Test Headers
 #include <gtest/gtest.h>
 
+<<<<<<< HEAD
 #include "Fixtures/EnergyPlusFixture.hh"
+=======
+// Fixture Headers
+#include "Fixtures/EnergyPlusFixture.hh"
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/ConfiguredFunctions.hh>
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataEnvironment.hh>
@@ -1914,9 +1921,15 @@ TEST_F(EnergyPlusFixture, PipingSystem_Check_Correct_Pipe_Diameters)
     EXPECT_TRUE(ErrorsFound);
 
     std::string error_string = delimited_string({
+<<<<<<< HEAD
         R"(   ** Severe  ** ReadPipeCircuitInputs:PipingSystem:Underground:PipeCircuit="MY PIPE CIRCUIT", invalid Pipe Outer Diameter="1.200E-002", Condition: Outer diameter must be greater than inner diameter.)",
         R"(   ** Severe  ** ReadPipeCircuitInputs: GroundHeatExchanger:HorizontalTrench="GHX HORIZONTAL TRENCH" has invalid pipe diameters.)",
         R"(   **   ~~~   ** Outer diameter [1.100E-002] must be greater than inner diameter [1.500E-002].)",
+=======
+        R"(   ** Severe  ** ReadPipeCircuitInputs:PipingSystem:Underground:PipeCircuit="MY PIPE CIRCUIT", invalid Pipe Outer Diameter="0.012", Condition: Outer diameter must be greater than inner diameter.)",
+        R"(   ** Severe  ** ReadPipeCircuitInputs: GroundHeatExchanger:HorizontalTrench="GHX HORIZONTAL TRENCH" has invalid pipe diameters.)",
+        R"(   **   ~~~   ** Outer diameter [0.011] must be greater than inner diameter [0.015].)",
+>>>>>>> nrel/develop
     });
     EXPECT_TRUE(compare_err_stream(error_string, true));
 }

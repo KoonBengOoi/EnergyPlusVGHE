@@ -156,7 +156,11 @@ TEST_F(EnergyPlusFixture, Simulationmanager_writeInitialPerfLogValues)
     std::string expectedContents = "Program, Version, TimeStamp,Use Coil Direct Solution,Zone Radiant Exchange Algorithm,"
                                    "Override Mode,Number of Timesteps per Hour,Minimum Number of Warmup "
                                    "Days,SuppressAllBeginEnvironmentResets,Minimum System Timestep,MaxZoneTempDiff,MaxAllowedDelTemp,lastHeader,\n" +
+<<<<<<< HEAD
                                    state->dataStrGlobals->VerStringVar + ",False,ScriptF,MODE193,0,1,False,1.0,0.30,2.0000E-003,lastValue,\n";
+=======
+                                   state->dataStrGlobals->VerStringVar + ",False,ScriptF,MODE193,0,1,False,1.0,0.30,0.0020,lastValue,\n";
+>>>>>>> nrel/develop
 
     EXPECT_EQ(perfLogContents, expectedContents);
 
@@ -230,7 +234,11 @@ TEST_F(EnergyPlusFixture, SimulationManager_OutputDebuggingData)
         });
 
         state->init_state_called = false;
+<<<<<<< HEAD
         compare_err_stream_substring("", true);
+=======
+        compare_err_stream("", true);
+>>>>>>> nrel/develop
         // Input processor with throw a severe, so do not use assertions
         EXPECT_FALSE(process_idf(idf_objects, false));
         state->init_state(*state);
@@ -359,7 +367,11 @@ TEST_F(EnergyPlusFixture, SimulationManager_OutputDiagnostics_Unicity)
         "    DisplayAllWarnings;      !- Key 1",
     });
 
+<<<<<<< HEAD
     compare_err_stream_substring("", true);
+=======
+    compare_err_stream("", true);
+>>>>>>> nrel/develop
     // Input processor will throw a severe, so do not use assertions
     EXPECT_FALSE(process_idf(idf_objects, false));
     state->init_state(*state);

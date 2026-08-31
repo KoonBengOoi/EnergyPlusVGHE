@@ -46,6 +46,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // C++ Headers
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <string>
 
 // EnergyPlus Headers
@@ -89,9 +93,13 @@ PlantComponent *LocalPipeData::factory(EnergyPlusData &state, DataPlant::PlantEq
         }
     }
     // If we didn't find it, fatal
+<<<<<<< HEAD
     ShowFatalError(state, EnergyPlus::format("LocalPipeDataFactory: Error getting inputs for pipe named: {}", objectName)); // LCOV_EXCL_LINE
     // Shut up the compiler
     return nullptr; // LCOV_EXCL_LINE
+=======
+    ShowFatalError(state, std::format("LocalPipeDataFactory: Error getting inputs for pipe named: {}", objectName)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
 }
 
 void LocalPipeData::simulate(EnergyPlusData &state,
@@ -122,7 +130,11 @@ void LocalPipeData::oneTimeInit_new(EnergyPlusData &state)
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "ConstantConditionsOC"
     if (FoundOnLoop == 0) {
+<<<<<<< HEAD
         ShowFatalError(state, EnergyPlus::format("SimPipes: Pipe=\"{}\" not found on a Plant Loop.", this->Name)); // LCOV_EXCL_LINE
+=======
+        ShowFatalError(state, std::format("SimPipes: Pipe=\"{}\" not found on a Plant Loop.", this->Name)); // LCOV_EXCL_LINE
+>>>>>>> nrel/develop
     }
 #pragma clang diagnostic pop
     if (errFlag) {

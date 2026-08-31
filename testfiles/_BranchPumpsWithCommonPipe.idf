@@ -46,7 +46,11 @@
 ! Environmental Emissions: No
 ! Utility Tariffs: No
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Branch Pumps With Common Pipe,  !- Name

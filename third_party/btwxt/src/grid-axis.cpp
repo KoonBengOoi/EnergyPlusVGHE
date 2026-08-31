@@ -23,7 +23,11 @@ GridAxis::GridAxis(std::vector<double> values_in,
 {
     if (values.empty()) {
         throw BtwxtException(
+<<<<<<< HEAD
             fmt::format("Cannot create grid axis (name=\"{}\") from a zero-length vector.", name),
+=======
+            std::format("Cannot create grid axis (name=\"{}\") from a zero-length vector.", name),
+>>>>>>> nrel/develop
             *logger);
     }
     check_grid_sorted();
@@ -50,7 +54,11 @@ void GridAxis::set_extrapolation_method(ExtrapolationMethod extrapolation_method
     case ExtrapolationMethod::linear: {
         if (get_length() == 1) {
             extrapolation_method = ExtrapolationMethod::constant;
+<<<<<<< HEAD
             logger->info(fmt::format(info_format, "linear", name, "one", "constant"));
+=======
+            logger->info(std::format(info_format, "linear", name, "one", "constant"));
+>>>>>>> nrel/develop
             return;
         }
         break;
@@ -66,7 +74,11 @@ void GridAxis::calculate_cubic_spacing_ratios()
 {
     if (get_length() == 1) {
         interpolation_method = InterpolationMethod::linear;
+<<<<<<< HEAD
         logger->info(fmt::format(
+=======
+        logger->info(std::format(
+>>>>>>> nrel/develop
             "A cubic interpolation method is not valid for grid axis (name=\"{}\") with "
             "only one value. Interpolation method reset to linear.",
             name));
@@ -97,7 +109,11 @@ void GridAxis::check_grid_sorted()
 {
     bool grid_is_sorted = vector_is_valid(values);
     if (!grid_is_sorted) {
+<<<<<<< HEAD
         throw BtwxtException(fmt::format("Grid axis (name=\"{}\") values are not sorted, or have duplicates.", name),
+=======
+        throw BtwxtException(std::format("Grid axis (name=\"{}\") values are not sorted, or have duplicates.", name),
+>>>>>>> nrel/develop
                              *logger);
     }
 }
@@ -108,12 +124,20 @@ void GridAxis::check_extrapolation_limits()
         "Grid axis (name=\"{}\") {} extrapolation limit ({}) is within the set of grid axis "
         "values. Setting to {} axis value ({})."};
     if (extrapolation_limits.first > values[0]) {
+<<<<<<< HEAD
         logger->info(fmt::format(
+=======
+        logger->info(std::format(
+>>>>>>> nrel/develop
             info_format, name, "lower", extrapolation_limits.first, "smallest", values[0]));
         extrapolation_limits.first = values[0];
     }
     if (extrapolation_limits.second < values.back()) {
+<<<<<<< HEAD
         logger->info(fmt::format(
+=======
+        logger->info(std::format(
+>>>>>>> nrel/develop
             info_format, name, "upper", extrapolation_limits.second, "largest", values.back()));
         extrapolation_limits.second = values.back();
     }

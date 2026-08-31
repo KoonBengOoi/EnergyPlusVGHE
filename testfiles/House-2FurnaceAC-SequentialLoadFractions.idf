@@ -75,7 +75,11 @@
 ! Coils:                          Coil:Cooling:DX:SingleSpeed
 !                                 Coil:Heating:Fuel
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     House with 2 Furnace AC, !- Name
@@ -1109,8 +1113,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,21.1111111111111; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     HVACTemplate-Always 23.8888888888889,  !- Name
     Any Number,              !- Schedule Type Limits Name
@@ -1118,8 +1125,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,23.8888888888889; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Constant,SeventyFivePercent,Fraction,0.75;
 
   Schedule:Constant,OneHundredPercent,Fraction,1.0;

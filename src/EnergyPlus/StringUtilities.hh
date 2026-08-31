@@ -49,7 +49,10 @@
 #define StringUtilities_hh_INCLUDED
 
 #include <EnergyPlus/FromChars.hh>
+<<<<<<< HEAD
 #include <ObjexxFCL/src/ObjexxFCL/Array1S.hh>
+=======
+>>>>>>> nrel/develop
 #include <fast_float/fast_float.h>
 #include <sstream>
 #include <type_traits>

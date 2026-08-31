@@ -467,6 +467,11 @@ namespace DataHeatBalance {
         Real64 maxOccupants = 0.0;     // maximum occupancy (sum of NomMaxNumberPeople for the space People objects, not multiplied)
         bool isRemainderSpace = false; // True if this space is auto-generated "-Remainder" space
 
+<<<<<<< HEAD
+=======
+        int constructionAssignmentSetIndex = -1; // 0-Index into state.dataConstructionAssignments->constructionAssignmentSets, or -1 if none
+
+>>>>>>> nrel/develop
         std::vector<Constant::eFuel> otherEquipFuelTypeNums; // List of fuel types used by other equipment in this space
 
         // Pointers to Surface Data Structure
@@ -595,6 +600,10 @@ namespace DataHeatBalance {
         Real64 ExtGrossWallArea_Multiplied = 0.0; // Exterior Wall Area for Zone (Gross) with multipliers
         Real64 ExtNetWallArea = 0.0;              // Exterior Wall Area for Zone (Net)
         Real64 TotalSurfArea = 0.0;               // Total surface area for Zone
+<<<<<<< HEAD
+=======
+        bool useZoneMRTCalc = false;              // set to true when a user specified Zone MRT calculation is selected via input
+>>>>>>> nrel/develop
         // (ignoring windows as they will be included in their base surfaces)
         Real64 ExteriorTotalGroundSurfArea = 0.0;                  // Total surface area of all surfaces for Zone with ground contact
         Real64 ExtGrossGroundWallArea = 0.0;                       // Ground contact Wall Area for Zone (Gross)
@@ -734,6 +743,29 @@ namespace DataHeatBalance {
         int Multiplier = 1; // Zone List multiplier
     };
 
+<<<<<<< HEAD
+=======
+    struct ZoneMRTPeopleData
+    {
+        // Members
+        std::string name;                                    // People name
+        int peopleIndex = 0;                                 // index to correct People instance
+        Real64 fracMRT = 0.0;                                // fraction contribution from this People to zone MRT
+        Real64 peopleMRT = DataHeatBalance::ZoneInitialTemp; // MRT calculated for this People incidence
+    };
+
+    struct ZoneMRTData
+    {
+        // Members
+        std::string name;                         // Zone name
+        int zoneIndex = 0;                        // Zone index to main zone struct
+        int numPeople = 0;                        // Number of people statements referenced by this statement
+        Array1D<ZoneMRTPeopleData> zoneMRTPeople; // People statement data
+        Real64 sumFracZoneMRT = 0.0;              // Sum of all of the people statement fractions entered by the user (must be between 0.0 and 1.0)
+        Real64 fracZoneStdMRT = 1.0;              // Portion of the MRT coming from the standard zone MRT calculation (must be between 0.0 and 1.0)
+    };
+
+>>>>>>> nrel/develop
     enum class ClothingType
     {
         Invalid = -1,
@@ -1075,6 +1107,11 @@ namespace DataHeatBalance {
         bool EMSZoneBaseboardOverrideOn = false; // EMS actuating equipment power if .TRUE.
         Real64 EMSZoneBaseboardPower = 0.0;      // Value EMS is directing to use for override
         Real64 FractionRadiant = 0.0;
+<<<<<<< HEAD
+=======
+        Real64 ZnHtgSetTemp = 0.0;    // Design zone heating setpoint temperature
+        Real64 ExtSurfCondLoad = 0.0; // Conductional load through exterior surfaces by max temp diff
+>>>>>>> nrel/develop
         Real64 FractionConvected = 0.0;
         bool ManageDemand = false; // Flag to indicate whether to use demand limiting
         Real64 DemandLimit = 0.0;  // Demand limit set by demand manager [W]
@@ -1088,6 +1125,11 @@ namespace DataHeatBalance {
         Real64 ConGainEnergy = 0.0;    // Convective heat gain [J]
         Real64 TotGainEnergy = 0.0;    // Total heat gain [J]
         std::string EndUseSubcategory; // user defined name for the end use category
+<<<<<<< HEAD
+=======
+        std::vector<std::string> FieldNames;
+        bool MySizeFlag = true;
+>>>>>>> nrel/develop
     };
 
     struct InfiltrationData
@@ -1845,6 +1887,10 @@ struct HeatBalanceData : BaseGlobalStruct
     int NumOfZoneLists = 0;    // Total number of zone lists
     int NumOfZoneGroups = 0;   // Total number of zone groups
     int TotPeople = 0;         // Total People instances after expansion to spaces
+<<<<<<< HEAD
+=======
+    int totZoneMRT = 0;        // Total ZoneMRTCalculation instances
+>>>>>>> nrel/develop
     int TotLights = 0;         // Total Lights instances after expansion to spaces
     int TotElecEquip = 0;      // Total Electric Equipment instances after expansion to spaces
     int TotGasEquip = 0;       // Total Gas Equipment instances after expansion to spaces
@@ -2005,6 +2051,10 @@ struct HeatBalanceData : BaseGlobalStruct
     EPVector<DataHeatBalance::ZoneResilience> Resilience;
     EPVector<DataHeatBalance::ZoneListData> ZoneList;
     EPVector<DataHeatBalance::ZoneGroupData> ZoneGroup;
+<<<<<<< HEAD
+=======
+    EPVector<DataHeatBalance::ZoneMRTData> zoneMRTCalc;
+>>>>>>> nrel/develop
     EPVector<DataHeatBalance::PeopleData> People;
     EPVector<DataHeatBalance::LightsData> Lights;
     EPVector<DataHeatBalance::ZoneEquipData> ZoneElectric;

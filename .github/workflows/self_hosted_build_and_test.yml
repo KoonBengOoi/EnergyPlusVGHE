@@ -18,10 +18,18 @@ jobs:
       matrix:
         runner:
           - [self-hosted, linux, x64, ubuntu-24.04]
+<<<<<<< HEAD
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout EnergyPlus
         uses: actions/checkout@v6
+=======
+          - [self-hosted, linux, x64, ubuntu-26.04]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Checkout EnergyPlus
+        uses: actions/checkout@v7
+>>>>>>> nrel/develop
         with:
           ref: ${{ github.event.inputs.ref || github.ref }}
 

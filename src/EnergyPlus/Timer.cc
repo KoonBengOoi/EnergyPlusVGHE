@@ -45,12 +45,23 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <EnergyPlus/Timer.hh>
 
 #include <fmt/format.h>
 #ifndef NDEBUG
 #    include <stdexcept>
 #endif
+=======
+// C++ Headers
+#ifndef NDEBUG
+#    include <stdexcept>
+#endif
+#include <format>
+
+// EnergyPlus Headers
+#include <EnergyPlus/Timer.hh>
+>>>>>>> nrel/develop
 
 namespace EnergyPlus {
 
@@ -87,9 +98,15 @@ std::string Timer::formatAsHourMinSecs() const
     // TODO: do we want to report elapsed time of 25 hours as 1 day 1hr 0min 0sec or 25hr 0min 0sec?
     // constexpr auto num_ms_in_day = 1000 * 3600 * 24;
     // if (duration().count() > num_ms_in_day) {
+<<<<<<< HEAD
     //     return fmt::format("{:.2%j days %Hhr %Mmin %Ssec}\n", duration());
     // } else {
     //     return fmt::format("{:%Hhr %Mmin %Ssec}\n", duration());
+=======
+    //     return std::format("{:.2%j days %Hhr %Mmin %Ssec}\n", duration());
+    // } else {
+    //     return std::format("{:%Hhr %Mmin %Ssec}\n", duration());
+>>>>>>> nrel/develop
     // }
     auto count = duration().count();
     auto Hours = count / 3600000;
@@ -101,7 +118,11 @@ std::string Timer::formatAsHourMinSecs() const
     if (Seconds < 0.0) {
         Seconds = 0.0;
     }
+<<<<<<< HEAD
     return fmt::format("{:02}hr {:02}min {:5.2F}sec", Hours, Minutes, Seconds);
+=======
+    return std::format("{:02}hr {:02}min {:5.2F}sec", Hours, Minutes, Seconds);
+>>>>>>> nrel/develop
 }
 
 Real64 Timer::elapsedSeconds() const

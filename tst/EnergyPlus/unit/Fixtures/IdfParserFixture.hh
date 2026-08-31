@@ -71,11 +71,19 @@ protected:
     {
     }
 
+<<<<<<< HEAD
     virtual void SetUp()
     {
     }
 
     virtual void TearDown()
+=======
+    void SetUp() override
+    {
+    }
+
+    void TearDown() override
+>>>>>>> nrel/develop
     {
     }
 

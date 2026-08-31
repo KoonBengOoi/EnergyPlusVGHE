@@ -45,6 +45,13 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// C++ Headers
+#include <format>
+
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/EnergyPlusLogger.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
 
@@ -59,7 +66,11 @@ void EnergyPlusLogger::error(const std::string_view message)
     if (Log_level::Error >= minimum_level) {
         const std::pair<EnergyPlusData *, std::string> &contextPair =
             *(reinterpret_cast<std::pair<EnergyPlusData *, std::string> *>(message_context));
+<<<<<<< HEAD
         std::string fullMessage = fmt::format("{}: {}", contextPair.second, message);
+=======
+        std::string fullMessage = std::format("{}: {}", contextPair.second, message);
+>>>>>>> nrel/develop
         ShowSevereError(*contextPair.first, fullMessage);
     }
 }
@@ -69,7 +80,11 @@ void EnergyPlusLogger::warning(const std::string_view message)
     if (Log_level::Warning >= minimum_level) {
         const std::pair<EnergyPlusData *, std::string> &contextPair =
             *(reinterpret_cast<std::pair<EnergyPlusData *, std::string> *>(message_context));
+<<<<<<< HEAD
         std::string fullMessage = fmt::format("{}: {}", contextPair.second, message);
+=======
+        std::string fullMessage = std::format("{}: {}", contextPair.second, message);
+>>>>>>> nrel/develop
         ShowWarningError(*contextPair.first, fullMessage);
     }
 }
@@ -79,7 +94,11 @@ void EnergyPlusLogger::info(const std::string_view message)
     if (Log_level::Info >= minimum_level) {
         const std::pair<EnergyPlusData *, std::string> &contextPair =
             *(reinterpret_cast<std::pair<EnergyPlusData *, std::string> *>(message_context));
+<<<<<<< HEAD
         std::string fullMessage = fmt::format("{}: {}", contextPair.second, message);
+=======
+        std::string fullMessage = std::format("{}: {}", contextPair.second, message);
+>>>>>>> nrel/develop
         ShowMessage(*contextPair.first, fullMessage);
     }
 }

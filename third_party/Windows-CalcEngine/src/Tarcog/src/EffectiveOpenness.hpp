@@ -53,7 +53,11 @@ namespace EffectiveLayers
                        double height,
                        double thickness,
                        const ShadeOpenness & openness,
+<<<<<<< HEAD
                        Coefficients coefficients = {0.0, 0.0, 0.0, 0.0});
+=======
+                       Coefficients t_coefficients = {0.0, 0.0, 0.0, 0.0});
+>>>>>>> nrel/develop
 
         virtual EffectiveOpenness getEffectiveOpenness() = 0;
 
@@ -78,7 +82,11 @@ namespace EffectiveLayers
                           const ShadeOpenness & openness,
                           double slatAngle,
                           double slatWidth,
+<<<<<<< HEAD
                           Coefficients coefficients);
+=======
+                          Coefficients t_coefficients);
+>>>>>>> nrel/develop
 
         EffectiveOpenness getEffectiveOpenness() override;
         double effectiveThickness() override;
@@ -171,4 +179,8 @@ namespace EffectiveLayers
         double effectiveThickness() override;
     };
 
+<<<<<<< HEAD
 }   // namespace EffectiveLayers
+=======
+}   // namespace EffectiveLayers
+>>>>>>> nrel/develop

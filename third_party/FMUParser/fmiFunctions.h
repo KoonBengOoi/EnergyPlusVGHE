@@ -161,8 +161,13 @@ Common Functions
 ****************************************************/
 
 /* Inquire version numbers of header files */
+<<<<<<< HEAD
 DllExport const char *fmiGetTypesPlatform();
 DllExport const char *fmiGetVersion();
+=======
+DllExport const char *fmiGetTypesPlatform(void);
+DllExport const char *fmiGetVersion(void);
+>>>>>>> nrel/develop
 
 DllExport fmiStatus fmiSetDebugLogging(fmiComponent c, fmiBoolean loggingOn);
 

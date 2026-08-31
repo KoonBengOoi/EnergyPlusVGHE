@@ -82,7 +82,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,4;
 
@@ -671,6 +675,7 @@
     Yes;                     !- Output External Shading Calculation Results
 
   SurfaceProperty:LocalEnvironment,
+<<<<<<< HEAD
     LocEnv:EAST SIDE TREE,   !- Name
     EAST SIDE TREE,          !- Exterior Surface Name
     ExtShadingSch:EAST SIDE TREE,  !- Sunlit Fraction Schedule Name
@@ -880,6 +885,8 @@
     ;                        !- Adjust Schedule for Daylight Savings
 
   SurfaceProperty:LocalEnvironment,
+=======
+>>>>>>> nrel/develop
     LocEnv:ZN001:WALL001,    !- Name
     ZN001:WALL001,           !- Exterior Surface Name
     ExtShadingSch:ZN001:WALL001,  !- Sunlit Fraction Schedule Name
@@ -4953,8 +4960,11 @@
 
   Output:Variable,*,Zone Mean Radiant Temperature,hourly;
 
+<<<<<<< HEAD
   Output:Variable,*,Zone Mean Radiant Temperature,hourly;
 
+=======
+>>>>>>> nrel/develop
   Output:Variable,*,Surface Inside Face Temperature,daily;
 
   Output:Variable,*,Surface Outside Face Temperature,daily;

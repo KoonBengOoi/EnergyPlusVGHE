@@ -45,11 +45,20 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
 #include <ObjexxFCL/Array1D.hh>
 
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataHeatBalance.hh>
 #include <EnergyPlus/DataIPShortCuts.hh>
+=======
+// ObjexxFCL Headers
+#include <ObjexxFCL/Array1D.hh>
+
+// EnergyPlus Headers
+#include <EnergyPlus/Data/EnergyPlusData.hh>
+#include <EnergyPlus/DataHeatBalance.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/EnergyPlus.hh>
 #include <EnergyPlus/InputProcessing/InputProcessor.hh>
 #include <EnergyPlus/PhaseChangeModeling/HysteresisModel.hh>
@@ -275,10 +284,20 @@ namespace Material {
 
     Real64 MaterialPhaseChange::getConductivity(Real64 T) const
     {
+<<<<<<< HEAD
         if (T < this->peakTempMelting) {
             return this->fullySolidThermalConductivity;
         }
         if (T > this->peakTempFreezing) {
+=======
+        Real64 const lowerPeakTemp = std::min(this->peakTempMelting, this->peakTempFreezing);
+        Real64 const upperPeakTemp = std::max(this->peakTempMelting, this->peakTempFreezing);
+
+        if (T < lowerPeakTemp) {
+            return this->fullySolidThermalConductivity;
+        }
+        if (T > upperPeakTemp) {
+>>>>>>> nrel/develop
             return this->fullyLiquidThermalConductivity;
         }
         return (this->fullySolidThermalConductivity + this->fullyLiquidThermalConductivity) / 2.0;
@@ -286,10 +305,20 @@ namespace Material {
 
     Real64 MaterialPhaseChange::getDensity(Real64 T) const
     {
+<<<<<<< HEAD
         if (T < this->peakTempMelting) {
             return this->fullySolidDensity;
         }
         if (T > this->peakTempFreezing) {
+=======
+        Real64 const lowerPeakTemp = std::min(this->peakTempMelting, this->peakTempFreezing);
+        Real64 const upperPeakTemp = std::max(this->peakTempMelting, this->peakTempFreezing);
+
+        if (T < lowerPeakTemp) {
+            return this->fullySolidDensity;
+        }
+        if (T > upperPeakTemp) {
+>>>>>>> nrel/develop
             return this->fullyLiquidDensity;
         }
         return (this->fullySolidDensity + this->fullyLiquidDensity) / 2.0;
@@ -299,11 +328,15 @@ namespace Material {
     {
         static constexpr std::string_view routineName = "GetHysteresisData";
 
+<<<<<<< HEAD
         auto &s_ipsc = state.dataIPShortCut;
+=======
+>>>>>>> nrel/develop
         auto &s_ip = state.dataInputProcessing->inputProcessor;
         auto &s_mat = state.dataMaterial;
 
         // convenience variables
+<<<<<<< HEAD
         s_ipsc->cCurrentModuleObject = "MaterialProperty:PhaseChangeHysteresis";
         int numPhaseChangeModels = s_ip->getNumObjectsFound(state, s_ipsc->cCurrentModuleObject);
 
@@ -330,45 +363,91 @@ namespace Material {
                                 s_ipsc->cNumericFieldNames);
 
             ErrorObjectHeader eoh{routineName, s_ipsc->cCurrentModuleObject, s_ipsc->cAlphaArgs(1)};
+=======
+        std::string const currentModuleObject = "MaterialProperty:PhaseChangeHysteresis";
+        auto const &hysteresisSchemaProps = s_ip->getObjectSchemaProps(state, currentModuleObject);
+        auto const hysteresisObjects = s_ip->epJSON.find(currentModuleObject);
+        static constexpr std::string_view nameFieldName = "Name";
+
+        // loop over all hysteresis input instances, if zero, this will simply not do anything
+        if (hysteresisObjects == s_ip->epJSON.end()) {
+            return;
+        }
+
+        for (auto const &hysteresisInstance : hysteresisObjects.value().items()) {
+            auto const &hysteresisFields = hysteresisInstance.value();
+            auto const materialName = Util::makeUPPER(hysteresisInstance.key());
+
+            s_ip->markObjectAsUsed(currentModuleObject, hysteresisInstance.key());
+
+            ErrorObjectHeader eoh{routineName, currentModuleObject, materialName};
+>>>>>>> nrel/develop
             // the input processor validates the numeric inputs based on the IDD definition
             // still validate the name to make sure there aren't any duplicates or blanks
             // blanks are easy: fatal if blank
 
+<<<<<<< HEAD
             if (s_ipsc->lAlphaFieldBlanks(1)) {
                 ShowSevereEmptyField(state, eoh, s_ipsc->cAlphaFieldNames(1), s_ipsc->cAlphaArgs(1));
+=======
+            if (materialName.empty()) {
+                ShowSevereEmptyField(state, eoh, nameFieldName, materialName);
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
 
+<<<<<<< HEAD
             int matNum = GetMaterialNum(state, s_ipsc->cAlphaArgs(1));
             if (matNum == 0) {
                 ShowSevereItemNotFound(state, eoh, s_ipsc->cAlphaFieldNames(1), s_ipsc->cAlphaArgs(1));
+=======
+            int matNum = GetMaterialNum(state, materialName);
+            if (matNum == 0) {
+                ShowSevereItemNotFound(state, eoh, nameFieldName, materialName);
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
 
             auto *mat = s_mat->materials(matNum);
             if (mat->group != Group::Regular) {
+<<<<<<< HEAD
                 ShowSevereCustom(state, eoh, EnergyPlus::format("Material {} is not a Regular material.", mat->Name));
+=======
+                ShowSevereCustom(state, eoh, std::format("Material {} is not a Regular material.", mat->Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
 
             if (mat->hasPCM) {
+<<<<<<< HEAD
                 ShowSevereCustom(
                     state, eoh, EnergyPlus::format("Material {} already has {} properties defined.", mat->Name, s_ipsc->cCurrentModuleObject));
+=======
+                ShowSevereCustom(state, eoh, std::format("Material {} already has {} properties defined.", mat->Name, currentModuleObject));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
 
             if (mat->hasEMPD) {
+<<<<<<< HEAD
                 ShowSevereCustom(state, eoh, EnergyPlus::format("Material {} already has EMPD properties defined.", mat->Name));
+=======
+                ShowSevereCustom(state, eoh, std::format("Material {} already has EMPD properties defined.", mat->Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
 
             if (mat->hasHAMT) {
+<<<<<<< HEAD
                 ShowSevereCustom(state, eoh, EnergyPlus::format("Material {} already has HAMT properties defined.", mat->Name));
+=======
+                ShowSevereCustom(state, eoh, std::format("Material {} already has HAMT properties defined.", mat->Name));
+>>>>>>> nrel/develop
                 ErrorsFound = true;
                 continue;
             }
@@ -381,6 +460,7 @@ namespace Material {
             s_mat->materials(matNum) = matPC;
 
             // now build out a new hysteresis instance and add it to the vector
+<<<<<<< HEAD
             matPC->totalLatentHeat = s_ipsc->rNumericArgs(1);
             matPC->fullyLiquidThermalConductivity = s_ipsc->rNumericArgs(2);
             matPC->fullyLiquidDensity = s_ipsc->rNumericArgs(3);
@@ -394,6 +474,28 @@ namespace Material {
             matPC->deltaTempFreezingHigh = s_ipsc->rNumericArgs(11);
             matPC->peakTempFreezing = s_ipsc->rNumericArgs(12);
             matPC->deltaTempFreezingLow = s_ipsc->rNumericArgs(13);
+=======
+            matPC->totalLatentHeat =
+                s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "latent_heat_during_the_entire_phase_change_process");
+            matPC->fullyLiquidThermalConductivity =
+                s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "liquid_state_thermal_conductivity");
+            matPC->fullyLiquidDensity = s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "liquid_state_density");
+            matPC->specificHeatLiquid = s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "liquid_state_specific_heat");
+            matPC->deltaTempMeltingHigh =
+                s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "high_temperature_difference_of_melting_curve");
+            matPC->peakTempMelting = s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "peak_melting_temperature");
+            matPC->deltaTempMeltingLow =
+                s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "low_temperature_difference_of_melting_curve");
+            matPC->fullySolidThermalConductivity =
+                s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "solid_state_thermal_conductivity");
+            matPC->fullySolidDensity = s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "solid_state_density");
+            matPC->specificHeatSolid = s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "solid_state_specific_heat");
+            matPC->deltaTempFreezingHigh =
+                s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "high_temperature_difference_of_freezing_curve");
+            matPC->peakTempFreezing = s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "peak_freezing_temperature");
+            matPC->deltaTempFreezingLow =
+                s_ip->getRealFieldValue(hysteresisFields, hysteresisSchemaProps, "low_temperature_difference_of_freezing_curve");
+>>>>>>> nrel/develop
             matPC->specHeatTransition = (matPC->specificHeatSolid + matPC->specificHeatLiquid) / 2.0;
             matPC->CpOld = matPC->specificHeatSolid;
             matPC->hasPCM = true;

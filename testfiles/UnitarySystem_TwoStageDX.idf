@@ -99,7 +99,11 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     Building,                !- Name
@@ -591,8 +595,11 @@
     For: AllDays,            !- Field 2
     Until: 24:00,117.239997864; !- Field 3
 
+<<<<<<< HEAD
                              !- Field 4
 
+=======
+>>>>>>> nrel/develop
   Schedule:Compact,
     ShadeTransSch,           !- Name
     Fraction,                !- Schedule Type Limits Name
@@ -2438,8 +2445,13 @@
   ZoneControl:Humidistat,
     Sys 1 Furnace DX Cool Dehumidification Humidistat,  !- Name
     SPACE1-1,                !- Zone Name
+<<<<<<< HEAD
     HVACTemplate-Always 1,   !- Humidifying Relative Humidity Setpoint Schedule Name
     HVACTemplate-Always 60;  !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    HVACTemplate-Always 1,   !- Humidifying Setpoint Schedule Name
+    HVACTemplate-Always 60;  !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   AirLoopHVAC:UnitarySystem,
     Sys 1 Furnace DX Cool Unitary System,  !- Name
@@ -2531,6 +2543,10 @@
     ,                        !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
     ,                        !- Latent Capacity Time Constant {s}
     ,                        !- Nominal Time for Condensate Removal to Begin {s}
+<<<<<<< HEAD
+=======
+    ,                        !- Apply Part Load Fraction to Speeds Greater than 1
+>>>>>>> nrel/develop
     Yes,                     !- Apply Latent Degradation to Speeds Greater than 1
     ,                        !- Condenser Type
     ,                        !- Nominal Evaporative Condenser Pump Power {W}
@@ -2841,8 +2857,13 @@
   ZoneControl:Humidistat,
     Sys 2 Furnace DX Cool Dehumidification Humidistat,  !- Name
     SPACE2-1,                !- Zone Name
+<<<<<<< HEAD
     HVACTemplate-Always 1,   !- Humidifying Relative Humidity Setpoint Schedule Name
     HVACTemplate-Always 60;  !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    HVACTemplate-Always 1,   !- Humidifying Setpoint Schedule Name
+    HVACTemplate-Always 60;  !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   AirLoopHVAC:UnitarySystem,
     Sys 2 Furnace DX Cool Unitary System,  !- Name
@@ -2934,6 +2955,10 @@
     ,                        !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
     ,                        !- Latent Capacity Time Constant {s}
     ,                        !- Nominal Time for Condensate Removal to Begin {s}
+<<<<<<< HEAD
+=======
+    ,                        !- Apply Part Load Fraction to Speeds Greater than 1
+>>>>>>> nrel/develop
     Yes,                     !- Apply Latent Degradation to Speeds Greater than 1
     ,                        !- Condenser Type
     ,                        !- Nominal Evaporative Condenser Pump Power {W}
@@ -3231,8 +3256,13 @@
   ZoneControl:Humidistat,
     Sys 3 Heat Pump Air Source Dehumidification Humidistat,  !- Name
     SPACE3-1,                !- Zone Name
+<<<<<<< HEAD
     HVACTemplate-Always 1,   !- Humidifying Relative Humidity Setpoint Schedule Name
     HVACTemplate-Always 60;  !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    HVACTemplate-Always 1,   !- Humidifying Setpoint Schedule Name
+    HVACTemplate-Always 60;  !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   AirLoopHVAC:UnitarySystem,
     Sys 3 Heat Pump Air Source Unitary System,  !- Name
@@ -3324,6 +3354,10 @@
     ,                        !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
     ,                        !- Latent Capacity Time Constant {s}
     ,                        !- Nominal Time for Condensate Removal to Begin {s}
+<<<<<<< HEAD
+=======
+    ,                        !- Apply Part Load Fraction to Speeds Greater than 1
+>>>>>>> nrel/develop
     Yes,                     !- Apply Latent Degradation to Speeds Greater than 1
     ,                        !- Condenser Type
     ,                        !- Nominal Evaporative Condenser Pump Power {W}
@@ -3709,8 +3743,13 @@
   ZoneControl:Humidistat,
     Sys 4 Heat Pump Air Source Dehumidification Humidistat,  !- Name
     SPACE4-1,                !- Zone Name
+<<<<<<< HEAD
     HVACTemplate-Always 1,   !- Humidifying Relative Humidity Setpoint Schedule Name
     HVACTemplate-Always 60;  !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    HVACTemplate-Always 1,   !- Humidifying Setpoint Schedule Name
+    HVACTemplate-Always 60;  !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   AirLoopHVAC:UnitarySystem,
     Sys 4 Heat Pump Air Source Unitary System,  !- Name
@@ -3802,6 +3841,10 @@
     ,                        !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
     ,                        !- Latent Capacity Time Constant {s}
     ,                        !- Nominal Time for Condensate Removal to Begin {s}
+<<<<<<< HEAD
+=======
+    ,                        !- Apply Part Load Fraction to Speeds Greater than 1
+>>>>>>> nrel/develop
     Yes,                     !- Apply Latent Degradation to Speeds Greater than 1
     ,                        !- Condenser Type
     ,                        !- Nominal Evaporative Condenser Pump Power {W}
@@ -4274,6 +4317,10 @@
     ,                        !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity {dimensionless}
     ,                        !- Latent Capacity Time Constant {s}
     ,                        !- Nominal Time for Condensate Removal to Begin {s}
+<<<<<<< HEAD
+=======
+    ,                        !- Apply Part Load Fraction to Speeds Greater than 1
+>>>>>>> nrel/develop
     Yes,                     !- Apply Latent Degradation to Speeds Greater than 1
     ,                        !- Condenser Type
     ,                        !- Nominal Evaporative Condenser Pump Power {W}

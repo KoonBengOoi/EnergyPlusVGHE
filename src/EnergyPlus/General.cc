@@ -49,6 +49,10 @@
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Fmath.hh>
@@ -422,7 +426,11 @@ void ProcessDateString(EnergyPlusData &state,
             PDay = 0;
             DateType = Weather::DateType::MonthDay;
         } else if (FstNum < 0 || FstNum > 366) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Invalid Julian date Entered={}", String));
+=======
+            ShowSevereError(state, std::format("Invalid Julian date Entered={}", String));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         } else {
             InvOrdinalDay(FstNum, PMonth, PDay, 0);
@@ -521,7 +529,11 @@ void DetermineDateTokens(EnergyPlusData &state,
 
     strip(CurrentString);
     if (CurrentString == BlankString) {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("Invalid date field={}", String));
+=======
+        ShowSevereError(state, std::format("Invalid date field={}", String));
+>>>>>>> nrel/develop
         ErrorsFound = true;
     } else {
         int Loop = 0;
@@ -543,7 +555,11 @@ void DetermineDateTokens(EnergyPlusData &state,
             strip(CurrentString);
         }
         if (not_blank(CurrentString)) {
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Invalid date field={}", String));
+=======
+            ShowSevereError(state, std::format("Invalid date field={}", String));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         } else if (Loop == 2) {
             // Field must be Day Month or Month Day (if both numeric, mon / day)
@@ -553,7 +569,11 @@ void DetermineDateTokens(EnergyPlusData &state,
                 // Month day, but first field is not numeric, 2nd must be
                 NumField2 = int(Util::ProcessNumber(Fields(2), errFlag));
                 if (errFlag) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("Invalid date field={}", String));
+=======
+                    ShowSevereError(state, std::format("Invalid date field={}", String));
+>>>>>>> nrel/develop
                     InternalError = true;
                 } else {
                     TokenDay = NumField2;
@@ -631,7 +651,11 @@ void DetermineDateTokens(EnergyPlusData &state,
                             }
                         }
                     } else { // error....
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("First date field not numeric, field={}", String));
+=======
+                        ShowSevereError(state, std::format("First date field not numeric, field={}", String));
+>>>>>>> nrel/develop
                     }
                 }
             } else { // mm/dd/yyyy or yyyy/mm/dd
@@ -656,7 +680,11 @@ void DetermineDateTokens(EnergyPlusData &state,
             }
         } else {
             // Not enough or too many fields
+<<<<<<< HEAD
             ShowSevereError(state, EnergyPlus::format("Invalid date field={}", String));
+=======
+            ShowSevereError(state, std::format("Invalid date field={}", String));
+>>>>>>> nrel/develop
             ErrorsFound = true;
         }
     }
@@ -695,7 +723,11 @@ void ValidateMonthDay(EnergyPlusData &state,
         }
     }
     if (InternalError) {
+<<<<<<< HEAD
         ShowSevereError(state, EnergyPlus::format("Invalid Month Day date format={}", String));
+=======
+        ShowSevereError(state, std::format("Invalid Month Day date format={}", String));
+>>>>>>> nrel/develop
         ErrorsFound = true;
     } else {
         ErrorsFound = false;
@@ -753,10 +785,17 @@ void InvOrdinalDay(int const Number, int &PMonth, int &PDay, int const LeapYr)
 
     // SUBROUTINE LOCAL VARIABLE DECLARATIONS:
     int WMonth;
+<<<<<<< HEAD
     int LeapAddPrev;
     int LeapAddCur;
 
     if (Number < 0 || Number > 366) {
+=======
+    int LeapAddPrev = 0;
+    int LeapAddCur = 0;
+
+    if (Number < 1 || Number > 365 + LeapYr) {
+>>>>>>> nrel/develop
         return;
     }
     for (WMonth = 1; WMonth <= 12; ++WMonth) {
@@ -775,7 +814,11 @@ void InvOrdinalDay(int const Number, int &PMonth, int &PDay, int const LeapYr)
         }
     }
     PMonth = WMonth;
+<<<<<<< HEAD
     PDay = Number - (EndOfMonth[WMonth - 1] + LeapAddCur);
+=======
+    PDay = Number - (EndOfMonth[WMonth - 1] + LeapAddPrev);
+>>>>>>> nrel/develop
 }
 
 bool BetweenDateHoursLeftInclusive(
@@ -828,7 +871,11 @@ bool BetweenDates(int const TestDate,  // Date to test
     return BetweenDates;
 }
 
+<<<<<<< HEAD
 std::string CreateSysTimeIntervalString(EnergyPlusData &state)
+=======
+std::string CreateSysTimeIntervalString(EnergyPlusData const &state)
+>>>>>>> nrel/develop
 {
 
     // FUNCTION INFORMATION:
@@ -874,10 +921,17 @@ std::string CreateSysTimeIntervalString(EnergyPlusData &state)
         ++ActualTimeHrS;
         ActualTimeMinS = 0;
     }
+<<<<<<< HEAD
     const std::string TimeStmpS = EnergyPlus::format("{:02}:{:02}", ActualTimeHrS, ActualTimeMinS);
     Real64 minutes = ((ActualTimeE - static_cast<int>(ActualTimeE)) * FracToMin);
 
     std::string TimeStmpE = EnergyPlus::format("{:02}:{:2.0F}", static_cast<int>(ActualTimeE), minutes);
+=======
+    const std::string TimeStmpS = std::format("{:02}:{:02}", ActualTimeHrS, ActualTimeMinS);
+    Real64 minutes = ((ActualTimeE - static_cast<int>(ActualTimeE)) * FracToMin);
+
+    std::string TimeStmpE = std::format("{:02}:{:2.0F}", static_cast<int>(ActualTimeE), minutes);
+>>>>>>> nrel/develop
 
     if (TimeStmpE[3] == ' ') {
         TimeStmpE[3] = '0';
@@ -1002,10 +1056,17 @@ int FindNumberInList(int const WhichNumber, Array1A_int const ListOfItems, int c
 }
 
 void DecodeMonDayHrMin(int const Item, // word containing encoded month, day, hour, minute
+<<<<<<< HEAD
                        int &Month,     // month in integer format (1-12)
                        int &Day,       // day in integer format (1-31)
                        int &Hour,      // hour in integer format (1-24)
                        int &Minute     // minute in integer format (0:59)
+=======
+                       int &Month,     // month in integer std::format(1-12)
+                       int &Day,       // day in integer std::format(1-31)
+                       int &Hour,      // hour in integer std::format(1-24)
+                       int &Minute     // minute in integer std::format(0:59)
+>>>>>>> nrel/develop
 )
 {
 
@@ -1039,10 +1100,17 @@ void DecodeMonDayHrMin(int const Item, // word containing encoded month, day, ho
 }
 
 void EncodeMonDayHrMin(int &Item,       // word containing encoded month, day, hour, minute
+<<<<<<< HEAD
                        int const Month, // month in integer format (1:12)
                        int const Day,   // day in integer format (1:31)
                        int const Hour,  // hour in integer format (1:24)
                        int const Minute // minute in integer format (0:59)
+=======
+                       int const Month, // month in integer std::format(1:12)
+                       int const Day,   // day in integer std::format(1:31)
+                       int const Hour,  // hour in integer std::format(1:24)
+                       int const Minute // minute in integer std::format(0:59)
+>>>>>>> nrel/develop
 )
 {
 
@@ -1087,7 +1155,11 @@ std::string CreateTimeString(Real64 const Time) // Time in seconds
 
     // TimeStamp written with formatting
     // "hh:mm:ss.s"
+<<<<<<< HEAD
     return fmt::format("{:02d}:{:02d}:{:04.1f}", Hours, Minutes, Seconds);
+=======
+    return std::format("{:02d}:{:02d}:{:04.1f}", Hours, Minutes, Seconds);
+>>>>>>> nrel/develop
 }
 
 void ParseTime(Real64 const Time, // Time value in seconds
@@ -1225,17 +1297,28 @@ void ScanForReports(EnergyPlusData &state,
                     state.dataGlobal->ShowDecayCurvesInEIO = true;
                     break;
                 default: // including empty
+<<<<<<< HEAD
                     ShowWarningError(state,
                                      EnergyPlus::format("{}: No {} supplied.", cCurrentModuleObject, state.dataIPShortCut->cAlphaFieldNames(1)));
+=======
+                    ShowWarningError(state, std::format("{}: No {} supplied.", cCurrentModuleObject, state.dataIPShortCut->cAlphaFieldNames(1)));
+>>>>>>> nrel/develop
                     ShowContinueError(state,
                                       R"( Legal values are: "Lines", "Vertices", "Details", "DetailsWithVertices", "CostInfo", "ViewFactorIinfo".)");
                 }
             } catch (int e) {
                 ShowWarningError(state,
+<<<<<<< HEAD
                                  EnergyPlus::format("{}: Invalid {}=\"{}\" supplied.",
                                                     cCurrentModuleObject,
                                                     state.dataIPShortCut->cAlphaFieldNames(1),
                                                     state.dataIPShortCut->cAlphaArgs(1)));
+=======
+                                 std::format("{}: Invalid {}=\"{}\" supplied.",
+                                             cCurrentModuleObject,
+                                             state.dataIPShortCut->cAlphaFieldNames(1),
+                                             state.dataIPShortCut->cAlphaArgs(1)));
+>>>>>>> nrel/develop
                 ShowContinueError(state,
                                   R"( Legal values are: "Lines", "Vertices", "Details", "DetailsWithVertices", "CostInfo", "ViewFactorIinfo".)");
             }
@@ -1496,6 +1579,7 @@ void CheckCreatedZoneItemName(EnergyPlusData &state,
     ResultName = ZoneName + ' ' + ItemName;
     bool TooLong = false;
     if (ItemLength > Constant::MaxNameLength) {
+<<<<<<< HEAD
         ShowWarningError(state, fmt::format("{}{} Combination of ZoneList and Object Name generate a name too long.", calledFrom, CurrentObject));
         ShowContinueError(state, EnergyPlus::format("Object Name=\"{}\".", ItemName));
         ShowContinueError(state, EnergyPlus::format("ZoneList/Zone Name=\"{}\".", ZoneName));
@@ -1506,15 +1590,32 @@ void CheckCreatedZoneItemName(EnergyPlusData &state,
                           EnergyPlus::format("Shortening the Object Name by [{}] characters will assure uniqueness for this ZoneList.",
                                              MaxZoneNameLength + 1 + ItemNameLength - Constant::MaxNameLength));
         ShowContinueError(state, EnergyPlus::format("name that will be used (may be needed in reporting)=\"{}\".", ResultName));
+=======
+        ShowWarningError(state, std::format("{}{} Combination of ZoneList and Object Name generate a name too long.", calledFrom, CurrentObject));
+        ShowContinueError(state, std::format("Object Name=\"{}\".", ItemName));
+        ShowContinueError(state, std::format("ZoneList/Zone Name=\"{}\".", ZoneName));
+        ShowContinueError(
+            state, std::format("Item length=[{}] > Maximum Length=[{}]. You may need to shorten the names.", ItemLength, Constant::MaxNameLength));
+        ShowContinueError(state,
+                          std::format("Shortening the Object Name by [{}] characters will assure uniqueness for this ZoneList.",
+                                      MaxZoneNameLength + 1 + ItemNameLength - Constant::MaxNameLength));
+        ShowContinueError(state, std::format("name that will be used (may be needed in reporting)=\"{}\".", ResultName));
+>>>>>>> nrel/develop
         TooLong = true;
     }
 
     int FoundItem = Util::FindItemInList(ResultName, ItemNames, NumItems);
 
     if (FoundItem != 0) {
+<<<<<<< HEAD
         ShowSevereError(state, fmt::format("{}{}=\"{}\", Duplicate Generated name encountered.", calledFrom, CurrentObject, ItemName));
         ShowContinueError(
             state, EnergyPlus::format("name=\"{}\" has already been generated or entered as {} item=[{}].", ResultName, CurrentObject, FoundItem));
+=======
+        ShowSevereError(state, std::format("{}{}=\"{}\", Duplicate Generated name encountered.", calledFrom, CurrentObject, ItemName));
+        ShowContinueError(state,
+                          std::format("name=\"{}\" has already been generated or entered as {} item=[{}].", ResultName, CurrentObject, FoundItem));
+>>>>>>> nrel/develop
         if (TooLong) {
             ShowContinueError(state, "Duplicate name likely caused by the previous \"too long\" warning.");
         }

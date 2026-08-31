@@ -2227,7 +2227,10 @@ TEST_F(EnergyPlusFixture, ZoneEquipmentManager_RezeroZoneSizingArrays)
             thisSizingType.EMSValueDesHeatMassFlow = 1.0;
             thisSizingType.DesCoolMassFlow = 1.0;
             thisSizingType.DesCoolMassFlowNoOA = 1.0;
+<<<<<<< HEAD
             thisSizingType.DesCoolOAFlowFrac = 1.0;
+=======
+>>>>>>> nrel/develop
             thisSizingType.EMSValueDesCoolMassFlow = 1.0;
             thisSizingType.DesHeatLoad = 1.0;
             thisSizingType.NonAirSysDesHeatLoad = 1.0;
@@ -2422,7 +2425,10 @@ TEST_F(EnergyPlusFixture, ZoneEquipmentManager_RezeroZoneSizingArrays)
             thisSizingType2.EMSValueDesHeatMassFlow = 1.0;
             thisSizingType2.DesCoolMassFlow = 1.0;
             thisSizingType2.DesCoolMassFlowNoOA = 1.0;
+<<<<<<< HEAD
             thisSizingType2.DesCoolOAFlowFrac = 1.0;
+=======
+>>>>>>> nrel/develop
             thisSizingType2.EMSValueDesCoolMassFlow = 1.0;
             thisSizingType2.DesHeatLoad = 1.0;
             thisSizingType2.NonAirSysDesHeatLoad = 1.0;
@@ -2625,7 +2631,10 @@ TEST_F(EnergyPlusFixture, ZoneEquipmentManager_RezeroZoneSizingArrays)
             // EXPECT_EQ(thisSizingType.EMSValueDesHeatMassFlow, 0.0);
             EXPECT_EQ(thisSizingType.DesCoolMassFlow, 0.0);
             // EXPECT_EQ(thisSizingType.DesCoolMassFlowNoOA, 0.0);
+<<<<<<< HEAD
             // EXPECT_EQ(thisSizingType.DesCoolOAFlowFrac, 0.0);
+=======
+>>>>>>> nrel/develop
             // EXPECT_EQ(thisSizingType.EMSValueDesCoolMassFlow, 0.0);
             EXPECT_EQ(thisSizingType.DesHeatLoad, 0.0);
             // EXPECT_EQ(thisSizingType.NonAirSysDesHeatLoad, 0.0);
@@ -2793,7 +2802,10 @@ TEST_F(EnergyPlusFixture, ZoneEquipmentManager_RezeroZoneSizingArrays)
             // EXPECT_EQ(thisSizingType2.EMSValueDesHeatMassFlow, 0.0);
             EXPECT_EQ(thisSizingType2.DesCoolMassFlow, 0.0);
             // EXPECT_EQ(thisSizingType2.DesCoolMassFlowNoOA, 0.0);
+<<<<<<< HEAD
             // EXPECT_EQ(thisSizingType2.DesCoolOAFlowFrac, 0.0);
+=======
+>>>>>>> nrel/develop
             // EXPECT_EQ(thisSizingType2.EMSValueDesCoolMassFlow, 0.0);
             EXPECT_EQ(thisSizingType2.DesHeatLoad, 0.0);
             // EXPECT_EQ(thisSizingType2.NonAirSysDesHeatLoad, 0.0);
@@ -4734,7 +4746,11 @@ TEST_F(EnergyPlusFixture, CalcAirFlowSimple_WindAndStackArea)
     // Initial test, for case where winds are "perpendicular" (ASHRAE terminology, meaning blowing directly towards the effective angle)
     auto formatFailure = [&]() {
         Real64 angle = 180.0 - std::abs(std::abs(thisZone.WindDir - thisVentilation.EffAngle) - 180);
+<<<<<<< HEAD
         return fmt::format("Failed for WindDir={} and EffAngle={}, absolute angle between opening and wind dir={}",
+=======
+        return std::format("Failed for WindDir={} and EffAngle={}, absolute angle between opening and wind dir={}",
+>>>>>>> nrel/develop
                            thisZone.WindDir,
                            thisVentilation.EffAngle,
                            angle);

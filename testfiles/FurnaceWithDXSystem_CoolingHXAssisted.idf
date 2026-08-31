@@ -127,7 +127,11 @@
 ! Utility Tariffs:                None
 !
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Building,
     NONE,                    !- Name
@@ -1410,7 +1414,11 @@
   ZoneControl:Humidistat,
     Zone 2 Humidistat,       !- Name
     EAST ZONE,               !- Zone Name
+<<<<<<< HEAD
     Seasonal Relative Humidity Sch;  !- Humidifying Relative Humidity Setpoint Schedule Name
+=======
+    Seasonal Relative Humidity Sch;  !- Humidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:SingleHeating,
     Heating Setpoint with SB,!- Name

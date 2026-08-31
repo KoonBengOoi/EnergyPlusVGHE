@@ -47,13 +47,20 @@
 
 #include "EnergyPlus/DataStringGlobals.hh"
 #include "EnergyPlus/FileSystem.hh"
+<<<<<<< HEAD
+=======
+#include "EnergyPlus/Formatters.hh"
+>>>>>>> nrel/develop
 #include "EnergyPlus/InputProcessing/IdfParser.hh"
 #include "EnergyPlus/InputProcessing/InputValidation.hh"
 #include <embedded/EmbeddedEpJSONSchema.hh>
 
 #include <CLI/CLI11.hpp>
+<<<<<<< HEAD
 #include <fmt/format.h>
 #include <fmt/ranges.h>
+=======
+>>>>>>> nrel/develop
 #include <nlohmann/json.hpp>
 
 #ifdef _OPENMP
@@ -62,6 +69,10 @@
 
 #include <array>
 #include <filesystem>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 #include <iterator> // for make_move_iterator
 #include <map>
 #include <memory>
@@ -88,10 +99,23 @@ static constexpr std::array<std::string_view, static_cast<int>(OutputTypes::Num)
 
 static constexpr auto outputTypeExperimentalStart = OutputTypes::CBOR;
 
+<<<<<<< HEAD
 template <typename... Args> void displayMessage(std::string_view str_format, Args &&...args)
 {
     fmt::print(std::cout, str_format, args...);
     std::cout.write("\n", 1);
+=======
+void displayMessage(std::string_view msg)
+{
+    std::fwrite(msg.data(), 1, msg.size(), stdout);
+    std::fwrite("\n", 1, 1, stdout);
+}
+
+template <typename... Args> void displayMessage(std::format_string<Args...> str_format, Args &&...args)
+{
+    EnergyPlus::print(stdout, str_format, std::forward<Args>(args)...);
+    std::fwrite("\n", 1, 1, stdout);
+>>>>>>> nrel/develop
 }
 
 bool checkVersionMatch(json const &epJSON)
@@ -457,7 +481,11 @@ int main(int argc, char **argv)
 #endif
 
     [[maybe_unused]] CLI::Option *nproc_opt =
+<<<<<<< HEAD
         app.add_option("-j", number_of_threads, fmt::format("Number of threads [Default: {}]", number_of_threads))->option_text("N");
+=======
+        app.add_option("-j", number_of_threads, std::format("Number of threads [Default: {}]", number_of_threads))->option_text("N");
+>>>>>>> nrel/develop
 
 #ifndef _OPENMP
     // I don't want to throw if the user passes -j while OpenMP is unavailable, so we hide it by setting an empty group instead
@@ -488,11 +516,19 @@ int main(int argc, char **argv)
 
     OutputTypes outputType{OutputTypes::Default};
 
+<<<<<<< HEAD
     const std::string help_message = fmt::format(R"help(Output format.
 Default means IDF->epJSON or epJSON->IDF
 Select one (case insensitive):
 [{}])help",
                                                  fmt::join(outputTypeStrs, ","));
+=======
+    const std::string help_message = std::format(R"help(Output format.
+Default means IDF->epJSON or epJSON->IDF
+Select one (case insensitive):
+{})help",
+                                                 outputTypeStrs);
+>>>>>>> nrel/develop
 
     app.add_option("-f,--format", outputType, help_message)
         ->option_text("FORMAT")
@@ -558,10 +594,16 @@ Select one (case insensitive):
 #    pragma omp atomic
             ++fileCount;
             if (successful) {
+<<<<<<< HEAD
                 displayMessage(
                     "Input file converted to {} successfully | {}/{} | {}", outputTypeStr, fileCount, number_files, files[i].generic_string());
             } else {
                 displayMessage("Input file conversion failed: | {}/{} | {}", fileCount, number_files, files[i].generic_string());
+=======
+                displayMessage("Input file converted to {} successfully | {}/{} | {:g}", outputTypeStr, fileCount, number_files, files[i]);
+            } else {
+                displayMessage("Input file conversion failed: | {}/{} | {:g}", fileCount, number_files, files[i]);
+>>>>>>> nrel/develop
             }
         }
     }
@@ -569,16 +611,25 @@ Select one (case insensitive):
 #else
     if (number_of_threads > 1) {
         displayMessage("ConvertInputFormat is not compiled with OpenMP. Only running on 1 thread, not requested {} threads.", number_of_threads);
+<<<<<<< HEAD
         number_of_threads = 1;
+=======
+>>>>>>> nrel/develop
     }
 
     for (auto const &file : files) {
         bool successful = processInput(file, schema, outputType, outputDirectoryPath, outputTypeStr, convertHVACTemplate);
         ++fileCount;
         if (successful) {
+<<<<<<< HEAD
             displayMessage("Input file converted to {} successfully | {}/{} | {}", outputTypeStr, fileCount, number_files, file.generic_string());
         } else {
             displayMessage("Input file conversion failed: | {}/{} | {}", fileCount, number_files, file.generic_string());
+=======
+            displayMessage("Input file converted to {} successfully | {}/{} | {:g}", outputTypeStr, fileCount, number_files, file);
+        } else {
+            displayMessage("Input file conversion failed: | {}/{} | {:g}", fileCount, number_files, file);
+>>>>>>> nrel/develop
         }
     }
 #endif

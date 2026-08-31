@@ -45,6 +45,10 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+<<<<<<< HEAD
+=======
+// EnergyPlus Headers
+>>>>>>> nrel/develop
 #include <EnergyPlus/Data/EnergyPlusData.hh>
 #include <EnergyPlus/DataBranchAirLoopPlant.hh>
 #include <EnergyPlus/DataLoopNode.hh>
@@ -83,13 +87,33 @@ namespace DataPlant {
         int const BranchOutletNodeNum = this->NodeNumOut;
         Real64 OverallFlowRequest = 0.0;
 
+<<<<<<< HEAD
         if (this->controlType != DataBranchAirLoopPlant::ControlType::SeriesActive) {
             OverallFlowRequest = state.dataLoopNodes->Node(BranchInletNodeNum).MassFlowRateRequest;
         } else { // is series active, so take largest request of all the component inlet nodes
+=======
+        if (this->controlType == DataBranchAirLoopPlant::ControlType::SeriesActive) {
+            // Take largest request of all the component inlet nodes
+>>>>>>> nrel/develop
             for (int CompCounter = 1; CompCounter <= this->TotalComponents; ++CompCounter) {
                 int const CompInletNode = this->Comp(CompCounter).NodeNumIn;
                 OverallFlowRequest = max(OverallFlowRequest, state.dataLoopNodes->Node(CompInletNode).MassFlowRateRequest);
             }
+<<<<<<< HEAD
+=======
+        } else if (this->controlType == DataBranchAirLoopPlant::ControlType::Active) {
+            // Take the request of the actual active component
+            int ActiveCompInletNode = BranchInletNodeNum;
+            for (int CompCounter = 1; CompCounter <= this->TotalComponents; ++CompCounter) {
+                if (this->Comp(CompCounter).FlowCtrl == DataBranchAirLoopPlant::ControlType::Active) {
+                    ActiveCompInletNode = this->Comp(CompCounter).NodeNumIn;
+                    break;
+                }
+            }
+            OverallFlowRequest = state.dataLoopNodes->Node(ActiveCompInletNode).MassFlowRateRequest;
+        } else { // Passive/Bypass
+            OverallFlowRequest = state.dataLoopNodes->Node(BranchInletNodeNum).MassFlowRateRequest;
+>>>>>>> nrel/develop
         }
 
         //~ Now use a worker to bound the value to outlet min/max avail

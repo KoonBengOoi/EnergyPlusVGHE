@@ -26,7 +26,11 @@
 ! Floor Area:              232.25 m2
 ! Number of Stories:       1
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   Timestep,6;
 

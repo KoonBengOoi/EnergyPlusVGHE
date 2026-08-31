@@ -68,6 +68,10 @@
 #include <EnergyPlus/IOFiles.hh>
 #include <EnergyPlus/OutputProcessor.hh>
 #include <EnergyPlus/Plant/DataPlant.hh>
+<<<<<<< HEAD
+=======
+#include <EnergyPlus/ReportCoilSelection.hh>
+>>>>>>> nrel/develop
 #include <EnergyPlus/ScheduleManager.hh>
 #include <EnergyPlus/SimulationManager.hh>
 #include <EnergyPlus/UtilityRoutines.hh>
@@ -278,6 +282,7 @@ TEST_F(EnergyPlusFixture, SetVSHPAirFlowTest_VSFurnaceFlowTest)
     firstHVACIteration = false; // now the coils will be called
     state->dataFurnaces->Furnace(FurnaceNum).CoolingCoilIndex = 1;
     state->dataFurnaces->Furnace(FurnaceNum).HeatingCoilIndex = 2;
+<<<<<<< HEAD
     state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP.allocate(2);
     state->dataWaterToAirHeatPumpSimple->NumWatertoAirHPs = 2;
     state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP(1).Name = "WATERCOOLINGCOIL";
@@ -314,6 +319,53 @@ TEST_F(EnergyPlusFixture, SetVSHPAirFlowTest_VSFurnaceFlowTest)
     state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP(2).RatedCOPCoolAtRatedCdts = 3.0;
     state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP(2).RatedCapHeat = 30000.0;
     state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP(2).RatedCOPHeatAtRatedCdts = 3.0;
+=======
+    state->dataWaterToAirHeatPumpSimple->NumWatertoAirHPs = 2;
+    state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP.allocate(2);
+
+    auto &wahpSimple1 = state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP(1);
+    wahpSimple1.Name = "WATERCOOLINGCOIL";
+    wahpSimple1.WAHPPlantType = DataPlant::PlantEquipmentType::CoilWAHPCoolingEquationFit;
+    wahpSimple1.WAHPType = WaterToAirHeatPumpSimple::WatertoAirHP::Cooling;
+    wahpSimple1.coilType = HVAC::CoilType::CoolingWAHPSimple;
+    wahpSimple1.coilReportNum = ReportCoilSelection::getReportIndex(*state, wahpSimple1.Name, wahpSimple1.coilType);
+    wahpSimple1.availSched = Sched::GetScheduleAlwaysOn(*state);
+
+    auto &wahpSimple2 = state->dataWaterToAirHeatPumpSimple->SimpleWatertoAirHP(2);
+    wahpSimple2.Name = "WATERHEATINGCOIL";
+    wahpSimple2.WAHPPlantType = DataPlant::PlantEquipmentType::CoilWAHPHeatingEquationFit;
+    wahpSimple2.WAHPType = WaterToAirHeatPumpSimple::WatertoAirHP::Heating;
+    wahpSimple2.coilType = HVAC::CoilType::HeatingWAHPSimple;
+    wahpSimple2.coilReportNum = ReportCoilSelection::getReportIndex(*state, wahpSimple2.Name, wahpSimple2.coilType);
+    wahpSimple2.availSched = Sched::GetScheduleAlwaysOn(*state);
+
+    state->dataWaterToAirHeatPumpSimple->SimpleHPTimeStepFlag.allocate(2);
+    wahpSimple1.AirInletNodeNum = 1;
+    wahpSimple1.AirOutletNodeNum = 3;
+    wahpSimple1.WaterInletNodeNum = 5;
+    wahpSimple1.WaterOutletNodeNum = 6;
+    wahpSimple1.plantLoc.loopNum = 1;
+    wahpSimple1.plantLoc.loopSideNum = DataPlant::LoopSideLocation::Demand;
+    wahpSimple1.plantLoc.branchNum = 1;
+    wahpSimple1.plantLoc.compNum = 1;
+    wahpSimple1.RatedCapCoolTotal = 30000.0;
+    wahpSimple1.RatedCOPCoolAtRatedCdts = 3.0;
+    wahpSimple1.RatedCapHeat = 30000.0;
+    wahpSimple1.RatedCOPHeatAtRatedCdts = 3.0;
+
+    wahpSimple2.AirInletNodeNum = 3;
+    wahpSimple2.AirOutletNodeNum = 2;
+    wahpSimple2.WaterInletNodeNum = 7;
+    wahpSimple2.WaterOutletNodeNum = 8;
+    wahpSimple2.plantLoc.loopNum = 2;
+    wahpSimple2.plantLoc.loopSideNum = DataPlant::LoopSideLocation::Demand;
+    wahpSimple2.plantLoc.branchNum = 1;
+    wahpSimple2.plantLoc.compNum = 1;
+    wahpSimple2.RatedCapCoolTotal = 30000.0;
+    wahpSimple2.RatedCOPCoolAtRatedCdts = 3.0;
+    wahpSimple2.RatedCapHeat = 30000.0;
+    wahpSimple2.RatedCOPHeatAtRatedCdts = 3.0;
+>>>>>>> nrel/develop
 
     // set up plant loop
     state->dataPlnt->TotNumLoops = 2;
@@ -1920,7 +1972,11 @@ TEST_F(EnergyPlusFixture, UnitaryHeatCool_AFN_RTF)
     SimFurnace(*state, state->dataFurnaces->Furnace(1).Name, FirstHVACIteration, AirLoopNum, CompIndex);
 
     // Check that the runtime fraction is less than one so the impact of cycling fan is correctly accounted for in the AFN
+<<<<<<< HEAD
     EXPECT_TRUE(state->dataAirLoop->AirLoopAFNInfo(1).AFNLoopHeatingCoilMaxRTF < 1);
+=======
+    EXPECT_TRUE(state->dataAirLoop->AirLoopAFNInfo(1).AFNLoopOnOffFanRTF < 1);
+>>>>>>> nrel/develop
 
     // Check that the system heating capacity is the same as the heating coil
     EXPECT_NEAR(state->dataHeatingCoils->HeatingCoil(1).NominalCapacity, state->dataFurnaces->Furnace(1).DesignHeatingCapacity, 1e-6);
@@ -1941,7 +1997,11 @@ TEST_F(EnergyPlusFixture, Furnaces_SetMinOATCompressor)
     state->dataDXCoils->DXCoil(2).MinOATCompressor = 30.0;
 
     state->dataHVACAssistedCC->HXAssistedCoil.allocate(1);
+<<<<<<< HEAD
     state->dataHVACAssistedCC->HXAssistedCoil(1).CoolingCoilType = "COIL:COOLING:DX";
+=======
+    state->dataHVACAssistedCC->HXAssistedCoil(1).coolCoilType = HVAC::CoilType::CoolingDX;
+>>>>>>> nrel/develop
     state->dataHVACAssistedCC->HXAssistedCoil(1).CoolingCoilName = "Dummy_Name";
 
     state->dataCoilCoolingDX->coilCoolingDXGetInputFlag = false;
@@ -1955,7 +2015,11 @@ TEST_F(EnergyPlusFixture, Furnaces_SetMinOATCompressor)
     bool ErrFound = false;
 
     // Test HXAsssisted type with new coil
+<<<<<<< HEAD
     state->dataFurnaces->Furnace(1).CoolingCoilType_Num = HVAC::CoilDX_CoolingHXAssisted;
+=======
+    state->dataFurnaces->Furnace(1).coolCoilType = HVAC::CoilType::CoolingDXHXAssisted;
+>>>>>>> nrel/develop
     SetMinOATCompressor(*state, FurnaceNum, cCurModObj, ErrFound);
     EXPECT_FALSE(ErrFound);
     EXPECT_NEAR(state->dataFurnaces->Furnace(1).MinOATCompressorCooling, 0.0, 1e-6);
@@ -1965,8 +2029,13 @@ TEST_F(EnergyPlusFixture, Furnaces_SetMinOATCompressor)
     state->dataFurnaces->Furnace(1).MinOATCompressorHeating = -999.0;
 
     // Check that each coil type returns correctly
+<<<<<<< HEAD
     state->dataFurnaces->Furnace(1).CoolingCoilType_Num = HVAC::Coil_CoolingAirToAirVariableSpeed;
     state->dataFurnaces->Furnace(1).HeatingCoilType_Num = HVAC::Coil_HeatingElectric;
+=======
+    state->dataFurnaces->Furnace(1).coolCoilType = HVAC::CoilType::CoolingDXVariableSpeed;
+    state->dataFurnaces->Furnace(1).heatCoilType = HVAC::CoilType::HeatingElectric;
+>>>>>>> nrel/develop
     // Each test should return 30 for cooling coil (limited) and -1000 for heating coil (no limit)
     SetMinOATCompressor(*state, FurnaceNum, cCurModObj, ErrFound);
     EXPECT_FALSE(ErrFound);
@@ -1976,7 +2045,11 @@ TEST_F(EnergyPlusFixture, Furnaces_SetMinOATCompressor)
     state->dataFurnaces->Furnace(1).MinOATCompressorCooling = -999.0;
     state->dataFurnaces->Furnace(1).MinOATCompressorHeating = -999.0;
 
+<<<<<<< HEAD
     state->dataFurnaces->Furnace(1).CoolingCoilType_Num = HVAC::CoilDX_CoolingSingleSpeed;
+=======
+    state->dataFurnaces->Furnace(1).coolCoilType = HVAC::CoilType::CoolingDXSingleSpeed;
+>>>>>>> nrel/develop
     SetMinOATCompressor(*state, FurnaceNum, cCurModObj, ErrFound);
     EXPECT_FALSE(ErrFound);
     EXPECT_NEAR(state->dataFurnaces->Furnace(1).MinOATCompressorCooling, 30.0, 1e-6);
@@ -1984,13 +2057,21 @@ TEST_F(EnergyPlusFixture, Furnaces_SetMinOATCompressor)
 
     // check heating coil types
     // should return 30 in each case since cooling and heating coil now have limit
+<<<<<<< HEAD
     state->dataFurnaces->Furnace(1).HeatingCoilType_Num = HVAC::Coil_HeatingAirToAirVariableSpeed;
+=======
+    state->dataFurnaces->Furnace(1).heatCoilType = HVAC::CoilType::HeatingDXVariableSpeed;
+>>>>>>> nrel/develop
     SetMinOATCompressor(*state, FurnaceNum, cCurModObj, ErrFound);
     EXPECT_FALSE(ErrFound);
     EXPECT_NEAR(state->dataFurnaces->Furnace(1).MinOATCompressorCooling, 30.0, 1e-6); // same as above
     EXPECT_NEAR(state->dataFurnaces->Furnace(1).MinOATCompressorHeating, 30.0, 1e-6); // now returns 30
 
+<<<<<<< HEAD
     state->dataFurnaces->Furnace(1).HeatingCoilType_Num = HVAC::CoilDX_HeatingEmpirical;
+=======
+    state->dataFurnaces->Furnace(1).heatCoilType = HVAC::CoilType::HeatingDXSingleSpeed;
+>>>>>>> nrel/develop
     SetMinOATCompressor(*state, FurnaceNum, cCurModObj, ErrFound);
     EXPECT_FALSE(ErrFound);
     EXPECT_NEAR(state->dataFurnaces->Furnace(1).MinOATCompressorCooling, 30.0, 1e-6);

@@ -69,7 +69,11 @@
 ! ***GENERAL SIMULATION PARAMETERS***
 ! Number of Zones: 55
 
+<<<<<<< HEAD
   Version,26.1;
+=======
+  Version,26.2;
+>>>>>>> nrel/develop
 
   SimulationControl,
     YES,                     !- Do Zone Sizing Calculation
@@ -18912,14 +18916,24 @@
   ZoneControl:Humidistat,
     ER_Exam3_Mult4_Flr_1 Humidistat,  !- Name
     ER_Exam3_Mult4_Flr_1,    !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch,         !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch,         !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ZoneControl:Humidistat,
     OR2_Mult5_Flr_2 Humidistat,  !- Name
     OR2_Mult5_Flr_2,         !- Zone Name
+<<<<<<< HEAD
     MinRelHumSetSch,         !- Humidifying Relative Humidity Setpoint Schedule Name
     MaxRelHumSetSch;         !- Dehumidifying Relative Humidity Setpoint Schedule Name
+=======
+    MinRelHumSetSch,         !- Humidifying Setpoint Schedule Name
+    MaxRelHumSetSch;         !- Dehumidifying Setpoint Schedule Name
+>>>>>>> nrel/develop
 
   ThermostatSetpoint:DualSetpoint,
     Basement DualSPSched,    !- Name

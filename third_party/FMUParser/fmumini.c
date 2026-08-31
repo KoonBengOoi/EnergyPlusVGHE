@@ -45,6 +45,16 @@
 #endif
 #endif
 
+<<<<<<< HEAD
+=======
+// fopen is 64 bit by default on apple so fopen is fopen64
+// linker errors occur by using fopen64
+#ifdef __APPLE__
+#define off64_t off_t
+#define fopen64 fopen
+#endif
+
+>>>>>>> nrel/develop
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -53,12 +63,21 @@
 #include <sys/stat.h>
 #include <time.h>
 
+<<<<<<< HEAD
 #ifdef unix
 #include <unistd.h>
 #include <utime.h>
 #else
 #include <direct.h>
 #include <io.h>
+=======
+#ifdef _WIN32
+#include <direct.h>
+#include <io.h>
+#else
+#include <unistd.h>
+#include <utime.h>
+>>>>>>> nrel/develop
 #endif
 
 #include "util.h"
@@ -180,13 +199,21 @@ int makedir(const char *newdir)
     return 1;
 }
 
+<<<<<<< HEAD
 void do_banner()
+=======
+void do_banner(void)
+>>>>>>> nrel/develop
 {
     printf("MiniUnz 1.01b, demo of zLib + Unz package written by Gilles Vollant\n");
     printf("more info at http://www.winimage.com/zLibDll/unzip.html\n\n");
 }
 
+<<<<<<< HEAD
 void do_help()
+=======
+void do_help(void)
+>>>>>>> nrel/develop
 {
     printf("Usage : miniunz [-e] [-x] [-v] [-l] [-o] [-p password] file.zip [file_to_extr.] [-d extractdir]\n\n"
            "  -e  Extract without pathname (junk paths)\n"
@@ -537,7 +564,11 @@ int unpackmz(const char *filNam, char *tmpPat)
 #ifdef _WIN32
     _chdir(dirname); // Command in windows
 #else
+<<<<<<< HEAD
     int i_unused = chdir(dirname);                // Command in linux
+=======
+    if (chdir(dirname) < 0) return -1;        // Command in linux
+>>>>>>> nrel/develop
 #endif
 
     ret_value = do_extract(uf, opt_do_extract_withoutpath, opt_overwrite, password); // Extract all files
@@ -547,7 +578,11 @@ int unpackmz(const char *filNam, char *tmpPat)
 #ifdef _WIN32
     _chdir(cwd); // Command in windows
 #else
+<<<<<<< HEAD
     int j_unused = chdir(cwd);                    // Command in linux
+=======
+    if (chdir(cwd) < 0) return -1;            // Command in linux
+>>>>>>> nrel/develop
 #endif
 
     return ret_value;

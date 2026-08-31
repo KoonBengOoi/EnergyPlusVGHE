@@ -47,6 +47,10 @@
 
 // C++ Headers
 #include <cmath>
+<<<<<<< HEAD
+=======
+#include <format>
+>>>>>>> nrel/develop
 
 // ObjexxFCL Headers
 #include <ObjexxFCL/Array.functions.hh>
@@ -305,7 +309,11 @@ void GetSetPointManagerInputs(EnergyPlusData &state)
         GetSetPointManagerInputData(state, ErrorsFound);
 
         if (ErrorsFound) {
+<<<<<<< HEAD
             ShowFatalError(state, EnergyPlus::format("{}: Errors found in input.  Program terminates.", routineName));
+=======
+            ShowFatalError(state, std::format("{}: Errors found in input.  Program terminates.", routineName));
+>>>>>>> nrel/develop
         }
         state.dataSetPointManager->GetInputFlag = false;
     }
@@ -588,12 +596,20 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                 spm->minSetTemp = ip->getRealFieldValue(fields, props, "minimum_setpoint_temperature");
                 spm->maxSetTemp = ip->getRealFieldValue(fields, props, "maximum_setpoint_temperature");
                 if (spm->maxSetTemp < spm->minSetTemp) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...maximum_supply_air_temperature=[{:.1R}] is less than minimum_supply_air_temperature=[{:.1R}].",
                                            spm->maxSetTemp,
                                            spm->minSetTemp));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
+                    ShowContinueError(state,
+                                      std::format("...maximum_supply_air_temperature=[{:.1f}] is less than minimum_supply_air_temperature=[{:.1f}].",
+                                                  spm->maxSetTemp,
+                                                  spm->minSetTemp));
+>>>>>>> nrel/develop
                 }
             } break;
 
@@ -603,12 +619,20 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                 spm->minSetTemp = ip->getRealFieldValue(fields, props, "minimum_supply_air_temperature");
                 spm->maxSetTemp = ip->getRealFieldValue(fields, props, "maximum_supply_air_temperature");
                 if (spm->maxSetTemp < spm->minSetTemp) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...maximum_supply_air_temperature=[{:.1R}] is less than minimum_supply_air_temperature=[{:.1R}].",
                                            spm->maxSetTemp,
                                            spm->minSetTemp));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
+                    ShowContinueError(state,
+                                      std::format("...maximum_supply_air_temperature=[{:.1f}] is less than minimum_supply_air_temperature=[{:.1f}].",
+                                                  spm->maxSetTemp,
+                                                  spm->minSetTemp));
+>>>>>>> nrel/develop
                 }
             } break;
 
@@ -616,12 +640,20 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                 spm->minSetTemp = ip->getRealFieldValue(fields, props, "minimum_limit_setpoint_temperature");
                 spm->maxSetTemp = ip->getRealFieldValue(fields, props, "maximum_limit_setpoint_temperature");
                 if (spm->maxSetTemp < spm->minSetTemp) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...maximum_supply_air_temperature=[{:.1R}] is less than minimum_supply_air_temperature=[{:.1R}].",
                                            spm->maxSetTemp,
                                            spm->minSetTemp));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
+                    ShowContinueError(state,
+                                      std::format("...maximum_supply_air_temperature=[{:.1f}] is less than minimum_supply_air_temperature=[{:.1f}].",
+                                                  spm->maxSetTemp,
+                                                  spm->minSetTemp));
+>>>>>>> nrel/develop
                 }
             } break;
 
@@ -640,23 +672,40 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                 spm->minSetHum = ip->getRealFieldValue(fields, props, "minimum_setpoint_humidity_ratio");
                 spm->maxSetHum = ip->getRealFieldValue(fields, props, "maximum_setpoint_humidity_ratio");
                 if (spm->maxSetHum < spm->minSetHum) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
                     ShowContinueError(
                         state,
                         EnergyPlus::format("...maximum_setpoint_humidity_ratio=[{:.1R}] is less than minimum_setpoint_humidity_ratio=[{:.1R}].",
                                            spm->maxSetHum,
                                            spm->minSetHum));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spm->Name));
+                    ShowContinueError(
+                        state,
+                        std::format("...maximum_setpoint_humidity_ratio=[{:.1f}] is less than minimum_setpoint_humidity_ratio=[{:.1f}].",
+                                    spm->maxSetHum,
+                                    spm->minSetHum));
+>>>>>>> nrel/develop
                 }
 
                 // Because a zero humidity ratio setpoint is a special value indicating "off" or "no load"
                 // must not allow MinSetHumRat or MaxSetHumRat to be <=0.0
                 if (spm->minSetHum <= 0.0) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\", invalid value.", routineName, cCurrentModuleObject, spm->Name));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\", invalid value.", routineName, cCurrentModuleObject, spm->Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Minimum setpoint humidity ratio <=0.0, resetting to 0.00001");
                     spm->minSetHum = 0.00001;
                 }
                 if (spm->maxSetHum <= 0.0) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\", invalid value.", routineName, cCurrentModuleObject, spm->Name));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\", invalid value.", routineName, cCurrentModuleObject, spm->Name));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "Maximum setpoint humidity ratio <=0.0, resetting to 0.00001");
                     spm->maxSetHum = 0.00001;
                 }
@@ -769,11 +818,19 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                     if (spmOA->high2 < spmOA->low2) {
                         ShowWarningCustom(state,
                                           eoh,
+<<<<<<< HEAD
                                           EnergyPlus::format("...{}=[{:.1R}] is less than {}=[{:.1R}].",
                                                              "outdoor_high_temperature_2",
                                                              spmOA->high2,
                                                              "outdoor_low_temperature_2",
                                                              spmOA->low2));
+=======
+                                          std::format("...{}=[{:.1f}] is less than {}=[{:.1f}].",
+                                                      "outdoor_high_temperature_2",
+                                                      spmOA->high2,
+                                                      "outdoor_low_temperature_2",
+                                                      spmOA->low2));
+>>>>>>> nrel/develop
                     }
                 } else { // !foundSched
                     spmOA->sched = nullptr;
@@ -893,8 +950,13 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
 
                 // only allow one control zone for now
                 if (NumNodes > 1) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}: {}=\"{}\", entered nodelist.", routineName, cCurrentModuleObject, spmSZHum->Name));
                     ShowContinueError(state, EnergyPlus::format("..invalid ctrl_zone_node_name=\"{}\".", ctrlZoneNodeName));
+=======
+                    ShowSevereError(state, std::format("{}: {}=\"{}\", entered nodelist.", routineName, cCurrentModuleObject, spmSZHum->Name));
+                    ShowContinueError(state, std::format("..invalid ctrl_zone_node_name=\"{}\".", ctrlZoneNodeName));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "..only one control zone is allowed.");
                     ErrorsFound = true;
                 }
@@ -985,13 +1047,21 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                                                             Node::ObjectIsNotParent);
 
                 if (std::find(spmOAP->ctrlNodeNums.begin(), spmOAP->ctrlNodeNums.end(), spmOAP->refNodeNum) != spmOAP->ctrlNodeNums.end()) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}: {}=\"{}\", reference node.", routineName, cCurrentModuleObject, spmOAP->Name));
+=======
+                    ShowSevereError(state, std::format("{}: {}=\"{}\", reference node.", routineName, cCurrentModuleObject, spmOAP->Name));
+>>>>>>> nrel/develop
                     if (spmOAP->ctrlNodeNums.size() > 1) {
                         ShowContinueError(state, "..Reference Node is the same as one of the nodes in SetPoint NodeList");
                     } else {
                         ShowContinueError(state, "..Reference Node is the same as the SetPoint Node");
                     }
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Reference Node Name=\"{}\".", state.dataLoopNodes->NodeID(spmOAP->refNodeNum)));
+=======
+                    ShowContinueError(state, std::format("Reference Node Name=\"{}\".", state.dataLoopNodes->NodeID(spmOAP->refNodeNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } break;
@@ -1030,8 +1100,13 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
 
                 spmWTF->minTurndown = ip->getRealFieldValue(fields, props, "minimum_turndown_ratio");
                 if (spmWTF->minTurndown >= 0.8) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmWTF->Name));
                     ShowContinueError(state, EnergyPlus::format("...minimum_turndown_ratio=[{:.2R}] is greater than 0.8;", spmWTF->minTurndown));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmWTF->Name));
+                    ShowContinueError(state, std::format("...minimum_turndown_ratio=[{:.2f}] is greater than 0.8;", spmWTF->minTurndown));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "...typical values for minimum_turndown_ratio are less than 0.8.");
                 }
 
@@ -1127,6 +1202,7 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                 if (state.dataSetPointManager->NoGroundTempObjWarning[(int)spmFGT->refTempType]) {
                     if (!state.dataEnvrn->GroundTempInputs[(int)spmFGT->refTempType]) {
                         ShowWarningError(state,
+<<<<<<< HEAD
                                          EnergyPlus::format("{}: {}=\"{}\" requires \"Site:GroundTemperature:BuildingSurface\" in the input..",
                                                             routineName,
                                                             cCurrentModuleObject,
@@ -1134,6 +1210,15 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                         ShowContinueError(state,
                                           EnergyPlus::format("Defaults, constant throughout the year of ({:.1R}) will be used.",
                                                              state.dataEnvrn->GroundTemp[(int)spmFGT->refTempType]));
+=======
+                                         std::format("{}: {}=\"{}\" requires \"Site:GroundTemperature:BuildingSurface\" in the input..",
+                                                     routineName,
+                                                     cCurrentModuleObject,
+                                                     spmFGT->Name));
+                        ShowContinueError(state,
+                                          std::format("Defaults, constant throughout the year of ({:.1f}) will be used.",
+                                                      state.dataEnvrn->GroundTemp[(int)spmFGT->refTempType]));
+>>>>>>> nrel/develop
                     }
                     state.dataSetPointManager->NoGroundTempObjWarning[(int)spmFGT->refTempType] = false;
                 }
@@ -1174,12 +1259,21 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                 spmCET->towerDesignInletAirWetBulbTemp = ip->getRealFieldValue(fields, props, "cooling_tower_design_inlet_air_wet_bulb_temperature");
 
                 if (spmCET->maxCondenserEnteringTemp < spmCET->towerDesignInletAirWetBulbTemp) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmCET->Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...maximum_condenser_entering_water_temperature=[{:.1R}] is less than "
                                                          "cooling_tower_design_inlet_air_wet-bulb_temperature=[{:.1R}].",
                                                          spmCET->maxCondenserEnteringTemp,
                                                          spmCET->towerDesignInletAirWetBulbTemp));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmCET->Name));
+                    ShowContinueError(state,
+                                      std::format("...maximum_condenser_entering_water_temperature=[{:.1f}] is less than "
+                                                  "cooling_tower_design_inlet_air_wet-bulb_temperature=[{:.1f}].",
+                                                  spmCET->maxCondenserEnteringTemp,
+                                                  spmCET->towerDesignInletAirWetBulbTemp));
+>>>>>>> nrel/develop
                 }
 
             } break;
@@ -1209,12 +1303,21 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
 
                 if (spmSZOSC->coolingOffSetPt < spmSZOSC->coolingOnSetPt) {
                     // throw warning, off must be warmer than on
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmSZOSC->Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...cooling_stage_off_supply_air_setpoint_temperature=[{:.1R}] is less than "
                                                          "cooling_stage_on_supply_air_setpoint_temperature=[{:.1R}].",
                                                          spmSZOSC->coolingOffSetPt,
                                                          spmSZOSC->coolingOnSetPt));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmSZOSC->Name));
+                    ShowContinueError(state,
+                                      std::format("...cooling_stage_off_supply_air_setpoint_temperature=[{:.1f}] is less than "
+                                                  "cooling_stage_on_supply_air_setpoint_temperature=[{:.1f}].",
+                                                  spmSZOSC->coolingOffSetPt,
+                                                  spmSZOSC->coolingOnSetPt));
+>>>>>>> nrel/develop
                 }
 
                 std::string ctrlZoneName = ip->getAlphaFieldValue(fields, props, "control_zone_name");
@@ -1227,9 +1330,14 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                     spmSZOSC->zoneNodeNum = GetSystemNodeNumberForZone(state, spmSZOSC->ctrlZoneNum);
                     if (allocated(state.dataZoneCtrls->StageZoneLogic)) {
                         if (!state.dataZoneCtrls->StageZoneLogic(spmSZOSC->ctrlZoneNum)) {
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format("{}: {}=\"{}\", invalid field.", routineName, cCurrentModuleObject, spmSZOSC->Name));
                             ShowContinueError(state, EnergyPlus::format("..invalid control_zone_name=\"{}\".", ctrlZoneName));
+=======
+                            ShowSevereError(state, std::format("{}: {}=\"{}\", invalid field.", routineName, cCurrentModuleObject, spmSZOSC->Name));
+                            ShowContinueError(state, std::format("..invalid control_zone_name=\"{}\".", ctrlZoneName));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "Zone thermostat must use ZoneControl:Thermostat:StagedDualSetpoint.");
                             ErrorsFound = true;
                         }
@@ -1247,12 +1355,21 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
 
                 if (spmSZOSH->heatingOffSetPt > spmSZOSH->heatingOnSetPt) {
                     // throw warning, off must be warmer than on
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmSZOSH->Name));
                     ShowContinueError(state,
                                       EnergyPlus::format("...heating_stage_off_supply_air_setpoint_temperature=[{:.1R}] is less than "
                                                          "heating_stage_on_supply_air_setpoint_temperature=[{:.1R}].",
                                                          spmSZOSH->heatingOffSetPt,
                                                          spmSZOSH->heatingOnSetPt));
+=======
+                    ShowWarningError(state, std::format("{}: {}=\"{}\",", routineName, cCurrentModuleObject, spmSZOSH->Name));
+                    ShowContinueError(state,
+                                      std::format("...heating_stage_off_supply_air_setpoint_temperature=[{:.1f}] is less than "
+                                                  "heating_stage_on_supply_air_setpoint_temperature=[{:.1f}].",
+                                                  spmSZOSH->heatingOffSetPt,
+                                                  spmSZOSH->heatingOnSetPt));
+>>>>>>> nrel/develop
                 }
 
                 std::string ctrlZoneName = ip->getAlphaFieldValue(fields, props, "control_zone_name");
@@ -1265,9 +1382,14 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
                     spmSZOSH->zoneNodeNum = GetSystemNodeNumberForZone(state, spmSZOSH->ctrlZoneNum);
                     if (allocated(state.dataZoneCtrls->StageZoneLogic)) {
                         if (!state.dataZoneCtrls->StageZoneLogic(spmSZOSH->ctrlZoneNum)) {
+<<<<<<< HEAD
                             ShowSevereError(state,
                                             EnergyPlus::format("{}: {}=\"{}\", invalid field.", routineName, cCurrentModuleObject, spmSZOSH->Name));
                             ShowContinueError(state, EnergyPlus::format("..invalid control_zone_name=\"{}\".", ctrlZoneName));
+=======
+                            ShowSevereError(state, std::format("{}: {}=\"{}\", invalid field.", routineName, cCurrentModuleObject, spmSZOSH->Name));
+                            ShowContinueError(state, std::format("..invalid control_zone_name=\"{}\".", ctrlZoneName));
+>>>>>>> nrel/develop
                             ShowContinueError(state, "Zone thermostat must use ZoneControl:Thermostat:StagedDualSetpoint.");
                             ErrorsFound = true;
                         }
@@ -1450,13 +1572,21 @@ void GetSetPointManagerInputData(EnergyPlusData &state, bool &ErrorsFound)
 
                 // Also, do this check now that we have both RefNodeNum and ctrlNodeNums
                 if (std::find(spmMA->ctrlNodeNums.begin(), spmMA->ctrlNodeNums.end(), spmMA->refNodeNum) != spmMA->ctrlNodeNums.end()) {
+<<<<<<< HEAD
                     ShowSevereError(state, EnergyPlus::format("{}: {}=\"{}\", reference node.", routineName, cCurrentModuleObject, spmMA->Name));
+=======
+                    ShowSevereError(state, std::format("{}: {}=\"{}\", reference node.", routineName, cCurrentModuleObject, spmMA->Name));
+>>>>>>> nrel/develop
                     if (spmMA->ctrlNodeNums.size() > 1) {
                         ShowContinueError(state, "..Reference Node is the same as one of the nodes in SetPoint NodeList");
                     } else {
                         ShowContinueError(state, "..Reference Node is the same as the SetPoint Node");
                     }
+<<<<<<< HEAD
                     ShowContinueError(state, EnergyPlus::format("Reference Node Name=\"{}\".", state.dataLoopNodes->NodeID(spmMA->refNodeNum)));
+=======
+                    ShowContinueError(state, std::format("Reference Node Name=\"{}\".", state.dataLoopNodes->NodeID(spmMA->refNodeNum)));
+>>>>>>> nrel/develop
                     ErrorsFound = true;
                 }
             } break;
@@ -1577,10 +1707,16 @@ void VerifySetPointManagers(EnergyPlusData &state, [[maybe_unused]] bool &Errors
                 if (spm->ctrlNodeNums[iNode] != spm->ctrlNodeNums[jNode]) {
                     continue;
                 }
+<<<<<<< HEAD
                 ShowWarningError(state, EnergyPlus::format("{} =\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
                 ShowContinueError(state,
                                   EnergyPlus::format("...duplicate node specified = {}", state.dataLoopNodes->NodeID(spm->ctrlNodeNums[iNode])));
                 ShowContinueError(state, EnergyPlus::format("...control type variable    = {}", ctrlVarTypeNamesUC[(int)spm->ctrlVar]));
+=======
+                ShowWarningError(state, std::format("{} =\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
+                ShowContinueError(state, std::format("...duplicate node specified = {}", state.dataLoopNodes->NodeID(spm->ctrlNodeNums[iNode])));
+                ShowContinueError(state, std::format("...control type variable    = {}", ctrlVarTypeNamesUC[(int)spm->ctrlVar]));
+>>>>>>> nrel/develop
             }
         }
 
@@ -1596,11 +1732,18 @@ void VerifySetPointManagers(EnergyPlusData &state, [[maybe_unused]] bool &Errors
 
                 //     check the air loop name for duplicates in this SP manager type
                 if (spm->airLoopNum == spm2->airLoopNum) {
+<<<<<<< HEAD
                     ShowWarningError(state, EnergyPlus::format("{}=\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
                     ShowContinueError(state, "...air loop name conflicts with another setpoint manager.");
                     ShowContinueError(state,
                                       EnergyPlus::format("...conflicting setpoint manager = {} \"{}\"", spmTypeNames[(int)spm2->type], spm2->Name));
                     ShowContinueError(state, EnergyPlus::format("...conflicting air loop name = {}", spm->airLoopName));
+=======
+                    ShowWarningError(state, std::format("{}=\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
+                    ShowContinueError(state, "...air loop name conflicts with another setpoint manager.");
+                    ShowContinueError(state, std::format("...conflicting setpoint manager = {} \"{}\"", spmTypeNames[(int)spm2->type], spm2->Name));
+                    ShowContinueError(state, std::format("...conflicting air loop name = {}", spm->airLoopName));
+>>>>>>> nrel/develop
                     //        ErrorsFound=.TRUE.
                 }
 
@@ -1612,6 +1755,7 @@ void VerifySetPointManagers(EnergyPlusData &state, [[maybe_unused]] bool &Errors
                 for (int iNode = 0; iNode < (int)spm->ctrlNodeNums.size(); ++iNode) {
                     for (int jNode = 0; jNode < (int)spm2->ctrlNodeNums.size(); ++jNode) {
                         if ((spm->ctrlNodeNums[iNode] == spm2->ctrlNodeNums[jNode]) && spm->ctrlNodeNums[iNode] != 0) {
+<<<<<<< HEAD
                             ShowWarningError(state, EnergyPlus::format("{}=\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
                             ShowContinueError(state, "...setpoint node conflicts with another setpoint manager.");
                             ShowContinueError(
@@ -1619,6 +1763,15 @@ void VerifySetPointManagers(EnergyPlusData &state, [[maybe_unused]] bool &Errors
                             ShowContinueError(
                                 state, EnergyPlus::format("...conflicting node name = {}", state.dataLoopNodes->NodeID(spm->ctrlNodeNums[iNode])));
                             ShowContinueError(state, EnergyPlus::format("...control type variable = {}", ctrlVarTypeNames[(int)spm->ctrlVar]));
+=======
+                            ShowWarningError(state, std::format("{}=\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
+                            ShowContinueError(state, "...setpoint node conflicts with another setpoint manager.");
+                            ShowContinueError(state,
+                                              std::format("...conflicting setpoint manager = {} \"{}\"", spmTypeNames[(int)spm2->type], spm2->Name));
+                            ShowContinueError(state,
+                                              std::format("...conflicting node name = {}", state.dataLoopNodes->NodeID(spm->ctrlNodeNums[iNode])));
+                            ShowContinueError(state, std::format("...control type variable = {}", ctrlVarTypeNames[(int)spm->ctrlVar]));
+>>>>>>> nrel/develop
                             //            ErrorsFound=.TRUE.
                         }
                     }
@@ -1640,6 +1793,7 @@ void VerifySetPointManagers(EnergyPlusData &state, [[maybe_unused]] bool &Errors
 
                         //         only warn if scheduled setpoint manager is setting mass flow rate on the same node used by RAB
                         if (spm->type == SPMType::ReturnAirBypass || spm2->type == SPMType::ReturnAirBypass) {
+<<<<<<< HEAD
                             ShowWarningError(state, EnergyPlus::format("{}=\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
                             ShowContinueError(state, "...setpoint node conflicts with another setpoint manager.");
                             ShowContinueError(
@@ -1657,6 +1811,25 @@ void VerifySetPointManagers(EnergyPlusData &state, [[maybe_unused]] bool &Errors
                             ShowContinueError(
                                 state, EnergyPlus::format("...conflicting node name = {}", state.dataLoopNodes->NodeID(spm->ctrlNodeNums[iNode])));
                             ShowContinueError(state, EnergyPlus::format("...control type variable = {}", ctrlVarTypeNames[(int)spm->ctrlVar]));
+=======
+                            ShowWarningError(state, std::format("{}=\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
+                            ShowContinueError(state, "...setpoint node conflicts with another setpoint manager.");
+                            ShowContinueError(state,
+                                              std::format("...conflicting setpoint manager ={}:\"{}\"", spmTypeNames[(int)spm2->type], spm2->Name));
+                            ShowContinueError(state,
+                                              std::format("...conflicting node name = {}", state.dataLoopNodes->NodeID(spm->ctrlNodeNums[iNode])));
+                            ShowContinueError(state, std::format("...control type variable = {}", ctrlVarTypeNames[(int)spm->ctrlVar]));
+                            ShowContinueError(state,
+                                              "...return air bypass flow setpoint manager will have priority setting mass flow rate on this node.");
+                        } else { // severe error for other SP manager types
+                            ShowWarningError(state, std::format("{}=\"{}\"", spmTypeNames[(int)spm->type], spm->Name));
+                            ShowContinueError(state, "...setpoint node conflicts with another setpoint manager.");
+                            ShowContinueError(state,
+                                              std::format("...conflicting setpoint manager = {}:\"{}\"", spmTypeNames[(int)spm2->type], spm2->Name));
+                            ShowContinueError(state,
+                                              std::format("...conflicting node name = {}", state.dataLoopNodes->NodeID(spm->ctrlNodeNums[iNode])));
+                            ShowContinueError(state, std::format("...control type variable = {}", ctrlVarTypeNames[(int)spm->ctrlVar]));
+>>>>>>> nrel/develop
                             //            ErrorsFound=.TRUE.
                         }
                     }
@@ -1745,10 +1918,16 @@ void InitSetPointManagers(EnergyPlusData &state)
                         }
                     }
                     if (ConZoneNum == 0) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", Zone Node not found:", spmTypeName, spmName));
                         ShowContinueError(
                             state,
                             EnergyPlus::format("Node=\"{}\", not found in any controlled Zone", state.dataLoopNodes->NodeID(spmSZT->zoneNodeNum)));
+=======
+                        ShowSevereError(state, std::format("{}=\"{}\", Zone Node not found:", spmTypeName, spmName));
+                        ShowContinueError(
+                            state, std::format("Node=\"{}\", not found in any controlled Zone", state.dataLoopNodes->NodeID(spmSZT->zoneNodeNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         auto &zoneEquip = state.dataZoneEquip->ZoneEquipConfig(ConZoneNum);
@@ -1760,11 +1939,19 @@ void InitSetPointManagers(EnergyPlusData &state)
                         }
                         if (!found) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}=\"{}\", The zone inlet node of {}",
                                                                spmTypeName,
                                                                spmName,
                                                                state.dataLoopNodes->NodeID(spmSZT->zoneInletNodeNum)));
                             ShowContinueError(state, EnergyPlus::format("is not found in Zone = {}. Please check inputs.", zoneEquip.ZoneName));
+=======
+                                            std::format("{}=\"{}\", The zone inlet node of {}",
+                                                        spmTypeName,
+                                                        spmName,
+                                                        state.dataLoopNodes->NodeID(spmSZT->zoneInletNodeNum)));
+                            ShowContinueError(state, std::format("is not found in Zone = {}. Please check inputs.", zoneEquip.ZoneName));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -1785,7 +1972,11 @@ void InitSetPointManagers(EnergyPlusData &state)
                     // still need to validate...
                     if (spmSZH->ctrlZoneNum == 0) { // didn't find
                         ShowSevereCustom(
+<<<<<<< HEAD
                             state, eoh, EnergyPlus::format("could not find Controlled Zone={}", state.dataHeatBal->Zone(spmSZH->ctrlZoneNum).Name));
+=======
+                            state, eoh, std::format("could not find Controlled Zone={}", state.dataHeatBal->Zone(spmSZH->ctrlZoneNum).Name));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         // make sure humidity controlled zone
@@ -1797,10 +1988,16 @@ void InitSetPointManagers(EnergyPlusData &state)
                             }
                         }
                         if (!HstatZoneFound) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}=\"{}\", invalid humidistat specification", spmTypeName, spmName));
                             ShowContinueError(
                                 state,
                                 EnergyPlus::format("could not locate Humidistat in Zone={}", state.dataHeatBal->Zone(spmSZH->ctrlZoneNum).Name));
+=======
+                            ShowSevereError(state, std::format("{}=\"{}\", invalid humidistat specification", spmTypeName, spmName));
+                            ShowContinueError(
+                                state, std::format("could not locate Humidistat in Zone={}", state.dataHeatBal->Zone(spmSZH->ctrlZoneNum).Name));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                         }
                     }
@@ -1825,10 +2022,16 @@ void InitSetPointManagers(EnergyPlusData &state)
                     }
 
                     if (ConZoneNum == 0) {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", Zone Node not found:", spmTypeName, spmName));
                         ShowContinueError(
                             state,
                             EnergyPlus::format("Node=\"{}\", not found in any controlled Zone", state.dataLoopNodes->NodeID(spmSZR->zoneNodeNum)));
+=======
+                        ShowSevereError(state, std::format("{}=\"{}\", Zone Node not found:", spmTypeName, spmName));
+                        ShowContinueError(
+                            state, std::format("Node=\"{}\", not found in any controlled Zone", state.dataLoopNodes->NodeID(spmSZR->zoneNodeNum)));
+>>>>>>> nrel/develop
                         ErrorsFound = true;
                     } else {
                         bool found = false;
@@ -1841,6 +2044,7 @@ void InitSetPointManagers(EnergyPlusData &state)
                         }
                         if (!found) {
                             ShowSevereError(state,
+<<<<<<< HEAD
                                             EnergyPlus::format("{}=\"{}\", The zone inlet node of {}",
                                                                spmTypeName,
                                                                spmName,
@@ -1851,6 +2055,18 @@ void InitSetPointManagers(EnergyPlusData &state)
                         if (spmSZR->airLoopNum == 0) {
                             ShowSevereError(
                                 state, EnergyPlus::format("{}=\"{}\", The zone inlet node is not connected to an air loop.", spmTypeName, spmName));
+=======
+                                            std::format("{}=\"{}\", The zone inlet node of {}",
+                                                        spmTypeName,
+                                                        spmName,
+                                                        state.dataLoopNodes->NodeID(spmSZR->zoneInletNodeNum)));
+                            ShowContinueError(state, std::format("is not found in Zone = {}. Please check inputs.", zoneEquip.ZoneName));
+                            ErrorsFound = true;
+                        }
+                        if (spmSZR->airLoopNum == 0) {
+                            ShowSevereError(state,
+                                            std::format("{}=\"{}\", The zone inlet node is not connected to an air loop.", spmTypeName, spmName));
+>>>>>>> nrel/develop
                             ErrorsFound = true;
                             continue;
                         }
@@ -1916,12 +2132,21 @@ void InitSetPointManagers(EnergyPlusData &state)
                             ShowSevereItemNotFound(state, eoh, "hvac_air_loop_name", spmT->airLoopName);
                             ErrorsFound = true;
                         } else if (state.dataAirLoop->AirToZoneNodeInfo(spmT->airLoopNum).NumZonesCooled == 0) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no zones with cooling found:", spmTypeName, spmName));
                             ShowContinueError(state, EnergyPlus::format("Air Loop provides no cooling, Air Loop=\"{}\".", spmT->airLoopName));
                             ErrorsFound = true;
                         }
                     } else {
                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+=======
+                            ShowSevereError(state, std::format("{}=\"{}\", no zones with cooling found:", spmTypeName, spmName));
+                            ShowContinueError(state, std::format("Air Loop provides no cooling, Air Loop=\"{}\".", spmT->airLoopName));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state, std::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Setpoint Manager needs an AirLoopHVAC to operate.");
                         ErrorsFound = true;
                     }
@@ -1941,12 +2166,21 @@ void InitSetPointManagers(EnergyPlusData &state)
                             spmWTF->simReady = true;
                         }
                         if (state.dataAirLoop->AirToZoneNodeInfo(spmWTF->airLoopNum).NumZonesCooled == 0) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no zones with cooling found:", spmTypeName, spmName));
                             ShowContinueError(state, EnergyPlus::format("Air Loop provides no cooling, Air Loop=\"{}\".", spmWTF->airLoopName));
                             ErrorsFound = true;
                         }
                     } else {
                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+=======
+                            ShowSevereError(state, std::format("{}=\"{}\", no zones with cooling found:", spmTypeName, spmName));
+                            ShowContinueError(state, std::format("Air Loop provides no cooling, Air Loop=\"{}\".", spmWTF->airLoopName));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state, std::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Setpoint Manager needs an AirLoopHVAC to operate.");
                         ErrorsFound = true;
                     }
@@ -1973,12 +2207,21 @@ void InitSetPointManagers(EnergyPlusData &state)
                             spmRAB->sysOutNodeNum = state.dataAirLoop->AirToZoneNodeInfo(spmRAB->airLoopNum).AirLoopSupplyNodeNum(1);
                             spmRAB->ctrlNodeNums.push_back(spmRAB->rabSplitOutNodeNum);
                         } else {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no RAB in air loop found:", spmTypeName, spmName));
                             ShowContinueError(state, EnergyPlus::format("Air Loop=\"{}\".", spmRAB->airLoopName));
                             ErrorsFound = true;
                         }
                     } else {
                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+=======
+                            ShowSevereError(state, std::format("{}=\"{}\", no RAB in air loop found:", spmTypeName, spmName));
+                            ShowContinueError(state, std::format("Air Loop=\"{}\".", spmRAB->airLoopName));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state, std::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Setpoint Manager needs an AirLoopHVAC to operate.");
                         ErrorsFound = true;
                     }
@@ -1998,12 +2241,21 @@ void InitSetPointManagers(EnergyPlusData &state)
                         }
 
                         if (state.dataAirLoop->AirToZoneNodeInfo(spmMZTemp->airLoopNum).NumZonesCooled == 0) {
+<<<<<<< HEAD
                             ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no zones with cooling found:", spmTypeName, spmName));
                             ShowContinueError(state, EnergyPlus::format("Air Loop provides no cooling, Air Loop=\"{}\".", spmMZTemp->airLoopName));
                             ErrorsFound = true;
                         }
                     } else {
                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+=======
+                            ShowSevereError(state, std::format("{}=\"{}\", no zones with cooling found:", spmTypeName, spmName));
+                            ShowContinueError(state, std::format("Air Loop provides no cooling, Air Loop=\"{}\".", spmMZTemp->airLoopName));
+                            ErrorsFound = true;
+                        }
+                    } else {
+                        ShowSevereError(state, std::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Setpoint Manager needs an AirLoopHVAC to operate.");
                         ErrorsFound = true;
                     }
@@ -2037,15 +2289,26 @@ void InitSetPointManagers(EnergyPlusData &state)
                             }
 
                             if (!HstatZoneFound) {
+<<<<<<< HEAD
                                 ShowSevereError(state, EnergyPlus::format("{}=\"{}\", invalid humidistat specification", spmTypeName, spmName));
                                 ShowContinueError(state,
                                                   EnergyPlus::format("could not locate Humidistat in any of the zones served by the Air loop={}",
                                                                      primaryAirSystem.Name));
+=======
+                                ShowSevereError(state, std::format("{}=\"{}\", invalid humidistat specification", spmTypeName, spmName));
+                                ShowContinueError(
+                                    state,
+                                    std::format("could not locate Humidistat in any of the zones served by the Air loop={}", primaryAirSystem.Name));
+>>>>>>> nrel/develop
                                 ErrorsFound = true;
                             }
                         }
                     } else {
+<<<<<<< HEAD
                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+=======
+                        ShowSevereError(state, std::format("{}=\"{}\", no AirLoopHVAC objects found:", spmTypeName, spmName));
+>>>>>>> nrel/develop
                         ShowContinueError(state, "Setpoint Manager needs an AirLoopHVAC to operate.");
                         ErrorsFound = true;
                     }
@@ -2067,8 +2330,13 @@ void InitSetPointManagers(EnergyPlusData &state)
                             for (auto const &branch : plantLoop.LoopSide(LoopSideLocation::Supply).Branch) {
                                 for (auto const &comp : branch.Comp) {
                                     if (comp.Type == PlantEquipmentType::CoolingTower_SingleSpd) {
+<<<<<<< HEAD
                                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", invalid tower found", spmTypeName, spmName));
                                         ShowContinueError(state, EnergyPlus::format("Found SingleSpeed Cooling Tower, Cooling Tower={}", comp.Name));
+=======
+                                        ShowSevereError(state, std::format("{}=\"{}\", invalid tower found", spmTypeName, spmName));
+                                        ShowContinueError(state, std::format("Found SingleSpeed Cooling Tower, Cooling Tower={}", comp.Name));
+>>>>>>> nrel/develop
                                         ShowContinueError(state, "SingleSpeed cooling towers cannot be used with this setpoint manager.");
                                         ErrorsFound = true;
                                     }
@@ -2149,8 +2417,13 @@ void InitSetPointManagers(EnergyPlusData &state)
                                     // Check if cooling tower is single speed and generate and error
                                     InitType = comp.Type;
                                     if (InitType == PlantEquipmentType::CoolingTower_SingleSpd) {
+<<<<<<< HEAD
                                         ShowSevereError(state, EnergyPlus::format("{}=\"{}\", invalid cooling tower found", spmTypeName, spmName));
                                         ShowContinueError(state, EnergyPlus::format("Found Single Speed Cooling Tower, Cooling Tower={}", comp.Name));
+=======
+                                        ShowSevereError(state, std::format("{}=\"{}\", invalid cooling tower found", spmTypeName, spmName));
+                                        ShowContinueError(state, std::format("Found Single Speed Cooling Tower, Cooling Tower={}", comp.Name));
+>>>>>>> nrel/develop
                                         ShowContinueError(state, "SingleSpeed cooling towers cannot be used with this setpoint manager on each loop");
                                         ErrorsFound = true;
                                     } else if (InitType == PlantEquipmentType::CoolingTower_TwoSpd ||
@@ -2220,9 +2493,15 @@ void InitSetPointManagers(EnergyPlusData &state)
                                             }
                                         }
                                         if (NumChiller > 1) {
+<<<<<<< HEAD
                                             ShowSevereError(state, EnergyPlus::format("{}=\"{}\", too many chillers found", spmTypeName, spmName));
                                             ShowContinueError(state, "only one chiller can be used with this setpoint manager on each loop");
                                             ShowContinueError(state, EnergyPlus::format("Found more than one chiller, chiller ={}", comp.Name));
+=======
+                                            ShowSevereError(state, std::format("{}=\"{}\", too many chillers found", spmTypeName, spmName));
+                                            ShowContinueError(state, "only one chiller can be used with this setpoint manager on each loop");
+                                            ShowContinueError(state, std::format("Found more than one chiller, chiller ={}", comp.Name));
+>>>>>>> nrel/develop
                                             ErrorsFound = true;
                                         }
                                         spmIdealCET->chillerType = ChillerType;
@@ -2791,14 +3070,23 @@ void SPMOutsideAir::calculate(EnergyPlusData &state)
             ++this->setPtErrorCount;
             if (this->setPtErrorCount <= 10) {
                 ShowSevereError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("Schedule Values for the Outside Air Setpoint Manager = {} are something other than 1 or 2.", this->Name));
                 ShowContinueError(state, EnergyPlus::format("...the value for the schedule currently is {}", SchedVal));
+=======
+                    state, std::format("Schedule Values for the Outside Air Setpoint Manager = {} are something other than 1 or 2.", this->Name));
+                ShowContinueError(state, std::format("...the value for the schedule currently is {}", SchedVal));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "...the value is being interpreted as 1 for this run but should be fixed.");
             } else {
                 ShowRecurringSevereErrorAtEnd(
                     state,
+<<<<<<< HEAD
                     EnergyPlus::format("Schedule Values for the Outside Air Setpoint Manager = {} are something other than 1 or 2.", this->Name),
+=======
+                    std::format("Schedule Values for the Outside Air Setpoint Manager = {} are something other than 1 or 2.", this->Name),
+>>>>>>> nrel/develop
                     this->invalidSchedValErrorIndex);
             }
         }
@@ -3020,9 +3308,14 @@ void SPMMixedAir::calculate(EnergyPlusData &state)
         if (refNode.TempSetPoint == Node::SensedNodeFlagValue) {
             if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
                 ShowSevereError(
+<<<<<<< HEAD
                     state,
                     EnergyPlus::format("CalcMixedAirSetPoint: Missing reference temperature setpoint for Mixed Air Setpoint Manager {}", this->Name));
                 ShowContinueError(state, EnergyPlus::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+=======
+                    state, std::format("CalcMixedAirSetPoint: Missing reference temperature setpoint for Mixed Air Setpoint Manager {}", this->Name));
+                ShowContinueError(state, std::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+>>>>>>> nrel/develop
                 ShowContinueError(
                     state, "  use an additional Setpoint Manager with Control Variable = \"Temperature\" to establish a setpoint at this node.");
                 state.dataHVACGlobal->SetPointErrorFlag = true;
@@ -3032,9 +3325,14 @@ void SPMMixedAir::calculate(EnergyPlusData &state)
                 if (state.dataHVACGlobal->SetPointErrorFlag) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("CalcMixedAirSetPoint: Missing reference temperature setpoint for Mixed Air Setpoint Manager {}",
                                            this->Name));
                     ShowContinueError(state, EnergyPlus::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+=======
+                        std::format("CalcMixedAirSetPoint: Missing reference temperature setpoint for Mixed Air Setpoint Manager {}", this->Name));
+                    ShowContinueError(state, std::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+>>>>>>> nrel/develop
                     ShowContinueError(
                         state, "  use an additional Setpoint Manager with Control Variable = \"Temperature\" to establish a setpoint at this node.");
                     ShowContinueError(state, "Or add EMS Actuator to provide temperature setpoint at this node");
@@ -3131,10 +3429,17 @@ void SPMOutsideAirPretreat::calculate(EnergyPlusData &state)
         this->mySetPointCheckFlag = false;
         if (RefNodeSetPoint == Node::SensedNodeFlagValue) {
             if (!state.dataGlobal->AnyEnergyManagementSystemInModel) {
+<<<<<<< HEAD
                 ShowSevereError(state,
                                 EnergyPlus::format("CalcOAPretreatSetPoint: Missing reference setpoint for Outdoor Air Pretreat Setpoint Manager {}",
                                                    this->Name));
                 ShowContinueError(state, EnergyPlus::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+=======
+                ShowSevereError(
+                    state,
+                    std::format("CalcOAPretreatSetPoint: Missing reference setpoint for Outdoor Air Pretreat Setpoint Manager {}", this->Name));
+                ShowContinueError(state, std::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+>>>>>>> nrel/develop
                 ShowContinueError(state, "use a Setpoint Manager to establish a setpoint at this node.");
                 ShowFatalError(state, "Missing reference setpoint.");
             } else {
@@ -3152,9 +3457,14 @@ void SPMOutsideAirPretreat::calculate(EnergyPlusData &state)
                 if (LocalSetPointCheckFailed) {
                     ShowSevereError(
                         state,
+<<<<<<< HEAD
                         EnergyPlus::format("CalcOAPretreatSetPoint: Missing reference setpoint for Outdoor Air Pretreat Setpoint Manager {}",
                                            this->Name));
                     ShowContinueError(state, EnergyPlus::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+=======
+                        std::format("CalcOAPretreatSetPoint: Missing reference setpoint for Outdoor Air Pretreat Setpoint Manager {}", this->Name));
+                    ShowContinueError(state, std::format("Node Referenced ={}", state.dataLoopNodes->NodeID(this->refNodeNum)));
+>>>>>>> nrel/develop
                     ShowContinueError(state, "use a Setpoint Manager to establish a setpoint at this node.");
                     ShowContinueError(state, "Or use an EMS actuator to control a setpoint at this node.");
                     ShowFatalError(state, "Missing reference setpoint.");
@@ -4019,10 +4329,16 @@ void SPMReturnWaterTemp::calculate(EnergyPlusData &state)
             ShowContinueError(state,
                               "The manager is specified to look to the return node setpoint to find a target return temperature, but the node "
                               "setpoint was invalid");
+<<<<<<< HEAD
             ShowContinueError(
                 state,
                 EnergyPlus::format("Verify that a separate setpoint manager is specified to set the setpoint on the return node named \"{}\"",
                                    state.dataLoopNodes->NodeID(this->returnNodeNum)));
+=======
+            ShowContinueError(state,
+                              std::format("Verify that a separate setpoint manager is specified to set the setpoint on the return node named \"{}\"",
+                                          state.dataLoopNodes->NodeID(this->returnNodeNum)));
+>>>>>>> nrel/develop
             ShowContinueError(state, "Or change the target return temperature input type to constant or scheduled");
             ShowFatalError(state, "Missing reference setpoint");
         }
@@ -4530,7 +4846,11 @@ void ResetHumidityRatioCtrlVarType(EnergyPlusData &state, int const NodeNum)
             }
 
             spm->ctrlVar = HVAC::CtrlVarType::MaxHumRat;
+<<<<<<< HEAD
             ShowWarningError(state, EnergyPlus::format("ResetHumidityRatioCtrlVarType: {}=\"{}\". ", spmTypeNames[(int)spm->type], spm->Name));
+=======
+            ShowWarningError(state, std::format("ResetHumidityRatioCtrlVarType: {}=\"{}\". ", spmTypeNames[(int)spm->type], spm->Name));
+>>>>>>> nrel/develop
             ShowContinueError(state, " ..Humidity ratio control variable type specified is = HumidityRatio");
             ShowContinueError(state, " ..Humidity ratio control variable type allowed with water coils is = MaximumHumidityRatio");
             ShowContinueError(state, " ..Setpointmanager control variable type is reset to = MaximumHumidityRatio");
@@ -4623,7 +4943,11 @@ void SetUpNewScheduledTESSetPtMgr(EnergyPlusData &state,
     auto *spm = new SPMTESScheduled;
 
     // Set up the scheduled TES setpoint manager information
+<<<<<<< HEAD
     spm->Name = EnergyPlus::format("TES Scheduled {}", state.dataSetPointManager->spms.size());
+=======
+    spm->Name = std::format("TES Scheduled {}", state.dataSetPointManager->spms.size());
+>>>>>>> nrel/develop
     state.dataSetPointManager->spms.push_back(spm);
     state.dataSetPointManager->spmMap.insert_or_assign(spm->Name, state.dataSetPointManager->spms.size());
 

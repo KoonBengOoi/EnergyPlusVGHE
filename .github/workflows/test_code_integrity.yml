@@ -7,11 +7,18 @@ on:
     branches: [ develop ]
   workflow_dispatch:
 
+<<<<<<< HEAD
+=======
+env:
+  Python_REQUIRED_VERSION: 3.12.3  # 3.12.2 not available on Ubuntu 24 GHA
+
+>>>>>>> nrel/develop
 jobs:
   code_integrity_checks:
     name: Static Code Analysis
     runs-on: ubuntu-24.04
     steps:
+<<<<<<< HEAD
       - uses: actions/checkout@v6
         with:
           fetch-depth: 2
@@ -20,6 +27,21 @@ jobs:
         if: always()
         run: |
           pip install pre-commit tabulate
+=======
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python ${{ env.Python_REQUIRED_VERSION }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.Python_REQUIRED_VERSION }}
+
+      - name: Pip install dependencies
+        if: always()
+        run: |
+          python -m pip install pre-commit tabulate
+>>>>>>> nrel/develop
 
       - name: Run pre-commit
         id: pre_commit
@@ -202,7 +224,11 @@ jobs:
           -D__cppcheck__ -UEP_Count_Calls -DEP_NO_OPENGL -UGROUND_PLOT -DLINK_WITH_PYTHON -DMSVC_DEBUG -DSKYLINE_MATRIX_REMOVE_ZERO_COLUMNS -U_OPENMP -Ugeneratetestdata
           -DEP_cache_GlycolSpecificHeat -DEP_cache_PsyTsatFnPb -UEP_nocache_Psychrometrics -UEP_psych_errors -UEP_psych_stats
           --force
+<<<<<<< HEAD
           --std=c++17
+=======
+          --std=c++20
+>>>>>>> nrel/develop
           --inline-suppr
           --suppress=missingInclude
           --suppress=missingIncludeSystem
@@ -215,6 +241,7 @@ jobs:
           --enable=all
           -j $(nproc)
           --template='[{file}:{line}]:({severity}),[{id}],{message}'
+<<<<<<< HEAD
           --suppress="uninitvar:*" \
           --suppress="arrayIndexThenCheck:*" \
           --suppress="checkLevelNormal:*" \
@@ -244,6 +271,8 @@ jobs:
           --suppress="useStlAlgorithm:*" \
           --suppress="uselessAssignmentArg:*" \
           --suppress="uselessCallsSubstr:*" \
+=======
+>>>>>>> nrel/develop
           ./src
           3>&1 1>&2 2>&3 | tee cppcheck.txt
 
