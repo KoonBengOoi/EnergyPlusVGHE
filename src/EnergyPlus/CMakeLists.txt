@@ -333,13 +333,12 @@ set(SRC
     GroundHeatExchangers/State.hh
     GroundHeatExchangers/Slinky.cc
     GroundHeatExchangers/Slinky.hh
-=======
     GroundHeatExchangers/Slinky.cc
     GroundHeatExchangers/Slinky.hh
     GroundHeatExchangers/State.hh
->>>>>>> nrel/develop
     GroundHeatExchangers/Vertical.cc
     GroundHeatExchangers/Vertical.hh
+    
     GroundTemperatureModeling/BaseGroundTemperatureModel.hh
     GroundTemperatureModeling/FiniteDifferenceGroundTemperatureModel.cc
     GroundTemperatureModeling/FiniteDifferenceGroundTemperatureModel.hh
@@ -357,7 +356,6 @@ set(SRC
     GroundTemperatureModeling/SiteShallowGroundTemperatures.hh
     GroundTemperatureModeling/XingGroundTemperatureModel.cc
     GroundTemperatureModeling/XingGroundTemperatureModel.hh
-<<<<<<< HEAD
     GroundTemperatureModeling/GradientsGTM.cc
     GroundTemperatureModeling/GradientsGTM.hh
 =======
