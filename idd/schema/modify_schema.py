@@ -72,6 +72,7 @@ def isInt(s):
 
 
 extension_renaming = {
+    "Site:GroundTemperature:Undisturbed:GradientSegments": "segments",
     "LifeCycleCost:UseAdjustment": "multipliers",
     "LifeCycleCost:UsePriceEscalation": "escalations",
     "ElectricLoadCenter:Transformer": "meters",
@@ -177,10 +178,6 @@ extension_renaming = {
     "ZoneHVAC:HybridUnitaryHVAC": "modes",
     "ShadowCalculation": "shading_zone_groups",
     "Schedule:Year": "schedule_weeks",
-<<<<<<< HEAD
-=======
-    "Schedule:Week:Rule": "date_ranges",
->>>>>>> nrel/develop
     "WindowShadingControl": "fenestration_surfaces",
     "PlantEquipmentList": "equipment",
     "CondenserEquipmentList": "equipment",
@@ -193,10 +190,6 @@ extension_renaming = {
     "MaterialProperty:PhaseChange": "values",
     "MaterialProperty:VariableThermalConductivity": "values",
     "ComfortViewFactorAngles": "angles",
-<<<<<<< HEAD
-=======
-    "ZoneMRTCalculation": "people_names",
->>>>>>> nrel/develop
 }
 remaining_objects = [
     "Site:SpectrumData",

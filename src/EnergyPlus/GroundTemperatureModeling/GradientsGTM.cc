@@ -1,24 +1,22 @@
-/*
-  GradientsGTM.cc
-  Extensible GradientsGTM model for deep ground temperature segments
-
-  Author: Koon Beng Ooi <ooi_kb3@hotmail.com>
-  Date: 2026-08-xx
-*/
-
 #include "GradientsGTM.hh"
 
 #include <algorithm>
 #include <cmath>
+#include <string>
+#include <vector>
 
-#include "EnergyPlus/DataEnvironment.hh"
-#include "EnergyPlus/InputProcessing/InputProcessor.hh"
-#include "EnergyPlus/GroundTemperatureModeling/KusudaAchenbachGroundTemperatureModel.hh"
-#include "EnergyPlus/UtilityRoutines.hh"
+#include <fmt/format.h>
 
-namespace EnergyPlus:; GroundTemperatureModeling {
+#include <EnergyPlus/Data/EnergyPlusData.hh>
+#include <EnergyPlus/DataEnvironment.hh>
+#include <EnergyPlus/InputProcessing/InputProcessor.hh>
+#include <EnergyPlus/GroundTemperatureModeling/KusudaAchenbachGroundTemperatureModel.hh>
+#include <EnergyPlus/UtilityRoutines.hh>
 
-std::unique_ptr<BaseGroundTemperatureModel> GradientsGTM::factory(
+namespace EnergyPlus {
+namespace GroundTemp {
+
+std::unique_ptr<BaseGroundTempsModel> GradientsGTM::factory(
     EnergyPlusData &state,
     std::string const &objectName)
 {
@@ -34,53 +32,69 @@ std::unique_ptr<BaseGroundTemperatureModel> GradientsGTM::factory(
             }
         }
     }
+
     return model;
 }
 
 void GradientsGTM::parseGradientSegments(EnergyPlusData & /*state*/, nlohmann::json const &object)
 {
     idfSegments_.clear();
-    if (object.find("gradient_segments") != object.end()) {
-        for (auto const &seg : object["gradient_segments"]) {
-            GradientSegment gs;
-            gs.upperDepth = seg.at("z_start").get<Real64>();
-            gs.lowerDepth = seg.at("z_end").get<Real64>();
-            gs.gradient = seg.at("gradient").get<Real64>();
-            idfSegments_.push_back(gs);
-        }
-    }
+
     if (object.find("transition_depth") != object.end()) {
         transitionDepth = object["transition_depth"].get<Real64>();
     }
     if (object.find("blend_width") != object.end()) {
         blendWidth = object["blend_width"].get<Real64>();
     }
+
+    for (int i = 1; i <= 20; ++i) {
+        std::string upperKey = "upper_depth_" + std::to_string(i);
+        std::string lowerKey = "lower_depth_" + std::to_string(i);
+        std::string gradKey  = "gradient_" + std::to_string(i);
+
+        if (object.find(upperKey) == object.end()) break;
+
+        GradientSegment gs;
+        gs.upperDepth = object[upperKey].get<Real64>();
+        gs.lowerDepth = object[lowerKey].get<Real64>();
+        gs.gradient   = object[gradKey].get<Real64>();
+        idfSegments_.push_back(gs);
+    }
 }
 
-void GradientsGTM::initialize(EnergyPlusData &state, const std::vector<GradientSegment> &idfSegments, Real64 H)
+void GradientsGTM::initialize(EnergyPlusData & /*state*/,
+                              const std::vector<GradientSegment> &idfSegments,
+                              Real64 H)
 {
     segments_.clear();
     for (const auto &s : idfSegments) {
         segments_.push_back(s);
     }
-    std::sort(segments_.begin(), segments_.end(), [](const GradientSegment &a, const GradientSegment &b) {
-        return a.upperDepth < b.upperDepth;
-    });
-
-    // Pass state to setBoreholeDepth so it can compute referenceTemp
-    setBoreholeDepth(state, H);
+    std::sort(segments_.begin(), segments_.end(),
+              [](const GradientSegment &a, const GradientSegment &b) {
+                  return a.upperDepth < b.upperDepth;
+              });
+    boreholeDepth = H;
 }
 
 void GradientsGTM::setBoreholeDepth(EnergyPlusData &state, Real64 H)
 {
     boreholeDepth = H;
 
-    // Compute average Kusuda temp at ground surface (depth = 0) across 12 months, if Kusuda model exists.
+    segments_.clear();
+    for (const auto &s : idfSegments_) {
+        segments_.push_back(s);
+    }
+    std::sort(segments_.begin(), segments_.end(),
+              [](const GradientSegment &a, const GradientSegment &b) {
+                  return a.upperDepth < b.upperDepth;
+              });
+
     Real64 sumT = 0.0;
     int kusudaCount = 0;
-    if (state.dataGrndTempModelMgr && state.dataGrndTempModelMgr->groundTempModels.size() > 0) {
+    if (state.dataGrndTempModelMgr) {
         for (const auto &m : state.dataGrndTempModelMgr->groundTempModels) {
-            if (m) {
+            if (m && m != this && m->modelType == ModelType::Kusuda) {
                 for (int month = 1; month <= 12; ++month) {
                     sumT += m->getGroundTempAtTimeInMonths(state, 0.0, month);
                 }
@@ -89,84 +103,111 @@ void GradientsGTM::setBoreholeDepth(EnergyPlusData &state, Real64 H)
             }
         }
     }
+
     if (kusudaCount > 0) {
         referenceTemp = sumT / static_cast<Real64>(kusudaCount);
     } else {
-        if (state.dataEnvrn) {
-            referenceTemp = state.dataEnvrn->OutDryBulbTemp;
-        } else {
-            referenceTemp = 10.0;
-        }
+        referenceTemp = 15.0;
     }
 }
 
-Real64 GradientsGTM::getHybridFarfieldTemp(EnergyPlusData &state, int month, Real64 depth) const
+Real64 GradientsGTM::segmentTemperatureAt(Real64 depth) const
 {
-    // 1) Get Kusuda-based temperature for this month/depth (fallback to referenceTemp)
+    if (segments_.empty()) {
+        return referenceTemp;
+    }
+
+    Real64 T = referenceTemp;
+    Real64 zRef = segments_.front().upperDepth;
+
+    if (depth < zRef) {
+        return referenceTemp + segments_.front().gradient * (depth - zRef);
+    }
+
+    for (const auto &seg : segments_) {
+        if (depth <= seg.upperDepth) break;
+        Real64 zTop    = seg.upperDepth;
+        Real64 zBottom = seg.lowerDepth;
+        Real64 zEff    = std::min(depth, zBottom);
+        if (zEff > zTop) {
+            T += seg.gradient * (zEff - zTop);
+        }
+        if (depth <= zBottom) {
+            return T;
+        }
+    }
+
+    const auto &last = segments_.back();
+    T += last.gradient * (depth - last.lowerDepth);
+    return T;
+}
+
+Real64 GradientsGTM::blendWeight(Real64 depth) const
+{
+    Real64 low  = transitionDepth - blendWidth / 2.0;
+    Real64 high = transitionDepth + blendWidth / 2.0;
+    if (depth <= low)  return 0.0;
+    if (depth >= high) return 1.0;
+    Real64 w = (depth - low) / (high - low);
+    return std::clamp(w, 0.0, 1.0);
+}
+
+Real64 GradientsGTM::getHybridFarfieldTempAtTime(EnergyPlusData &state,
+                                                 Real64 timeInSeconds,
+                                                 Real64 depth) const
+{
     Real64 kaTemp = referenceTemp;
-    if (state.dataGrndTempModelMgr && state.dataGrndTempModelMgr->groundTempModels.size() > 0) {
+    if (state.dataGrndTempModelMgr) {
         for (const auto &m : state.dataGrndTempModelMgr->groundTempModels) {
-            if (m) {
+            if (m && m != this && m->modelType == ModelType::Kusuda) {
+                kaTemp = m->getGroundTempAtTimeInSeconds(state, depth, timeInSeconds);
+                break;
+            }
+        }
+    }
+
+    Real64 gradTemp = segmentTemperatureAt(depth);
+    Real64 w = blendWeight(depth);
+    return (1.0 - w) * kaTemp + w * gradTemp;
+}
+
+Real64 GradientsGTM::getHybridFarfieldTemp(EnergyPlusData &state,
+                                           int month,
+                                           Real64 depth) const
+{
+    Real64 kaTemp = referenceTemp;
+    if (state.dataGrndTempModelMgr) {
+        for (const auto &m : state.dataGrndTempModelMgr->groundTempModels) {
+            if (m && m != this && m->modelType == ModelType::Kusuda) {
                 kaTemp = m->getGroundTempAtTimeInMonths(state, depth, month);
                 break;
             }
         }
     }
 
-    // 2) Compute gradient-based temperature from user segments_ (relative to referenceTemp)
-    Real64 gradTemp = referenceTemp;
-    if (!segments_.empty()) {
-        bool found = false;
-        for (const auto &seg : segments_) {
-            if (depth >= seg.upperDepth && depth <= seg.lowerDepth) {
-                gradTemp = referenceTemp + seg.gradient * (depth - seg.upperDepth);
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            if (depth > segments_.back().lowerDepth) {
-                const auto &last = segments_.back();
-                gradTemp = referenceTemp + last.gradient * (depth - last.upperDepth);
-            } else if (depth < segments_.front().upperDepth) {
-                const auto &first = segments_.front();
-                gradTemp = referenceTemp + first.gradient * (depth - first.upperDepth);
-            }
-        }
-    }
-
-    // 3) Blend between Kusuda (near-surface) and gradient (deep)
-    Real64 low = transitionDepth - blendWidth / 2.0;
-    Real64 high = transitionDepth + blendWidth / 2.0;
-    Real64 weight = 0.0;
-    if (depth <= low) {
-        weight = 0.0;
-    } else if (depth >= high) {
-        weight = 1.0;
-    } else {
-        weight = (depth - low) / (high - low);
-        weight = std::clamp(weight, 0.0, 1.0);
-    }
-
-    return (1.0 - weight) * kaTemp + weight * gradTemp;
+    Real64 gradTemp = segmentTemperatureAt(depth);
+    Real64 w = blendWeight(depth);
+    return (1.0 - w) * kaTemp + w * gradTemp;
 }
 
 Real64 GradientsGTM::getGroundTemp(EnergyPlusData &state)
 {
-    int month = 1;
-    if (state.dataEnvrn) month = state.dataEnvrn->Month;
     Real64 depth = (boreholeDepth > 0.0) ? (boreholeDepth / 2.0) : 0.0;
-    return getHybridFarfieldTemp(state, month, depth);
-}
-
-Real64 GradientsGTM::getGroundTempAtTimeInSeconds(EnergyPlusData &state, Real64 depth, Real64 /* timeInSeconds */)
-{
     int month = 1;
     if (state.dataEnvrn) month = state.dataEnvrn->Month;
     return getHybridFarfieldTemp(state, month, depth);
 }
 
-Real64 GradientsGTM::getGroundTempAtTimeInMonths(EnergyPlusData &state, Real64 depth, int month)
+Real64 GradientsGTM::getGroundTempAtTimeInSeconds(EnergyPlusData &state,
+                                                  Real64 depth,
+                                                  Real64 timeInSeconds)
+{
+    return getHybridFarfieldTempAtTime(state, timeInSeconds, depth);
+}
+
+Real64 GradientsGTM::getGroundTempAtTimeInMonths(EnergyPlusData &state,
+                                                 Real64 depth,
+                                                 int month)
 {
     return getHybridFarfieldTemp(state, month, depth);
 }
@@ -196,4 +237,5 @@ void GradientsGTM::initializeSegments(EnergyPlusData &state)
     }
 }
 
-} // namespace EnergyPlus::GroundTemperatureModeling
+} // namespace GroundTemp
+} // namespace EnergyPlus

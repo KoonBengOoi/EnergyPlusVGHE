@@ -1,47 +1,3 @@
-<<<<<<< HEAD
-// GroundTemperatureModelManager.cc
-#include "GroundTemperatureModelManager.hh"
-#include <EnergyPlus/Data/EnergyPlusData.hh>
-#include <EnergyPlus/InputProcessing/InputProcessor.hh>
-#include <EnergyPlus/UtilityRoutines.hh>
-#include <EnergyPlus/GroundTemperatureModeling/BaseGroundTemperatureModel.hh>
-#include <EnergyPlus/GroundTemperatureModeling/FiniteDifferenceGroundTemperatureModel.hh>
-#include <EnergyPlus/GroundTemperatureModeling/KusudaAchenbachGroundTemperatureModel.hh>
-#include <EnergyPlus/GroundTemperatureModeling/XingGroundTemperatureModel.hh>
-#include <EnergyPlus/GroundTemperatureModeling/GradientsGTM.hh>
-#include <set>
-#include <memory>
-#include <string>
-
-namespace EnergyPlus {
-namespace GroundTemp {
-
-std::unique_ptr<BaseGroundTempsModel> GetGroundTempModelAndInit(
-    EnergyPlusData &state,
-    ModelType modelType,
-    std::string const &objectName)
-{
-    switch (modelType) {
-        case ModelType::Kusuda:
-            // KusudaGroundTempsModel::KusudaGTMFactory returns raw pointer
-            return std::unique_ptr<BaseGroundTempsModel>(KusudaGroundTempsModel::KusudaGTMFactory(state, objectName));
-        case ModelType::Xing:
-            // XingGroundTempsModel::XingGTMFactory returns raw pointer
-            return std::unique_ptr<BaseGroundTempsModel>(XingGroundTempsModel::XingGTMFactory(state, objectName));
-        case ModelType::FiniteDiff:
-            // FiniteDiffGroundTempsModel::FiniteDiffGTMFactory returns raw pointer
-            return std::unique_ptr<BaseGroundTempsModel>(FiniteDiffGroundTempsModel::FiniteDiffGTMFactory(state, objectName));
-        case ModelType::GradientSegments:   
-            return GradientsGTM::factory(state, objectName);  // returns unique_ptr already
-        default:
-            ShowFatalError(state, fmt::format("Invalid ground temperature model type: {}", static_cast<int>(modelType)));
-            return nullptr;
-    }
-}
-
-} // namespace GroundTemp
-} // namespace EnergyPlus
-=======
 // EnergyPlus, Copyright (c) 1996-present, The Board of Trustees of the University of Illinois,
 // The Regents of the University of California, through Lawrence Berkeley National Laboratory
 // (subject to receipt of any required approvals from the U.S. Dept. of Energy), Oak Ridge
@@ -98,6 +54,7 @@ std::unique_ptr<BaseGroundTempsModel> GetGroundTempModelAndInit(
 #include <EnergyPlus/GroundTemperatureModeling/BaseGroundTemperatureModel.hh>
 #include <EnergyPlus/GroundTemperatureModeling/FiniteDifferenceGroundTemperatureModel.hh>
 #include <EnergyPlus/GroundTemperatureModeling/GroundTemperatureModelManager.hh>
+#include <EnergyPlus/GroundTemperatureModeling/GradientsGTM.hh>
 #include <EnergyPlus/GroundTemperatureModeling/KusudaAchenbachGroundTemperatureModel.hh>
 #include <EnergyPlus/GroundTemperatureModeling/SiteBuildingSurfaceGroundTemperatures.hh>
 #include <EnergyPlus/GroundTemperatureModeling/SiteDeepGroundTemperatures.hh>
@@ -141,6 +98,8 @@ BaseGroundTempsModel *GetGroundTempModelAndInit(EnergyPlusData &state, ModelType
         return SiteFCFactorMethodGroundTemps::FCFactorGTMFactory(state, name);
     case ModelType::Xing:
         return XingGroundTempsModel::XingGTMFactory(state, name);
+    case ModelType::GradientSegments:
+        return GradientsGTM::factory(state, name);    
     default:
         assert(false);
         return nullptr;
@@ -148,4 +107,3 @@ BaseGroundTempsModel *GetGroundTempModelAndInit(EnergyPlusData &state, ModelType
 }
 
 } // namespace EnergyPlus::GroundTemp
->>>>>>> nrel/develop
